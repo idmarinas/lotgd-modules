@@ -134,8 +134,9 @@ function displaycp_dohook($hookname,$args){
 					$level = get_module_setting("level5");
 					$barcolor = "progress-drunkeness-lvl5";
 				}
-				$drunk = "<div class='drunkeness'>
-						  	<div class='progress-drunkeness $barcolor' style='width: $pct%;'>&nbsp;`b$level`b</div>
+				$drunk = "<div class='progressbar drunkeness'>
+						  	<div class='progress-progressbar progress-drunkeness $barcolor' style='width: $pct%;'></div>
+							<div>&nbsp;`b$level`b</div>
 						  </div>";
 				setcharstat("Character Info","Drunkeness",$drunk);
 			}

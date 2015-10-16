@@ -79,8 +79,8 @@ function newdaybar_dohook($hookname,$args){
 			if ($showtime) $new .= $ccode . $newdaytxt;
 			if ($showbar) {
 				if ($showtime) $new .= "<br />";
-				$new .= "<div class='newdaybar $animated'>
-					 	<div class='progress-newdaybar progress-newdaybar-color' style='width: $newdaypct%;'></div>
+				$new .= "<div class='progressbar newdaybar $animated'>
+					 	<div class='progress-progressbar progress-newdaybar-color' style='width: $newdaypct%;'></div>
 					 </div>
 					 <script>
 					 	var realSecsToTomorrow = " . $details['realsecstotomorrow'] . ";

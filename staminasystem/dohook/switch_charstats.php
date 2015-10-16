@@ -90,13 +90,13 @@ if (!$session['user']['dragonkills'] && $session['user']['age'] <= 1 && $greenpc
 }
 
 $new = "<a href='runmodule.php?module=staminasystem&op=show' target='_blank' onclick=\"".popup("runmodule.php?module=staminasystem&op=show").";return false;\">
-		<div data-uk-tooltip='{pos:'left'}' title='$pctoftotal% $alert' class='staminabar'>
-			<div class='progress-staminabar progress-staminabar-red' style='width: $redwidth%;'></div>
-			<div class='progress-staminabar progress-staminabar-dark-red' style='width: $redwdarkidth%;'></div>
-			<div class='progress-staminabar progress-staminabar-amber' style='width: $amberwidth%;'></div>
-			<div class='progress-staminabar progress-staminabar-dark-amber' style='width: $amberdarkwidth%;'></div>
-			<div class='progress-staminabar progress-staminabar-green' style='width: $greenwidth%;'></div>
-			<div class='progress-staminabar progress-staminabar-dark-green' style='width: $greendarkwidth%;'></div>
+		<div data-uk-tooltip='{pos:'left'}' title='$pctoftotal% $alert' class='progressbar staminabar'>
+			<div class='progress-progressbar progress-staminabar-red' style='width: $redwidth%;'></div>
+			<div class='progress-progressbar progress-staminabar-dark-red' style='width: $redwdarkidth%;'></div>
+			<div class='progress-progressbar progress-staminabar-amber' style='width: $amberwidth%;'></div>
+			<div class='progress-progressbar progress-staminabar-dark-amber' style='width: $amberdarkwidth%;'></div>
+			<div class='progress-progressbar progress-staminabar-green' style='width: $greenwidth%;'></div>
+			<div class='progress-progressbar progress-staminabar-dark-green' style='width: $greendarkwidth%;'></div>
 		</div></a>";
 
 setcharstat("Character Info", "Stamina", $new);

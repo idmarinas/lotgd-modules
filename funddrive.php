@@ -74,8 +74,10 @@ function funddrive_dohook($hookname,$args){
 		switch(get_module_setting("usebar")) {
 		case 1:
 			$color = ($pct < 100 ? "progress-funddrivebar-color" : "progress-funddrivebar-full");
-			$res = "<div class='funddrivebar'>
-					 	<div class='progress-funddrivebar $color' style='width: $pct%;'>&nbsp;$text</div>
+			$res = "<div class='progressbar funddrivebar'>
+					 	<div class='progress-progressbar progress-funddrivebar $color' style='width: $pct%;'>
+							<div class='progress-text'>$text</div> 
+						</div>
 					 </div>";
 			break;
 		case 2:
