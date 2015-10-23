@@ -74,7 +74,7 @@ function weather_install(){
  	module_addhook("village");
  	module_addhook("gardens");
  	module_addhook("shades");
-	module_addhook("index");
+	// module_addhook("index");
    return true;
 }
 
@@ -156,12 +156,12 @@ function weather_dohook($hookname,$args){
 			break;
 		}
 
-	case "index":
-		$clouds = translate_inline(get_module_setting("weather"));
-		$wxtext = get_module_setting("wxreport");
-		output($wxtext, $clouds);
-		output("`n");
-		break;
+	// case "index":
+	// 	$clouds = translate_inline(get_module_setting("weather"));
+	// 	$wxtext = get_module_setting("wxreport");
+	// 	output($wxtext, $clouds);
+	// 	output("`n");
+	// 	break;
 	}
 
 	return $args;
