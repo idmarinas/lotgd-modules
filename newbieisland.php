@@ -74,47 +74,54 @@ function newbieisland_dohook($hookname,$args){
 		if ($SCRIPT_NAME == "superuser.php") break;
 		// actually since we're doing this sorta globally, let's just
 		// do it globally.
+		
+		//## Para evitar problemas, no se bloquea ningún módulo por defecto
+		//####
 		// Block all modules by default
-		blockmodule(true);
+		//blockmodule(true);
 		// Make sure to unblock ourselves
-		unblockmodule("newbieisland");
-		// You need to explicitly allow newbies to interact with a module
-		// in the village or forest
-		unblockmodule("tutor");
-		unblockmodule("raceelf");
-		unblockmodule("racehuman");
-		unblockmodule("racedwarf");
-		unblockmodule("racetroll");
-		unblockmodule("specialtydarkarts");
-		unblockmodule("specialtythiefskills");
-		unblockmodule("specialtymysticpower");
-		unblockmodule("specialtychickenmage");
-		// Even newbies get advertising
-		unblockmodule("advertising");
-		unblockmodule("advertising_google");
-		unblockmodule("advertising_amazon");
-		unblockmodule("advertising_splitreason");
-		unblockmodule("funddrive");
-		unblockmodule("funddriverewards");
-		unblockmodule("customeq");
-		unblockmodule('expbar');
-		unblockmodule("healthbar");
-		unblockmodule("serversuspend");
-		unblockmodule("timeplayed");
-		unblockmodule("collapse");
-		unblockmodule("mutemod");
-		unblockmodule("faqmute");
-		unblockmodule("extlinks");
-		unblockmodule("pvpimmunity");
-		unblockmodule("deputymoderator");
-		unblockmodule("unclean");
-		unblockmodule("stattracker");
-		//Módulos desbloqueados para el servidor
-		unblockmodule('inventorypopup');
-		unblockmodule('staminasystem');
-		unblockmodule('staminacorecombat');
-		unblockmodule('combathealthbars');
-		unblockmodule('displaycp');
+		// unblockmodule("newbieisland");
+		// // You need to explicitly allow newbies to interact with a module
+		// // in the village or forest
+		// unblockmodule("tutor");
+		// unblockmodule("raceelf");
+		// unblockmodule("racehuman");
+		// unblockmodule("racedwarf");
+		// unblockmodule("racetroll");
+		// unblockmodule("specialtydarkarts");
+		// unblockmodule("specialtythiefskills");
+		// unblockmodule("specialtymysticpower");
+		// unblockmodule("specialtychickenmage");
+		// // Even newbies get advertising
+		// unblockmodule("advertising");
+		// unblockmodule("advertising_google");
+		// unblockmodule("advertising_amazon");
+		// unblockmodule("advertising_splitreason");
+		// unblockmodule("funddrive");
+		// unblockmodule("funddriverewards");
+		// unblockmodule("customeq");
+		// unblockmodule('expbar');
+		// unblockmodule("healthbar");
+		// unblockmodule("serversuspend");
+		// unblockmodule("timeplayed");
+		// unblockmodule("collapse");
+		// unblockmodule("mutemod");
+		// unblockmodule("faqmute");
+		// unblockmodule("extlinks");
+		// unblockmodule("pvpimmunity");
+		// unblockmodule("deputymoderator");
+		// unblockmodule("unclean");
+		// unblockmodule("stattracker");
+		
+		//## Módulos bloqueados para el servidor
+		//-- Propios
+		blockmodule('itemshop');//Un jugador nuevo no podrá tener acceso a lo que se vende
+		
+		//-- Ajenos
+		blockmodule('dwellings');//En esta isla no se permiten viviendas, no tiene sentido permitir el acceso a ellas
+		blockmodule('worldmapen');//Se debe usar la función de abandonar isla
+		blockmodule('lumberyard');//No tiene bosque esta isla
+		
 		
 		//Let newbies see the Travel FAQ
 		//Nobody ever looks at the FAQ more than once
@@ -262,15 +269,18 @@ function newbieisland_dohook($hookname,$args){
 			blocknav("gardens.php");
 			blocknav("rock.php");
 			blocknav("clan.php");
-			blocknav("runmodule.php",true);
+			//blocknav("runmodule.php",true);
 			blocknav("mercenarycamp.php");
 			blocknav("hof.php");
+			blocknav("armor.php");
+			blocknav("weapons.php");
 			// Make sure that Blusprings can show up on newbie island.
 			unblocknav("train.php");
 			
-			//Desbloquear las dos tiendas
-			unblocknav("armor.php");
-			unblocknav("weapons.php");
+			//## Bloquear módulos
+			//-- Ajenos
+			blockmodule('worldmapen');//Se debe usar la función de abandonar isla
+			
 			//if you want your module to appear in the newbie village, you'll have to hook on village
 			//and unblocknav() it.  I warn you, very very few modules will ever be allowed in the newbie
 			//village and get support for appearing in the core distribution; one of the major reasons
