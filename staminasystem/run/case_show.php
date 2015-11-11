@@ -28,13 +28,13 @@ $totalwidth = $greenwidth + $amberwidth + $redwidth;
 
 if ($totalwidth > 100) $greenwidth -= ($totalwidth -100);
 
-rawoutput("<div class='staminabar show'>
-			<div class='progress-staminabar progress-staminabar-red' style='width: $redwidth%;'></div>
-			<div class='progress-staminabar progress-staminabar-dark-red' style='width: $redwdarkidth%;'></div>
-			<div class='progress-staminabar progress-staminabar-amber' style='width: $amberwidth%;'></div>
-			<div class='progress-staminabar progress-staminabar-dark-amber' style='width: $amberdarkwidth%;'></div>
-			<div class='progress-staminabar progress-staminabar-green' style='width: $greenwidth%;'></div>
-			<div class='progress-staminabar progress-staminabar-dark-green' style='width: $greendarkwidth%;'></div>
+rawoutput("<div class='progressbar staminabar show'>
+			<div class='progress-progressbar progress-staminabar-red' style='width: $redwidth%;'></div>
+			<div class='progress-progressbar progress-staminabar-dark-red' style='width: $redwdarkidth%;'></div>
+			<div class='progress-progressbar progress-staminabar-amber' style='width: $amberwidth%;'></div>
+			<div class='progress-progressbar progress-staminabar-dark-amber' style='width: $amberdarkwidth%;'></div>
+			<div class='progress-progressbar progress-staminabar-green' style='width: $greenwidth%;'></div>
+			<div class='progress-progressbar progress-staminabar-dark-green' style='width: $greendarkwidth%;'></div>
 		</div>");
 
 output("Total Stamina: %s / %s | Amber point: %s | Red point: %s",number_format($stamina), number_format($daystamina), number_format($amberpoint), number_format($redpoint));
