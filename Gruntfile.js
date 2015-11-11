@@ -21,7 +21,7 @@ module.exports = function (grunt) {
               '!**/*.dist'//Ignorar archivos .dist
             ],
             dest: '/Users/Ivan/Sites/ignis/modules/',
-            // filter : 'isFile'
+            filter : 'isFile'
           }
         ]
       },
