@@ -200,7 +200,7 @@
 				</script>");
 				rawoutput("<form action='runmodule.php?module=dwellings&op=manage-names&subop=rename&change=name&dwid=$dwid' method='POST' autocomplete='false'>");
 				addnav("","runmodule.php?module=dwellings&op=manage-names&subop=rename&change=name&dwid=$dwid");
-				rawoutput("<input name='newname' id='newname' onKeyUp='previewtext(document.getElementById(\"newname\").value);'; size='40' maxlength='255'>");
+				rawoutput("<input type='text' name='newname' id='newname' onKeyUp='previewtext(document.getElementById(\"newname\").value);'; size='40' maxlength='255'>");
 				rawoutput("<input type='submit' class='button' value='$submit'><br>");
 				rawoutput("<div id='previewtext'></div></form>");
 				rawoutput("</td></tr><tr height=30px class='trlight'><td colspan=2>");
@@ -256,7 +256,7 @@
 			rawoutput("<tr height=50px class='trdark'><td>$changetalk</td><td align=top>");
 			rawoutput("<form action='runmodule.php?module=dwellings&op=manage-names&subop=talkline&dwid=$dwid' method='POST'>");
 			addnav("","runmodule.php?module=dwellings&op=manage-names&subop=talkline&dwid=$dwid");
-			rawoutput("<input name='talkline' id='talkline' value='".htmlentities($oldtl, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."' size='40' maxlength='255'><br>");
+			rawoutput("<input type='text' name='talkline' id='talkline' value='".htmlentities($oldtl, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."' size='40' maxlength='255'><br>");
 			rawoutput("<input type='submit' class='button' value='$submit'><br>");
 			rawoutput("</form>");
 			rawoutput("</td></tr><tr height=30px class='trlight'><td colspan=2>");

@@ -73,7 +73,7 @@ function dwcostcopper_dohook($hookname,$args) {
 			$typeid= get_module_setting("typeid",$args['type']);
 			$costcopper=get_module_objpref("dwellingtypes",$typeid,"coppercost") - get_module_objpref("dwellings",$args['dwid'],"copperspent");
 			$copper = translate_inline("Copper");
-			if($costcopper) rawoutput("$copper: <input id='input' name='paidcopper' width=5><br>");		
+			if($costcopper) rawoutput("$copper: <input type='number' id='input' name='paidcopper' width=5><br>");		
 		break;		
 	}
 	return $args;

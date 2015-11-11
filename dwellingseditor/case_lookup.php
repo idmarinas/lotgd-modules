@@ -4,7 +4,7 @@
         output("Who would you like to assign this dwelling to?`n");
         require_once("lib/showform.php");
         rawoutput("<form action='runmodule.php?module=dwellingseditor&op=lookup' method='POST'>");
-        rawoutput("<input name='q' id='q'>");
+        rawoutput("<input type='text' name='q' id='q'>");
         $se = translate_inline("Search");
         rawoutput("<input type='submit' class='button' value='$se'>");
         rawoutput("</form>");

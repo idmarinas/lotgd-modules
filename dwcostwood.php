@@ -73,7 +73,7 @@ function dwcostwood_dohook($hookname,$args) {
 			$typeid = get_module_setting("typeid",$args['type']);
 			$costwood = get_module_objpref("dwellingtypes",$typeid,"woodcost") - get_module_objpref("dwellings",$args['dwid'],"woodspent");
 			$wood = translate_inline("Wood");
-			if($costwood) rawoutput("$wood: <input id='input' name='paidwood' width=5><br>");		
+			if($costwood) rawoutput("$wood: <input type='number' id='input' name='paidwood' width=5><br>");		
 		break;		
 	}
 	return $args;

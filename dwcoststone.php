@@ -73,7 +73,7 @@ function dwcoststone_dohook($hookname,$args) {
 			$typeid= get_module_setting("typeid",$args['type']);
 			$coststone=get_module_objpref("dwellingtypes",$typeid,"stonecost") - get_module_objpref("dwellings",$args['dwid'],"stonespent");
 			$stone = translate_inline("Stone");
-			if($coststone) rawoutput("$stone: <input id='input' name='paidstone' width=5><br>");		
+			if($coststone) rawoutput("$stone: <input type='number' id='input' name='paidstone' width=5><br>");		
 		break;		
 	}
 	return $args;

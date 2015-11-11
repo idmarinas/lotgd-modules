@@ -13,10 +13,10 @@
 		rawoutput("<form action='runmodule.php?module=dwellings&op=build&type=$type&dwid=$dwid&working=1' method='POST'>");
 		addnav("","runmodule.php?module=dwellings&op=build&type=$type&dwid=$dwid&working=1");
 		output("Turns to work:");
-		rawoutput("<input id='input' name='turns' width=5><br>");
+		rawoutput("<input type='number' id='input' name='turns' width=5><br>");
 		modulehook("dwellings-build-input",array("type"=>$type,"dwid"=>$dwid));
 		$submit = translate_inline("Submit");
-		rawoutput("<input type='submit' class='button' value='$submit'>");
+		rawoutput("<input type'number' type='submit' class='button' value='$submit'>");
 		rawoutput("</form>");
 	}else{
 		$turns = abs((int)httppost('turns'));

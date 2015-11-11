@@ -73,7 +73,7 @@ function dwcostiron_dohook($hookname,$args) {
 			$typeid= get_module_setting("typeid",$args['type']);
 			$costiron=get_module_objpref("dwellingtypes",$typeid,"ironcost") - get_module_objpref("dwellings",$args['dwid'],"ironspent");
 			$iron = translate_inline("Iron");
-			if($costiron) rawoutput("$iron: <input id='input' name='paidiron' width=5><br>");		
+			if($costiron) rawoutput("$iron: <input type='number' id='input' name='paidiron' width=5><br>");		
 		break;		
 	}
 	return $args;

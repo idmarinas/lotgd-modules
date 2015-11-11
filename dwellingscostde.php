@@ -77,7 +77,7 @@ function dwellingscostde_dohook($hookname,$args) {
 			$typeid= get_module_setting("typeid",$args['type']);
 			$costsde=get_module_objpref("dwellingtypes",$typeid,"decost") - get_module_objpref("dwellings",$args['dwid'],"despent");
 			$de = translate_inline("Dragon Egg Points");
-			if($costsde) rawoutput("$de: <input id='input' name='paidde' width=5><br>");		
+			if($costsde) rawoutput("$de: <input type='number' id='input' name='paidde' width=5><br>");		
 		break;		
 	}
 	return $args;

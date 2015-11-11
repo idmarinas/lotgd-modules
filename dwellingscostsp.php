@@ -79,7 +79,7 @@ function dwellingscostsp_dohook($hookname,$args) {
             $typeid= get_module_setting("typeid",$args['type']);
             $costsp=get_module_objpref("dwellingtypes",$typeid,"spcost") - get_module_objpref("dwellings",$args['dwid'],"spspent");
 			$sp = translate_inline("Site Points");
-            if($costsp) rawoutput("$sp: <input id='input' name='paidsp' width=5><br>");		
+            if($costsp) rawoutput("$sp: <input type='number' id='input' name='paidsp' width=5><br>");		
         break;        
 	}
 	return $args;

@@ -23,8 +23,8 @@
 				output("`n`3Would you like to make an installment?");
 				rawoutput("<form action='runmodule.php?module=dwellings_pvp&op=manage&subop=buy&dwid=$dwid&type=$typeid' method='post'>");
 				rawoutput("<input type='hidden' name='submit' value='1'>");
-				if ($gold_paid < $gold_cost) rawoutput("Gold: <input type='text' name='gold'><br>");
-				if ($gems_paid < $gems_cost) rawoutput("Gems: <input type='text' name='gems'><br>");
+				if ($gold_paid < $gold_cost) rawoutput("Gold: <input type='number' name='gold'><br>");
+				if ($gems_paid < $gems_cost) rawoutput("Gems: <input type='number' name='gems'><br>");
 				rawoutput("<input type='submit' class='button' value='".translate_inline("Pay")."'></form>");
 				if (!get_module_setting("refund")) output("`n`iNote: If you overpay, you will not be refunded, so count your gold and gems carefully.`i`0");
 			}else{

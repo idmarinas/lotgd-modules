@@ -125,8 +125,8 @@
 					rawoutput("<form action='runmodule.php?module=dwellings&op=buy&type=$type&dwid=$dwid&gems=$neededgems&gold=$neededgold' method='POST'>");
 					addnav("","runmodule.php?module=dwellings&op=buy&type=$type&dwid=$dwid&gems=$neededgems&gold=$neededgold");
 					modulehook("dwellings-pay-input",array('type'=>$type,'dwid'=>$dwid));
-					if($neededgems > 0) rawoutput(translate_inline("Gems:")." <input id='input' name='gems' width=5><br>"); 
-					if($neededgold > 0) rawoutput(translate_inline("Gold:")." <input id='input' name='gold' width=5><br>");		
+					if($neededgems > 0) rawoutput(translate_inline("Gems:")." <input type='number' id='input' name='gems' width=5><br>"); 
+					if($neededgold > 0) rawoutput(translate_inline("Gold:")." <input type='number' id='input' name='gold' width=5><br>");		
 					$submit = translate_inline("Submit");
 					output_notl("`n");
 					rawoutput("<input type='submit' class='button' value='$submit'>");
@@ -148,8 +148,8 @@
 					$gems = translate_inline("Gems:");
 					$gold = translate_inline("Gold:");
 					$submit = translate_inline("Submit");
-					if($costgems) rawoutput("$gems <input id='input' name='gems' width=5><br>"); 
-					if($costgold) rawoutput("$gold <input id='input' name='gold' width=5><br>");		
+					if($costgems) rawoutput("$gems <input type='number' id='input' name='gems' width=5><br>"); 
+					if($costgold) rawoutput("$gold <input type='number' id='input' name='gold' width=5><br>");		
 					rawoutput("<input type='submit' class='button' value='$submit'>");
 					rawoutput("</form>");
 				}else{  //create it in the db

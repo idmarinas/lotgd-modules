@@ -74,7 +74,7 @@ function dwcostmithril_dohook($hookname,$args) {
 			$typeid= get_module_setting("typeid",$args['type']);
 			$costmithril=get_module_objpref("dwellingtypes",$typeid,"mithrilcost") - get_module_objpref("dwellings",$args['dwid'],"mithrilspent");
 			$mithril = translate_inline("Mithril");
-			if($costmithril) rawoutput("$mithril: <input id='input' name='paidmithril' width=5><br>");		
+			if($costmithril) rawoutput("$mithril: <input type='number' id='input' name='paidmithril' width=5><br>");		
 		break;		
 	}
 	return $args;

@@ -163,7 +163,7 @@
 					rawoutput("<a href='runmodule.php?module=dwellings&op=coffers&subop=dep&g=gold&dwid=$dwid&amount=$golddep'>$trdepositmax $dwgold ($golddep $dwgold)</a></td></tr>");
 					addnav("","runmodule.php?module=dwellings&op=coffers&subop=dep&g=gold&dwid=$dwid&amount=$golddep");
 					rawoutput("<tr height=30px class='trdark'><td><form action='runmodule.php?module=dwellings&op=coffers&subop=dep&g=gold&dwid=$dwid' method='POST'>");
-					rawoutput("<input id='input' name='amount' width=5> <input type='submit' class='button' value='".translate_inline("Deposit only this amount")."'>");
+					rawoutput("<input type='number' id='input' name='amount' width=5> <input type='submit' class='button' value='".translate_inline("Deposit only this amount")."'>");
 					rawoutput("</form></td></tr>");
 					addnav("","runmodule.php?module=dwellings&op=coffers&subop=dep&g=gold&dwid=$dwid");
 			}elseif($golddep==0 && $cofferdeps>0 && $session['user']['gold']>0){
@@ -186,7 +186,7 @@
 					rawoutput("<a href='runmodule.php?module=dwellings&op=coffers&subop=dep&g=gems&dwid=$dwid&amount=$gemdep'>$trdepositmax $dwgems ($gemdep $dwgems)</a></td></tr>");
 					addnav("","runmodule.php?module=dwellings&op=coffers&subop=dep&g=gems&dwid=$dwid&amount=$gemdep");
 					rawoutput("<tr height=30px class='trlight'><td><form action='runmodule.php?module=dwellings&op=coffers&subop=dep&g=gems&dwid=$dwid' method='POST'>");
-					rawoutput("<input id='input' name='amount' width=5> <input type='submit' class='button' value='".translate_inline("Deposit only this amount")."'>");
+					rawoutput("<input type='number' id='input' name='amount' width=5> <input type='submit' class='button' value='".translate_inline("Deposit only this amount")."'>");
 					rawoutput("</form></td></tr>");
 					addnav("","runmodule.php?module=dwellings&op=coffers&subop=dep&g=gems&dwid=$dwid");
 			}
@@ -217,7 +217,7 @@
 					rawoutput("<a href='runmodule.php?module=dwellings&op=coffers&subop=with&g=gold&dwid=$dwid&amount=$goldwith'>$trwithmax $dwgold ($goldwith $dwgold)</a></td></tr>");
 					addnav("","runmodule.php?module=dwellings&op=coffers&subop=with&g=gold&dwid=$dwid&amount=$goldwith");
 					rawoutput("<tr height=30px class='trdark'><td><form action='runmodule.php?module=dwellings&op=coffers&subop=with&g=gold&dwid=$dwid' method='POST'>");
-					rawoutput("<input id='input' name='amount' width=5> <input type='submit' class='button' value='".translate_inline("Withdraw only this amount")."'>");
+					rawoutput("<input type='number' id='input' name='amount' width=5> <input type='submit' class='button' value='".translate_inline("Withdraw only this amount")."'>");
 					rawoutput("</form></td></tr>");
 					addnav("","runmodule.php?module=dwellings&op=coffers&subop=with&g=gold&dwid=$dwid");
 			}elseif($goldwith==0 && $cofferwiths>0){
@@ -236,7 +236,7 @@
 					rawoutput("<a href='runmodule.php?module=dwellings&op=coffers&subop=with&g=gems&dwid=$dwid&amount=$gemwith'>$trwithmax $dwgems ($gemwith $dwgems)</a></td></tr>");
 					addnav("","runmodule.php?module=dwellings&op=coffers&subop=with&g=gems&dwid=$dwid&amount=$gemwith");
 					rawoutput("<tr height=30px class='trlight'><td><form action='runmodule.php?module=dwellings&op=coffers&subop=with&g=gems&dwid=$dwid' method='POST'>");
-					rawoutput("<input id='input' name='amount' width=5> <input type='submit' class='button' value='".translate_inline("Withdraw only this amount")."'>");
+					rawoutput("<input type='number' id='input' name='amount' width=5> <input type='submit' class='button' value='".translate_inline("Withdraw only this amount")."'>");
 					rawoutput("</form></td></tr>");
 					addnav("","runmodule.php?module=dwellings&op=coffers&subop=with&g=gems&dwid=$dwid");
 			}elseif($gemwith == 0 && $cofferwiths > 0){

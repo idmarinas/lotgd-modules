@@ -2,7 +2,7 @@
         $query = httppost('q');
         output("Whose dwellings would you like to list?`n");
         rawoutput("<form action='runmodule.php?module=dwellingseditor&op=usersearch' method='POST'>");
-        rawoutput("<input name='q' id='q'>");
+        rawoutput("<input type='text' name='q' id='q'>");
         $se = translate_inline("Search");
         rawoutput("<input type='submit' class='button' value='$se'>");
         rawoutput("</form>");

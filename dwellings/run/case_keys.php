@@ -99,7 +99,7 @@
 			$submit = translate_inline("Submit");
 			rawoutput("<form action='runmodule.php?module=dwellings&op=keys&subop=givekey2&keyid=$keyid&dwid=$dwid' method='POST'>");
 			addnav("","runmodule.php?module=dwellings&op=keys&subop=givekey2&keyid=$keyid&dwid=$dwid");
-			rawoutput("<input name='name' id='name'> <input type='submit' class='button' value='$submit'>");
+			rawoutput("<input type='text' name='name' id='name'> <input type='submit' class='button' value='$submit'>");
 			rawoutput("</form>");
 			rawoutput("<script language='JavaScript'>document.getElementById('name').focus()</script>");
 			break;
@@ -127,7 +127,7 @@
 				rawoutput("<form action='runmodule.php?module=dwellings&op=keys&subop=givekey2&keyid=$keyid&dwid=$dwid' method='POST'>");
 				addnav("","runmodule.php?module=dwellings&op=keys&subop=givekey2&keyid=$keyid&dwid=$dwid");
 				output("`2Who do you want to give the key to?`n`n");
-				rawoutput("<input name='name' id='name'> <input type='submit' class='button' value='Suchen'>",true);
+				rawoutput("<input type='text' name='name' id='name'> <input type='submit' class='button' value='Suchen'>",true);
 				rawoutput("</form>");
 				rawoutput("<script language='JavaScript'>document.getElementById('name').focus()</script>");
 			}else{
