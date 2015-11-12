@@ -61,7 +61,7 @@ function statue_dohook($hookname, $args) {
 			$row = db_fetch_assoc($result);
 			$heroname = $row['name'];
 		}
-		output("`@The most recent hero of the realm is: `&%s`0`n`n",$heroname);
+		output("`@The most recent hero of the realm is: `&%s`0`n`n",$heroname, true);
 		break;
 	case "dragonkill":
 		set_module_setting("hero", $session['user']['acctid']);
