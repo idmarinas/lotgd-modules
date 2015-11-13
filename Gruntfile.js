@@ -25,6 +25,24 @@ module.exports = function (grunt) {
           }
         ]
       },
+      production: {
+        files: [
+          {
+            expand: true,
+            src: [//Archivos a copiar
+              '**',//Todos los archivos y subdirectorios
+              '!node_modules/**',//No copiar el directorio de node
+              '!bower_components/**',//No copiar el directorio de bower
+              '!*.json',//Ignorar archivos .json del directorio principal
+              '!Gruntfile.js',//Ignorar archivo Gruntfile
+              '!**/*.less',//Ignorar archivos .less
+              '!**/*.dist'//Ignorar archivos .dist
+            ],
+            dest: '../production/modules/',
+            filter : 'isFile'
+          }
+        ]
+      },
     },
   });
     
@@ -34,4 +52,7 @@ module.exports = function (grunt) {
 
   // Default task. Procesa los archivos y luego los copia en la carpeta del servidor local
   grunt.registerTask('default', ['copy:toLocalhost']);
+  
+  // Copiar los archivos a la carpeta de producción para subirlo al servidor
+  grunt.registerTask('production', ['copy:production']);
 };
