@@ -1,0 +1,1 @@
+Módulos creados por otros y adaptados para funcionar en mi versión  del juego
