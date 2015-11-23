@@ -17,6 +17,7 @@ module.exports = function (grunt) {
               '!bower_components/**',//No copiar el directorio de bower
               '!*.json',//Ignorar archivos .json del directorio principal
               '!Gruntfile.js',//Ignorar archivo Gruntfile
+              '!**/*.md',//Ignorar archivos .md
               '!**/*.less',//Ignorar archivos .less
               '!**/*.dist'//Ignorar archivos .dist
             ],
