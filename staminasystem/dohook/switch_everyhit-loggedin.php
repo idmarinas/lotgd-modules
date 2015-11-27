@@ -67,7 +67,7 @@ function stamina_notification($message, $title, $status)
 		UIkit.notify({
 			message : '".addslashes($message)."',
 			status  : '$status',
-			timeout : 60000,
+			timeout : 30000,
 			pos     : 'top-right'
 		});
 	</script>";	
