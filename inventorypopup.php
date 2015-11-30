@@ -345,25 +345,24 @@ function showRowItem($itsval, $i)
  */
 function collect_materials($layout, $inventory)
 {	
-	global $session;
-	
 	//Madera disponible
-	$allprefs = unserialize(get_module_pref('allprefs','lumberyard'));
-	$squarepay = get_module_setting("squarepay",'lumberyard');
-
-	if (get_module_setting("leveladj",'lumberyard')==1) $squarepay=round($squarepay*$session['user']['level'] / 15);
-	$squares = array (
-		'class' => 'Material',
-		'name' => 'Pieza de madera',
-		'quantity' => (int) $allprefs['squares'],
-		'gold' => $squarepay
-	);
-		
-	if ($squares['quantity'] > 0)
+	if (is_module_installed('sawmill') && is_module_active('sawmill'))
 	{
-		$layout[] = 'Material,title';
-		$layout[] = 'Material';
-		$inventory['Material'][] = $squares;
+		$allprefs = unserialize(get_module_pref('allprefs','sawmill'));
+		
+		$wood = array (
+			'class' => 'Material',
+			'name' => 'Tablón de madera',
+			'quantity' => (int) $allprefs['woodqty'],
+			'gold' => 'El precio depende de la ciudad en la que se venda.'
+		);
+	
+		if ($wood['quantity'] > 0)
+		{
+			$layout[] = 'Material,title';
+			$layout[] = 'Material';
+			$inventory['Material'][] = $wood;
+		}
 	}
 	
 	return array('layout' => $layout, 'inventory' => $inventory);
@@ -377,18 +376,7 @@ function collect_materials($layout, $inventory)
 // 			$stone=1;
 // 		}
 // 	}
-// 
-// 	//BEGIN CHECK AND DISPLAY FOR METALMINE BY DAVES
-// 	if (is_module_installed("metalmine")) {
-// 		$allprefs=unserialize(get_module_pref('allprefs','metalmine'));
-// 		$metal1=$allprefs['metal1'];
-// 		$metal2=$allprefs['metal2'];
-// 		$metal3=$allprefs['metal3'];
-// 		if ($squares>=1 or $blocks>=1 or $metal1>=1 or $metal2>=1 or $metal3>=1) {
-// 			$ti_sackcat_buildingmaterials=1;
-// 			$metal=1;
-// 		}
-// 	}
+
 }
 
 /**
