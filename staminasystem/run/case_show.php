@@ -104,43 +104,12 @@ function action_showform($layout,$row)
 		$pretrans = 0;
 		if ($keypref !== false) $keyout = sprintf($keypref, $key);
 		else $keyout = $key;
-		// if (is_array($val)) {
-		// 	$v = $val[0];
-		// 	$info = explode(",", $v);
-		// 	$val[0] = $info[0];
-		// 	$info[0] = $val;
-		// } else {
-		// 	$info = explode(",",$val);
-		// }
-		// if (is_array($info[0])) {
-		// 	$info[0] = $info[0];
-		// } else {
-		// 	$info[0] = $info[0];
-		// }
-		// if (isset($info[1])) $info[1] = trim($info[1]);
-		// else $info[1] = "";
-		
+	
 		$title_id++;
 		$formSections[$title_id] = translate_inline($val);
-		rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'>");
-		$i=0;
-		rawoutput("<tr><td>");
-		show_actions($row[$val], $itemI);
-		rawoutput("</td></tr><td>");
-			
-		//Titulo
-		// if ($info[1]=="title")
-		// {
-		//  	
-		// }
-		// //Items agrupados según categoría
-		// else
-		// {	
-		// 	rawoutput("<tr><td>");
-		// 	show_actions($row[$info[0]], $itemI);
-		// 	rawoutput("</td></tr><td>");
-		// }
-		rawoutput("</td></tr>");
+		rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'><tr><td>");
+		show_actions($row[$val]);
+		rawoutput("</td></tr><td></td></tr>");
 	}
 	rawoutput("</table>");
 	if ($showform_id==1){
