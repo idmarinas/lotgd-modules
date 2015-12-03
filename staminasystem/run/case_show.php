@@ -48,7 +48,6 @@ $row = array();
 foreach($act as $key => $value)
 {
 	$class = ($value['class'] != '' ? $value['class'] : 'Other');
-	$layout[] = $class . ',title';
 	$layout[] = $class;
 	$row[$class][$key] = $value; 
 }
@@ -100,41 +99,47 @@ function action_showform($layout,$row)
 	rawoutput("<tr><td><div id='showFormSection$showform_id'></div></td></tr>");
 	rawoutput("<tr><td>");
 	$i = 0;
+	natsort($layout);
 	foreach ($layout as $key=>$val) {
 		$pretrans = 0;
 		if ($keypref !== false) $keyout = sprintf($keypref, $key);
 		else $keyout = $key;
-		if (is_array($val)) {
-			$v = $val[0];
-			$info = explode(",", $v);
-			$val[0] = $info[0];
-			$info[0] = $val;
-		} else {
-			$info = explode(",",$val);
-		}
-		if (is_array($info[0])) {
-			$info[0] = $info[0];
-		} else {
-			$info[0] = $info[0];
-		}
-		if (isset($info[1])) $info[1] = trim($info[1]);
-		else $info[1] = "";
+		// if (is_array($val)) {
+		// 	$v = $val[0];
+		// 	$info = explode(",", $v);
+		// 	$val[0] = $info[0];
+		// 	$info[0] = $val;
+		// } else {
+		// 	$info = explode(",",$val);
+		// }
+		// if (is_array($info[0])) {
+		// 	$info[0] = $info[0];
+		// } else {
+		// 	$info[0] = $info[0];
+		// }
+		// if (isset($info[1])) $info[1] = trim($info[1]);
+		// else $info[1] = "";
 		
+		$title_id++;
+		$formSections[$title_id] = translate_inline($val);
+		rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'>");
+		$i=0;
+		rawoutput("<tr><td>");
+		show_actions($row[$val], $itemI);
+		rawoutput("</td></tr><td>");
+			
 		//Titulo
-		if ($info[1]=="title")
-		{
-		 	$title_id++;
-		 	$formSections[$title_id] = translate_inline($info[0]);
-		 	rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'>");
-			$i=0;
-		}
-		//Items agrupados según categoría
-		else
-		{	
-			rawoutput("<tr><td>");
-			show_actions($row[$info[0]], $itemI);
-			rawoutput("</td></tr><td>");
-		}
+		// if ($info[1]=="title")
+		// {
+		//  	
+		// }
+		// //Items agrupados según categoría
+		// else
+		// {	
+		// 	rawoutput("<tr><td>");
+		// 	show_actions($row[$info[0]], $itemI);
+		// 	rawoutput("</td></tr><td>");
+		// }
 		rawoutput("</td></tr>");
 	}
 	rawoutput("</table>");
@@ -221,6 +226,7 @@ function show_actions($act)
 	$total = translate_inline("Total");
 	rawoutput("<table class='stamina'><tr><th>$action</th><th>$experience</th><th>$cost</th><th>$buff</th><th>$total</th></tr>");
 	
+	natsort($act);
 	foreach($act AS $key => $values){
 		$lvlinfo = stamina_level_up($key);
 		$nextlvlexp = round($lvlinfo['nextlvlexp']);
