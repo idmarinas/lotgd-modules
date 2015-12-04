@@ -81,6 +81,7 @@ function newdaybar_dohook($hookname,$args){
 				if ($showtime) $new .= "<br />";
 				$new .= "<div class='progressbar newdaybar $animated'>
 					 	<div class='progress-progressbar progress-newdaybar-color' style='width: $newdaypct%;'></div>
+						 <div class='progress-text'><i class='fa fa-calendar'></i></div>
 					 </div>
 					 <script>
 					 	var realSecsToTomorrow = " . $details['realsecstotomorrow'] . ";
@@ -90,12 +91,12 @@ function newdaybar_dohook($hookname,$args){
 							{
 								realSecsToTomorrow--;
 								var percentage = (realSecsToTomorrow / secPerDay) * 100;
-								$('.progress-newdaybar').css('width' , percentage.toFixed(10) + '%');
+								$('.progress.newdaybar .progres-text').css('width' , percentage.toFixed(10) + '%');
 								setTimeout(newdaybar,5000);
 							}
 							else
 							{
-								$('.progress-newdaybar').html('<i class=\"fa fa-sun-o fa-fw\"></i> " . translate_inline("New Day Here") . "');
+								$('.progress.newdaybar .progres-text').html('<i class=\"fa fa-sun-o fa-fw\"></i> " . translate_inline("New Day Here") . "');
 							}
 						}
 						newdaybar();
