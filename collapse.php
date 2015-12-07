@@ -51,10 +51,12 @@ function collapse_sectionopen($name, $title="", $returnnotdisplay=false) {
 	$name = preg_replace("/[^a-zA-Z0-9 _-]/","_",$name);
 	if (get_module_pref($name)){
 		$className="modCollapseHidden";
-		$tool="[+]";
+		// $tool="[+]";
+		$tool = '<i class="fa fa-plus-square-o"></i>';
 	}else{
 		$className="modCollapse";
-		$tool="[-]";
+		// $tool="[-]";
+		$tool = '<i class="fa fa-minus-square-o"></i>';
 	}
 
 	$name = htmlentities($name, ENT_QUOTES, getsetting("charset", "ISO-8859-1"));
@@ -120,11 +122,13 @@ function collapse_dohook($hookname,$args) {
  			var tool = document.getElementById('modCollapseTool'+id);
  			var setting=0;
  			if (div.className=='modCollapseHidden'){
- 				tool.innerHTML = '[-]';
+ 				//tool.innerHTML = '[-]';
+ 				tool.innerHTML = '<i class=\"fa fa-minus-square-o\"></i>';
 				//tool.style.clear = 'both';
  				div.className='modCollapse';
  			}else{
- 				tool.innerHTML = '[+]';
+ 				//tool.innerHTML = '[+]';
+ 				tool.innerHTML = '<i class=\"fa fa-plus-square-o\"></i>';
 				//tool.style.clear = 'none';
  				div.className='modCollapseHidden';
  				setting=1;
