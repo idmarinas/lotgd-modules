@@ -369,7 +369,7 @@ Returns a percentage of the player's total Stamina that is used when performing 
 *******************************************************
 */
 
-function stamina_getdisplaycost($action, $precision=3, $userid=false){
+function stamina_getdisplaycost($action, $precision=2, $userid=false){
 	global $session;
 	$costval = stamina_calculate_buffed_cost($action, $userid);
 	$costpct = round(($costval/2000000)*100, $precision);
