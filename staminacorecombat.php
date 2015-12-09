@@ -108,11 +108,7 @@ function staminacorecombat_dohook($hookname,$args){
 	global $session;
 	static $damagestart = 0;
 	switch($hookname){
-	// case "everyhit-loggedin":
-	// 	if ($session['user']['alive']==1){
-	// 		staminacorecombat_applystaminabuff();
-	// 	}
-	// break;
+		
 	case "forest":
 		blocknav("forest.php?op=search");
 		blocknav("forest.php?op=search&type=slum");
@@ -120,16 +116,16 @@ function staminacorecombat_dohook($hookname,$args){
 		blocknav("forest.php?op=search&type=suicide");
 		addnav("Fight");
 		$normalcost = stamina_getdisplaycost("Hunting - Normal");
-		$slumcost = stamina_getdisplaycost("Hunting - Easy Fights");
 		$thrillcost = stamina_getdisplaycost("Hunting - Big Trouble");
-		$suicidecost = stamina_getdisplaycost("Hunting - Suicidal");
 		addnav(array("T?Look for Trouble (`Q%s%%`0)", $normalcost),"forest.php?op=search&stam=search");
 		if ($session['user']['level']>1){
+			$slumcost = stamina_getdisplaycost("Hunting - Easy Fights");
 			addnav(array("E?Look for an Easy Fight (`Q%s%%`0)", $slumcost),"forest.php?op=search&type=slum&stam=slum");
 		}
 		addnav(array("B?Look for Big Trouble (`Q%s%%`0)", $thrillcost),"forest.php?op=search&type=thrill&stam=thrill");
 		if (getsetting("suicide", 0)) {
 			if (getsetting("suicidedk", 10) <= $session['user']['dragonkills']) {
+				$suicidecost = stamina_getdisplaycost("Hunting - Suicidal");
 				addnav(array("*?Search `\$Suicidally`0 (`Q%s%%`0)",$suicidecost), "forest.php?op=search&type=suicide&stam=suicide");
 			}
 		}
