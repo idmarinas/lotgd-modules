@@ -50,14 +50,7 @@ if (isset($actions_used)){
 	}
 }
 
-//debug($actions_used);
-
-
-//Then, since Turns are pretty well baked into core and we don't want to be playing around with adding turns just as they're needed for core to operate, we'll just add ten turns here and forget all about it...
-$session['user']['turns'] = 10;
-
-//Display the actual Stamina bar
-
+//Values
 $stamina = get_module_pref("stamina");
 $daystamina = 2000000;
 $redpoint = get_module_pref("red");
@@ -66,6 +59,15 @@ $redpct = get_stamina(0);
 $amberpct = get_stamina(1);
 $greenpct = get_stamina(2);
 
+//Then, since Turns are pretty well baked into core and we don't want to be playing around with adding turns just as they're needed for core to operate, we'll just add ten turns here and forget all about it...
+$session['user']['turns'] = 10;
+if (!$redpct)
+{
+	$session['user']['gravefights'] = 0;
+	$session['user']['turns'] = 0;
+}
+
+//Display the actual Stamina bar
 $pctoftotal = round($stamina / $daystamina * 100, 5);
 
 $greentotal = round((($daystamina - $redpoint - $amberpoint)/$daystamina)*100);
