@@ -124,7 +124,6 @@ function inventorypopup_run(){
 	$inventory = array();
 	$layout = array();
 	while($row = db_fetch_assoc($result)) {
-		$layout[] = $row['class'] . ",title";
 		$layout[] = $row['class'];
 		$inventory[$row['class']][] = $row;
 	}
@@ -160,65 +159,22 @@ function inventory_showform($layout,$row)
 	rawoutput("<tr><td><div id='showFormSection$showform_id'></div></td></tr>");
 	rawoutput("<tr><td>");
 	$i = 0;
+	natsort($layout);
 	foreach ($layout as $key=>$val) {
 		$pretrans = 0;
 		if ($keypref !== false) $keyout = sprintf($keypref, $key);
 		else $keyout = $key;
-		if (is_array($val)) {
-			$v = $val[0];
-			$info = explode(",", $v);
-			$val[0] = $info[0];
-			$info[0] = $val;
-		} else {
-			$info = explode(",",$val);
-		}
-		if (is_array($info[0])) {
-			$info[0] = $info[0];
-		} else {
-			$info[0] = $info[0];
-		}
-		if (isset($info[1])) $info[1] = trim($info[1]);
-		else $info[1] = "";
-		
-		//Titulo
-		if ($info[1]=="title")
+		$itemI = 0;
+	
+		$title_id++;
+		$formSections[$title_id] = translate_inline($val);
+		rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'><tr><td>");
+		foreach($row[$val] as $value)
 		{
-		 	$title_id++;
-		 	$formSections[$title_id] = translate_inline($info[0]);
-		 	rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'>");
-			$i=0;
+			showRowItem($value, $itemI);
+			$itemI++;
 		}
-		//Items agrupados según categoría
-		else
-		{	
-			rawoutput("<tr><td>");
-			if (is_array($row[$info[0]]))
-			{
-				$itemI = 0;
-				$class = "";
-				foreach($row[$info[0]] as $value)
-				{
-					debug($info[0]);
-					if ('Material' != $info[0])
-					{
-						showRowItem($value, $itemI);
-					}
-					else
-					{
-						show_material_row($value, $itemI);
-					}
-					$class = $value['class'];
-					$itemI++;
-				}
-			}
-			else
-			{
-				output("Nothing in this category");
-			}
-			rawoutput("</td></tr><td>");
-			$i++;
-		}
-		rawoutput("</td></tr>",true);
+		rawoutput("</td></tr><td></td></tr>");
 	}
 	rawoutput("</table>",true);
 	if ($showform_id==1){
@@ -353,13 +309,15 @@ function collect_materials($layout, $inventory)
 		$wood = array (
 			'class' => 'Material',
 			'name' => 'Tablón de madera',
-			'quantity' => (int) $allprefs['woodqty'],
-			'gold' => 'El precio depende de la ciudad en la que se venda.'
+			'quantity' => (int) $allprefs['plankqty'],
+			'description' => 'Tablón de madera, tiene unas dimensiones considerables. Aunque tiene diversos usos, su principal uso es como material de construcción.',
+			'gold' => 'Variable',
+			'gems' => 0
 		);
 	
 		if ($wood['quantity'] > 0)
 		{
-			$layout[] = 'Material,title';
+			// $layout[] = 'Material,title';
 			$layout[] = 'Material';
 			$inventory['Material'][] = $wood;
 		}
@@ -377,20 +335,5 @@ function collect_materials($layout, $inventory)
 // 		}
 // 	}
 
-}
-
-/**
- * Mostrar los materiales
- */
-function show_material_row($itsval, $i)
-{
-	rawoutput("<table class='items-list ".($i%2?'trlight':'trdark')."'><tr><td>");
-	rawoutput($itsval['equipped']?"<i class='fa fa-asterisk fa-fw'></i>":"");
-	output_notl("`0%s (%s)", $itsval['name'], $itsval['quantity']);
-	rawoutput("</td>");
-	rawoutput("<td nowrap>");
-	output("Valor oro: %s. Este precio puede variar.", $itsval['gold']);
-	$tl_desc = translate_inline($itsval['description']);
-	rawoutput('</td></tr></table>');
 }
 ?>
