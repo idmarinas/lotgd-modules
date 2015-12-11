@@ -8,7 +8,7 @@ if($spirits>0 && 0 != $spirits)
 	addstamina($stamina);
 	debug("Turns Added");
 }
-else
+else if (0 != $spirits)
 {
 	$stamina = abs($spirits)*25000;
 	removestamina($stamina);
