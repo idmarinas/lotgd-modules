@@ -1,7 +1,7 @@
 <?php
 if( $session['user']['superuser'] & SU_EDIT_MOUNTS )
 {
-	addnav( 'Editors' );
+	addnav( 'Module Configurations' );
 
 	$ed_cats = db_fetch_assoc(
 			db_query_cached( 'SELECT category FROM '.db_prefix( 'magicitems' ).
