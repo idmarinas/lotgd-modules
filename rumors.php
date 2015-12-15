@@ -40,6 +40,8 @@ function rumors_getmoduleinfo(){
 }
 function rumors_install(){
 	require_once("modules/rumors/rumors_install.php");
+	
+	return true;
 }
 function rumors_uninstall(){
 	for ($i=1;$i<=16;$i++) {
