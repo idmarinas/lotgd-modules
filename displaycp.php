@@ -112,7 +112,7 @@ function displaycp_dohook($hookname,$args){
 				else $len = $drunk;
 				$pct = round($len / $max * 100, 5);
 				
-				if ($pct > 100) $pct = 100;
+				if ($pct > 100) $pctd = 100;
 				elseif ($pct < 0) $pct = 0;
 				
 				if ($drunk < 5){
@@ -136,7 +136,7 @@ function displaycp_dohook($hookname,$args){
 				}
 				$drunk = "<div class='progressbar drunkeness'>
 						  	<div class='progress-progressbar progress-drunkeness $barcolor' style='width: $pct%;'></div>
-							<div>&nbsp;`b$level`b</div>
+							<div class='progress-text'>$level</div>
 						  </div>";
 				setcharstat("Character Info","Drunkeness",$drunk);
 			}
