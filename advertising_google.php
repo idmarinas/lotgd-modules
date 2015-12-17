@@ -40,7 +40,7 @@ function advertising_google_getmoduleinfo(){
 //			),
 		"settings"=>array(
 			"Publisher identification,title",
-			"publisher" => "Publisher ID|pub-1704430222579783",
+			"publisher" => "Publisher ID|ca-pub-1704430222579783",
 			"Conversion Tracking,title",
 			"tracking_do"=>"Do tracking?,bool|1",
 			"tracking_id"=>"Tracking (Conversion) ID|",
@@ -119,5 +119,4 @@ function advertising_google_get($w,$h){
 
 ";
 }
-
 ?>
