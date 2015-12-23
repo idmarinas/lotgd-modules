@@ -62,27 +62,7 @@ function dragonpointviewer_run() {
 		$row=db_fetch_assoc($result);
 		$daten=unserialize($row['dragonpoints']);
 		
-		rawoutput("<table border=0 cellspacing=0 cellpadding=0>");
-		rawoutput("<tr class='trhead'><td>", true);
-		output_notl(translate_inline("DK"));
-		rawoutput("</td><td>");
-		output_notl(translate_inline("Skill"));
-		rawoutput("</td></tr>");
-		
-		$v = 0;
-		foreach($daten as $key=>$value)  {
-			$v++;
-			rawoutput('<tr class="' . ($v%2?"trlight":"trdark").'"><td>', true);
-			output_notl($key);
-			rawoutput("</td><td>");
-			output_notl($value);
-			rawoutput("</td></tr>");
-		}
-		
-		rawoutput("</table");
-		
-
-		//Install a summary
+        //Install a summary
 
 		$counted=array_count_values($daten);
 		output("`n`n`b`^Summary`b`n");
@@ -103,7 +83,28 @@ function dragonpointviewer_run() {
 			rawoutput("</td></tr>");
 		}
 		
-		rawoutput("</table");
+		rawoutput("</table>");
+        
+        output("`n`n`b`^Detailed`b`n");
+		rawoutput("<table border=0 cellspacing=0 cellpadding=0>");
+		rawoutput("<tr class='trhead'><td>", true);
+		output_notl(translate_inline("DK"));
+		rawoutput("</td><td>");
+		output_notl(translate_inline("Skill"));
+		rawoutput("</td></tr>");
+		
+		$v = 0;
+		foreach($daten as $key=>$value)  {
+			$v++;
+			rawoutput('<tr class="' . ($v%2?"trlight":"trdark").'"><td>', true);
+			output_notl($v);
+			rawoutput("</td><td>");
+			output_notl($value);
+			rawoutput("</td></tr>");
+		}
+		
+		rawoutput("</table>");
+			
 
 	}
 
