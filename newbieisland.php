@@ -117,7 +117,6 @@ function newbieisland_dohook($hookname,$args){
 		//-- Propios
 		blockmodule('itemshop');//Un jugador nuevo no podrá tener acceso a lo que se vende
 		blockmodule('buildingsystem');//No se prmite crear edificios ni tener acceso a ellos. La isla no tiene edificios
-		blockmodule('sawmill');//No tiene bosque esta isla
 		
 		//-- Ajenos
 		blockmodule('worldmapen');//Se debe usar la función de abandonar isla
