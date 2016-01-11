@@ -29,8 +29,10 @@ function onlinelist_dohook($hookname, $args){
         	$args['handled'] = true;
 			$list_mods = "";
 			$list_players = "";
-
-			$sql="SELECT name,alive,location,sex,level,laston,loggedin,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND superuser > 0 AND laston > '".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY superuser DESC, level DESC";
+            
+            //-- Se elimina de las dos consultas, ya que no se usa después
+            // ,alive,location,sex,level,laston,loggedin,lastip,uniqueid
+			$sql="SELECT name FROM " . db_prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND superuser > 0 AND laston > '".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY superuser DESC, level DESC";
 			$result = db_query($sql);
 			$count = db_num_rows($result);
 			$list_mods = appoencode(sprintf(translate_inline("`bOnline Staff`n(%s Staff Member):`b`n"),$count));
@@ -43,7 +45,7 @@ function onlinelist_dohook($hookname, $args){
 			if ($onlinecount_mods == 0)
 				$list_mods .= appoencode(translate_inline("`iNone`i"));
 
-			$sql="SELECT name,alive,location,sex,level,laston,loggedin,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE superuser = 0 AND locked=0 AND loggedin=1 AND laston>'".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY level DESC";
+			$sql="SELECT name FROM " . db_prefix("accounts") . " WHERE superuser = 0 AND locked=0 AND loggedin=1 AND laston>'".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY level DESC";
 			$result = db_query($sql);
 			$count = db_num_rows($result);
 			$list_players = appoencode(sprintf(translate_inline("`bCharacters Online`n(%s Players):`b`n"),$count));
