@@ -1,5 +1,8 @@
 <?php 
 require_once "modules/staminasystem/lib/lib.php";
+require_once("lib/redirect.php");
+
+if (!$session['user']['alive']) return $args;
 
 $amber = get_stamina();
 if ($amber < 100)
@@ -39,9 +42,8 @@ if ($amber < 100)
 		"roundmsg"=>$buffmsg,
 		"schema"=>"module-staminacorecombat"
 	));
-	
-	if ($session['user']['alive'])
-		rawoutput($script);
+    
+    rawoutput($script);
 } 
 else 
 {
@@ -49,22 +51,19 @@ else
 }
 
 $red = get_stamina(0);
-if ($session['user']['alive'])
+if ($red < 100)
 {
-	if ($red < 100)
-	{
-		$death = e_rand(0,80);
-		if ($death > $red){
-			output("`\$Vision blurring, you succumb to the effects of exhaustion.  You take a step forward to strike your enemy, but instead trip over your own feet.`nAs the carpet of leaves and twigs drifts lazily up to meet your face, you close your eyes and halfheartedly reach out your hands to cushion the blow - but they sail through the ground as if it were made out of clouds.`nYou fall.`nUnconsciousness.  How you'd missed it.`0");
-			$session['user']['hitpoints']=0;
-			$session['user']['alive']=0;
+	$death = e_rand(0,80);
+	if ($death > $red){
+		output("`\$Vision blurring, you succumb to the effects of exhaustion.  You take a step forward to strike your enemy, but instead trip over your own feet.`nAs the carpet of leaves and twigs drifts lazily up to meet your face, you close your eyes and halfheartedly reach out your hands to cushion the blow - but they sail through the ground as if it were made out of clouds.`nYou fall.`nUnconsciousness.  How you'd missed it.`0");
+		$session['user']['hitpoints']=0;
+		$session['user']['alive']=0;
 			
-			redirect("shades.php");
-		}
-		$script = stamina_notification('Estás en peligro, si continuas con tus acciones corres el riesgo de visitar a Ramius.', 'Ya es tarde para ti', 'danger');
-	
-		rawoutput($script);
+		redirect("shades.php");
 	}
+	$script = stamina_notification('Estás en peligro, si continuas con tus acciones corres el riesgo de visitar a Ramius.', 'Ya es tarde para ti', 'danger');
+	
+	rawoutput($script);
 }
 // return true;
 
