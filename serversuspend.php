@@ -37,7 +37,9 @@ function serversuspend_dohook($hookname,$args){
 			|| $session['user']['superuser']&SU_MANAGE_MODULES
 			|| $session['user']['superuser']&SU_MEGAUSER
 			){
-			output("`c`b<font size='+1'>`\$The server is currently suspended for maintenance, only superusers will be able to log in and perform any actions.`0</font>`b`c",true);
+            rawoutput("<font size='+1'>");
+			output("`c`b`\$The server is currently suspended for maintenance, only superusers will be able to log in and perform any actions.`0`b`c");
+            rawoutput('</font>');
 			//users get sent to the village or shades depending on their alive
 			//status if they try to navigate.
 			//This is actually a bug, but I haven't bothered to track it down,
@@ -46,12 +48,14 @@ function serversuspend_dohook($hookname,$args){
 			if ($session['user']['loggedin']) {
 				output("`\$This means YOU.");
 				output("Get your upgrades done and deactivate the server suspension module you fool!`n`n");
-				output("Users who attempt to navigate during the outtage will be returned to the village or shades, depending on their alive status.`n`n");
+				output("Users who attempt to navigate during the outtage will be returned to the village or shades, depending on their alive status.`0`n`n");
 			}
 		}else{
 			//popup header and footer so we don't write the page output to the user's session, and their first badnav after we take out the module will be valid.
 			popup_header("Down for Maintenance");
-			output("`c`b<font size='+1'>The server is currently suspended for maintenance</font>`b`c",true);
+            rawoutput("<font size='+1'>");
+			output("`c`bThe server is currently suspended for maintenance`b`c");
+            rawoutput('</font>');
 			output("We apologise for any inconvenience, but for the moment, this server is undergoing maintenance.");
 			output("It should be accessible again soon.`n`n",true);
 			$link = $_SERVER['REQUEST_URI'];
