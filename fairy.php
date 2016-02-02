@@ -74,11 +74,20 @@ function fairy_runevent($type)
 				case 1:
 					//## Agregada compatibilidad con Stamina system
 					$extra = get_module_setting("fftoaward");
-					// if ($extra == 1) output("You receive an extra forest fight!");
-					// else output("You receive %s extra forest fights!", $extra);
-					output("¡El Hada te recompensa con algo de Resistencia!");
-					$session['user']['turns'] += $extra;
-					debuglog("aumenta la resistencia por el hada");
+                    if (is_module_active('staminasystem'))
+                    {
+                        output("¡El Hada te recompensa con algo de Resistencia!");
+                        $stamina = $extra*25000;
+                        addstamina($stamina);
+                        debuglog("aumenta la resistencia por el hada");
+                    }
+                    else
+                    {
+                        require_once "modules/staminasystem/lib/lib.php";
+                        if ($extra == 1) output("You receive an extra forest fight!");
+					    else output("You receive %s extra forest fights!", $extra);
+                        $session['user']['turns'] += $extra;
+                    }
 					break;
 				case 2:
 				case 3:
