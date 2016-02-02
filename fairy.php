@@ -102,6 +102,9 @@ function fairy_runevent($type)
 							(is_module_active("globalhp") &&
 							!get_module_setting("carrydk", "globalhp")))
 						$hptype = "temporarily";
+                    //-- Agregada compatibilidad con la versión de IDMarinas >= 0.7.0
+                    else $session['user']['permahitpoints'] += $extra;    
+                    
 					$hptype = translate_inline($hptype);
 	
 					$extra = get_module_setting("hptoaward");
