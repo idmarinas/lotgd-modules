@@ -190,6 +190,7 @@ function advertising_install(){
 	module_addhook("lodge");
 	module_addhook("superuser");
 	module_addhook("about");
+	module_addhook("pointsdesc");
 
 	$bannertable = array(
 		"bannerid"=>array("type"=>"int(11) unsigned","extra"=>"auto_increment"),
@@ -367,6 +368,10 @@ function advertising_dohook($hookname,$args){
 	}elseif ($hookname=="about"){
 	 	if ($session['user']['superuser'] & MOD_ADVERTISING_SUAPPROVER)
 			addnav("Advertising on this site","runmodule.php?module=advertising&op=about",false,true);
+    }elseif ($hookname == "pointsdesc") {
+        // array("format"=>"`#&#149;`7 %s`n", "count"=>0)
+        output_notl($args['format'], translate_inline("Advertising Opt-out (varies)"), true);
+        $args['count']++;
     }elseif ($hookname=="superuser"){
 	 	if ($session['user']['superuser'] & MOD_ADVERTISING_SUAPPROVER){
 			$sql = "SELECT count(*) AS c FROM ".db_prefix("mod_advertising_banners")." WHERE approved=".MOD_ADVERTISING_UNAPPROVED;
