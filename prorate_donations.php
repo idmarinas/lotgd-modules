@@ -42,10 +42,10 @@ function prorate_donations_dohook($hookname,$args){
 		$args['points'] = prorate_donations_apply_rate($args['amount'],$args['points']);
 		$pct = 1 + ($args['points'] - $orig_points) / $orig_points;
 		$pct = round($pct * 100,2);
-		$args['messages'][] = "Prorated donation of \${$args['amount']} to {$pct}% ({$args['points']} points).";
+		$args['messages'][] = translate_inline("Prorated donation of \${$args['amount']} to {$pct}% ({$args['points']} points).");
 		break;
 	case "donator_point_messages":
-		$args['messages']['default'] = "`7Because of processing fees on small donations, and the tendency of some players to donate small amounts on a frequent basis, we're introducing incentive to consolidate payments.  As a result, depending on how much you donate, you'll receive a larger reward in contributor points.`n";
+		$args['messages']['default'] = translate_inline("`7Because of processing fees on small donations, and the tendency of some players to donate small amounts on a frequent basis, we're introducing incentive to consolidate payments.  As a result, depending on how much you donate, you'll receive a larger reward in contributor points.`n");
 		$smallest = -1;
 		$lastrange = 0;
 		for ($x = 5; $x >= 1; $x--){
@@ -66,9 +66,9 @@ function prorate_donations_dohook($hookname,$args){
 		if ($smallest > 0){
 			$smallpoints = get_module_setting("zero_rate");
 			if ($smallpoints > 0){
-				$args['messages'][] = "`0&#149; `7For donations `&under \$$smallest`7, you will receive `^$smallpoints`7 points.`n";
+				$args['messages'][] = translate_inline("`0&#149; `7For donations `&under \$$smallest`7, you will receive `^$smallpoints`7 points.`n");
 			}else{
-				$args['messages'][] = "`0&#149; `7Although we appreciate your generosity, transaction fees make it unreasonable for us to assign any contributor points for donations `&under \$$range.`n";
+				$args['messages'][] = translate_inline("`0&#149; `7Although we appreciate your generosity, transaction fees make it unreasonable for us to assign any contributor points for donations `&under \$$range.`n");
 			}
 		}
 		$args['messages'][] = "`n";
