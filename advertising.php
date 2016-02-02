@@ -260,12 +260,6 @@ function advertising_dohook($hookname,$args){
 			addnav("Mechanics");
 			addnav(array("Ad Banner Approval (%s)",$row['c']),"runmodule.php?module=advertising&op=bannerapprover",false,true);
 		}
-	}elseif ($hookname=="lodge"){
-		// If they have less than what they need just ignore them
-		addnav("Advertising Opt-out (varies)","runmodule.php?module=advertising&op=opt-out");
-	}elseif ($hookname=="about"){
-	 	if ($session['user']['superuser'] & MOD_ADVERTISING_SUAPPROVER)
-			addnav("Advertising on this site","runmodule.php?module=advertising&op=about",false,true);
 	}elseif ($hookname=="everyfooter"){
 		// Exclude the installer pages from the advertiser because they break
 		// badly causing a slowdown when you try to upgrade
@@ -375,7 +369,13 @@ function advertising_dohook($hookname,$args){
 		}
 		</script>
 		");
-	}
+	}elseif ($hookname=="lodge"){
+		// If they have less than what they need just ignore them
+		addnav("Advertising Opt-out (varies)","runmodule.php?module=advertising&op=opt-out");
+	}elseif ($hookname=="about"){
+	 	if ($session['user']['superuser'] & MOD_ADVERTISING_SUAPPROVER)
+			addnav("Advertising on this site","runmodule.php?module=advertising&op=about",false,true);
+    }
 	return $args;
 }//end function
 
