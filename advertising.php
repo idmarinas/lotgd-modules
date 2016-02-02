@@ -252,15 +252,7 @@ function advertising_getbanner($w,$h,$id=false){
 
 function advertising_dohook($hookname,$args){
 	global $session;
-	if ($hookname=="superuser"){
-	 	if ($session['user']['superuser'] & MOD_ADVERTISING_SUAPPROVER){
-			$sql = "SELECT count(*) AS c FROM ".db_prefix("mod_advertising_banners")." WHERE approved=".MOD_ADVERTISING_UNAPPROVED;
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
-			addnav("Mechanics");
-			addnav(array("Ad Banner Approval (%s)",$row['c']),"runmodule.php?module=advertising&op=bannerapprover",false,true);
-		}
-	}elseif ($hookname=="everyfooter"){
+	if ($hookname=="everyfooter"){
 		// Exclude the installer pages from the advertiser because they break
 		// badly causing a slowdown when you try to upgrade
 		if ($args['__scriptfile__'] == "installer") return $args;
@@ -375,6 +367,14 @@ function advertising_dohook($hookname,$args){
 	}elseif ($hookname=="about"){
 	 	if ($session['user']['superuser'] & MOD_ADVERTISING_SUAPPROVER)
 			addnav("Advertising on this site","runmodule.php?module=advertising&op=about",false,true);
+    }elseif ($hookname=="superuser"){
+	 	if ($session['user']['superuser'] & MOD_ADVERTISING_SUAPPROVER){
+			$sql = "SELECT count(*) AS c FROM ".db_prefix("mod_advertising_banners")." WHERE approved=".MOD_ADVERTISING_UNAPPROVED;
+			$result = db_query($sql);
+			$row = db_fetch_assoc($result);
+			addnav("Mechanics");
+			addnav(array("Ad Banner Approval (%s)",$row['c']),"runmodule.php?module=advertising&op=bannerapprover",false,true);
+		}
     }
 	return $args;
 }//end function
