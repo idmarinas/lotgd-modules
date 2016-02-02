@@ -15,7 +15,7 @@ function ramiusaltar_getmoduleinfo(){
 		"category"=>"Village",
 		"download"=>"http://www.mattmullen.net",
 		"settings"=>array(
-			"reward = minimumguaranteedreward + random(0,maximumrandombonus),note",
+			"reward = minimumguaranteedreward + random(0;maximumrandombonus),note",
 			"ramiusaltarloc"=>"Where does the altar to Ramius appear,location|".getsetting("villagename", LOCATION_FIELDS),
 			"sacrificesperday"=>"How many times can the user sacrifice each day,int|1",
 			"reward1"=>"What is the minimum guaranteed favor for blood sacrafice,int|10",
