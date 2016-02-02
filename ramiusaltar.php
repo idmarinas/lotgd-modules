@@ -186,7 +186,9 @@ function ramiusaltar_run(){
 				$session['user']['maxhitpoints'] -= $hp_loss;
 				$session['user']['hitpoints'] -= $hp_loss;
 				set_module_pref("totalmaxhploss", get_module_pref("totalmaxhploss")+$hp_loss);
-
+                //-- Compatibilidad con edición IDMarinas >= 0.7.0
+                $session['user']['permahitpoints'] -= $hp_loss;
+                
 				output("`n`7You decide to offer to curse your spirit in return for a blessing.`n");
 				output("`n`7The etched foreign symbols on the stone altar begin to glow, and you find yourself chanting the words repeatedly, though you know you've never seen the language.");
 				output("`n`7Fear fills you, and you hurry away from this place.  You lose `&" . $hp_loss . " Max HP`7.`n");
