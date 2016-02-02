@@ -199,8 +199,8 @@ function ramiusaltar_run(){
 		} // end switch ($type)
 
 		if ($ramius_is_pleased) {
-
-			if (is_module_active('alignment')) align("-1");
+            require_once("modules/alignment/func.php");
+            align("-1");
 
 			$session['user']['deathpower'] += $gain_favor;
 			set_module_pref("totalgained",get_module_pref("totalgained")+$gain_favor);	//200
@@ -241,7 +241,9 @@ function ramiusaltar_run(){
 			output("`n`7You lose `4" . min($favor_loss, $session['user']['deathpower']) . " favor`7!");
 			$session['user']['deathpower'] -= min($favor_loss, $session['user']['deathpower']);
 
-			if (is_module_active('alignment')) align("+2");  // +1 aligment
+            require_once("modules/alignment/func.php");
+            align("+2");  // +1 aligment
+            
 			$session['user']['turns']++;
 			output("`n`7Emboldened from your rebuke of the feared `4Ramius`7, you gain `@1 turn`7!");
 			
