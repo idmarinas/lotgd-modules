@@ -157,7 +157,7 @@ function ramiusaltar_run(){
 				if ($amber = get_stamina() < 100) 
                 {
 					output("`n`2You feel too tired to give flesh right now, and back away from the altar.");	//150
-					debuglog("lost 5 favor trying to give flesh with %s turns left", get_stamina(3));
+					debuglog("lost 5 favor trying to give flesh with " . get_stamina(3) . " turns left");
 					$ramius_is_pleased = 0;
 					break;
 				}
