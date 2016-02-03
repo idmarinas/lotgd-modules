@@ -162,9 +162,7 @@ function ramiusaltar_run(){
 				$session['user']['turns'] -= $turn_loss;
 				set_module_pref("totalturnloss", get_module_pref("totalturnloss")+$turn_loss);
 
-				output("`n`7You tear some flesh from your `Q" . $body_parts[$where_to_cut] .
-					"`7 with your `Q" . $session['user']['weapon'] . 
-					"`7.  Gasping in pain, you close your eyes and drop your sacrifice.`n");
+				output("`n`7You tear some flesh from your `Q%s`7 with your `Q%s`7.  Gasping in pain, you close your eyes and drop your sacrifice.`n",  $body_parts[$where_to_cut], $session['user']['weapon']);
 				output("`n`7The etched foreign symbols on the stone altar begin to glow, and you find yourself chanting the words repeatedly, though you know you've never seen the language.");
 				output("`n`7Fear fills you, and you hurry away from this place.  You lose `@" . $turn_loss . " turn(s)`7.`n");
 
@@ -190,7 +188,7 @@ function ramiusaltar_run(){
                 
 				output("`n`7You decide to offer to curse your spirit in return for a blessing.`n");
 				output("`n`7The etched foreign symbols on the stone altar begin to glow, and you find yourself chanting the words repeatedly, though you know you've never seen the language.");
-				output("`n`7Fear fills you, and you hurry away from this place.  You lose `&" . $hp_loss . " Max HP`7.`n");
+				output("`n`7Fear fills you, and you hurry away from this place.  You lose `&%s Max HP`7.`n", $hp_loss);
 
 				debuglog("gained `4" . $gain_favor . " favor`7 giving spirit at Altar of Ramius");
 				debuglog("lost `&" . $hp_loss . " max hp `7 giving spirit at Altar of Ramius");
@@ -206,7 +204,7 @@ function ramiusaltar_run(){
 			set_module_pref("totalsacrifices",get_module_pref("totalsacrifices")+1);
 			set_module_pref("sacrificedtoday", get_module_pref("sacrificedtoday")+1);
 
-			output("`n`n`&You feel `4Ramius`& is pleased.  You gain " . $gain_favor . "`& favor!");
+			output("`n`n`&You feel `4Ramius`& is pleased.  You gain %s `& favor!", $gain_favor);
 
 		} else {
 
@@ -230,7 +228,7 @@ function ramiusaltar_run(){
 				output("`n`7You aim and spit directly on top of the altar.`n");
 				break;
 			case 3:
-				output("`n`7You swing your " . $session['user']['weapon'] . " at the altar, chipping the stone.`n");
+				output("`n`7You swing your %s at the altar, chipping the stone.`n", $session['user']['weapon']);
 				break;
 		}
 		
@@ -298,7 +296,6 @@ function ramiusaltar_run(){
 		}
 		rawoutput("</table>");
 	
-		output("");
 		addnav("Back to HOF","hof.php");
 
 	}
