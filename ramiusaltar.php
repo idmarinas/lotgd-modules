@@ -149,25 +149,36 @@ function ramiusaltar_run(){
 				debuglog("gained `4" . $gain_favor . " favor`7 giving blood at Altar of Ramius");
 				break;
 			case "flesh":
-				if ($session['user']['turns'] <= 4) {
+                //-- Se modifica para que use la Stamina y no los turnos
+                require_once "modules/staminasystem/lib/lib.php";
+                $amber = get_stamina();
+                
+                // if ($session['user']['turns'] <= 4) {
+				if ($amber = get_stamina() < 100) 
+                {
 					output("`n`2You feel too tired to give flesh right now, and back away from the altar.");	//150
-					debuglog("lost 5 favor trying to give flesh with " . $session['user']['turns'] . " turns left" );
+					debuglog("lost 5 favor trying to give flesh with %s turns left", get_stamina(3));
 					$ramius_is_pleased = 0;
 					break;
 				}
 
 				$gain_favor += get_module_setting("reward2");
 
-				$turn_loss = e_rand(2,4);
-				$session['user']['turns'] -= $turn_loss;
-				set_module_pref("totalturnloss", get_module_pref("totalturnloss")+$turn_loss);
-
+				// $turn_loss = e_rand(2,4);
+				$stamina = e_rand(2,4)*25000;
+				// $session['user']['turns'] -= $turn_loss;
+				// set_module_pref("totalturnloss", get_module_pref("totalturnloss")+$turn_loss);
+				set_module_pref("totalturnloss", get_module_pref("totalturnloss")+$stamina);
+                removestamina($stamina);
+                
 				output("`n`7You tear some flesh from your `Q%s`7 with your `Q%s`7.  Gasping in pain, you close your eyes and drop your sacrifice.`n",  $body_parts[$where_to_cut], $session['user']['weapon']);
 				output("`n`7The etched foreign symbols on the stone altar begin to glow, and you find yourself chanting the words repeatedly, though you know you've never seen the language.");
-				output("`n`7Fear fills you, and you hurry away from this place.  You lose `@" . $turn_loss . " turn(s)`7.`n");
+				// output("`n`7Fear fills you, and you hurry away from this place.  You lose `@" . $turn_loss . " turn(s)`7.`n");
+				output("`n`7Fear fills you, and you hurry away from this place.  You lose `@some stamina`7.`n");
 
 				debuglog("gained `4" . $gain_favor . " favor`7 giving spirit at Altar of Ramius");
-				debuglog("lost `@" . $turn_loss . " turns `7 giving spirit at Altar of Ramius");
+				// debuglog("lost `@" . $turn_loss . " turns `7 giving spirit at Altar of Ramius");
+				debuglog("lost `@" . $stamina . " stamina `7 giving spirit at Altar of Ramius");
 				break;
 			case "spirit":
 				if ($session['user']['maxhitpoints'] <= (($session['user']['level']-1) * 10) + 3) {
