@@ -246,7 +246,7 @@ function ramiusaltar_run(){
 		if ($session['user']['deathpower'] > 0) {
 			$favor_loss = 50;
 			output("`n`4Ramius `7hears of your deed, and is outraged!");
-			output("`n`7You lose `4" . min($favor_loss, $session['user']['deathpower']) . " favor`7!");
+			output("`n`7You lose `4%s favor`7!", min($favor_loss, $session['user']['deathpower']));
 			$session['user']['deathpower'] -= min($favor_loss, $session['user']['deathpower']);
 
             require_once("modules/alignment/func.php");
