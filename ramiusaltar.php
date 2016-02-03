@@ -87,6 +87,7 @@ function ramiusaltar_run(){
 	page_header("Altar of Ramius");
 	output("`7`c`bAltar of `4Ramius`b`c`n`7");
     
+    addnav('Navigation');
 	if ($op==""){
 
 		if (get_module_pref("sacrificedtoday") >= get_module_setting("sacrificesperday") ) {
@@ -301,7 +302,8 @@ function ramiusaltar_run(){
 		addnav("Back to HOF","hof.php");
 
 	}
-
+    
+    addnav('Return');
 	villagenav();
 	page_footer();
 
