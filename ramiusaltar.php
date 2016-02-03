@@ -181,7 +181,7 @@ function ramiusaltar_run(){
 				debuglog("lost `@" . $stamina . " stamina `7 giving spirit at Altar of Ramius");
 				break;
 			case "spirit":
-				if ($session['user']['maxhitpoints'] <= (($session['user']['level']-1) * 10) + 3) {
+				if ($session['user']['maxhitpoints'] <= ($session['user']['level'] * 10)) {
 					output("`n`2Your spirit is not strong enough to sacrifice. You back away from the altar.");
 					debuglog("lost 5 favor trying to give spirit with " . $session['user']['maxhitpoints'] . " hp at lvl " . $session['user']['level'] . "." );
 					$ramius_is_pleased = 0;
