@@ -252,12 +252,14 @@ function ramiusaltar_run(){
             require_once("modules/alignment/func.php");
             align("+2");  // +1 aligment
             
-			$session['user']['turns']++;
-			output("`n`7Emboldened from your rebuke of the feared `4Ramius`7, you gain `@1 turn`7!");
+            require_once "modules/staminasystem/lib/lib.php";
+			// $session['user']['turns']++;
+            addstamina(25000);
+			// output("`n`7Emboldened from your rebuke of the feared `4Ramius`7, you gain `@1 turn`7!");
+			output("`n`7Emboldened from your rebuke of the feared `4Ramius`7, you gain `@some stamina`7!");
 			
 		} else {
-			output("`n`4Ramius `7hears of your deed, but says he's never even heard of " . 
-				$session['user']['name'] . "`7, and ignores you.`n");
+			output("`n`4Ramius `7hears of your deed, but says he's never even heard of %s`7, and ignores you.`n",$session['user']['name']);
 		}
 	} elseif ($op=="HOF") {
 
