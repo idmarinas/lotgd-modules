@@ -1,8 +1,10 @@
 <?php 
+
+if (!$session['user']['loggedin']) return $args;
+if (!$session['user']['alive']) return $args;
+
 require_once "modules/staminasystem/lib/lib.php";
 require_once("lib/redirect.php");
-
-if (!$session['user']['alive']) return $args;
 
 $amber = get_stamina();
 if ($amber < 100)
@@ -15,8 +17,7 @@ if ($amber < 100)
 	if ($buffvalue < 0.3)
 	{
 		$buffmsg = "`\$You're getting `bdangerously exhausted!`b`0";
-		if (0 != $amber)
-			$script = stamina_notification("Lo dicho, estás peligrosamente $exhausto.", 'La reunión con Ramius está cerca...', 'warning');
+		$script = stamina_notification("Lo dicho, estás peligrosamente $exhausto.", 'La reunión con Ramius está cerca...', 'warning');
 	}
 	else if ($buffvalue < 0.6)
 	{
@@ -31,7 +32,7 @@ if ($amber < 100)
 	else if ($buffvalue < 1)
 	{
 		$buffmsg = "`0You're getting tired...";
-		 $script = stamina_notification("Deberías tomarte un descanso, estás un poco $cansado.", 'La energía te abandona.', 'warning');
+		$script = stamina_notification("Deberías tomarte un descanso, estás un poco $cansado.", 'La energía te abandona.', 'warning');
 	}
 	
 	apply_buff('stamina-corecombat-exhaustion', array(
@@ -43,7 +44,7 @@ if ($amber < 100)
 		"schema"=>"module-staminacorecombat"
 	));
     
-    rawoutput($script);
+    if ($script) rawoutput($script);
 } 
 else 
 {
@@ -78,7 +79,7 @@ function stamina_notification($message, $title, $status)
 		UIkit.notify({
 			message : '".addslashes($message)."',
 			status  : '$status',
-			timeout : 5000,
+			timeout : 1000,
 			pos     : 'top-right'
 		});
 	</script>";	
