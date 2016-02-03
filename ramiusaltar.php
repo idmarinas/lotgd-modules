@@ -86,7 +86,7 @@ function ramiusaltar_run(){
 
 	page_header("Altar of Ramius");
 	output("`7`c`bAltar of `4Ramius`b`c`n`7");
-
+    
 	if ($op==""){
 
 		if (get_module_pref("sacrificedtoday") >= get_module_setting("sacrificesperday") ) {
@@ -119,7 +119,7 @@ function ramiusaltar_run(){
 		$gain_favor = e_rand(0,get_module_setting("rewardbonus"));
 		$ramius_is_pleased = 1;
 
-		$body_parts = array("arm", "leg", "neck", "torso", "toe", "shoulder", "hip", "ear", "tibiofibular articulation, just between the lateral condyle of the tibia and the fibula");
+		$body_parts = translate_inline(array("arm", "leg", "neck", "torso", "toe", "shoulder", "hip", "ear", "tibiofibular articulation, just between the lateral condyle of the tibia and the fibula"));
 		$where_to_cut = e_rand(0, count($body_parts)-1);
 
 		switch ($type) {
@@ -141,9 +141,7 @@ function ramiusaltar_run(){
 				set_module_pref("totalhploss", get_module_pref("totalhploss")+$session['user']['hitpoints'] * 0.9);
 				$session['user']['hitpoints'] *= 0.1;
 
-				output("`n`7You make a jagged cut on your `Q" . $body_parts[$where_to_cut] .
-					"`7 with your `Q" . $session['user']['weapon'] . 
-					"`7, dripping blood on the altar.`n");
+				output("`n`7You make a jagged cut on your `Q%s`7 with your `Q%s`7, dripping blood on the altar.`n", $body_parts[$where_to_cut], $session['user']['weapon']);
 				output("`n`7The etched foreign symbols on the stone altar begin to glow, and you find yourself chanting the words repeatedly, though you know you've never seen the language.");
 				output("`n`7Fear fills you, and you hurry away from this place.  You lose most of your `&health`7.`n");
 
