@@ -50,6 +50,14 @@ function mysticalshop_run(){
 	if( !is_numeric( $cat ) )
 		$cat = 0;
 	$names = translate_inline( array(0=>'Rings',1=>'Amulets',2=>'Weapons',3=>'Armor',4=>'Cloaks',5=>'Helmets',6=>'Gloves',7=>'Boots',8=>'Miscellanea') );
+    
+    //-- Hook
+    modulehook('mysticalshop', array(
+        'op' => $op,
+        'what' => $what,
+        'cat' => $names[$cat]
+    ));
+        
 	require_once( "./modules/mysticalshop/run/case_$op.php" );
 	page_footer();
 }
