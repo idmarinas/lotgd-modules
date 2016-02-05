@@ -39,10 +39,10 @@ function advertising_getmoduleinfo(){
 
 	$banners = advertising_getbanners();
 	while (list($key,$val)=each($banners)){
-		$i = split("x",$key);
+		$i = explode("x",$key);
 		$w = $i[0];
 		$h = $i[1];
-		$i = split(",",$val);
+		$i = explode(",",$val);
 		$title = $i[0];
 		//required advertising
 		$info['settings']['sizes']="Banner sizes,title";
