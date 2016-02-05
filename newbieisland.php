@@ -286,7 +286,7 @@ function newbieisland_dohook($hookname,$args){
 		}
 		break;
 	case "village-desc":
-		if ($session['user']['location'] == $city){
+		if ($session['user']['location'] == $city && 1 != $session['user']['level']){// Sólo se permite dejar la isla si se ha subido de nivel
 			addnav($args['gatenav']);
 			addnav(array("Leave %s",$city),"runmodule.php?module=newbieisland&op=leave");
 			unblocknav("runmodule.php?module=newbieisland&op=leave");
