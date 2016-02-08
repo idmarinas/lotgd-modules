@@ -14,7 +14,7 @@ function ppad_getmoduleinfo(){
 				"This is to ensure that you don't stretch out the paypal display area.,note",
 				"The ad will be centered so there is no need to add any centering tags to the code.,note",
 				"adcode"=>"Code for Ad,textarea|",
-				"over-width"=>"How many pixels are allowed before overflow is used?,int|100",
+				// "over-width"=>"How many pixels are allowed before overflow is used?,int|100",
 			),
 		);
 	return $info;
@@ -34,8 +34,9 @@ function ppad_dohook($hookname,$args){
 		} elseif (!is_array($args['paypal'])) {
 			$args['paypal'] = array($args['paypal']);
 		}
-		$width = get_module_setting("over-width");
-		$display = "<div style='text-align:center; width:".$width."px; overflow:auto;'>".get_module_setting("adcode")."</div>";
+		// $width = get_module_setting("over-width");
+		// $display = "<div style='text-align:center; width:".$width."px; overflow:auto;'>".get_module_setting("adcode")."</div>";
+		$display = "<br><div class='module-ppad uk-text-justify''>".get_module_setting("adcode")."</div>";
 		array_push($args['paypal'], $display);
 		
 	break;
