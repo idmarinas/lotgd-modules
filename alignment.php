@@ -3,8 +3,8 @@
 function alignment_getmoduleinfo(){
 	$info = array(
 		"name"=>"Alignment Core",
-		"author"=>"Chris Vorndran<br/>`6Original Script by: `QWebPixie",
-		"version"=>"1.82",
+		"author"=>"IDMarinas dragonverde.infommo.es, `6Original Script by: `QWebPixie and Chris Vorndran",
+		"version"=>"1.9.0",
 		"category"=>"Stat Display",
 		"download"=>"http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=64",
 		"vertxtloc">"http://dragonprime.net/users/Sichae/",
