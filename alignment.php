@@ -147,7 +147,6 @@ function alignment_dohook($hookname,$args)
 				$id = $badguy['creatureid'];
 				$al = get_module_objpref("creatures",$id,"al");
 				if ($al != ""){
-					require_once("modules/alignment/func.php");
 					align($al);
 				}
 			}
