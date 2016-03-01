@@ -33,4 +33,18 @@ function set_align($val,$user=false){
 	set_module_pref('alignment',$val,'alignment',$user);
 }
 
+/**
+ * Get align name (code) for user alignment number
+ */
+function get_align_name($user = false)
+{
+	$evilalign = get_module_setting('evilalign','alignment');
+	$goodalign = get_module_setting('goodalign','alignment');
+	$align = get_align($user);
+	
+	if ($goodalign <= $align) return 'good';
+	else if ($evilalign >= $align) return 'evil';
+	else return 'neutral';
+}
+
 ?>

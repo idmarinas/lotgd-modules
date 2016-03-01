@@ -59,18 +59,22 @@ function alignment_uninstall(){
     return true;
 }
 
-function alignment_dohook($hookname,$args){
+function alignment_dohook($hookname,$args)
+{
 	global $session,$badguy,$options;
+	
+	require_once("modules/alignment/func.php");
+	
 	$title = translate_inline("Alignment");
 	$good = translate_inline("`@Good`0");
 	$evil = translate_inline("`\$Evil`0");
 	$neutral = translate_inline("`6Neutral`0");
 	$evilalign = get_module_setting('evilalign','alignment');
 	$goodalign = get_module_setting('goodalign','alignment');
-    switch($hookname){
+	
+    switch($hookname)
+	{
 		case "newday":
-			require_once("modules/alignment/func.php");
-
 			$max_num = get_module_setting("max-num");
 			$min_num = get_module_setting("min-num");
 			if (get_align() == "none"){
@@ -96,24 +100,19 @@ function alignment_dohook($hookname,$args){
 			$val = get_module_pref("alignment");
 			$extra = "";
 			if (get_module_setting("display-num")) $extra = "(`b$val`b)";
-			if ($val >= $goodalign){
-				$color = sprintf("`b%s`b %s",$good,$extra);
-			}
-			if ($val <= $evilalign){
-				$color = sprintf("`b%s`b %s",$evil,$extra);
-			}
-			if ($val > $evilalign && $val < $goodalign){
-				$color = sprintf("`b%s`b %s",$neutral,$extra);
-			}
+			
+			$align = get_align_name();
+			$color = sprintf("`b%s`b %s",$$align,$extra);
+			
 			$area = get_module_setting("shead");
 			setcharstat($area,$title,$color);
+			
 			break;		
 		case "biostat":
-			require_once("modules/alignment/func.php");
-			$useralign = get_align($args['acctid']);
-			if ($useralign >= $goodalign) output("`^Alignment: %s`n",$good);
-			if ($useralign <= $evilalign) output("`^Alignment: %s`n",$evil);
-			if ($useralign > $evilalign && $useralign < $goodalign) output("`^Alignment: %s`n", $neutral);
+			$align = get_align_name($args['acctid']);
+			
+			output("`^Alignment: %s`n", $$align);
+			
 			break;
 		case "battle-victory":
 			if ($options['type'] == "pvp" && get_module_setting("pvp")){
@@ -122,25 +121,21 @@ function alignment_dohook($hookname,$args){
 				if ($al > $goodalign && $ual < $evilalign){
 					$new = round($session['user']['level']/2);
 					output("`n`bYou have smote a good person, and as your are evil... it makes you more evil.`b`0`n");
-					require_once("modules/alignment/func.php");
 					align("-$new");
 				}elseif($al < $evilalign && $ual > $goodalign){
 					$new = round($session['user']['level']/2);
 					output("`n`bYou have destroyed an evil person, and as you are good... it makes you more good.`b`0`n");
-					require_once("modules/alignment/func.php");
 					align("+$new");
 				}else{
 					switch (e_rand(1,2)){
 						case 1:
 							$new = round($session['user']['level']/3);
 							output("`n`bYou have destroyed a person... strangely, it makes you more good.`b`0`n");
-							require_once("modules/alignment/func.php");
 							align("+$new");
 							break;
 						case 2:
 							$new = round($session['user']['level']/3);
 							output("`n`bYou have destroyed a person... strangely, it makes you more evil.`b`0`n");
-							require_once("modules/alignment/func.php");
 							align("-$new");
 							break;
 						}
