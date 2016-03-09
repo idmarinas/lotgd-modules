@@ -45,7 +45,8 @@ function avatar_getimage($race, $gender, $set)
 		$usedefault = 1;
 		$file = "modules/avatar/default.gif";
 	}
-	$image = "<center><img align='center' src='$file'></center>";
+	$imginfo = getimagesize($file);
+	$image = "<center><img class='module-avatar-img' src='$file' {$imginfo[3]}></center>";
 	$l = translate_inline("Licensed for use in LoTGD");
 	if (!$usedefault) {
 		require("modules/avatar/$set/setinfo.php");
