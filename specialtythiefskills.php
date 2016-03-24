@@ -81,6 +81,7 @@ function specialtythiefskills_dohook($hookname,$args){
 	case "choose-specialty":
 		if ($session['user']['specialty'] == "" ||
 				$session['user']['specialty'] == '0') {
+			addnav('Basic');
 			addnav("$ccode$name`0","newday.php?setspecialty=".$spec."$resline");
 			$t1 = translate_inline("Stealing from the rich and giving to yourself");
 			$t2 = appoencode(translate_inline("$ccode$name`0"));
