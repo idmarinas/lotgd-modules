@@ -56,7 +56,7 @@ function ramiusaltar_dohook($hookname,$args){
 					set_module_setting("ramiusaltarloc", $args['new']);
 				}
 			}
-			break;
+		break;
 
 		case "village":
 			if ($session['user']['location'] == get_module_setting("ramiusaltarloc")) {
@@ -65,14 +65,16 @@ function ramiusaltar_dohook($hookname,$args){
 				tlschema();
 				addnav("Altar of Ramius","runmodule.php?module=ramiusaltar");
 			}
-			break;
+		break;
 
 		case "newday":
 			set_module_pref("sacrificedtoday",0);
-			break;
+		break;
 
 		case "footer-hof":
+			addnav('Warrior Rankings');
 			addnav("Blood & sacrifice","runmodule.php?module=ramiusaltar&op=HOF");
+		break;
 	}
 
 	return $args;
@@ -274,7 +276,7 @@ function ramiusaltar_run(){
 		$count = $row['c'];
 
 
- 		output("`c`b`^%s`0`b`c`n", "Sacrifices to the Altar of Ramius");
+ 		output("`c`b`^Sacrifices to the Altar of Ramius`0`b`c`n");
 		rawoutput("<table cellspacing='0' cellpadding='2' align='center'>");
 		rawoutput("<tr align=center class=\"trhead\">");
 		output_notl("<td align=left>`bName`b</td><td>`bFavor Gained`b</td><td>`bSacrifices`b</td><td>`bHP given`b</td><td>`bTurns given`b</td><td>`bMax HP given`b</td>", true);
