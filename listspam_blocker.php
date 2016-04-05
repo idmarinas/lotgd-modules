@@ -62,7 +62,7 @@ function listspam_blocker_dohook($hookname,$args){
 				global $template,$header;
 				//rebuild the header
 				$header = $template['header'];
-				$header=str_replace("{title}","Legend of the Green Dragon",$header);
+				$header=str_replace("{title}",translate("Legend of the Green Dragon"),$header);
 				$header.=tlbutton_pop();
 
 				output("`\$`bToo many accesses:`b`# Your subnet has accessed this page too many times in the last 24 hours.");
