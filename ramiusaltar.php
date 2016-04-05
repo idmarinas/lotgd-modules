@@ -279,7 +279,7 @@ function ramiusaltar_run(){
  		output("`c`b`^Sacrifices to the Altar of Ramius`0`b`c`n");
 		rawoutput("<table cellspacing='0' cellpadding='2' align='center'>");
 		rawoutput("<tr align=center class=\"trhead\">");
-		output_notl("<td align=left>`bName`b</td><td>`bFavor Gained`b</td><td>`bSacrifices`b</td><td>`bHP given`b</td><td>`bTurns given`b</td><td>`bMax HP given`b</td>", true);
+		output_notl("<td align=left>`b".translate('Name')."`b</td><td>`b".translate('Favor Gained')."`b</td><td>`b".translate('Sacrifices')."`b</td><td>`b".translate('HP given')."`b</td><td>`b".translate('Turns given')."`b</td><td>`b".translate('Max HP given')."`b</td>", true);
 		rawoutput("</tr>");
 
 		$settings = array("sacrificedtoday",
