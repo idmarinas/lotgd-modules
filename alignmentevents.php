@@ -225,7 +225,7 @@ function alignmentevents_runevent($type) {
 				addnews("`^%s`4 has sunk a boat full of people in the forest today! How mean!!!",$session['user']['name']);
 			break;
 			case 3:
-				output("`#You start throwing rocks at the child.  You laugh as he falls and think about how sticks AND stones can break bones!`n");
+				output("`#You start throwing rocks at the child. You laugh as he falls and think about how sticks AND stones can break bones!`n");
 				addnews("`^%s`4 has thrown a rock and knocked a child out of a tree in the forest today! How mean!!!",$session['user']['name']);
 			break;
 			case 4:
