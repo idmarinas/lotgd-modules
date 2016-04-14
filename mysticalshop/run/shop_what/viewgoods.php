@@ -33,6 +33,7 @@ $cost = translate_inline("Item Cost");
 $gift = translate_inline("Gift");
 //$itemid = $row['id'];
 $sell = translate_inline("Sell First");
+$sellbuy = translate_inline("Sell & Buy");
 $buy = translate_inline("Examine");
 $quantity = translate_inline("Quantity");
 $viewbuy = translate_inline("Examine or Buy");
@@ -63,8 +64,10 @@ if ($count == 0){
 		if( get_module_pref( $category ) )
 		{
 			rawoutput( '<td>[<a href="'.htmlentities( $from.'op=shop&what=preview&id=' ).$row['id'].'">'.$buy.'</a>] [<a href="'.htmlentities( $from.'op=shop&what=sell&id='.$sellid.'&cat=' ).$cat.'">'.$sell.'</a>]' );
+			rawoutput( '[<a href="'.htmlentities( $from.'op=shop&what=sellbuy&sellid='.$sellid.'&buyid='.$row['id'].'&cat=' ).$cat.'">'.$sellbuy.'</a>]' );
 			addnav( '', $from.'op=shop&what=preview&id='.$row['id'] );
 			addnav( '', $from.'op=shop&what=sell&id='.$sellid.'&cat='.$cat );
+			addnav( '', $from.'op=shop&what=sellbuy&sellid='.$sellid.'&buyid='.$row['id'].'&cat='.$cat );
 		//otherwise...	
 		}else{
 			rawoutput( '<td>[<a href="'.htmlentities( $from.'op=shop&what=preview&id=' ).$row['id'].'">'.$viewbuy.'</a>]' );
