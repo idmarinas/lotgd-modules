@@ -400,7 +400,7 @@ function worldmapen_viewmapkey($showloc,$small){
 	}
 	
 	if (get_module_setting("showcities") == 1){
-		output("`n");
+		output_notl("`n");
 		rawoutput("<table class='8' cellpadding=0 cellspacing=5 border=0><tr>");
 		output_notl("<td>`b{$cities}`b</td>",true);
 		rawoutput("</tr>");
@@ -719,9 +719,9 @@ function worldmapen_camp_list(){
 	$_SERVER['REQUEST_URI'] = preg_replace( '/op=[a-z]*/', 'op=continue', $_SERVER['REQUEST_URI'] );
 	// ^- That's a hack to prevent stop cheaters from clicking BIO and back to get gold, turns, etc.
 	require_once("lib/pvplist.php");
-	output('`n`c');
+	output_notl('`n`c');
 	pvplist($loc,"runmodule.php?module=worldmapen", "&op=combat&pvp=1", $sql);
-	output('`c');
+	output_notl('`c');
 }
 // -----------------------------------------------------------------------
 // END - World Map camping routine
