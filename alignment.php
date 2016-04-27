@@ -62,16 +62,16 @@ function alignment_uninstall(){
 function alignment_dohook($hookname,$args)
 {
 	global $session,$badguy,$options;
-	
+
 	require_once("modules/alignment/func.php");
-	
+
 	$title = translate_inline("Alignment");
 	$good = translate_inline("`@Good`0");
 	$evil = translate_inline("`\$Evil`0");
 	$neutral = translate_inline("`6Neutral`0");
 	$evilalign = get_module_setting('evilalign','alignment');
 	$goodalign = get_module_setting('goodalign','alignment');
-	
+
     switch($hookname)
 	{
 		case "newday":
@@ -100,19 +100,19 @@ function alignment_dohook($hookname,$args)
 			$val = get_module_pref("alignment");
 			$extra = "";
 			if (get_module_setting("display-num")) $extra = "(`b$val`b)";
-			
+
 			$align = get_align_name();
 			$color = sprintf("`b%s`b %s",$$align,$extra);
-			
+
 			$area = get_module_setting("shead");
 			setcharstat($area,$title,$color);
-			
-			break;		
+
+			break;
 		case "biostat":
 			$align = get_align_name($args['acctid']);
-			
+
 			output("`^Alignment: %s`n", $$align);
-			
+
 			break;
 		case "battle-victory":
 			if ($options['type'] == "pvp" && get_module_setting("pvp")){
@@ -142,8 +142,8 @@ function alignment_dohook($hookname,$args)
 					}
 			}
 			if ($options['type'] == 'forest' || $options['type'] == 'travel'){
-				debug($options);
-				debug($badguy);
+				// debug($options);
+				// debug($badguy);
 				$id = $badguy['creatureid'];
 				$al = get_module_objpref("creatures",$id,"al");
 				if ($al != ""){
