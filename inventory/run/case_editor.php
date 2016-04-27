@@ -112,6 +112,7 @@
 							.HOOK_TRAIN.		",Train,"
 							.HOOK_INVENTORY.	",Inventory",
 					"Chances,title",
+						"findhow"=>"How can find this item?, enum,search,Search,flay,Flay",
 						"findtype"=>"Type of object, enum,common,Common,uncommon,Uncommon,rare,Rare,legend,Legend",
 						"findchance"=>"Chance to get this item though 'get_random_item()',range,0,100,1|100",
 						"loosechance"=>"Chance that this item gets damaged when dying in battle,range,0,100,1|100",
