@@ -82,6 +82,7 @@
 						"itemid"=>"Item id,viewonly",
 						"class"=>"Item category, string|Loot",
 						"name"=>"Item name, string|",
+						"image"=>"Item image (class code for CSS image), string|",
 						"description"=>"Description, textarea,60,5|Just a normal, useless item.",
 				  	"Values,title",
 						"gold"=>"Gold value,int|0",
