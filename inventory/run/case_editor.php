@@ -171,6 +171,8 @@
 			invalidatedatacache("item-activation-train");
 			invalidatedatacache("item-activation-shades");
 			invalidatedatacache("item-activation-village");
+
+			modulehook('inventory-delete-item', ['id' => $id]);
 			break;
 		case "newbuff":
 			$id=httpget("id");
