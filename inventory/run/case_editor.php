@@ -79,7 +79,7 @@
 				$scriptenum=",,none".$scriptenum;
 				$format = array(
 					"Basic information,title",
-						"itemid"=>"Item id,viewonly",
+						"itemid"=>"Item id,viewhiddenonly",
 						"class"=>"Item category, string|Loot",
 						"name"=>"Item name, string|",
 						"image"=>"Item image (class code for CSS image), string|",
