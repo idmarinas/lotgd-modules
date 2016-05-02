@@ -38,12 +38,12 @@ function inventorypopup_dohook($hookname,$args){
 
 function inventorypopup_run(){
 	global $session;
-	
+
 	require_once("lib/itemhandler.php");
 	require_once("lib/sanitize.php");
-	
+
 	popup_header("Your Inventory");
-	
+
 	mydefine("HOOK_NEWDAY", 1);
 	mydefine("HOOK_FOREST", 2);
 	mydefine("HOOK_VILLAGE", 4);
@@ -146,15 +146,15 @@ function inventory_showform($layout,$row)
 		rawoutput("<table class='inventory'>");
 		rawoutput("<tr><td>".translate_inline("The inventory is empty")."</td></tr>");
 		rawoutput("</table>");
-		
+
 		return;
 	}
-	
+
  	$showform_id++;
  	$formSections = array();
 	$returnvalues = array();
 	$wheres = array("righthand"=>"Right Hand","lefthand"=>"Left Hand","head"=>"Your Head","body"=>"Upper Body","arms"=>"Your Arms","legs"=>"Lower Body","feet"=>"Your Feet","ring1"=>"First Ring","ring2"=>"Second Ring","ring3"=>"Third Ring","neck"=>"Around your Neck","belt"=>"Around your Waist");
-	
+
 	rawoutput("<table class='inventory'>");
 	rawoutput("<tr><td><div id='showFormSection$showform_id'></div></td></tr>");
 	rawoutput("<tr><td>");
@@ -165,7 +165,7 @@ function inventory_showform($layout,$row)
 		if ($keypref !== false) $keyout = sprintf($keypref, $key);
 		else $keyout = $key;
 		$itemI = 0;
-	
+
 		$title_id++;
 		$formSections[$title_id] = translate_inline($val);
 		rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'><tr><td>");
@@ -258,10 +258,13 @@ function showRowItem($itsval, $i)
 	$activate = translate_inline("Activate");
 	$drop = translate_inline("Drop");
 	$dropall = translate_inline("All");
-	
-	rawoutput("<table class='items-list ".($i%2?'trlight':'trdark')."'><tr><td>");
+
+	rawoutput("<table class='items-list ".($i%2?'trlight':'trdark')."'><tr><td rowspan='2' class='uk-text-center uk-vertical-align-middle'>");
+	rawoutput(($itsval['image']?'<i class="ignis-icon large '.$itsval['image'].'"></i>':''));
+	output_notl("`n(%s)", $itsval['quantity']);
+	rawoutput('</td><td>');
 	rawoutput($itsval['equipped']?"<i class='fa fa-asterisk fa-fw'></i>":"");
-	output_notl("`0%s (%s)", $itsval['name'], $itsval['quantity']);
+	output_notl("`b%s`b", $itsval['name']);
 	rawoutput("</td>");
 	//## Opciones
 	rawoutput("<td>");
@@ -282,12 +285,12 @@ function showRowItem($itsval, $i)
 			addnav("", "runmodule.php?module=inventorypopup&op2=dropall&id={$itsval['itemid']}&qty={$itsval['quantity']}");
 		}
 	rawoutput("</td>");
-	
+
 	rawoutput("<td nowrap>");
 	output("(Gold value: %s, Gem Value: %s)", max($itsval['gold'],$itsval['sellvaluegold']), max($itsval['gems'], $itsval['sellvaluegems']));
 	$tl_desc = translate_inline($itsval['description']);
 	rawoutput("</td></tr>");
-	if ('' != $itsval['description']) 
+	if ('' != $itsval['description'])
 	{
 		rawoutput('<tr><td colspan="3">');
 		output_notl("`i%s`i", $tl_desc, true);
@@ -300,12 +303,12 @@ function showRowItem($itsval, $i)
  * Extraer los materiales disponibles
  */
 function collect_materials($layout, $inventory)
-{	
+{
 	//Madera disponible
 	if (is_module_installed('sawmill') && is_module_active('sawmill'))
 	{
 		$allprefs = unserialize(get_module_pref('allprefs','sawmill'));
-		
+
 		$wood = array (
 			'class' => 'Material',
 			'name' => 'Tablón de madera',
@@ -314,7 +317,7 @@ function collect_materials($layout, $inventory)
 			'gold' => 'Variable',
 			'gems' => 0
 		);
-	
+
 		if ($wood['quantity'] > 0)
 		{
 			// $layout[] = 'Material,title';
@@ -322,14 +325,14 @@ function collect_materials($layout, $inventory)
 			$inventory['Material'][] = $wood;
 		}
 	}
-	
+
 	return array('layout' => $layout, 'inventory' => $inventory);
 
 // 	//BEGIN CHECK AND DISPLAY FOR QUARRY BY DAVES
 // 	if (is_module_installed("quarry")) {
 // 		$allprefs=unserialize(get_module_pref('allprefs','quarry'));
 // 		$blocks=$allprefs['blocks'];
-// 		if ($blocks >= '1') { 
+// 		if ($blocks >= '1') {
 // 			$ti_sackcat_buildingmaterials=1;
 // 			$stone=1;
 // 		}
