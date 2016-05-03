@@ -260,7 +260,7 @@ function showRowItem($itsval, $i)
 	$dropall = translate_inline("All");
 
 	rawoutput("<table class='items-list ".($i%2?'trlight':'trdark')."'><tr><td rowspan='2' class='uk-text-center uk-vertical-align-middle'>");
-	rawoutput(($itsval['image']?'<i class="ignis-icon large '.$itsval['image'].'"></i>':''));
+	rawoutput(($itsval['image']?'<i class="'.$itsval['image'].'"></i>':''));
 	output_notl("`n(%s)", $itsval['quantity']);
 	rawoutput('</td><td>');
 	rawoutput($itsval['equipped']?"<i class='fa fa-asterisk fa-fw'></i>":"");
