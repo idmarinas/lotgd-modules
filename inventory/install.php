@@ -77,6 +77,7 @@
 		'allowinpvp'=> array('name'=>'allowinpvp', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => '0'),
 		'allowintrain'=> array('name'=>'allowintrain', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => '0'),
 		'survivenewday'=> array('name'=>'survivenewday', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => '0'),
+		'expireafterfight'=> array('name'=>'expireafterfight', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => '0'),
 		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>'buffid'));
 
 
