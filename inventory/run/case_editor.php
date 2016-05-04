@@ -178,155 +178,55 @@
 			$id=httpget("id");
 			$yes = translate_inline("Yes");
 			$no = translate_inline("No");
+			$buff = [];
 			if ($id != "") {
 				$sql = "SELECT * FROM ".db_prefix("itembuffs")." WHERE buffid = $id";
 				$result = db_query($sql);
 				$buff = db_fetch_assoc($result);
 			}
+
 			rawoutput("<form action='runmodule.php?module=inventory&op=editor&op2=newbuff2&id=$id' method='post'>");
 			addnav("", "runmodule.php?module=inventory&op=editor&op2=newbuff2&id=$id");
-			rawoutput("<table border=0 cellpadding=1 cellspacing=5 cols=2 width=100%>");
-			rawoutput("<tr><td width=40%>");
-				output("Buff name`n(shown in editor):");
-				rawoutput("</td><td>");
-				rawoutput("<input name='buffname' value='{$buff['buffname']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Buff name`n(shown in charstats):");
-				rawoutput("</td><td>");
-				rawoutput("<input name='buffshortname' value='{$buff['buffshortname']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Rounds:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='rounds' value='{$buff['rounds']}'>");
-			rawoutput("</td></tr><tr><td colspan=2><hr>");
-			rawoutput("</td></tr><tr><td>");
-				output("Damage modificator (Goodguy):");
-				rawoutput("</td><td>");
-				rawoutput("<input name='dmgmod' value='{$buff['dmgmod']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Attack modificator (Goodguy):");
-				rawoutput("</td><td>");
-				rawoutput("<input name='atkmod' value='{$buff['atkmod']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Defense modificator (Goodguy):");
-				rawoutput("</td><td>");
-				rawoutput("<input name='defmod' value='{$buff['defmod']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Damage modificator (Badguy):");
-				rawoutput("</td><td>");
-				rawoutput("<input name='badguydmgmod' value='{$buff['badguydmgmod']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Attack modificator (Badguy):");
-				rawoutput("</td><td>");
-				rawoutput("<input name='badguyatkmod' value='{$buff['badguyatkmod']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Defense modificator (Badguy):");
-				rawoutput("</td><td>");
-				rawoutput("<input name='badguydefmod' value='{$buff['badguydefmod']}'>");
-			rawoutput("</td></tr><tr><td colspan=2><hr>");
-			rawoutput("</td></tr><tr><td>");
-				output("Damageshield:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='damageshield' value='{$buff['damageshield']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Lifetap:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='lifetap' value='{$buff['lifetap']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Regeneration:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='regen' value='{$buff['regen']}'>");
-			rawoutput("</td></tr><tr><td colspan=2><hr>");
-			rawoutput("</td></tr><tr><td>");
-			rawoutput("</td></tr><tr><td>");
-				output("Minion count:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='minioncount' value='{$buff['minioncount']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Max badguy damage:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='maxbadguydamage' value='{$buff['maxbadguydamage']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Min badguy damage:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='minbadguydamage' value='{$buff['minbadguydamage']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Max goodguy damage:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='maxgoodguydamage' value='{$buff['maxgoodguydamage']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Min goodguy damage:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='mingoodguydamage' value='{$buff['mingoodguydamage']}'>");
-			rawoutput("</td></tr><tr><td colspan=2><hr>");
-			rawoutput("</td></tr><tr><td>");
-				output("Start message:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='startmsg' value='{$buff['startmsg']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Round message:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='roundmsg' value='{$buff['roundmsg']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Wearoff:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='wearoff' value='{$buff['wearoff']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Effect fail message:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='effectfailmsg' value='{$buff['effectfailmsg']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Effect no-effect message:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='effectnodmgmsg' value='{$buff['effectnodmgmsg']}'>");
-			rawoutput("</td></tr><tr><td>");
-				output("Effect message:");
-				rawoutput("</td><td>");
-				rawoutput("<input name='effectmsg' value='{$buff['effectmsg']}'>");
-			rawoutput("</td></tr><tr><td colspan=2><hr>");
-			rawoutput("</td></tr><tr><td>");
-				output("Makes invulnerable?:");
-				rawoutput("</td><td>");
-				rawoutput("<select name='invulnerable'>");
-				rawoutput("<option value='1'");
-				rawoutput($buff['invulnerable']?" selected":"");
-				rawoutput(">$yes</option><option value='0'");
-				rawoutput($buff['invulnerable']?"":" selected");
-				rawoutput(">$no</option></select>");
-			rawoutput("</td></tr><tr><td>");
-				output("Allow in PvP (not the activation!)?:");
-				rawoutput("</td><td>");
-				rawoutput("<select name='allowinpvp'>");
-				rawoutput("<option value='1'");
-				rawoutput($buff['allowinpvp']?" selected":"");
-				rawoutput(">$yes</option><option value='0'");
-				rawoutput($buff['allowinpvp']?"":" selected");
-				rawoutput(">$no</option></select>");
-			rawoutput("</td></tr><tr><td>");
-				output("Allow in train (not the activation!)?:");
-				rawoutput("</td><td>");
-				rawoutput("<select name='allowintrain'>");
-				rawoutput("<option value='1'");
-				rawoutput($buff['allowintrain']?" selected":"");
-				rawoutput(">$yes</option><option value='0'");
-				rawoutput($buff['allowintrain']?"":" selected");
-				rawoutput(">$no</option></select>");
-			rawoutput("</td></tr><tr><td>");
-				output("Survives newday?:");
-				rawoutput("</td><td>");
-				rawoutput("<select name='survivenewday'>");
-				rawoutput("<option value='1'");
-				rawoutput($buff['survivenewday']?" selected":"");
-				rawoutput(">$yes</option><option value='0'");
-				rawoutput($buff['survivenewday']?"":" selected");
-				rawoutput(">$no</option></select>");
-			rawoutput("</td></tr><tr><td colspan=2><hr>");
-			rawoutput("</td></tr><tr><td>");
-				$create = translate_inline($id?"Update":"Create");
-				rawoutput("<input type=submit value='$create'>");
-				rawoutput("</td><td>");
-				rawoutput("<input type=reset>");
-			rawoutput("</td></tr></table>");
+			$format = array(
+				"General Settings,title",
+					'buffid'=>"Buff ID,viewonly",
+					'buffname'=>"Buff name (shown in editor),string,250",
+					'buffshortname'=>"Buff name (shown in charstats),string,250",
+					"The charstats name will automatically use the color of the skill that uses it,note",
+					'rounds'=>"Rounds,string,250",
+				"Combat Modifiers,title",
+					'dmgmod'=>"Damage Modifier (Goodguy),string,250",
+					'atkmod'=>"Attack Modifier (Goodguy),string,250",
+					'defmod'=>"Defense Modifier (Goodguy),string,250",
+					'badguydmgmod'=>"Damage Modifier (Badguy),string,250",
+					'badguyatkmod'=>"Attack Modifier (Badguy),string,250",
+					'badguydefmod'=>"Defense Modifier (Badguy),string,250",
+				"Misc Combat Modifiers,title",
+					'lifetap'=>"Lifetap,string,250",
+					'damageshield'=>"Damage Shield,string,250",
+					'regen'=>"Regeneration,string,250",
+				"Minion Count Settings,title",
+					'minioncount'=>"Minion count,string,250",
+					'minbadguydamage'=>"Min Badguy Damage,string,250",
+					'maxbadguydamage'=>"Max Badguy Damage,string,250",
+					'mingoodguydamage'=>"Max Goodguy Damage,string,250",
+					'maxgoodguydamage'=>"Max Goodguy Damage,string,250",
+				"Message Settings,title",
+					"You can use %c in any message and it will be replaced with the color code of the skill that activates the buff,note",
+					'startmsg'=>"Start Message,string,250",
+					'roundmsg'=>"Round Message,string,250",
+					'wearoff'=>"Wear Off Message,string,250",
+					'effectmsg'=>"Effect Message,string,250",
+					'effectfailmsg'=>"Effect Fail Message,string,250",
+					'effectnodmgmsg'=>"Effect No Damage Message,string,250",
+				"Misc Settings,title",
+					'allowinpvp'=>"Allow in PvP?,bool",
+					'allowintrain'=>"Allow in Training?,bool",
+					'survivenewday'=>"Survive New Day?,bool",
+					'invulnerable'=>"Invulnerable?,bool",
+					'expireafterfight'=>"Expires after fight?,bool",
+			);
+			showform($format, $buff);
 			rawoutput("</form>");
 			break;
 		case "newbuff2":
