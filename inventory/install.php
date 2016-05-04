@@ -50,7 +50,6 @@
 	$buff_table = array(
 		'buffid'=> array('name'=>'buffid', 'type'=>'int(10) unsigned',	'null'=>'0', 'extra'=>'auto_increment'),
 		'buffname'=> array('name'=>'buffname', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
-		'ccode'=> array('name'=>'ccode', 'type'=>'varchar(2)', 'null'=>1, 'default' => NULL),
 		'buffshortname'=> array('name'=>'buffshortname', 'type'=>'varchar(50)', 'null'=>1, 'default' => NULL),
 		'rounds'=> array('name'=>'rounds', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'invulnerable'=> array('name'=>'invulnerable', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => '0'),
