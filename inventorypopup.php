@@ -128,11 +128,8 @@ function inventorypopup_run(){
 		$inventory[$row['class']][] = $row;
 	}
 	$layout = array_unique($layout);
-	$materials = collect_materials($layout, $inventory);
-	$layout = $materials['layout'];
-	$inventory = $materials['inventory'];
-	inventory_showform($layout, $inventory);
-	// echo '<pre style="color:white">'. var_export($inventory, true) .'</pre>';
+	$inventory = modulehook('inventorypopup-inventory', ['layout' => $layout, 'inventory' => $inventory]);
+	inventory_showform($inventory['layout'], $inventory['inventory']);
 	popup_footer();
 }
 
@@ -297,46 +294,5 @@ function showRowItem($itsval, $i)
 		rawoutput('</td></tr>');
 	}
 	rawoutput("</table>");
-}
-
-/**
- * Extraer los materiales disponibles
- */
-function collect_materials($layout, $inventory)
-{
-	//Madera disponible
-	if (is_module_installed('sawmill') && is_module_active('sawmill'))
-	{
-		$allprefs = unserialize(get_module_pref('allprefs','sawmill'));
-
-		$wood = array (
-			'class' => 'Material',
-			'name' => 'Tablón de madera',
-			'quantity' => (int) $allprefs['plankqty'],
-			'description' => 'Tablón de madera, tiene unas dimensiones considerables. Aunque tiene diversos usos, su principal uso es como material de construcción.',
-			'gold' => 'Variable',
-			'gems' => 0
-		);
-
-		if ($wood['quantity'] > 0)
-		{
-			// $layout[] = 'Material,title';
-			$layout[] = 'Material';
-			$inventory['Material'][] = $wood;
-		}
-	}
-
-	return array('layout' => $layout, 'inventory' => $inventory);
-
-// 	//BEGIN CHECK AND DISPLAY FOR QUARRY BY DAVES
-// 	if (is_module_installed("quarry")) {
-// 		$allprefs=unserialize(get_module_pref('allprefs','quarry'));
-// 		$blocks=$allprefs['blocks'];
-// 		if ($blocks >= '1') {
-// 			$ti_sackcat_buildingmaterials=1;
-// 			$stone=1;
-// 		}
-// 	}
-
 }
 ?>
