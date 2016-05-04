@@ -127,9 +127,8 @@ function inventorypopup_run(){
 		$layout[] = $row['class'];
 		$inventory[$row['class']][] = $row;
 	}
-	$layout = array_unique($layout);
 	$inventory = modulehook('inventorypopup-inventory', ['layout' => $layout, 'inventory' => $inventory]);
-	inventory_showform($inventory['layout'], $inventory['inventory']);
+	inventory_showform(array_unique($inventory['layout']), $inventory['inventory']);
 	popup_footer();
 }
 
