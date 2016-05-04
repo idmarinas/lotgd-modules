@@ -74,7 +74,7 @@
 		'effectfailmsg'=> array('name'=>'effectfailmsg', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'effectnodmgmsg'=> array('name'=>'effectnodmgmsg', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'effectmsg'=> array('name'=>'effectmsg', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
-		'allowinpvp'=> array('name'=>'allowinpvp', 'type'=>'tinyint(1) unsigned', 'null'=>0), 'default' => 0,
+		'allowinpvp'=> array('name'=>'allowinpvp', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => 0),
 		'allowintrain'=> array('name'=>'allowintrain', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => 0),
 		'survivenewday'=> array('name'=>'survivenewday', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => 0),
 		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>'buffid'));
