@@ -233,11 +233,12 @@
 			$post = httpallpost();
 			$id = httpget('id');
 			if (!$id) {
-				$sql = "INSERT INTO ".db_prefix("itembuffs")." (`lifetap`, `roundmsg`, `rounds`, `buffname`, `buffshortname`, `invulnerable`, `dmgmod`,	`badguydmgmod`,	`atkmod`, `badguyatkmod`, `defmod`,`badguydefmod`, `damageshield`, `regen`, `minioncount`, `maxbadguydamage`, `minbadguydamage`, `maxgoodguydamage`, `mingoodguydamage`, `startmsg`, `wearoff`, `effectfailmsg`, `effectnodmgmsg`, `effectmsg`, `allowinpvp`, `allowintrain`, `survivenewday`) VALUES ('{$post['lifetap']}','{$post['roundmsg']}', '{$post['rounds']}', '{$post['buffname']}', '{$post['buffshortname']}', '{$post['invulnerable']}', '{$post['dmgmod']}', '{$post['badguydmgmod']}', '{$post['atkmod']}', '{$post['badguyatkmod']}', '{$post['defmod']}', '{$post['badguydefmod']}', '{$post['damageshield']}', '{$post['regen']}', '{$post['minioncount']}', '{$post['maxbadguydamage']}', '{$post['minbadguydamage']}', '{$post['maxgoodguydamage']}', '{$post['mingoodguydamage']}','{$post['startmsg']}', '{$post['wearoff']}',  '{$post['effectfailmsg']}', '{$post['effectnodmgmsg']}', '{$post['effectmsg']}', '{$post['allowinpvp']}', '{$post['allowintrain']}', '{$post['survivenewday']}')";
+				$sql = "INSERT INTO ".db_prefix("itembuffs")." (`ccode`, `lifetap`, `roundmsg`, `rounds`, `buffname`, `buffshortname`, `invulnerable`, `dmgmod`,	`badguydmgmod`,	`atkmod`, `badguyatkmod`, `defmod`,`badguydefmod`, `damageshield`, `regen`, `minioncount`, `maxbadguydamage`, `minbadguydamage`, `maxgoodguydamage`, `mingoodguydamage`, `startmsg`, `wearoff`, `effectfailmsg`, `effectnodmgmsg`, `effectmsg`, `allowinpvp`, `allowintrain`, `survivenewday`, `expireafterfight`) VALUES ('{$post['ccode']}', {$post['lifetap']}','{$post['roundmsg']}', '{$post['rounds']}', '{$post['buffname']}', '{$post['buffshortname']}', '{$post['invulnerable']}', '{$post['dmgmod']}', '{$post['badguydmgmod']}', '{$post['atkmod']}', '{$post['badguyatkmod']}', '{$post['defmod']}', '{$post['badguydefmod']}', '{$post['damageshield']}', '{$post['regen']}', '{$post['minioncount']}', '{$post['maxbadguydamage']}', '{$post['minbadguydamage']}', '{$post['maxgoodguydamage']}', '{$post['mingoodguydamage']}','{$post['startmsg']}', '{$post['wearoff']}',  '{$post['effectfailmsg']}', '{$post['effectnodmgmsg']}', '{$post['effectmsg']}', '{$post['allowinpvp']}', '{$post['allowintrain']}', '{$post['survivenewday']}', '{$post['expireafterfight']}')";
 				db_query($sql);
 				output("'`^%s`0' inserted.", $post['buffname']);
 			} else {
 				$sql = "UPDATE ".db_prefix("itembuffs")." SET
+							ccode = '{$post['ccode']}',
 							buffname = '{$post['buffname']}',
 							rounds = '{$post['rounds']}',
 							roundmsg = '{$post['roundmsg']}',
@@ -265,7 +266,8 @@
 							effectmsg = '{$post['effectmsg']}',
 							allowinpvp = '{$post['allowinpvp']}',
 							allowintrain = '{$post['allowintrain']}',
-							survivenewday = '{$post['survivenewday']}'
+							survivenewday = '{$post['survivenewday']}',
+							expireafterfight = '{$post['expireafterfight']}'
 						WHERE buffid = $id";
 				db_query($sql);
 				invalidatedatacache("inventory-buff-$id");
