@@ -53,7 +53,7 @@
 		'ccode'=> array('name'=>'ccode', 'type'=>'varchar(2)', 'null'=>1, 'default' => NULL),
 		'buffshortname'=> array('name'=>'buffshortname', 'type'=>'varchar(50)', 'null'=>1, 'default' => NULL),
 		'rounds'=> array('name'=>'rounds', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
-		'invulnerable'=> array('name'=>'invulnerable', 'type'=>'tintyint(1) unsigned', 'null'=>0, 'default' => 0),
+		'invulnerable'=> array('name'=>'invulnerable', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => 0),
 		'dmgmod'=> array('name'=>'dmgmod', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'badguydmgmod'=> array('name'=>'badguydmgmod', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'atkmod'=> array('name'=>'atkmod', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
@@ -74,9 +74,9 @@
 		'effectfailmsg'=> array('name'=>'effectfailmsg', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'effectnodmgmsg'=> array('name'=>'effectnodmgmsg', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'effectmsg'=> array('name'=>'effectmsg', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
-		'allowinpvp'=> array('name'=>'allowinpvp', 'type'=>'tintyint(1) unsigned', 'null'=>0), 'default' => 0,
-		'allowintrain'=> array('name'=>'allowintrain', 'type'=>'tintyint(1) unsigned', 'null'=>0, 'default' => 0),
-		'survivenewday'=> array('name'=>'survivenewday', 'type'=>'tintyint(1) unsigned', 'null'=>0, 'default' => 0),
+		'allowinpvp'=> array('name'=>'allowinpvp', 'type'=>'tinyint(1) unsigned', 'null'=>0), 'default' => 0,
+		'allowintrain'=> array('name'=>'allowintrain', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => 0),
+		'survivenewday'=> array('name'=>'survivenewday', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => 0),
 		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>'buffid'));
 
 
