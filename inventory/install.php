@@ -9,6 +9,7 @@
 		'itemid'=> array('name'=>'itemid', 'type'=>'int unsigned',	'extra'=>'auto_increment'),
 		'class' => array('name'=>'class', 'type'=>'varchar(50)', 'null'=> '1',),
 		'name' => array('name'=>'name', 'type'=>'varchar(50)', 'null'=>'0'),
+		'image' => array('name'=>'image', 'type'=>'varchar(100)', 'null'=>'0'),
 		'description'  => array('name'=>'description', 'type'=>'text', 'null'=>'0'),
 		'gold'=> array('name'=>'gold', 'type'=>'int unsigned', 'default'=>'0', 'null'=>'0'),
 		'gems'=> array('name'=>'gems', 'type'=>'int unsigned', 'default'=>'0', 'null'=>'0'),
@@ -27,14 +28,15 @@
 		'activationhook'=> array('name'=>'activationhook', 'type'=>'varchar(50)', 'default'=>'0', 'null'=>'0'),
 		'findchance'=> array('name'=>'findchance', 'type'=>'tinyint', 'default'=>'0', 'null'=>'0'),
 		'loosechance'=> array('name'=>'loosechance', 'type'=>'tinyint', 'default'=>'0', 'null'=>'0'),
+		'findrarity'=> array('name'=>'findrarity', 'type'=>'varchar(50)', 'default'=>'common', 'null'=>'0'),
 		'dkloosechance'=> array('name'=>'dkloosechance', 'type'=>'tinyint', 'default'=>'0', 'null'=>'0'),
 		'sellable'=> array('name'=>'sellable', 'type'=>'tinyint(2)', 'default'=>'1', 'null'=>'0'),
 		'buyable'=> array('name'=>'buyable', 'type'=>'tinyint(2)', 'default'=>'1', 'null'=>'0'),
 		'uniqueforserver'=> array('name'=>'uniqueforserver', 'type'=>'tinyint(2)', 'default'=>'0', 'null'=>'0'),
 		'uniqueforplayer'=> array('name'=>'uniqueforplayer', 'type'=>'tinyint(2)', 'default'=>'0', 'null'=>'0'),
-		//'equippable'=> array('name'=>'equippable', 'type'=>'tinyint(2)', 'default'=>'0', 'null'=>'0'),
-		//'equipwhere'=> array('name'=>'equipwhere', 'type'=>'varchar(15)', 'default'=>'', 'null'=>'0'),
-		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>'itemid'));
+		'equippable'=> array('name'=>'equippable', 'type'=>'tinyint(2)', 'default'=>'0', 'null'=>'0'),
+		'equipwhere'=> array('name'=>'equipwhere', 'type'=>'varchar(15)', 'default'=>'', 'null'=>'0'),
+		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>['itemid','findchance']));
 
 	$inventory_table = array(
 		'invid'=>array('name'=>'invid', 'type'=>'int unsigned', 'null'=>'0', 'extra'=>'auto_increment'),
@@ -50,8 +52,8 @@
 	$buff_table = array(
 		'buffid'=> array('name'=>'buffid', 'type'=>'int(10) unsigned',	'null'=>'0', 'extra'=>'auto_increment'),
 		'buffname'=> array('name'=>'buffname', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
-		'buffshortname'=> array('name'=>'buffshortname', 'type'=>'varchar(50)', 'null'=>1, 'default' => NULL),
-		'rounds'=> array('name'=>'rounds', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
+		'buffshortname'=> array('name'=>'buffshortname', 'type'=>'varchar(100)', 'null'=>0),
+		'rounds'=> array('name'=>'rounds', 'type'=>'int(11)', 'null'=>0, 'default' => '0'),
 		'invulnerable'=> array('name'=>'invulnerable', 'type'=>'tinyint(1) unsigned', 'null'=>0, 'default' => '0'),
 		'dmgmod'=> array('name'=>'dmgmod', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'badguydmgmod'=> array('name'=>'badguydmgmod', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
@@ -61,7 +63,7 @@
 		'badguydefmod'=> array('name'=>'badguydefmod', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'lifetap'=> array('name'=>'lifetap', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'damageshield'=> array('name'=>'damageshield', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
-		'regen'=> array('name'=>'regen', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
+		'regen'=> array('name'=>'regen', 'type'=>'int(11)', 'null'=>0, 'default' => '0'),
 		'minioncount'=> array('name'=>'minioncount', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'maxbadguydamage'=> array('name'=>'maxbadguydamage', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'minbadguydamage'=> array('name'=>'minbadguydamage', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
