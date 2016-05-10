@@ -255,7 +255,7 @@ function showRowItem($itsval, $i)
 	$drop = translate_inline("Drop");
 	$dropall = translate_inline("All");
 
-	rawoutput("<table class='items-list ".($i%2?'trlight':'trdark')."'><tr><td rowspan='2' class='uk-text-center uk-vertical-align-middle'>");
+	rawoutput("<table class='items-list ".($i%2?'trlight':'trdark')."'><tr class='uk-table-middle'><td rowspan='2' class='uk-text-center'>");
 	rawoutput(($itsval['image']?'<i class="'.$itsval['image'].'"></i>':''));
 	output_notl("`n(%s)", $itsval['quantity']);
 	rawoutput('</td><td>');
