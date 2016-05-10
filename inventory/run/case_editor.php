@@ -194,12 +194,12 @@
 					"The charstats name will automatically use the color of the skill that uses it,note",
 					'rounds'=>"Rounds,string,250",
 				"Combat Modifiers,title",
-					'dmgmod'=>"Damage Modifier (Goodguy),string,250",
-					'atkmod'=>"Attack Modifier (Goodguy),string,250",
-					'defmod'=>"Defense Modifier (Goodguy),string,250",
-					'badguydmgmod'=>"Damage Modifier (Badguy),string,250",
-					'badguyatkmod'=>"Attack Modifier (Badguy),string,250",
-					'badguydefmod'=>"Defense Modifier (Badguy),string,250",
+					'dmgmod'=>"Damage Modifier (Goodguy),string",
+					'atkmod'=>"Attack Modifier (Goodguy),string",
+					'defmod'=>"Defense Modifier (Goodguy),string",
+					'badguydmgmod'=>"Damage Modifier (Badguy),string",
+					'badguyatkmod'=>"Attack Modifier (Badguy),string",
+					'badguydefmod'=>"Defense Modifier (Badguy),string",
 				"Misc Combat Modifiers,title",
 					'lifetap'=>"Lifetap,string,250",
 					'damageshield'=>"Damage Shield,string,250",
@@ -231,44 +231,33 @@
 		case "newbuff2":
 			$post = httpallpost();
 			$id = httpget('id');
+
+			unset($post['showFormTabIndex']);
+
+			$post['dmgmod'] = ('' == $post['dmgmod'] ? NULL : $post['dmgmod']);
+			$post['badguydmgmod'] = ('' == $post['badguydmgmod'] ? NULL : $post['badguydmgmod']);
+			$post['atkmod'] = ('' == $post['atkmod'] ? NULL : $post['atkmod']);
+			$post['badguyatkmod'] = ('' == $post['badguyatkmod'] ? NULL : $post['badguyatkmod']);
+			$post['defmod'] = ('' == $post['defmod'] ? NULL : $post['defmod']);
+			$post['badguydefmod'] = ('' == $post['badguydefmod'] ? NULL : $post['badguydefmod']);
+
 			if (!$id) {
-				$sql = "INSERT INTO ".db_prefix("itembuffs")." (`lifetap`, `roundmsg`, `rounds`, `buffname`, `buffshortname`, `invulnerable`, `dmgmod`,	`badguydmgmod`,	`atkmod`, `badguyatkmod`, `defmod`,`badguydefmod`, `damageshield`, `regen`, `minioncount`, `maxbadguydamage`, `minbadguydamage`, `maxgoodguydamage`, `mingoodguydamage`, `startmsg`, `wearoff`, `effectfailmsg`, `effectnodmgmsg`, `effectmsg`, `allowinpvp`, `allowintrain`, `survivenewday`, `expireafterfight`) VALUES (, {$post['lifetap']}','{$post['roundmsg']}', '{$post['rounds']}', '{$post['buffname']}', '{$post['buffshortname']}', '{$post['invulnerable']}', '{$post['dmgmod']}', '{$post['badguydmgmod']}', '{$post['atkmod']}', '{$post['badguyatkmod']}', '{$post['defmod']}', '{$post['badguydefmod']}', '{$post['damageshield']}', '{$post['regen']}', '{$post['minioncount']}', '{$post['maxbadguydamage']}', '{$post['minbadguydamage']}', '{$post['maxgoodguydamage']}', '{$post['mingoodguydamage']}','{$post['startmsg']}', '{$post['wearoff']}',  '{$post['effectfailmsg']}', '{$post['effectnodmgmsg']}', '{$post['effectmsg']}', '{$post['allowinpvp']}', '{$post['allowintrain']}', '{$post['survivenewday']}', '{$post['expireafterfight']}')";
-				db_query($sql);
+				$insert = DB::insert('itembuffs');
+				$insert->values($post);
+
+				DB::execute($insert);
+
 				output("'`^%s`0' inserted.", $post['buffname']);
 			} else {
-				$sql = "UPDATE ".db_prefix("itembuffs")." SET
-							buffname = '{$post['buffname']}',
-							rounds = '{$post['rounds']}',
-							roundmsg = '{$post['roundmsg']}',
-							lifetap = '{$post['lifetap']}',
-							buffshortname = '{$post['buffshortname']}',
-							invulnerable = '{$post['invulnerable']}',
-							dmgmod = '{$post['dmgmod']}',
-							badguydmgmod = '{$post['badguydmgmod']}',
-							atkmod = '{$post['atkmod']}',
-							badguyatkmod = '{$post['badguyatkmod']}',
-							defmod = '{$post['defmod']}',
-							badguydefmod = '{$post['badguydefmod']}',
-							damageshield = '{$post['damageshield']}',
-							regen = '{$post['regen']}',
-							minioncount = '{$post['minioncount']}',
-							maxbadguydamage = '{$post['maxbadguydamage']}',
-							minbadguydamage = '{$post['minbadguydamage']}',
-							maxgoodguydamage = '{$post['maxgoodguydamage']}',
-							mingoodguydamage = '{$post['mingoodguydamage']}',
-							startmsg = '{$post['startmsg']}',
-							roundmsg = '{$post['roundmsg']}',
-							wearoff = '{$post['wearoff']}',
-							effectfailmsg = '{$post['effectfailmsg']}',
-							effectnodmgmsg = '{$post['effectnodmgmsg']}',
-							effectmsg = '{$post['effectmsg']}',
-							allowinpvp = '{$post['allowinpvp']}',
-							allowintrain = '{$post['allowintrain']}',
-							survivenewday = '{$post['survivenewday']}',
-							expireafterfight = '{$post['expireafterfight']}'
-						WHERE buffid = $id";
-				db_query($sql);
+				$update = DB::update('itembuffs');
+				$update->set($post)
+					->where->equalTo('buffid', $id)
+				;
+
+				DB::execute($update);
+
 				invalidatedatacache("inventory-buff-$id");
+
 				output("'`^%s`0' updated.", $post['buffname']);
 			}
 			break;
