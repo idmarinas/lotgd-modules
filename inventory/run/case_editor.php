@@ -123,8 +123,8 @@
 					"Special Settings,title",
 						"uniqueforserver"=>"Is this item unique (server)?,bool",
 						"uniqueforplayer"=>"Is this item unique for the player?,bool",
-						//"equippable"=>"Is this item equippable?,bool",
-						//"equipwhere"=>"Where can this item be equipped?,enum,$enum_equip",
+						"equippable"=>"Is this item equippable?,bool",
+						"equipwhere"=>"Where can this item be equipped?,enum,$enum_equip",
 			  );
 			  showform($format, $item);
 			  rawoutput("</form>");
