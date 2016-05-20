@@ -160,17 +160,19 @@ function inventory_showform($layout,$row)
 		$pretrans = 0;
 		if ($keypref !== false) $keyout = sprintf($keypref, $key);
 		else $keyout = $key;
-		$itemI = 0;
+		$itemI = false;
 
 		$title_id++;
 		$formSections[$title_id] = translate_inline($val);
-		rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'><tr><td>");
+		rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'>");
 		foreach($row[$val] as $value)
 		{
+			rawoutput("<tr class='".($itemI?'trlight':'trdark')."'><td>");
 			showRowItem($value, $itemI);
-			$itemI++;
+			rawoutput('</td></tr>');
+			$itemI = !$itemI;
 		}
-		rawoutput("</td></tr><td></td></tr>");
+		rawoutput("<td></td></tr>");
 	}
 	rawoutput("</table>",true);
 	if ($showform_id==1){
@@ -196,7 +198,7 @@ function inventory_showform($layout,$row)
 			 			weight='';
 			 		}else{
 			 			theTable.style.visibility='visible';
-			 			theTable.style.display='inline-table';
+			 			theTable.style.display='';
 			 			weight='color: yellow;';
 			 		}
 			 		theDivs += \"<div id='showFormButton\"+x+\"' class='trhead' style='\"+weight+\"float: left; cursor: pointer; cursor: hand; padding: 5px; border: 1px solid #000000;' onClick='showFormTabClick(\"+id+\",\"+x+\");'>\"+formSections[id][x]+\"</div>\";
@@ -213,7 +215,7 @@ function inventory_showform($layout,$row)
 		 			theButton = document.getElementById('showFormButton'+x);
 		 			if (x == sectionid){
 		 				theTable.style.visibility='visible';
-		 				theTable.style.display='inline-table';
+		 				theTable.style.display='';
 		 				theButton.style.fontWeight='normal';
 		 				theButton.style.color='yellow';
 						document.getElementById('showFormTabIndex').value = sectionid;
@@ -247,7 +249,7 @@ function inventory_showform($layout,$row)
 }
 
 //** Mostrar un item
-function showRowItem($itsval, $i)
+function showRowItem($itsval)
 {
 	$equip = translate_inline("Equip");
 	$unequip = translate_inline("Unequip");
@@ -255,7 +257,7 @@ function showRowItem($itsval, $i)
 	$drop = translate_inline("Drop");
 	$dropall = translate_inline("All");
 
-	rawoutput("<table class='items-list ".($i%2?'trlight':'trdark')."'><tr class='uk-table-middle'><td rowspan='2' class='uk-text-center'>");
+	rawoutput("<table class='items-list'><tr class='uk-table-middle'><td rowspan='2' class='uk-text-center'>");
 	rawoutput(($itsval['image']?'<i class="'.$itsval['image'].'"></i>':''));
 	output_notl("`n(%s)", $itsval['quantity']);
 	rawoutput('</td><td>');
