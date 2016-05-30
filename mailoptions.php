@@ -41,7 +41,7 @@ function mailoptions_dohook($hookname, $args){
 					$markallread = translate_inline("Mark all messages as read");
 					$markallsysread = translate_inline("Mark all system messages as read");
 					$markallplayerread = translate_inline("Mark all other messages as read");
-					rawoutput("<table width='100%' border='0' cellpadding='2' cellspacing='2'>");
+					rawoutput("<table class='table-bg-transparent' width='100%' border='0' cellpadding='2' cellspacing='2'>");
 					rawoutput("<tr>");
 					rawoutput("<td><a href='mail.php' class='motd'>$return</a><br/>&nbsp;</td>");
 					rawoutput("<td>&nbsp;</td>");
