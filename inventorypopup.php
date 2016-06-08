@@ -107,6 +107,9 @@ function inventorypopup_run(){
 			}
 		break;
 	}
+
+	modulehook('inventorypopup-stats');
+
 	output("Your are currently wearing the following items:`n`n");
 	$sql = "SELECT $item.*,
 					MAX($inventory.equipped) AS equipped,
@@ -121,8 +124,8 @@ function inventorypopup_run(){
 				ORDER BY $item.class ASC, $item.name ASC";
 	/*$item.equippable = 0 AND*/
 	$result = db_query($sql);
-	$inventory = array();
-	$layout = array();
+	$inventory = [];
+	$layout = [];
 	while($row = db_fetch_assoc($result)) {
 		$layout[] = $row['class'];
 		$inventory[$row['class']][] = $row;
