@@ -2,7 +2,7 @@
 require_once("lib/commentary.php");
 require_once("lib/showform.php");
 require_once("modules/cityprefs/lib.php");
-        
+
 function cityprefs_getmoduleinfo() {
 	$info = array(
 		"name"=>"City Preferences Addon",
@@ -12,7 +12,7 @@ function cityprefs_getmoduleinfo() {
 		"description"=>"Gives the ability to use prefs based on cities",
 		"vertxtloc"=>"http://www.legendofsix.com/",
 		"download"=>"http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1155",
-    );                
+    );
 	return $info;
 }
 
@@ -24,14 +24,13 @@ function cityprefs_install(){
 		'module'=>array('name'=>'module', 'type'=>'varchar(255)', 'extra'=>'not null'),
 		'cityname'=>array('name'=>'cityname', 'type'=>'varchar(255)', 'extra'=>'not null'),
 		'key-PRIMARY'=>array('name'=>'PRIMARY', 'type'=>'primary key',	'unique'=>'1', 'columns'=>'cityid'),
-		'index-cityid'=>array('name'=>'cityid', 'type'=>'index', 'columns'=>'cityid'),
 		'index-module'=>array('name'=>'module', 'type'=>'index', 'columns'=>'module'),
 		'index-cityname'=>array('name'=>'cityname', 'type'=>'index', 'columns'=>'cityname'));
     synctable(db_prefix('cityprefs'), $cityprefs, true);
     if (!is_module_active('cityprefs')){
         if ($session['user']['superuser']&~SU_DOESNT_GIVE_GROTTO) output_notl("`4Installing cityprefs Module.`n");
 		$sql = "INSERT INTO ".db_prefix("cityprefs")." (module,cityname) VALUES ('none','".getsetting("villagename",LOCATION_FIELDS)."')";
-		db_query($sql); 
+		db_query($sql);
 		$vloc = array();
 		$vloc = modulehook("validlocation", $vloc);
 		ksort($vloc);
@@ -41,7 +40,7 @@ function cityprefs_install(){
 			$result=db_query($sql);
 			$row = db_fetch_assoc($result);
 			$sql = "INSERT INTO ".db_prefix("cityprefs")." (module,cityname) VALUES ('".$row['modulename']."','".addslashes($loc)."')";
-			db_query($sql);  
+			db_query($sql);
 		}
     }else{
         if ($session['user']['superuser']&~SU_DOESNT_GIVE_GROTTO) output("`4Updating cityprefs Module.`n");
@@ -75,7 +74,7 @@ function cityprefs_dohook($hookname,$args){
 				addnav("Editors");
 				addnav("City Prefs","runmodule.php?module=cityprefs&op=su");
 			}
-		break; 
+		break;
 	}
 	return $args;
 }
@@ -97,21 +96,21 @@ function cityprefs_run() {
 		if(is_module_active("cities"))	addnav(array("Journey to %s",$cityname),"runmodule.php?module=cities&op=travel&city=".urlencode($cityname)."&su=1");
 		else addnav(array("Journey to %s",$cityname),"village.php");
 	}
-	addnav("Navigation");	
-   addnav("Back to the Grotto","superuser.php");   
+	addnav("Navigation");
+   addnav("Back to the Grotto","superuser.php");
    if(is_module_active("modloc")) addnav("Module locations","runmodule.php?module=modloc");
    if($op!="su") addnav("Back to city list","runmodule.php?module=cityprefs&op=su");
     switch ($op) {
         case "su":
 			addnav("Operations");
-            addnav("Auto-add new cities","runmodule.php?module=cityprefs&op=update");  
+            addnav("Auto-add new cities","runmodule.php?module=cityprefs&op=update");
             $id=translate_inline("ID");
             $name=translate_inline("City Name");
             $module=translate_inline("Module");
             $edit=translate_inline("Edit");
             $sql = "select * from ".db_prefix("cityprefs");
             $result=db_query($sql);
-            rawoutput("<table border='0' cellpadding='3' cellspacing='0' align='center'><tr class='trhead'><td style=\"width:50px\">$id</td><td style='width:150px' align=center>$name</td><td align=center>$module</td><td align=center>$edit</td></tr>"); 
+            rawoutput("<table border='0' cellpadding='3' cellspacing='0' align='center'><tr class='trhead'><td style=\"width:50px\">$id</td><td style='width:150px' align=center>$name</td><td align=center>$module</td><td align=center>$edit</td></tr>");
             for ($i = 0; $i < db_num_rows($result); $i++){
                 $row = db_fetch_assoc($result);
                 $vloc = array();
@@ -129,11 +128,11 @@ function cityprefs_run() {
                 output_notl("%s",$row['module']);
                 rawoutput("</td><td align=center>");
                 rawoutput("<a href='runmodule.php?module=cityprefs&op=editmodule&area=".htmlentities($val)."&cityid=".$row['cityid']."'>$edit</a></td></tr>");
-                addnav("","runmodule.php?module=cityprefs&op=editmodule&area=".htmlentities($val)."&cityid=".$row['cityid']."");  
+                addnav("","runmodule.php?module=cityprefs&op=editmodule&area=".htmlentities($val)."&cityid=".$row['cityid']."");
             }
             rawoutput("</table>");
             break;
-    
+
         case "update":
             $vloc = array();
             $vloc = modulehook("validlocation", $vloc);
@@ -146,7 +145,7 @@ function cityprefs_run() {
                 if(db_num_rows($result)==0){
                     $sql = "select modulename from ".db_prefix("module_settings")." where value='".addslashes($loc)."' and setting='villagename'";
                     $result=db_query($sql);
-                    $row = db_fetch_assoc($result);           
+                    $row = db_fetch_assoc($result);
                     $sql = "INSERT INTO ".db_prefix("cityprefs")." (module,cityname) VALUES ('".$row['modulename']."','".addslashes($loc)."')";
                     db_query($sql);
                     $out=1;
@@ -154,7 +153,7 @@ function cityprefs_run() {
                 }
             }
             if($out==0) output("There were no new locations found.");
-        break; 
+        break;
         case "editmodule": //code from clan editor by CortalUX
         case "editmodulesave":
 			addnav("Operations");
@@ -183,7 +182,7 @@ function cityprefs_run() {
  			addnav("Module Prefs");
 			module_editor_navs("prefs-city","runmodule.php?module=cityprefs&op=editmodule&cityid=$cityid&mdule=");
 		break;
-        
+
         case "editcity":
 			output("Changing these values will not affect the city itself, just what city is associated with the preferences.  This is useful if you want to preserve prefs after removing a city.");
 			addnav("Navigation");
@@ -198,9 +197,9 @@ function cityprefs_run() {
             addnav("","runmodule.php?module=cityprefs&op=editcity2&cityid=$cityid");
             rawoutput("<input name='cityname' id='cityname' value='$city' size='40' maxlength='255'><br>");
             rawoutput("<input name='modulename' id='modulename' value='$module' size='40' maxlength='255'><br>");
-            rawoutput("<input type='submit' class='button' value='$submit'></form>");              
+            rawoutput("<input type='submit' class='button' value='$submit'></form>");
         break;
-        
+
         case "editcity2":
 			addnav("Navigation");
 			addnav("Back to city properties","runmodule.php?module=cityprefs&op=editmodule&cityid=$cityid");
@@ -209,7 +208,7 @@ function cityprefs_run() {
             db_query("update ".db_prefix("cityprefs")." set cityname='".$cityname."',module='".$modulename."' where cityid=$cityid");
             output("The city name is now %s and the module name is %s.",$cityname,$modulename);
         break;
-        
+
         case "delcity":
 			addnav("Navigation");
             $cityid = httpget('cityid');
@@ -222,11 +221,11 @@ function cityprefs_run() {
         case "delcity2":
 			addnav("Navigation");
 			addnav("Back to city properties","runmodule.php?module=cityprefs&op=editmodule&cityid=$cityid");
-            $cityid = httpget('cityid');		
+            $cityid = httpget('cityid');
             db_query("delete from ".db_prefix("cityprefs")." where cityid=$cityid");
             output("The city has been deleted.");
         break;
         }
     page_footer();
-    }    
+    }
 ?>
