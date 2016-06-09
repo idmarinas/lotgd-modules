@@ -49,7 +49,7 @@ foreach($act as $key => $value)
 {
 	$class = ($value['class'] != '' ? $value['class'] : 'Other');
 	$layout[] = $class;
-	$row[$class][$key] = $value; 
+	$row[$class][$key] = $value;
 }
 
 action_showform(array_unique($layout), $row);
@@ -87,15 +87,15 @@ function action_showform($layout,$row)
 		rawoutput("<table>");
 		rawoutput("<tr><td>".translate_inline("No actions found")."</td></tr>");
 		rawoutput("</table>");
-		
+
 		return;
 	}
-	
+
  	$showform_id++;
  	$formSections = array();
 	$returnvalues = array();
-	
-	rawoutput("<table>");
+
+	rawoutput("<table class='table-bg-transparent'>");
 	rawoutput("<tr><td><div id='showFormSection$showform_id'></div></td></tr>");
 	rawoutput("<tr><td>");
 	$i = 0;
@@ -104,10 +104,10 @@ function action_showform($layout,$row)
 		$pretrans = 0;
 		if ($keypref !== false) $keyout = sprintf($keypref, $key);
 		else $keyout = $key;
-	
+
 		$title_id++;
 		$formSections[$title_id] = translate_inline($val);
-		rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'><tr><td>");
+		rawoutput("<table class='table-bg-transparent' id='showFormTable$title_id' cellpadding='2' cellspacing='0'><tr><td>");
 		show_actions($row[$val]);
 		rawoutput("</td></tr><td></td></tr>");
 	}
@@ -194,7 +194,7 @@ function show_actions($act)
 	$buff = translate_inline("Buff");
 	$total = translate_inline("Total");
 	rawoutput("<table class='stamina'><tr><th>$action</th><th>$experience</th><th>$cost</th><th>$buff</th><th>$total</th></tr>");
-	
+
 	natsort($act);
 	foreach($act AS $key => $values){
 		$lvlinfo = stamina_level_up($key);
@@ -214,21 +214,21 @@ function show_actions($act)
 		} elseif ($modifier > 0) {
 			$bonus = "`\$".number_format($modifier)."`0";
 		};
-		
+
 		//current exp - current lvl exp / current exp - nextlvlexp
-		
+
 		$expforlvl = $nextlvlexp - $currentlvlexp;
 		$expoflvl = $exp - $currentlvlexp;
-		
+
 		if ($values['lvl']<100){
 			$pct = ($expoflvl / $expforlvl) * 100;
 		}
-		
+
 		rawoutput("<tr><td>");
 		output("`^$key`0 Lv %s", $level);
 		rawoutput("</td><td>");
 		$exp = number_format($exp);
-		
+
 		if ($values['lvl']<100){
 			rawoutput("<div class='progressbar'>
 				<div class='progress-progressbar progress-progressbar-progress' style='width: $pct%;'></div>
