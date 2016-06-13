@@ -288,7 +288,7 @@ function showRowItem($itsval)
 	rawoutput("</td>");
 
 	rawoutput("<td nowrap>");
-	output("(Gold value: %s, Gem Value: %s)", max($itsval['gold'],$itsval['sellvaluegold']), max($itsval['gems'], $itsval['sellvaluegems']));
+	output("(Gold value: `^%s`0, Gem Value: `%%s`0)", $itsval['sellvaluegold'], $itsval['sellvaluegems']);
 	$tl_desc = translate_inline($itsval['description']);
 	rawoutput("</td></tr>");
 	if ('' != $itsval['description'])
