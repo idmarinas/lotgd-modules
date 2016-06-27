@@ -33,7 +33,7 @@ function mechanicalturk_install(){
 		'key-PRIMARY'=>array('name'=>'PRIMARY', 'type'=>'primary key',	'unique'=>'1', 'columns'=>'creatureid'),
 	);
 	require_once("lib/tabledescriptor.php");
-	// synctable(db_prefix('mechanicalturk'), $mechanicalturk, true);
+	synctable(db_prefix('mechanicalturk'), $mechanicalturk, true);
 	module_addhook("forest");
 	module_addhook("superuser");
 	return true;
