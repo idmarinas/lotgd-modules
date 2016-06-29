@@ -191,7 +191,7 @@ function avatar_get_all_images($race, $gender, $selset, $button)
 	ksort($setnames);
 	ksort($setdirs);
 	reset($setdirs);
-	$str = "<table border=0>";
+	$str = "<table class='table-bg-transparent'>";
 	while(list($key, $val) = each($setdirs)) {
 		$str .= "<tr>";
 		// We are going to do three per row here
@@ -216,7 +216,7 @@ function avatar_get_all_images($race, $gender, $selset, $button)
 			$str .= "<td>&nbsp;</td><td>&nbsp;</td>";
 		}
 
-		// third 
+		// third
 		if(list($key, $val) = each($setdirs)) {
 			$str .= "<td>" . $setnames[$key] .
 				"<br /><input type='radio' name='set' value='" .
