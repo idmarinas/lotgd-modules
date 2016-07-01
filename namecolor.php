@@ -1,11 +1,12 @@
 <?php
 //addnews ready
 // mail ready
+// 1.0.1 - Better for translations
 function namecolor_getmoduleinfo(){
 	$info = array(
 		"name"=>"Name Colorization",
 		"author"=>"Eric Stevens",
-		"version"=>"1.0",
+		"version"=>"1.0.1",
 		"download"=>"core_module",
 		"category"=>"Lodge",
 		"settings"=>array(
@@ -42,7 +43,7 @@ function namecolor_dohook($hookname,$args){
 		$str = translate("A colored name costs %s points for the first change and %s points for subsequent changes.");
 		$str = sprintf($str, get_module_setting("initialpoints"),
 				get_module_setting("extrapoints"));
-		output($format, $str, true);
+		output_notl($format, $str, true);
 		break;
 	case "lodge":
 		$config = unserialize($session['user']['donationconfig']);

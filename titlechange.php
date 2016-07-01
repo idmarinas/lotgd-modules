@@ -3,11 +3,12 @@
 // 1.0 - initial version by JT Traub
 // 1.1 - Modifications by Sixf00t4 to actually charge for titles rather than
 //       having them be 'freebies'
+// 1.1.1 - Better for translations
 function titlechange_getmoduleinfo(){
 	$info = array(
 		"name"=>"Title Change",
 		"author"=>"JT Traub",
-		"version"=>"1.1",
+		"version"=>"1.1.1",
 		"download"=>"core_module",
 		"category"=>"Lodge",
 		"settings"=>array(
@@ -54,7 +55,7 @@ function titlechange_dohook($hookname,$args){
 
 		$str = sprintf($str, get_module_setting("initialpoints"),
 				get_module_setting("extrapoints"));
-		output($format, $str, true);
+		output_notl($format, $str, true);
 		break;
 	case "lodge":
 		// If they have less than what they need just ignore them

@@ -1,10 +1,10 @@
 <?php
-
+// 1.0.1 - Better for translations
 function avatar_getmoduleinfo()
 {
 	$info = array(
 		"name" => "Bio Avatars",
-		"version" => "1.0",
+		"version" => "1.0.1",
 		"author" => "JT Traub",
 		"category" => "Lodge",
 		"download" => "core_module",
@@ -65,7 +65,7 @@ function avatar_dohook($hookname, $args)
 		$format = $args['format'];
 		$str = translate("For %s points, you will get an avatar picture to display on your bio page.  You can change it to a different avatar at a later time for %s additional points.");
 		$str = sprintf($str, $cost, $changecost);
-		output($format, $str, true);
+		output_notl($format, $str, true);
 		break;
 	case "lodge":
 		if (!get_module_pref("bought")) {
