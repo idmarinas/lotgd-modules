@@ -96,28 +96,52 @@ function worldmapen_editor_terrain($op, $subop, $act) {
 
 	if ($act == "save"){
 		$terrainDefs = worldmapen_loadTerrainDefs();
-		
+
 		reset($_POST);
 		foreach ($_POST AS $key=>$value) {
 			list($x,$y) = explode("_", $key, 2);
-			
+
 			if (is_numeric($x) && is_numeric($y)) {
 				worldmapen_setTerrain($x, $y, 1, $value);
 			}
 		}
 		worldmapen_saveMap();
-		
+
 		output("Worldmap saved");
 	}
-	$colors = array();
-	foreach( $worldmapen_globals['terrainDefs'] as $defs )
+
+	$modify = '';
+	foreach($worldmapen_globals['terrainDefs'] as $defs)
 	{
-		$colors[]= $defs['color'];
+		$modify .= sprintf(
+			'<label for="%s" class="uk-badge %s"><input type="radio" data-class="%s" name="color" id="%s" value="%s"> %s</label> ',
+			$defs['type'],
+			$defs['color'],
+			$defs['color'],
+			$defs['type'],
+			$defs['type'],
+			$defs['type']
+		);
 	}
+	rawoutput('<div class="uk-text-center">'.$modify.'</div>');
+	rawoutput('<br><div class="uk-text-center"><label id="color-select" class="uk-badge uk-text-large">Ninguno</label></div>');
+
 	// -----------------------------------------------------------------------
 	// BEGIN - Java script to determine the terrain type by clicking on a td cell
 	// -----------------------------------------------------------------------
-	rawoutput('<script type="text/javascript">colors = '.json_encode($colors).';function changeColor(target){var length = colors.length;	var value = parseInt($("#"+target+"b").val());	value = isNaN(value) ? 0 : value+1;	if (value >= length) { value = 0; }$("#"+target).removeClass().addClass(colors[value]);$("#"+target+"b").val(value);}</script>');
+	rawoutput('<script type="text/javascript">
+		$("input[name=\'color\']").on("change", function (){
+			$("#color-select").text($(this).val()).removeClass().addClass("uk-badge uk-text-large "+ $(this).data("class"));
+		});
+		function changeColor(target)
+		{
+			var selected = $("input[name=\'color\']:checked");
+			if (undefined === selected.val()) return;
+
+			$("#"+target).removeClass().addClass(selected.data("class"));
+			$("#"+target+"b").val(selected.val());
+		}
+	</script>');
 	// -----------------------------------------------------------------------
 	// END - Java script to determine the terrain type by clicking on a td cell
 	// -----------------------------------------------------------------------
