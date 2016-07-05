@@ -48,8 +48,11 @@ function fairy_dohook($hookname,$args){
 
 function fairy_runevent($type)
 {
-	require_once("lib/increment_specialty.php");
 	global $session;
+
+	require_once 'lib/increment_specialty.php';
+	require_once 'modules/staminasystem/lib/lib.php';
+
 	// We assume this event only shows up in the forest currently.
 	$from = "forest.php?";
 	$session['user']['specialinc'] = "module:fairy";
@@ -83,7 +86,6 @@ function fairy_runevent($type)
                     }
                     else
                     {
-                        require_once "modules/staminasystem/lib/lib.php";
                         if ($extra == 1) output("You receive an extra forest fight!");
 					    else output("You receive %s extra forest fights!", $extra);
                         $session['user']['turns'] += $extra;
@@ -103,14 +105,14 @@ function fairy_runevent($type)
 							!get_module_setting("carrydk", "globalhp")))
 						$hptype = "temporarily";
                     //-- Agregada compatibilidad con la versión de IDMarinas >= 0.7.0
-                    else $session['user']['permahitpoints'] += $extra;    
-                    
+                    else $session['user']['permahitpoints'] += $extra;
+
 					$hptype = translate_inline($hptype);
-	
+
 					$extra = get_module_setting("hptoaward");
 					output("Your maximum hitpoints are `b%s`b increased by %d!",
 							$hptype, $extra);
-	
+
 					$session['user']['maxhitpoints'] += $extra;
 					$session['user']['hitpoints'] += $extra;
 					set_module_pref("extrahps",
