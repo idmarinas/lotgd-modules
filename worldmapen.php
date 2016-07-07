@@ -38,13 +38,13 @@ function worldmapen_getmoduleinfo(){
 		"wmspecialchance"=>"Chance for a special during travel,int|7",
 		"randevent"=>"Random Event -Don't Edit,text|forest",
 		"randchance"=>"Percent chance you will get a travel module instead of forest,range,5,100,5",
-		
+
 		"Turns and Stamina,title",
 		"useturns"=>"Use one of the player's Turns when they encounter a monster?,bool|0",
 		"allowzeroturns"=>"Allow the fight to go ahead if the player's Turns are zero?,bool|1",
 		"turntravel"=>"Allow the player to trade one of his Turns for this many Travel points (set to zero to disable),int|0",
 		"usestamina"=>"Expanded Stamina system is installed and should be used instead of Travel points,bool|0",
-		
+
 		"Visual Map Settings,title",
 		"colorUserLoc"=>"What color background is the users current location?,text|worldmapen-terrain-current",
 		"colorPlains"=>"Color of plains? (default tile),text|worldmapen-terrain-plains",
@@ -58,20 +58,20 @@ function worldmapen_getmoduleinfo(){
 		"colorEarth"=>"Color of Earth?,text|worldmapen-terrain-earth",
 		"colorAir"=>"Color of Air?,text|worldmapen-terrain-air",
 		'All colors must be in CSS here is class name.,note',
-	
+
 		"Boundary Messages,title",
 		"nBoundary"=>"Northern boundary,text|To the north are the impenetrable mountains of Loa.",
 		"eBoundary"=>"Eastern boundary,text|The vast ocean of silence lay to your east.  Long before you can remember ships stopped sailing across to the other continents.  But why?",
 		"sBoundary"=>"Southern boundary,text|To the south you can see a great ravine that seems to stretch on forever.",
 		"wBoundary"=>"Western boundary,text|To the west lays the barren wasteland of the Goiu desert.  No one has ever survived out there.",
-	
+
 		"Gate Messages,title",
 		"LeaveGates1"=>"Leave gates of village. (1)|A shiver runs down your back as you face the forest around you.",
 		"LeaveGates2"=>"Leave gates of village. (2)|You're all alone now...",
 		"LeaveGates3"=>"Leave gates of village. (3)|The sound of the forest settles in around you as you think to yourself what evil must lurk within.",
 		"LeaveGates4"=>"Leave gates of village. (4)|Perhaps I should go back in...",
 		"LeaveGates5"=>"Leave gates of village. (5)|A howling noise bellows from deep within the forest.  You hear the guards from the other side of the gates yell \"Good Luck!\" and what sounds like \"they'll never make it.",
-	
+
 		"Terrain Encounter Settings,title",
 		"encounterPlains"=>"Chance of encountering a monster when crossing plains?,int|20",
 		"encounterForest"=>"Chance of encountering a monster when crossing dense forests?,int|85",
@@ -208,11 +208,11 @@ function worldmapen_install(){
 			"class"=>"Travelling"
 		));
 		install_action("Travelling - Air",array(
-			"maxcost"=>25000,
+			"maxcost"=>30000,
 			"mincost"=>7500,
 			"firstlvlexp"=>500,
 			"expincrement"=>1.1,
-			"costreduction"=>175,
+			"costreduction"=>180,
 			"class"=>"Travelling"
 		));
 		install_action("Travelling - Desert",array(
@@ -223,7 +223,7 @@ function worldmapen_install(){
 			"costreduction"=>175,
 			"class"=>"Travelling"
 		));
-	} 
+	}
 	return true;
 }
 
@@ -239,7 +239,7 @@ function worldmapen_uninstall(){
 	uninstall_action("Travelling - Swamp");
 	uninstall_action("Travelling - Air");
 	uninstall_action("Travelling - Desert");
-	
+
 	return true;
 }
 
@@ -255,11 +255,11 @@ function worldmapen_editor() {
 
 function worldmapen_dohook($hookname,$args){
 	global $session;
-	
+
 	// If the cities module is deactivated, we do nothing.
-	if (!is_module_active("cities")) 
+	if (!is_module_active("cities"))
 		return $args;
-	
+
 	if (file_exists("modules/worldmapen/dohook/{$hookname}.php")) {
 		require("modules/worldmapen/dohook/{$hookname}.php");
 	} else {
