@@ -118,10 +118,10 @@ function fairy_runevent($type)
 					set_module_pref("extrahps",
 							get_module_pref("extrahps")+$extra);
 					break;
-				case 6:
-				case 7:
-					increment_specialty("`^");
-					break;
+				// case 6:
+				// case 7:
+				// 	increment_specialty("`^");
+				// 	break;
 			}
 		}else{
 			output("`%You promise to give the fairy a gem, however, when you open your purse, you discover that you have none.");
