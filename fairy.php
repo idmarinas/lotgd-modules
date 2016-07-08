@@ -73,7 +73,7 @@ function fairy_runevent($type)
 			output("You discover that ...`n`n`^");
 			$session['user']['gems']--;
 			debuglog("gave 1 gem to a fairy");
-			switch(e_rand(1,7)){
+			switch(e_rand(1,5)){
 				case 1:
 					//## Agregada compatibilidad con Stamina system
 					$extra = get_module_setting("fftoaward");
