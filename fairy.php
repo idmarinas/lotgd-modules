@@ -79,10 +79,10 @@ function fairy_runevent($type)
 					$extra = get_module_setting("fftoaward");
                     if (is_module_active('staminasystem'))
                     {
-                        output("¡El Hada te recompensa con algo de Resistencia!");
+                        output("The Fairy reward you with same Stamina!");
                         $stamina = $extra*25000;
                         addstamina($stamina);
-                        debuglog("aumenta la resistencia por el hada");
+                        debuglog("up stamina for fairy in forest");
                     }
                     else
                     {
