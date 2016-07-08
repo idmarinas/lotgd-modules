@@ -100,6 +100,8 @@ function fairy_runevent($type)
 				case 4:
 				case 5:
 					$hptype = "permanently";
+					$extra = get_module_setting("hptoaward");
+
 					if (!get_module_setting("carrydk") ||
 							(is_module_active("globalhp") &&
 							!get_module_setting("carrydk", "globalhp")))
@@ -109,7 +111,6 @@ function fairy_runevent($type)
 
 					$hptype = translate_inline($hptype);
 
-					$extra = get_module_setting("hptoaward");
 					output("Your maximum hitpoints are `b%s`b increased by %d!",
 							$hptype, $extra);
 
