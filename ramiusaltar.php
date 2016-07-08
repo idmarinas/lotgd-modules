@@ -88,7 +88,7 @@ function ramiusaltar_run(){
 
 	page_header("Altar of Ramius");
 	output("`7`c`bAltar of `4Ramius`b`c`n`7");
-    
+
     addnav('Navigation');
 	if ($op==""){
 
@@ -138,7 +138,7 @@ function ramiusaltar_run(){
 					$ramius_is_pleased = 0;
 					break;
 				}
-	
+
 				$gain_favor += get_module_setting("reward1");
 
 				set_module_pref("totalhploss", get_module_pref("totalhploss")+$session['user']['hitpoints'] * 0.9);
@@ -154,9 +154,9 @@ function ramiusaltar_run(){
                 //-- Se modifica para que use la Stamina y no los turnos
                 require_once "modules/staminasystem/lib/lib.php";
                 $amber = get_stamina();
-                
+
                 // if ($session['user']['turns'] <= 4) {
-				if ($amber = get_stamina() < 100) 
+				if ($amber = get_stamina() < 100)
                 {
 					output("`n`2You feel too tired to give flesh right now, and back away from the altar.");	//150
 					debuglog("lost 5 favor trying to give flesh with " . get_stamina(3) . " turns left");
@@ -172,7 +172,7 @@ function ramiusaltar_run(){
 				// set_module_pref("totalturnloss", get_module_pref("totalturnloss")+$turn_loss);
 				set_module_pref("totalturnloss", get_module_pref("totalturnloss")+$stamina);
                 removestamina($stamina);
-                
+
 				output("`n`7You tear some flesh from your `Q%s`7 with your `Q%s`7.  Gasping in pain, you close your eyes and drop your sacrifice.`n",  $body_parts[$where_to_cut], $session['user']['weapon']);
 				output("`n`7The etched foreign symbols on the stone altar begin to glow, and you find yourself chanting the words repeatedly, though you know you've never seen the language.");
 				// output("`n`7Fear fills you, and you hurry away from this place.  You lose `@" . $turn_loss . " turn(s)`7.`n");
@@ -183,7 +183,9 @@ function ramiusaltar_run(){
 				debuglog("lost `@" . $stamina . " stamina `7 giving spirit at Altar of Ramius");
 				break;
 			case "spirit":
-				if ($session['user']['maxhitpoints'] <= ($session['user']['level'] * 10)) {
+				//-- Compatibilidad con edición IDMarinas >= 0.7.0
+				if (0 >= $session['user']['permahitpoints'])
+				{
 					output("`n`2Your spirit is not strong enough to sacrifice. You back away from the altar.");
 					debuglog("lost 5 favor trying to give spirit with " . $session['user']['maxhitpoints'] . " hp at lvl " . $session['user']['level'] . "." );
 					$ramius_is_pleased = 0;
@@ -198,7 +200,7 @@ function ramiusaltar_run(){
 				set_module_pref("totalmaxhploss", get_module_pref("totalmaxhploss")+$hp_loss);
                 //-- Compatibilidad con edición IDMarinas >= 0.7.0
                 $session['user']['permahitpoints'] -= $hp_loss;
-                
+
 				output("`n`7You decide to offer to curse your spirit in return for a blessing.`n");
 				output("`n`7The etched foreign symbols on the stone altar begin to glow, and you find yourself chanting the words repeatedly, though you know you've never seen the language.");
 				output("`n`7Fear fills you, and you hurry away from this place.  You lose `&%s Max HP`7.`n", $hp_loss);
@@ -234,7 +236,7 @@ function ramiusaltar_run(){
 	} elseif ($op=="defile") {
 
 		switch (e_rand(1,3)) {
-			case 1: 
+			case 1:
 				output("`n`7You kick a clod of loose dirt towards the altar.`n");
 				break;
 			case 2:
@@ -244,7 +246,7 @@ function ramiusaltar_run(){
 				output("`n`7You swing your %s at the altar, chipping the stone.`n", $session['user']['weapon']);
 				break;
 		}
-		
+
 		if ($session['user']['deathpower'] > 0) {
 			$favor_loss = 50;
 			output("`n`4Ramius `7hears of your deed, and is outraged!");
@@ -253,13 +255,13 @@ function ramiusaltar_run(){
 
             require_once("modules/alignment/func.php");
             align("+2");  // +1 aligment
-            
+
             require_once "modules/staminasystem/lib/lib.php";
 			// $session['user']['turns']++;
             addstamina(25000);
 			// output("`n`7Emboldened from your rebuke of the feared `4Ramius`7, you gain `@1 turn`7!");
 			output("`n`7Emboldened from your rebuke of the feared `4Ramius`7, you gain `@some stamina`7!");
-			
+
 		} else {
 			output("`n`4Ramius `7hears of your deed, but says he's never even heard of %s`7, and ignores you.`n",$session['user']['name']);
 		}
@@ -267,7 +269,7 @@ function ramiusaltar_run(){
 
 		// we also want in WHERE "AND (locked=0 AND (superuser & SU_HIDE_FROM_LEADERBOARD) = 0)", but that's in db_prefix("accounts")
 
-//		$sql = "SELECT value FROM ".db_prefix("module_userprefs")." INNER JOIN ".db_prefix("accounts")." ON userid=acctid WHERE (locked=0 AND (superuser & ".SU_HIDE_FROM_LEADERBOARD.") = 0)"; 
+//		$sql = "SELECT value FROM ".db_prefix("module_userprefs")." INNER JOIN ".db_prefix("accounts")." ON userid=acctid WHERE (locked=0 AND (superuser & ".SU_HIDE_FROM_LEADERBOARD.") = 0)";
 //		$sql = "SELECT count(userid) AS c FROM " . db_prefix("module_userprefs") . " INNER JOIN " . db_prefix("accounts") . " ON userid=acctid WHERE modulename=\"ramiusaltar\" AND locked=0 AND (superuser & " . SU_HIDE_FROM_LEADERBOARD . ") = 0";
  		$sql = "SELECT count(userid) AS c FROM " . db_prefix("module_userprefs") . " WHERE modulename=\"ramiusaltar\" ";
 
@@ -288,7 +290,7 @@ function ramiusaltar_run(){
 						"totalhploss",
 						"totalturnloss",
 						"totalmaxhploss" );
-		
+
 		for($i = 1; $i < $count; $i++){
 			$userpref = get_all_module_prefs("ramiusaltar", $i);
 
@@ -299,7 +301,7 @@ function ramiusaltar_run(){
 			$row = db_fetch_assoc($result);
 
 			rawoutput("<tr align=center>");
-			
+
 			for ($j = 0; $j < min(6, count($userpref)); $j++) {
 
 				if ($j == 0) { output_notl("<td align=left>%s</td>", $row['name'], true); continue; }
@@ -310,11 +312,11 @@ function ramiusaltar_run(){
 			rawoutput("</tr>");
 		}
 		rawoutput("</table>");
-	
+
 		addnav("Back to HOF","hof.php");
 
 	}
-    
+
     addnav('Return');
 	villagenav();
 	page_footer();
