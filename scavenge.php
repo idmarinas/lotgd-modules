@@ -84,8 +84,10 @@ function scavenge_dohook($hookname,$args){
     return $args;
 }
 
-function scavenge_runevent($type) {
+function scavenge_runevent($type)
+{
 	global $session;
+
 	$from = "runmodule.php?module=scavenge&";
 	if ($type == "graveyard") $from = "graveyard.php?";
 	elseif ($type == "village") $from = "village.php?";
@@ -101,7 +103,10 @@ function scavenge_runevent($type) {
 			addnav("Search the Bodies", $from . "op=loot");
 			addnav("Leave Well Alone", $from . "op=leavescavenge");
 		} elseif ($op=="loot") {
-			if (is_module_active('alignment')) {
+			if (is_module_active('alignment'))
+			{
+				require_once 'modules/alignment/func.php';
+
 				align("-1");
 			}
 			$rand = round(e_rand(1,17), 0);
