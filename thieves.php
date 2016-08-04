@@ -420,7 +420,7 @@ function thieves_fight($costlose) {
 		require_once("battle.php");
 		if ($victory){
 			if (e_rand(1, 100) < get_module_setting("chancebackstab")) {
-				$costlose2 = $costlose*1.5;
+				$costlose2 = round($costlose*1.5);
 				if ($costlose2 > $session['user']['gems'])
 					$costlose2 = $session['user']['gems'];
 				$session['user']['gems']-=$costlose2;
