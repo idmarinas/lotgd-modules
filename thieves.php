@@ -8,7 +8,7 @@
 / 2.23.04  (7th revision) -scs-
 
 v2.0.0 (IDMarinas)
-	- Adapted for IDMarinas version maybe incompatible with other versions
+	- Adapted for IDMarinas version maybe incompatible with other versions and error fixed
 
 v1.8 (XChrisX)
  - Changed to support multiple enemies. Removed buff, added real thieves. Hidden
@@ -419,7 +419,7 @@ function thieves_fight($costlose) {
 	if ($battle){
 		require_once("battle.php");
 		if ($victory){
-			if (e_rand(1, 100) < get_module_setting("backstabchance")) {
+			if (e_rand(1, 100) < get_module_setting("chancebackstab")) {
 				$costlose2 = $costlose*1.5;
 				if ($costlose2 > $session['user']['gems'])
 					$costlose2 = $session['user']['gems'];
