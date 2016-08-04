@@ -435,9 +435,12 @@ function thieves_fight($costlose) {
 				debuglog("lost $costlose2 gems to Lonestrider backstab");
 				if (get_module_setting("losegold")) {
 					$goldloss = $session['user']['gold'];
-					$session['user']['gold'] = 0;
-					output("Additionally, you find `^%s gold`6 gone.", $goldloss);
-					debuglog("lost $goldloss gold to Lonestrider backstab");
+					if ($goldloss)
+					{
+						$session['user']['gold'] = 0;
+						output("Additionally, you find `^%s gold`6 gone.", $goldloss);
+						debuglog("lost $goldloss gold to Lonestrider backstab");
+					}
 				}
 				require_once("lib/taunt.php");
 				$taunt = select_taunt_array();
