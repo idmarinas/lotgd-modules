@@ -79,7 +79,7 @@ function fairy_runevent($type)
 					$extra = get_module_setting("fftoaward");
                     if (is_module_active('staminasystem'))
                     {
-                        output("The Fairy reward you with same Stamina!");
+                        output("The Fairy reward you with some Stamina!");
                         $stamina = $extra*25000;
                         addstamina($stamina);
                         debuglog("up stamina for fairy in forest");
