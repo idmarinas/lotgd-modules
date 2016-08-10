@@ -13,8 +13,8 @@ require_once("lib/http.php");
 function gardener_getmoduleinfo(){
     $info = array(
         "name"=>"Gardener",
-        "version"=>"1.0",
-        "author"=>"Shannon Brown",
+        "version"=>"1.1.0",
+        "author"=>"Shannon Brown modified by `%IDMarinas`0 dragonverde.infommo.es",
         "category"=>"Gardens",
         "download"=>"core_module",
 		"settings"=>array(

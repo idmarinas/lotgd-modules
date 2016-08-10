@@ -15,7 +15,7 @@ function gardenparty_getmoduleinfo()
 {
 	return [
 		"name" => "Garden Party",
-		"author" => "Eric Stevens modified by IDMarinas dragonverde.infommo.es",
+		"author" => "Eric Stevens modified by `%IDMarinas`0 dragonverde.infommo.es",
 		"category" => "Gardens",
 		"version" => "1.1.0",
 		"download" => "core_module",
