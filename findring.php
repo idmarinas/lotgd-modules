@@ -14,10 +14,9 @@ function findring_getmoduleinfo(){
 }
 
 function findring_install(){
-	module_addeventhook("travel",
-			"return (is_module_active('cities')?100:0);");
-	module_addeventhook("forest",
-			"return (is_module_active('cities')?0:100);");
+	if (is_module_active('cities')) module_addeventhook("travel", "return 100;");
+	else module_addeventhook("forest", "return 100;");
+
 	return true;
 }
 
