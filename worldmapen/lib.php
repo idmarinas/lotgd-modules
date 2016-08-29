@@ -634,7 +634,7 @@ function worldmapen_determinenav(){
 		addnav("Superuser");
 		foreach($vloc as $loc=>$val) {
 			if ($loc == $session['user']['location']) continue;
-			addnav(array("Go to %s", $loc), "runmodule.php?module=worldmapen&op=destination&cname=".htmlentities($loc));
+			addnav(array("Go to %s", $loc), "runmodule.php?module=worldmapen&op=destination&cname=".urlencode($loc));
 		}
 	}
 	if ($session['user']['superuser'] & SU_EDIT_USERS) {
