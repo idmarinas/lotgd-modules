@@ -119,19 +119,33 @@ function racehuman_dohook($hookname,$args){
 		if ($session['user']['race']==$race){
 			racehuman_checkcity();
 
-			$bonus = get_module_setting("bonus");
-			$one = translate_inline("an");
-			$two = translate_inline("two");
-			$three = translate_inline("three");
-			$word = $bonus==1?$one:$bonus==2?$two:$three;
-			$fight = translate_inline("fight");
-			$fights = translate_inline("fights");
+			$bonus = (int) get_module_setting("bonus");
 
-			$args['turnstoday'] .= ", Race (human): $bonus";
-			$session['user']['turns']+=$bonus;
-			$fight = translate_inline("fight");
-			$fights = translate_inline("fights");
-			output("`n`&Because you are human, you gain `^%s extra`& forest fights for today!`n`0", $word, $bonus==1?$fight:$fights);
+			if (is_module_active('staminasystem'))
+			{
+
+				require_once 'modules/staminasystem/lib/lib.php';
+
+				$stamina = $bonus*25000;
+                addstamina($stamina);
+				$args['turnstoday'] .= ", Race (human): $stamina stamina";
+
+				output('`n`&Because you are human, you gain `^some stamina`& for today!`n`0');
+			}
+			else
+			{
+				$one = translate_inline("an");
+				$two = translate_inline("two");
+				$three = translate_inline("three");
+				$word = $bonus==1?$one:$bonus==2?$two:$three;
+				$fight = translate_inline("fight");
+				$fights = translate_inline("fights");
+
+				$args['turnstoday'] .= ", Race (human): $bonus";
+				$session['user']['turns']+=$bonus;
+
+				output("`n`&Because you are human, you gain `^%s extra`& forest fights for today!`n`0", $word, $bonus==1?$fight:$fights);
+			}
 		}
 		break;
 	case "validforestloc":
