@@ -51,7 +51,7 @@ function fairy_runevent($type)
 	global $session;
 
 	require_once 'lib/increment_specialty.php';
-	require_once 'modules/staminasystem/lib/lib.php';
+	if (is_module_active('staminasystem')) require_once 'modules/staminasystem/lib/lib.php';
 
 	// We assume this event only shows up in the forest currently.
 	$from = "forest.php?";
