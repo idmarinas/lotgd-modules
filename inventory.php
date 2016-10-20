@@ -18,7 +18,7 @@ function inventory_getmoduleinfo(){
 			"Inventory - Carrying items, title",
 				"limit"=>"How many items canbe carried by user?, range, 0,1000,1|0",
 				"Note: Setting this to 0 will allow the user to carry a limitless amount of items, note",
-				"weight"=>"Maximum weiht users can carry?, range,0,1000,1|0",
+				"weight"=>"Maximum weiht users can carry?, range,0,10000,1|0",
 				"Note: Setting this to 0 will allow the user to carry a limitless weight of items, note",
 				"droppable"=>"Items are droppable?, bool|1",
 			"Inventory - Setup,title",
