@@ -47,7 +47,7 @@
 		'specialvalue' => array('name'=>'specialvalue', 'type'=>'text', 'null'=>'0'),
 		'equipped' => array('name'=>'equipped', 'type'=>'tinyint(2)', 'null'=>'0'),
 		'charges' => array('name'=>'charges', 'type'=>'tinyint', 'default'=>'0', 'null'=>'0'),
-		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>'invid'));
+		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>['invid']));
 
 	$buff_table = array(
 		'buffid'=> array('name'=>'buffid', 'type'=>'int(10) unsigned',	'null'=>'0', 'extra'=>'auto_increment'),
@@ -79,8 +79,8 @@
 		'allowintrain'=> array('name'=>'allowintrain', 'type'=>'tinyint(1) unsigned', 'null'=>0),
 		'survivenewday'=> array('name'=>'survivenewday', 'type'=>'tinyint(1) unsigned', 'null'=>0),
 		'expireafterfight'=> array('name'=>'expireafterfight', 'type'=>'tinyint(1) unsigned', 'null'=>0),
-		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>'buffid'),
-		'key-UNIQUE' => array('name'=>'UNIQUE', 'type'=>'unique key', 'columns'=>'buffname'));
+		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>['buffid']),
+		'key-UNIQUE' => array('name'=>'buffname', 'type'=>'unique key', 'columns'=>['buffname']));
 
 	require_once("lib/tabledescriptor.php");
 	synctable($item, $item_table, true);
