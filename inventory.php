@@ -16,7 +16,7 @@ function inventory_getmoduleinfo(){
 				"sellgold"=>"how much gold does selling an item return? (percent), int|66",
 				"sellgems"=>"how much gems does selling an item return? (percent), int|66",
 			"Inventory - Carrying items, title",
-				"limit"=>"How many items canbe carried by user?, range, 0,5000,1|0",
+				"limit"=>"How many items canbe carried by user?, range, 0,10000,1|0",
 				"Note: Setting this to 0 will allow the user to carry a limitless amount of items, note",
 				"weight"=>"Maximum weiht users can carry?, range,0,10000,1|0",
 				"Note: Setting this to 0 will allow the user to carry a limitless weight of items, note",
