@@ -1,5 +1,5 @@
 <?php
- 
+
 function alignmentbuffs_getmoduleinfo(){
 	$info = array(
 		"name"=>"Alignment Buffs",
@@ -65,10 +65,10 @@ function alignmentbuffs_dohook($hookname,$args){
 	global $session;
 	switch($hookname){
 		case "newday":
-			
+
 			$alignment=get_module_pref("alignment","alignment");
-			debug("align = $alignment");
-			
+			// debug("align = $alignment");
+
 			if($alignment<=get_module_setting("activate1")){
 				$buff = array();
 				$buff['name'] = get_module_setting("buffname1");
