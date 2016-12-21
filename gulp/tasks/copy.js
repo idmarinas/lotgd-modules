@@ -4,21 +4,18 @@ var variables = require('../variables');
 var filesCopy = [
 	//-- Todos los archivos y subdirectorios
 	'**/**',
-	//-- Ignorar archivos de ejecución de tareas
-	'!gulp',
-	'!gulp/**',
 	//-- Ingorar archivos .js .json
 	'!*.js',
 	'!*.json',
 	//-- Ignorar archivos que solo se usan en el desarrollo
-	'!node_modules',
-	'!node_modules/**',
-	'!bower_components',
-	'!bower_components/**',
+	'!gulp{,/**}',
+	'!node_modules{,/**}',
+	'!bower_components{,/**}',
 	//-- Otros archivos
 	'!.gitignore',
 	'!.htaccess',
-	'!.watchmanconfig'
+	'!.watchmanconfig',
+	'!gulpfile.js'
 ];
 
 //-- Copiar a la carpeta de desarrollo
