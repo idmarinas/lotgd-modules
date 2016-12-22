@@ -34,6 +34,7 @@ function onlinelist_dohook($hookname, $args){
 			$result = db_query($sql);
 			$count = db_num_rows($result);
 			$list_mods = appoencode(sprintf(translate_inline("`bOnline Staff`n(%s Staff Member):`b`n"),$count));
+			$onlinecount_mods = 0;
 			for ($i=0;$i<$count;$i++){
 				$row = db_fetch_assoc($result);
 				$list_mods .= appoencode("`^{$row['name']}`n");
@@ -47,6 +48,7 @@ function onlinelist_dohook($hookname, $args){
 			$result = db_query($sql);
 			$count = db_num_rows($result);
 			$list_players = appoencode(sprintf(translate_inline("`bCharacters Online`n(%s Players):`b`n"),$count));
+			$onlinecount_players = 0;
 			for ($i=0;$i<$count;$i++){
 				$row = db_fetch_assoc($result);
 				$list_players .= appoencode("`^{$row['name']}`n");
