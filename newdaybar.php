@@ -79,7 +79,7 @@ function newdaybar_dohook($hookname,$args){
 			if ($showtime) $new .= $ccode . $newdaytxt;
 			if ($showbar) {
 				if ($showtime) $new .= "<br />";
-				$new .= "<div class='progressbar newdaybar $animated'>
+				$new .= "<div class='progressbar newdaybar'>
 					 	<div class='progress-progressbar progress-newdaybar-color' style='width: $newdaypct%;'></div>
 						 <div class='progress-text'><i class='fa fa-calendar'></i></div>
 					 </div>
@@ -100,7 +100,7 @@ function newdaybar_dohook($hookname,$args){
 							}
 						}
 						newdaybar();
-					 </script>				
+					 </script>
 				";
 			}
 			setcharstat("Extra Info", $stat, $new);
