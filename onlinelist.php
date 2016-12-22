@@ -22,14 +22,12 @@ function onlinelist_uninstall(){
 }
 
 function onlinelist_dohook($hookname, $args){
-    define("ALLOW_ANONYMOUS",true);
-
     switch($hookname) {
         case "onlinecharlist":
         	$args['handled'] = true;
 			$list_mods = "";
 			$list_players = "";
-            
+
             //-- Se elimina de las dos consultas, ya que no se usa después
             // ,alive,location,sex,level,laston,loggedin,lastip,uniqueid
 			$sql="SELECT name FROM " . db_prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND superuser > 0 AND laston > '".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY superuser DESC, level DESC";
