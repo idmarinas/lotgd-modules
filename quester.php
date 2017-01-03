@@ -371,8 +371,8 @@ function quester_run(){
 		break;
 		case "hof":
 	    	page_header("Most Quester Points");
-	    	$acc = db_prefix("accounts");
-	    	$mp = db_prefix("module_userprefs");
+	    	$acc = DB::prefix("accounts");
+	    	$mp = DB::prefix("module_userprefs");
 	    	$sql = "SELECT $acc.name AS name,
 	    		$acc.acctid AS acctid,
 	    		$mp.value AS questpoints,
@@ -382,14 +382,14 @@ function quester_run(){
 	    		AND $mp.setting = 'questpoints'
 	    		AND $mp.value > 1 ORDER BY ($mp.value+0)
 	    		DESC limit ".get_module_setting("hoflist")."";
-	    	$result = db_query($sql);
+	    	$result = DB::query($sql);
 	    	$rank = translate_inline("Points");
 	    	$name = translate_inline("Name");
 	    	output("`n`b`c`@Most Quest Points`n`n`c`b");
 	    	rawoutput("<table border='0' cellpadding='2' cellspacing='1' align='center'>");
 	    	rawoutput("<tr class='trhead'><td align=center>$name</td><td align=center>$rank</td></tr>");
-	    	for ($i=0;$i < db_num_rows($result);$i++){
-	    		$row = db_fetch_assoc($result);
+	    	for ($i=0;$i < DB::num_rows($result);$i++){
+	    		$row = DB::fetch_assoc($result);
 	    		if ($row['name']==$session['user']['name']){
 	    			rawoutput("<tr class='trhilight'><td>");
 	    		}else{

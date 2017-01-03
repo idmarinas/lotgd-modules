@@ -3,9 +3,9 @@
 $dkreq = (int)httpget('dk');
 $id = (int)httpget('id');
 $giftee = httppost( 'whom' );
-$sql = 'SELECT acctid,login,name,level,dragonkills FROM '.db_prefix('accounts')." WHERE (name LIKE '%".$giftee."%' OR login LIKE '%".$giftee."%') AND acctid<>".$session['user']['acctid'].' AND locked=0 ORDER BY dragonkills DESC';
-$result = db_query($sql);
-$count = db_num_rows($result);
+$sql = 'SELECT acctid,login,name,level,dragonkills FROM '.DB::prefix('accounts')." WHERE (name LIKE '%".$giftee."%' OR login LIKE '%".$giftee."%') AND acctid<>".$session['user']['acctid'].' AND locked=0 ORDER BY dragonkills DESC';
+$result = DB::query($sql);
+$count = DB::num_rows($result);
 
 addnav( 'Search' );
 addnav( 'Search Again', 'runmodule.php?module=mysticalshop&op=gift&what=search&dk='.$dkreq.'&id='.$id.'&cat='.$cat );
@@ -26,7 +26,7 @@ else
 	$found = 0;
 	$found_a_giftee = false;
 
-	while($row = db_fetch_assoc($result)){
+	while($row = DB::fetch_assoc($result)){
 		//now onto checking to see if the player owns and item of that category, or if they've already received a gift
 		$givengift = get_module_pref('gifted','mysticalshop',$row['acctid']);
 		if ($row['dragonkills']>=$dkreq){

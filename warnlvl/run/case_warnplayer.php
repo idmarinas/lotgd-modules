@@ -1,7 +1,7 @@
 <?php
 /**
 	Display the current warnings of the player and a form for submitting another.
-	
+
 	If enabled, delete any warnings that have gone past the set time allowed.
 */
 	include('modules/warnlvl/warnlvl_functions.php');
@@ -17,7 +17,7 @@
 	$keep_days = get_module_setting('days','warnlvl');
 	$seconds = 60 * 60 * 24 * $keep_days;
 	$allprefs = get_module_pref('allprefs','warnlvl',$id);
-	if( !empty($allprefs) ) 
+	if( !empty($allprefs) )
 	{
 		$allprefs = unserialize($allprefs);
 		$count = count($allprefs['reason']);
@@ -28,16 +28,16 @@
 		$count = 0;
 	}
 
-	$sql = "SELECT name, lastip, uniqueid FROM " . db_prefix('accounts') . " WHERE acctid = '" . $id . "'";
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = "SELECT name, lastip, uniqueid FROM " . DB::prefix('accounts') . " WHERE acctid = '" . $id . "'";
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$row_name = $row['name'];
 	$unique_id = HTMLEntities($row['uniqueid'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"));
 	$last_ip = HTMLEntities($row['lastip'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"));
 
-	$sql = "SELECT banexpire FROM " . db_prefix('bans') . " WHERE uniqueid = '" . $unique_id . "' OR ipfilter = '" . $last_ip . "'";
-	$result = db_query($sql);
-	$rows_returned = db_num_rows($result);
+	$sql = "SELECT banexpire FROM " . DB::prefix('bans') . " WHERE uniqueid = '" . $unique_id . "' OR ipfilter = '" . $last_ip . "'";
+	$result = DB::query($sql);
+	$rows_returned = DB::num_rows($result);
 
 	$name = translate_inline('Name');
 	$reason = translate_inline('Reason');
@@ -65,9 +65,9 @@
 			if( $keep_days == 0 || ($allprefs['date'][$i] + $seconds) > time() )
 			{
 				$subber_id = $allprefs['subber_id'][$i];
-				$sql = "SELECT name FROM " . db_prefix('accounts') . " WHERE acctid = '" . $subber_id . "'";
-				$result = db_query($sql);
-				$row = db_fetch_assoc($result);
+				$sql = "SELECT name FROM " . DB::prefix('accounts') . " WHERE acctid = '" . $subber_id . "'";
+				$result = DB::query($sql);
+				$row = DB::fetch_assoc($result);
 
 				$class = ( $i%2 ) ? 'trlight' : 'trdark';
 				$trans_reasons = ( $reasons[$allprefs['reason'][$i]] == 999 ) ? translate_inline('Unknown') : translate_inline($reasons[$allprefs['reason'][$i]]);

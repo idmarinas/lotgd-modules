@@ -2,10 +2,10 @@
 function friendlist_request() {
 	global $session;
 	$ac = httpget('ac');
-	$sql = "SELECT name FROM ".db_prefix("accounts")." WHERE acctid=$ac AND locked=0";
-	$result = db_query($sql);
-	if (db_num_rows($result)>0) {
-		$row=db_fetch_assoc($result);
+	$sql = "SELECT name FROM ".DB::prefix("accounts")." WHERE acctid=$ac AND locked=0";
+	$result = DB::query($sql);
+	if (DB::num_rows($result)>0) {
+		$row=DB::fetch_assoc($result);
 		$info = translate_inline("You have successfully sent your request to %s`Q.");
 		$info = str_replace('%s',$row['name'],$info);
 		require_once("lib/systemmail.php");

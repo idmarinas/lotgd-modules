@@ -23,7 +23,7 @@ function servercostlog_install(){
 		'key-two'=> array('name'=>'amount', 'type'=>'key', 'unique'=>'0', 'columns'=>'amount'),
 	);
 	require_once("lib/tabledescriptor.php");
-	synctable(db_prefix("servercostlog"), $table, true);
+	synctable(DB::prefix("servercostlog"), $table, true);
 	return true;
 }
 
@@ -55,26 +55,26 @@ function servercostlog_run(){
 	addnav("Enter Payment","runmodule.php?module=servercostlog&op=enter");
 	addnav("Check Monthly Balance","runmodule.php?module=servercostlog&op=balance");
 	addnav("Months");
-	$ic=db_prefix('servercostlog');		
+	$ic=DB::prefix('servercostlog');
 	$sql = "SELECT substring(date,1,7) AS month, sum(amount) AS servercost FROM $ic GROUP BY month DESC";
-	$result=db_query($sql);
+	$result=DB::query($sql);
 	//deep look at paylog.php
-	while ($row = db_fetch_assoc($result)){
+	while ($row = DB::fetch_assoc($result)){
 		addnav(array("%s %s %s", date("M Y",strtotime($row['month']."-01")), getsetting("paypalcurrency", "USD"), $row['servercost']),"runmodule.php?module=servercostlog&op=view&month={$row['month']}");
 	}
 	switch ($op) {
 		case "balance":
-			$ic=db_prefix('servercostlog');
-			$pl=db_prefix('paylog');
+			$ic=DB::prefix('servercostlog');
+			$pl=DB::prefix('paylog');
 			$sql = "SELECT substring(date,1,7) AS month, sum(amount) AS servercost FROM $ic GROUP BY month DESC";
-			$result = db_query($sql);
+			$result = DB::query($sql);
 			$payments=array();
-			while ($row=db_fetch_assoc($result)) {
+			while ($row=DB::fetch_assoc($result)) {
 				$payments[date("M Y",strtotime($row['month']."-01"))]['costs']=$row['servercost'];
 			}
 			$sql = "SELECT substring(processdate,1,7) AS month, sum(amount)-sum(txfee) AS profit FROM $pl GROUP BY month DESC";
-			$result=db_query($sql);
-			while ($row = db_fetch_assoc($result)){
+			$result=DB::query($sql);
+			while ($row = DB::fetch_assoc($result)){
 				$payments[date("M Y",strtotime($row['month']."-01"))]['income']=$row['profit'];
 			}
 			//deep look at paylog.php
@@ -113,11 +113,11 @@ function servercostlog_run(){
 			$startdate = $month."-01 00:00:00";
 			$enddate = date("Y-m-d H:i:s",strtotime("+1 month",strtotime($startdate)));
 			$sql = "SELECT $ic.* FROM $ic WHERE date>='$startdate' AND date < '$enddate' ORDER BY servercostid DESC";
-			$result = db_query($sql);
+			$result = DB::query($sql);
 			rawoutput("<table border='0' cellpadding='2' cellspacing='0' width='100%'>");
 			rawoutput("<tr class='trhead'><td>". translate_inline("Date") ."</td><td>". translate_inline("Type") ."</td><td>".translate_inline("Amount")."</td><td>".translate_inline("Details")."</td></tr>");
 			$i=0;
-			while ($row=db_fetch_assoc($result)) {
+			while ($row=DB::fetch_assoc($result)) {
 				$i++;
 				rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
 				output_notl($row['date']);
@@ -138,14 +138,14 @@ function servercostlog_run(){
 			$type=httppost('type');
 			$date=httppost('date');
 			$comment=str_replace(chr(13),'`n',httppost('comment'));
-			$sql="INSERT INTO ".db_prefix('servercostlog')." VALUES ";
+			$sql="INSERT INTO ".DB::prefix('servercostlog')." VALUES ";
 			$sql.="(0,'$date','$type','$amount','$comment');";
-			$result=db_query($sql);
+			$result=DB::query($sql);
 			if ($result==1)
 				output("`7The Entry has been generated.");
 				else
 				output("`\$There has been an error while processing the entry!");
-				
+
 			break;
 		case "enter":
 			$paycurrency=getsetting('paypalcurrency','USD');
@@ -172,9 +172,9 @@ function servercostlog_run(){
 			$submit=translate_inline("Submit");
 			rawoutput("<input type='submit' class='button' value='$submit'><br>");
 			rawoutput("</form>");
-						
-			break;	
-	
+
+			break;
+
 	}
 	page_footer();
 }

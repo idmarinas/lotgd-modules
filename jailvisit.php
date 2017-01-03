@@ -68,25 +68,25 @@ function jailvisit_dohook($hookname,$args){
 }
 function jailvisit_run(){
 	global $session,$pvptime,$pvptimeout;
-    
+
 	$pvptime = getsetting("pvptimeout",600);
 	$pvptimeout = date("Y-m-d H:i:s",strtotime("-$pvptime seconds"));
 	page_header("Jail visit");
- 
+
 
 require_once("lib/pvpwarning.php");
 require_once("lib/pvplist.php");
 require_once("lib/taunt.php");
 require_once("lib/battle-skills.php");
 require_once("lib/systemmail.php");
- 
+
 	$op2 = httpget('op2');
 	$op = httpget('op');
 	$id = httpget('id');
 	$jailloc = translate_inline("`7The jail");
 
 
-   
+
 	global $session,$pvptime,$pvptimeout;
 	$pvptime = getsetting("pvptimeout",600);
 	$pvptimeout = date("Y-m-d H:i:s",strtotime("-$pvptime seconds"));
@@ -94,20 +94,20 @@ require_once("lib/systemmail.php");
 
 if ($op=="foe"){
 page_header("Jail Visit - Attack");
-   
+
     if ($session['user']['playerfights']>0){
         output("The sheriff looks at his watch to make sure that visiting hours are not over.  Since you still have some time, he pulls out the mugshots from his desk, and asks who you would like to see.");
 		if(get_module_setting("sheriff")==1 && get_module_setting("whensheriff")==2){
                 $sheriffchance=get_module_setting("sheriffchance");
                 if(e_rand(1,100)<$sheriffchance){
-					output("`#If you want to get to anyone, you are going to have to go through The Sheriff first...");                
+					output("`#If you want to get to anyone, you are going to have to go through The Sheriff first...");
                     addnav("Take out the sheriff","runmodule.php?module=jailvisit&op=sheriff");
-                   }        
+                   }
                 }else{ addnav("Take a look at the list","runmodule.php?module=jailvisit&op=atklist");}
     }else{
         output("The sheriff says that visiting hours are over.  Perhaps you shouldn't have spent your time slaying others before hand.");
-    }  
-addnav("Back to the jail","runmodule.php?module=jail"); 
+    }
+addnav("Back to the jail","runmodule.php?module=jail");
 }elseif ($op=="sheriff"){
     $guardname= get_module_setting("sheriffname","jail");
     $hp = get_module_setting("hp");
@@ -125,7 +125,7 @@ set_module_pref('sfight',1);
     $session['user']['badguy'] = createstring($badguy);
     $op = "setup";
     httpset('op', $op);
-            
+
 }elseif($op=="atklist"){
 				page_header("Jail Vist - Attack");
 
@@ -133,17 +133,17 @@ set_module_pref('sfight',1);
 				$exp = getsetting("pvpminexp",1000);
 				$clanrankcolors=array("`!","`#","`^","`&");
 				$lev1 = $session['user']['level']-1;
-				$lev2 = $session['user']['level']+2;                
+				$lev2 = $session['user']['level']+2;
 				$last = date("Y-m-d H:i:s", strtotime("-".getsetting("LOGINTIMEOUT", 900)." sec"));
 				$id = $session['user']['acctid'];
 				$loc = $session['user']['location'];
-				$sql = "SELECT name, alive, ".db_prefix("module_userprefs").".value AS location, sex, level, laston, loggedin, login, pvpflag, clanshort, clanrank
-				FROM ".db_prefix("accounts")."
-				LEFT JOIN ".db_prefix("clans")." ON ".db_prefix("clans").".clanid=".db_prefix("accounts").".clanid
-				INNER JOIN ".db_prefix("module_userprefs")." ON ".db_prefix("accounts").".acctid=".db_prefix("module_userprefs").".userid
+				$sql = "SELECT name, alive, ".DB::prefix("module_userprefs").".value AS location, sex, level, laston, loggedin, login, pvpflag, clanshort, clanrank
+				FROM ".DB::prefix("accounts")."
+				LEFT JOIN ".DB::prefix("clans")." ON ".DB::prefix("clans").".clanid=".DB::prefix("accounts").".clanid
+				INNER JOIN ".DB::prefix("module_userprefs")." ON ".DB::prefix("accounts").".acctid=".DB::prefix("module_userprefs").".userid
 				WHERE (locked=0)
-				AND ".db_prefix("module_userprefs").".setting = 'playerloc'
-				AND ".db_prefix("module_userprefs").".modulename = 'jail'
+				AND ".DB::prefix("module_userprefs").".setting = 'playerloc'
+				AND ".DB::prefix("module_userprefs").".modulename = 'jail'
 				AND (age>$days OR dragonkills>0 OR pk>0 OR experience>$exp)
 				AND (level>=$lev1 AND level<=$lev2) AND (alive=1)
 				AND (laston<'$last' OR loggedin=0) AND (acctid<>$id)
@@ -192,9 +192,9 @@ set_module_pref('sfight',1);
         		if(get_module_setting("sheriff")==1 && get_module_setting("whensheriff")==1){
                     $sheriffchance=get_module_setting("sheriffchance");
                     if(e_rand(1,100)<$sheriffchance){
-					output("`n`#The sheriff comes back in to check on you and sees what you have done.  Time to fight the sheriff.");                
+					output("`n`#The sheriff comes back in to check on you and sees what you have done.  Time to fight the sheriff.");
                     addnav("Take out the sheriff","runmodule.php?module=jailvisit&op=sheriff");
-                   }        
+                   }
                 }else {addnav("Return to the Jail","runmodule.php?module=jail");}
 			unsuspend_buffs("allowinpvp","`n`nYou come back into the main waiting area and your mount puts down the magazine it was reading and joins you again.`0");
 		$alatk = get_module_pref("alatk");
@@ -209,7 +209,7 @@ set_module_pref('sfight',1);
 		addnav("Look at the list","runmodule.php?module=jailvisit&op=atklist");
 		}else{
          output("`n`nYou have defeated the sheriff!  You better get out of here!.");
-		addnav("Back to the village","village.php");       
+		addnav("Back to the village","village.php");
         }
         unsuspend_buffs("allowinpvp","`n`nfirst You come back into the main waiting area and your mount puts down the magazine it was reading and joins you again.`0");
 		$alatk = get_module_pref("alatk");
@@ -234,14 +234,14 @@ set_module_pref('sfight',1);
                     set_module_pref("injail",1,"jail");
 				addnav("To Your Cell","runmodule.php?module=jail");
                 $session['user']['hitpoints']=1;
-                    }else{ 
+                    }else{
                 $exploss = $session['user']['experience']*.1;
 				output("`n You lose %s experience.",$exploss);
 				$session['user']['experience']-=$exploss;
-				debuglog("lost $exploss experience and all gold to the sheriff.");                    
+				debuglog("lost $exploss experience and all gold to the sheriff.");
 				addnav("Return to the Shades","shades.php");
 			}
-        }    
+        }
 		unsuspend_buffs("allowinpvp","`n`nYou come back into the main waiting area and your mount puts down the magazine it was reading and joins you again.`0");
         }else{
             require_once("lib/fightnav.php");

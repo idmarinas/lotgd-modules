@@ -9,14 +9,14 @@ function prizemount_getlist(){
 	$mounts=",0,None";
 	// The table lock is necessary since some place where it can be called
 	// from already have a lock and if we don't lock we'll error there.
-	db_query("LOCK TABLES ".db_prefix("mounts")." WRITE");
+	DB::query("LOCK TABLES ".DB::prefix("mounts")." WRITE");
 	$sql = "SELECT mountid,mountname,mountcategory FROM " .
-		db_prefix("mounts") .  " ORDER BY mountcategory,mountid";
-	$result = db_query($sql);
+		DB::prefix("mounts") .  " ORDER BY mountcategory,mountid";
+	$result = DB::query($sql);
 	//unlock it now, since we are done.
-	db_query("UNLOCK TABLES");
+	DB::query("UNLOCK TABLES");
 
-	while ($row = db_fetch_assoc($result)){
+	while ($row = DB::fetch_assoc($result)){
 		$mounts.="," . $row['mountid'] . "," . $row['mountcategory'] .
 			": ". color_sanitize($row['mountname']) . "[" . $row['mountid'] . "]";
 	}
@@ -136,8 +136,8 @@ function prizemount_dohook($hookname,$args){
 			if ($id !== NULL) {
 				// They had an old mount
 				// Delete the marker
-				$sql = "DELETE FROM " . db_prefix("module_userprefs") . " WHERE modulename='prizemount' AND setting='oldmount' AND userid='{$session['user']['acctid']}'";
-				db_query($sql);
+				$sql = "DELETE FROM " . DB::prefix("module_userprefs") . " WHERE modulename='prizemount' AND setting='oldmount' AND userid='{$session['user']['acctid']}'";
+				DB::query($sql);
 				// Give them back their old mount
 				modulehook("loseprizemount");
 				$session['user']['hashorse'] = $id;

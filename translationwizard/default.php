@@ -1,11 +1,11 @@
 <?php
-$sql = "SELECT count(*) AS count FROM " . db_prefix("untranslated");
-$count = db_fetch_assoc(db_query($sql));
+$sql = "SELECT count(*) AS count FROM " . DB::prefix("untranslated");
+$count = DB::fetch_assoc(DB::query($sql));
 if ($count['count'] > 0) {
-	$sql = "SELECT * FROM " . db_prefix("untranslated") . " WHERE language = '" . $languageschema . "' ORDER BY rand(".e_rand().") LIMIT 1";
-	$result = db_query($sql);
-	if (db_num_rows($result) == 1) {
-		$row = db_fetch_assoc($result);
+	$sql = "SELECT * FROM " . DB::prefix("untranslated") . " WHERE language = '" . $languageschema . "' ORDER BY rand(".e_rand().") LIMIT 1";
+	$result = DB::query($sql);
+	if (DB::num_rows($result) == 1) {
+		$row = DB::fetch_assoc($result);
 		$row['intext'] = stripslashes($row['intext']);
 		$submit = translate_inline("Save Translation");
 		$skip = translate_inline("Skip Translation");

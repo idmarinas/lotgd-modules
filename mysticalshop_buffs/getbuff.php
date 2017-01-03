@@ -1,9 +1,9 @@
 <?php
 function get_item_buff($buffid) {
-	$sql = "SELECT * FROM ".db_prefix("magicitembuffs")." WHERE buffid = $buffid";
-	
-	$result = db_query_cached($sql, "magicitem-buff-$buffid");
-	$buff2 = db_fetch_assoc($result);
+	$sql = "SELECT * FROM ".DB::prefix("magicitembuffs")." WHERE buffid = $buffid";
+
+	$result = DB::query_cached($sql, "magicitem-buff-$buffid");
+	$buff2 = DB::fetch_assoc($result);
 	$buff = unserialize($buff2['itembuff']);
 	$buff['buffname'] = $buff2['buffname'];
 

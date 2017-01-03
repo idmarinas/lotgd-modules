@@ -267,14 +267,14 @@ function ramiusaltar_run(){
 		}
 	} elseif ($op=="HOF") {
 
-		// we also want in WHERE "AND (locked=0 AND (superuser & SU_HIDE_FROM_LEADERBOARD) = 0)", but that's in db_prefix("accounts")
+		// we also want in WHERE "AND (locked=0 AND (superuser & SU_HIDE_FROM_LEADERBOARD) = 0)", but that's in DB::prefix("accounts")
 
-//		$sql = "SELECT value FROM ".db_prefix("module_userprefs")." INNER JOIN ".db_prefix("accounts")." ON userid=acctid WHERE (locked=0 AND (superuser & ".SU_HIDE_FROM_LEADERBOARD.") = 0)";
-//		$sql = "SELECT count(userid) AS c FROM " . db_prefix("module_userprefs") . " INNER JOIN " . db_prefix("accounts") . " ON userid=acctid WHERE modulename=\"ramiusaltar\" AND locked=0 AND (superuser & " . SU_HIDE_FROM_LEADERBOARD . ") = 0";
- 		$sql = "SELECT count(userid) AS c FROM " . db_prefix("module_userprefs") . " WHERE modulename=\"ramiusaltar\" ";
+//		$sql = "SELECT value FROM ".DB::prefix("module_userprefs")." INNER JOIN ".DB::prefix("accounts")." ON userid=acctid WHERE (locked=0 AND (superuser & ".SU_HIDE_FROM_LEADERBOARD.") = 0)";
+//		$sql = "SELECT count(userid) AS c FROM " . DB::prefix("module_userprefs") . " INNER JOIN " . DB::prefix("accounts") . " ON userid=acctid WHERE modulename=\"ramiusaltar\" AND locked=0 AND (superuser & " . SU_HIDE_FROM_LEADERBOARD . ") = 0";
+ 		$sql = "SELECT count(userid) AS c FROM " . DB::prefix("module_userprefs") . " WHERE modulename=\"ramiusaltar\" ";
 
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result); 	//250
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result); 	//250
 		$count = $row['c'];
 
 
@@ -294,11 +294,11 @@ function ramiusaltar_run(){
 		for($i = 1; $i < $count; $i++){
 			$userpref = get_all_module_prefs("ramiusaltar", $i);
 
-			$sql = "SELECT acctid,name FROM " . db_prefix("accounts") . " WHERE acctid=" . $i . " AND locked=0 AND (superuser & " . SU_HIDE_FROM_LEADERBOARD . ") = 0";
-			$result = db_query($sql);
-			if (db_num_rows($result) < 1) { continue; }
+			$sql = "SELECT acctid,name FROM " . DB::prefix("accounts") . " WHERE acctid=" . $i . " AND locked=0 AND (superuser & " . SU_HIDE_FROM_LEADERBOARD . ") = 0";
+			$result = DB::query($sql);
+			if (DB::num_rows($result) < 1) { continue; }
 			if ($userpref["totalsacrifices"] < 1) { continue; }
-			$row = db_fetch_assoc($result);
+			$row = DB::fetch_assoc($result);
 
 			rawoutput("<tr align=center>");
 

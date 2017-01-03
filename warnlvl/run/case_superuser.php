@@ -18,7 +18,7 @@
 	modulehook('allprefnavs');
 
 	$allprefs = get_module_pref('allprefs','warnlvl',$id);
-	if( !empty($allprefs) ) 
+	if( !empty($allprefs) )
 	{
 		$allprefs = unserialize($allprefs);
 		$count = count($allprefs['reason']);
@@ -81,9 +81,9 @@
 			for( $i=0; $i<$count; $i++ )
 			{
 				$subber_id = $allprefs['subber_id'][$i];
-				$sql = "SELECT name, login FROM " . db_prefix('accounts') . " WHERE acctid = '" . $subber_id . "'";
-				$result = db_query($sql);
-				$row = db_fetch_assoc($result);
+				$sql = "SELECT name, login FROM " . DB::prefix('accounts') . " WHERE acctid = '" . $subber_id . "'";
+				$result = DB::query($sql);
+				$row = DB::fetch_assoc($result);
 
 				$options = '';
 				foreach( $reasons as $key => $value )

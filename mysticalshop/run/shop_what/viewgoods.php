@@ -9,12 +9,12 @@ if ($subop=="") $subop=1;
 $min = ($subop-1)*$perpage;
 //pages display
 $limit = "LIMIT $min,$perpage";
-$magic_table = db_prefix( 'magicitems' );
+$magic_table = DB::prefix( 'magicitems' );
 $sql = 'SELECT COUNT(id) AS c FROM '.$magic_table
 	.' WHERE '.$userdk.'>=dk AND category='.$cat
 	.' ORDER BY category';
-$result = db_query_cached( $sql, 'modules-mysticalshop-viewgoods-'.$cat.'-'.$userdk, 3600 );
-$row = db_fetch_assoc($result);
+$result = DB::query_cached( $sql, 'modules-mysticalshop-viewgoods-'.$cat.'-'.$userdk, 3600 );
+$row = DB::fetch_assoc($result);
 $total = $row['c'];
 addnav("Pages");
 for($i = 0; $i < $total; $i+= $perpage) {
@@ -37,15 +37,15 @@ $sellbuy = translate_inline("Sell & Buy");
 $buy = translate_inline("Examine");
 $quantity = translate_inline("Quantity");
 $viewbuy = translate_inline("Examine or Buy");
-$result = db_query_cached( $sql, 'modules-mysticalshop-viewgoods-'.$cat.'-'.$userdk.'-page-'.$min.'-'.$perpage, 3600 );
-$count = db_num_rows($result);
+$result = DB::query_cached( $sql, 'modules-mysticalshop-viewgoods-'.$cat.'-'.$userdk.'-page-'.$min.'-'.$perpage, 3600 );
+$count = DB::num_rows($result);
 if ($count == 0){
 	output("`6No Items on record yet.`0");
 }else{
 	rawoutput( '<table cellspacing="1" cellpadding="2" width="100%">' );
 	rawoutput("<tr class=\"trhead\"><td>$ops</td><td>$name</td><td>$cost</td><td>$quantity</td></tr>");
 	$i = false;
-	while($row = db_fetch_assoc($result)){
+	while($row = DB::fetch_assoc($result)){
 		$rare = $row['rare'];
 		$rarenum = $row['rarenum'];
 		if ($rare == 0){ $instock = translate_inline( '`3Many' ); }
@@ -68,7 +68,7 @@ if ($count == 0){
 			addnav( '', $from.'op=shop&what=preview&id='.$row['id'] );
 			addnav( '', $from.'op=shop&what=sell&id='.$sellid.'&cat='.$cat );
 			addnav( '', $from.'op=shop&what=sellbuy&sellid='.$sellid.'&buyid='.$row['id'].'&cat='.$cat );
-		//otherwise...	
+		//otherwise...
 		}else{
 			rawoutput( '<td>[<a href="'.htmlentities( $from.'op=shop&what=preview&id=' ).$row['id'].'">'.$viewbuy.'</a>]' );
 			addnav( '', $from.'op=shop&what=preview&id='.$row['id'] );

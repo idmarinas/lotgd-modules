@@ -1,15 +1,15 @@
 <?php
 		$id = httpget('id');
-		$sql = "SELECT * FROM " . db_prefix("magicitems") . " WHERE id='$id'";
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
+		$sql = "SELECT * FROM " . DB::prefix("magicitems") . " WHERE id='$id'";
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		if (get_module_setting("togglebuffview") && $row['buffid']>0) {
 			$buffid = $row['buffid'];
-			$sql = "SELECT * FROM " . db_prefix("magicitembuffs") . " WHERE buffid='$buffid'";
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT * FROM " . DB::prefix("magicitembuffs") . " WHERE buffid='$buffid'";
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			$buff = unserialize($row['itembuff']);
-	
+
 			if (get_module_setting("toggleatkmod") && $buff['atkmod'] != "") {
 				$var = mysticalshop_buffs_calc($buff['atkmod']);
 				$atkmod = round($var*100-100,2);
@@ -80,7 +80,7 @@
 				if ($var5 != 0) {
 					$maxbadguydamage = sprintf_translate(array('`n%s maximum damage per attack', $var5));
 				}
-			}	 
+			}
 			  if (get_module_setting("togglebadguyatkmod") && $buff['badguyatkmod'] != "") {
 				$var6 = mysticalshop_buffs_calc($buff['badguyatkmod']);
 				$badguyatk = round($var6*100-100,2);
@@ -90,7 +90,7 @@
 					}
 					$badguyatkmod = sprintf_translate(array('`n%s%s% enemy attack',$sign6, $badguyatk));
 				}
-			}	 
+			}
 			  if (get_module_setting("togglebadguydefmod") && $buff['badguydefmod'] != "") {
 				$var7 = mysticalshop_buffs_calc($buff['badguydefmod']);
 				$badguydef = round($var7*100-100,2);
@@ -100,7 +100,7 @@
 					}
 					$badguydefmod = sprintf_translate(array('`n%s%s% enemy defense', $sign7, $badguydef));
 				}
-			}	 
+			}
 			  if (get_module_setting("togglebadguydmgmod") && $buff['badguydmgmod'] != "") {
 				$var8 = mysticalshop_buffs_calc($buff['badguydmgmod']);
 				$badguydmg = round($var8*100-100,2);
@@ -110,13 +110,13 @@
 					}
 					$badguydmgmod = sprintf_translate(array('`n%s%s% enemy damage modifier', $sign8, $badguydmg));
 				}
-			}	 
+			}
 			  if (get_module_setting("toggleinv") && $buff['invulnerable'] != "") {
 				$var9 = round(mysticalshop_buffs_calc($buff['invulnerable']),0);
 				if ($var9 == 1) {
 					$inv = '`n'. translate_inline("INVULNERABLE!!");
 				}
-			}	 
+			}
 			if (get_module_setting("toggleround") && $buff['rounds'] != "" && $buff['rounds'] != 0) {
 				$round = $buff['rounds'];
 				if ($round < 0) $round = translate_inline('Permanent');

@@ -8,14 +8,14 @@
 				rawoutput("<tr><td width='25%'>");
 				output("List of Equipment:");
 				rawoutput("</td><td>");
-				$sql = "SELECT id, name	 FROM ".db_prefix("magicitems");
-				$result = db_query($sql);
+				$sql = "SELECT id, name	 FROM ".DB::prefix("magicitems");
+				$result = DB::query($sql);
 				rawoutput("<select name='id'>");
 				rawoutput("<option value='0'");
 				rawoutput($item['buff']==0?" selected":"");
 				rawoutput(">- none -</option>");
-				for($i=0;$i<db_num_rows($result);$i++){
-					$row = db_fetch_assoc($result);
+				for($i=0;$i<DB::num_rows($result);$i++){
+					$row = DB::fetch_assoc($result);
 					rawoutput("<option value='{$row['id']}'");
 					rawoutput($row['id']==$row['id']?" selected":"");
 					rawoutput(">{$row['name']}</option>");
@@ -24,14 +24,14 @@
 				rawoutput("</td></tr><tr><td>");
 				output("List of Buffs:");
 				rawoutput("</td><td>");
-				$sql1 = "SELECT buffid, buffname FROM ".db_prefix("magicitembuffs");
-				$result1 = db_query($sql1);
+				$sql1 = "SELECT buffid, buffname FROM ".DB::prefix("magicitembuffs");
+				$result1 = DB::query($sql1);
 				rawoutput("<select name='buffid'>");
 				rawoutput("<option value='0'");
 				rawoutput($item['buff']==0?" selected":"");
 				rawoutput(">- none -</option>");
-				for($i=0;$i<db_num_rows($result1);$i++){
-					$buff1 = db_fetch_assoc($result1);
+				for($i=0;$i<DB::num_rows($result1);$i++){
+					$buff1 = DB::fetch_assoc($result1);
 					rawoutput("<option value='{$buff1['buffid']}'");
 					rawoutput($item['buffid']==$buff1['buffid']?" selected":"");
 					rawoutput(">{$buff1['buffname']}</option>");

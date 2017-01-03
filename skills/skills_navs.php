@@ -1,10 +1,10 @@
 <?php
 	$script = $args['script'];
 
-	$sql = "SELECT * FROM ".db_prefix("skills");
-	$result = db_query_cached($sql, "skills-navs");
+	$sql = "SELECT * FROM ".DB::prefix("skills");
+	$result = DB::query_cached($sql, "skills-navs");
 	$first = false;
-	$number = db_num_rows($result);
+	$number = DB::num_rows($result);
 	$cooldown = get_module_pref("cooldown");
 	debug('cooldown '.$cooldown);
 	debug($number);
@@ -14,16 +14,16 @@
 			if ($cooldown > 15) $cooldown = "15+";
 			addnav(array("`&Misc Skills (Cooldown: %s%s Rds`&)`0",$colorarray[$cooldown],$cooldown));
 			for ($i=0;$i<$number;$i++) {
-				$row=db_fetch_assoc($result);
+				$row=DB::fetch_assoc($result);
 				if (eval("return ".$row['requirement'].";")) {
 					addnav_notl(array("`) %s`0",$row['name']),'');
 				}
 			}
 		} else {
 			for ($i=0;$i<$number;$i++) {
-				$row=db_fetch_assoc($result);
+				$row=DB::fetch_assoc($result);
 				eval($row['globals']);
-				
+
 				addnav("`&Misc Skills (Cooldown: `#Ready`&)`0");
 				if (eval("return ".$row['requirement'].";")) {
 					addnav_notl(array("%s %s`0",$row['ccode'],$row['name']),$script."op=fight&skill=$spec&l={$row['skillid']}");

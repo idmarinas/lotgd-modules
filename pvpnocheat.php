@@ -48,9 +48,9 @@ function pvpnocheat_dohook($hookname,$args){
 		$sameidnames=0;
 		$sameipnames=0;
                 while (list($key,$row)=each($args)) {
-			$sql="SELECT uniqueid,lastip,location FROM ".db_prefix('accounts')." WHERE acctid = ". $row['acctid'];
-                        $result=db_query($sql);
-                        $sleeper=db_fetch_assoc($result);
+			$sql="SELECT uniqueid,lastip,location FROM ".DB::prefix('accounts')." WHERE acctid = ". $row['acctid'];
+                        $result=DB::query($sql);
+                        $sleeper=DB::fetch_assoc($result);
 
                         if ($sleeper['uniqueid']==$session['user']['uniqueid'] && $sameid) {
                                 $args[$key]['invalid'] = 1;

@@ -80,8 +80,8 @@ function pvpblock_dohook($hookname,$args){
 			$args['validation_error'] = "Bands must increase in dks";
 	break;
 	case "pvpadjust":
-		$sql = "SELECT dragonkills,clanid FROM " . db_prefix("accounts") . " WHERE acctid={$args['acctid']}";
-		$result = db_fetch_assoc(db_query($sql));
+		$sql = "SELECT dragonkills,clanid FROM " . DB::prefix("accounts") . " WHERE acctid={$args['acctid']}";
+		$result = DB::fetch_assoc(DB::query($sql));
 		if (!pvpblock_bandcheck($session['user']['dragonkills'],
 					$result['dragonkills'])) {
 			redirect("runmodule.php?module=pvpblock&op=bandrange&id=".$args['acctid']."&dk=".$result['dragonkills']);
@@ -96,9 +96,9 @@ function pvpblock_dohook($hookname,$args){
 			}
 		}
 		if (is_module_active('clanwar')) {
-			$sql = "SELECT clanid FROM " . db_prefix("accounts") .
+			$sql = "SELECT clanid FROM " . DB::prefix("accounts") .
 				" WHERE acctid=".$args['acctid'];
-			$result = db_fetch_assoc(db_query($sql));
+			$result = DB::fetch_assoc(DB::query($sql));
 			$cl = get_module_objpref("clans",$result['clanid'],"alignto");
 			if (get_module_objpref("clans",
 						$session['user']['clanid'],"alignto")==$cl &&
@@ -248,8 +248,8 @@ function pvpblock_bandrange() {
 	global $session;
 	$id = httpget("id");
 	$dk = httpget("dk");
-	$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid=$id";
-	$result = db_fetch_assoc(db_query($sql));
+	$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid=$id";
+	$result = DB::fetch_assoc(DB::query($sql));
 	$result = $result['name'];
 	page_header("PvP Notice!");
 	output("`@You are not allowed to attack users outside of your DK band!`n");
@@ -283,8 +283,8 @@ function pvpblock_bandrange() {
 function pvpblock_clan() {
 	global $session;
 	$id = httpget("id");
-	$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid=$id";
-	$result = db_fetch_assoc(db_query($sql));
+	$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid=$id";
+	$result = DB::fetch_assoc(DB::query($sql));
 	$result = $result['name'];
 	page_header("PvP Notice!");
 	output("`@You are not allowed to attack users in your own clan!`n");
@@ -295,9 +295,9 @@ function pvpblock_clan() {
 	}
 
 	if (get_module_setting('mailClan')==1) {
-		$sql = "SELECT acctid FROM " . db_prefix("accounts") . " WHERE clanid='{$session['user']['clanid']}'";
-		$cn = db_query($sql);
-		while ($row = db_fetch_assoc($cn)){
+		$sql = "SELECT acctid FROM " . DB::prefix("accounts") . " WHERE clanid='{$session['user']['clanid']}'";
+		$cn = DB::query($sql);
+		while ($row = DB::fetch_assoc($cn)){
 			$subj = "`@Uh oh!";
 			$msg = array("$mailsubj\n%s`0`@ tried to attack %s`0`@!",$session['user']['name'],$session['user']['name'],$result['name']);
 			systemmail($row['acctid'],$subj,$msg);
@@ -322,8 +322,8 @@ function pvpblock_clan() {
 function pvpblock_clanside() {
 	global $session;
 	$id = httpget("id");
-	$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid=$id";
-	$result = db_fetch_assoc(db_query($sql));
+	$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid=$id";
+	$result = DB::fetch_assoc(DB::query($sql));
 	$result = $result['name'];
 	page_header("PvP Notice!");
 	output("`@You are not allowed to attack users on your own side of the war!`n");
@@ -334,9 +334,9 @@ function pvpblock_clanside() {
 	}
 
 	if (get_module_setting('mailClan')==1) {
-		$sql = "SELECT acctid FROM " . db_prefix("accounts") . " WHERE clanid='{$session['user']['clanid']}'";
-		$cn = db_query($sql);
-		while ($row = db_fetch_assoc($cn)){
+		$sql = "SELECT acctid FROM " . DB::prefix("accounts") . " WHERE clanid='{$session['user']['clanid']}'";
+		$cn = DB::query($sql);
+		while ($row = DB::fetch_assoc($cn)){
 			$subj = "`@Uh oh!";
 			$msg = array("$mailsubj\n%s`0`@ tried to attack %s`0`@!",$session['user']['name'],$session['user']['name'],$result['name']);
 			systemmail($row['acctid'],$subj,$msg);

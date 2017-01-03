@@ -101,7 +101,7 @@ function breakin_dohook($hookname,$args){
 			blocknav("inn.php?op=room");
 		}
 		break;
-	case "stables-desc": 
+	case "stables-desc":
 		if (getsetting("villagename", LOCATION_FIELDS) == $session['user']['location']) {
 			output("`n`n`3As you look around the stables, you spy a door on the building next door, mostly hidden by dense ivy.`0`n");
 			$nouse = 0;
@@ -127,7 +127,7 @@ function breakin_dohook($hookname,$args){
 				addnav("Examine Door","runmodule.php?module=breakin");
 		}
 		break;
-	case "village": 
+	case "village":
 		if (!get_module_setting("stocks") || !is_module_active("stocks")) {
 			set_module_setting("thisID", 0);
 			break;
@@ -148,9 +148,9 @@ function breakin_dohook($hookname,$args){
 		if ($thisID == $session['user']['acctid']) {
 			output("`nYou are serving time in the stocks for trying to break into the Inn!`n");
 		} else {
-			$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid='$thisID'";
-			$result = db_query_cached($sql, "stocks");
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid='$thisID'";
+			$result = DB::query_cached($sql, "stocks");
+			$row = DB::fetch_assoc($result);
 			output("`n%s was put into the stocks for trying to break into the Inn!`n",$row['name']);
 		}
 		break;

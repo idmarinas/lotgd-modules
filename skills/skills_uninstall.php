@@ -1,6 +1,6 @@
 <?php
-	$skills = db_prefix("skills");
-	$skillsbuffs = db_prefix("skillsbuffs");
+	$skills = DB::prefix("skills");
+	$skillsbuffs = DB::prefix("skillsbuffs");
 	$sql = "DROP TABLE $skills, $skillsbuffs";
-	db_query($sql);
+	DB::query($sql);
 ?>

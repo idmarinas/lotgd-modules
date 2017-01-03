@@ -9,7 +9,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 	$file_len=strlen($str);
 	// Handle 'standard_tlschema' Para
 	if($standard_tlschema === false)
-	{	
+	{
 		//get some standards if nothing is put into
 		$posi=strrpos($filepath,"/");
 		$name=substr($filepath,$posi+1,strlen($filepath)-$posi-5);
@@ -30,7 +30,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 	$intext_flag       = false;
 	$translate_inline_inline_select_flag = false;
 	$single_quote_flag = false;
-	
+
 	// Initalise Strings
 	$current_translate   = "";
 	$current_tlschema    = $standard_tlschema;
@@ -41,7 +41,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 	// Initalise Arrays
 	$tlschema_stack = array();
 	$return = array();
-	
+
 	// Linecount
 	$line = 1;
 
@@ -54,7 +54,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 	$addnews_len           = strlen("addnews");
 	$page_header_len       = strlen("page_header");
 	$sprintf_translate_len = strlen("sprintf_translate");
-	
+
 	// Initalise Stringlens used for skipping
 	$output_skip            = $output_len - 1;
 	$output_notl_skip       = $output_notl_len - 1;
@@ -64,8 +64,8 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 	$addnews_skip           = $addnews_len - 1;
 	$page_header_skip       = $page_header_len - 1;
 	$sprintf_translate_skip = $sprintf_translate_len - 1;
-	
-	
+
+
 	// Start parse
 	for( $i = 0; $i < $file_len; $i++ )
 	{
@@ -165,7 +165,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 			}
 			else // $pretext flag == true
 			{
-				if($str[$i] == "(") //)  
+				if($str[$i] == "(") //)
 				{
 					$open_bracket_flag = true;
 				}
@@ -312,7 +312,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 				}
 			}
 		}
-		else // $intext flag == true 
+		else // $intext flag == true
 		{
 			if ( ( $str[$i] == '"' && !$single_quote_flag || $str[$i] == '\'' && $single_quote_flag ) && $escape_flag == false )
 			{
@@ -377,7 +377,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 			{
 				$escape_flag = true;
 				$escape_justset = true;
-				
+
 			}
 			else if($str[$i] == "\$" && $escape_flag == false)
 			{
@@ -397,7 +397,7 @@ function wizard_scanfile($filepath,$debug=false,$standard_tlschema=false) {
 				$current_translate .= $str[$i];
 			}
 		}
-		
+
 		if($escape_flag == true)
 		{
 			if($escape_justset == true)
@@ -428,7 +428,7 @@ function wizard_insertfile($delrows,$languageschema,$serialized=false) {
 		}else
 		{
 		if ($delrows) $insertrows  = array($insertrows);
-		else 
+		else
 			{
 			$insertrows = array();
 			}
@@ -438,8 +438,8 @@ function wizard_insertfile($delrows,$languageschema,$serialized=false) {
 		if ($serialized) {
 			$val=unserialize(rawurldecode($val));
 		}	//else $val = split("[||||]", $val);
-		$sql="Insert IGNORE INTO ".db_prefix("untranslated")." Values ('".addslashes($val['text'])."','$languageschema','".addslashes($val['schema'])."');";
-		db_query($sql);
+		$sql="Insert IGNORE INTO ".DB::prefix("untranslated")." Values ('".addslashes($val['text'])."','$languageschema','".addslashes($val['schema'])."');";
+		DB::query($sql);
 		}
 }
 
@@ -457,7 +457,7 @@ function wizard_skipcommentary($str,&$i,&$line)
 		}
 		else if($str[($i+1)] == "*")
 		{
-			while( ($str[$i] != "*" || $str[($i+1)] != "/") && $str[$i] != "") 
+			while( ($str[$i] != "*" || $str[($i+1)] != "/") && $str[$i] != "")
 			{
 				if($str[$i] == "\n")
 				{
@@ -475,7 +475,7 @@ function wizard_skipcommentary($str,&$i,&$line)
 
 function already_in_array($array,$text,$schema)
 {
-	foreach ($array as $entry) 
+	foreach ($array as $entry)
 	{
 		if($entry['text'] == $text && $entry['schema'] == $schema)
 		{

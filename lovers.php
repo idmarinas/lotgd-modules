@@ -26,20 +26,20 @@ function lovers_install(){
 	module_addhook("newday");
 	module_addhook("inn");
 
-	$sql = "DESCRIBE " . db_prefix("accounts");
-	$result = db_query($sql);
-	while ($row = db_fetch_assoc($result)){
+	$sql = "DESCRIBE " . DB::prefix("accounts");
+	$result = DB::query($sql);
+	while ($row = DB::fetch_assoc($result)){
 		if ($row['Field']=="seenlover"){
-			$sql = "SELECT seenlover,acctid FROM " . db_prefix("accounts") . " WHERE seenlover>0";
-			$result1 = db_query($sql);
+			$sql = "SELECT seenlover,acctid FROM " . DB::prefix("accounts") . " WHERE seenlover>0";
+			$result1 = DB::query($sql);
 			debug("Migrating seenlover.`n");
-			while ($row1 = db_fetch_assoc($result1)){
-				$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) VALUES ('lovers','seenlover',{$row1['acctid']},{$row1['seenlover']})";
-				db_query($sql);
+			while ($row1 = DB::fetch_assoc($result1)){
+				$sql = "INSERT INTO " . DB::prefix("module_userprefs") . " (modulename,setting,userid,value) VALUES ('lovers','seenlover',{$row1['acctid']},{$row1['seenlover']})";
+				DB::query($sql);
 			}//end while
 			debug("Dropping seenlover column from the user table.`n");
-			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP seenlover";
-			db_query($sql);
+			$sql = "ALTER TABLE " . DB::prefix("accounts") . " DROP seenlover";
+			DB::query($sql);
 			//drop it from the user's session too.
 			unset($session['user']['seenlover']);
 		}//end if

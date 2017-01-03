@@ -63,10 +63,10 @@ function claneditor_run(){
 	$dt = httpget("dt");
 	$op = httpget('op');
 	if ($dt!="") {
-		$sql = "SELECT * FROM " . db_prefix("clans") . " WHERE clanid='$dt'";
-		$result = db_query($sql);
-		$claninfo = db_fetch_assoc($result);
-		if (db_num_rows($result)==0) {
+		$sql = "SELECT * FROM " . DB::prefix("clans") . " WHERE clanid='$dt'";
+		$result = DB::query($sql);
+		$claninfo = DB::fetch_assoc($result);
+		if (DB::num_rows($result)==0) {
 			$op = "";
 		}
 	}
@@ -81,9 +81,9 @@ function claneditor_run(){
 	if ($op==""||$op=="list"){
 		page_header("Clan Listing");
 		rawoutput("<table border='0' padding='0'><tr><td>");
-		$sql = "SELECT MAX(" . db_prefix("clans") . ".clanid) AS clanid, MAX(clanname) AS clanname,count(" . db_prefix("accounts") . ".acctid) AS c FROM " . db_prefix("clans") . " LEFT JOIN " . db_prefix("accounts") . " ON " . db_prefix("clans") . ".clanid=" . db_prefix("accounts") . ".clanid AND clanrank>".CLAN_APPLICANT." GROUP BY " . db_prefix("clans") . ".clanid ORDER BY c DESC";
-		$result = db_query($sql);
-		if (db_num_rows($result)>0){
+		$sql = "SELECT MAX(" . DB::prefix("clans") . ".clanid) AS clanid, MAX(clanname) AS clanname,count(" . DB::prefix("accounts") . ".acctid) AS c FROM " . DB::prefix("clans") . " LEFT JOIN " . DB::prefix("accounts") . " ON " . DB::prefix("clans") . ".clanid=" . DB::prefix("accounts") . ".clanid AND clanrank>".CLAN_APPLICANT." GROUP BY " . DB::prefix("clans") . ".clanid ORDER BY c DESC";
+		$result = DB::query($sql);
+		if (DB::num_rows($result)>0){
 			output("`%Karissa`7 steps in as if by magic, listing the clans for you.`n");
 			output("`@`bList of Clans:`b`0`n`n");
 			$v = 0;
@@ -91,11 +91,11 @@ function claneditor_run(){
 			$memb_1 = translate_inline("(%s member)");
 			rawoutput('<table cellspacing="0" cellpadding="2" align="left">');
 			output_notl("<tr class='trhead'><td>%s</td><td>%s</td></tr>",translate_inline("`b`&Name of Clan`b"),translate_inline("`&`iNumber of Members`i"),true);
-			for ($i=0;$i<db_num_rows($result);$i++){
-				$row = db_fetch_assoc($result);
+			for ($i=0;$i<DB::num_rows($result);$i++){
+				$row = DB::fetch_assoc($result);
 				if ($row['c']==0){
-					$sql = "DELETE FROM " . db_prefix("clans") . " WHERE clanid={$row['clanid']}";
-					db_query($sql);
+					$sql = "DELETE FROM " . DB::prefix("clans") . " WHERE clanid={$row['clanid']}";
+					DB::query($sql);
 				}else{
 					rawoutput('<tr class="' . ($v%2?"trlight":"trdark").'"><td>', true);
 					if ($row['c'] == 1) {
@@ -135,8 +135,8 @@ function claneditor_run(){
 			$clanshort = full_sanitize($ocs);
 			$clanshort = preg_replace("'[^[:alpha:]]'","",$clanshort);
 			httppostset('clanshort', $clanshort);
-			$sql = "SELECT * FROM " . db_prefix("clans") . " WHERE clanname='$clanname'";
-			$result = db_query($sql);
+			$sql = "SELECT * FROM " . DB::prefix("clans") . " WHERE clanname='$clanname'";
+			$result = DB::query($sql);
 			$e = translate_inline("`%Karissa`7 hands you a form to start a clan.");
 			$e1 = translate_inline("`%Karissa`7 looks over your form but informs you that your clan name must consist only of letters, spaces, apostrophes, or dashes.  Also, your short name can consist only of letters. She hands you a blank form.");
 			$e2 = translate_inline("`%Karissa`7 looks over your form but informs you that you must have at least 5 and no more than 50 characters in your clan's name (and they must consist only of letters, spaces, apostrophes, or dashes), then hands you a blank form.");
@@ -155,21 +155,21 @@ function claneditor_run(){
 			}elseif (strlen($clanshort)<2 || strlen($clanshort)>5){
 				output_notl($e3);
 				clanform();
-			}elseif (db_num_rows($result)>0){
+			}elseif (DB::num_rows($result)>0){
 				output_notl($e4,stripslashes($clanname));
 				clanform();
 			}else{
-				$sql = "SELECT * FROM " . db_prefix("clans") . " WHERE clanshort='$clanshort'";
-				$result = db_query($sql);
-				if (db_num_rows($result)>0){
+				$sql = "SELECT * FROM " . DB::prefix("clans") . " WHERE clanshort='$clanshort'";
+				$result = DB::query($sql);
+				if (DB::num_rows($result)>0){
 					output_notl($e5,stripslashes($clanshort));
 					clanform();
 				}else{
-					$sql = "INSERT INTO " . db_prefix("clans") . " (clanname,clanshort) VALUES ('$clanname','$clanshort')";
-					db_query($sql);
+					$sql = "INSERT INTO " . DB::prefix("clans") . " (clanname,clanshort) VALUES ('$clanname','$clanshort')";
+					DB::query($sql);
 					$clid = db_insert_id();
-					$sql = "UPDATE " . db_prefix("accounts") . " SET clanid='$clid',clanrank='".CLAN_LEADER."' WHERE acctid='$id'";
-					db_query($sql);
+					$sql = "UPDATE " . DB::prefix("accounts") . " SET clanid='$clid',clanrank='".CLAN_LEADER."' WHERE acctid='$id'";
+					DB::query($sql);
 					$subj = "New Clan!";
 					$msg = array("%s`0`^ has made you a new clan!",$session['user']['name']);
 					systemmail($id,$subj,$msg);
@@ -198,14 +198,14 @@ function claneditor_run(){
 			page_header("Clan Deletion");
 		}
 		if ($op=="mview"){
-			$sql = "SELECT name FROM " . db_prefix("accounts")  . " WHERE acctid={$claninfo['motdauthor']}";
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT name FROM " . DB::prefix("accounts")  . " WHERE acctid={$claninfo['motdauthor']}";
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			$motdauthname = $row['name'];
 
-			$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid={$claninfo['descauthor']}";
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid={$claninfo['descauthor']}";
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			$descauthname = $row['name'];
 			output("`&`bCurrent MoTD:`b `#by %s`2`n",$motdauthname);
 			output_notl(nltoappon($claninfo['clanmotd'])."`n`n");
@@ -216,13 +216,13 @@ function claneditor_run(){
 			output("`&`bCurrent Description:`b `#by %s`2`n",$descauthname);
 			output_notl(nltoappon($claninfo['clandesc'])."`n");
 			modulehook("}collapse");
-			$sql = "SELECT count(*) AS c, clanrank FROM " . db_prefix("accounts") . " WHERE clanid={$claninfo['clanid']} GROUP BY clanrank DESC";
-			$result = db_query($sql);
+			$sql = "SELECT count(*) AS c, clanrank FROM " . DB::prefix("accounts") . " WHERE clanid={$claninfo['clanid']} GROUP BY clanrank DESC";
+			$result = DB::query($sql);
 			// begin collapse
 			modulehook("collapse{", array("name"=>"clanmemberdet"));
 			output("`n`bMembership Details:`b`n");
 			$leaders = 0;
-			while ($row = db_fetch_assoc($result)){
+			while ($row = DB::fetch_assoc($result)){
 				output_notl($ranks[$row['clanrank']].": ".$row['c']."`n");
 				if ($row['clanrank']>=CLAN_OFFICER) $leaders += $row['c'];
 			}
@@ -231,11 +231,11 @@ function claneditor_run(){
 			if ($leaders==0){
 				//There's no leader here, probably because the leader's account
 				//expired.
-				$sql = "SELECT name,acctid,clanrank FROM " . db_prefix("accounts") . " WHERE clanid=$dt ORDER BY clanrank DESC, clanjoindate";
-				$result = db_query($sql);
-				$row = db_fetch_assoc($result);
-				$sql = "UPDATE " . db_prefix("accounts") . " SET clanrank=".CLAN_LEADER." WHERE acctid='".$row['acctid']."'";
-				db_query($sql);
+				$sql = "SELECT name,acctid,clanrank FROM " . DB::prefix("accounts") . " WHERE clanid=$dt ORDER BY clanrank DESC, clanjoindate";
+				$result = DB::query($sql);
+				$row = DB::fetch_assoc($result);
+				$sql = "UPDATE " . DB::prefix("accounts") . " SET clanrank=".CLAN_LEADER." WHERE acctid='".$row['acctid']."'";
+				DB::query($sql);
 				output_notl($noleader,$row['name']);
 			}
 			// end collapse
@@ -243,16 +243,16 @@ function claneditor_run(){
 		}elseif ($op=="deleteclan"){
 			if (httpget("sop")=="yes") {
 				//notify users of the deletion of the clan
-				$sql = "SELECT acctid FROM " . db_prefix("accounts")  . " WHERE clanid=$dt";
-				$result = db_query($sql);
+				$sql = "SELECT acctid FROM " . DB::prefix("accounts")  . " WHERE clanid=$dt";
+				$result = DB::query($sql);
 				$subj = array("Deletion of %s",$claninfo['clanname']);
 				$msg = array("The clan you were in, %s, has closed its doors.\nSorry for any inconvenience.",$claninfo['clanname']);
-				while ($row = db_fetch_assoc($result)){
+				while ($row = DB::fetch_assoc($result)){
 					systemmail($row['acctid'],$subj,$msg);
 				}
 				//change the clan if a user is in this clan
-				$sql = "UPDATE ".db_prefix("accounts")." SET clanid=0,clanrank=".CLAN_APPLICANT.",clanjoindate='0000-00-00 00:00:00' WHERE clanid=$dt";
-				db_query($sql);
+				$sql = "UPDATE ".DB::prefix("accounts")." SET clanid=0,clanrank=".CLAN_APPLICANT.",clanjoindate='0000-00-00 00:00:00' WHERE clanid=$dt";
+				DB::query($sql);
 				//change the current users clan if this user was in that clan
 				if ($session['user']['clanid']==$dt) {
 					$session['user']['clanid']=0;
@@ -260,8 +260,8 @@ function claneditor_run(){
 					$session['user']['clanjoindate']='0000-00-00 00:00:00';
 				}
 				//drop the clan.
-				$sql = "DELETE FROM " . db_prefix("clans") . " WHERE clanid=$dt";
-				db_query($sql);
+				$sql = "DELETE FROM " . DB::prefix("clans") . " WHERE clanid=$dt";
+				DB::query($sql);
 				module_delete_objprefs('clans', $dt);
 				$op = "";
 				httpset("op", "");
@@ -299,8 +299,8 @@ function claneditor_run(){
 				} else {
 					$mauthor=$session['user']['acctid'];
 				}
-				$sql = "UPDATE " . db_prefix("clans") . " SET clanmotd='$clanmotd',motdauthor=$mauthor WHERE clanid={$claninfo['clanid']}";
-				db_query($sql);
+				$sql = "UPDATE " . DB::prefix("clans") . " SET clanmotd='$clanmotd',motdauthor=$mauthor WHERE clanid={$claninfo['clanid']}";
+				DB::query($sql);
 				invalidatedatacache("clandata-{$claninfo['clanid']}");
 				$claninfo['clanmotd']=stripslashes($clanmotd);
 				output("Updating MoTD`n");
@@ -314,8 +314,8 @@ function claneditor_run(){
 				} else {
 					$dauthor=$session['user']['acctid'];
 				}
-				$sql = "UPDATE " . db_prefix("clans") . " SET clandesc='".addslashes(substr(stripslashes($clandesc),0,4096))."',descauthor=$dauthor WHERE clanid={$claninfo['clanid']}";
-				db_query($sql);
+				$sql = "UPDATE " . DB::prefix("clans") . " SET clandesc='".addslashes(substr(stripslashes($clandesc),0,4096))."',descauthor=$dauthor WHERE clanid={$claninfo['clanid']}";
+				DB::query($sql);
 				invalidatedatacache("clandata-{$claninfo['clanid']}");
 				output("Updating description`n");
 				$claninfo['clandesc']=stripslashes($clandesc);
@@ -323,8 +323,8 @@ function claneditor_run(){
 			}
 			$customsay = httppost('customsay');
 			if (httppostisset('customsay') && $customsay!=$claninfo['customsay']){
-				$sql = "UPDATE " . db_prefix("clans") . " SET customsay='$customsay' WHERE clanid={$claninfo['clanid']}";
-				db_query($sql);
+				$sql = "UPDATE " . DB::prefix("clans") . " SET customsay='$customsay' WHERE clanid={$claninfo['clanid']}";
+				DB::query($sql);
 				invalidatedatacache("clandata-{$claninfo['clanid']}");
 				output("Updating custom say line`n");
 				$claninfo['customsay']=stripslashes($customsay);
@@ -334,26 +334,26 @@ function claneditor_run(){
 			$clanshort = httppost('clanshort');
 			if ($clanshort) $clanshort = full_sanitize($clanshort);
 			if (httppostisset('clanname') && $clanname!=$claninfo['clanname']){
-				$sql = "UPDATE " . db_prefix("clans") . " SET clanname='$clanname' WHERE clanid={$claninfo['clanid']}";
+				$sql = "UPDATE " . DB::prefix("clans") . " SET clanname='$clanname' WHERE clanid={$claninfo['clanid']}";
 				output("Updating the clan name`n");
-				db_query($sql);
+				DB::query($sql);
 				invalidatedatacache("clandata-$detail");
 				$claninfo['clanname']=$clanname;
 			}
 			if (httppostisset('clanshort') && $clanshort!=$claninfo['clanshort']){
-				$sql = "UPDATE " . db_prefix("clans") . " SET clanshort='$clanshort' WHERE clanid={$claninfo['clanid']}";
+				$sql = "UPDATE " . DB::prefix("clans") . " SET clanshort='$clanshort' WHERE clanid={$claninfo['clanid']}";
 				output("Updating the short clan name`n");
-				db_query($sql);
+				DB::query($sql);
 				invalidatedatacache("clandata-$detail");
 				$claninfo['clanshort']=$clanshort;
 			}
-			$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid={$claninfo['motdauthor']}";
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid={$claninfo['motdauthor']}";
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			$motdauthname = $row['name'];
-			$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid={$claninfo['descauthor']}";
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid={$claninfo['descauthor']}";
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			$descauthname = $row['name'];
 			output("`&`bCurrent MoTD:`b `#by %s`2`n",$motdauthname);
 			output_notl(nltoappon($claninfo['clanmotd'])."`n");
@@ -372,16 +372,16 @@ function claneditor_run(){
 			output("`n`&`bDescription:`b `7(4096 chars)`n");
 			if (httppost('block')>""){
 				$blockdesc = translate_inline("Description blocked for inappropriate usage.");
-				$sql = "UPDATE " . db_prefix("clans") . " SET descauthor=4294967295, clandesc='$blockdesc' where clanid='".$claninfo['clanid']."'";
+				$sql = "UPDATE " . DB::prefix("clans") . " SET descauthor=4294967295, clandesc='$blockdesc' where clanid='".$claninfo['clanid']."'";
 				output("Blocking public description`n");
-				db_query($sql);
+				DB::query($sql);
 				invalidatedatacache("clandata-".$claninfo['clanid']."");
 				$claninfo['blockdesc']="";
 				$claninfo['descauthor']=4294967295;
 			}elseif (httppost('unblock')>""){
-				$sql = "UPDATE " . db_prefix("clans") . " SET descauthor=0, clandesc='' where clanid='".$claninfo['clanid']."'";
+				$sql = "UPDATE " . DB::prefix("clans") . " SET descauthor=0, clandesc='' where clanid='".$claninfo['clanid']."'";
 				output("Unblocking public description`n");
-				db_query($sql);
+				DB::query($sql);
 				invalidatedatacache("clandata-".$claninfo['clanid']."");
 				$claninfo['clandesc']="";
 				$claninfo['descauthor']=0;
@@ -407,24 +407,24 @@ function claneditor_run(){
 			$setrank = httpget('setrank');
 			$who = httpget('who');
 			if ($setrank>""){
-				$sql = "UPDATE " . db_prefix("accounts") . " SET clanrank=$setrank WHERE login='$who'";
-				db_query($sql);
+				$sql = "UPDATE " . DB::prefix("accounts") . " SET clanrank=$setrank WHERE login='$who'";
+				DB::query($sql);
 			}
 			$remove = httpget('remove');
 			if ($remove>""){
-				$sql = "UPDATE " . db_prefix("accounts") . " SET clanrank=".CLAN_APPLICANT.",clanid=0,clanjoindate='0000-00-00 00:00:00' WHERE login='$remove' AND clanrank<={$session['user']['clanrank']}";
-				db_query($sql);
+				$sql = "UPDATE " . DB::prefix("accounts") . " SET clanrank=".CLAN_APPLICANT.",clanid=0,clanjoindate='0000-00-00 00:00:00' WHERE login='$remove' AND clanrank<={$session['user']['clanrank']}";
+				DB::query($sql);
 				//delete unread application emails from this user.
 				//breaks if the applicant has had their name changed via
 				//dragon kill, superuser edit, or lodge color change
-				$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE login='$remove'";
-				$row = db_fetch_assoc(db_query($sql));
+				$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE login='$remove'";
+				$row = DB::fetch_assoc(DB::query($sql));
 				$subj = serialize(array($apply_short, $row['name']));
-				$sql = "DELETE FROM " . db_prefix("mail") . " WHERE msgfrom=0 AND seen=0 AND subject='$subj'";
-				db_query($sql);
+				$sql = "DELETE FROM " . DB::prefix("mail") . " WHERE msgfrom=0 AND seen=0 AND subject='$subj'";
+				DB::query($sql);
 			}
-			$sql = "SELECT acctid,name,login,clanrank,laston,clanjoindate,dragonkills,level FROM " . db_prefix("accounts") . " WHERE clanid={$claninfo['clanid']} ORDER BY clanrank DESC,clanjoindate";
-			$result = db_query($sql);
+			$sql = "SELECT acctid,name,login,clanrank,laston,clanjoindate,dragonkills,level FROM " . DB::prefix("accounts") . " WHERE clanid={$claninfo['clanid']} ORDER BY clanrank DESC,clanjoindate";
+			$result = DB::query($sql);
 			rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
 			$rank = translate_inline("Rank");
 			$name = translate_inline("Name");
@@ -440,7 +440,7 @@ function claneditor_run(){
 			rawoutput("<tr class='trhead'><td>$rank</td><td>$name</td><td>$lev</td><td>$dk</td><td>$jd</td><td>$lo</td>".($session['user']['clanrank']>CLAN_MEMBER?"<td>$ops</td>":"")."</tr>",true);
 			$i=0;
 			$tot = 0;
-			while ($row=db_fetch_assoc($result)){
+			while ($row=DB::fetch_assoc($result)){
 				$i++;
 				$tot += $row['dragonkills'];
 				rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
@@ -512,14 +512,14 @@ function clanuserform(){
 		for ($x=0;$x<strlen($n);$x++){
 		$string .= substr($n,$x,1)."%";
 		}
-		$sql = "SELECT login,name,acctid FROM ".db_prefix("accounts")." WHERE login LIKE '%$n%' AND locked=0 AND clanid=0 ORDER BY level,login";
-		$result = db_query($sql);
-		if (db_num_rows($result)!=0) {
+		$sql = "SELECT login,name,acctid FROM ".DB::prefix("accounts")." WHERE login LIKE '%$n%' AND locked=0 AND clanid=0 ORDER BY level,login";
+		$result = DB::query($sql);
+		if (DB::num_rows($result)!=0) {
 			output("`@These users were found `^(click on a name`@):`n");
 			rawoutput("<table cellpadding='3' cellspacing='0' border='0'>");
 			rawoutput("<tr class='trhead'><td>Login</td><td>Name</td></tr>");
-			for ($i=0;$i<db_num_rows($result);$i++){
-			$row = db_fetch_assoc($result);
+			for ($i=0;$i<DB::num_rows($result);$i++){
+			$row = DB::fetch_assoc($result);
 			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td><a href='runmodule.php?module=claneditor&op=new&apply=1&id=".$row['acctid']."'>");
 			output_notl($row['login']);
 			rawoutput("</a></td><td><a href='runmodule.php?module=claneditor&op=new&apply=1&id=".$row['acctid']."'>");

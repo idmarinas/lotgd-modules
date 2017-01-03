@@ -102,9 +102,9 @@ function stafflist_run(){
 	}
 
 	$biolink=get_module_setting("biolink");
-	$sql = "SELECT p1.userid, (p1.value+0) AS rank,	p2.value AS descr, u.name, u.login, u.sex, u.laston, u.loggedin FROM ".db_prefix("accounts")." as u, ".db_prefix("module_userprefs")." as p1, ".db_prefix("module_userprefs")." as p2 WHERE (p1.value+0) > 0 AND p1.modulename='stafflist' AND p1.setting='rank' AND p1.userid=u.acctid AND p2.modulename='stafflist' AND p2.setting='desc' AND p2.userid=u.acctid ORDER BY rank DESC, u.acctid ASC";
-	$result = db_query_cached($sql, "stafflist", 600);
-	$count = db_num_rows($result);
+	$sql = "SELECT p1.userid, (p1.value+0) AS rank,	p2.value AS descr, u.name, u.login, u.sex, u.laston, u.loggedin FROM ".DB::prefix("accounts")." as u, ".DB::prefix("module_userprefs")." as p1, ".DB::prefix("module_userprefs")." as p2 WHERE (p1.value+0) > 0 AND p1.modulename='stafflist' AND p1.setting='rank' AND p1.userid=u.acctid AND p2.modulename='stafflist' AND p2.setting='desc' AND p2.userid=u.acctid ORDER BY rank DESC, u.acctid ASC";
+	$result = DB::query_cached($sql, "stafflist", 600);
+	$count = DB::num_rows($result);
 
 	output("`c`b`@Staff List`0`b`c`n`n");
 
@@ -123,7 +123,7 @@ function stafflist_run(){
 		if ($showon) rawoutput("<td>$hon</td>");
 		rawoutput("</tr>");
 		for($i=0;$i<$count;$i++){
-			$row = db_fetch_assoc($result);
+			$row = DB::fetch_assoc($result);
 			rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
 			if ($session['user']['loggedin'] && $biolink) {
 				$link = "bio.php?char=".$row['userid']."&ret=".urlencode($_SERVER['REQUEST_URI']);

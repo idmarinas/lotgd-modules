@@ -60,10 +60,10 @@ function inventory_run(){
 function inventory_showformitem($keyout, $val, $info) {
 	rawoutput("<select name='$keyout'>");
 	require_once("lib/sanitize.php");
-	$sql = "SELECT itemid, name, class FROM ".db_prefix("item")." ORDER BY class ASC";
-	$result = db_query($sql);
+	$sql = "SELECT itemid, name, class FROM ".DB::prefix("item")." ORDER BY class ASC";
+	$result = DB::query($sql);
 	$class = "";
-	while ($row=db_fetch_assoc($result)) {
+	while ($row=DB::fetch_assoc($result)) {
 		if ($class != $row['class']) {
 			rawoutput("<option value=''>=== {$row['class']} ===</option>");
 			$class = $row['class'];

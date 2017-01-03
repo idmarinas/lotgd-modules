@@ -1,9 +1,9 @@
 <?php
 if( is_numeric( $id ) )
 {
-	$sql = 'SELECT * FROM '.db_prefix('magicitems').' WHERE id='.$id.' AND category='.$cat.' LIMIT 1';
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = 'SELECT * FROM '.DB::prefix('magicitems').' WHERE id='.$id.' AND category='.$cat.' LIMIT 1';
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	output("`c`2`b<u>Preview of %s</u>`b`0`c`n`n",$row['name'],true);
 	$gold = $row['gold'];
 	$gems = $row['gems'];

@@ -9,6 +9,6 @@ $row = array_merge( $row, $itemarray_extra_vals );
 rawoutput( '<form action="'.htmlentities( $fromeditor ).'save" method="POST">' );
 addnav( '', $fromeditor.'save' );
 require_once( 'lib/showform.php' );
-showform( $itemarray, $row );
+lotgd_showform( $itemarray, $row );
 rawoutput( '</form>' );
 ?>

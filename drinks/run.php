@@ -39,9 +39,9 @@ function drinks_run_private(){
 			output($remark);
 			tlschema();
 		} else {
-			$sql = "SELECT * FROM " . db_prefix("drinks") . " WHERE drinkid='".httpget('id')."'";
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT * FROM " . DB::prefix("drinks") . " WHERE drinkid='".httpget('id')."'";
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			$drinkcost = $session['user']['level'] * $row['costperlevel'];
 			if ($session['user']['gold'] >= $drinkcost) {
 				$drunk = get_module_pref("drunkeness");
@@ -79,7 +79,7 @@ function drinks_run_private(){
 					$oldturns = $session['user']['turns'];
 					//-- Compatibilidad con Stamina system
 					// $session['user']['turns'] += $turns;
-					
+
 					// sanity check
 					// if ($session['user']['turns'] < 0)
 					// 	$session['user']['turns'] = 0;
@@ -89,7 +89,7 @@ function drinks_run_private(){
 					// } else if ($oldturns > $session['user']['turns']) {
 					// 	output("`&You feel lethargic!`n");
 					// }
-					
+
 					require_once "modules/staminasystem/lib/lib.php";
 					if (0 < $turns)
 					{

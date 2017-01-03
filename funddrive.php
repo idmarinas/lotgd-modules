@@ -55,7 +55,7 @@ function funddrive_dohook($hookname,$args){
 		$goal = $prog['goal'];
 		$pct = $prog['percent'];
 		$current = $prog['current'];
-		
+
 		$text = "";
 		if (get_module_setting("usetext")) {
 			$simbol = get_module_setting("simbol");
@@ -63,12 +63,12 @@ function funddrive_dohook($hookname,$args){
 			{
 				$currencyText = "($simbol$current/$simbol$goal)";
 			}
-			else 
+			else
 			{
 				$currencyText = "($current$simbol/$goal$simbol)";
 			}
-			
-			
+
+
 			$text = "".str_replace(' ','&nbsp;',get_module_setting("indicatorText"))."&nbsp;$out".(get_module_setting("showdollars")?" ". $currencyText:"");
 		}
 		switch(get_module_setting("usebar")) {
@@ -76,7 +76,7 @@ function funddrive_dohook($hookname,$args){
 			$color = ($pct < 100 ? "progress-funddrivebar-color" : "progress-funddrivebar-full");
 			$res = "<div class='progressbar funddrivebar'>
 					 	<div class='progress-progressbar progress-funddrivebar $color' style='width: $pct%;'>
-							<div class='progress-text'>$text</div> 
+							<div class='progress-text'>$text</div>
 						</div>
 					 </div>";
 			break;
@@ -113,10 +113,10 @@ function funddrive_getpercent(){
 	}
 	$start = date("Y")."-".$targetmonth."-01";
 	$end = date("Y-m-d",strtotime("+1 month",strtotime($start)));
-	$result = db_query_cached("SELECT sum(amount) AS gross, sum(txfee) AS fees FROM ".db_prefix("paylog")." WHERE processdate >= '$start' AND processdate < '$end'","mod_funddrive_totals",10);
+	$result = DB::query_cached("SELECT sum(amount) AS gross, sum(txfee) AS fees FROM ".DB::prefix("paylog")." WHERE processdate >= '$start' AND processdate < '$end'","mod_funddrive_totals",10);
 	$goal = get_module_setting("goalamount");
 	$base = get_module_setting("baseamount");
-	$row = db_fetch_assoc($result);
+	$row = DB::fetch_assoc($result);
 	$current = $row['gross'] + $base;
 	if (get_module_setting("deductfees")) {
 		$current -= $row['fees'];

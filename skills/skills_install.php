@@ -1,6 +1,6 @@
 <?php
-	$skills = db_prefix("skills");
-	$skillsbuffs = db_prefix("skillsbuffs");
+	$skills = DB::prefix("skills");
+	$skillsbuffs = DB::prefix("skillsbuffs");
 
 	// SQLs for creation of skills-table
 
@@ -53,12 +53,12 @@
 		synctable($skills, $skills_table, true);
 		synctable($skillsbuffs, $skillsbuffs_table, true);
 		$sql = "INSERT INTO ".$skills." (`skillid`, `name`, `ccode`, `requirement`, `cooldown`, `execvalue`, `buffids`) VALUES (2, 'Gil Toss', '`^', '\$session[''user''][''gold'']>100', 5, '\$session[''user''][''gold'']-=100;', 'a:1:{i:1;i:1;}'), (3, 'Torment', '`7', '\$session[''user''][''gravefights'']>1', 5, '\$session[''user''][''gravefights'']--;', 'a:1:{i:2;i:1;}');";
-		db_query($sql);
+		DB::query($sql);
 		$sql = "INSERT INTO ".$skillsbuffs." (`buffid`, `buffname`, `buffshortname`, `rounds`, `invulnerable`, `dmgmod`, `badguydmgmod`, `atkmod`, `badguyatkmod`, `defmod`, `badguydefmod`, `lifetap`, `damageshield`, `regen`, `minioncount`, `maxbadguydamage`, `minbadguydamage`, `maxgoodguydamage`, `mingoodguydamage`, `startmsg`, `roundmsg`, `wearoff`, `effectfailmsg`, `effectnodmgmsg`, `effectmsg`, `allowinpvp`, `allowintrain`, `survivenewday`, `expireafterfight`) VALUES (1, 'Gil Toss', 'Gil Toss', '5', '0', '', '', '', '', '', '', '', '', '', '5', '5', '3', '', '', '', '%cYou throw money at {badguy}%c!`0', '%cYou decide to keep the rest of your money.`0', '', '', '%c{badguy}%c takes `\${damage}%c damage from your thrown coinage!`0', '0', '0', '0', '1'), (2, 'Torment', 'Torment', '10', '0', '', '.75', '', '.75', '', '.75', '', '', '', '', '', '', '', '', '%cYou make a dark deal with Ramius and trade `$1%c shades torment for the day in exchange for tormenting your enemy!`0', '%cYou torment {badguy}%c until he cries!`0', '%c{badguy}%c starts crying; You feel bad for being so mean to it. You big meanie >:(`0', '', '', '', '0', '0', '0', '1');";
-		db_query($sql);
+		DB::query($sql);
 	}
 	module_addhook("superuser");
-	module_addhook("newday");	
+	module_addhook("newday");
 	module_addhook("fightnav-specialties");
 	module_addhook("apply-specialties");
 ?>

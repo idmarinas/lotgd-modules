@@ -39,7 +39,7 @@ function dragoneggpoints_dohook($hookname,$args){
 	switch($hookname){
 		case "footer-hof":
 			addnav("Warrior Rankings");
-			addnav("Dragon Egg Destroyers","runmodule.php?module=dragoneggpoints&op=hof");	
+			addnav("Dragon Egg Destroyers","runmodule.php?module=dragoneggpoints&op=hof");
 		break;
 		case "dragonkilltext":
 			if ($session['user']['dragonkills']>=get_module_setting("mindk","dragoneggs")){
@@ -180,18 +180,18 @@ if ($op == "hof") {
 	if ($pageoffset > 0) $pageoffset--;
 	$pageoffset *= $pp;
 	$limit = "LIMIT $pageoffset,$pp";
-	$sql = "SELECT COUNT(*) AS c FROM " . db_prefix("module_userprefs") . " WHERE modulename = 'dragoneggpoints' AND setting = 'dragoneggshof' AND value > 0";
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = "SELECT COUNT(*) AS c FROM " . DB::prefix("module_userprefs") . " WHERE modulename = 'dragoneggpoints' AND setting = 'dragoneggshof' AND value > 0";
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$total = $row['c'];
-	$count = db_num_rows($result);
+	$count = DB::num_rows($result);
 	if (($pageoffset + $pp) < $total){
 		$cond = $pageoffset + $pp;
 	}else{
 		$cond = $total;
 	}
-	$sql = "SELECT ".db_prefix("module_userprefs").".value, ".db_prefix("accounts").".name FROM " . db_prefix("module_userprefs") . "," . db_prefix("accounts") . " WHERE acctid = userid AND modulename = 'dragoneggpoints' AND setting = 'dragoneggshof' AND value > 0 ORDER BY (value+0) DESC $limit";
-	$result = db_query($sql);
+	$sql = "SELECT ".DB::prefix("module_userprefs").".value, ".DB::prefix("accounts").".name FROM " . DB::prefix("module_userprefs") . "," . DB::prefix("accounts") . " WHERE acctid = userid AND modulename = 'dragoneggpoints' AND setting = 'dragoneggshof' AND value > 0 ORDER BY (value+0) DESC $limit";
+	$result = DB::query($sql);
 	$rank = translate_inline("Rank");
 	$name = translate_inline("Name");
 	$hofdesc = translate_inline("Dragon Egg Points");
@@ -199,10 +199,10 @@ if ($op == "hof") {
 	output("`n`b`c`^Most Eggs Destroyed`c`n`b");
 	rawoutput("<table border='0' cellpadding='2' cellspacing='1' align='center' bgcolor='#999999'>");
 	rawoutput("<tr class='trhead'><td>$rank</td><td>$name</td><td>$hofdesc</td></tr>");
-	if (db_num_rows($result)<=0) output_notl("<tr class='trlight'><td colspan='3' align='center'>`&$none`^</td></tr>",true);
+	if (DB::num_rows($result)<=0) output_notl("<tr class='trlight'><td colspan='3' align='center'>`&$none`^</td></tr>",true);
 	else{
 		for($i = $pageoffset; $i < $cond && $count; $i++) {
-			$row = db_fetch_assoc($result);
+			$row = DB::fetch_assoc($result);
 			if ($row['name']==$session['user']['name']){
 				rawoutput("<tr class='trhilight'><td>");
 			}else{

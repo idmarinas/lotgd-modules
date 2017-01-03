@@ -47,7 +47,7 @@ function jailinator_chance() {
 	return 25;
 }
 function jailinator_install(){
-	module_addeventhook("forest","require_once(\"modules/jailinator.php\"); 
+	module_addeventhook("forest","require_once(\"modules/jailinator.php\");
 	return jailinator_chance();");
 	module_addhook("newday");
 	return true;
@@ -80,7 +80,7 @@ function jailinator_runevent($type,$link) {
 			think of all the people I've jailed over the many years.  In fact, I sometimes have an urge
 			to do some gratuitous jailing.  However, I don't know who to jail.  If you would like, just
 			tell me the name of someone, and I will jail them for a day.'`n`n");
-		output("`@Suddenly, you think of all the people that deserve a 'forced vacation'.  
+		output("`@Suddenly, you think of all the people that deserve a 'forced vacation'.
 			You have a choice to make, and `\$%s `@ awaits your answer.",$staffname);
 		addnav("What do you do?");
 		addnav("Leave","forest.php?op=leavestaff");
@@ -103,9 +103,9 @@ function jailinator_runevent($type,$link) {
 				for ($i=0;$i<strlen($name);$i++){
 				$search.=substr($name,$i,1)."%";
 			}
-			$sql = "SELECT name,alive,location,sex,level,laston,loggedin,login FROM " . db_prefix("accounts") . " WHERE (locked=0 AND name LIKE '$search') ORDER BY level DESC";
-			$result = db_query($sql);
-			$max = db_num_rows($result);
+			$sql = "SELECT name,alive,location,sex,level,laston,loggedin,login FROM " . DB::prefix("accounts") . " WHERE (locked=0 AND name LIKE '$search') ORDER BY level DESC";
+			$result = DB::query($sql);
+			$max = DB::num_rows($result);
 			if ($max > 100) {
 				output("`n`n`7No.  That's too many names to pick from.  I'll let you choose from the first couple...`n");
 				$max = 100;
@@ -114,7 +114,7 @@ function jailinator_runevent($type,$link) {
 			$lev = translate_inline("Level");
 			rawoutput("<table border=0 cellpadding=0><tr><td>$n</td><td>$lev</td></tr>");
 			for ($i=0;$i<$max;$i++){
-				$row = db_fetch_assoc($result);
+				$row = DB::fetch_assoc($result);
 				rawoutput("<tr><td><a href='".$from."op=enemies&who=".rawurlencode($row['login'])."'>");
 				output_notl("%s", $row['name']);
 				rawoutput("</a></td><td>{$row['level']}</td></tr>");
@@ -123,10 +123,10 @@ function jailinator_runevent($type,$link) {
 			rawoutput("</table>");
 			}
 		}else{
-			$sql = "SELECT name,alive,location,maxhitpoints,gold,sex,level,weapon,armor,attack,defense FROM " . db_prefix("accounts") . " WHERE login='$who'";
-			$result = db_query($sql);
-			if (db_num_rows($result)>0){
-				$row = db_fetch_assoc($result);
+			$sql = "SELECT name,alive,location,maxhitpoints,gold,sex,level,weapon,armor,attack,defense FROM " . DB::prefix("accounts") . " WHERE login='$who'";
+			$result = DB::query($sql);
+			if (DB::num_rows($result)>0){
+				$row = DB::fetch_assoc($result);
 				$name = $row['name'];
 				$staffname= get_module_setting("staffname");
 				output("`n`n`7'So you have chosen to jail`7 %s`7.'`n`n", $name);

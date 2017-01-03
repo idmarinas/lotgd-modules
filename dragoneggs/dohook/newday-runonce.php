@@ -1,10 +1,10 @@
 <?php
-	$sql = "update ".db_prefix("module_userprefs")." set value=0 where value<>0 and setting='researches' and modulename='dragoneggs'";
-	db_query($sql);
-	$sql = "update ".db_prefix("module_userprefs")." set value=2 where value=1 and setting='retainer' and modulename='dragoneggs'";
-	db_query($sql);
-	$sql = "update ".db_prefix("module_userprefs")." set value=0 where value<>0 and setting='sold' and modulename='dragoneggs'";
-	db_query($sql);
+	$sql = "update ".DB::prefix("module_userprefs")." set value=0 where value<>0 and setting='researches' and modulename='dragoneggs'";
+	DB::query($sql);
+	$sql = "update ".DB::prefix("module_userprefs")." set value=2 where value=1 and setting='retainer' and modulename='dragoneggs'";
+	DB::query($sql);
+	$sql = "update ".DB::prefix("module_userprefs")." set value=0 where value<>0 and setting='sold' and modulename='dragoneggs'";
+	DB::query($sql);
 
 if (getsetting("installer_version","-1")=="1.1.1 Dragonprime Edition"){
 	$innname=getsetting("innname", LOCATION_INN);
@@ -19,7 +19,7 @@ $name=translate_inline(array("","Healer's Hut","Ye Olde Bank","Bluspring's Warri
 
 //Allow for random opening of all locations
 if (get_module_setting("allopen")<=0 && e_rand(1,get_module_setting("randomallopen"))==2) set_module_setting("allopen",1);
-	
+
 $open="";
 for ($i=1;$i<=23;$i++) {
 	$loc=$array[$i];
@@ -38,7 +38,7 @@ for ($i=1;$i<=23;$i++) {
 		elseif (is_module_active("oldchurch")==0 && $i==20) $active=0;
 		elseif (is_module_active("docks")==0 && is_module_active("oceanquest")==0 && $i==22) $active=0;
 		elseif (is_module_active("outhouse")==0 && $i==23) $active=0;
-		
+
 		if ($active==1){
 			$place=$name[$i];
 			set_module_setting($loc."open",0);
@@ -61,8 +61,8 @@ $dkT = translate_inline($mindk>1?"Dragon Kills":"Dragon Kill");
 if (get_module_setting("allopen")>0){
 	if ($mindk>0) addnews("`&`bAll locations are open for Dragon Egg Research today if you have at least `^%s `@%s`&.`b",$mindk,$dkT,true);
 	else addnews("`&`bAll locations are open for Dragon Egg Research today.`b",true);
-	$sql1 = "update ".db_prefix("module_userprefs")." set value=1 where value=0 and setting='inform' and modulename='dragoneggs'";
-	db_query($sql1);
+	$sql1 = "update ".DB::prefix("module_userprefs")." set value=1 where value=0 and setting='inform' and modulename='dragoneggs'";
+	DB::query($sql1);
 	increment_module_setting("allopen",-1);
 	output("`n`&`bAll locations are open for Dragon Egg Research today.`b`n");
 	set_module_pref("inform",0);
@@ -71,8 +71,8 @@ if (get_module_setting("allopen")>0){
 		if ($mindk>0) addnews("`@The following locations are open for Dragon Egg Research by all warriors that have at least `^%s `@%s:`c`&%s`c",$mindk,$dkT,$open,true);
 		else addnews("`@The following locations are open for Dragon Egg Research by all warriors today:`c`&%s`c",$open,true);
 	}
-	$sql = "update ".db_prefix("module_userprefs")." set value=0 where value<>0 and setting='inform' and modulename='dragoneggs'";
-	db_query($sql);	
+	$sql = "update ".DB::prefix("module_userprefs")." set value=0 where value<>0 and setting='inform' and modulename='dragoneggs'";
+	DB::query($sql);
 }
 if (get_module_setting("left")>0) increment_module_setting("left",-1);
 if (get_module_setting("townegg")==1){

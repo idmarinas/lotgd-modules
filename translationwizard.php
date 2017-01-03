@@ -30,7 +30,7 @@ function translationwizard_getmoduleinfo(){
 				"blockcentral"=>"Block the Central Translations Section in the wizard,bool|0",
 				"lookuppath"=>"URL to the central translations section,text|http://translations.nb-core.org",
 				"Note: This is usually translation.nb-core.org,note",
-			
+
 		),
 		"prefs"=>array(
 		    "Translation Wizard - User prefs,title",
@@ -61,14 +61,14 @@ function translationwizard_install(){
 		'key-two'=> array('name'=>'uri', 'type'=>'key', 'unique'=>'0', 'columns'=>'uri'),
 		);
 	require_once("lib/tabledescriptor.php");
-	synctable(db_prefix("temp_translations"), $wizard, true);
+	synctable(DB::prefix("temp_translations"), $wizard, true);
 	return true;
 }
 
 function translationwizard_uninstall() {
 	debug ("Performing Uninstall on Translation Wizard. Thank you for using!`n`n");
-	if(db_table_exists(db_prefix("temp_translations"))){
-		$result=db_query("DROP TABLE ".db_prefix("temp_translations"));
+	if(db_table_exists(DB::prefix("temp_translations"))){
+		$result=DB::query("DROP TABLE ".DB::prefix("temp_translations"));
 	}
 	return $result;
 }
@@ -111,7 +111,7 @@ function translationwizard_run(){
 	}
 	//end of the header
 	if ($op=="")  $op="default";
-	if($op!='scanmodules') require("./modules/translationwizard/errorhandler.php");	
+	if($op!='scanmodules') require("./modules/translationwizard/errorhandler.php");
 	require("./modules/translationwizard/$op.php");
 	require_once("lib/superusernav.php");
 	superusernav();

@@ -46,8 +46,8 @@ function racestorm_install(){
 
 function racestorm_uninstall(){
 	global $session;
-	$sql = "UPDATE  " . db_prefix("accounts") . " SET race='" . RACE_UNKNOWN . "' WHERE race='Storm Giant'";
-	db_query($sql);
+	$sql = "UPDATE  " . DB::prefix("accounts") . " SET race='" . RACE_UNKNOWN . "' WHERE race='Storm Giant'";
+	DB::query($sql);
 	if ($session['user']['race'] == 'Storm Giant')
 		$session['user']['race'] = RACE_UNKNOWN;
 	return true;

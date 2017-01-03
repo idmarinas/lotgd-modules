@@ -1,9 +1,9 @@
 <?php
 if( is_numeric( $id ) )
 {
-	$sql = 'SELECT * FROM '.db_prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = 'SELECT * FROM '.DB::prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$what = $row['name'];
 	$cat = $row['category'];
 	$verbose = $row['bigdesc'];
@@ -60,8 +60,8 @@ if( is_numeric( $id ) )
 	{
 		output("`@However, while possessing your %s`@, you're forced to merely look at %s`@ until you decide to sell your current item.", strtolower( $names[$cat] ), $what );
 	}else if ($session['user']['gold']<$gold or $session['user']['gems']<$gems){
-		output("`3However, checking your funds, you realize you can't afford to purchase this item at the moment.");		   
-	//a quick check to make sure there are enough rare items instock for the player 
+		output("`3However, checking your funds, you realize you can't afford to purchase this item at the moment.");
+	//a quick check to make sure there are enough rare items instock for the player
 	}else if ($rare == 1 && $rarenum<1){
 		output("`n`n`2%s `2suddenly realizes that the item you were about to purchase, `3%s`2, has been sold out.`n`n", $shopkeep,$what);
 		output("`2\"Things go fast around here... much too fast sometimes,\" the shopkeeper notes.");

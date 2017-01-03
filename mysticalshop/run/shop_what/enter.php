@@ -23,13 +23,13 @@ output_notl( '`0' );
 //Note to self: STOP removing this
 modulehook("mysticalshop", array());
 addnav("Merchandise");
-$sql = 'SELECT category,MIN(dk) as dks FROM '.db_prefix( 'magicitems' ).' GROUP BY category ORDER BY category';
-$result = db_query_cached( $sql, 'modules-mysticalshop-enter', 3600 );
+$sql = 'SELECT category,MIN(dk) as dks FROM '.DB::prefix( 'magicitems' ).' GROUP BY category ORDER BY category';
+$result = DB::query_cached( $sql, 'modules-mysticalshop-enter', 3600 );
 
 $specialty = $session['user']['specialty'];
 $userdk = $session['user']['dragonkills'];
 $shortcuts = array( 'R', 't', 'W', 'A', 'C', 'H', 'G', 'B', 'M' );
-while( $row = db_fetch_assoc( $result ) )
+while( $row = DB::fetch_assoc( $result ) )
 {
 	if( $userdk >= $row['dks'] )
 	{

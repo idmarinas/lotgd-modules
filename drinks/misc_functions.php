@@ -79,9 +79,9 @@ function drinks_editor(){
 		"buffeffectmsg"=>"Effect message (see below)",
 	);
 	if($op=="del"){
-		$sql = "DELETE FROM " . db_prefix("drinks") . " WHERE drinkid='$drinkid'";
+		$sql = "DELETE FROM " . DB::prefix("drinks") . " WHERE drinkid='$drinkid'";
 		module_delete_objprefs('drinks', $drinkid);
-		db_query($sql);
+		DB::query($sql);
 		$op = "";
 		httpset('op', "");
 	}
@@ -91,11 +91,11 @@ function drinks_editor(){
 			$drinkid = httppost("drinkid");
 			list($sql, $keys, $vals) = postparse($drinksarray);
 			if ($drinkid > 0) {
-				$sql = "UPDATE " . db_prefix("drinks") . " SET $sql WHERE drinkid='$drinkid'";
+				$sql = "UPDATE " . DB::prefix("drinks") . " SET $sql WHERE drinkid='$drinkid'";
 			} else {
-				$sql = "INSERT INTO " . db_prefix("drinks") . " ($keys) VALUES ($vals)";
+				$sql = "INSERT INTO " . DB::prefix("drinks") . " ($keys) VALUES ($vals)";
 			}
-			db_query($sql);
+			DB::query($sql);
 			if (db_affected_rows()> 0) {
 				output("`^Drink saved!");
 			} else {
@@ -112,8 +112,8 @@ function drinks_editor(){
 			$module = httpget("editmodule");
 			// This should obey the same rules as the configuration editor
 			// So disabling
-			//$sql = "DELETE FROM " . db_prefix("module_objprefs") . " WHERE objtype='drinks' AND objid='$drinkid' AND modulename='$module'";
-			//db_query($sql);
+			//$sql = "DELETE FROM " . DB::prefix("module_objprefs") . " WHERE objtype='drinks' AND objid='$drinkid' AND modulename='$module'";
+			//DB::query($sql);
 			$post = httpallpost();
 			reset($post);
 			while(list($key, $val)=each($post)) {
@@ -130,14 +130,14 @@ function drinks_editor(){
 		httpset('op', $op);
 	}
 	if ($op == "activate") {
-		$sql = "UPDATE " . db_prefix("drinks") . " SET active=1 WHERE drinkid='$drinkid'";
-		db_query($sql);
+		$sql = "UPDATE " . DB::prefix("drinks") . " SET active=1 WHERE drinkid='$drinkid'";
+		DB::query($sql);
 		$op = "";
 		httpset('op', "");
 	}
 	if ($op == "deactivate") {
-		$sql = "UPDATE " . db_prefix("drinks") . " SET active=0 WHERE drinkid='$drinkid'";
-		db_query($sql);
+		$sql = "UPDATE " . DB::prefix("drinks") . " SET active=0 WHERE drinkid='$drinkid'";
+		DB::query($sql);
 		$op = "";
 		httpset('op', "");
 	}
@@ -156,10 +156,10 @@ function drinks_editor(){
 		rawoutput("<tr class='trhead'>");
 		rawoutput("<td>$op</td><td>$id</td><td>$nm</td><td>$dkn</td><td>$hard</td>");
 		rawoutput("</tr>");
-		$sql = "SELECT drinkid,active,name,drunkeness,harddrink FROM " . db_prefix("drinks") . " ORDER BY drinkid";
-		$result= db_query($sql);
-		for ($i=0;$i<db_num_rows($result);$i++){
-			$row = db_fetch_assoc($result);
+		$sql = "SELECT drinkid,active,name,drunkeness,harddrink FROM " . DB::prefix("drinks") . " ORDER BY drinkid";
+		$result= DB::query($sql);
+		for ($i=0;$i<DB::num_rows($result);$i++){
+			$row = DB::fetch_assoc($result);
 			$id = $row['drinkid'];
 			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 			rawoutput("<td nowrap>[ <a href='runmodule.php?module=drinks&act=editor&op=edit&drinkid=$id&admin=true'>$edit</a>");
@@ -197,9 +197,9 @@ function drinks_editor(){
 			rawoutput("</form>");
 			addnav("", "runmodule.php?module=drinks&act=editor&op=save&subop=module&editmodule=$module&drinkid=$drinkid&admin=true");
 		} elseif ($subop=="") {
-				$sql = "SELECT * FROM " . db_prefix("drinks") . " WHERE drinkid='".httpget('drinkid')."'";
-				$result = db_query($sql);
-				$row = db_fetch_assoc($result);
+				$sql = "SELECT * FROM " . DB::prefix("drinks") . " WHERE drinkid='".httpget('drinkid')."'";
+				$result = DB::query($sql);
+				$row = DB::fetch_assoc($result);
 		}
 	}elseif ($op=="add"){
 		/* We're adding a new drink, make an empty row */
@@ -210,7 +210,7 @@ function drinks_editor(){
 	if (($op == "edit" || $op == "add") && $subop=="") {
 		rawoutput("<form action='runmodule.php?module=drinks&act=editor&op=save&admin=true' method='POST'>");
 		addnav("","runmodule.php?module=drinks&act=editor&op=save&admin=true");
-		showform($drinksarray,$row);
+		lotgd_showform($drinksarray,$row);
 		rawoutput("</form>");
 		output("`\$NOTE:`7 Make sure that you know what you are doing when modifying or adding drinks.`n");
 		output("Just because the drinks have a lot of options, doesn't mean you have to use all of them`n`n");

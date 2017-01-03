@@ -68,10 +68,10 @@ function daysave_dohook($hookname,$args){
 		break;
 		case "newday-runonce":
 			//reset all players' Instant Buys counter
-			$sql = "SELECT acctid FROM " . db_prefix("accounts");
-			$result = db_query($sql);
-			for ($i=0;$i<db_num_rows($result);$i++){
-				$row = db_fetch_assoc($result);
+			$sql = "SELECT acctid FROM " . DB::prefix("accounts");
+			$result = DB::query($sql);
+			for ($i=0;$i<DB::num_rows($result);$i++){
+				$row = DB::fetch_assoc($result);
 				clear_module_pref("instantbuys",false,$row['acctid']);
 			}
 		break;
@@ -126,7 +126,7 @@ function daysave_run(){
 				if ($startdays && $session['user']['dragonkills']<1){
 					output("New players start the game with some days already saved up, so that they can get a feel for how this works.`n`n");
 				}
-				
+
 				for ($full=1; $full<=$days; $full++){
 					$daySave = translate_inline("Saved Day");
 					rawoutput("<img src=\"images/daysphere-full.png\" alt=\"$daySave\" title=\"$daySave\">");

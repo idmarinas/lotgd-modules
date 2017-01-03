@@ -30,31 +30,31 @@ function onlinelist_dohook($hookname, $args){
 
             //-- Se elimina de las dos consultas, ya que no se usa después
             // ,alive,location,sex,level,laston,loggedin,lastip,uniqueid
-			$sql="SELECT name FROM " . db_prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND superuser > 0 AND laston > '".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY superuser DESC, level DESC";
-			$result = db_query($sql);
-			$count = db_num_rows($result);
+			$sql="SELECT name FROM " . DB::prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND superuser > 0 AND laston > '".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY superuser DESC, level DESC";
+			$result = DB::query($sql);
+			$count = DB::num_rows($result);
 			$list_mods = appoencode(sprintf(translate_inline("`bOnline Staff`n(%s Staff Member):`b`n"),$count));
 			$onlinecount_mods = 0;
 			for ($i=0;$i<$count;$i++){
-				$row = db_fetch_assoc($result);
+				$row = DB::fetch_assoc($result);
 				$list_mods .= appoencode("`^{$row['name']}`n");
 				$onlinecount_mods++;
 			}
-			db_free_result($result);
+			DB::free_result($result);
 			if ($onlinecount_mods == 0)
 				$list_mods .= appoencode(translate_inline("`iNone`i"));
 
-			$sql="SELECT name FROM " . db_prefix("accounts") . " WHERE superuser = 0 AND locked=0 AND loggedin=1 AND laston>'".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY level DESC";
-			$result = db_query($sql);
-			$count = db_num_rows($result);
+			$sql="SELECT name FROM " . DB::prefix("accounts") . " WHERE superuser = 0 AND locked=0 AND loggedin=1 AND laston>'".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY level DESC";
+			$result = DB::query($sql);
+			$count = DB::num_rows($result);
 			$list_players = appoencode(sprintf(translate_inline("`bCharacters Online`n(%s Players):`b`n"),$count));
 			$onlinecount_players = 0;
 			for ($i=0;$i<$count;$i++){
-				$row = db_fetch_assoc($result);
+				$row = DB::fetch_assoc($result);
 				$list_players .= appoencode("`^{$row['name']}`n");
 				$onlinecount_players++;
 			}
-			db_free_result($result);
+			DB::free_result($result);
 			if ($onlinecount_players == 0)
 				$list_players .= appoencode(translate_inline("`iNone`i"));
 

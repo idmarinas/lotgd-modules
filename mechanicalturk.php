@@ -33,15 +33,15 @@ function mechanicalturk_install(){
 		'key-PRIMARY'=>array('name'=>'PRIMARY', 'type'=>'primary key',	'unique'=>'1', 'columns'=>'creatureid'),
 	);
 	require_once("lib/tabledescriptor.php");
-	synctable(db_prefix('mechanicalturk'), $mechanicalturk, true);
+	synctable(DB::prefix('mechanicalturk'), $mechanicalturk, true);
 	module_addhook("forest");
 	module_addhook("superuser");
 	return true;
 }
 
 function mechanicalturk_uninstall(){
-	$sql = 'DROP TABLE IF EXISTS '.db_prefix( 'mechanicalturk' );
-	db_query( $sql );
+	$sql = 'DROP TABLE IF EXISTS '.DB::prefix( 'mechanicalturk' );
+	DB::query( $sql );
 	return true;
 }
 
@@ -81,9 +81,9 @@ function mechanicalturk_run(){
 			rawoutput($text);
 
 			$sql = "SELECT DISTINCT `creaturecategory` FROM `creatures` WHERE `creaturecategory` != ''";
-			$result = db_query($sql);
+			$result = DB::query($sql);
 			$enum = ',Ninguna';
-			while($row = db_fetch_assoc($result)) $enum .= ','.$row['creaturecategory'].','.$row['creaturecategory'];
+			while($row = DB::fetch_assoc($result)) $enum .= ','.$row['creaturecategory'].','.$row['creaturecategory'];
 
 			$form = array(
 				"Creature Properties,title",
@@ -103,7 +103,7 @@ function mechanicalturk_run(){
 			addnav('I honestly don\'t have any ideas.');
 			addnav('Back to the Jungle','forest.php');
 			rawoutput("<form action='runmodule.php?module=mechanicalturk&creatureaction=save' method='POST'>");
-			showform($form, $row);
+			lotgd_showform($form, $row);
 			rawoutput("</form>");
 			addnav("", "runmodule.php?module=mechanicalturk&creatureaction=save");
 			break;
@@ -113,17 +113,17 @@ function mechanicalturk_run(){
 			$post['uid'] = $session['user']['acctid'];
 			unset($post['creatureid'], $post['showFormTabIndex']);
 
-			$sql = "INSERT INTO ".db_prefix("mechanicalturk")."(".implode(',',array_keys($post)).") VALUES ('".implode("','",$post)."')";
-			db_query( $sql );
+			$sql = "INSERT INTO ".DB::prefix("mechanicalturk")."(".implode(',',array_keys($post)).") VALUES ('".implode("','",$post)."')";
+			DB::query( $sql );
 			debug ($sql);
 			output("`4The monster \"`^%s`4\" has been submitted.`n`nDue to the high volume of monster submissions, it may take several days or even weeks before you hear back from us. Please be patient!`0`n`nThe little man behind the desk looks around, confused. \"Who said that?!\"`n`nYou decide it'd be best to get out of here.", $post['creaturename'] );
 			addnav("Back to the Jungle","forest.php");
 			break;
 		case "showsubmitted":
-			$sql = "SELECT creatureid,creaturename,creatureweapon,creaturewin,creaturelose,creaturelevel,forest,graveyard,description,submittedby,uid FROM " . db_prefix("mechanicalturk");
-			$result = db_query($sql);
-			for ($i=0;$i<db_num_rows($result);$i++){
-				$row=db_fetch_assoc($result);
+			$sql = "SELECT creatureid,creaturename,creatureweapon,creaturewin,creaturelose,creaturelevel,forest,graveyard,description,submittedby,uid FROM " . DB::prefix("mechanicalturk");
+			$result = DB::query($sql);
+			for ($i=0;$i<DB::num_rows($result);$i++){
+				$row=DB::fetch_assoc($result);
 				output("Monster submission by %s`n",$row['submittedby']);
 				output_notl("%s`n",$row['description']);
 				output("You have encountered %s which lunges at you with %s!`n",$row['creaturename'],$row['creatureweapon']);
@@ -154,12 +154,12 @@ function mechanicalturk_run(){
 				"graveyard"=>"Creature is on FailBoat?,bool",
 				"description"=>"A long description of the creature,textarea",
 			);
-			$sql = "SELECT creatureid,creaturename,creatureweapon,creaturewin,creaturelose,creaturelevel,forest,graveyard,description,submittedby,uid FROM " . db_prefix("mechanicalturk") . " WHERE creatureid = $id";
-			$result = db_query($sql);
-			$row=db_fetch_assoc($result);
+			$sql = "SELECT creatureid,creaturename,creatureweapon,creaturewin,creaturelose,creaturelevel,forest,graveyard,description,submittedby,uid FROM " . DB::prefix("mechanicalturk") . " WHERE creatureid = $id";
+			$result = DB::query($sql);
+			$row=DB::fetch_assoc($result);
 			debug ($row);
 			rawoutput("<form action='runmodule.php?module=mechanicalturk&creatureaction=update' method='POST'>");
-			showform($form, $row);
+			lotgd_showform($form, $row);
 			rawoutput("</form>");
 			addnav("", "runmodule.php?module=mechanicalturk&creatureaction=update");
 			addnav("Back to the submission list","runmodule.php?module=mechanicalturk&creatureaction=showsubmitted");
@@ -178,29 +178,29 @@ function mechanicalturk_run(){
 			$forest = httppost('forest');
 			$graveyard = httppost('graveyard');
 			$description = httppost('description');
-			$sql="UPDATE " . db_prefix("mechanicalturk") . " SET creaturename = '$creaturename', creaturecategory = '$creaturecategory', creatureweapon = '$creatureweapon', creaturewin = '$creaturewin', creaturelose = '$creaturelose', creaturelevel = '$creaturelevel', forest = $forest, graveyard = $graveyard, description = '$description' WHERE creatureid = $creatureid";
-			db_query( $sql );
+			$sql="UPDATE " . DB::prefix("mechanicalturk") . " SET creaturename = '$creaturename', creaturecategory = '$creaturecategory', creatureweapon = '$creatureweapon', creaturewin = '$creaturewin', creaturelose = '$creaturelose', creaturelevel = '$creaturelevel', forest = $forest, graveyard = $graveyard, description = '$description' WHERE creatureid = $creatureid";
+			DB::query( $sql );
 			debug ($sql);
 			output("All done!");
 			break;
 		case "reject":
 			$id=httpget("id");
-			$sql = "SELECT creatureid,creaturename,creatureweapon,creaturewin,creaturelose,creaturelevel,forest,graveyard,description,submittedby,uid FROM " . db_prefix("mechanicalturk") . " WHERE creatureid = $id";
-			$result = db_query($sql);
-			$row=db_fetch_assoc($result);
+			$sql = "SELECT creatureid,creaturename,creatureweapon,creaturewin,creaturelose,creaturelevel,forest,graveyard,description,submittedby,uid FROM " . DB::prefix("mechanicalturk") . " WHERE creatureid = $id";
+			$result = DB::query($sql);
+			$row=DB::fetch_assoc($result);
 			$message = translate_mail(array('It\'s not good news to hear, but I\'m afraid your monster idea (the one named %s) just wasn\'t what we were looking for. Please feel free to try again, though!',$row['creaturename']));
 			require_once("lib/systemmail.php");
 			systemmail($row['uid'],translate_inline("Your monster has been rejected!"),$message);
-			$sql = "DELETE FROM " . db_prefix("mechanicalturk") . " WHERE creatureid = '$id'";
-			db_query( $sql );
+			$sql = "DELETE FROM " . DB::prefix("mechanicalturk") . " WHERE creatureid = '$id'";
+			DB::query( $sql );
 			output("The monster has been deleted, and the author notified.");
 			addnav("Show list of submitted monsters","runmodule.php?module=mechanicalturk&creatureaction=showsubmitted");
 			break;
 		case "accept":
 			$id=httpget("id");
-			$sql = "SELECT creaturename,creaturecategory,creatureweapon,creaturewin,creaturelose,creaturelevel,forest,graveyard,description,submittedby,uid FROM " . db_prefix("mechanicalturk") . " WHERE creatureid = $id";
-			$result = db_query($sql);
-			$row=db_fetch_assoc($result);
+			$sql = "SELECT creaturename,creaturecategory,creatureweapon,creaturewin,creaturelose,creaturelevel,forest,graveyard,description,submittedby,uid FROM " . DB::prefix("mechanicalturk") . " WHERE creatureid = $id";
+			$result = DB::query($sql);
+			$row=DB::fetch_assoc($result);
 			debug ($row);
 			output("Sending this to creatures.php.");
 			require_once("lib/showform.php");
@@ -225,7 +225,7 @@ function mechanicalturk_run(){
 				"creatureaiscript"=>"Creature's A.I.,enum".$scriptenum,
 			);
 			rawoutput("<form action='creatures.php?op=save' method='POST'>");
-			showform($form, $row);
+			lotgd_showform($form, $row);
 			rawoutput("</form>");
 			output("Monster description:`n`n");
 			rawoutput("".$row['description']."");
@@ -236,11 +236,11 @@ function mechanicalturk_run(){
 			addnav("","creatures.php?op=save");
 			$acctid = $row['uid'];
 			addnav("Go back to the list of submitted monsters","runmodule.php?module=mechanicalturk&creatureaction=showsubmitted");
-			$sql="UPDATE ".db_prefix("accounts")." SET donation=donation+$points WHERE acctid=$acctid";
-			db_query($sql);
+			$sql="UPDATE ".DB::prefix("accounts")." SET donation=donation+$points WHERE acctid=$acctid";
+			DB::query($sql);
 			debuglog("Add $points donation points as rewards for creature submit.", false, $acctid, 'mechanicalturk');
-			$sql = "DELETE FROM " . db_prefix("mechanicalturk") . " WHERE creatureid = '$id'";
-			db_query($sql);
+			$sql = "DELETE FROM " . DB::prefix("mechanicalturk") . " WHERE creatureid = '$id'";
+			DB::query($sql);
 			break;
 	}
 	page_footer();

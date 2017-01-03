@@ -75,8 +75,8 @@ function modloc_run(){
 				"runmodule.php?module=modloc&admin=true&loc=".$name);
 		$locations[$name]=0;
 	}
-	$sql = "SELECT modulename FROM ".db_prefix("modules");
-	$result = db_query($sql);
+	$sql = "SELECT modulename FROM ".DB::prefix("modules");
+	$result = DB::query($sql);
 	output("`@`c`iDue to the fact that some sites can become very cluttered, this tool allows you to see all modules with location settings, and to which location they are hooked. You can also view by city.`i`c`n`n");
 	if ($loc==""&&$op=="") {
 		$t = translate_inline("Currently showing all location settings.");
@@ -91,8 +91,8 @@ function modloc_run(){
 	output_notl("<table border=1 style='text-align:center;'><tr class='trhead'><td>`&`b%s`b`0</td><td>`@`b%s`b`0</td><td>`^`b%s`b`0</td><td>`#`b%s`b`0</td></tr>",translate_inline("Module Name"),translate_inline("Location Question"),translate_inline("Current Location"),translate_inline("Settings Link"),true);
 	$n=0;
 	$s = translate_inline("Settings");
-	for ($i=0;$i<db_num_rows($result);$i++){
-		$row = db_fetch_assoc($result);
+	for ($i=0;$i<DB::num_rows($result);$i++){
+		$row = DB::fetch_assoc($result);
 		$info = get_module_info($row['modulename']);
 		if (isset($info['settings']) && count($info['settings'])>0){
 			foreach ($info['settings'] as $key=>$val) {
@@ -105,7 +105,7 @@ function modloc_run(){
 					} else {
 						$x = explode("|", $val);
 					}
-					
+
 					if (!is_array($x[0])) { $type = split(",", $x[0]); }
 					if (isset($type[1])) $type = trim($type[1]);
 					else $type = "string";

@@ -4,7 +4,7 @@ function djail_getmoduleinfo(){
 		"name"=>"Dragon Eggs Jail",
 		"author"=>"Sixf00t4, Lonny, RPGee. DaveS Re-write",
 		"version"=>"1.0",
-		"category"=>"Dragon Expansion", 
+		"category"=>"Dragon Expansion",
 		"download"=>"http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1362",
 		"settings"=>array(
 			"Dragon Eggs Jail Settings, title",
@@ -49,7 +49,7 @@ function djail_install(){
 	module_addhook("newday-runonce");
 	module_addhook("changesetting");
 	module_addhook("footer-jail");
-	module_addeventhook("forest","require_once(\"modules/djail.php\"); 
+	module_addeventhook("forest","require_once(\"modules/djail.php\");
 	return djail_chance();");
 	return true;
 }
@@ -132,10 +132,10 @@ function dinjailnav(){
 	if (is_module_active("jail")==0){
 		$injail = get_module_pref('injail');
 		if ($injail == 0) addnav ("Take your things and go","runmodule.php?module=djail");
-		addnav("Twiddle your thumbs", "runmodule.php?module=djail&op=twiddle"); 
-		addnav("Go to Sleep", "runmodule.php?module=djail&op=sleep"); 
-		addnav("Pay Bond", "runmodule.php?module=djail&op=paybond"); 
-		addnav("Ask for some soup - 1 gem", "runmodule.php?module=djail&op=soup"); 
+		addnav("Twiddle your thumbs", "runmodule.php?module=djail&op=twiddle");
+		addnav("Go to Sleep", "runmodule.php?module=djail&op=sleep");
+		addnav("Pay Bond", "runmodule.php?module=djail&op=paybond");
+		addnav("Ask for some soup - 1 gem", "runmodule.php?module=djail&op=soup");
 		if ($session['user']['superuser'] &~ SU_DOESNT_GIVE_GROTTO){
 			addnav("Superuser");
 			addnav("Newday", "newday.php");
@@ -173,13 +173,13 @@ function djail_run(){
 			dinjailnav();
 		}else{
 			output(" `2You wonder into the jail and spot %s`2 sitting at a desk.`n`n", $sheriffname);
-			$sql = "SELECT ".db_prefix("module_userprefs").".value, ".db_prefix("accounts").".name FROM " . db_prefix("module_userprefs") . "," . db_prefix("accounts") . " WHERE acctid = userid AND modulename = 'djail' AND setting = 'deputy' AND value > 0";
-			$result = db_query($sql);
-			$count = db_num_rows($result);
+			$sql = "SELECT ".DB::prefix("module_userprefs").".value, ".DB::prefix("accounts").".name FROM " . DB::prefix("module_userprefs") . "," . DB::prefix("accounts") . " WHERE acctid = userid AND modulename = 'djail' AND setting = 'deputy' AND value > 0";
+			$result = DB::query($sql);
+			$count = DB::num_rows($result);
 			if ($count>0){
 				output("You notice the deputy list on the wall:`n`n`b`c`^Deputy List`c`b`0");
-				for ($i=0;$i<db_num_rows($result);$i++){
-					$row = db_fetch_assoc($result);
+				for ($i=0;$i<DB::num_rows($result);$i++){
+					$row = DB::fetch_assoc($result);
 					output("`c`2- %s `2-`n`c",$row['name']);
 				}
 			}
@@ -191,13 +191,13 @@ function djail_run(){
 	}
 	if ($op=="wantads"){
 		output("`c`b`^The Jail of %s`b`c`2",$session['user']['location']);
-		$sql = "SELECT ".db_prefix("accounts").".name FROM " . db_prefix("module_userprefs") . "," . db_prefix("accounts") . " WHERE acctid = userid AND modulename = 'sheldon' AND setting = 'member' AND value > 0 ORDER BY rand(".e_rand().") LIMIT 1";
-		$result = db_query($sql);
-		if (db_num_rows($result)==0) {
+		$sql = "SELECT ".DB::prefix("accounts").".name FROM " . DB::prefix("module_userprefs") . "," . DB::prefix("accounts") . " WHERE acctid = userid AND modulename = 'sheldon' AND setting = 'member' AND value > 0 ORDER BY rand(".e_rand().") LIMIT 1";
+		$result = DB::query($sql);
+		if (DB::num_rows($result)==0) {
 			output("There are no want ads currently posted in the jail.");
 			addnav("Back to Entrance", "runmodule.php?module=$jail");
 		}else{
-			$row = db_fetch_assoc($result);
+			$row = DB::fetch_assoc($result);
 			$name=$row['name'];
 			output("`cSuspected member of the Sheldon Gang currently wanted for Questioning:`c");
 			$poster=e_rand(1,8);
@@ -222,9 +222,9 @@ function djail_run(){
 	}
 	if ($op=="deputy"){
 		output("`b`c`^Deputy Application`b`c`n`2");
-		$sql1 = "SELECT acctid FROM ".db_prefix("accounts")."";
-		$res1 = db_query($sql1);
-		$count1=db_num_rows($res1);
+		$sql1 = "SELECT acctid FROM ".DB::prefix("accounts")."";
+		$res1 = DB::query($sql1);
+		$count1=DB::num_rows($res1);
 		if ($count1<25) $deputy=1;
 		elseif ($count1<100) $deputy=2;
 		elseif ($count1<200) $deputy=3;
@@ -238,9 +238,9 @@ function djail_run(){
 			}else{
 				output("You enquire about getting a job as deputy.  The sheriff looks up at you and considers your request.`n`n");
 				output("`@'Becoming a deputy isn't easy.  You need to pay `&1 Dragon Egg Point`@ and `^%s Donation Points`@ to get the job. You keep the job for `^25 system days`@ or until you kill the `bGreen Dragon`b, whichever comes first.'`n`n",get_module_setting("deputycost"));
-				$sql = "SELECT ".db_prefix("module_userprefs").".value, ".db_prefix("accounts").".name FROM " . db_prefix("module_userprefs") . "," . db_prefix("accounts") . " WHERE acctid = userid AND modulename = 'djail' AND setting = 'deputy' AND value > 0";
-				$result = db_query($sql);
-				$count = db_num_rows($result);
+				$sql = "SELECT ".DB::prefix("module_userprefs").".value, ".DB::prefix("accounts").".name FROM " . DB::prefix("module_userprefs") . "," . DB::prefix("accounts") . " WHERE acctid = userid AND modulename = 'djail' AND setting = 'deputy' AND value > 0";
+				$result = DB::query($sql);
+				$count = DB::num_rows($result);
 				if ($count>=$deputy){
 					output("`@'Unfortunately, I'm not looking for any more deputies right now.  However, job openings keep popping up.  Check back frequently.'");
 				}else{
@@ -273,17 +273,17 @@ function djail_run(){
 		$newname = change_player_title($newtitle);
 		$session['user']['title'] = $newtitle;
 		$session['user']['name'] = $newname;
-		addnews("%s `@became a deputy today.  Respect %s authority!",$session['user']['name'],translate_inline($session['user']['sex']?"her":"his")); 
+		addnews("%s `@became a deputy today.  Respect %s authority!",$session['user']['name'],translate_inline($session['user']['sex']?"her":"his"));
 		addnav("Back to Entrance", "runmodule.php?module=$jail");
 	}
 	if ($op=="bailafriend"){
 		output("`c`b`^The Jail of %s`b`c`2",$session['user']['location']);
 		addnav("Back to Jail","runmodule.php?module=djail&op=talk");
-		$accounts=db_prefix("accounts");
-		$module_userprefs=db_prefix("module_userprefs");
+		$accounts=DB::prefix("accounts");
+		$module_userprefs=DB::prefix("module_userprefs");
 		$sql = "SELECT $accounts.name AS name,$accounts.level AS level,$accounts.login AS login,$accounts.acctid AS acctid, $module_userprefs.userid FROM $module_userprefs INNER JOIN $accounts ON $accounts.acctid = $module_userprefs.userid WHERE $module_userprefs.setting = 'injail' AND $module_userprefs.value > 0 order by $accounts.level DESC";
-		$result = db_query($sql) or die(db_error(LINK));
-		if (db_num_rows($result)<=0) output("Sorry.  There's nobody in jail right now.");
+		$result = DB::query($sql) or die(db_error(LINK));
+		if (DB::num_rows($result)<=0) output("Sorry.  There's nobody in jail right now.");
 		else{
 			output("`n`n%s`7 pulls out his log book to show you who he has currently in a cell.`n`n`c", $sheriffname);
 			$name=translate_inline("Name");
@@ -291,13 +291,13 @@ function djail_run(){
 			$bail=translate_inline("Bail out");
 			$write=translate_inline("Write mail");
 			output("<table border='0' cellpadding='3' cellspacing='0'><tr class='trhead'><td>$name</td><td>$level</td><td>&nbsp;</td></tr>",true);
-			for ($i = 0 ; $i < db_num_rows($result) ; $i++){
-				$row = db_fetch_assoc($result);
+			for ($i = 0 ; $i < DB::num_rows($result) ; $i++){
+				$row = DB::fetch_assoc($result);
 				output("<tr class='".($i%2?"trlight":"trdark")."'><td>",true);
 				output("".$row['name']."</a></td><td><center>`^".$row['level']."`7</center></td><td>[<a href='runmodule.php?module=djail&op=bailout&player=".rawurlencode($row['acctid'])."'>$bail</a> ]</td></tr>",true);
 				addnav("","bio.php?char=".rawurlencode($row['login'])."");
 				addnav("", "runmodule.php?module=djail&op=bailout&player=".rawurlencode($row['acctid'])."");
-			} 
+			}
 			output("</table>",true);
 			output_notl("`c");
 		}
@@ -305,9 +305,9 @@ function djail_run(){
 	if ($op=="bailout"){
 		output("`c`b`^The Jail of %s`b`c`2",$session['user']['location']);
 		$player	= httpget('player');
-		$sql= "SELECT name,level,dragonkills FROM ".db_prefix("accounts")." WHERE acctid =".$player;
-		$result	= db_query($sql) or die(db_error(LINK));
-		$row= db_fetch_assoc($result);
+		$sql= "SELECT name,level,dragonkills FROM ".DB::prefix("accounts")." WHERE acctid =".$player;
+		$result	= DB::query($sql) or die(db_error(LINK));
+		$row= DB::fetch_assoc($result);
 		$playername	= $row['name'];
 		$baillvl= get_module_setting('baillvl');
 		$baildk	= get_module_setting('baildk');
@@ -326,7 +326,7 @@ function djail_run(){
 			}else{
 				addnav("Back to Jail","runmodule.php?module=djail&op=talk");
 				output("`n`n`7You decide to help %s, but %s tells you that you don't have enough money. %s will have to rot in their cell until later.", $playername, $sheriffname, $playername);
-			} 
+			}
 		}elseif (httpget('action') == "no"){
 			output("`7You decide that it's not worth it to get %s out of jail, so you thank %s and leave the office.",$playername, $sheriffname);
 			addnav("Back to Jail","runmodule.php?module=djail&op=talk");
@@ -405,7 +405,7 @@ function djail_run(){
 			increment_module_pref("dragoneggs",-1,"dragoneggpoints");
 			output("You use your dragon egg point to get out.");
 		}
-		output("%s `2lets you out of the cell. He isn't happy about it. You're on a steady watch from now on.", $sheriffname); 
+		output("%s `2lets you out of the cell. He isn't happy about it. You're on a steady watch from now on.", $sheriffname);
 		set_module_pref('injail', 0);
 		addnav("Leave", "village.php");
 	}
@@ -414,8 +414,8 @@ function djail_run(){
 		set_module_pref('playerloc', $session['user']['location']);
 		if ($session['user']['loggedin']){
 			$session['user']['restorepage'] = "village.php";
-			$sql = "UPDATE " . db_prefix("accounts") . " SET loggedin=0, location='".translate_inline("`7The Jail")."', restorepage='{$session['user']['restorepage']}' WHERE acctid = ".$session['user']['acctid'];
-			db_query($sql);
+			$sql = "UPDATE " . DB::prefix("accounts") . " SET loggedin=0, location='".translate_inline("`7The Jail")."', restorepage='{$session['user']['restorepage']}' WHERE acctid = ".$session['user']['acctid'];
+			DB::query($sql);
 			invalidatedatacache("charlisthomepage");
 			invalidatedatacache("list.php-warsonline");
 		}
@@ -450,7 +450,7 @@ function djail_run(){
 		output("You twiddle your thumbs for a while.`n`nYou are in your jail cell, there is nothing to do.");
 		require_once("lib/commentary.php");
 		addcommentary();
-		viewcommentary("djail", "Whine about being in jail", 20, "whines"); 
+		viewcommentary("djail", "Whine about being in jail", 20, "whines");
 		dinjailnav();
 	}
 	if ($op=="wakeup"){

@@ -39,20 +39,20 @@ function clannews_dohook($hookname, $args)
 
 		$maxevents = get_module_setting("maxevents");
 
-		$sql = "SELECT " . db_prefix("news") . ".* FROM " . db_prefix("news") . " INNER JOIN " . db_prefix("accounts")
-			. " ON " . db_prefix("news") . ".accountid = " . db_prefix("accounts") . ".acctid"
-			. " WHERE " . db_prefix("accounts") . ".clanid = " . $session['user']['clanid']
-			. " ORDER BY " . db_prefix("news") . ".newsid DESC LIMIT " . $maxevents;
-		$res = db_query($sql);
+		$sql = "SELECT " . DB::prefix("news") . ".* FROM " . DB::prefix("news") . " INNER JOIN " . DB::prefix("accounts")
+			. " ON " . DB::prefix("news") . ".accountid = " . DB::prefix("accounts") . ".acctid"
+			. " WHERE " . DB::prefix("accounts") . ".clanid = " . $session['user']['clanid']
+			. " ORDER BY " . DB::prefix("news") . ".newsid DESC LIMIT " . $maxevents;
+		$res = DB::query($sql);
 
-		if (db_num_rows($res)) {
+		if (DB::num_rows($res)) {
 			output("`n`n`b`&Recent News for %s:`b`0`n", $claninfo['clanname']);
 			rawoutput("<ul type='square'>");
 
 			tlschema("news");
 
-			for ($i=0; $i<db_num_rows($res); $i++) {
-				$row = db_fetch_assoc($res);
+			for ($i=0; $i<DB::num_rows($res); $i++) {
+				$row = DB::fetch_assoc($res);
 				tlschema($row['tlschema']);
 				if ($row['arguments'] != "") {
 					$args = unserialize($row['arguments']);

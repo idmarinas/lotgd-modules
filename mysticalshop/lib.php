@@ -7,16 +7,16 @@ function mysticalshop_applyenh( $buffs, $args = false )
 	$favor = 0;
 	$turns = 0;
 
-	$sql = 'SELECT * FROM '.db_prefix( 'magicitems' );
+	$sql = 'SELECT * FROM '.DB::prefix( 'magicitems' );
 	if( !$args )
 		$sql.= ( $session['user']['specialty'] == 'MN' ? ' WHERE category<>2 AND category<>3' : '' );
  	else
 		output( '`n`&Applying enhancements for all items named below (if any):`0`n' );
-	$items = db_query( $sql );
+	$items = DB::query( $sql );
 
 	$itemcats = array( 'ring', 'amulet', 'weapon', 'armor', 'cloak', 'helm', 'glove', 'boot', 'misc' );
 
-	while( $values = db_fetch_assoc( $items ) )
+	while( $values = DB::fetch_assoc( $items ) )
 	{
 		$cat = $itemcats[ $values['category'] ];
 		$plural = ($cat == 'boot') ? 's' : ''; // inconsistent naming... sigh
@@ -41,8 +41,8 @@ function mysticalshop_applyenh( $buffs, $args = false )
 					else
 					{
 						output( '...%s change: %s`n', $buffInPrefs, $values[$buffInPrefs] );
-						$sql = 'UPDATE '.db_prefix( 'accounts' )." SET $buff=$buff+{$values[$buffInPrefs]} WHERE acctid=$userid";
-						db_query($sql);
+						$sql = 'UPDATE '.DB::prefix( 'accounts' )." SET $buff=$buff+{$values[$buffInPrefs]} WHERE acctid=$userid";
+						DB::query($sql);
 					}
 
 					if( $buffInPrefs == 'favor' )
@@ -92,8 +92,8 @@ function mysticalshop_destroyitem($item_type,$rare_id = FALSE, $userid = FALSE){
 	}
 	modulehook("mysticalshop-destroyitem",array("itemid"=>$id));
 	if ($rare_id){
-		$sql = "UPDATE ".db_prefix("magicitems")." SET rarenum=rarenum+1 WHERE id='$rare_id'";
-		db_query($sql);
+		$sql = "UPDATE ".DB::prefix("magicitems")." SET rarenum=rarenum+1 WHERE id='$rare_id'";
+		DB::query($sql);
 		if( getsetting( 'usedatacache', false ) )
 		{
 			invalidatedatacache( 'modules-mysticalshop-enter' );
@@ -121,9 +121,9 @@ function mysticalshop_resetbuffs( $itemid )
 	{
 		global $session;
 
-		$sql = 'SELECT * FROM '.db_prefix( 'magicitems' ).' WHERE id='.$itemid.' LIMIT 1';
-		$result = db_query( $sql );
-		$row = db_fetch_assoc( $result );
+		$sql = 'SELECT * FROM '.DB::prefix( 'magicitems' ).' WHERE id='.$itemid.' LIMIT 1';
+		$result = DB::query( $sql );
+		$row = DB::fetch_assoc( $result );
 
 		//Undo any altered stats
 		if ($row['attack']<>0) {
@@ -177,9 +177,9 @@ function mysticalshop_additem( $id, $cat, $seller_present=true )
 
 	if( $seller_present )
 		$shopkeep = get_module_setting( 'shopkeepname' );
-	$sql = 'SELECT * FROM '.db_prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = 'SELECT * FROM '.DB::prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$name = $row['name'];
 	$turns = $row['turns'];
 	$charm = $row['charm'];
@@ -216,8 +216,8 @@ function mysticalshop_additem( $id, $cat, $seller_present=true )
 		$subtract = ($row['rarenum']-1);
 		//if this is a limited item, let's subtract from the total available
 		if ($rare == 1){
-			$sql = "UPDATE ".db_prefix("magicitems")." SET rarenum=$subtract WHERE id=$id";
-			db_query($sql);
+			$sql = "UPDATE ".DB::prefix("magicitems")." SET rarenum=$subtract WHERE id=$id";
+			DB::query($sql);
 			if( getsetting( 'usedatacache', false ) )
 			{
 				invalidatedatacache( 'modules-mysticalshop-enter' );
@@ -245,7 +245,7 @@ function mysticalshop_additem( $id, $cat, $seller_present=true )
 			//i.e. each level, their attack goes up by one
 			$session['user']['weapon'] = $name;
 			$session['user']['weaponvalue'] = $value;
-			
+
 			$weapon_base_atk = get_module_setting( 'weapon_atk' );
 			if( $weapon_base_atk == 0 )
 			{	// adaptive
@@ -278,7 +278,7 @@ function mysticalshop_additem( $id, $cat, $seller_present=true )
 			//magical armor, adjusts as you level
 			$session['user']['armor'] = $name;
 			$session['user']['armorvalue'] = $value;
-			
+
 			$armor_base_def = get_module_setting( 'armor_def' );
 			if( $armor_base_def == 0 )
 			{	// adaptive
@@ -293,7 +293,7 @@ function mysticalshop_additem( $id, $cat, $seller_present=true )
 			{	// static
 				$session['user']['armordef'] = (int)get_module_setting( 'armor_def_power' );
 			}
-			
+
 			//To defeat the double armor bug once and for all, I've blocked the armor shop from showing up. Let's tell the players this.
 			if( $seller_present )
 				output("`^\"I'm afraid to say Pegasus doesn't care too much for the competition,\" %s`^ notes. \"Her doors are closed to you until you sell your armor back to the shop.\"`n`n", $shopkeep);

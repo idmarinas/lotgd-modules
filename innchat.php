@@ -30,17 +30,17 @@ function innchat_dohook($hookname,$args){
 	case "innchatter":
 		$id = $session['user']['acctid'];
 		if (e_rand(1,2)==1){
-			$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE locked=0 AND acctid != '$id' ORDER BY rand(".e_rand().") LIMIT 1";
+			$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE locked=0 AND acctid != '$id' ORDER BY rand(".e_rand().") LIMIT 1";
 		}else{
-			$sql = "SELECT creaturename AS name FROM " . db_prefix("masters") . " WHERE 1 ORDER BY rand(".e_rand().") LIMIT 1";
+			$sql = "SELECT creaturename AS name FROM " . DB::prefix("masters") . " WHERE 1 ORDER BY rand(".e_rand().") LIMIT 1";
 		}
 		// Only let this hit the database once every 10 minute if we're
 		// using data caching.  Otherwise it could be expensive.  If they
 		// hit it multiple times within ten minutes, it'll use the same
 		// random name of player or master.  We'll invalidate the name when someone's name changes
 		// for any reason.
-		$res = db_query_cached($sql, "innchat-names");
-		$row = db_fetch_assoc($res);
+		$res = DB::query_cached($sql, "innchat-names");
+		$row = DB::fetch_assoc($res);
 		// Give 2 out of X (currently 7 (5+these 2)) chances of hearing about
 		// a player.
 		$noplayers = translate_inline("loneliness in town");
@@ -52,7 +52,7 @@ function innchat_dohook($hookname,$args){
 		$args[] = translate_inline("YOU");
 		$args[] = getsetting("villagename", LOCATION_FIELDS);
 		$args[] = translate_inline("today's weather");
-		$args[] = translate_inline("the elementary discord of being"); // "Das elementare Zerwürfnis des Seins" no idea if that makes any sense in english. (Ok, it doesn't make sense in german too.) It's from a "Jägermeister" commercial spot :)
+		$args[] = translate_inline("the elementary discord of being"); // "Das elementare Zerwï¿½rfnis des Seins" no idea if that makes any sense in english. (Ok, it doesn't make sense in german too.) It's from a "Jï¿½germeister" commercial spot :)
 		break;
 	case "namechange":
 	case "dragonkill":

@@ -3,7 +3,7 @@
 	$inventory = get_inventory();
 	$count=0;
 	$removeables = array();
-	while($item = db_fetch_assoc($inventory)) {
+	while($item = DB::fetch_assoc($inventory)) {
 		if ($item['loosechance'] == 100) {
 			$removeables[$item['itemid']] = $item['quantity'];
 		} else if($item['loosechance'] == 0) {

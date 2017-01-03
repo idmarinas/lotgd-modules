@@ -52,10 +52,10 @@ function charrestore_dohook($hookname,$args){
 		if ($args['deltype']==CHAR_DELETE_PERMADEATH &&
 				!get_module_setting("permadeath_snapshot")) return $args;
 		//time to create a snapshot.
-		$sql = "SELECT * FROM ".db_prefix("accounts")." WHERE acctid='{$args['acctid']}'";
-		$result = db_query($sql);
-		if (db_num_rows($result) > 0){
-			$row = db_fetch_assoc($result);
+		$sql = "SELECT * FROM ".DB::prefix("accounts")." WHERE acctid='{$args['acctid']}'";
+		$result = DB::query($sql);
+		if (DB::num_rows($result) > 0){
+			$row = DB::fetch_assoc($result);
 
 			//test if the user is below the snapshot threshold
 			if ($args['deltype']==CHAR_DELETE_AUTO){
@@ -78,9 +78,9 @@ function charrestore_dohook($hookname,$args){
 			}
 
 			//set up the user's module preferences
-			$sql = "SELECT * FROM ".db_prefix("module_userprefs")." WHERE userid='{$args['acctid']}'";
-			$prefs = db_query($sql);
-			while ($row = db_fetch_assoc($prefs)){
+			$sql = "SELECT * FROM ".DB::prefix("module_userprefs")." WHERE userid='{$args['acctid']}'";
+			$prefs = DB::query($sql);
+			while ($row = DB::fetch_assoc($prefs)){
 				if (!isset($user['prefs'][$row['modulename']])){
 					$user['prefs'][$row['modulename']] = array();
 				}
@@ -171,9 +171,9 @@ function charrestore_run(){
 		}
 	}elseif (httpget("op")=="beginrestore"){
 		$user = unserialize(join("",file(charrestore_getstorepath().httpget("file"))));
-		$sql = "SELECT count(*) AS c FROM ".db_prefix("accounts")." WHERE login='{$user['account']['login']}'";
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
+		$sql = "SELECT count(*) AS c FROM ".DB::prefix("accounts")." WHERE login='{$user['account']['login']}'";
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		rawoutput("<form action='runmodule.php?module=charrestore&op=finishrestore&file=".rawurlencode(stripslashes(httpget("file")))."' method='POST'>");
 		addnav("","runmodule.php?module=charrestore&op=finishrestore&file=".rawurlencode(stripslashes(httpget("file"))));
 		if ($row['c'] > 0){
@@ -203,17 +203,17 @@ function charrestore_run(){
 
 	}elseif (httpget("op")=="finishrestore"){
 		$user = unserialize(join("",file(charrestore_getstorepath().httpget("file"))));
-		$sql = "SELECT count(*) AS c FROM ".db_prefix("accounts")." WHERE login='".(httppost('newlogin')>''?httppost('newlogin'):$user['account']['login'])."'";
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
+		$sql = "SELECT count(*) AS c FROM ".DB::prefix("accounts")." WHERE login='".(httppost('newlogin')>''?httppost('newlogin'):$user['account']['login'])."'";
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		if ($row['c'] > 0){
 			redirect("runmodule.php?module=charrestore&op=beginrestore&file=".rawurlencode(stripslashes(httpget("file"))));
 		}else{
 			if (httppost("newlogin") > "") $user['account']['login'] = httppost('newlogin');
-			$sql = "DESCRIBE ".db_prefix("accounts");
-			$result = db_query($sql);
+			$sql = "DESCRIBE ".DB::prefix("accounts");
+			$result = DB::query($sql);
 			$known_columns = array();
-			while ($row = db_fetch_assoc($result)){
+			while ($row = DB::fetch_assoc($result)){
 				$known_columns[$row['Field']] = true;
 			}
 
@@ -231,8 +231,8 @@ function charrestore_run(){
 					array_push($vals,"'".addslashes($val)."'");
 				}
 			}
-			$sql = "INSERT INTO ".db_prefix("accounts")." (\n".join("\t,\n",$keys).") VALUES (\n".join("\t,\n",$vals).")";
-			db_query($sql);
+			$sql = "INSERT INTO ".DB::prefix("accounts")." (\n".join("\t,\n",$keys).") VALUES (\n".join("\t,\n",$vals).")";
+			DB::query($sql);
 			$id = db_insert_id();
 			if ($id > 0){
 				addnav("Edit the restored user","user.php?op=edit&userid=$id");

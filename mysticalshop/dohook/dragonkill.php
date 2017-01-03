@@ -30,9 +30,9 @@ foreach( $item_cats as $item ){
 			$roll = e_rand(1,100);
 		if( $autolose || $roll<$chance ) {
 			$id = (int)get_module_pref( $item.'id' );
-			$sql = 'SELECT charm,hitpoints,turns,rare FROM '.db_prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = 'SELECT charm,hitpoints,turns,rare FROM '.DB::prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 
 			if ($row['charm']<>0) $session['user']['charm']-=$row['charm'];
 			if( is_module_active( 'globalhp' ) && get_module_setting( 'carrydk', 'globalhp' )
@@ -72,7 +72,7 @@ if( ( get_module_setting( 'restoreAll' ) && get_module_pref( 'restoreIndiv' ) ==
 	mysticalshop_applyenh( $buffs, false );
 }
 //------------------------------------------------------------------------------
-	
+
 if (get_module_pref("turnadd")<0) set_module_pref("turnadd",0);
 if ($session['user']['hitpoints'] < 1) $session['user']['hitpoints']=1;
 ?>

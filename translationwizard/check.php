@@ -5,9 +5,9 @@ switch ($mode)
 	{
 	case "del": //single delete action
 		$tid=httpget('tid');
-		$sql = "DELETE FROM " . db_prefix("translations") . " WHERE tid = '$tid'";
+		$sql = "DELETE FROM " . DB::prefix("translations") . " WHERE tid = '$tid'";
 		debug($tid);
-		if ($tid<>0) db_query($sql);
+		if ($tid<>0) DB::query($sql);
 		$mode=""; //reset
 		redirect("runmodule.php?module=translationwizard&op=check&mode=listing"); //just redirecting so you go back to the previous page after the deletion
 	break;
@@ -18,41 +18,41 @@ switch ($mode)
 			else
 			{$minmax="max";}
 		debug ($minmax);
-		$sql= "SELECT count(  tid  )  AS counter, ".$minmax."(tid) as tid, intext, uri,language FROM ".db_prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
-		$result = db_query($sql);
-		output("`bOperation commenced, %s rows found, this make take some time, please wait`b`n`n",db_num_rows($result));
-		if (db_num_rows($result)>0)
+		$sql= "SELECT count(  tid  )  AS counter, ".$minmax."(tid) as tid, intext, uri,language FROM ".DB::prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
+		$result = DB::query($sql);
+		output("`bOperation commenced, %s rows found, this make take some time, please wait`b`n`n",DB::num_rows($result));
+		if (DB::num_rows($result)>0)
 			{
-			while ($row = db_fetch_assoc($result))    //doing this step by step, rather than one BIG query
+			while ($row = DB::fetch_assoc($result))    //doing this step by step, rather than one BIG query
 				{
-				$sql= "DELETE FROM ".db_prefix("translations")." WHERE tid=".$row['tid'].";";
-				db_query($sql);
-				//$res=db_fetch_assoc(db_query($sql));               //just test code if the delete would be a select to check if this routine works
+				$sql= "DELETE FROM ".DB::prefix("translations")." WHERE tid=".$row['tid'].";";
+				DB::query($sql);
+				//$res=DB::fetch_assoc(DB::query($sql));               //just test code if the delete would be a select to check if this routine works
 				//output_notl(" ".$res['tid']);
 				}
 			}
-		output("`b`nOperation finished, %s rows deleted`b`n`n",db_num_rows($result));
-		$sql= "SELECT  count(  tid  )  AS counter, ".$minmax."(tid) as tid, intext, uri,language FROM ".db_prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
-		$result = db_query($sql);
-		output("Now there are %s rows who are still non-unique",db_num_rows($result));
-		if (db_num_rows($result)>0) output("`n`n`bYou have to repeat the operation to kill the non-unique rows who are still left.`b");
+		output("`b`nOperation finished, %s rows deleted`b`n`n",DB::num_rows($result));
+		$sql= "SELECT  count(  tid  )  AS counter, ".$minmax."(tid) as tid, intext, uri,language FROM ".DB::prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
+		$result = DB::query($sql);
+		output("Now there are %s rows who are still non-unique",DB::num_rows($result));
+		if (DB::num_rows($result)>0) output("`n`n`bYou have to repeat the operation to kill the non-unique rows who are still left.`b");
 	break;
 
 	case "listing":  //if the user hits the button to work on a list, one by one
-		$sql= "SELECT count(  tid  )  AS counter, min(tid) as tid, intext, uri,language FROM  ".db_prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
-		$result = db_query($sql);
-		output("`n`n %s rows have been found not to be unique within your translations table.`n`n",db_num_rows($result));
+		$sql= "SELECT count(  tid  )  AS counter, min(tid) as tid, intext, uri,language FROM  ".DB::prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
+		$result = DB::query($sql);
+		output("`n`n %s rows have been found not to be unique within your translations table.`n`n",DB::num_rows($result));
 		$i = 0;
 		output("`n`nFollowing rows are non-unique:");
 		rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
 		rawoutput("<tr class='trhead'><td>". translate_inline("Language")."</td><td>".translate_inline("Namespace")."</td><td>".translate_inline("Original") ."</td><td>".translate_inline("Translation")."</td><td>".translate_inline("Author")."</td><td>".translate_inline("Version")."</td><td>".translate_inline("Actions")."</td></tr>");
-		while ($row = db_fetch_assoc($result))
+		while ($row = DB::fetch_assoc($result))
 			{
 			$i++;
 			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
-			$sql="SELECT * FROM ".db_prefix("translations")." WHERE intext='".addslashes($row['intext'])."' AND language='".$row['language']."' AND uri='".$row['uri']."';";
-			$result2 = db_query($sql);
-				while ($row2 = db_fetch_assoc($result2))
+			$sql="SELECT * FROM ".DB::prefix("translations")." WHERE intext='".addslashes($row['intext'])."' AND language='".$row['language']."' AND uri='".$row['uri']."';";
+			$result2 = DB::query($sql);
+				while ($row2 = DB::fetch_assoc($result2))
 				{
 				rawoutput("<td>");
 				rawoutput(htmlentities($row2['language'],ENT_COMPAT,$coding));
@@ -77,12 +77,12 @@ switch ($mode)
 	break;
 
 	case "deleteall":
-		$sql= "SELECT count(  tid  )  AS counter, min(tid) as tid, intext, uri,language FROM  ".db_prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
-		$result = db_query($sql);
+		$sql= "SELECT count(  tid  )  AS counter, min(tid) as tid, intext, uri,language FROM  ".DB::prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
+		$result = DB::query($sql);
 		rawoutput("<form action='runmodule.php?module=translationwizard&op=check&mode=delete' method='post'>");
 		addnav("", "runmodule.php?module=translationwizard&op=check&mode=delete");
 		rawoutput("<input type='hidden' name='op' value='check'>");
-		output("`n`n %s rows have been found not to be unique within your translations table.`n`n",db_num_rows($result));
+		output("`n`n %s rows have been found not to be unique within your translations table.`n`n",DB::num_rows($result));
 		output("`0This operation will delete one occurrence of each row. `n`n`b`$ CAUTION!`b`0`n`nDue to technical reasons, this operation can't let you select every single line.");
 		output("The query would cost a lot of time and MySql might time out or the query block your game for more than just seconds.");
 		output("So you have the choice to delete the first or last occurrence of a non-unique line.");
@@ -98,13 +98,13 @@ switch ($mode)
 	break;
 
 	default:  //if the user hits the button just to check for duplicates
-		$sql= "SELECT count(  tid  )  AS counter, min(tid) as tid, intext, uri,language FROM  ".db_prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
-		$result = db_query($sql);
+		$sql= "SELECT count(  tid  )  AS counter, min(tid) as tid, intext, uri,language FROM  ".DB::prefix("translations")." GROUP  BY BINARY intext, uri, language HAVING counter >1;";
+		$result = DB::query($sql);
 		rawoutput("<form action='runmodule.php?module=translationwizard&op=check&mode=delete' method='post'>");
 		addnav("", "runmodule.php?module=translationwizard&op=check&mode=delete");
 		rawoutput("<input type='hidden' name='op' value='check'>");
-		output("`n`n %s rows have been found not to be unique within your translations table.`n`n",db_num_rows($result));
-		if (db_num_rows($result)==0) //table is fine, no redundant rows
+		output("`n`n %s rows have been found not to be unique within your translations table.`n`n",DB::num_rows($result));
+		if (DB::num_rows($result)==0) //table is fine, no redundant rows
 			{
 			output("Congratulations! Your translation table does not have any redundant entries!");
 			rawoutput("</form");

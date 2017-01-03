@@ -45,9 +45,9 @@ function timeplayed_dohook($hookname,$args){
 		break;
 	case "biostat":
 		if (get_module_pref("countedhits", false, $args['acctid']) < 100){
-			$sql = "SELECT gentimecount FROM " . db_prefix("accounts") . " WHERE acctid={$args['acctid']}";
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT gentimecount FROM " . DB::prefix("accounts") . " WHERE acctid={$args['acctid']}";
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			if ($row['gentimecount'] > 100) {
 				output("`^Estimated Time Played: `@Too little data to build estimate.`n");
 				break;
@@ -78,9 +78,9 @@ function timeplayed_estimatetotaltime($who){
 	if ($who == $session['user']['acctid']) {
 		$gentimecount = $session['user']['gentimecount'];
 	}else{
-		$sql = "SELECT gentimecount FROM " . db_prefix("accounts") . " WHERE acctid='$who'";
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
+		$sql = "SELECT gentimecount FROM " . DB::prefix("accounts") . " WHERE acctid='$who'";
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		$gentimecount = $row['gentimecount'];
 	}
 	if ($gentimecount < $hits){

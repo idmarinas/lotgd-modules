@@ -131,17 +131,17 @@ function bloodbank_run(){
 		for ($x=0;$x<strlen($to);$x++){
 			$string .= substr($to,$x,1)."%";
 		}
-		$sql = "SELECT name,login FROM " . db_prefix("accounts") . " WHERE name LIKE '".addslashes($string)."' AND locked=0 ORDER by login='$to' DESC, name='$to' DESC, login";
-		$result = db_query($sql);
+		$sql = "SELECT name,login FROM " . DB::prefix("accounts") . " WHERE name LIKE '".addslashes($string)."' AND locked=0 ORDER by login='$to' DESC, name='$to' DESC, login";
+		$result = DB::query($sql);
 		$amt = abs((int)httppost('amount'));
-		if (db_num_rows($result)==1){
-			$row = db_fetch_assoc($result);
+		if (DB::num_rows($result)==1){
+			$row = DB::fetch_assoc($result);
 			$msg = translate_inline("Complete Transfer");
 			rawoutput("<form action='runmodule.php?module=bloodbank&op=transfer3' method='POST'>");
 			output("`7Transfer `^%s`7 to `&%s`7.",$amt,$row['name']);
 			rawoutput("<input type='hidden' name='to' value='".HTMLEntities($row['login'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."'><input type='hidden' name='amount' value='$amt'><input type='submit' class='button' value='$msg'></form>",true);
 			addnav("","runmodule.php?module=bloodbank&op=transfer3");
-		}elseif(db_num_rows($result)>100){
+		}elseif(DB::num_rows($result)>100){
 			output("`7Vladimir smiles at you, and suggests that a search that broad would take all day, and that perhaps you could narrow it down for him a little.`n`n");
 			$msg = translate_inline("Preview Transfer");
 			rawoutput("<form action='runmodule.php?module=bloodbank&op=transfer2' method='POST'>");
@@ -153,12 +153,12 @@ function bloodbank_run(){
 			rawoutput("<input type='submit' class='button' value='$msg'></form>");
 			rawoutput("<script language='javascript'>document.getElementById('amount').focus();</script>",true);
 			addnav("","runmodule.php?module=bloodbank&op=transfer2");
-		}elseif(db_num_rows($result)>1){
+		}elseif(DB::num_rows($result)>1){
 			rawoutput("<form action='runmodule.php?module=bloodbank&op=transfer3' method='POST'>");
 			output("`7Transfer `^%s`7 to ",$amt);
 			rawoutput("<select name='to' class='input'>");
-			for ($i=0;$i<db_num_rows($result);$i++){
-				$row = db_fetch_assoc($result);
+			for ($i=0;$i<DB::num_rows($result);$i++){
+				$row = DB::fetch_assoc($result);
 				rawoutput("<option value=\"".HTMLEntities($row['login'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">".full_sanitize($row['name'])."</option>");
 			}
 			$msg = translate_inline("Complete Transfer");
@@ -174,10 +174,10 @@ function bloodbank_run(){
 		if ($session['user']['gold']+$session['user']['goldinbank']<$amt){
 			output("`7Vladimir regards you with a smile, \"`&How can you transfer `^%s`& gold when our bank holds only  `^%s`& for you?`7\"",$amt,$session['user']['gold']+$session['user']['goldinbank']);
 		}else{
-			$sql = "SELECT name,acctid,level,transferredtoday FROM " . db_prefix("accounts") . " WHERE login='$to'";
-			$result = db_query($sql);
-			if (db_num_rows($result)==1){
-				$row = db_fetch_assoc($result);
+			$sql = "SELECT name,acctid,level,transferredtoday FROM " . DB::prefix("accounts") . " WHERE login='$to'";
+			$result = DB::query($sql);
+			if (DB::num_rows($result)==1){
+				$row = DB::fetch_assoc($result);
 				$maxout = $session['user']['level']*getsetting("maxtransferout",25);
 				$maxtfer = $row['level']*getsetting("transferperlevel",25);
 				if ($session['user']['amountouttoday']+$amt > $maxout) {
@@ -199,8 +199,8 @@ function bloodbank_run(){
 						$session['user']['gold']=0;
 					}
 					$session['user']['amountouttoday']+= $amt;
-					$sql = "UPDATE ". db_prefix("accounts") . " SET goldinbank=goldinbank+$amt,transferredtoday=transferredtoday+1 WHERE acctid='{$row['acctid']}'";
-					db_query($sql);
+					$sql = "UPDATE ". DB::prefix("accounts") . " SET goldinbank=goldinbank+$amt,transferredtoday=transferredtoday+1 WHERE acctid='{$row['acctid']}'";
+					DB::query($sql);
 					output("`7Vladimir smiles, \"`&The transfer has been completed!`7\"");
 					$subj = array("`^You have received a money transfer!`0");
 					$body = array("`&%s`7 has transferred `^%s`7 gold to your bank account!",$session['user']['name'],$amt);

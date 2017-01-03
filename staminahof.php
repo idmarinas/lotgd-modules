@@ -36,14 +36,14 @@ function staminahof_run(){
 	page_header("Action Level Rankings");
 	require_once "modules/staminasystem/lib/lib.php";
 	$actions = get_default_action_list();
-	
+
 	// Output navs to each action
 	foreach($actions AS $action => $vals){
 		addnav("Actions");
 		addnav($action,"runmodule.php?module=staminahof&action=".$action."&skip=0");
 	}
-	
-	
+
+
 	// Now show the HOF
 	$hof = httpget('action');
 	if ($hof){
@@ -51,44 +51,44 @@ function staminahof_run(){
 		$hofpage = array();
 		$pages = 0;
 		$numres=0;
-		
-		$namessql = "SELECT acctid, name FROM " . db_prefix("accounts") . "";
-		$namesresult = db_query($namessql);
-		
-		$staminasql = "SELECT setting,value,userid FROM ".db_prefix("module_userprefs")." WHERE modulename='staminasystem' AND setting='actions'";
-		$staminaresult = db_query($staminasql);
-		
-		$scount = db_num_rows($staminaresult);
-		
+
+		$namessql = "SELECT acctid, name FROM " . DB::prefix("accounts") . "";
+		$namesresult = DB::query($namessql);
+
+		$staminasql = "SELECT setting,value,userid FROM ".DB::prefix("module_userprefs")." WHERE modulename='staminasystem' AND setting='actions'";
+		$staminaresult = DB::query($staminasql);
+
+		$scount = DB::num_rows($staminaresult);
+
 		for ($i=0;$i<$scount;$i++){
-			$row = db_fetch_assoc($staminaresult);
+			$row = DB::fetch_assoc($staminaresult);
 			$actions_array = @unserialize($row['value']);
 			$actiondetails = $actions_array[$hof];
 			if (!$actiondetails['exp']) continue;
 			$hofpage[$row['userid']]['exp'] = $actiondetails['exp'];
 			$hofpage[$row['userid']]['lvl'] = $actiondetails['lvl'];
 		}
-		
-		$ncount = db_num_rows($namesresult);
-		
+
+		$ncount = DB::num_rows($namesresult);
+
 		for ($i=0;$i<$ncount;$i++){
-			$row = db_fetch_assoc($namesresult);
+			$row = DB::fetch_assoc($namesresult);
 			$numres++;
 			$hofpage[$row['acctid']]['name'] = $row['name'];
 			//sorting this later on will overwrite the order, so we save it here
 			$hofpage[$row['acctid']]['acctid'] = $row['acctid'];
 		}
-		
+
 		$pages = ceil($numres/50);
-		
+
 		for ($i=0; $i<=$pages; $i++){
 			addnav("Pages");
 			$page=$i*50;
 			addnav(array("Page %s",$i+1),"runmodule.php?module=staminahof&action=$hof&skip=$page");
 		}
-		
+
 		usort($hofpage,"staminahof_sort");
-		
+
 		$dexp = translate_inline("Experience");
 		$dname = translate_inline("Name");
 		$dlvl = translate_inline("Level");

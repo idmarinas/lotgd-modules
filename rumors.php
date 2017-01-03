@@ -40,15 +40,15 @@ function rumors_getmoduleinfo(){
 }
 function rumors_install(){
 	require_once("modules/rumors/rumors_install.php");
-	
+
 	return true;
 }
 function rumors_uninstall(){
 	for ($i=1;$i<=16;$i++) {
 		$creaturename=array("","Dragon Sympathizer Initiate","Dragon Sympathizer Entrant","Low Dragon Sympathizer","Apprentice Dragon Sympathizer","Steward Dragon Sympathizer","Warden Dragon Sympathizer","Master Dragon Sympathizer","Outer Circle Dragon Sympathizer","Inner Circle Dragon Sympathizer","Dragon Sympathizer Assassin","Bishop Dragon Sympathizer","Deacon Dragon Sympathizer","Dragon Sympathizer High Master","Dragon Sympathizer Grandmaster","Dragon Sympathizer High Priest","Dragon Sympathizer High Priestess");
 		$id=get_module_setting("level".$i);
-		$sql = "DELETE FROM ".db_prefix("creatures")." where creatureid=$id";
-		db_query($sql);
+		$sql = "DELETE FROM ".DB::prefix("creatures")." where creatureid=$id";
+		DB::query($sql);
 		output("`i`4Uninstalled `\$%s`4; Creature ID = `^%s`n`i",$creaturename[$i],$id);
 	}
 	return true;
@@ -448,18 +448,18 @@ if ($op == "hof") {
 	if ($pageoffset > 0) $pageoffset--;
 	$pageoffset *= $pp;
 	$limit = "LIMIT $pageoffset,$pp";
-	$sql = "SELECT COUNT(*) AS c FROM " . db_prefix("module_userprefs") . " WHERE modulename = 'rumors' AND setting = 'solved' AND value > 0";
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = "SELECT COUNT(*) AS c FROM " . DB::prefix("module_userprefs") . " WHERE modulename = 'rumors' AND setting = 'solved' AND value > 0";
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$total = $row['c'];
-	$count = db_num_rows($result);
+	$count = DB::num_rows($result);
 	if (($pageoffset + $pp) < $total){
 		$cond = $pageoffset + $pp;
 	}else{
 		$cond = $total;
 	}
-	$sql = "SELECT ".db_prefix("module_userprefs").".value, ".db_prefix("accounts").".name FROM " . db_prefix("module_userprefs") . "," . db_prefix("accounts") . " WHERE acctid = userid AND modulename = 'rumors' AND setting = 'solved' AND value > 0 ORDER BY (value+0) DESC $limit";
-	$result = db_query($sql);
+	$sql = "SELECT ".DB::prefix("module_userprefs").".value, ".DB::prefix("accounts").".name FROM " . DB::prefix("module_userprefs") . "," . DB::prefix("accounts") . " WHERE acctid = userid AND modulename = 'rumors' AND setting = 'solved' AND value > 0 ORDER BY (value+0) DESC $limit";
+	$result = DB::query($sql);
 	$rank = translate_inline("Rank");
 	$name = translate_inline("Name");
 	$hofdesc = translate_inline("Rumors Dispelled");
@@ -467,10 +467,10 @@ if ($op == "hof") {
 	output("`b`c`^Most Rumors Dispelled`c`n`b");
 	rawoutput("<table border='0' cellpadding='2' cellspacing='1' align='center' bgcolor='#999999'>");
 	rawoutput("<tr class='trhead'><td>$rank</td><td>$name</td><td>$hofdesc</td></tr>");
-	if (db_num_rows($result)<=0) output_notl("<tr class='trlight'><td colspan='3' align='center'>`&$none`^</td></tr>",true);
+	if (DB::num_rows($result)<=0) output_notl("<tr class='trlight'><td colspan='3' align='center'>`&$none`^</td></tr>",true);
 	else{
 		for($i = $pageoffset; $i < $cond && $count; $i++) {
-			$row = db_fetch_assoc($result);
+			$row = DB::fetch_assoc($result);
 			if ($row['name']==$session['user']['name']){
 				rawoutput("<tr class='trhilight'><td>");
 			}else{

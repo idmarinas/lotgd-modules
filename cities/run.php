@@ -98,10 +98,10 @@
 						"sobermsg"=>"`&Facing your bloodthirsty opponent, the adrenaline rush helps to sober you up slightly.", "schema"=>"module-cities");
 				modulehook("soberup", $args);
 				require_once("lib/forestoutcomes.php");
-				$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel = '{$session['user']['level']}' AND forest = 1 ORDER BY rand(".e_rand().") LIMIT 1";
-				$result = db_query($sql);
+				$sql = "SELECT * FROM " . DB::prefix("creatures") . " WHERE creaturelevel = '{$session['user']['level']}' AND forest = 1 ORDER BY rand(".e_rand().") LIMIT 1";
+				$result = DB::query($sql);
 				restore_buff_fields();
-				if (db_num_rows($result) == 0) {
+				if (DB::num_rows($result) == 0) {
 					// There is nothing in the database to challenge you,
 					// let's give you a doppleganger.
 					$badguy = array();
@@ -116,7 +116,7 @@
 					$badguy['creatureattack']=$session['user']['attack'];
 					$badguy['creaturedefense']=$session['user']['defense'];
 				} else {
-					$badguy = db_fetch_assoc($result);
+					$badguy = DB::fetch_assoc($result);
 					$aiscriptfile=$badguy['creatureaiscript'].".php";
 					if (file_exists($aiscriptfile)) {
 						//file there, get content and put it into the ai script field.

@@ -20,28 +20,28 @@ function biocomment_getmoduleinfo(){
 function biocomment_install(){
 	module_addhook("bioinfo");
 	//added by Red to fix it up
-	$sql="SELECT version FROM ".db_prefix("modules")." WHERE modulename='biocomment'";
-	$result=db_query($sql);
-	$row=db_fetch_assoc($result);
+	$sql="SELECT version FROM ".DB::prefix("modules")." WHERE modulename='biocomment'";
+	$result=DB::query($sql);
+	$row=DB::fetch_assoc($result);
 	$oldver=$row['version'];
 	if ($oldver=="1.0"){
 		debug("Updating from version 1.0, changing over commentary.");
-		$sql="SELECT commentid, section FROM ".db_prefix("commentary")." WHERE section LIKE 'pet-bio-%'";
-		$result=db_query($sql);
-		$count=db_num_rows($result);
+		$sql="SELECT commentid, section FROM ".DB::prefix("commentary")." WHERE section LIKE 'pet-bio-%'";
+		$result=DB::query($sql);
+		$count=DB::num_rows($result);
 		for ($i; $i<$count; $i++){
-			$row=db_fetch_assoc($result);
+			$row=DB::fetch_assoc($result);
 			$oldsection=$row['section'];
 			$login=substr($oldsection,8);
-			$selsql="SELECT acctid FROM ".db_prefix("accounts")." WHERE login LIKE '$login%'";
-			$selresult=db_query($selsql);
-			if (db_num_rows($selresult)>1){
-				$delsql="DELETE FROM ".db_prefix("commentary")." WHERE commentid={$row['commentid']}";
-				db_query($delsql);
+			$selsql="SELECT acctid FROM ".DB::prefix("accounts")." WHERE login LIKE '$login%'";
+			$selresult=DB::query($selsql);
+			if (DB::num_rows($selresult)>1){
+				$delsql="DELETE FROM ".DB::prefix("commentary")." WHERE commentid={$row['commentid']}";
+				DB::query($delsql);
 			}else{
-				$selrow=db_fetch_assoc($selresult);
-				$updatesql="UPDATE ".db_prefix("commentary")." SET section='pet-bio-".$selrow['acctid']."' WHERE section='$oldsection'";
-				db_query($updatesql);
+				$selrow=DB::fetch_assoc($selresult);
+				$updatesql="UPDATE ".DB::prefix("commentary")." SET section='pet-bio-".$selrow['acctid']."' WHERE section='$oldsection'";
+				DB::query($updatesql);
 			}
 		}
 	}else{

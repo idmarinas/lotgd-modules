@@ -53,18 +53,18 @@ function creationaddon_getmoduleinfo(){
 }
 
 function creationaddon_install(){
-	
-	if (db_table_exists(db_prefix("badnames"))) {
+
+	if (db_table_exists(DB::prefix("badnames"))) {
 		debug("Bad Names table already exists");
 	}else{
 		debug("Creating Bad Names table");
-		$sqls = array("CREATE TABLE " . db_prefix("badnames") . " (
+		$sqls = array("CREATE TABLE " . DB::prefix("badnames") . " (
 				bad_id TINYINT NOT NULL AUTO_INCREMENT ,
 				badname VARCHAR( 50 ) NOT NULL ,
 				PRIMARY KEY ( bad_id )) ENGINE=InnoDB"
 				);
 		while (list($key,$sql)=each($sqls)){
-			db_query($sql);
+			DB::query($sql);
 		}
 	}
     module_addhook("create-form");
@@ -72,19 +72,19 @@ function creationaddon_install(){
     module_addhook("process-create");
     module_addhook("everyfooter");
     module_addhook("superuser");
-        
+
 return true;
 }
 
 function creationaddon_uninstall(){
-	
+
 	return true;
 }
 
 function creationaddon_dohook($hookname,$args){
 
 	global $session;
-        
+
     $age=httppost('age');
 	$month=httppost('month');
 	$day=httppost('day');
@@ -92,18 +92,18 @@ function creationaddon_dohook($hookname,$args){
 	$terms=httppost('terms');
 	$privacy=httppost('privacy');
 	$msg='';
-	
+
 	switch($hookname){
-        
+
         case "check-create":
 			$blockaccount = $args['blockaccount'];
-						
+
 			// We are going to check the bad name list.
 			if(get_module_setting("filter_badnames")){
-				$sql = "SELECT * FROM " . db_prefix("badnames");
-				$result= db_query($sql);
-				for ($i=0;$i<db_num_rows($result);$i++){
-					$row = db_fetch_assoc($result);
+				$sql = "SELECT * FROM " . DB::prefix("badnames");
+				$result= DB::query($sql);
+				for ($i=0;$i<DB::num_rows($result);$i++){
+					$row = DB::fetch_assoc($result);
 					$shortname = sanitize_name(getsetting("spaceinname", 0), httppost('name'));
 					$pattern = "/".$row['badname']."/i";
 					if(preg_match($pattern,$shortname)){
@@ -114,7 +114,7 @@ function creationaddon_dohook($hookname,$args){
 					}
 				}
 			}
-			
+
 			// Lets see if they meet the age requirements.
 			if(get_module_setting("requireage")==1 && $age || get_module_setting('requireage')==0){
 
@@ -122,7 +122,7 @@ function creationaddon_dohook($hookname,$args){
                 $args['msg'] .= translate_inline("You must be at least years ".get_module_setting("age")." old to play.`n");
                 $blockaccount=true;
 			}
-           
+
            // Did they check the box for terms?
 			if(get_module_setting('requireterms')==1 && $terms || get_module_setting('requireterms')==0){
 
@@ -130,7 +130,7 @@ function creationaddon_dohook($hookname,$args){
 				$args['msg'] .= translate_inline("You must read the terms.`n");
 				$blockaccount=true;
 			}
-			
+
 			// Did they check the box for the Privacy Policy?
 			if(get_module_setting('requireprivacy')==1 && $privacy || get_module_setting('requireprivacy')==0){
 
@@ -138,20 +138,20 @@ function creationaddon_dohook($hookname,$args){
 				$args['msg'] .= translate_inline("You must read the privacy policy.`n");
 				$blockaccount=true;
 			}
-			
+
 			if(get_module_setting("chkbday")){
-			
+
 				// Lets do a small check to see if they are actually over the age according to their birthday.
 				$thisday = date("j");
 				$thismonth = date("n");
 				$thisyear = date("Y");
-			
-				// ok.. lets check to see what month they were born.  if it was after this month then subtract a year.			
+
+				// ok.. lets check to see what month they were born.  if it was after this month then subtract a year.
 				if( $thismonth-$month < 0) --$thisyear;
-			
+
 				// they were born the same month as this month.  Lets check the day to see if they have had it yet.
 				if( $thisday < $day && $thismonth-$month ==0) --$thisyear;
-			
+
 				// Lets compare the math in the years.
 				if(get_module_setting("requireage") && $thisyear-$year >= get_module_setting("age")){
 
@@ -161,39 +161,39 @@ function creationaddon_dohook($hookname,$args){
 					$blockaccount=true;
 				}
             }
-            
+
 			$args['blockaccount']= $blockaccount;
-			
-		break;	        
+
+		break;
 
 		case "create-form":
-			
+
             output("`n%s`0`n`n",nltoappon(stripslashes(get_module_setting("creationmsg"))));
-            
+
             // Make them check a box requiring a minimum age.
 			if(get_module_setting("requireage")){
                 rawoutput("<input type=\"checkbox\" name=\"age\" />&nbsp&nbsp");
                 output("I am at or over the age of %s.`n",get_module_setting("age"));
 			}
-           
+
            // Make them check a box for terms.  Give them a link.
 			if(get_module_setting("requireterms")){
 				rawoutput("<input type=\"checkbox\" name=\"terms\" />&nbsp&nbsp");
 				$terms = translate_inline("Terms and Agreements");
 				output("I have read the ");
-				rawoutput("<a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=terms")."; return false;\" 'class='motd'>$terms</a>.<br>");		
-	
+				rawoutput("<a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=terms")."; return false;\" 'class='motd'>$terms</a>.<br>");
+
 			}
-			
+
 			// Make them check a box for Privacy Statement.  Give them a link.
 			if(get_module_setting("requireprivacy")){
 				rawoutput("<input type=\"checkbox\" name=\"privacy\" />&nbsp&nbsp");
 				$privacy = translate_inline("Privacy Policy");
 				output("I have read the ");
-				rawoutput("<a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=privacy")."; return false;\" 'class='motd'>$privacy</a>.<br>");		
-	
+				rawoutput("<a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=privacy")."; return false;\" 'class='motd'>$privacy</a>.<br>");
+
 			}
-			
+
 			// Don't require birthday.  Just do it.
 			if(get_module_setting("askbday")){
 				output("%s`n",get_module_setting("bdaymsg"));
@@ -225,49 +225,49 @@ function creationaddon_dohook($hookname,$args){
 			}
 			rawoutput("<br>");
         break;
-        
+
         case "everyfooter":
-			
+
 			if(get_module_setting("requireprivacy") && get_module_setting('showfooter')){
 				$privacy = translate_inline("Privacy Policy");
 				$privacyfooter= "<br><a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=privacy")."; return false;\" 'class='motd'>$privacy</a>";
 				addnav("","runmodule.php?module=creationaddon&op=privacy");
 				if (!isset($args['source'])) {
-			
+
 					$args['source'] = array();
-				
+
 				} elseif (!is_array($args['source'])) {
-						
+
 					$args['source'] = array($args['source']);
 				}
 				array_push($args['source'], $privacyfooter);
 			}
-			
+
 			if(get_module_setting("requireterms") && get_module_setting('showfooter')){
 
 				$terms = translate_inline("Terms and Agreements");
 				$termsfooter="<br><a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=terms")."; return false;\" 'class='motd'>$terms</a>";
 				addnav("","runmodule.php?module=creationaddon&op=terms");
 				if (!isset($args['source'])) {
-			
+
 					$args['source'] = array();
-				
+
 				} elseif (!is_array($args['source'])) {
-						
+
 					$args['source'] = array($args['source']);
 				}
 				array_push($args['source'], $termsfooter);
 			}
-						
+
         break;
-        
+
         case "process-create":
-			global $shortname;        
-			$sql = "SELECT acctid FROM " . db_prefix("accounts") . " WHERE login='$shortname'";
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			global $shortname;
+			$sql = "SELECT acctid FROM " . DB::prefix("accounts") . " WHERE login='$shortname'";
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			$id=$row['acctid'];
-			
+
 			if(get_module_setting("requireterms")) set_module_pref('termsverified',1,'creationaddon',$id);
 			if(get_module_setting("requireprivacy")) set_module_pref('privacyverified',1,'creationaddon',$id);
 			if(get_module_setting("requireage")) set_module_pref('ageverified',1,'creationaddon',$id);
@@ -276,9 +276,9 @@ function creationaddon_dohook($hookname,$args){
 				set_module_pref('day',$day,'creationaddon',$id);
 				if(get_module_setting("requireyear")) set_module_pref('year',$year,'creationaddon',$id);
 			}
-			
+
 		break;
-		
+
 		case "superuser":
 			// lets do something here
 			if (($session['user']['superuser'] & SU_EDIT_USERS)) {
@@ -288,7 +288,7 @@ function creationaddon_dohook($hookname,$args){
 				addnav("Bad Names Editor","runmodule.php?module=creationaddon&op=list&admin=true");
 			}
 		break;
-		
+
         }
         return $args;
 }
@@ -297,7 +297,7 @@ function creationaddon_run(){
 	global $session;
 	require_once("lib/superusernav.php");
 	$op=httpget("op");
-	
+
 	switch($op){
 		case "terms":
 			$terms = translate_inline("Terms and Agreements");
@@ -306,7 +306,7 @@ function creationaddon_run(){
 			output_notl(nltoappon(stripslashes(get_module_setting("terms"))),true);
 			output_notl('`0`n`n');
 		break;
-		
+
 		case "privacy":
 			$privacy = translate_inline("Privacy Policy");
 			popup_header($privacy);
@@ -314,23 +314,23 @@ function creationaddon_run(){
 			output_notl(nltoappon(stripslashes(get_module_setting("privacy"))),true);
 			output_notl('`0`n`n');
 		break;
-		
+
 		case "list":
 			creationaddon_list();
 		break;
-		
+
 		case "delete":
 			creationaddon_delete();
 		break;
-		
+
 		case "add":
 			creationaddon_add();
 		break;
-		
+
 	}
-	
+
 	popup_footer();
-	
+
 }
 
 function creationaddon_list(){
@@ -343,17 +343,17 @@ function creationaddon_list(){
 	addnav("List Names","runmodule.php?module=creationaddon&op=list&admin=true");
 	addnav("Add a Name","runmodule.php?module=creationaddon&op=add&admin=true");
 	$name=translate_inline("List of Bad Names");
-	
+
 	rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
 	rawoutput("<tr class='trhead'>");
 	rawoutput("<td colspan=3>$name</td>");
 	rawoutput("</tr>");
-	$sql = "SELECT bad_id, badname FROM " . db_prefix("badnames") . " ORDER BY badname";
-	$result= db_query($sql);
+	$sql = "SELECT bad_id, badname FROM " . DB::prefix("badnames") . " ORDER BY badname";
+	$result= DB::query($sql);
 	$x=0;
-	for ($i=0;$i<db_num_rows($result);$i++){
+	for ($i=0;$i<DB::num_rows($result);$i++){
 		++$x;
-		$row = db_fetch_assoc($result);
+		$row = DB::fetch_assoc($result);
 		$id = $row['bad_id'];
 		if($x==1){
 			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
@@ -363,7 +363,7 @@ function creationaddon_list(){
 		addnav("","runmodule.php?module=creationaddon&op=delete&bad_id=$bad_id&admin=true");
 		rawoutput("<td><a href='runmodule.php?module=creationaddon&op=delete&bad_id=$bad_id&admin=true'>$badname</a></td>");
 		if($x==3){
-			rawoutput("</tr>");	
+			rawoutput("</tr>");
 			$x=0;
 		}
 	}
@@ -383,19 +383,19 @@ function creationaddon_delete(){
 	addnav("Bad Names Editor");
 	addnav("List Names","runmodule.php?module=creationaddon&op=list&admin=true");
 	addnav("Add a Name","runmodule.php?module=creationaddon&op=add&admin=true");
-	$sql = "SELECT badname FROM " . db_prefix("badnames") . " WHERE bad_id='$bad_id' LIMIT 1";
-	$result= db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = "SELECT badname FROM " . DB::prefix("badnames") . " WHERE bad_id='$bad_id' LIMIT 1";
+	$result= DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$name = $row['badname'];
-	
-	$sql = "DELETE FROM " . db_prefix("badnames") . " WHERE bad_id='$bad_id'";
-	$result = db_query($sql);
+
+	$sql = "DELETE FROM " . DB::prefix("badnames") . " WHERE bad_id='$bad_id'";
+	$result = DB::query($sql);
 	if($result){
 		output("`$%s`0 has been deleted.", $name);
 	}else{
 		output("Failed to delete from database.");
 	}
-	
+
 	page_footer();
 	return true;
 }
@@ -418,23 +418,23 @@ function creationaddon_add(){
 
 	if($banname){
 		// Check to see if it is already in the list.
-		$sql = "SELECT badname FROM " . db_prefix("badnames") . " WHERE badname='$banname' LIMIT 1";
-		$result= db_query($sql);
-		$row = db_fetch_assoc($result);
+		$sql = "SELECT badname FROM " . DB::prefix("badnames") . " WHERE badname='$banname' LIMIT 1";
+		$result= DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		if($banname == $row['badname']){
 			output("Name already in the list.");
 		}else{
 			// It isn't in the list so lets add it.
-			$sql = "INSERT INTO " . db_prefix("badnames") . " (badname) VALUES ('$banname')";
-			$resul = db_query($sql);
-			
+			$sql = "INSERT INTO " . DB::prefix("badnames") . " (badname) VALUES ('$banname')";
+			$resul = DB::query($sql);
+
 			output("Added `$%s`0 to the Bad Name List.",$banname);
 		}
 	}else{
 		$row = array();
 		rawoutput("<form action='runmodule.php?module=creationaddon&op=add&admin=true' method='POST'>");
 		addnav("","runmodule.php?module=creationaddon&op=add&admin=true");
-		showform($badnamesarray,$row);
+		lotgd_showform($badnamesarray,$row);
 		rawoutput("</form>");
 	}
 	page_footer();

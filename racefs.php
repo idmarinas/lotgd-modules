@@ -54,12 +54,12 @@ function racefs_uninstall(){
   $race = get_module_setting("name");
   $city = get_module_setting("city");
   $vname = getsetting("villagename", LOCATION_FIELDS);
-  $sql = "UPDATE " . db_prefix("accounts") . " SET location='$vname' WHERE location = '$city'";
-	db_query($sql);
+  $sql = "UPDATE " . DB::prefix("accounts") . " SET location='$vname' WHERE location = '$city'";
+	DB::query($sql);
 	if ($session['user']['location'] == $city)
 		$session['user']['location'] = $vname;
-  $sql = "UPDATE  " . db_prefix("accounts") . " SET race='".RACE_UNKNOWN."' WHERE race='$race'";
-  db_query($sql);
+  $sql = "UPDATE  " . DB::prefix("accounts") . " SET race='".RACE_UNKNOWN."' WHERE race='$race'";
+  DB::query($sql);
 	if ($session['user']['race'] == $race)
 		$session['user']['race'] = RACE_UNKNOWN;
 	return true;
@@ -115,7 +115,7 @@ function racefs_dohook($hookname,$args){
   set_module_pref("oldrace","");
   set_module_pref("oldhome","");
   }else{
-  racefs_checkcity(); 
+  racefs_checkcity();
   set_module_pref("uses",$maxuses);
   if ($session['user']['level'] >= 10){
   $greateraura = array(
@@ -198,7 +198,7 @@ function racefs_dohook($hookname,$args){
   $args['racesave'] = "Fortunately your skills allow you to get out on time and unharmed.`n";
   }
   break;
-  
+
   Case "village":
 
   $capital = getsetting("villagename", LOCATION_FIELDS);

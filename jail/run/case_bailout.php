@@ -1,8 +1,8 @@
 <?php
 $player	= httpget('player');
-$sql		= "SELECT name,level,dragonkills FROM ".db_prefix("accounts")." WHERE acctid =".$player;
-$result	= db_query($sql) or die(db_error(LINK));
-$row		= db_fetch_assoc($result);
+$sql		= "SELECT name,level,dragonkills FROM ".DB::prefix("accounts")." WHERE acctid =".$player;
+$result	= DB::query($sql) or die(db_error(LINK));
+$row		= DB::fetch_assoc($result);
 $playername	= $row['name'];
 $baillvl	= get_module_setting('baillvl');
 $baildk	= get_module_setting('baildk');
@@ -21,7 +21,7 @@ if (httpget('action') == "yes")
 		require_once("lib/systemmail.php");
 		output
 		(
-			"`n`n`7You decide to help ".$row['name']."`7 get out of jail. So you hand over the `^%s gold`7 and %s yells to the 
+			"`n`n`7You decide to help ".$row['name']."`7 get out of jail. So you hand over the `^%s gold`7 and %s yells to the
 			back for the guard to bring up ".$row['name']."", $cost, $sheriffname
 		);
 		addnav("Back to jail", "runmodule.php?module=jail");
@@ -50,16 +50,16 @@ if (httpget('action') == "yes")
 		addnav("Back to jail", "runmodule.php?module=jail");
 		output
 		(
-			"`n`n`7You decide to help %s, but %s tells you that you don't have enough money. %s will have to rot 
+			"`n`n`7You decide to help %s, but %s tells you that you don't have enough money. %s will have to rot
 			in their cell until later.", $playername, $sheriffname, $playername
 		);
-	} 
+	}
 }
 elseif (httpget('action') == "no")
 {
 	output
 	(
-		"`7You decide that it's not worth it to get %s out of jail, so you thank %s and leave the office.", 
+		"`7You decide that it's not worth it to get %s out of jail, so you thank %s and leave the office.",
 		 $playername, $sheriffname
 	);
 	addnav("Back to jail", "runmodule.php?module=jail");
@@ -76,10 +76,10 @@ else
 	$no	= translate_inline("No");
 	output
 	(
-		"<a href=\"runmodule.php?module=jail&op=bailout&player=$player&action=yes\">`^$yes</a> `^/ 
+		"<a href=\"runmodule.php?module=jail&op=bailout&player=$player&action=yes\">`^$yes</a> `^/
 		<a href=\"runmodule.php?module=jail&op=bailout&player=$player&action=no\">`^$no</a>", true
 	);
 	addnav("", "runmodule.php?module=jail&op=bailout&player=$player&action=yes");
 	addnav("", "runmodule.php?module=jail&op=bailout&player=$player&action=no");
-} 
+}
 ?>

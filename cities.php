@@ -62,8 +62,8 @@ function cities_uninstall(){
 	// I think I have a patch however :)
 	$city = getsetting("villagename", LOCATION_FIELDS);
 	$inn = getsetting("innname", LOCATION_INN);
-	$sql = "UPDATE " . db_prefix("accounts") . " SET location='".addslashes($city)."' WHERE location!='".addslashes($inn)."'";
-	db_query($sql);
+	$sql = "UPDATE " . DB::prefix("accounts") . " SET location='".addslashes($city)."' WHERE location!='".addslashes($inn)."'";
+	DB::query($sql);
 	$session['user']['location']=$city;
 	return true;
 }

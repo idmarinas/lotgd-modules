@@ -26,21 +26,21 @@ function cityprefs_install(){
 		'key-PRIMARY'=>array('name'=>'PRIMARY', 'type'=>'primary key',	'unique'=>'1', 'columns'=>'cityid'),
 		'index-module'=>array('name'=>'module', 'type'=>'index', 'columns'=>'module'),
 		'index-cityname'=>array('name'=>'cityname', 'type'=>'index', 'columns'=>'cityname'));
-    synctable(db_prefix('cityprefs'), $cityprefs, true);
+    synctable(DB::prefix('cityprefs'), $cityprefs, true);
     if (!is_module_active('cityprefs')){
         if ($session['user']['superuser']&~SU_DOESNT_GIVE_GROTTO) output_notl("`4Installing cityprefs Module.`n");
-		$sql = "INSERT INTO ".db_prefix("cityprefs")." (module,cityname) VALUES ('none','".getsetting("villagename",LOCATION_FIELDS)."')";
-		db_query($sql);
+		$sql = "INSERT INTO ".DB::prefix("cityprefs")." (module,cityname) VALUES ('none','".getsetting("villagename",LOCATION_FIELDS)."')";
+		DB::query($sql);
 		$vloc = array();
 		$vloc = modulehook("validlocation", $vloc);
 		ksort($vloc);
 		reset($vloc);
 		foreach($vloc as $loc=>$val) {
-			$sql = "select modulename from ".db_prefix("module_settings")." where value='".addslashes($loc)."' and setting='villagename'";
-			$result=db_query($sql);
-			$row = db_fetch_assoc($result);
-			$sql = "INSERT INTO ".db_prefix("cityprefs")." (module,cityname) VALUES ('".$row['modulename']."','".addslashes($loc)."')";
-			db_query($sql);
+			$sql = "select modulename from ".DB::prefix("module_settings")." where value='".addslashes($loc)."' and setting='villagename'";
+			$result=DB::query($sql);
+			$row = DB::fetch_assoc($result);
+			$sql = "INSERT INTO ".DB::prefix("cityprefs")." (module,cityname) VALUES ('".$row['modulename']."','".addslashes($loc)."')";
+			DB::query($sql);
 		}
     }else{
         if ($session['user']['superuser']&~SU_DOESNT_GIVE_GROTTO) output("`4Updating cityprefs Module.`n");
@@ -53,10 +53,10 @@ function cityprefs_install(){
 
 function cityprefs_uninstall(){
     output("`4Un-Installing cityprefs Module.`n");
-    $sql = "DROP TABLE ".db_prefix("cityprefs");
-    db_query($sql);
-    $sql = "delete from ".db_prefix("module_objprefs")." where objtype='city'";
-    db_query($sql);
+    $sql = "DROP TABLE ".DB::prefix("cityprefs");
+    DB::query($sql);
+    $sql = "delete from ".DB::prefix("module_objprefs")." where objtype='city'";
+    DB::query($sql);
 	return true;
 }
 
@@ -65,8 +65,8 @@ function cityprefs_dohook($hookname,$args){
 	switch ($hookname) {
         case "changesetting":
    			if ($args['setting'] == "villagename") {
-				$sql = "UPDATE ".db_prefix("cityprefs")." SET cityname='".addslashes($args['new'])."' WHERE cityname='".addslashes($args['old'])."'";
-                db_query($sql);
+				$sql = "UPDATE ".DB::prefix("cityprefs")." SET cityname='".addslashes($args['new'])."' WHERE cityname='".addslashes($args['old'])."'";
+                DB::query($sql);
             }
 			break;
         case "superuser":
@@ -108,11 +108,11 @@ function cityprefs_run() {
             $name=translate_inline("City Name");
             $module=translate_inline("Module");
             $edit=translate_inline("Edit");
-            $sql = "select * from ".db_prefix("cityprefs");
-            $result=db_query($sql);
+            $sql = "select * from ".DB::prefix("cityprefs");
+            $result=DB::query($sql);
             rawoutput("<table border='0' cellpadding='3' cellspacing='0' align='center'><tr class='trhead'><td style=\"width:50px\">$id</td><td style='width:150px' align=center>$name</td><td align=center>$module</td><td align=center>$edit</td></tr>");
-            for ($i = 0; $i < db_num_rows($result); $i++){
-                $row = db_fetch_assoc($result);
+            for ($i = 0; $i < DB::num_rows($result); $i++){
+                $row = DB::fetch_assoc($result);
                 $vloc = array();
                 $vname = getsetting("villagename", LOCATION_FIELDS);
                 $vloc[$vname] = "village";
@@ -140,14 +140,14 @@ function cityprefs_run() {
             reset($vloc);
             $out=0;
             foreach($vloc as $loc=>$val) {
-                $sql = "select cityname from ".db_prefix("cityprefs")." where cityname='".addslashes($loc)."'";
-                $result=db_query($sql);
-                if(db_num_rows($result)==0){
-                    $sql = "select modulename from ".db_prefix("module_settings")." where value='".addslashes($loc)."' and setting='villagename'";
-                    $result=db_query($sql);
-                    $row = db_fetch_assoc($result);
-                    $sql = "INSERT INTO ".db_prefix("cityprefs")." (module,cityname) VALUES ('".$row['modulename']."','".addslashes($loc)."')";
-                    db_query($sql);
+                $sql = "select cityname from ".DB::prefix("cityprefs")." where cityname='".addslashes($loc)."'";
+                $result=DB::query($sql);
+                if(DB::num_rows($result)==0){
+                    $sql = "select modulename from ".DB::prefix("module_settings")." where value='".addslashes($loc)."' and setting='villagename'";
+                    $result=DB::query($sql);
+                    $row = DB::fetch_assoc($result);
+                    $sql = "INSERT INTO ".DB::prefix("cityprefs")." (module,cityname) VALUES ('".$row['modulename']."','".addslashes($loc)."')";
+                    DB::query($sql);
                     $out=1;
                     output("`n`@%s`0 was added.",$loc);
                 }
@@ -187,9 +187,9 @@ function cityprefs_run() {
 			output("Changing these values will not affect the city itself, just what city is associated with the preferences.  This is useful if you want to preserve prefs after removing a city.");
 			addnav("Navigation");
 			addnav("Back to city properties","runmodule.php?module=cityprefs&op=editmodule&cityid=$cityid");
-            $sql = "select * from ".db_prefix("cityprefs")." where cityid=$cityid";
-            $result=db_query($sql);
-            $row = db_fetch_assoc($result);
+            $sql = "select * from ".DB::prefix("cityprefs")." where cityid=$cityid";
+            $result=DB::query($sql);
+            $row = DB::fetch_assoc($result);
             $module=$row['module'];
             $city=$row['cityname'];
             $submit=translate_inline("Submit");
@@ -205,7 +205,7 @@ function cityprefs_run() {
 			addnav("Back to city properties","runmodule.php?module=cityprefs&op=editmodule&cityid=$cityid");
             $cityname = httppost('cityname');
             $modulename = httppost('modulename');
-            db_query("update ".db_prefix("cityprefs")." set cityname='".$cityname."',module='".$modulename."' where cityid=$cityid");
+            DB::query("update ".DB::prefix("cityprefs")." set cityname='".$cityname."',module='".$modulename."' where cityid=$cityid");
             output("The city name is now %s and the module name is %s.",$cityname,$modulename);
         break;
 
@@ -222,7 +222,7 @@ function cityprefs_run() {
 			addnav("Navigation");
 			addnav("Back to city properties","runmodule.php?module=cityprefs&op=editmodule&cityid=$cityid");
             $cityid = httpget('cityid');
-            db_query("delete from ".db_prefix("cityprefs")." where cityid=$cityid");
+            DB::query("delete from ".DB::prefix("cityprefs")." where cityid=$cityid");
             output("The city has been deleted.");
         break;
         }

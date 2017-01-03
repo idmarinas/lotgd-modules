@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once './modules/mysticalshop/lib.php';
 
 $sellid = httpget('sellid');
@@ -13,10 +13,10 @@ rawoutput('</big>');
 $cansell = false;
 if( is_numeric($sellid) )
 {
-	$sql = 'SELECT gold,gems,name FROM '.db_prefix('magicitems').' WHERE id='.$sellid.' LIMIT 1';
-	$result = db_query($sql);
+	$sql = 'SELECT gold,gems,name FROM '.DB::prefix('magicitems').' WHERE id='.$sellid.' LIMIT 1';
+	$result = DB::query($sql);
 
-	if( $row = db_fetch_assoc($result) )
+	if( $row = DB::fetch_assoc($result) )
 	{
 		$gold = $row['gold'];
 		$gems = $row['gems'];
@@ -31,7 +31,7 @@ if( is_numeric($sellid) )
 		if( $discount )
 			output("`3Thinking that price is much too low, %s`3 reminds you the item is currently being sold at a discounted price, thus your refund is set to match.`n`n", $shopkeep);
 		output_notl( '`0' );
-		
+
 		$cansell = true;
 	}
 	else
@@ -40,7 +40,7 @@ if( is_numeric($sellid) )
 		output( '`2%s`2 tries to understand what you are trying to sell, but fails to see it. You realize that you only imagined having "%s`2" and feel a little embarrassed.`0`n`n', $shopkeep, get_module_pref( $item_cats[$cat].'name' ) );
 		mysticalshop_destroyitem( $item_cats[$cat] );
 		addnav( 'Storefront', $from.'op=shop&what=enter' );
-		
+
 		$cansell = false;
 	}
 }
@@ -53,9 +53,9 @@ rawoutput('</big>');
 $canbuy = false;
 if( is_numeric( $buyid ) )
 {
-	$sql = 'SELECT * FROM '.db_prefix('magicitems').' WHERE id='.$buyid.' LIMIT 1';
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = 'SELECT * FROM '.DB::prefix('magicitems').' WHERE id='.$buyid.' LIMIT 1';
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$what = $row['name'];
 	$cat = $row['category'];
 	$verbose = $row['bigdesc'];
@@ -107,8 +107,8 @@ if( is_numeric( $buyid ) )
 	//check to see if they can afford it first; saves from having to add extra checks. Bleh.
 	$item_categories = ['ring', 'amulet', 'weapon', 'armor', 'cloak', 'helm', 'glove', 'boots', 'misc'];
 	if ($session['user']['gold']<$gold or $session['user']['gems']<$gems){
-		output("`3However, checking your funds, you realize you can't afford to purchase this item at the moment.");		   
-	//a quick check to make sure there are enough rare items instock for the player 
+		output("`3However, checking your funds, you realize you can't afford to purchase this item at the moment.");
+	//a quick check to make sure there are enough rare items instock for the player
 	}else if ($rare == 1 && $rarenum<1){
 		output("`n`n`2%s `2suddenly realizes that the item you were about to purchase, `3%s`2, has been sold out.`n`n", $shopkeep,$what);
 		output("`2\"Things go fast around here... much too fast sometimes,\" the shopkeeper notes.");
@@ -136,10 +136,10 @@ else output( 'Nothing to preview.' );
 
 modulehook("mysticalshop-preview", []);
 
-if ($canbuy && $cansell) 
+if ($canbuy && $cansell)
 {
 	addnav('Deal');
 	addnav('Accept transaction', $from."op=shop&what=sellbuyfinal&buyid=$buyid&sellid=$sellid&cat=$cat");
-} 
+}
 addnav( 'Merchandise' );
 addnav( ['Overview of %s', $names[$cat] ], $from."op=shop&what=viewgoods&cat=$cat" );

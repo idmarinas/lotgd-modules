@@ -52,7 +52,7 @@ foreach($act as $key => $value)
 	$row[$class][$key] = $value;
 }
 
-action_showform(array_unique($layout), $row);
+action_lotgd_showform(array_unique($layout), $row);
 
 $bufflist = unserialize(get_module_pref("buffs", "staminasystem"));
 
@@ -77,7 +77,7 @@ output("`n`nRemember, using the Stamina system is easy - just keep in mind that 
 
 popup_footer();
 
-function action_showform($layout,$row)
+function action_lotgd_showform($layout,$row)
 {
 	global $session;
  	static $showform_id=0;

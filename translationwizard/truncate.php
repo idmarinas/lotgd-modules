@@ -1,4 +1,4 @@
-<?php			
+<?php
 $central=httpget('central');
 if ($central)
 	{
@@ -10,15 +10,15 @@ switch ($mode)
 	{
 	case "truncate":
 		$sql = "TRUNCATE TABLE ";
-		if ($central) 
+		if ($central)
 			{
-			$sql.= db_prefix("temp_translations").";";
+			$sql.= DB::prefix("temp_translations").";";
 			output("Pulled translations table has been truncated.");
 			} else {
-			$sql.= db_prefix("untranslated").";";
+			$sql.= DB::prefix("untranslated").";";
 			output("Untranslated table has been truncated.");
 			}
-		$result = db_query($sql);
+		$result = DB::query($sql);
 			break;
 		default:  //if the user hits the button just to check for duplicates
 		rawoutput("<form action='runmodule.php?module=translationwizard&op=truncate$redirect&mode=truncate' method='post'>");

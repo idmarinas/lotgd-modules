@@ -135,25 +135,25 @@ function deputymoderator_run()
 		$postcommentid = httppost("commentid");
 		$postarea = httppost("area");
 
-		$sql = "SELECT * FROM " . db_prefix("commentary") . " WHERE commentid='". $postcommentid . "'";
-		$res = db_query($sql);
-		if (db_num_rows($res)!=0) {
-			$row = db_fetch_assoc($res);
+		$sql = "SELECT * FROM " . DB::prefix("commentary") . " WHERE commentid='". $postcommentid . "'";
+		$res = DB::query($sql);
+		if (DB::num_rows($res)!=0) {
+			$row = DB::fetch_assoc($res);
 			$toreview = @unserialize(get_module_setting("toreview"));
 			if (!is_array($toreview)) $toreview = array();
 
-			$asql = "SELECT " . db_prefix("accounts") . ".name, "
-					. db_prefix("accounts") . ".login, "
-					. db_prefix("accounts") . ".clanrank, "
-					. db_prefix("clans") . ".clanshort"
-					. " FROM " . db_prefix("accounts")
-					. " LEFT JOIN " . db_prefix("clans")
-					. " ON " . db_prefix("accounts") . ".clanid"
-					. " = " . db_prefix("clans") . ".clanid"
-					. " WHERE " . db_prefix("accounts") . ".acctid"
+			$asql = "SELECT " . DB::prefix("accounts") . ".name, "
+					. DB::prefix("accounts") . ".login, "
+					. DB::prefix("accounts") . ".clanrank, "
+					. DB::prefix("clans") . ".clanshort"
+					. " FROM " . DB::prefix("accounts")
+					. " LEFT JOIN " . DB::prefix("clans")
+					. " ON " . DB::prefix("accounts") . ".clanid"
+					. " = " . DB::prefix("clans") . ".clanid"
+					. " WHERE " . DB::prefix("accounts") . ".acctid"
 					. " = '" . $row['author'] . "'";
-			$ares = db_query($asql);
-			$arow = db_fetch_assoc($ares);
+			$ares = DB::query($asql);
+			$arow = DB::fetch_assoc($ares);
 
 				// 'deputyid' isn't currently used, but is stored in case it will be
 			array_push($toreview, array('deputy'=>$session['user']['name'],
@@ -164,8 +164,8 @@ function deputymoderator_run()
 
 			set_module_setting("toreview", serialize($toreview));
 
-			$sql = "DELETE FROM " . db_prefix("commentary") . " WHERE commentid='". $postcommentid . "'";
-			db_query($sql);
+			$sql = "DELETE FROM " . DB::prefix("commentary") . " WHERE commentid='". $postcommentid . "'";
+			DB::query($sql);
 			invalidatedatacache("comments-".$postarea);
 		}
 	}
@@ -187,26 +187,26 @@ function deputymoderator_run()
 
 					$comment = array_merge($toreview[$keys[$i]]['comment'], $toreview[$keys[$i]]['author']);
 
-					$sql = "INSERT LOW_PRIORITY INTO " . db_prefix("moderatedcomments")
+					$sql = "INSERT LOW_PRIORITY INTO " . DB::prefix("moderatedcomments")
 							. " (comment, moderator, moddate)"
 							. " VALUES ('" . addslashes(serialize($comment)) . "', "
 							. "'" . $session['user']['acctid'] . "', "
 							. "'" . date("Y-m-d H:i:s") . "')";
-					db_query($sql);
+					DB::query($sql);
 
 					$toreview[$keys[$i]]['validatedby'] = $session['user']['name'];
 					$toreview[$keys[$i]]['validatedate'] = time();
 
 				} else {
 
-					$sql = "INSERT LOW_PRIORITY INTO " . db_prefix("commentary")
+					$sql = "INSERT LOW_PRIORITY INTO " . DB::prefix("commentary")
 							. " (commentid, section, author, comment, postdate)"
 							. " VALUES ('" . $toreview[$keys[$i]]['comment']['commentid'] . "', "
 							. "'" . addslashes($toreview[$keys[$i]]['comment']['section']) . "', "
 							. "'" . addslashes($toreview[$keys[$i]]['comment']['author']) . "', "
 							. "'" . addslashes($toreview[$keys[$i]]['comment']['comment']) . "', "
 							. "'" . $toreview[$keys[$i]]['comment']['postdate'] . "')";
-					db_query($sql);
+					DB::query($sql);
 					invalidatedatacache("comments-".$toreview[$keys[$i]]['comment']['section']);
 
 					$toreview[$keys[$i]]['restoredby'] = $session['user']['name'];
@@ -241,10 +241,10 @@ function deputymoderator_run()
 
 		$numcomments = get_module_setting("numcomments");
 
-		$sql = "SELECT * FROM " . db_prefix("commentary") . " WHERE section='" . $area . "' ORDER BY postdate DESC LIMIT " . $numcomments;
-		$res = db_query($sql);
+		$sql = "SELECT * FROM " . DB::prefix("commentary") . " WHERE section='" . $area . "' ORDER BY postdate DESC LIMIT " . $numcomments;
+		$res = DB::query($sql);
 
-		if (db_num_rows($res)==0) {
+		if (DB::num_rows($res)==0) {
 			output("This commentary area currently contains no comments.");
 		} else {
 			addnav("", "runmodule.php?module=deputymoderator&op=delete");
@@ -252,7 +252,7 @@ function deputymoderator_run()
 
 			$stack = array();
 
-			while ($row=db_fetch_assoc($res)) array_push($stack, $row);
+			while ($row=DB::fetch_assoc($res)) array_push($stack, $row);
 
 			rawoutput("<table>");
 
@@ -401,11 +401,11 @@ function deputymoderator_formattedtime($timestamp)
 
 function deputymoderator_formattedauthor($acctid)
 {
-	$sql = "SELECT name, login, clanid, clanrank FROM " . db_prefix("accounts") . " WHERE acctid=" . $acctid;
-	$res = db_query($sql);
+	$sql = "SELECT name, login, clanid, clanrank FROM " . DB::prefix("accounts") . " WHERE acctid=" . $acctid;
+	$res = DB::query($sql);
 
-	if (db_num_rows($res)>0) {
-		$row = db_fetch_assoc($res);
+	if (DB::num_rows($res)>0) {
+		$row = DB::fetch_assoc($res);
 		$tag = deputymoderator_formattedclantag($row['clanid'], $row['clanrank']);
 		if ($tag != "") $tag .= " ";
 		$link = "bio.php?char=" . $acctid . "&ret=" . urlencode($_SERVER['REQUEST_URI']);
@@ -420,9 +420,9 @@ function deputymoderator_formattedclantag($clanid, $clanrank)
 {
 	if ($clanrank==0) return "";
 
-	$sql = "SELECT clanid, clanshort FROM " . db_prefix("clans") . " WHERE clanid=" . $clanid;
-	$res = db_query($sql);
-	if ($row=db_fetch_assoc($res)) {
+	$sql = "SELECT clanid, clanshort FROM " . DB::prefix("clans") . " WHERE clanid=" . $clanid;
+	$res = DB::query($sql);
+	if ($row=DB::fetch_assoc($res)) {
 		$clanshort = $row['clanshort'];
 
 		if ($clanrank==1) return ("`#<`2$clanshort`#>`0");

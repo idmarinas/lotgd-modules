@@ -36,7 +36,7 @@ function allprefseditor_dohook($hookname,$args){
 //	if ($id=="") $id=1;
 	if ($id=="") $id = get_module_setting('editid','allprefseditor');
 //
-//	$op = httpget('op');	
+//	$op = httpget('op');
 	switch($hookname){
 		case "footer-user":
 		//
@@ -87,9 +87,9 @@ function allprefseditor_search(){
 	}
 //
 //
-	$sql1 = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid='$id'";
-	$result1 = db_query($sql1);
-	$row1 = db_fetch_assoc($result1);
+	$sql1 = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid='$id'";
+	$result1 = DB::query($sql1);
+	$row1 = DB::fetch_assoc($result1);
 	output("`^`c`bCurrent User:`b`0 %s`c",$row1['name']);
 	$subop1 = httpget('subop1');
 	output("`nSearch for Another Player: ");
@@ -102,9 +102,9 @@ function allprefseditor_search(){
 		for ($i=0;$i<strlen($name);$i++){
 			$search.=substr($name,$i,1)."%";
 		}
-		$sql = "SELECT acctid,name,level,login FROM " . db_prefix("accounts") . " WHERE (locked=0 AND name LIKE '$search') ORDER BY level DESC";
-		$result = db_query($sql);
-		$max = db_num_rows($result);
+		$sql = "SELECT acctid,name,level,login FROM " . DB::prefix("accounts") . " WHERE (locked=0 AND name LIKE '$search') ORDER BY level DESC";
+		$result = DB::query($sql);
+		$max = DB::num_rows($result);
 		if ($max > 100) {
 			output("^Listing first 100:");
 			$max = 100;
@@ -117,7 +117,7 @@ function allprefseditor_search(){
 		rawoutput("<table align=center> <tr class='trhead'><td>$o</td><td>$n</td><td>$l</td><td>$a</td><td>$le</td></tr>");
 		for ($i=0;$i<$max;$i++){
 			$n=$n+1;
-			$row = db_fetch_assoc($result);
+			$row = DB::fetch_assoc($result);
 			$playerid=$row['acctid'];
 			rawoutput("<tr class='".($n%2?"trdark":"trlight")."'><td><a href='runmodule.php?module=allprefseditor&userid=$playerid'>");
 			output_notl("[ Edit ]");

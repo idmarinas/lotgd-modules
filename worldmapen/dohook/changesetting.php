@@ -1,6 +1,6 @@
 <?php
 // We only care about the names of locations.
-if ($args['setting'] == "villagename") { 
+if ($args['setting'] == "villagename") {
 	$old = $args['old'];
 	$new = $args['new'];
 	// Handle any locations of the old name and convert them.
@@ -14,7 +14,7 @@ if ($args['setting'] == "villagename") {
 	set_module_setting('worldmapen'.$old.'Y', "");
 	set_module_setting('worldmapen'.$old.'Z', "");
 	// Handle any players who last city was the old name.
-	$sql = "UPDATE " . db_prefix("module_userprefs") . " SET value='".addslashes($new) . "' WHERE value='".addslashes($old) ."' AND modulename='worldmapen' AND setting = 'lastCity'";
-	db_query($sql);
+	$sql = "UPDATE " . DB::prefix("module_userprefs") . " SET value='".addslashes($new) . "' WHERE value='".addslashes($old) ."' AND modulename='worldmapen' AND setting = 'lastCity'";
+	DB::query($sql);
 }
 ?>

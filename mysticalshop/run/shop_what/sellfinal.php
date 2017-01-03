@@ -1,10 +1,10 @@
 <?php
 if( is_numeric( $id ) )
 {
-	$sql = 'SELECT attack,defense,hitpoints,name,gold,gems,turns,charm,favor,rare FROM '.db_prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
-	
+	$sql = 'SELECT attack,defense,hitpoints,name,gold,gems,turns,charm,favor,rare FROM '.DB::prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
+
 	$user = &$session['user'];
 
 	if( $row['turns'] > $user['turns'] )
@@ -54,7 +54,7 @@ if( is_numeric( $id ) )
 			$default_weapon = trim( get_module_setting( 'def_weapon' ) );
 			if( $default_weapon === '' )
 			{
-				$default_weapon = db_fetch_assoc( db_query( 'DESC '.db_prefix( 'accounts' ).' weapon' ) );
+				$default_weapon = DB::fetch_assoc( DB::query( 'DESC '.DB::prefix( 'accounts' ).' weapon' ) );
 				$default_weapon = $default_weapon['Default'];
 			}
 			$session['user']['weapon']= $default_weapon;
@@ -70,7 +70,7 @@ if( is_numeric( $id ) )
 			$default_armor = trim( get_module_setting( 'def_armor' ) );
 			if( $default_armor === '' )
 			{
-				$default_armor = db_fetch_assoc( db_query( 'DESC '.db_prefix( 'accounts' ).' armor' ) );
+				$default_armor = DB::fetch_assoc( DB::query( 'DESC '.DB::prefix( 'accounts' ).' armor' ) );
 				$default_armor = $default_armor['Default'];
 			}
 			$session['user']['armor']= $default_armor;

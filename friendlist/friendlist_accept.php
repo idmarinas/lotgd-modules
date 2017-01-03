@@ -10,10 +10,10 @@ function friendlist_accept() {
 	} elseif (in_array($ac,$friends)) {
 		$info = translate_inline("This user is already in your list.");
 	} elseif (in_array($ac,$request)) {
-		$sql = "SELECT name FROM ".db_prefix("accounts")." WHERE acctid=$ac AND locked=0";
-		$result = db_query($sql);
-		if (db_num_rows($result)>0) {
-			$row=db_fetch_assoc($result);
+		$sql = "SELECT name FROM ".DB::prefix("accounts")." WHERE acctid=$ac AND locked=0";
+		$result = DB::query($sql);
+		if (DB::num_rows($result)>0) {
+			$row=DB::fetch_assoc($result);
 			invalidatedatacache("friendliststat-".$session['user']['acctid']);
 			invalidatedatacache("friendliststat-".$ac);
 			$friends[]=$ac;

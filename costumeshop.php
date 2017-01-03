@@ -277,21 +277,21 @@ function costumeshop_dohook($hookname,$args){
 	case "validateprefs":
 		$userid=httpget("userid");
 		$sql = "SELECT name,title,ctitle,weapon,armor FROM " .
-			db_prefix("accounts") . " WHERE acctid=$userid";
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
+			DB::prefix("accounts") . " WHERE acctid=$userid";
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		$oldprefs=get_all_module_prefs("costumeshop",$userid);
 		if ($args['rentleft']<1) {
 			//Remove the player's costume
 			output("Removing player's costume.`n");
 			if ($oldprefs['oldweapon']) {
 				$newname=change_player_ctitle($oldprefs['oldtitle'],$row);
-				$sql = "UPDATE " . db_prefix("accounts") .
+				$sql = "UPDATE " . DB::prefix("accounts") .
 					" SET ctitle=\"" .  $oldprefs['oldtitle'] .
 					"\", name=\"$newname\", weapon=\"" .
 					$oldprefs['oldweapon'] . "\", armor=\"" .
 					$oldprefs['oldarmor'] . "\" WHERE acctid=$userid";
-				db_query($sql);
+				DB::query($sql);
 				if ($session['user']['acctid']==$userid) {
 					$session['user']['ctitle']=$oldprefs['oldtitle'];
 					$session['user']['name']=$newname;
@@ -324,11 +324,11 @@ function costumeshop_dohook($hookname,$args){
 				$args['oldarmor']=addslashes($row['armor']);
 			}
 			$newname = change_player_ctitle($args['newtitle'],$row);
-			$sql = "UPDATE " . db_prefix("accounts") .
+			$sql = "UPDATE " . DB::prefix("accounts") .
 				" SET ctitle=\"" . $args['newtitle'] .
 				"\", name=\"$newname\", weapon=\"" . $args['weapon'] .
 				"\", armor=\"" . $args['armor'] . "\" WHERE acctid=$userid";
-			db_query($sql);
+			DB::query($sql);
 			if ($session['user']['acctid']==$userid) {
 				$session['user']['ctitle']=stripslashes($args['newtitle']);
 				$session['user']['name']=stripslashes($newname);

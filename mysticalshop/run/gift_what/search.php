@@ -2,9 +2,9 @@
 $id = httpget('id');
 if( is_numeric( $id ) )
 {
-	$sql = "SELECT dk,name,gold,gems,rare,rarenum FROM " . db_prefix("magicitems") . " WHERE id=$id";
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = "SELECT dk,name,gold,gems,rare,rarenum FROM " . DB::prefix("magicitems") . " WHERE id=$id";
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$dk = $row['dk'];
 	$name = $row['name'];
 	$gold = $row['gold'];

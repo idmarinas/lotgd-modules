@@ -56,12 +56,12 @@ function bioalt_run(){
 	case "viewipalt":
 		output("`n`bViewing by IP Address`b`n");
 		if (is_numeric($char)) {
-			$sql = "SELECT name,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE acctid=$char";
+			$sql = "SELECT name,lastip,uniqueid FROM " . DB::prefix("accounts") . " WHERE acctid=$char";
 		} else {
-			$sql = "SELECT name,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE login=\"$char\"";
+			$sql = "SELECT name,lastip,uniqueid FROM " . DB::prefix("accounts") . " WHERE login=\"$char\"";
 		}
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		$id = $row['uniqueid'];
 		$ip = $row['lastip'];
 		$dots = 0;
@@ -77,9 +77,9 @@ function bioalt_run(){
 		$previpmatches = false;
 		while ($dots < 2) {
 			debug("Checking $thisip");
-			$sql = "SELECT name, lastip, uniqueid, laston, gentimecount, referer FROM " . db_prefix("accounts") . " WHERE lastip LIKE '$thisip%' AND NOT (lastip LIKE '$oip') ORDER BY uniqueid";
-			$result = db_query($sql);
-			if (db_num_rows($result)>0){
+			$sql = "SELECT name, lastip, uniqueid, laston, gentimecount, referer FROM " . DB::prefix("accounts") . " WHERE lastip LIKE '$thisip%' AND NOT (lastip LIKE '$oip') ORDER BY uniqueid";
+			$result = DB::query($sql);
+			if (DB::num_rows($result)>0){
 				if ($previpmatches)
 					output("(this filter would also catch the following names)`n");
 				output("- IP Filter: %s ", $thisip);
@@ -88,7 +88,7 @@ function bioalt_run(){
 				rawoutput("<table border='0' cellpadding='2' cellspacing='1' align='center' bgcolor='#999999'>");
 				rawoutput("<tr class='trhead'><td>$tnm</td><td>$tip</td><td>$tid</td><td>$thits</td><td>$tlast</td><td>$referer</td></tr>");
 				$i=0;
-				while ($row=db_fetch_assoc($result)){
+				while ($row=DB::fetch_assoc($result)){
 					$i=$i+1;
 					$altname=$row['name'];
 					$altip=$row['lastip'];
@@ -100,9 +100,9 @@ function bioalt_run(){
 						$refname=translate_inline("none");
 					}else{
 						$sqlref = "SELECT name FROM " .
-							db_prefix("accounts") . " WHERE acctid=$refid";
-						$resultref = db_query($sqlref);
-						$rowref=db_fetch_assoc($resultref);
+							DB::prefix("accounts") . " WHERE acctid=$refid";
+						$resultref = DB::query($sqlref);
+						$rowref=DB::fetch_assoc($resultref);
 						$refname=$rowref['name'];
 					}
 					rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
@@ -124,12 +124,12 @@ function bioalt_run(){
 	case "viewidalt":
 		output("`n`bViewing by ID`n`b");
 		if (is_numeric($char)) {
-			$sql = "SELECT name,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE acctid=$char";
+			$sql = "SELECT name,lastip,uniqueid FROM " . DB::prefix("accounts") . " WHERE acctid=$char";
 		} else {
-			$sql = "SELECT name,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE login=\"$char\"";
+			$sql = "SELECT name,lastip,uniqueid FROM " . DB::prefix("accounts") . " WHERE login=\"$char\"";
 		}
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		$id = $row['uniqueid'];
 		$ip = $row['lastip'];
 		$dots = 0;
@@ -141,13 +141,13 @@ function bioalt_run(){
 		$tlast = translate_inline("Last On");
 		$referer = translate_inline("Referer");
 		output("`n`bSome possible alts of %s`b`n", is_numeric($char)?$row['name']:$char);
-		$sql = "SELECT name,lastip,uniqueid,laston,gentimecount,referer  FROM " . db_prefix("accounts") . " WHERE uniqueid=\"$id\"";
-		$result = db_query($sql);
-		if (db_num_rows($result)>0){
+		$sql = "SELECT name,lastip,uniqueid,laston,gentimecount,referer  FROM " . DB::prefix("accounts") . " WHERE uniqueid=\"$id\"";
+		$result = DB::query($sql);
+		if (DB::num_rows($result)>0){
 			rawoutput("<table border='0' cellpadding='2' cellspacing='1' align='center' bgcolor='#999999'>");
 			rawoutput("<tr class='trhead'><td>$tnm</td><td>$tip</td><td>$tid</td><td>$thits</td><td>$tlast</td><td>$referer</td></tr>");
 			$i=0;
-			while ($row=db_fetch_assoc($result)){
+			while ($row=DB::fetch_assoc($result)){
 				$i=$i+1;
 				$altname=$row['name'];
 				$altip=$row['lastip'];
@@ -158,10 +158,10 @@ function bioalt_run(){
 				if($refid=="0"){
 					$refname=translate_inline("none");
 				}else{
-					$sqlref = "SELECT name FROM " . db_prefix("accounts") .
+					$sqlref = "SELECT name FROM " . DB::prefix("accounts") .
 						" WHERE acctid=$refid";
-					$resultref = db_query($sqlref);
-					$rowref=db_fetch_assoc($resultref);
+					$resultref = DB::query($sqlref);
+					$rowref=DB::fetch_assoc($resultref);
 					$refname=$rowref['name'];
 				}
 				rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");

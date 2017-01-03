@@ -52,12 +52,12 @@ function drinks_install(){
 
 function drinks_uninstall() {
 	debug("Dropping table drinks");
-	$sql = "DROP TABLE IF EXISTS " . db_prefix("drinks");
-	db_query($sql);
+	$sql = "DROP TABLE IF EXISTS " . DB::prefix("drinks");
+	DB::query($sql);
 	debug("Dropping objprefs related to drinks");
-	$sql = "DELETE FROM " . db_prefix("module_objprefs") .
+	$sql = "DELETE FROM " . DB::prefix("module_objprefs") .
 		" WHERE objtype='drinks'";
-	db_query($sql);
+	DB::query($sql);
 	return true;
 }
 

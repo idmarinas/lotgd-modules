@@ -87,9 +87,9 @@ function advertising_getallads(){
 		}
 	}
 	reset($banners);
-	$sql = "SELECT * FROM ". db_prefix("mod_advertising_banners") . " WHERE approved=".MOD_ADVERTISING_APPROVED." AND servedimpressions < maximpressions ORDER BY priority DESC";
-	$result = db_query_cached($sql,"advertising_getallads");
-	while ($row = db_fetch_assoc($result)){
+	$sql = "SELECT * FROM ". DB::prefix("mod_advertising_banners") . " WHERE approved=".MOD_ADVERTISING_APPROVED." AND servedimpressions < maximpressions ORDER BY priority DESC";
+	$result = DB::query_cached($sql,"advertising_getallads");
+	while ($row = DB::fetch_assoc($result)){
 		//get the display location of this ad
 		if ($row['start'] > "2000" && $row['end'] < "2038"){
 			//when banners have a reasonable start and end date, spread their
@@ -224,15 +224,15 @@ function advertising_install(){
 		"key-date"=>array("name"=>"date","type"=>"key","columns"=>"date"),
 		"key-bannerid"=>array("name"=>"bannerid","type"=>"key","columns"=>"bannerid"),
 	);
-	synctable(db_prefix("mod_advertising_banners"),$bannertable);
-	synctable(db_prefix("mod_advertising_log"),$adlog);
+	synctable(DB::prefix("mod_advertising_banners"),$bannertable);
+	synctable(DB::prefix("mod_advertising_log"),$adlog);
 	//debug(table_create_descriptor("accounts"));
 	return true;
 }
 
 function advertising_uninstall(){
-	db_query("DROP TABLE ".db_prefix("mod_advertising_banners"));
-	db_query("DROP TABLE ".db_prefix("mod_advertising_log"));
+	DB::query("DROP TABLE ".DB::prefix("mod_advertising_banners"));
+	DB::query("DROP TABLE ".DB::prefix("mod_advertising_log"));
 	return true;
 }
 
@@ -374,9 +374,9 @@ function advertising_dohook($hookname,$args){
         $args['count']++;
     }elseif ($hookname=="superuser"){
 	 	if ($session['user']['superuser'] & MOD_ADVERTISING_SUAPPROVER){
-			$sql = "SELECT count(*) AS c FROM ".db_prefix("mod_advertising_banners")." WHERE approved=".MOD_ADVERTISING_UNAPPROVED;
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT count(*) AS c FROM ".DB::prefix("mod_advertising_banners")." WHERE approved=".MOD_ADVERTISING_UNAPPROVED;
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			addnav("Mechanics");
 			addnav(array("Ad Banner Approval (%s)",$row['c']),"runmodule.php?module=advertising&op=bannerapprover",false,true);
 		}
@@ -461,15 +461,15 @@ function advertising_run(){
 		output("You may purchase and control your own advertising by using donator points.`n");
 		if ($session['user']['loggedin']){
 			output("`n`bManage your banners`b`n");
-			$sql = "SELECT * FROM ".db_prefix("mod_advertising_banners")." WHERE owner={$session['user']['acctid']}";
-			$result = db_query($sql);
+			$sql = "SELECT * FROM ".DB::prefix("mod_advertising_banners")." WHERE owner={$session['user']['acctid']}";
+			$result = DB::query($sql);
 			rawoutput("<table><tr class='trhead'><td rowspan='2'>".tl("Ops")."</td><td rowspan='2'>".tl("Alt Text")."</td><td colspan='2'>".tl("Impressions")."</td><td colspan='2'>".tl("Clicks")."</td><td colspan='2'>".tl("Dates")."</td></tr>");
 			rawoutput("<tr class='trhead'><td>".tl("Purchased")."</td><td>".tl("Used")."</td><td>".tl("Total")."</td><td>".tl("Rate")."</td><td>".tl("Start")."</td><td>".tl("End")."</td></tr>");
-			if (db_num_rows($result)==0){
+			if (DB::num_rows($result)==0){
 				rawoutput("<tr class='trlight'><td colspan='8' align='center'><i>".tl("You have no banners")."</i></td></tr>");
 			}
 			$x=0;
-			while ($row = db_fetch_assoc($result)){
+			while ($row = DB::fetch_assoc($result)){
 				$x++;
 				rawoutput("<tr class='".($x%2?"trlight":"trdark")."'>");
 				rawoutput("<td>Ops</td>");
@@ -612,8 +612,8 @@ function advertising_run(){
 			$banners.=",{$w}x{$h},$name ($w x $h; <= $size) CPM: $cost USD";
 		}
 		if (httpget("id")>""){
-			$result = db_query("SELECT * FROM ".db_prefix("mod_advertising_banners")." WHERE bannerid='".httpget("id")."' AND owner={$session['user']['id']}");
-			$row = db_fetch_assoc($result);
+			$result = DB::query("SELECT * FROM ".DB::prefix("mod_advertising_banners")." WHERE bannerid='".httpget("id")."' AND owner={$session['user']['id']}");
+			$row = DB::fetch_assoc($result);
 		}
 		$d = dir("modules/advertising/");
 		global $session;
@@ -640,7 +640,7 @@ function advertising_run(){
 			"end"=>"Banner end date (leave blank to run until you're out of impressions)",
 		);
 		rawoutput("<form action='runmodule.php?module=advertising&op=save' method='POST'>");
-		showform($form,$row,true);
+		lotgd_showform($form,$row,true);
 		$buy = translate_inline("Purchase");
 		rawoutput("<input type='submit' value='$buy' class='button'>");
 		rawoutput("</form>");
@@ -661,7 +661,7 @@ function advertising_run(){
 		$approved = MOD_ADVERTISING_UNAPPROVED;
 		$alttext = httppost("alttext");
 		global $session;
-		$sql = "INSERT INTO " . db_prefix("mod_advertising_banners") . " (
+		$sql = "INSERT INTO " . DB::prefix("mod_advertising_banners") . " (
 			owner,
 			size,
 			start,
@@ -684,20 +684,20 @@ function advertising_run(){
 			'$alttext',
 			'$image'
 		)";
-		db_query($sql);
+		DB::query($sql);
 		output("Your advertising has been purchased, and is pending approval.");
 		popup_footer();
 	}elseif ($op=="bannerapprover"){
 		check_su_access(MOD_ADVERTISING_SUAPPROVER);
 
 		if (httpget("id")>""){
-			$sql = "UPDATE " . db_prefix("mod_advertising_banners") . " SET approved='".httpget("approve")."' WHERE bannerid='".httpget("id")."'";
-			db_query($sql);
+			$sql = "UPDATE " . DB::prefix("mod_advertising_banners") . " SET approved='".httpget("approve")."' WHERE bannerid='".httpget("id")."'";
+			DB::query($sql);
 			output("Status Updated`n`n");
 		}
 		popup_header("Banner Approval");
-		$sql = "SELECT " . db_prefix("mod_advertising_banners").".*, ". db_prefix("accounts").".name FROM ".db_prefix("mod_advertising_banners") ." INNER JOIN ".db_prefix("accounts") . " ON " . db_prefix("mod_advertising_banners") . ".owner = " . db_prefix("accounts") . ".acctid ORDER BY approved, start";
-		$result = db_query($sql);
+		$sql = "SELECT " . DB::prefix("mod_advertising_banners").".*, ". DB::prefix("accounts").".name FROM ".DB::prefix("mod_advertising_banners") ." INNER JOIN ".DB::prefix("accounts") . " ON " . DB::prefix("mod_advertising_banners") . ".owner = " . DB::prefix("accounts") . ".acctid ORDER BY approved, start";
+		$result = DB::query($sql);
 		rawoutput("<table cellspacing='0'>");
 		$ops = translate_inline("Ops");
 		$status = translate_inline("Status");
@@ -710,7 +710,7 @@ function advertising_run(){
 		$deny = translate_inline("Deny");
 		rawoutput("<tr class='trhead'><td>$Ops</td><td>$status</td><td>$size</td><td>$owner</td><td>$link</td><td>$alt</td><td>$image</td></tr>");
 		$x=0;
-		while ($row = db_fetch_assoc($result)){
+		while ($row = DB::fetch_assoc($result)){
 			rawoutput("<tr class='".($x%2?"trlight":"trdark")."'>");
 			rawoutput("<td>[ <a href='runmodule.php?module=advertising&op=bannerapprover&approve=".MOD_ADVERTISING_APPROVED."&id={$row['bannerid']}'>$approve</a>");
 			rawoutput(" | <a href='runmodule.php?module=advertising&op=bannerapprover&approve=".MOD_ADVERTISING_DENIED."&id={$row['bannerid']}'>$deny</a> ]");
@@ -739,12 +739,12 @@ function advertising_run(){
 		popup_footer();
 	}elseif ($op=="click"){
 		$id = httpget("id");
-		$result = db_query("SELECT link FROM " . db_prefix("mod_advertising_banners") . " WHERE bannerid='$id'");
-		if ($row = db_fetch_assoc($result)){
-			db_query("UPDATE " . db_prefix("mod_advertising_banners") . " SET clicks=clicks+1 WHERE bannerid='$id'");
+		$result = DB::query("SELECT link FROM " . DB::prefix("mod_advertising_banners") . " WHERE bannerid='$id'");
+		if ($row = DB::fetch_assoc($result)){
+			DB::query("UPDATE " . DB::prefix("mod_advertising_banners") . " SET clicks=clicks+1 WHERE bannerid='$id'");
 			global $session;
 			$aid = (int)$session['user']['acctid'];
-			db_query("INSERT INTO " . db_prefix("mod_advertising_log") . " (bannerid,date,userid,ip,id) VALUES ('$id','".date("Y-m-d H:i:s")."',$aid,'{$session['user']['lastip']}','{$session['user']['uniqueid']}')");
+			DB::query("INSERT INTO " . DB::prefix("mod_advertising_log") . " (bannerid,date,userid,ip,id) VALUES ('$id','".date("Y-m-d H:i:s")."',$aid,'{$session['user']['lastip']}','{$session['user']['uniqueid']}')");
 			header("Location: {$row['link']}");
 		}else{
 			header("Location: ./");
@@ -754,10 +754,10 @@ function advertising_run(){
 		//serve a banner if we have one.
 		$id = httpget("id");
 		if ($id > ""){
-			$result = db_query("SELECT image,alttext FROM " . db_prefix("mod_advertising_banners") . " WHERE bannerid='$id'");
-			if ($row = db_fetch_assoc($result)){
+			$result = DB::query("SELECT image,alttext FROM " . DB::prefix("mod_advertising_banners") . " WHERE bannerid='$id'");
+			if ($row = DB::fetch_assoc($result)){
 				$banner = "<a href='runmodule.php?module=advertising&op=click&id=$id' target='_blank'><img src=\"modules/advertising/".htmlentities($row['image'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" border='0' alt=\"".htmlentities($row['alttext'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" title=\"".htmlentities($row['alttext'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\"></a>";
-				db_query("UPDATE " . db_prefix("mod_advertising_banners") . " SET servedimpressions=servedimpressions+1 WHERE bannerid='$id'");
+				DB::query("UPDATE " . DB::prefix("mod_advertising_banners") . " SET servedimpressions=servedimpressions+1 WHERE bannerid='$id'");
 			}else{
 				$banner="";
 			}

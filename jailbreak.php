@@ -65,7 +65,7 @@ function jailbreak_run(){
 	//reference the sheriff from jail.php by DaveS
 	$sheriff = get_module_setting("sheriffname","jail");
 	$op = httpget("op");
-	
+
 	page_header("Jail Break");
 	switch($op){
 	case "enter":
@@ -108,15 +108,15 @@ function jailbreak_run(){
 					$accntid=$session['user']['acctid'];
 					$mingold=1000;
 					$minlevel=4;
-					$sql = "SELECT acctid,goldinbank FROM ".db_prefix("accounts")." WHERE goldinbank>$mingold and level>$minlevel and acctid!=$accntid";
-					$result = db_query($sql);
-					for ($i=0;$i<db_num_rows($result);$i++){
-						$row = db_fetch_assoc($result);
+					$sql = "SELECT acctid,goldinbank FROM ".DB::prefix("accounts")." WHERE goldinbank>$mingold and level>$minlevel and acctid!=$accntid";
+					$result = DB::query($sql);
+					for ($i=0;$i<DB::num_rows($result);$i++){
+						$row = DB::fetch_assoc($result);
 						$victim=$row['acctid'];
-						$robper=((e_rand(1,30))*(0.01));  
+						$robper=((e_rand(1,30))*(0.01));
 						$takengold=round(($row['goldinbank'])*($robper));
-						$sql2 = "UPDATE " . db_prefix("accounts") . "  SET goldinbank=goldinbank-$takengold WHERE acctid = $victim";
-						db_query($sql2);
+						$sql2 = "UPDATE " . DB::prefix("accounts") . "  SET goldinbank=goldinbank-$takengold WHERE acctid = $victim";
+						DB::query($sql2);
 						$id = $victim;
 						$subj = sprintf("`^Bank Vault Collapse!");
 						$body = sprintf("`^%s`6 dug under the bank when trying to escape from jail. The vault collapsed and you lost `^%s `6of your gold!",$playername, $takengold);
@@ -137,8 +137,8 @@ function jailbreak_run(){
 					if (is_module_active('dag')){
 						$bounty=(get_module_setting("bounty"))*($session['user']['level']);
 						$setdate = time();
-						$sql = "INSERT INTO ". db_prefix("bounty") . " (amount, target, setter, setdate) VALUES ($bounty,$accntid,0,'".date("Y-m-d H:i:s",$setdate)."')";
-						db_query($sql);
+						$sql = "INSERT INTO ". DB::prefix("bounty") . " (amount, target, setter, setdate) VALUES ($bounty,$accntid,0,'".date("Y-m-d H:i:s",$setdate)."')";
+						DB::query($sql);
 						output("`n`n`5Dag`@ takes hears about your `4evil`@ deed and raises a bounty of `^%s gold`@ against you.",$bounty);
 					}
 				break;
@@ -213,8 +213,8 @@ function jailbreak_run(){
 						$accntid=$session['user']['acctid'];
 						$bounty=(get_module_setting("bounty"))*($session['user']['level']);
 						$setdate = time();
-						$sql = "INSERT INTO ". db_prefix("bounty") . " (amount, target, setter, setdate) VALUES ($bounty,$accntid,0,'".date("Y-m-d H:i:s",$setdate)."')";
-						db_query($sql);
+						$sql = "INSERT INTO ". DB::prefix("bounty") . " (amount, target, setter, setdate) VALUES ($bounty,$accntid,0,'".date("Y-m-d H:i:s",$setdate)."')";
+						DB::query($sql);
 						output("`n`n`5Dag`@ sees you running around without proper attire and raises a bounty of `^%s gold`@ against you.",$bounty);
 					}
 					//added missing user name by DaveS
@@ -243,13 +243,13 @@ function jailbreak_run(){
 						addnav("Village","village.php");
 						addnews("`4Authorities are on the lookout for an escaped convict who blew up the Inn.  %s`4 is wanted for questioning.",$playername);
 					}
-					$sql = "SELECT acctid FROM ".db_prefix("accounts")." WHERE boughtroomtoday>0";
-					$result = db_query($sql);
-					for ($i=0;$i<db_num_rows($result);$i++){
-						$row = db_fetch_assoc($result);
+					$sql = "SELECT acctid FROM ".DB::prefix("accounts")." WHERE boughtroomtoday>0";
+					$result = DB::query($sql);
+					for ($i=0;$i<DB::num_rows($result);$i++){
+						$row = DB::fetch_assoc($result);
 						$victim=$row['acctid'];
-						$sql2 = "UPDATE " . db_prefix("accounts") . "  SET hitpoints=0, alive=0 WHERE acctid = $victim";
-						db_query($sql2);
+						$sql2 = "UPDATE " . DB::prefix("accounts") . "  SET hitpoints=0, alive=0 WHERE acctid = $victim";
+						DB::query($sql2);
 						$id = $victim;
 						$subj = sprintf("`4Fire at the Inn!");
 						$body = sprintf("`^%s`^ caused an explosion in the Inn and all the guests that were sleeping there were killed.  Unfortunately, this means you.",$playername);
@@ -259,8 +259,8 @@ function jailbreak_run(){
 						$accntid=$session['user']['acctid'];
 						$bounty=(get_module_setting("bounty"))*($session['user']['level']);
 						$setdate = time();
-						$sql = "INSERT INTO ". db_prefix("bounty") . " (amount, target, setter, setdate) VALUES ($bounty,$accntid,0,'".date("Y-m-d H:i:s",$setdate)."')";
-						db_query($sql);
+						$sql = "INSERT INTO ". DB::prefix("bounty") . " (amount, target, setter, setdate) VALUES ($bounty,$accntid,0,'".date("Y-m-d H:i:s",$setdate)."')";
+						DB::query($sql);
 						output("`n`n`5Dag`@ takes note of your presence and raises a bounty of `^%s gold`@ against you.",$bounty);
 					}
 				break;

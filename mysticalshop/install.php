@@ -23,7 +23,7 @@ $magic_items = array(
 	'index-category'=>array('name'=>'category', 'type'=>'index', 'columns'=>'category'),
 );
 require_once("lib/tabledescriptor.php");
-synctable(db_prefix('magicitems'), $magic_items, true);
+synctable(DB::prefix('magicitems'), $magic_items, true);
 
 if( getsetting( 'usedatacache', false ) )
 {

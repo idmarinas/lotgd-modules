@@ -2,13 +2,13 @@
 if ($from=="") $from="module=translationwizard&op=list";
 rawoutput("<form action='runmodule.php?".$from."&mode=save&from=".rawurlencode($from)."' method='post'>");
 addnav("", "runmodule.php?".$from."&mode=save&from=".rawurlencode($from));
-$sql = "SELECT namespace,count(*) AS c FROM " . db_prefix("untranslated") . " WHERE language='".$languageschema."' GROUP BY namespace ORDER BY namespace ASC";
-$result = db_query($sql);
+$sql = "SELECT namespace,count(*) AS c FROM " . DB::prefix("untranslated") . " WHERE language='".$languageschema."' GROUP BY namespace ORDER BY namespace ASC";
+$result = DB::query($sql);
 if ($op=="list")
 {
 output("Known Namespaces:");
 rawoutput("<select name='ns' onChange='this.form.submit()'>");
-while ($row = db_fetch_assoc($result))
+while ($row = DB::fetch_assoc($result))
 	{
 		if ($namespace=="") $namespace=$row['namespace']; //if this is the first execution, fetch the first entries
 		rawoutput("<option value=\"".htmlentities($row['namespace'],ENT_COMPAT,$coding)."\"".((htmlentities($row['namespace'],ENT_COMPAT,$coding) == $namespace) ? "selected" : "").">".htmlentities($row['namespace'],ENT_COMPAT,$coding)." ({$row['c']})</option>");

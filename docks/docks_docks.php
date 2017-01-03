@@ -370,22 +370,22 @@ function docks_docks(){
 		if ($pageoffset > 0) $pageoffset--;
 		$pageoffset *= $pp;
 		$limit = "LIMIT $pageoffset,$pp";
-		if ($op2=="bigfish") $sql = "SELECT COUNT(*) AS c FROM " . db_prefix("module_userprefs") . " WHERE modulename = 'docks' AND setting = 'bigfish' AND value > 0";
-		elseif ($op2=="fishweight") $sql = "SELECT COUNT(*) AS c FROM " . db_prefix("module_userprefs") . " WHERE modulename = 'docks' AND setting = 'fishweight' AND value > 0";
-		elseif ($op2=="numberfish") $sql = "SELECT COUNT(*) AS c FROM " . db_prefix("module_userprefs") . " WHERE modulename = 'docks' AND setting = 'numberfish' AND value > 0";
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
+		if ($op2=="bigfish") $sql = "SELECT COUNT(*) AS c FROM " . DB::prefix("module_userprefs") . " WHERE modulename = 'docks' AND setting = 'bigfish' AND value > 0";
+		elseif ($op2=="fishweight") $sql = "SELECT COUNT(*) AS c FROM " . DB::prefix("module_userprefs") . " WHERE modulename = 'docks' AND setting = 'fishweight' AND value > 0";
+		elseif ($op2=="numberfish") $sql = "SELECT COUNT(*) AS c FROM " . DB::prefix("module_userprefs") . " WHERE modulename = 'docks' AND setting = 'numberfish' AND value > 0";
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		$total = $row['c'];
-		$count = db_num_rows($result);
+		$count = DB::num_rows($result);
 		if (($pageoffset + $pp) < $total){
 			$cond = $pageoffset + $pp;
 		}else{
 			$cond = $total;
 		}
-		if ($op2=="bigfish") $sql = "SELECT ".db_prefix("module_userprefs").".value, ".db_prefix("accounts").".name, ".db_prefix("accounts").".acctid FROM " . db_prefix("module_userprefs") . "," . db_prefix("accounts") . " WHERE acctid = userid AND modulename = 'docks' AND setting = 'bigfish' AND value > 0 ORDER BY (value+0) DESC $limit";
-		elseif ($op2=="fishweight") $sql = "SELECT ".db_prefix("module_userprefs").".value, ".db_prefix("accounts").".name, ".db_prefix("accounts").".acctid FROM " . db_prefix("module_userprefs") . "," . db_prefix("accounts") . " WHERE acctid = userid AND modulename = 'docks' AND setting = 'fishweight' AND value > 0 ORDER BY (value+0) DESC $limit";
-		elseif ($op2=="numberfish") $sql = "SELECT ".db_prefix("module_userprefs").".value, ".db_prefix("accounts").".name, ".db_prefix("accounts").".acctid FROM " . db_prefix("module_userprefs") . "," . db_prefix("accounts") . " WHERE acctid = userid AND modulename = 'docks' AND setting = 'numberfish' AND value > 0 ORDER BY (value+0) DESC $limit";
-		$result = db_query($sql);
+		if ($op2=="bigfish") $sql = "SELECT ".DB::prefix("module_userprefs").".value, ".DB::prefix("accounts").".name, ".DB::prefix("accounts").".acctid FROM " . DB::prefix("module_userprefs") . "," . DB::prefix("accounts") . " WHERE acctid = userid AND modulename = 'docks' AND setting = 'bigfish' AND value > 0 ORDER BY (value+0) DESC $limit";
+		elseif ($op2=="fishweight") $sql = "SELECT ".DB::prefix("module_userprefs").".value, ".DB::prefix("accounts").".name, ".DB::prefix("accounts").".acctid FROM " . DB::prefix("module_userprefs") . "," . DB::prefix("accounts") . " WHERE acctid = userid AND modulename = 'docks' AND setting = 'fishweight' AND value > 0 ORDER BY (value+0) DESC $limit";
+		elseif ($op2=="numberfish") $sql = "SELECT ".DB::prefix("module_userprefs").".value, ".DB::prefix("accounts").".name, ".DB::prefix("accounts").".acctid FROM " . DB::prefix("module_userprefs") . "," . DB::prefix("accounts") . " WHERE acctid = userid AND modulename = 'docks' AND setting = 'numberfish' AND value > 0 ORDER BY (value+0) DESC $limit";
+		$result = DB::query($sql);
 		$rank = translate_inline("Rank");
 		$name = translate_inline("Name");
 		$none = translate_inline("No Fish Caught");
@@ -398,10 +398,10 @@ function docks_docks(){
 		}elseif ($op2=="fishweight" || $op2=="numberfish"){
 			rawoutput("<tr class='trhead'><td>$rank</td><td>$name</td><td>$numberfish</td><td>$weight</td></tr>");
 		}
-		if (db_num_rows($result)==0) output_notl("<tr class='trlight'><td colspan='4' align='center'>`&$none`0</td></tr>",true);
+		if (DB::num_rows($result)==0) output_notl("<tr class='trlight'><td colspan='4' align='center'>`&$none`0</td></tr>",true);
 		else{
 			for($i = $pageoffset; $i < $cond && $count; $i++) {
-				$row = db_fetch_assoc($result);
+				$row = DB::fetch_assoc($result);
 				$name=$row['name'];
 				$value=$row['value'];
 				$id=$row['acctid'];
@@ -469,7 +469,7 @@ function docks_docks(){
 			output("I've seen a man catch an octopus as large as a boat.  I swear this on my last worm.  I've heard a man claim to have caught the greatest fish in the seas- `qCaptain Crouton`3. That's a big fish tale, I promise you. However, there's one thing I've never seen. I've never seen anyone catch a fish");
 			if (get_module_pref("pole")=="" || get_module_pref("pole")==0) output("with a stick and a string.");
 			else output("without any bait.");
-			output("You'll need to head on over to the 'ole bait shop.'");			
+			output("You'll need to head on over to the 'ole bait shop.'");
 		}elseif ($fishingtoday<5){
 			$fishingleft=5-$fishingtoday;
 			output("Ready to go fishing? You have enough bait for `^%s `7more %s.",$fishingleft,translate_inline($fishingleft>1?"casts":"cast"));

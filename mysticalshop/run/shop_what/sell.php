@@ -2,10 +2,10 @@
 if( is_numeric( $id ) )
 {
 	require_once( './modules/mysticalshop/lib.php' );
-	$sql = 'SELECT gold,gems,name FROM '.db_prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
-	$result = db_query($sql);
+	$sql = 'SELECT gold,gems,name FROM '.DB::prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
+	$result = DB::query($sql);
 
-	if( $row = db_fetch_assoc($result) )
+	if( $row = DB::fetch_assoc($result) )
 	{
 		$gold = $row['gold'];
 		$gems = $row['gems'];

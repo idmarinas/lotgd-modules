@@ -92,10 +92,10 @@ function friendlist_dohook($hookname,$args){
 				addnav('','runmodule.php?module=friendlist&op=list');
 				output_notl("`^]`c`n");
 				if (httpget('op')=='send'&&!($session['user']['superuser']&SU_GIVES_YOM_WARNING)) {
-					$sql = "SELECT acctid,name FROM ".db_prefix("accounts")." WHERE login='".httppost('to')."'";
-					$result = db_query($sql);
-					if (db_num_rows($result)>0) {
-						$row = db_fetch_assoc($result);
+					$sql = "SELECT acctid,name FROM ".DB::prefix("accounts")." WHERE login='".httppost('to')."'";
+					$result = DB::query($sql);
+					if (DB::num_rows($result)>0) {
+						$row = DB::fetch_assoc($result);
 						if (in_array($row['acctid'],explode('|',get_module_pref('ignored')))) {
 							popup_header("Ye Olde Poste Office");
 							output_notl("`c`^[`%");
@@ -130,9 +130,9 @@ function friendlist_dohook($hookname,$args){
 					}
 				}
 				if (implode(",",$friends)!='') {
-					$sql = "SELECT loggedin,laston$addon FROM ".db_prefix("accounts")." WHERE acctid IN (".implode(",",$friends).") AND locked=0";
-					$result = db_query_cached($sql,"friendliststat-".$session['user']['acctid'],60);
-					while ($row=db_fetch_assoc($result)) {
+					$sql = "SELECT loggedin,laston$addon FROM ".DB::prefix("accounts")." WHERE acctid IN (".implode(",",$friends).") AND locked=0";
+					$result = DB::query_cached($sql,"friendliststat-".$session['user']['acctid'],60);
+					while ($row=DB::fetch_assoc($result)) {
 						$loggedin=$row['loggedin'];
 						if ($row['laston']<$last) {
 							$loggedin=false;

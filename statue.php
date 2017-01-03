@@ -46,9 +46,9 @@ function statue_dohook($hookname, $args) {
 		if ($hero == 0) {
 			output("`n`@The people wandering past periodically stop to admire a statue of the ancient hero, `&MightyE`@.`0`n");
 		} else {
-			$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid='$hero'";
-			$result = db_query_cached($sql, "lasthero");
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid='$hero'";
+			$result = DB::query_cached($sql, "lasthero");
+			$row = DB::fetch_assoc($result);
 			output("`n`@The inhabitants of %s are busy erecting a statue for their newest hero, `&%s`@ on the only statue pedestal around.  The remains of the statue that had stood there before lie in such ruins around the pedestal that it is no longer recognizable.`0`n",$session['user']['location'],$row['name']);
 		}
 		break;
@@ -56,9 +56,9 @@ function statue_dohook($hookname, $args) {
 		if (!get_module_setting("showonindex")) break;
 		$heroname = "MightyE";
 		if ($hero != 0) {
-			$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid='$hero'";
-			$result = db_query_cached($sql, "lasthero");
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid='$hero'";
+			$result = DB::query_cached($sql, "lasthero");
+			$row = DB::fetch_assoc($result);
 			$heroname = $row['name'];
 		}
 		output("`@The most recent hero of the realm is: `&%s`0`n`n",$heroname, true);

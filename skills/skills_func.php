@@ -1,8 +1,8 @@
 <?php
 function get_skills_buff($buffid,$ccode) {
-	$sql = "SELECT * FROM ".db_prefix("skillsbuffs")." WHERE buffid = $buffid";
-	$result = db_query_cached($sql, "skills-buff-$buffid");
-	$buff = db_fetch_assoc($result);
+	$sql = "SELECT * FROM ".DB::prefix("skillsbuffs")." WHERE buffid = $buffid";
+	$result = DB::query_cached($sql, "skills-buff-$buffid");
+	$buff = DB::fetch_assoc($result);
 
 	// Here we'll sanitize the buff a little, so there are no values in it
 	// which will actually cause output but which don't have an effect

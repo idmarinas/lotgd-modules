@@ -25,7 +25,7 @@ switch($mode) {
 			break;
 		}
 		$pullmodules_temp = httppost("moduletext");
-		if (is_array($pullmodules_temp)){ 
+		if (is_array($pullmodules_temp)){
 			//setting for any intexts you might receive
 			$pullmodules = $pullmodules_temp;
 		}else {
@@ -39,9 +39,9 @@ switch($mode) {
 		output_notl("`n`n");
 		if (httppost("pulluntranslated")) {
 			$pullmodules=array();
-			$sql="SELECT namespace from ".db_prefix("untranslated")." group by namespace";
-			$result=db_query($sql);
-			while ($row=db_fetch_assoc($result))	{
+			$sql="SELECT namespace from ".DB::prefix("untranslated")." group by namespace";
+			$result=DB::query($sql);
+			while ($row=DB::fetch_assoc($result))	{
 				array_push($pullmodules,$row['namespace']);
 			}
 		}
@@ -52,10 +52,10 @@ switch($mode) {
 			//debug($file);
 			if (strstr($file[0],"Verified")) {
 				$moduledate=substr($file[0],0,10);
-				$file[0]="INSERT INTO ".db_prefix("temp_translations")." (`language`, `uri`, `intext`, `outtext`, `author`, `version`) VALUES ";
+				$file[0]="INSERT INTO ".DB::prefix("temp_translations")." (`language`, `uri`, `intext`, `outtext`, `author`, `version`) VALUES ";
 				//array_shift($file);
 				$sql.=implode("",$file);
-				$result=db_query($sql); //debug("Success:".$result);
+				$result=DB::query($sql); //debug("Success:".$result);
 			} else {
 				output("The pull for namespace '%s' was `$ not`0 successful (error getting file / wrong file).",$val);
 			}
@@ -80,7 +80,7 @@ switch($mode) {
 		output("Choose a mirror if you don't want to use the normal central DB:");
 		output_notl("`n");debug($mymirror);
 		rawoutput("<form action='runmodule.php?module=translationwizard&op=pull' name='listenauswahl' method='post'>");
-		addnav("", "runmodule.php?module=translationwizard&op=pull");	
+		addnav("", "runmodule.php?module=translationwizard&op=pull");
 		rawoutput("<select name='mirror' onchange='this.form.submit()'>");
 		rawoutput("<option value=''>---</option>");
 		foreach ($mirrors as $mirror) {
@@ -92,7 +92,7 @@ switch($mode) {
 		if ($mymirror!='') {
 			output("`nCurrently you are using the mirror `\$%s`0.`n`n",$mymirror);
 		}
-		if (is_array($linklist)) sort ($linklist); 
+		if (is_array($linklist)) sort ($linklist);
 		output("Choose the directory (normally equals language) you want to pull from:");
 		output_notl("`n");
 		rawoutput("<select name='pulldir' onchange='this.form.submit()'>");
@@ -112,10 +112,10 @@ switch($mode) {
 				output_notl("`b`n`n");
 			}
 		}
-		$sql="SELECT modulename FROM ".db_prefix("modules").";";
-		$result=db_query($sql);
+		$sql="SELECT modulename FROM ".DB::prefix("modules").";";
+		$result=DB::query($sql);
 		$listing=array("about","armor","badnav","badword","bank","battle","bio","buffs","claneditor","clans","commentary","common","configuration","create","creatures","donation","dragon","events","faq","fightnav","forest","gardens","graveyard","gypsy","healer","hof","home","inn","installer","lib-commentary","lib-pageparts","list","lodge","logdnet","login","mail","masters","moderate","modulemanage","motd","mountname","mounts","nav","newday","paylog","petition","prefs","pvp","rawsql","referers","referral","retitle","rock","shades","showform","skill","skills","source","stables","stats","superuser","taunt","train","translatortool","untranslated","user","village","weapon");
-		while($row=db_fetch_assoc($result)) {
+		while($row=DB::fetch_assoc($result)) {
 			array_push($listing,"module-".$row['modulename']);
 		}
 		asort($listing);
@@ -135,7 +135,7 @@ switch($mode) {
 			output_notl("`b");
 			output("The following namespace have had no match on the server (no file):`n`n`\$%s`0",implode("`n",$missing));
 			output_notl("`b`n`n");
-			
+
 		}
 		output("If you want to see what files we have currently on the server, visit `$ %s`0",$lookuppath);
 		output_notl("`n");
@@ -154,7 +154,7 @@ switch($mode) {
 		rawoutput("<tr class='trhead'><td></td><td>". translate_inline("Namespace") ."</td><td>".translate_inline("Moduledate")."</td><td>".translate_inline("Last Pulled")."</td><td>".translate_inline("Server Date")."</td><td>".translate_inline("Actions")."</td><td></td><td></td></tr>");
 		$i=0;
 		$rmymirror=rawurlencode($mymirror);
-		$rselecteddir=rawurlencode($selecteddir);		
+		$rselecteddir=rawurlencode($selecteddir);
 		foreach ($listing as $val) {
 			$i=!$i;
 			$rval=rawurlencode($val);

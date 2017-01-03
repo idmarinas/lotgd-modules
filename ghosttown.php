@@ -45,8 +45,8 @@ function ghosttown_uninstall(){
 	global $session;
 	$vname = getsetting("villagename", LOCATION_FIELDS);
 	$gname = get_module_setting("villagename");
-	$sql = "UPDATE " . db_prefix("accounts") . " SET location='$vname' WHERE location = '$gname'";
-	db_query($sql);
+	$sql = "UPDATE " . DB::prefix("accounts") . " SET location='$vname' WHERE location = '$gname'";
+	DB::query($sql);
 	if ($session['user']['location'] == $gname)
 		$session['user']['location'] = $vname;
 	return true;
@@ -99,10 +99,10 @@ function ghosttown_dohook($hookname,$args){
 			if ($session['user']['location'] == $args['old']) {
 				$session['user']['location'] = $args['new'];
 			}
-			$sql = "UPDATE " . db_prefix("accounts") . " SET location='" .
+			$sql = "UPDATE " . DB::prefix("accounts") . " SET location='" .
 				addslashes($args['new']) . "' WHERE location='" .
 				addslashes($args['old']) . "'";
-			db_query($sql);
+			DB::query($sql);
 		}
 		break;
 	case "validlocation":

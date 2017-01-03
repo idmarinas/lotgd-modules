@@ -48,20 +48,20 @@ function sethsong_getmoduleinfo(){
 
 function sethsong_install(){
 	// Convert the seenbard field.
-	$sql = "DESCRIBE " . db_prefix("accounts");
-	$result = db_query($sql);
-	while ($row = db_fetch_assoc($result)){
+	$sql = "DESCRIBE " . DB::prefix("accounts");
+	$result = DB::query($sql);
+	while ($row = DB::fetch_assoc($result)){
 		if ($row['Field']=="seenbard"){
-			$sql = "SELECT seenbard,acctid FROM " . db_prefix("accounts") . " WHERE seenbard>0";
-			$result1 = db_query($sql);
+			$sql = "SELECT seenbard,acctid FROM " . DB::prefix("accounts") . " WHERE seenbard>0";
+			$result1 = DB::query($sql);
 			debug("Migrating seenbard.`n");
-			while ($row1 = db_fetch_assoc($result1)){
-				$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) VALUES ('seth','been',{$row1['acctid']},{$row1['seenbard']})";
-				db_query($sql);
+			while ($row1 = DB::fetch_assoc($result1)){
+				$sql = "INSERT INTO " . DB::prefix("module_userprefs") . " (modulename,setting,userid,value) VALUES ('seth','been',{$row1['acctid']},{$row1['seenbard']})";
+				DB::query($sql);
 			}//end while
 			debug("Dropping seenbard column from the user table.`n");
-			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP seenbard";
-			db_query($sql);
+			$sql = "ALTER TABLE " . DB::prefix("accounts") . " DROP seenbard";
+			DB::query($sql);
 			//drop it from the user's session too.
 			unset($session['user']['seenbard']);
 		}//end if
@@ -153,10 +153,10 @@ function sethsong_sing()
 		break;
 	case 1:
 		// Since masters are now editable, pick a random one.
-		$sql = "SELECT creaturename FROM " . db_prefix("masters") . " ORDER BY RAND(".e_rand().") LIMIT 1";
-		$res = db_query($sql);
-		if (db_num_rows($res)) {
-			$row = db_fetch_assoc($res);
+		$sql = "SELECT creaturename FROM " . DB::prefix("masters") . " ORDER BY RAND(".e_rand().") LIMIT 1";
+		$res = DB::query($sql);
+		if (DB::num_rows($res)) {
+			$row = DB::fetch_assoc($res);
 			$name = $row['creaturename'];
 		} else {
 			$name = "MightyE";

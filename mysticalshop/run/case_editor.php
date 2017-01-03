@@ -51,10 +51,10 @@ require_once("modules/mysticalshop/run/editor_what/$what.php");
 modulehook("mysticalshop-editor", array());
 addnav("Actions");
 //let's just display items that are actually available.
-$sql = 'SELECT category FROM '.db_prefix( 'magicitems' ).' GROUP BY category ORDER BY category';
-$result = db_query_cached( $sql, 'modules-mysticalshop-editorcats', 3600 );
+$sql = 'SELECT category FROM '.DB::prefix( 'magicitems' ).' GROUP BY category ORDER BY category';
+$result = DB::query_cached( $sql, 'modules-mysticalshop-editorcats', 3600 );
 $shortcuts = array( 'g', 't', 'W', 'o', 'C', 'H', 'v', 'B', 'M' );
-while( $row = db_fetch_assoc( $result ) ){
+while( $row = DB::fetch_assoc( $result ) ){
 	$category = $row['category'];
 	addnav( array( '%s?Examine %s`0', $shortcuts[$category], $names[$category] ), $fromeditor.'view&cat='.$category );
 }

@@ -5,8 +5,8 @@ function friendlist_deny() {
 	$friends = rexplode(get_module_pref('friends'));
 	$request = rexplode(get_module_pref('request'));
 	$ac = httpget('ac');
-	$sql = "SELECT name FROM ".db_prefix("accounts")." WHERE acctid=$ac AND locked=0";
-	$result = db_query($sql);
+	$sql = "SELECT name FROM ".DB::prefix("accounts")." WHERE acctid=$ac AND locked=0";
+	$result = DB::query($sql);
 	if (in_array($ac,$friends)) {
 		$info = translate_inline("That user has been removed.");
 		require_once("lib/systemmail.php");
@@ -31,9 +31,9 @@ function friendlist_deny() {
 		$request = rimplode( $request);
 		set_module_pref('request',$request);
 	}
-	if (db_num_rows($result)>0) {
+	if (DB::num_rows($result)>0) {
 		systemmail($ac,$t,$mailmessage);
-		$row=db_fetch_assoc($result);
+		$row=DB::fetch_assoc($result);
 		$info = sprintf_translate("%s has been removed",$row['name']);
 	}
 

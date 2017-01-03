@@ -9,9 +9,9 @@ function friendlist_search() {
 		for ($x=0;$x<strlen($n);$x++){
 			$string .= substr($n,$x,1)."%";
 		}
-		$sql = "SELECT name,dragonkills,acctid FROM ".db_prefix("accounts")." WHERE name LIKE '%$string%' AND acctid<>".$session['user']['acctid']." AND locked=0 ORDER BY level,dragonkills";
-		$result = db_query($sql);
-		if (db_num_rows($result)>0) {
+		$sql = "SELECT name,dragonkills,acctid FROM ".DB::prefix("accounts")." WHERE name LIKE '%$string%' AND acctid<>".$session['user']['acctid']." AND locked=0 ORDER BY level,dragonkills";
+		$result = DB::query($sql);
+		if (DB::num_rows($result)>0) {
 			$ignored = rexplode(get_module_pref('ignored'));
 			$friends = rexplode(get_module_pref('friends'));
 			$request = rexplode(get_module_pref('request'));
@@ -19,8 +19,8 @@ function friendlist_search() {
 			output("`@These users were found:`n");
 			rawoutput("<table style='width:60%;text-align:center;' cellpadding='3' cellspacing='0' border='0'>");
 			rawoutput("<tr class='trhead'><td>".translate_inline("Name")."</td><td>".translate_inline("Operations")."</td></tr>");
-			for ($i=0;$i<db_num_rows($result);$i++){
-				$row = db_fetch_assoc($result);
+			for ($i=0;$i<DB::num_rows($result);$i++){
+				$row = DB::fetch_assoc($result);
 				rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
 				output_notl($row['name']);
 				rawoutput("</td><td>");

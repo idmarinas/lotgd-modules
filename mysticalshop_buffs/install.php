@@ -1,7 +1,7 @@
 <?php
     global $session;
-    $equipmentbuffs = db_prefix("magicitembuffs");
-    $equipment = db_prefix("magicitems");
+    $equipmentbuffs = DB::prefix("magicitembuffs");
+    $equipment = DB::prefix("magicitems");
     $new_items = array('buffid'=> array('name'=>'buffid', 'type'=>'tinyint unsigned','null'=>'0'));
     $buff_table = array(
         'buffid'=> array('name'=>'buffid', 'type'=>'tinyint unsigned','null'=>'0', 'extra'=>'auto_increment'),

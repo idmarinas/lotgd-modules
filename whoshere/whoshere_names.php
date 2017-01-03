@@ -4,7 +4,7 @@
 	$where .= ( $SCRIPT_NAME == 'clan.php' ) ? "a.clanid = '" . $session['user']['clanid'] . "' AND" : '';
 
 	$sql = "SELECT a.acctid, a.name, a.login
-			FROM " . db_prefix('accounts') . " a, " . db_prefix('module_userprefs') . " b
+			FROM " . DB::prefix('accounts') . " a, " . DB::prefix('module_userprefs') . " b
 			WHERE $where a.loggedin = 1
 				AND b.modulename = 'whoshere'
 				AND b.setting = 'playerloc'
@@ -12,16 +12,16 @@
 				AND a.acctid = b.userid
 				AND a.acctid <> '" . $session['user']['acctid'] . "'
 				AND a.laston > '" . date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",300) . " seconds"))."'";
-	$result = db_query($sql);
+	$result = DB::query($sql);
 
 	output("`n`@Who Else is here:`n");
 
-	if( $count = db_num_rows($result) )
+	if( $count = DB::num_rows($result) )
 	{
 		$pre = '';
 		$and = translate_inline('and');
 		$i = 1;
-		while( $row = db_fetch_assoc($result) )
+		while( $row = DB::fetch_assoc($result) )
 		{
 			if( is_module_active('hiddenplayers') && $SCRIPT_NAME != 'superuser.php' )
 			{

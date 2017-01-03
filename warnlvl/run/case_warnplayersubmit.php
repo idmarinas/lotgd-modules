@@ -9,9 +9,9 @@
 	$id = httppost('user_id');
 	$return = httppost('return');
 
-	$sql = "SELECT name, sex, lastip, lasthit FROM " . db_prefix('accounts') . " WHERE acctid = '" . $id . "'";
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = "SELECT name, sex, lastip, lasthit FROM " . DB::prefix('accounts') . " WHERE acctid = '" . $id . "'";
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$username = $row['name'];
 	$lastip = $row['lastip'];
 	$lasthit = $row['lasthit'];
@@ -21,7 +21,7 @@
 	$warns_total = get_module_setting('warns','warnlvl');
 	$ban_days = get_module_setting('bans','warnlvl');
 	$allprefs = get_module_pref('allprefs','warnlvl',$id);
-	if( !empty($allprefs) ) 
+	if( !empty($allprefs) )
 	{
 		$allprefs = unserialize($allprefs);
 		$count = count($allprefs['reason']);
@@ -61,7 +61,7 @@
 	$allprefs['date'][] = time();
 	$allprefs['warnings'] = $allprefs['warnings'] + 1;
 	$warns_count = $count + 1;
-	$subject = translate_mail('This is a Warning')
+	$subject = translate_mail('This is a Warning');
 
 	if( $warns_count >= $warns_total )
 	{
@@ -83,8 +83,8 @@
 		// Add ban details to ban table.
 		$until_date = date("Y-m-d H:i:s",strtotime("+$ban_days days"));
 		$reason = translate_inline('Automatic ban after multiple warnings.');
-		$sql = "INSERT INTO " . db_prefix('bans') . " (ipfilter,banexpire,banreason,banner,lasthit) VALUES ('" . $lastip . "','" . $until_date . "','" . $reason . "','System','" . $lasthit . "')";
-		db_query($sql);
+		$sql = "INSERT INTO " . DB::prefix('bans') . " (ipfilter,banexpire,banreason,banner,lasthit) VALUES ('" . $lastip . "','" . $until_date . "','" . $reason . "','System','" . $lasthit . "')";
+		DB::query($sql);
 	}
 	else
 	{

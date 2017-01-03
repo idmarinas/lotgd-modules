@@ -13,17 +13,17 @@ require_once('modules/worldmapen/lib.php');
 function worldmapen_run_real(){
 	global $session, $badguy, $pvptimeout, $options, $outdoors, $shady;
 	$outdoors = true;
-	
+
 	$op = httpget("op");
 	$battle = false;
-	
+
 	if( $op == 'move'
 			&& rawurldecode( httpget( 'oloc' ) ) != get_module_pref( 'worldXYZ' ) )
 	{debug(get_module_pref( 'worldXYZ' ));
 		$op = 'continue';
 		httpset( 'op', $op );
 	}
-	
+
 //	debug("Worldmap running op={$op} ...");
 	// handle the admin editor first
 	if ($op == "edit") {
@@ -196,7 +196,7 @@ function worldmapen_run_real(){
 		if ($playerturns == 0 && $allowzeroturns == 0) {
 			$proceed = 0;
 		}
-		
+
 		if (e_rand(0, 100) < $encounter && $su!= '1' && $proceed == 1 && !$chatoverride) {
 			// They've hit a monster!
 			if (module_events(get_module_setting("randevent"), get_module_setting("wmspecialchance"),"runmodule.php?module=worldmapen&op=continue&") != 0) {
@@ -220,10 +220,10 @@ function worldmapen_run_real(){
 				$session['user']['turns']--;
 			}
 			//Fix to only search for Forest type creatures, added by CavemanJoe
-			$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel = '{$session['user']['level']}' AND forest = 1 ORDER BY rand(".e_rand().") LIMIT 1";
-			$result = db_query($sql);
+			$sql = "SELECT * FROM " . DB::prefix("creatures") . " WHERE creaturelevel = '{$session['user']['level']}' AND forest = 1 ORDER BY rand(".e_rand().") LIMIT 1";
+			$result = DB::query($sql);
 			restore_buff_fields();
-			if (db_num_rows($result) == 0) {
+			if (DB::num_rows($result) == 0) {
 				// There is nothing in the database to challenge you,
 				// let's give you a doppleganger.
 				$badguy = array();
@@ -236,7 +236,7 @@ function worldmapen_run_real(){
 				$badguy['creatureattack']=$session['user']['attack'];
 				$badguy['creaturedefense']=$session['user']['defense'];
 			} else {
-				$badguy = db_fetch_assoc($result);
+				$badguy = DB::fetch_assoc($result);
 				require_once("lib/forestoutcomes.php");
 				$badguy = buffbadguy($badguy);
 			}
@@ -247,7 +247,7 @@ function worldmapen_run_real(){
 			//debug("Worldmap run.php is debugging badguy");
 			//debug($badguy);
 			$session['user']['badguy']=createstring($badguy);
-			$battle = true;			
+			$battle = true;
 		}else{
 			// $args = modulehook("count-travels", array('available'=>0, 'used'=>0));
 			// $free = max(0, $args['available'] - $args['used']);
@@ -319,7 +319,7 @@ function worldmapen_run_real(){
 	} elseif ($op == "wake") {
 		if ($session['user']['hitpoints']>0){ // runmodule.php calls do_forced_nav,
 			$session['user']['alive']=true; // and that resets ['alive'], so
-		}else{                            // this is from common.php to make sure 
+		}else{                            // this is from common.php to make sure
 			$session['user']['alive']=false;// the player is not half-dead after log-in.
 		}
 		output("You yawn and stretch and look around your campsite.`n`n");

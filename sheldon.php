@@ -37,7 +37,7 @@ function sheldon_install(){
 	module_addhook("village");
 	module_addhook("bioinfo");
 	module_addhook("dragonkill");
-	module_addeventhook("forest","require_once(\"modules/sheldon.php\"); 
+	module_addeventhook("forest","require_once(\"modules/sheldon.php\");
 	return sheldon_chance();");
 	return true;
 }
@@ -53,8 +53,8 @@ function sheldon_dohook($hookname,$args){
 			}
 		break;
 		case "newday-runonce":
-			$sql = "update ".db_prefix("module_userprefs")." set value=0 where value<>0 and setting='raid' and modulename='sheldon'";
-			db_query($sql);
+			$sql = "update ".DB::prefix("module_userprefs")." set value=0 where value<>0 and setting='raid' and modulename='sheldon'";
+			DB::query($sql);
 		break;
 		case "newday":
 			if (get_module_pref("member")==-1) set_module_pref("member",0);
@@ -184,20 +184,20 @@ function sheldon_runevent($type){
 			case 5:
 				output("You head out with some of your fellow `QSheldon Gang Members`0 and look for trouble.`n`n");
 				$meid=$session['user']['acctid'];
-				$sql = "SELECT acctid,name,gold FROM ".db_prefix("accounts")." WHERE acctid<>'$meid' ORDER BY rand(".e_rand().") LIMIT 1";
-				$res = db_query($sql);
-				$row = db_fetch_assoc($res);
+				$sql = "SELECT acctid,name,gold FROM ".DB::prefix("accounts")." WHERE acctid<>'$meid' ORDER BY rand(".e_rand().") LIMIT 1";
+				$res = DB::query($sql);
+				$row = DB::fetch_assoc($res);
 				$name = $row['name'];
 				$id = $row['acctid'];
 				$gold= $row['gold'];
 				$takegold=round($gold*.1);
 				if ($takegold>500) $takegold=500;
-				db_query($sql);
+				DB::query($sql);
 				if ($name==$session['user']['name'] ||e_rand(1,5)<5 || $takegold==0){
 					output("Lucky for everyone else, you don't find any.");
 				}else{
-					$sql = "UPDATE " . db_prefix("accounts") . " SET gold=gold-$takegold WHERE acctid='$id'";
-					db_query($sql);
+					$sql = "UPDATE " . DB::prefix("accounts") . " SET gold=gold-$takegold WHERE acctid='$id'";
+					DB::query($sql);
 					require_once("lib/systemmail.php");
 					$subj = sprintf("`QThe Sheldon Gang has struck!");
 					$body = sprintf("`QThe Sheldon Gang has struck!`n`nThey stole `^%s gold`Q from you. There's a rumor going around that %s`Q is one of the gang members.",$takegold,$session['user']['name']);
@@ -295,8 +295,8 @@ function sheldon_runevent($type){
 	if ($op=="fight"){
 		$battle=true;
 	}
-	if ($battle){       
-		include("battle.php");  
+	if ($battle){
+		include("battle.php");
 		if ($victory){
 			$session['user']['specialinc'] = "";
 			$expbonus=$session['user']['dragonkills']*4;

@@ -53,8 +53,8 @@ function advertisingtracker_install(){
 		'key-PRIMARY'=>array('name'=>'PRIMARY','type'=>'primary key','unique'=>'1','columns'=>'acctid'),
 		);
 	require_once("lib/tabledescriptor.php");
-	synctable(db_prefix("abusemail"), $abusemail, true);
-	synctable(db_prefix("abuseuser"), $abuseuser, true);
+	synctable(DB::prefix("abusemail"), $abusemail, true);
+	synctable(DB::prefix("abuseuser"), $abuseuser, true);
 	return true;
 }
 
@@ -115,19 +115,19 @@ function advertisingtracker_run(){
 			switch ($action) {
 				case "reallywipe":
 					$target=httpget('target');
-					$sql="SELECT * FROM ".db_prefix('accounts')." WHERE acctid=$target LIMIT 1";
-					$result=db_query($sql);
-					$account=db_fetch_assoc($result);
-					$sql="INSERT INTO ".db_prefix('abusemail')." SELECT * FROM ".db_prefix('mail')." WHERE msgto=$target OR msgfrom=$target;";
-					db_query($sql);
-					$sql="DELETE FROM ".db_prefix('mail')." WHERE msgto=$target OR msgfrom=$target;";
-					$result=db_query($sql);
+					$sql="SELECT * FROM ".DB::prefix('accounts')." WHERE acctid=$target LIMIT 1";
+					$result=DB::query($sql);
+					$account=DB::fetch_assoc($result);
+					$sql="INSERT INTO ".DB::prefix('abusemail')." SELECT * FROM ".DB::prefix('mail')." WHERE msgto=$target OR msgfrom=$target;";
+					DB::query($sql);
+					$sql="DELETE FROM ".DB::prefix('mail')." WHERE msgto=$target OR msgfrom=$target;";
+					$result=DB::query($sql);
 					$number=db_affected_rows($result);
-					$sql="DESCRIBE ".db_prefix('abuseuser').";";
-					$result=db_query($sql);
-					$newsql="INSERT INTO ".db_prefix('abuseuser')." (";
+					$sql="DESCRIBE ".DB::prefix('abuseuser').";";
+					$result=DB::query($sql);
+					$newsql="INSERT INTO ".DB::prefix('abuseuser')." (";
 					$array=array();
-					while ($row=db_fetch_assoc($result)) {
+					while ($row=DB::fetch_assoc($result)) {
 						$newsql.=$row['Field'].",";
 						$array[]=$row['Field'];
 					}
@@ -138,25 +138,25 @@ function advertisingtracker_run(){
 					}
 					$newsql=substr($newsql,0,strlen($newsql)-1)."); ";
 					debug($newsql);
-					db_query($newsql); //insert infos
+					DB::query($newsql); //insert infos
 					require_once("lib/charcleanup.php");
 					char_cleanup($target,"CHAR_DELETE_MANUAL"); //finish prefs
-					$sql="DELETE FROM ".db_prefix('accounts')." WHERE acctid=$target LIMIT 1;";
-					db_query($sql); //gone
+					$sql="DELETE FROM ".DB::prefix('accounts')." WHERE acctid=$target LIMIT 1;";
+					DB::query($sql); //gone
 					output("`4User %s`4 has been deleted, %s mails have been moved to the abusemail table.",$row['name'],$number);
 					break;
-					
+
 				case "confirm":
 					$target=httpget('target');
-					$sql="SELECT * FROM ".db_prefix('accounts')." WHERE acctid=$target LIMIT 1";
-					$result=db_query($sql);
-					$row=db_fetch_assoc($result);
+					$sql="SELECT * FROM ".DB::prefix('accounts')." WHERE acctid=$target LIMIT 1";
+					$result=DB::query($sql);
+					$row=DB::fetch_assoc($result);
 					output("`\$Do you really want to delete the user %s`\$, record his mails and so on?`n(Note: Mails displayed below to/from him)`%`n`n",$row['name']);
 					addnav("User Wipe!");
 					addnav(array("`\$Wipe user %s",$row['name']),"runmodule.php?module=advertisingtracker&op=wipe&action=reallywipe&target=$target");
-					
-					$ac=db_prefix("accounts");
-					$mail=db_prefix("mail");
+
+					$ac=DB::prefix("accounts");
+					$mail=DB::prefix("mail");
 					$sql="SELECT $ac.name AS name,$mail.body AS body,$mail.sent AS date FROM $mail INNER JOIN $ac ON $mail.msgfrom=$ac.acctid WHERE msgto=$target OR msgfrom=$target ORDER BY $mail.messageid DESC LIMIT 200"; //acctid 7 = neji
 					$result = db_query ($sql);
 					$date=translate_inline("Postdate");
@@ -165,7 +165,7 @@ function advertisingtracker_run(){
 					rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999' align=center>");
 					rawoutput("<tr class='trhead' height=30px><td><b>$date</b></td><td><b>$author</b></td><td><b>$body</b></td></tr>");
 					$class="trlight";
-					while ($row=db_fetch_assoc($result)) {
+					while ($row=DB::fetch_assoc($result)) {
 						$class=($class=='trlight'?'trdark':'trlight');
 						rawoutput("<tr height=30px class='$class'>");
 						rawoutput("<td>");
@@ -183,14 +183,14 @@ function advertisingtracker_run(){
 					output("`4Pick the user -click the name- (still confirmation to wipe him after the click on the following page):`n`n");
 					$class="trlight";
 					$target=httppost('target');
-					$sql="SELECT name, login, acctid FROM ".db_prefix('accounts')." WHERE (name LIKE '$target' OR login like '$target')";
-					$result=db_query($sql);
+					$sql="SELECT name, login, acctid FROM ".DB::prefix('accounts')." WHERE (name LIKE '$target' OR login like '$target')";
+					$result=DB::query($sql);
 					$acctid=translate_inline("Acctid");
 					$name=translate_inline("Name");
 					$login=translate_inline("Login");
 					rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999' align=center>");
 					rawoutput("<tr class='trhead' height=30px><td><b>$acctid</b></td><td><b>$name</b></td><td><b>$login</b></td></tr>");
-					while ($row=db_fetch_assoc($result)) {
+					while ($row=DB::fetch_assoc($result)) {
 						$class=($class=='trlight'?'trdark':'trlight');
 						rawoutput("<tr height=30px class='$class'>");
 						rawoutput("<td>");
@@ -230,8 +230,8 @@ function advertisingtracker_run(){
 			$length=httpget('length');
 			addnav("Actions");
 			addnav("Refresh","runmodule.php?module=advertisingtracker&op=mail&track=$track");
-			$ac=db_prefix("accounts");
-			$mail=db_prefix("mail");
+			$ac=DB::prefix("accounts");
+			$mail=DB::prefix("mail");
 			if (get_module_setting('who')!='') {
 				$cond=" AND $mail.msgfrom NOT IN (".get_module_setting('who').") ";
 				$cond.=" AND $mail.msgto NOT IN (".get_module_setting('who').") ";
@@ -248,7 +248,7 @@ function advertisingtracker_run(){
 			$class="trlight";
 			$col="`&"; //not used
 			output("Since bans here should be done either permanently or people normally only warned, no ban options are offered here`n`n");
-			while ($row=db_fetch_assoc($result)) {
+			while ($row=DB::fetch_assoc($result)) {
 				$class=($class=='trlight'?'trdark':'trlight');
 				rawoutput("<tr height=30px class='$class'>");
 				rawoutput("<td>");
@@ -265,8 +265,8 @@ function advertisingtracker_run(){
 		case "commentary":
 			addnav("Actions");
 			addnav("Refresh","runmodule.php?module=advertisingtracker&op=commentary");
-			$ac=db_prefix("accounts");
-			$cm=db_prefix("commentary");
+			$ac=DB::prefix("accounts");
+			$cm=DB::prefix("commentary");
 			$sql="SELECT $ac.name AS name,$cm.section AS section, $cm.postdate AS postdate, $cm.comment AS comment FROM $cm INNER JOIN $ac ON $cm.author=$ac.acctid WHERE comment like '%http://%' OR comment like '%www.%'  OR comment like '%.com%' ORDER BY $cm.commentid DESC LIMIT 50";
 			$result = db_query ($sql);
 			$date=translate_inline("Postdate");
@@ -278,7 +278,7 @@ function advertisingtracker_run(){
 			$class="trlight";
 			$col="`&";
 			output("Since bans here should be done either permanently or people normally only warned, no ban options are offered here`n`n");
-			while ($row=db_fetch_assoc($result)) {
+			while ($row=DB::fetch_assoc($result)) {
 				$class=($class=='trlight'?'trdark':'trlight');
 				rawoutput("<tr height=30px class='$class'>");
 				rawoutput("<td>");
@@ -322,8 +322,8 @@ function advertisingtracker_run(){
 			$target=httppost('target');
 			$limit=httppost('limit');
 			$section=httppost('section');
-			$ac=db_prefix("accounts");
-			$cm=db_prefix("commentary");
+			$ac=DB::prefix("accounts");
+			$cm=DB::prefix("commentary");
 			if ($section=='') $searchsection='';
 				else $searchsection="AND $cm.section LIKE '$section'";
 			if ($limit=='') $limit=50;
@@ -348,7 +348,7 @@ function advertisingtracker_run(){
 			$class="trlight";
 			$col="`&";
 			output("Since bans here should be done either permanently or people normally only warned, no ban options are offered here`n`n");
-			while ($row=db_fetch_assoc($result)) {
+			while ($row=DB::fetch_assoc($result)) {
 				$class=($class=='trlight'?'trdark':'trlight');
 				rawoutput("<tr height=30px class='$class'>");
 				rawoutput("<td>");
@@ -396,20 +396,20 @@ function advertisingtracker_run(){
 			$target2=httppost('target2');
 			$boxcheck=httppost('boxcheck');
 			$limit=httppost('limit');
-			$ac=db_prefix("accounts");
+			$ac=DB::prefix("accounts");
 			if ($boxcheck) {
-				$mail=db_prefix("mailoutbox");
+				$mail=DB::prefix("mailoutbox");
 			} else {
-				$mail=db_prefix("mail");
+				$mail=DB::prefix("mail");
 			}
 			if ($section=='') $searchsection='';
 				else $searchsection="AND $mail.section LIKE '$section'";
 			if ($limit=='') $limit=50;
 			addnav("Actions");
 			addnav("Clear Mask","runmodule.php?module=advertisingtracker&op=search&track=$track&target=$target");
-			$sql="SELECT acctid,name FROM ".db_prefix('accounts')." WHERE login LIKE '%$target%'";
-			$result=db_query($sql);
-			$row=db_fetch_assoc($result);
+			$sql="SELECT acctid,name FROM ".DB::prefix('accounts')." WHERE login LIKE '%$target%'";
+			$result=DB::query($sql);
+			$row=DB::fetch_assoc($result);
 			if (((int)$row['acctid']) == 0) {
 				output("`2`cNo users found!`c");
 				break;
@@ -417,12 +417,12 @@ function advertisingtracker_run(){
 				$acctid=(int) $row['acctid'];
 				output("`2You are now viewing the outgoing mails of %s`2:`n`n",$row['name']);
 			}
-			
+
 			switch ($track) {
 				case "user":
 					if ($target2) {
-						$sql="SELECT acctid FROM ".db_prefix('accounts')." WHERE login LIKE '$target2';";
-						$row=db_fetch_assoc(db_query($sql));
+						$sql="SELECT acctid FROM ".DB::prefix('accounts')." WHERE login LIKE '$target2';";
+						$row=DB::fetch_assoc(DB::query($sql));
 						$targetadd=" AND $mail.msgto='".$row['acctid']."' ";
 					} else $targetadd='';
 					$sql="SELECT $ac.name AS name, $mail.* FROM $mail INNER JOIN $ac ON $mail.msgto=$ac.acctid WHERE $mail.msgfrom=$acctid $searchsection $targetadd ORDER BY $mail.messageid DESC LIMIT $limit";
@@ -442,7 +442,7 @@ debug($sql);
 			$class="trlight";
 			$col="`&";
 			output("Since bans here should be done either permanently or people normally only warned, no ban options are offered here`n`n");
-			while ($row=db_fetch_assoc($result)) {
+			while ($row=DB::fetch_assoc($result)) {
 				$class=($class=='trlight'?'trdark':'trlight');
 				rawoutput("<tr height=30px class='$class'>");
 				rawoutput("<td>");
@@ -453,7 +453,7 @@ debug($sql);
 				output_notl($row['subject']);
 				rawoutput("</td><td>");
 				$out=unserialize($row['body']);
-				if (is_array($out)) 
+				if (is_array($out))
 					output_notl(sprintf($out));
 					else
 					output_notl($row['body']);

@@ -20,30 +20,30 @@ function specialtythiefskills_getmoduleinfo(){
 }
 
 function specialtythiefskills_install(){
-	$sql = "DESCRIBE " . db_prefix("accounts");
-	$result = db_query($sql);
+	$sql = "DESCRIBE " . DB::prefix("accounts");
+	$result = DB::query($sql);
 	$specialty="TS";
-	while($row = db_fetch_assoc($result)) {
+	while($row = DB::fetch_assoc($result)) {
 		// Convert the user over
 		if ($row['Field'] == "thievery") {
 			debug("Migrating thieving skills field");
-			$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtythiefskills', 'skill', acctid, thievery FROM " . db_prefix("accounts");
-			db_query($sql);
+			$sql = "INSERT INTO " . DB::prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtythiefskills', 'skill', acctid, thievery FROM " . DB::prefix("accounts");
+			DB::query($sql);
 			debug("Dropping thievery field from accounts table");
-			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP thievery";
-			db_query($sql);
+			$sql = "ALTER TABLE " . DB::prefix("accounts") . " DROP thievery";
+			DB::query($sql);
 		} elseif ($row['Field']=="thieveryuses") {
 			debug("Migrating thieving skills uses field");
-			$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtythiefskills', 'uses', acctid, thieveryuses FROM " . db_prefix("accounts");
-			db_query($sql);
+			$sql = "INSERT INTO " . DB::prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtythiefskills', 'uses', acctid, thieveryuses FROM " . DB::prefix("accounts");
+			DB::query($sql);
 			debug("Dropping thieveryuses field from accounts table");
-			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP thieveryuses";
-			db_query($sql);
+			$sql = "ALTER TABLE " . DB::prefix("accounts") . " DROP thieveryuses";
+			DB::query($sql);
 		}
 	}
 	debug("Migrating Thieving Skills Specialty");
-	$sql = "UPDATE " . db_prefix("accounts") . " SET specialty='$specialty' WHERE specialty='3'";
-	db_query($sql);
+	$sql = "UPDATE " . DB::prefix("accounts") . " SET specialty='$specialty' WHERE specialty='3'";
+	DB::query($sql);
 
 	module_addhook("choose-specialty");
 	module_addhook("set-specialty");
@@ -61,8 +61,8 @@ function specialtythiefskills_install(){
 function specialtythiefskills_uninstall(){
 	// Reset the specialty of anyone who had this specialty so they get to
 	// rechoose at new day
-	$sql = "UPDATE " . db_prefix("accounts") . " SET specialty='' WHERE specialty='TS'";
-	db_query($sql);
+	$sql = "UPDATE " . DB::prefix("accounts") . " SET specialty='' WHERE specialty='TS'";
+	DB::query($sql);
 	return true;
 }
 
@@ -146,7 +146,7 @@ function specialtythiefskills_dohook($hookname,$args){
 		$script = $args['script'];
 		if ($uses > 0) {
 			addnav(array("$ccode$name (%s points)`0", $uses), "");
-			addnav(array("$ccode &#149; Insult`7 (%s)`0", 1), 
+			addnav(array("$ccode &#149; Insult`7 (%s)`0", 1),
 					$script."op=fight&skill=$spec&l=1", true);
 		}
 		if ($uses > 1) {
@@ -186,7 +186,7 @@ function specialtythiefskills_dohook($hookname,$args){
 						"rounds"=>5,
 						"wearoff"=>"Your victim's blood has washed the poison from your {weapon}.",
 						"atkmod"=>2,
-						"roundmsg"=>"Your attack is multiplied!", 
+						"roundmsg"=>"Your attack is multiplied!",
 						"schema"=>"module-specialtythiefskills"
 					));
 					break;

@@ -1,15 +1,15 @@
 <?php
 /**************
 Name: Equipment Buffs, for the Equipment Shop
-Author: Eth - ethstavern(at)gmail(dot)com 
+Author: Eth - ethstavern(at)gmail(dot)com
 Version: 1.3
 Re-Release Date: 01-25-2006
 About: An addon for the Equipment Shop that lets you
 	   add buffs to existing items. Could be *very*
 	   unbalancing. Use at your own risk.
 Notes: Inspired by XChrisX's Inventory mod.
-	   pieced together from items.php and a few snippets 
-	   from XChrisX's Inventory System.	   
+	   pieced together from items.php and a few snippets
+	   from XChrisX's Inventory System.
 Translation compatible. Mostly.
 *****************/
 function mysticalshop_buffs_getmoduleinfo(){
@@ -22,8 +22,8 @@ function mysticalshop_buffs_install(){
 	return true;
 }
 function mysticalshop_buffs_uninstall(){
-	$sql = "DROP TABLE " . db_prefix("magicitembuffs");
-	db_query($sql);
+	$sql = "DROP TABLE " . DB::prefix("magicitembuffs");
+	DB::query($sql);
 	return true;
 }
 function mysticalshop_buffs_dohook($hookname,$args){
@@ -44,7 +44,7 @@ function mysticalshop_buffs_dohook($hookname,$args){
 		addnav("Admin Tools");
 		addnav("`^Go to Buff Manager",$from."op=editor&what=view");
 		break;
-	}	 
+	}
 	return $args;
 }
 
@@ -63,7 +63,7 @@ function mysticalshop_buffs_run(){
 	page_header($title);
 	$op = httpget('op');
 	$id=httpget("id");
-	$from = "runmodule.php?module=mysticalshop_buffs&";	   
+	$from = "runmodule.php?module=mysticalshop_buffs&";
 	if ($op == "editor"){
 		require_once("modules/mysticalshop_buffs/editor.php");
 	}

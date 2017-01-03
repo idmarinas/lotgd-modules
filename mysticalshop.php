@@ -1,7 +1,7 @@
 <?php
 /**************
 Name: Equipment Shop
-Author: Eth - ethstavern(at)gmail(dot)com 
+Author: Eth - ethstavern(at)gmail(dot)com
 Version: 3.814
 About: A shop that sells a wide array of different items.
        Complete with editor and separate table in db.
@@ -18,19 +18,19 @@ function mysticalshop_install(){
 }
 function mysticalshop_uninstall(){
 	require_once( './modules/mysticalshop/run/editor_what/delete.php' );
-	$items = db_query( 'SELECT id FROM '.db_prefix( 'magicitems' ) );
-	while( $item = db_fetch_assoc( $items ) )
+	$items = DB::query 'SELECT id FROM '.DB::prefix( 'magicitems' ) );
+	while( $item = DB::fetch_assoc( $items ) )
 		mysticalshop_delete_item( $item['id'] );
 
-	$sql = 'DROP TABLE IF EXISTS '.db_prefix( 'magicitems' );
-	db_query( $sql );
+	$sql = 'DROP TABLE IF EXISTS '.DB::prefix( 'magicitems' );
+	DB::query $sql );
 
 	if( getsetting( 'usedatacache', false ) )
 	{
 		require_once( './modules/mysticalshop/libcoredup.php' );
 		mysticalshop_massinvalidate( 'modules-mysticalshop-' );
 	}
-	
+
 	return true;
 }
 function mysticalshop_dohook($hookname,$args){
@@ -50,14 +50,14 @@ function mysticalshop_run(){
 	if( !is_numeric( $cat ) )
 		$cat = 0;
 	$names = translate_inline( array(0=>'Rings',1=>'Amulets',2=>'Weapons',3=>'Armor',4=>'Cloaks',5=>'Helmets',6=>'Gloves',7=>'Boots',8=>'Miscellanea') );
-    
+
     //-- Hook
     modulehook('mysticalshop', array(
         'op' => $op,
         'what' => $what,
         'cat' => $names[$cat]
     ));
-        
+
 	require_once( "./modules/mysticalshop/run/case_$op.php" );
 	page_footer();
 }

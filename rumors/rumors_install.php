@@ -13,7 +13,7 @@
 	else module_addhook("footer-djail");
 	if (is_module_active("jeweler")) module_addhook("footer-jeweler");
 	else module_addhook("footer-armor");
-	
+
 	//Thanks to kickme for help with this creature installation
 	$creaturename=translate_inline(array("","Dragon Sympathizer Initiate","Dragon Sympathizer Entrant","Low Dragon Sympathizer","Apprentice Dragon Sympathizer","Steward Dragon Sympathizer","Warden Dragon Sympathizer","Master Dragon Sympathizer","Outer Circle Dragon Sympathizer","Inner Circle Dragon Sympathizer","Dragon Sympathizer Assassin","Bishop Dragon Sympathizer","Deacon Dragon Sympathizer","Dragon Sympathizer High Master","Dragon Sympathizer Grandmaster","Dragon Sympathizer High Priest","Dragon Sympathizer High Priestess"));
 	$creatureweapon=translate_inline(array("","Fists","Scarred Fists","Small Knife","Small Dagger","Sharp Knife","Razor Sharp Knife","Razor Sharp Dagger","Blood Knife","Razor Blood Knife","Assassin's Dagger","Jeweled Blood Dagger","Ceremonial Dagger","Ceremonial Blood Dagger","Poisoned Dagger","Spear of the Dragon","Sword of the Dragon"));
@@ -33,8 +33,8 @@
 			$health=$creaturehealth[$i];
 			$attack=$creatureattack[$i];
 			$defense=$creaturedefense[$i];
-			$sql = "INSERT INTO ".db_prefix("creatures")." (creaturename, creaturelevel, creatureweapon, creaturelose, creaturewin, creaturegold, creatureexp, creaturehealth, creatureattack, creaturedefense, createdby, forest, graveyard) VALUES ('$name', $i, '$weapon', '$lose', NULL, $gold, $exp, $health, $attack, $defense,'DaveS', 1, 0)";
-			db_query($sql);
+			$sql = "INSERT INTO ".DB::prefix("creatures")." (creaturename, creaturelevel, creatureweapon, creaturelose, creaturewin, creaturegold, creatureexp, creaturehealth, creatureattack, creaturedefense, createdby, forest, graveyard) VALUES ('$name', $i, '$weapon', '$lose', NULL, $gold, $exp, $health, $attack, $defense,'DaveS', 1, 0)";
+			DB::query($sql);
 			$id = db_insert_id();
 			if ($id > 0){
 				set_module_setting("level".$i,$id);

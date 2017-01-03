@@ -101,9 +101,9 @@ function last_installed_dohook($hookname,$args)
 			$cat = ( !empty($category) ) ? "&cat=$category" : '';
 			$sqlcat = ( !empty($category) ) ? "WHERE category = '$category'" : '';
 
-			$sql = "SELECT count(logid) AS c FROM " . db_prefix('gamelog') . " $sqlcat";
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT count(logid) AS c FROM " . DB::prefix('gamelog') . " $sqlcat";
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			$max = $row['c'];
 
 			$pages = ceil($max/500);
@@ -185,7 +185,7 @@ function last_installed_run()
 			addnav('Last Updated Modules','runmodule.php?module=last_installed&op2=update');
 			$no_modules = translate_inline('No Deactivated Modules');
 			$sql = "SELECT *
-					FROM " . db_prefix('modules') . "
+					FROM " . DB::prefix('modules') . "
 					WHERE active = 0
 					ORDER BY installdate DESC
 					LIMIT $limit";
@@ -198,7 +198,7 @@ function last_installed_run()
 			addnav('Deactivated Modules','runmodule.php?module=last_installed&op2=deac');
 			$no_modules = translate_inline('No Modules Installed');
 			$sql = "SELECT *
-					FROM " . db_prefix('modules') . "
+					FROM " . DB::prefix('modules') . "
 					ORDER BY installdate DESC
 					LIMIT $limit";
 		}
@@ -210,7 +210,7 @@ function last_installed_run()
 			addnav('Deactivated Modules','runmodule.php?module=last_installed&op2=deac');
 			$no_modules = translate_inline('No Modules Updated Since Installation');
 			$sql = "SELECT *
-					FROM " . db_prefix('modules') . "
+					FROM " . DB::prefix('modules') . "
 					WHERE installdate != filemoddate
 					ORDER BY filemoddate DESC
 					LIMIT $limit";
@@ -223,8 +223,8 @@ function last_installed_run()
 		rawoutput("<tr class=\"trhead\"><td>&nbsp;</td><td>$ops</td><td>$status</td><td>$cat</td><td>$mname</td><td>$mauth</td><td>$install</td></tr>");
 
 		$time = time();
-		$result = db_query($sql);
-		$count = db_num_rows($result);
+		$result = DB::query($sql);
+		$count = DB::num_rows($result);
 		if( $count == 0 )
 		{
 			rawoutput('<tr class="trlight"><td colspan="7" align="center">');
@@ -234,7 +234,7 @@ function last_installed_run()
 		else
 		{
 			$i = 1;
-			while( $row = db_fetch_assoc($result) )
+			while( $row = DB::fetch_assoc($result) )
 			{
 				rawoutput('<tr class="'.($i%2?'trlight':'trdark').'"><td valign="top">'.($row['modulename']!='last_installed'?'<input type="checkbox" name="module[]" value="'.$row['modulename'].'">':'').'</td><td valign="top" nowrap="nowrap">[ ');
 
@@ -324,10 +324,10 @@ function last_installed_run()
 		}
 
 		$sql = "SELECT count(logid) AS c
-				FROM " . db_prefix('gamelog') . "
+				FROM " . DB::prefix('gamelog') . "
 				$where";
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		$max = $row['c'];
 
 		addnav('Operations');
@@ -353,14 +353,14 @@ function last_installed_run()
 		}
 
 		$sql = "SELECT a.name, g.message, g.category, g.date, g.who
-				FROM " . db_prefix('accounts') . " a, " . db_prefix('gamelog') . " g
+				FROM " . DB::prefix('accounts') . " a, " . DB::prefix('gamelog') . " g
 				WHERE a.acctid = g.who
 					$and
 				ORDER BY g.date DESC
 				LIMIT $start,500";
-		$result = db_query($sql);
+		$result = DB::query($sql);
 
-		if( db_num_rows($result) == 0 )
+		if( DB::num_rows($result) == 0 )
 		{
 			if( !empty($userid) )
 			{
@@ -374,7 +374,7 @@ function last_installed_run()
 		else
 		{
 			$user_array = array();
-			while( $row = db_fetch_assoc($result) )
+			while( $row = DB::fetch_assoc($result) )
 			{
 				$user_array[$row['who']]['date'][] = $row['date'];
 				$user_array[$row['who']]['category'][] = $row['category'];
@@ -486,7 +486,7 @@ function last_installed_ops()
 			}
 			elseif( $op == 'reinstall' )
 			{
-				db_query("UPDATE " . db_prefix('modules') . " SET filemoddate = '0000-00-00 00:00:00' WHERE modulename = '$module'");
+				DB::query("UPDATE " . DB::prefix('modules') . " SET filemoddate = '0000-00-00 00:00:00' WHERE modulename = '$module'");
 				injectmodule($module, true);
 				invalidatedatacache("inject-$module");
 				$message = translate_inline('reinstalled');
@@ -510,7 +510,7 @@ function last_installed_ops()
 			$date = date("Y-m-d H:i:s");
 			$text = translate_inline(array('Module','on','by'));
 			$message = "`@$text[0](`5$module`@) `^$message `2$text[1] `@$date `2$text[2] - ";
-			db_query("INSERT INTO " . db_prefix('gamelog') . " (message,category,filed,date,who) VALUES ('".addslashes($message)."','".addslashes($category)."','0','".$date."','".(int)$session['user']['acctid']."')");
+			DB::query("INSERT INTO " . DB::prefix('gamelog') . " (message,category,filed,date,who) VALUES ('".addslashes($message)."','".addslashes($category)."','0','".$date."','".(int)$session['user']['acctid']."')");
 
 		}
 		$op = '';

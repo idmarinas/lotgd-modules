@@ -1,22 +1,22 @@
 <?php
 $player	= httpget('player');
-$sql 		= "SELECT name,login,level FROM ".db_prefix("accounts")." WHERE acctid =".$player;
-$result	= db_query($sql) or die(db_error(LINK));
-$row 		= db_fetch_assoc($result);
+$sql 		= "SELECT name,login,level FROM ".DB::prefix("accounts")." WHERE acctid =".$player;
+$result	= DB::query($sql) or die(db_error(LINK));
+$row 		= DB::fetch_assoc($result);
 $playername	= $row['name'];
 $personid	= $session['user']['acctid'];
 if(httpget('action') == "yes")
 {
-	if(get_module_pref('barrister', $player) == $personid || get_module_pref('witness1', $player) == $personid || 
+	if(get_module_pref('barrister', $player) == $personid || get_module_pref('witness1', $player) == $personid ||
 		get_module_pref('witness2', $player) == $personid)
 	{
 		output
 		(
-			"You must really be good if you think you can run the whole show on your own! You're already 
+			"You must really be good if you think you can run the whole show on your own! You're already
 			part of this case."
 		);
 		addnav("Back to jail", "runmodule.php?module=jail");
-	} 
+	}
 	elseif ($session['user']['level'] < $minlvl)
 	{
 		output("You will need some more experience in this village before your opinion matters in a court trial.");
@@ -51,7 +51,7 @@ if(httpget('action') == "yes")
 		addnews("".$session['user']['name']." will be a witness for %s in court!", $playername);
 		output("`n`n`7You decide to be a witness for %s.", $playername);
 		addnav("Back to jail", "runmodule.php?module=jail");
-	} 
+	}
 }
 elseif (httpget('action') == "no")
 {

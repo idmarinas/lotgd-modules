@@ -1,7 +1,7 @@
 <?php
-	$item = db_prefix("item");
-	$inventory = db_prefix("inventory");
-	$itembuffs = db_prefix("itembuffs");
+	$item = DB::prefix("item");
+	$inventory = DB::prefix("inventory");
+	$itembuffs = DB::prefix("itembuffs");
 
 	// SQLs for creation of item-table
 

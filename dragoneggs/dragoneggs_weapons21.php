@@ -32,8 +32,8 @@ function dragoneggs_weapons21(){
 				$session['user']['gold']+=$reward;
 				set_module_setting("marbles",0);
 				set_module_setting("jar",0);
-       			$sql = "update ".db_prefix("module_userprefs")." set value=0 where value<>0 and setting='marblecheck' and modulename='dragoneggs'";
-       			db_query($sql);
+       			$sql = "update ".DB::prefix("module_userprefs")." set value=0 where value<>0 and setting='marblecheck' and modulename='dragoneggs'";
+       			DB::query($sql);
 				addnews("%s `7 knows how many marbles are in a jar.  Isn't that impressive???",$session['user']['name']);
 				debuglog("spent a gold to successfully win $reward gold from the marble jar while researching dragon eggs at MightyE's Weapons.");
 			}else{

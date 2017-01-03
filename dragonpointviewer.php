@@ -55,13 +55,13 @@ function dragonpointviewer_run() {
 	addnav("Editor");
 	addnav("to the editor","user.php?op=edit&userid=" . $user);
 	addnav("refresh","runmodule.php?module=dragonpointviewer&user=" . $user);
-	
-	$sql="SELECT dragonpoints FROM " . db_prefix("accounts") . " WHERE acctid=" . $user;
-	$result=db_query($sql);
-	if (db_num_rows($result)>0) {
-		$row=db_fetch_assoc($result);
+
+	$sql="SELECT dragonpoints FROM " . DB::prefix("accounts") . " WHERE acctid=" . $user;
+	$result=DB::query($sql);
+	if (DB::num_rows($result)>0) {
+		$row=DB::fetch_assoc($result);
 		$daten=unserialize($row['dragonpoints']);
-		
+
         //Install a summary
 
 		$counted=array_count_values($daten);
@@ -72,7 +72,7 @@ function dragonpointviewer_run() {
 		rawoutput("</td><td>");
 		output_notl(translate_inline("Count"));
 		rawoutput("</td></tr>");
-		
+
 		$v = 0;
 		foreach($counted as $key=>$value)  {
 			$v++;
@@ -82,9 +82,9 @@ function dragonpointviewer_run() {
 			output_notl($value);
 			rawoutput("</td></tr>");
 		}
-		
+
 		rawoutput("</table>");
-        
+
         output("`n`n`b`^Detailed`b`n");
 		rawoutput("<table border=0 cellspacing=0 cellpadding=0>");
 		rawoutput("<tr class='trhead'><td>", true);
@@ -92,7 +92,7 @@ function dragonpointviewer_run() {
 		rawoutput("</td><td>");
 		output_notl(translate_inline("Skill"));
 		rawoutput("</td></tr>");
-		
+
 		$v = 0;
 		foreach($daten as $key=>$value)  {
 			$v++;
@@ -102,9 +102,9 @@ function dragonpointviewer_run() {
 			output_notl($value);
 			rawoutput("</td></tr>");
 		}
-		
+
 		rawoutput("</table>");
-			
+
 
 	}
 

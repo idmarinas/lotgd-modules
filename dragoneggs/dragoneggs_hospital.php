@@ -38,7 +38,7 @@ function dragoneggs_hospital(){
 		increment_module_pref("researches",1);
 		$rumor36=0;
 		if (is_module_active("rumors")){
-			if($session['user']['dragonkills']>=get_module_setting("mindk","rumors")+get_module_setting("mindk")) $rumor36=1; 
+			if($session['user']['dragonkills']>=get_module_setting("mindk","rumors")+get_module_setting("mindk")) $rumor36=1;
 		}
 		if($rumor36==1) $case=e_rand(1,36);
 		else $case=e_rand(1,35);
@@ -78,9 +78,9 @@ function dragoneggs_hospital(){
 			case 7: case 8:
 				output("The doctor tells you that there's been an unfortunate accident.");
 				$id=$session['user']['acctid'];
-				$sql = "SELECT name FROM ".db_prefix("accounts")." WHERE acctid<>'$id' ORDER BY rand(".e_rand().") LIMIT 1";
-				$res = db_query($sql);
-				$row = db_fetch_assoc($res);
+				$sql = "SELECT name FROM ".DB::prefix("accounts")." WHERE acctid<>'$id' ORDER BY rand(".e_rand().") LIMIT 1";
+				$res = DB::query($sql);
+				$row = DB::fetch_assoc($res);
 				$name = $row['name'];
 				output("You recognize it as `^%s`3!",$name);
 				$chance=e_rand(1,10);

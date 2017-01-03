@@ -3,30 +3,30 @@
 			$yes = translate_inline("Yes");
 			$no = translate_inline("No");
 			if ($id != "") {
-				$sql = "SELECT * FROM ".db_prefix("magicitembuffs")." WHERE buffid = $id";
-				$result = db_query($sql);
-				$buff2 = db_fetch_assoc($result);
+				$sql = "SELECT * FROM ".DB::prefix("magicitembuffs")." WHERE buffid = $id";
+				$result = DB::query($sql);
+				$buff2 = DB::fetch_assoc($result);
 				$buff = unserialize($buff2['itembuff']);
 				$buff['buffname'] = $buff2['buffname'];
 			} else {
 				$buff = array();
 			}
-			
+
 			rawoutput("<form action='runmodule.php?module=mysticalshop_buffs&op=editor&what=newbuff2&id=$id' method='post'>");
 			addnav("", "runmodule.php?module=mysticalshop_buffs&op=editor&what=newbuff2&id=$id");
 			$format = array(
-				"General Settings,title",				
+				"General Settings,title",
 					'buffname'=>"Buff name (shown in editor),string,250",
 					'name'=>"Buff name (shown in charstats),string,250",
 					'rounds'=>"Rounds,string,250",
-				"Combat Modifiers,title",				
+				"Combat Modifiers,title",
 					'dmgmod'=>"Damage Modifier (Goodguy),string,250",
 					'atkmod'=>"Attack Modifier (Goodguy),string,250",
 					'defmod'=>"Defense Modifier (Goodguy),string,250",
 					'badguydmgmod'=>"Damage Modifier (Badguy),string,250",
 					'badguyatkmod'=>"Attack Modifier (Badguy),string,250",
 					'badguydefmod'=>"Defense Modifier (Badguy),string,250",
-				"Misc Combat Modifiers,title",				
+				"Misc Combat Modifiers,title",
 					'lifetap'=>"Lifetap,string,250",
 					'damageshield'=>"Damage Shield,string,250",
 					'regen'=>"Regeneration,string,250",
@@ -43,14 +43,14 @@
 					'effectmsg'=>"Effect Message,string,250",
 					'effectfailmsg'=>"Effect Fail Message,string,250",
 					'effectnodmgmsg'=>"Effect No Damage Message,string,250",
-				"Misc Settings,title",						
+				"Misc Settings,title",
 					'allowinpvp'=>"Allow in PvP?,bool",
 					'allowintrain'=>"Allow in Training?,bool",
 					'survivenewday'=>"Survive New Day?,bool",
 					'invulnerable'=>"Invulnerable?,bool",
 					'expireafterfight'=>"Expires after fight?,bool",
 			);
-			showform($format, $buff);
+			lotgd_showform($format, $buff);
 			output("`n`n`bOn Dynamic Buffs`b`n");
 			output("`@In the above, for most fields, you can choose to enter valid PHP code, substituting <fieldname> for fields in the user's account table.`n");
 			output("Examples of code you might enter:`n");

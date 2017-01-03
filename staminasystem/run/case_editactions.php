@@ -8,10 +8,10 @@ if($op2 == "del"){
 	$key = httpget('key');
 	$value = $act[$key];
 	output("All values of the action \"".$value."\" were deleted.");
-	$stamina = db_prefix("stamina");
-	db_query("DELETE FROM $stamina WHERE action='$key'");
+	$stamina = DB::prefix("stamina");
+	DB::query("DELETE FROM $stamina WHERE action='$key'");
 	unset($act[$key]);
-	
+
 	set_module_setting("actionsarray",serialize($act),"staminasystem");
 	actions_list();
 	$actiondebug = get_module_setting("actionsarray","staminasystem");
@@ -29,7 +29,7 @@ if($op2 == "new"){
 	addnav("Continue");
 	addnav("Continue","runmodule.php?module=staminasystem&op=superuser");
 }
-	
+
 page_footer();
 
 ?>

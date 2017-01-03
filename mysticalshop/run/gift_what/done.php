@@ -4,22 +4,22 @@ $id = httpget('id');
 if( is_numeric( $id ) && is_numeric( $playerid ) )
 {
 	$giftid = get_module_pref("giftid");
-	$sql = 'SELECT name,gold,gems FROM '.db_prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);	
+	$sql = 'SELECT name,gold,gems FROM '.DB::prefix('magicitems').' WHERE id='.$id.' LIMIT 1';
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$gifteditem = $row['name'];
 	$giftgold = $row['gold'];
 	$giftgems = $row['gems'];
 	require_once( './modules/mysticalshop/lib.php' );
 	mysticalshop_applydiscount( $giftgold, $giftgems );
 
-	//We've bought the player the gift, let's subtract the cost now. 
+	//We've bought the player the gift, let's subtract the cost now.
 	$session['user']['gold']-=$giftgold;
 	$session['user']['gems']-=$giftgems;
 	//now, let's set their item data up
-	$sql = "SELECT acctid,name,sex FROM ".db_prefix("accounts")." WHERE acctid=$playerid LIMIT 1";
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = "SELECT acctid,name,sex FROM ".DB::prefix("accounts")." WHERE acctid=$playerid LIMIT 1";
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$pname = $row['name'];
 	$gifteeid = $row['acctid'];
 	$usersex = translate_inline($row['sex']?"She":"He");

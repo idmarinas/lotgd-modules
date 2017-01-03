@@ -703,9 +703,9 @@ function worldmapen_camp_list(){
 	$sql = "SELECT
 		a.acctid, a.clanid, a.name, a.alive, a.sex, a.level, a.laston, a.loggedin, a.login, a.pvpflag, b.value as location, c.clanshort, a.clanrank
 	FROM
-		".db_prefix("accounts")." AS a
-	LEFT JOIN ".db_prefix("clans")." AS c ON c.clanid=a.clanid
-	LEFT JOIN ".db_prefix("module_userprefs")." AS b ON a.acctid=b.userid
+		".DB::prefix("accounts")." AS a
+	LEFT JOIN ".DB::prefix("clans")." AS c ON c.clanid=a.clanid
+	LEFT JOIN ".DB::prefix("module_userprefs")." AS b ON a.acctid=b.userid
 
 	WHERE
 		b.value='$loc'

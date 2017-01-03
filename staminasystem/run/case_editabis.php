@@ -8,12 +8,12 @@ if($op2 == "del"){
 	$key = httpget('key');
 	$wert = $abi[$key];
 	output("All values of the ability \"".$wert."\" were deleted.");
-	$abil = db_prefix("abilities");
-	db_query("DELETE FROM $abil WHERE ability='$key'");
+	$abil = DB::prefix("abilities");
+	DB::query("DELETE FROM $abil WHERE ability='$key'");
 	unset($abi[$key]);
-	
+
 	set_module_setting("abi",serialize($abi),"abi_basic");
-	
+
 	addnav("Continue");
 	addnav("Continue","runmodule.php?module=abi_basic&op=superuser");
 }
@@ -26,7 +26,7 @@ if($op2 == "new"){
 	addnav("Continue");
 	addnav("Continue","runmodule.php?module=abi_basic&op=superuser");
 }
-	
+
 page_footer();
 
 ?>

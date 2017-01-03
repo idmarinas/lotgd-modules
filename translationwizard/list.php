@@ -6,12 +6,12 @@ if (httppost("deletechecked")) {
 if (httppost("editchecked")) {
 	rawoutput("<form action='runmodule.php?module=translationwizard&op=list&ns=".rawurlencode($namespace)."' method='post'>");
 	addnav("", "runmodule.php?module=translationwizard&op=list&ns=".rawurlencode($namespace));
-	$sql = "SELECT namespace,count(*) AS c FROM " . db_prefix("untranslated") . " WHERE language='".$languageschema."' GROUP BY namespace ORDER BY namespace ASC";
-	$result = db_query($sql);
+	$sql = "SELECT namespace,count(*) AS c FROM " . DB::prefix("untranslated") . " WHERE language='".$languageschema."' GROUP BY namespace ORDER BY namespace ASC";
+	$result = DB::query($sql);
 	rawoutput("<input type='hidden' name='op' value='list'>");
 	output("Known Namespaces:");
 	rawoutput("<select name='ns' onChange='this.form.submit()'>");
-	while ($row = db_fetch_assoc($result))
+	while ($row = DB::fetch_assoc($result))
 		{
 		rawoutput("<option value=\"".htmlentities($row['namespace'],ENT_COMPAT,$coding)."\"".((htmlentities($row['namespace'],ENT_COMPAT,$coding) == $namespace) ? "selected" : "").">".htmlentities($row['namespace'],ENT_COMPAT,$coding)." ({$row['c']})</option>");
 		}
@@ -44,21 +44,21 @@ case "edit": //for one translation via the edit button
 	break;
 case "del": //to delete one via the delete button
 	$intext=rawurldecode(httpget('intext'));
-	$sql = "DELETE FROM " . db_prefix("untranslated") . " WHERE intext = '$intext' AND language = '$languageschema' AND namespace = '$namespace'";
+	$sql = "DELETE FROM " . DB::prefix("untranslated") . " WHERE intext = '$intext' AND language = '$languageschema' AND namespace = '$namespace'";
 	//debug($sql); break;
-	db_query($sql);
+	DB::query($sql);
 	$mode=""; //reset
 	redirect("runmodule.php?module=translationwizard&op=list&ns=".$namespace); //just redirecting so you go back to the previous page after the deletion
 	break;
 default: //if there is any other mode, i.e. "" go on and display what's necessary including checkboxes and so on, just the main list
 	rawoutput("<form action='runmodule.php?module=translationwizard&op=list' name='listenauswahl' method='post'>");
 	addnav("", "runmodule.php?module=translationwizard&op=list");
-	$sql = "SELECT namespace,count(*) AS c FROM " . db_prefix("untranslated") . " WHERE language='".$languageschema."' GROUP BY namespace ORDER BY namespace ASC";
-	$result = db_query($sql);
+	$sql = "SELECT namespace,count(*) AS c FROM " . DB::prefix("untranslated") . " WHERE language='".$languageschema."' GROUP BY namespace ORDER BY namespace ASC";
+	$result = DB::query($sql);
 	rawoutput("<input type='hidden' name='op' value='list'>");
 	output("Known Namespaces:");
 	rawoutput("<select name='ns' onChange='this.form.submit()' >");
-	while ($row = db_fetch_assoc($result))
+	while ($row = DB::fetch_assoc($result))
 		{
 			if ($namespace=="") $namespace=$row['namespace'];
 			rawoutput("<option value=\"".htmlentities($row['namespace'],ENT_COMPAT,$coding)."\"".((htmlentities($row['namespace'],ENT_COMPAT,$coding) == $namespace) ? "selected" : "").">".htmlentities($row['namespace'],ENT_COMPAT,$coding)." ({$row['c']})</option>");
@@ -70,11 +70,11 @@ default: //if there is any other mode, i.e. "" go on and display what's necessar
 	output_notl("`n");
 	rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
 	rawoutput("<tr class='trhead'><td>". translate_inline("Ops") ."</td><td>". translate_inline("Text") ."</td><td>".translate_inline("Actions")."</td></tr>");
-	$sql = "SELECT * FROM " . db_prefix("untranslated") . " WHERE language='".$languageschema."' AND namespace='".$namespace."'";
-	$result = db_query($sql);
-	if (db_num_rows($result)>0){
+	$sql = "SELECT * FROM " . DB::prefix("untranslated") . " WHERE language='".$languageschema."' AND namespace='".$namespace."'";
+	$result = DB::query($sql);
+	if (DB::num_rows($result)>0){
 		$i = 0;
-		while ($row = db_fetch_assoc($result))
+		while ($row = DB::fetch_assoc($result))
 		{
 			$i++;
 			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
@@ -127,7 +127,7 @@ default: //if there is any other mode, i.e. "" go on and display what's necessar
 output_notl("`n`n");
 if (!$mode=="save" && $namespace<>"")
 	{
-	if (db_num_rows($result)>1) rawoutput("<input type='button' onClick='this.value=check()' name='allcheck' value='". $all ."' class='button'>");
+	if (DB::num_rows($result)>1) rawoutput("<input type='button' onClick='this.value=check()' name='allcheck' value='". $all ."' class='button'>");
 	output_notl("`n`n");
 	rawoutput("<input type='submit' name='copychecked' value='". translate_inline("Copy checked to translation table") ."' class='button'>");
 	rawoutput("<input type='submit' name='editchecked' value='". translate_inline("Edit selected") ."' class='button'>");

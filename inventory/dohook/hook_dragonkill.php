@@ -2,7 +2,7 @@
 	require_once("lib/itemhandler.php");
 	$inventory = get_inventory();
 	$count=0;
-	while ($item = db_fetch_assoc($inventory)) {
+	while ($item = DB::fetch_assoc($inventory)) {
 		$destroyed = 0;
 		for($c=0;$c<$item['quantity'];$c++) {
 			if($item['dkloosechance'] >= e_rand(1,100)) $destroyed++;

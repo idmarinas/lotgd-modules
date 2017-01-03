@@ -24,7 +24,7 @@ function mailoptions_uninstall(){
 
 function mailoptions_dohook($hookname, $args){
 	global $session;
-	$mail = db_prefix('mail');
+	$mail = DB::prefix('mail');
 	$acctid = $session['user']['acctid'];
 	$sql = false;
 	switch($hookname) {
@@ -82,7 +82,7 @@ function mailoptions_dohook($hookname, $args){
 			break;
 	}
 	if ($sql !== false) {
-		$result = db_query($sql);
+		$result = DB::query($sql);
 	}
 	return $args;
 }

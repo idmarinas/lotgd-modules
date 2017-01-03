@@ -58,9 +58,9 @@
 				rawoutput("</form>");
 				addnav("", "runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id=$id&submodule=$module");
 			} else {
-				$sql = "SELECT buffid, buffname, buffshortname FROM ".db_prefix("itembuffs");
-				$result = db_query($sql);
-				while ($row = db_fetch_assoc($result)){
+				$sql = "SELECT buffid, buffname, buffshortname FROM ".DB::prefix("itembuffs");
+				$result = DB::query($sql);
+				while ($row = DB::fetch_assoc($result)){
 				  $row['buffname'] = str_replace(",", " ", $row['buffname']);
 				  $row['buffshortname'] = str_replace(",", " ", $row['buffshortname']);
 				  $buffs[] = $row['buffid'];
@@ -126,7 +126,7 @@
 						"equippable"=>"Is this item equippable?,bool",
 						"equipwhere"=>"Where can this item be equipped?,enum,$enum_equip",
 			  );
-			  showform($format, $item);
+			  lotgd_showform($format, $item);
 			  rawoutput("</form>");
 			}
 			break;
@@ -136,15 +136,15 @@
 			output("`\$Item no. %s added once, you now have %s pieces.", $id, check_qty($id));
 		default:
 		case "showitems":
-			$sql = "SELECT itemid, class, name, description, gold, gems FROM ".db_prefix("item")." ORDER BY class ASC";
-			$result = db_query($sql);
+			$sql = "SELECT itemid, class, name, description, gold, gems FROM ".DB::prefix("item")." ORDER BY class ASC";
+			$result = DB::query($sql);
 			$edit = translate_inline("Edit");
 			$del = translate_inline("Delete");
 			$take = translate_inline("Take");
 			$conf = translate_inline("Do you really want to delete this item?");
 			$oldclass = "";
-			for ($i=0;$i<db_num_rows($result);$i++) {
-				$row=db_fetch_assoc($result);
+			for ($i=0;$i<DB::num_rows($result);$i++) {
+				$row=DB::fetch_assoc($result);
 				$class = $row['class'];
 				if ($class <> $oldclass) output("`n`n`^`b%s`b`0`n", $row['class']);
 				$oldclass = $class;
@@ -157,12 +157,12 @@
 			break;
 		case "delitem":
 			$id = httpget('id');
-			$sql = "DELETE FROM ".db_prefix("item")." WHERE itemid = $id LIMIT 1";
-			$result = db_query($sql);
+			$sql = "DELETE FROM ".DB::prefix("item")." WHERE itemid = $id LIMIT 1";
+			$result = DB::query($sql);
 			if (db_affected_rows($result)) output("Item succesfully deleted.`n`n");
 			else output("While deleting this item an error occurred. Probably someone has already deleted this item.`n`n");
-			$sql = "DELETE FROM ".db_prefix("inventory")." WHERE itemid = $id";
-			$result = db_query($sql);
+			$sql = "DELETE FROM ".DB::prefix("inventory")." WHERE itemid = $id";
+			$result = DB::query($sql);
 			if (db_affected_rows($result)) output("This item has been removed %s times from players' inventories.`n`n", db_affected_rows($result));
 			else output("No item has been deleted from players' inventories.`n`n");
 			invalidatedatacache("item-activation-fightnav-specialties");
@@ -179,9 +179,9 @@
 			$no = translate_inline("No");
 			$buff = [];
 			if ($id != "") {
-				$sql = "SELECT * FROM ".db_prefix("itembuffs")." WHERE buffid = $id";
-				$result = db_query($sql);
-				$buff = db_fetch_assoc($result);
+				$sql = "SELECT * FROM ".DB::prefix("itembuffs")." WHERE buffid = $id";
+				$result = DB::query($sql);
+				$buff = DB::fetch_assoc($result);
 			}
 
 			rawoutput("<form action='runmodule.php?module=inventory&op=editor&op2=newbuff2&id=$id' method='post'>");
@@ -225,7 +225,7 @@
 					'invulnerable'=>"Invulnerable?,bool",
 					'expireafterfight'=>"Expires after fight?,bool",
 			);
-			showform($format, $buff);
+			lotgd_showform($format, $buff);
 			rawoutput("</form>");
 			break;
 		case "newbuff2":
@@ -262,13 +262,13 @@
 			}
 			break;
 		case "showbuffs":
-			$sql = "SELECT buffid, buffname, buffshortname FROM ".db_prefix("itembuffs")." ORDER BY buffid ASC";
-			$result = db_query($sql);
+			$sql = "SELECT buffid, buffname, buffshortname FROM ".DB::prefix("itembuffs")." ORDER BY buffid ASC";
+			$result = DB::query($sql);
 			$edit = translate_inline("Edit");
 			$del = translate_inline("Delete");
 			$conf = translate_inline("Do you really want to delete this buff?");
-			for ($i=0;$i<db_num_rows($result);$i++) {
-				$row=db_fetch_assoc($result);
+			for ($i=0;$i<DB::num_rows($result);$i++) {
+				$row=DB::fetch_assoc($result);
 				output_notl("`^%s `7- `&`i%s`i `7- [", $row['buffname'], $row['buffshortname']);
 				rawoutput("<a href='runmodule.php?module=inventory&op=editor&op2=newbuff&id=".$row['buffid']."'>$edit</a> - <a href='runmodule.php?module=inventory&op=editor&op2=delbuff&id=".$row['buffid']."' onClick=\"return confirm('$conf');\">$del</a>");
 				addnav("", "runmodule.php?module=inventory&op=editor&op2=newbuff&id=".$row['buffid']);
@@ -278,8 +278,8 @@
 			break;
 		case "delbuff":
 			$id = httpget('id');
-			$sql = "DELETE FROM ".db_prefix("itembuffs")." WHERE buffid = $id LIMIT 1";
-			$result = db_query($sql);
+			$sql = "DELETE FROM ".DB::prefix("itembuffs")." WHERE buffid = $id LIMIT 1";
+			$result = DB::query($sql);
 			if (db_affected_rows($result)) output("Buff succesfully deleted.`n`n");
 			else output("While deleting this buffs an error occured. Probably someone else already deleted this buff.`n`n");
 	}

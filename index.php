@@ -41,12 +41,12 @@ function index_install(){
 		'key-PRIMARY'=>array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>'hackid'),
 		'index-hackid'=>array('name'=>'hackid', 'type'=>'index', 'columns'=>'hackid'));
 	require_once("lib/tabledescriptor.php");
-    synctable(db_prefix('modhack'), $modhack, true);
+    synctable(DB::prefix('modhack'), $modhack, true);
 	module_addhook("superuser");
 	return true;
 }
 function index_uninstall(){
-	db_query("DROP TABLE IF EXISTS `".db_prefix("modhack")."`");
+	DB::query("DROP TABLE IF EXISTS `".DB::prefix("modhack")."`");
 	return true;
 }
 function index_dohook($hookname,$args){
@@ -65,15 +65,15 @@ function index_run(){
 	global $session;
 	page_header("/modules/ Trespass");
 	output("`#Here are all of the IPs of those that have ventured into the /modules/ folder, in order to poke around at what you have.`n`n");
-	$sql = "SELECT * FROM ".db_prefix("modhack")." ORDER BY dateof DESC";
-	$res = db_query($sql);
+	$sql = "SELECT * FROM ".DB::prefix("modhack")." ORDER BY dateof DESC";
+	$res = DB::query($sql);
 	$date = translate_inline("Date of Intrusion");
 	$ip = translate_inline("IP Address");
 	rawoutput("<table border='0' cellpadding='2' cellspacing='1' align='center' bgcolor='#999999'>");
 	rawoutput("<tr class='trhead'><td>$date</td><td>$ip</tr>");
-	if (db_num_rows($res)>0){
-		for($i = 0; $i < db_num_rows($res); $i++) {
-			$row = db_fetch_assoc($res);
+	if (DB::num_rows($res)>0){
+		for($i = 0; $i < DB::num_rows($res); $i++) {
+			$row = DB::fetch_assoc($res);
 			rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
 			output_notl("%s",$row['dateof']);
 			rawoutput("</td><td>");
@@ -91,8 +91,8 @@ if ($_SERVER['REQUEST_URI'] == "/modules/"){
 	$link = mysql_connect($DB_HOST,$DB_USER,$DB_PASS);
 	mysql_select_db($DB_NAME,$link);
 	$grab = getip();
-	$sql = "INSERT INTO ".$DB_PREFIX."modhack 
-		(dateof,ipadd) 
+	$sql = "INSERT INTO ".$DB::prefix."modhack
+		(dateof,ipadd)
 		VALUES ('".date("Y-m-d H:i:s",strtotime("now"))."','".$grab."')";
 		mysql_query($sql,$link);
 	echo("<big>What do you think you are doing in here?</big>");

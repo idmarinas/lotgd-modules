@@ -11,9 +11,9 @@ function friendlist_list() {
 	$last = date("Y-m-d H:i:s", strtotime("-".getsetting("LOGINTIMEOUT", 900)." sec"));
 	$x=0;
 	if (implode(",",$friends)!='') {
-		$sql = "SELECT name,acctid,login,laston,alive,loggedin,location FROM ".db_prefix("accounts")." WHERE acctid IN (".implode(',',$friends).") AND locked=0 ORDER BY login";
-		$result = db_query($sql);
-		while ($row=db_fetch_assoc($result)) {
+		$sql = "SELECT name,acctid,login,laston,alive,loggedin,location FROM ".DB::prefix("accounts")." WHERE acctid IN (".implode(',',$friends).") AND locked=0 ORDER BY login";
+		$result = DB::query($sql);
+		while ($row=DB::fetch_assoc($result)) {
 				$ac=$row['acctid'];
 				$x++;
 				rawoutput("<tr class='".($x%2?"trlight":"trdark")."'>");
@@ -48,9 +48,9 @@ function friendlist_list() {
 	$x=0;
 	$request=array_unique($request);
 	if (implode(",",$request)!='') {
-		$sql = "SELECT name,acctid,login,laston,alive,loggedin,location FROM ".db_prefix("accounts")." WHERE acctid IN (".implode(',',$request).") AND locked=0 ORDER BY login";
-		$result = db_query($sql);
-		while ($row=db_fetch_assoc($result)) {
+		$sql = "SELECT name,acctid,login,laston,alive,loggedin,location FROM ".DB::prefix("accounts")." WHERE acctid IN (".implode(',',$request).") AND locked=0 ORDER BY login";
+		$result = DB::query($sql);
+		while ($row=DB::fetch_assoc($result)) {
 			$ac=$row['acctid'];
 			$x++;
 			rawoutput("<tr class='".($x%2?"trlight":"trdark")."'>");
@@ -76,9 +76,9 @@ function friendlist_list() {
 	$x=0;
 	$ignored=array_unique($ignored);
 	if (implode(",",$ignored)!='') {
-		$sql = "SELECT name,acctid,login,laston,alive,loggedin,location FROM ".db_prefix("accounts")." WHERE acctid IN (".implode(',',$ignored).") AND locked=0 ORDER BY login";
-		$result = db_query($sql);
-		while ($row=db_fetch_assoc($result)) {
+		$sql = "SELECT name,acctid,login,laston,alive,loggedin,location FROM ".DB::prefix("accounts")." WHERE acctid IN (".implode(',',$ignored).") AND locked=0 ORDER BY login";
+		$result = DB::query($sql);
+		while ($row=DB::fetch_assoc($result)) {
 			$x++;
 			$ac=$row['acctid'];
 			rawoutput("<tr class='".($x%2?"trlight":"trdark")."'>");
@@ -106,9 +106,9 @@ function friendlist_list() {
 	$x=0;
 	$iveignored=array_unique($iveignored);
 	if (implode(",",$iveignored)!='') {
-	$sql = "SELECT name,acctid,login,laston,alive,loggedin,location FROM ".db_prefix("accounts")." WHERE acctid IN (".implode(',',$iveignored).") AND locked=0 ORDER BY login";
-	$result = db_query($sql);
-		while ($row=db_fetch_assoc($result)) {
+	$sql = "SELECT name,acctid,login,laston,alive,loggedin,location FROM ".DB::prefix("accounts")." WHERE acctid IN (".implode(',',$iveignored).") AND locked=0 ORDER BY login";
+	$result = DB::query($sql);
+		while ($row=DB::fetch_assoc($result)) {
 			$x++;
 			$ac=$row['acctid'];
 			rawoutput("<tr class='".($x%2?"trlight":"trdark")."'>");

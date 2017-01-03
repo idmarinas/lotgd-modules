@@ -88,10 +88,10 @@ function mountaccessories_run(){
 			$accs = get_default_accs_list();
 			output("Here we have the editing screen.  Follow the format you see already, seperating parameters from their values with '=>' and using ';;' to denote a new line.  Leave the last line without the ';;' and everything should be fine.`n`n");
 			output("Here are the ID's of all your Mounts, which will come in handy:`n");
-			$sql = "SELECT mountid, mountname FROM " . db_prefix("mounts");
-			$result = db_query($sql);
-			for ($i=0;$i<db_num_rows($result);$i++){
-				$row = db_fetch_assoc($result);
+			$sql = "SELECT mountid, mountname FROM " . DB::prefix("mounts");
+			$result = DB::query($sql);
+			for ($i=0;$i<DB::num_rows($result);$i++){
+				$row = DB::fetch_assoc($result);
 				output("%s: %s`n",$row['mountid'],$row['mountname']);
 			}
 			output("`n`nDefault stuff which affects Mount Accessories in core:`n`ndisplayname - shown in stables`ngoldcost`ngemcost`nhidefromstables`nnewdaymsg`nturns`nbuffname`nbuffrounds`nbuffwearoffmsg`nbuffeffectmsg`nbuffnodmgmsg`nbuffeffectfailmsg`nbuffatkmod`nbuffdefmod`nbuffinvulnerable`nbuffregen`nbuffminioncount`nbuffminbadguydamage`nbuffmaxbadguydamage`nbuffmingoodguydamage`nbuffmaxgoodguydamage`nbufflifetap`nbuffdamageshield`nbuffbadguydmgmod`nbuffbadguyatkmod`nbuffbadguydefmod`n`nFormatting:`ndisplayname=>Sexy Accessory;;`ngoldcost=>500;;`nturns=>10`nNote the lack of ;; on the last line.`nHave fun!`n`n");
@@ -148,10 +148,10 @@ function mountaccessories_run(){
 			page_header("Add a new Mount Accessory");
 			output("Now we're going to add a new Mount Accessory.  This has to be parsed so that it can be turned back into an array, so follow the format you'll see below, seperating parameters from their values with '=>' and using ';;' to denote a new line.  Insert an internal name or ID for the mount accessory in the first input box - probably better to keep this value URL-friendly, IE lower-case and no spaces.  Leave the last line without the ';;' and everything should be fine.`n`n");
 			output("Here are the ID's of all your Mounts, which will come in handy:`n");
-			$sql = "SELECT mountid, mountname FROM " . db_prefix("mounts");
-			$result = db_query($sql);
-			for ($i=0;$i<db_num_rows($result);$i++){
-				$row = db_fetch_assoc($result);
+			$sql = "SELECT mountid, mountname FROM " . DB::prefix("mounts");
+			$result = DB::query($sql);
+			for ($i=0;$i<DB::num_rows($result);$i++){
+				$row = DB::fetch_assoc($result);
 				output("%s: %s`n",$row['mountid'],$row['mountname']);
 			}
 			output("`n`nDefault stuff which affects Mount Accessories in core:`n`ndisplayname - shown in stables`ngoldcost`ngemcost`nhidefromstables`nnewdaymsg`nturns`nbuffname`nbuffrounds`nbuffwearoffmsg`nbuffeffectmsg`nbuffnodmgmsg`nbuffeffectfailmsg`nbuffatkmod`nbuffdefmod`nbuffinvulnerable`nbuffregen`nbuffminioncount`nbuffminbadguydamage`nbuffmaxbadguydamage`nbuffmingoodguydamage`nbuffmaxgoodguydamage`nbufflifetap`nbuffdamageshield`nbuffbadguydmgmod`nbuffbadguyatkmod`nbuffbadguydefmod`n`nFormatting:`ndisplayname=>Sexy Accessory;;`ngoldcost=>500;;`nturns=>10`nNote the lack of ;; on the last line.`nHave fun!`n`n");
@@ -182,13 +182,13 @@ function mountaccessories_run(){
 			}
 			debug("Is this a full, reconstructed Accessory?");
 			debug($accname);
-			
+
 			$allaccs = get_default_accs_list();
 			$allaccs[$accname] = $newacc;
-			
+
 			debug("Is this the proper Accessories array?");
 			debug($allaccs);
-			
+
 			set_module_setting("accessories",serialize($allaccs),"mountaccessories");
 			output("The new accessory has been saved.");
 			addnav("Back to the Grotto","superuser.php");

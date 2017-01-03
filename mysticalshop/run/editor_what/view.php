@@ -10,9 +10,9 @@ $edit = translate_inline("Edit");
 $del = translate_inline("Delete");
 $give = translate_inline("Preview");
 $delconfirm = translate_inline("Are you sure you wish to delete this item?");
-$sql = 'SELECT * FROM '.db_prefix( 'magicitems' ).' WHERE id>=0 AND category='.$cat.' ORDER BY gold';
-$result = db_query_cached( $sql, 'modules-mysticalshop-view-'.$cat, 3600 );
-$count = db_num_rows($result);
+$sql = 'SELECT * FROM '.DB::prefix( 'magicitems' ).' WHERE id>=0 AND category='.$cat.' ORDER BY gold';
+$result = DB::query_cached( $sql, 'modules-mysticalshop-view-'.$cat, 3600 );
+$count = DB::num_rows($result);
 if ($count == 0){
 	if( $cat != 100 )
 		output( '`6No items in %s department on record yet.`0', $names[$cat] );
@@ -28,7 +28,7 @@ if ($count == 0){
 	rawoutput( '<table cellspacing="2" cellpadding="2" width="100%">' );
 	rawoutput( '<tr class="trhead"><td>'.$ops.'</td><td>'.$itemid.'</td><td>'.$name.'</td><td>'.$goldc.'</td><td>'.$gemc.'</td><td>'.$cate.'</td></tr>' );
 	$i = false;
-	while($row = db_fetch_assoc($result)){
+	while($row = DB::fetch_assoc($result)){
 		$id = $row['id'];
 		$cat = $row['category'];
 		$class = $i ? 'trlight' : 'trdark';

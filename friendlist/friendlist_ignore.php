@@ -5,10 +5,10 @@ function friendlist_ignore() {
 	$friends = rexplode(get_module_pref('friends'));
 	$request = rexplode(get_module_pref('request'));
 	$ac = httpget('ac');
-	$sql = "SELECT name FROM ".db_prefix("accounts")." WHERE acctid=$ac AND locked=0";
-	$result = db_query($sql);
-	if (db_num_rows($result)>0&&in_array($ac,$friends)) {
-		$row=db_fetch_assoc($result);
+	$sql = "SELECT name FROM ".DB::prefix("accounts")." WHERE acctid=$ac AND locked=0";
+	$result = DB::query($sql);
+	if (DB::num_rows($result)>0&&in_array($ac,$friends)) {
+		$row=DB::fetch_assoc($result);
 		require_once("lib/systemmail.php");
 		$t = "`\$Friend List Ignore";
 		$mailmessage=array("%s`0`@ has added you to %s ignore list.",$session['user']['name'],($session['user']['sex']?translate_inline("her"):translate_inline("his")));

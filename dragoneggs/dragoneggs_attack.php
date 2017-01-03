@@ -8,9 +8,9 @@ function dragoneggs_attack(){
 	if ($monster==1){
 		//Fire Hound
 		$level=max(1,$session['user']['level']-1);
-		$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel = $level AND forest=1 ORDER BY rand(".e_rand().") LIMIT 1";
-		$result = db_query($sql);
-		$badguy = db_fetch_assoc($result);
+		$sql = "SELECT * FROM " . DB::prefix("creatures") . " WHERE creaturelevel = $level AND forest=1 ORDER BY rand(".e_rand().") LIMIT 1";
+		$result = DB::query($sql);
+		$badguy = DB::fetch_assoc($result);
 		$badguy = modulehook("buffbadguy", $badguy);
 		$name=translate_inline("`4Fire Hound");
 		$weapon=translate_inline("Blistering Bites");
@@ -92,9 +92,9 @@ function dragoneggs_attack(){
 	}elseif ($monster==11){
 		//Stalagaryth
 		$level=$session['user']['level']+1;
-		$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel = $level AND forest=1 ORDER BY rand(".e_rand().") LIMIT 1";
-		$result = db_query($sql);
-		$badguy = db_fetch_assoc($result);
+		$sql = "SELECT * FROM " . DB::prefix("creatures") . " WHERE creaturelevel = $level AND forest=1 ORDER BY rand(".e_rand().") LIMIT 1";
+		$result = DB::query($sql);
+		$badguy = DB::fetch_assoc($result);
 		$badguy = modulehook("buffbadguy", $badguy);
 		$name=translate_inline("Stalagaryth");
 		$weapon=translate_inline("Rock-like fists");
@@ -137,9 +137,9 @@ function dragoneggs_attack(){
 	}elseif ($monster==16){
 		//Dragon Sympathist
 		$level=$session['user']['level']+1;
-		$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel = $level AND forest=1 ORDER BY rand(".e_rand().") LIMIT 1";
-		$result = db_query($sql);
-		$badguy = db_fetch_assoc($result);
+		$sql = "SELECT * FROM " . DB::prefix("creatures") . " WHERE creaturelevel = $level AND forest=1 ORDER BY rand(".e_rand().") LIMIT 1";
+		$result = DB::query($sql);
+		$badguy = DB::fetch_assoc($result);
 		$badguy = modulehook("buffbadguy", $badguy);
 		$name=translate_inline("Dragon Sympathist");
 		$weapon=translate_inline("Poisoned Dagger");

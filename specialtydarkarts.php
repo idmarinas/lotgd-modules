@@ -20,30 +20,30 @@ function specialtydarkarts_getmoduleinfo(){
 }
 
 function specialtydarkarts_install(){
-	$sql = "DESCRIBE " . db_prefix("accounts");
-	$result = db_query($sql);
+	$sql = "DESCRIBE " . DB::prefix("accounts");
+	$result = DB::query($sql);
 	$specialty="DA";
-	while($row = db_fetch_assoc($result)) {
+	while($row = DB::fetch_assoc($result)) {
 		// Convert the user over
 		if ($row['Field'] == "darkarts") {
 			debug("Migrating darkarts field");
-			$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtydarkarts', 'skill', acctid, darkarts FROM " . db_prefix("accounts");
-			db_query($sql);
+			$sql = "INSERT INTO " . DB::prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtydarkarts', 'skill', acctid, darkarts FROM " . DB::prefix("accounts");
+			DB::query($sql);
 			debug("Dropping darkarts field from accounts table");
-			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP darkarts";
-			db_query($sql);
+			$sql = "ALTER TABLE " . DB::prefix("accounts") . " DROP darkarts";
+			DB::query($sql);
 		} elseif ($row['Field']=="darkartuses") {
 			debug("Migrating darkarts uses field");
-			$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtydarkarts', 'uses', acctid, darkartuses FROM " . db_prefix("accounts");
-			db_query($sql);
+			$sql = "INSERT INTO " . DB::prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtydarkarts', 'uses', acctid, darkartuses FROM " . DB::prefix("accounts");
+			DB::query($sql);
 			debug("Dropping darkartuses field from accounts table");
-			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP darkartuses";
-			db_query($sql);
+			$sql = "ALTER TABLE " . DB::prefix("accounts") . " DROP darkartuses";
+			DB::query($sql);
 		}
 	}
 	debug("Migrating Darkarts Specialty");
-	$sql = "UPDATE " . db_prefix("accounts") . " SET specialty='$specialty' WHERE specialty='1'";
-	db_query($sql);
+	$sql = "UPDATE " . DB::prefix("accounts") . " SET specialty='$specialty' WHERE specialty='1'";
+	DB::query($sql);
 
 	module_addhook("choose-specialty");
 	module_addhook("set-specialty");
@@ -61,8 +61,8 @@ function specialtydarkarts_install(){
 function specialtydarkarts_uninstall(){
 	// Reset the specialty of anyone who had this specialty so they get to
 	// rechoose at new day
-	$sql = "UPDATE " . db_prefix("accounts") . " SET specialty='' WHERE specialty='DA'";
-	db_query($sql);
+	$sql = "UPDATE " . DB::prefix("accounts") . " SET specialty='' WHERE specialty='DA'";
+	DB::query($sql);
 	return true;
 }
 

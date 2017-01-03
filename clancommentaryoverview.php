@@ -3,7 +3,7 @@
 // this is a module that allows players who are allowed to moderate clans to
 // get an overview of the recent commentary for all clans.
 
-// note that deletesticks™ and bansticks™ will not be available directly
+// note that deletesticksï¿½ and bansticksï¿½ will not be available directly
 // through this module.  the code for them was deliberately left out because
 // including them would duplicate a good chunk of core code into this module,
 // and the functionality of the sticks in question should be easily accessible
@@ -70,27 +70,27 @@ function clancommentaryoverview_run()
 	addnav("C?Commentary Overview", "moderate.php");
 
 	addnav("Clan Halls");
-	$sql = "SELECT clanid, clanname, clanshort FROM " . db_prefix("clans") . " ORDER BY clanid";
-	$res = db_query($sql);
+	$sql = "SELECT clanid, clanname, clanshort FROM " . DB::prefix("clans") . " ORDER BY clanid";
+	$res = DB::query($sql);
 	// since these are proper names, they shouldn't be translated
 	tlschema("notranslate");
-	while ($row=db_fetch_assoc($res)) {
+	while ($row=DB::fetch_assoc($res)) {
 		addnav(array("<%s> %s", $row['clanshort'], $row['clanname']),
 			"moderate.php?area=clan-{$row['clanid']}");
 	}
 	tlschema();
 
-	$sql = "SELECT clanid, clanname FROM " . db_prefix("clans") . " ORDER BY clanid";
-	$res = db_query($sql);
+	$sql = "SELECT clanid, clanname FROM " . DB::prefix("clans") . " ORDER BY clanid";
+	$res = DB::query($sql);
 
 	$firstclan=1;
 
-	while ($clan=db_fetch_assoc($res)) {
+	while ($clan=DB::fetch_assoc($res)) {
 		$cid = $clan['clanid'];
-		$csql = "SELECT * FROM " . db_prefix("commentary") . " WHERE section='clan-" . $cid . "' ORDER BY postdate DESC LIMIT " . $numcomments;
-		$cres = db_query($csql);
+		$csql = "SELECT * FROM " . DB::prefix("commentary") . " WHERE section='clan-" . $cid . "' ORDER BY postdate DESC LIMIT " . $numcomments;
+		$cres = DB::query($csql);
 
-		if (db_num_rows($cres)>0) {
+		if (DB::num_rows($cres)>0) {
 
 			if ($firstclan==1) {
 				$firstclan = 0;
@@ -112,7 +112,7 @@ function clancommentaryoverview_run()
 			output_notl("`n");
 
 			$carray = array();
-			while ($ccomment=db_fetch_assoc($cres)) array_push($carray, $ccomment);
+			while ($ccomment=DB::fetch_assoc($cres)) array_push($carray, $ccomment);
 			while ($ccomment=array_pop($carray)) clancommentaryoverview_displaycomment($ccomment);
 		}
 	}
@@ -150,11 +150,11 @@ function clancommentaryoverview_formattedtime($timestamp)
 
 function clancommentaryoverview_formattedauthor($acctid)
 {
-	$sql = "SELECT name, clanid, clanrank FROM " . db_prefix("accounts") . " WHERE acctid=" . $acctid;
-	$res = db_query($sql);
+	$sql = "SELECT name, clanid, clanrank FROM " . DB::prefix("accounts") . " WHERE acctid=" . $acctid;
+	$res = DB::query($sql);
 
-	if (db_num_rows($res)>0) {
-		$row = db_fetch_assoc($res);
+	if (DB::num_rows($res)>0) {
+		$row = DB::fetch_assoc($res);
 		$tag = clancommentaryoverview_formattedclantag($row['clanid'], $row['clanrank']);
 		if ($tag != "") $tag .= " ";
 		return ($tag . "`&" . $row['name']);
@@ -167,9 +167,9 @@ function clancommentaryoverview_formattedclantag($clanid, $clanrank)
 {
 	if ($clanrank==0) return "";
 
-	$sql = "SELECT clanid, clanshort FROM " . db_prefix("clans") . " WHERE clanid=" . $clanid;
-	$res = db_query($sql);
-	if ($row=db_fetch_assoc($res)) {
+	$sql = "SELECT clanid, clanshort FROM " . DB::prefix("clans") . " WHERE clanid=" . $clanid;
+	$res = DB::query($sql);
+	if ($row=DB::fetch_assoc($res)) {
 		$clanshort = $row['clanshort'];
 
 		if ($clanrank==1) return ("`#<`2$clanshort`#>`0");

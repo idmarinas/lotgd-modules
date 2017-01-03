@@ -52,29 +52,29 @@ function inventorypopup_run(){
 	mydefine("HOOK_TRAIN", 32);
 	mydefine("HOOK_INVENTORY", 64);
 
-	$item = db_prefix("item");
-	$inventory = db_prefix("inventory");
+	$item = DB::prefix("item");
+	$inventory = DB::prefix("inventory");
 	$op2 = httpget('op2');
 	$id = httpget('id');
 	switch($op2) {
 		case "equip":
 			$thing = get_item((int)$id);
 			$sql = "SELECT $inventory.itemid FROM $inventory INNER JOIN $item ON $inventory.itemid = $item.itemid WHERE $item.equipwhere = '".$thing['equipwhere']."' AND $inventory.equipped = 1";
-			$result = db_query($sql);
-			while ($row = db_fetch_assoc($result)) $wh[] = $row['itemid'];
+			$result = DB::query($sql);
+			while ($row = DB::fetch_assoc($result)) $wh[] = $row['itemid'];
 			if (is_array($wh) && count($wh)) {
 				modulehook("unequip-item", array("ids"=>$wh));
 				$sql = "UPDATE $inventory SET equipped = 0 WHERE itemid IN (".join(",",$wh).")";
-				db_query($sql);
+				DB::query($sql);
 			}
 			modulehook("equip-item", array("id"=>$id));
 			$sql = "UPDATE $inventory SET equipped = 1 WHERE itemid = $id AND userid = {$session['user']['acctid']} LIMIT 1";
-			$result = db_query($sql);
+			$result = DB::query($sql);
 		break;
 		case "unequip":
 			modulehook("unequip-item", array("ids"=>array($id)));
 			$sql = "UPDATE $inventory SET equipped = 0 WHERE itemid = $id AND userid = {$session['user']['acctid']}";
-			$result = db_query($sql);
+			$result = DB::query($sql);
 		break;
 		case "drop":
 			$id = httpget('id');
@@ -123,19 +123,19 @@ function inventorypopup_run(){
 				GROUP BY $inventory.itemid
 				ORDER BY $item.class ASC, $item.name ASC";
 	/*$item.equippable = 0 AND*/
-	$result = db_query($sql);
+	$result = DB::query($sql);
 	$inventory = [];
 	$layout = [];
-	while($row = db_fetch_assoc($result)) {
+	while($row = DB::fetch_assoc($result)) {
 		$layout[] = $row['class'];
 		$inventory[$row['class']][] = $row;
 	}
 	$inventory = modulehook('inventorypopup-inventory', ['layout' => $layout, 'inventory' => $inventory]);
-	inventory_showform(array_unique($inventory['layout']), $inventory['inventory']);
+	inventory_lotgd_showform(array_unique($inventory['layout']), $inventory['inventory']);
 	popup_footer();
 }
 
-function inventory_showform($layout,$row)
+function inventory_lotgd_showform($layout,$row)
 {
 	global $session;
  	static $showform_id=0;

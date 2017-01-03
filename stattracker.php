@@ -120,9 +120,9 @@ function stattracker_dohook($hookname,$args){
 
 			$perpage = get_module_setting("perpage");
 			$arrayrow=get_module_pref("numentries");
-			$sql = "SELECT name,dragonkills FROM " . db_prefix("accounts") . " WHERE acctid=$id";
-			$result = db_query($sql);
-			$row = db_fetch_assoc($result);
+			$sql = "SELECT name,dragonkills FROM " . DB::prefix("accounts") . " WHERE acctid=$id";
+			$result = DB::query($sql);
+			$row = DB::fetch_assoc($result);
 			$dragonkills=$row['dragonkills'];
 
 			if($perpage<$arrayrow){
@@ -237,9 +237,9 @@ function stattracker_run(){
 	case "viewstats":
 		//get the arrays and information
 		$arrayrow=get_module_pref("numentries", "stattracker", $id);
-		$sql = "SELECT name,dragonkills FROM " . db_prefix("accounts") . " WHERE acctid=$id";
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
+		$sql = "SELECT name,dragonkills FROM " . DB::prefix("accounts") . " WHERE acctid=$id";
+		$result = DB::query($sql);
+		$row = DB::fetch_assoc($result);
 		$dragonkills=$row['dragonkills'];
 
 		$numpvp=unserialize(get_module_pref("numpvp", "stattracker", $id));

@@ -41,9 +41,9 @@ function drinks_dohook_private($hookname,$args) {
 			$hard = "AND harddrink=0";
 		}
 		output("`n`n`7You now feel %s.`n`n", $drunklist[$drunk]);
-		$sql = "SELECT * FROM " . db_prefix("drinks") . " WHERE active=1 $hard ORDER BY costperlevel";
-		$result = db_query($sql);
-		while ($row = db_fetch_assoc($result)) {
+		$sql = "SELECT * FROM " . DB::prefix("drinks") . " WHERE active=1 $hard ORDER BY costperlevel";
+		$result = DB::query($sql);
+		while ($row = DB::fetch_assoc($result)) {
 			$row['allowdrink'] = 1;
 			$row = modulehook("drinks-check", $row);
 			if ($row['allowdrink']) {

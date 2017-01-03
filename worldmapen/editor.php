@@ -84,7 +84,7 @@ function worldmapen_editor_manual($op, $subop, $act) {
 
 	require_once("lib/showform.php");
 	global $module_settings;
-	showform($worldarray, $module_settings['worldmapen']);
+	lotgd_showform($worldarray, $module_settings['worldmapen']);
 	rawoutput("</form>");
 
 	addnav("","runmodule.php?module=worldmapen&op=edit&subop=manual&act=save&admin=true");

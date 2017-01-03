@@ -2,9 +2,9 @@
 $giftid = get_module_pref("giftid");
 if( is_numeric( $giftid ) )
 {
-	$sql = 'SELECT * FROM '.db_prefix('magicitems').' WHERE id='.$giftid.' LIMIT 1';
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = 'SELECT * FROM '.DB::prefix('magicitems').' WHERE id='.$giftid.' LIMIT 1';
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$gift = $row['name'];
 	$verbose = $row['bigdesc'];
 	output("`2%s `2 sets out `^%s `2for you to see.`n`n", $shopkeep, $gift);

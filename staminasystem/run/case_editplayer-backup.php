@@ -20,18 +20,18 @@ if($op2 == "search"){
 		$search .= substr($n,$x,1)."%";
 	}
 	$search=" AND name LIKE '".addslashes($search)."' ";
-	$sql = "SELECT acctid, name FROM " . db_prefix("accounts") . " WHERE locked=0 $search ORDER BY name DESC ";
-	$result = db_query($sql);
-	
+	$sql = "SELECT acctid, name FROM " . DB::prefix("accounts") . " WHERE locked=0 $search ORDER BY name DESC ";
+	$result = DB::query($sql);
+
 	output("Following players were found, and would be trembling in their boots if they knew what you were doing:`n`n");
-	
-	for($i=0;$i < db_num_rows($result);$i++){
-		$row = db_fetch_assoc($result);
+
+	for($i=0;$i < DB::num_rows($result);$i++){
+		$row = DB::fetch_assoc($result);
 		addnav("","runmodule.php?module=staminasystem&op=editplayer&op2=edit&id=".$row['acctid']."");
 		output_notl("<a href='runmodule.php?module=staminasystem&op=editplayer&op2=edit&id=".$row['acctid']."'>".$row['name']."</a>",true);
 		output("`n");
 	}
-	if(db_num_rows($result) == 0 ){
+	if(DB::num_rows($result) == 0 ){
 		output("Nobody came up in the search!  Computer says no.");
 	}
 	addnav("Return");
@@ -70,7 +70,7 @@ if($op2 == "edit" ){
 if($op2 == "save"){
 	$userid = httpget('id');
 	$postedactions = httpallpost();
-	
+
 	foreach($postedactions AS $action => $details){
 		$action = str_replace("_"," ",$action);
 		$detailsexploded = explode(",",$details);
@@ -82,12 +82,12 @@ if($op2 == "save"){
 			}
 		}
 	}
-	
+
 	debug("Is this a full, reconstructed Actions array for this player?");
 	debug($actionsarray);
 	set_module_pref("actions",serialize($actionsarray),"staminasystem",$userid);
 	output("Actions have been saved.");
-	
+
 	addnav("Return");
 	addnav("Search again","runmodule.php?module=staminasystem&op=editplayer");
 	addnav("Return","runmodule.php?module=staminasystem&op=superuser");

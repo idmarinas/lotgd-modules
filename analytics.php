@@ -20,7 +20,7 @@ function analytics_install(){
 		'key-PRIMARY'=>array('name'=>'PRIMARY', 'type'=>'primary key',	'unique'=>'1', 'columns'=>'acctid'),
 	);
 	require_once("lib/tabledescriptor.php");
-	synctable(db_prefix('expchars'), $expchars, true);
+	synctable(DB::prefix('expchars'), $expchars, true);
 
 	module_addhook("superuser");
 	module_addhook("delete_character");
@@ -37,14 +37,14 @@ function analytics_dohook($hookname,$args){
 		addnav("Analytics","runmodule.php?module=analytics");
 		break;
 	case "delete_character":
-		$sql = "SELECT * FROM ".db_prefix("accounts")." WHERE acctid='{$args['acctid']}'";
-		$result = db_query($sql);
-		if (db_num_rows($result) > 0){
-			$row = db_fetch_assoc($result);
+		$sql = "SELECT * FROM ".DB::prefix("accounts")." WHERE acctid='{$args['acctid']}'";
+		$result = DB::query($sql);
+		if (DB::num_rows($result) > 0){
+			$row = DB::fetch_assoc($result);
 			debug($row);
-			$sql = "INSERT INTO ".db_prefix("expchars")." (acctid,dateexpired,datecreated,donation) VALUES ('" . $row['acctid'] . "','" . date("Y-m-d") . "','" . $row['regdate'] . "','" . $row['donation'] . "')";
+			$sql = "INSERT INTO ".DB::prefix("expchars")." (acctid,dateexpired,datecreated,donation) VALUES ('" . $row['acctid'] . "','" . date("Y-m-d") . "','" . $row['regdate'] . "','" . $row['donation'] . "')";
 			debug($sql);
-			db_query($sql);
+			DB::query($sql);
 		}
 		break;
 	}
@@ -61,20 +61,20 @@ function analytics_run(){
 	$players = array();
 
 	//get current accounts, put into an array
-	$cursql = "SELECT regdate, donation FROM " . db_prefix("accounts") . "";
-	$curresult = db_query($cursql);
-	for ($i=0;$i<db_num_rows($curresult);$i++){
-		$currow = db_fetch_assoc($curresult);
+	$cursql = "SELECT regdate, donation FROM " . DB::prefix("accounts") . "";
+	$curresult = DB::query($cursql);
+	for ($i=0;$i<DB::num_rows($curresult);$i++){
+		$currow = DB::fetch_assoc($curresult);
 		$trimdate = substr($currow['regdate'],0,10);
 		$players[$trimdate]['stillalive']['characters'] += 1;
 		$players[$trimdate]['stillalive']['donation'] += $currow['donation'];
 	}
 
 	//get expired accounts, put into an array
-	$expsql = "SELECT * FROM " . db_prefix("expchars") . "";
-	$expresult = db_query($expsql);
-	for ($i=0;$i<db_num_rows($expresult);$i++){
-		$exprow = db_fetch_assoc($expresult);
+	$expsql = "SELECT * FROM " . DB::prefix("expchars") . "";
+	$expresult = DB::query($expsql);
+	for ($i=0;$i<DB::num_rows($expresult);$i++){
+		$exprow = DB::fetch_assoc($expresult);
 		$trimdate = substr($exprow['datecreated'],0,10);
 		$players[$trimdate]['dead']['characters'] += 1;
 		$players[$trimdate]['dead']['donation'] += $exprow['donation'];
@@ -107,9 +107,9 @@ function analytics_run(){
 	// $today=date("Y-m-d");
 	// $j=0;
 	// $cumul = 0;
-	// $number=db_num_rows($result);
+	// $number=DB::num_rows($result);
 	// for ($i=0;$i<$number;$i++){
-		// $row = db_fetch_assoc($result);
+		// $row = DB::fetch_assoc($result);
 		// $diff = (strtotime($odate)-strtotime($row['d']))/86400;
 		// $class=(date("W",strtotime($row['d']))%2?"trlight":"trdark");
 		// $cumul+=$row['c'];

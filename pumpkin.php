@@ -77,10 +77,10 @@ function pumpkin_dohook($hookname, $args){
 		$winner=get_module_setting("winner");
 		if ($session['user']['location']==get_module_setting("pumpkinloc") &&
 				$winner>0){
-			$sql = "SELECT name FROM ". db_prefix("accounts") .
+			$sql = "SELECT name FROM ". DB::prefix("accounts") .
 				" WHERE acctid='$winner'";
-			$result = db_query_cached($sql, "pumpkinwinner");
-			$row = db_fetch_assoc($result);
+			$result = DB::query_cached($sql, "pumpkinwinner");
+			$row = DB::fetch_assoc($result);
 			output("`n`QA very intricately carved pumpkin sits on a pedestal, with a shiny placard reading \"`&%s`Q\".`n",$row['name']);
 		}
 		break;

@@ -32,9 +32,9 @@ function allmodulegroup_dohook($hookname,$args){
 			if($session['user']['superuser'] & SU_EDIT_COMMENTS) {
 				tlschema("modulemanage");
 				addnav("Module Categories");
-				$sql = "SELECT count(*) as Anzahl FROM " . db_prefix("modules");
-				$result = db_query($sql);
-				$row = db_fetch_assoc($result);
+				$sql = "SELECT count(*) as Anzahl FROM " . DB::prefix("modules");
+				$result = DB::query($sql);
+				$row = DB::fetch_assoc($result);
 				$count=$row['Anzahl'];
 				addnav(array("Installierte Module (%s)",$count),"runmodule.php?module=allmodulegroup&op=active");
 			}
@@ -75,9 +75,9 @@ function allmodulegroup_run() {
 	foreach ($seencats as $cat=>$count) {
 		addnav(array(" ?%s - (%s modules)", $cat, $count), "modules.php?cat=$cat");
 	}
-	$sql = "SELECT count(*) as Anzahl FROM " . db_prefix("modules");
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
+	$sql = "SELECT count(*) as Anzahl FROM " . DB::prefix("modules");
+	$result = DB::query($sql);
+	$row = DB::fetch_assoc($result);
 	$count=$row['Anzahl'];
 	addnav(array("Installierte Module (%s)",$count),"runmodule.php?module=allmodulegroup&op=active");
 
@@ -110,18 +110,18 @@ function allmodulegroup_run() {
 		rawoutput("  <td>$inon</td>");
 		rawoutput(" </tr>");
 
-		$sql = "SELECT * FROM " . db_prefix("modules") . " ORDER BY active ASC, category ASC";
-		$result = db_query($sql);
-		if (db_num_rows($result)==0){
+		$sql = "SELECT * FROM " . DB::prefix("modules") . " ORDER BY active ASC, category ASC";
+		$result = DB::query($sql);
+		if (DB::num_rows($result)==0){
 			rawoutput(" <tr class='trlight'>");
 			rawoutput("  <td colspan='6' align='center'>");
 			output("`i-- No Modules Installed--`i");
 			rawoutput("  </td>");
 			rawoutput(" </tr>");
 		}
-		
-		for ($i=0;$i<db_num_rows($result);$i++){
-			$row = db_fetch_assoc($result);
+
+		for ($i=0;$i<DB::num_rows($result);$i++){
+			$row = DB::fetch_assoc($result);
 			rawoutput(" <tr class='".($i%2?"trlight":"trdark")."'>",true);
 			rawoutput("  <td nowrap valign='top'>");
 			rawoutput("   <input type='checkbox' name='module[]' value=\"{$row['modulename']}\">");
@@ -131,7 +131,7 @@ function allmodulegroup_run() {
 			output_notl($activate);
 			rawoutput("</a>");
 			addnav("","modules.php?op=activate&module={$row['modulename']}");
-		
+
 			rawoutput(" |<a href='modules.php?op=uninstall&module={$row['modulename']}' onClick='return confirm(\"$uninstallconfirm\");'>");
 			output_notl($uninstall);
 			rawoutput("</a>");
@@ -151,9 +151,9 @@ function allmodulegroup_run() {
 					output_notl(" | %s", $strnosettings);
 				}
 			}
-			
+
 			rawoutput(" ]</td><td valign='top'>");
-			output_notl($row['active']?$active:$inactive);			
+			output_notl($row['active']?$active:$inactive);
 			require_once("lib/sanitize.php");
 			rawoutput("</td><td nowrap valign='top'><span title=\"".
 					(isset($row['description'])&&$row['description']?
@@ -181,7 +181,7 @@ function allmodulegroup_run() {
 		rawoutput("<input type='submit' name='uninstall' class='button' value='$uninstall'>");
 		rawoutput("</form>");
 	}
-	
+
 	page_footer();
 }
 ?>

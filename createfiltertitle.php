@@ -31,15 +31,15 @@ function createfiltertitle_dohook($hookname, $args)
 {
 	switch ($hookname) {
 	case "check-create":
-		$sql = "SELECT male,female FROM ".db_prefix("titles");
-		$res = db_query($sql);
+		$sql = "SELECT male,female FROM ".DB::prefix("titles");
+		$res = DB::query($sql);
 
 		$errmsg =
 			translate_inline("Your name contains the in-game title \"%s\".");
 
 		$name = str_replace(" ", "", $args['name']);
 
-		while ($row = db_fetch_assoc($res)) {
+		while ($row = DB::fetch_assoc($res)) {
 			$tf = str_replace(" ", "", $row['female']);
 			$f1 = "/^" . $tf . "/i";
 			$f2 = "/" . $tf . "$/i";

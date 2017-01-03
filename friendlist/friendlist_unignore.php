@@ -5,10 +5,10 @@ function friendlist_unignore() {
 	$ignored = rexplode(get_module_pref('ignored','friendlist',$ac));
 	$iveignored = rexplode(get_module_pref('iveignored'));
 	if (in_array($ac,$iveignored)) {
-		$sql = "SELECT name FROM ".db_prefix("accounts")." WHERE acctid=$ac AND locked=0";
-		$result = db_query($sql);
-		if (db_num_rows($result)>0) {
-			$row=db_fetch_assoc($result);
+		$sql = "SELECT name FROM ".DB::prefix("accounts")." WHERE acctid=$ac AND locked=0";
+		$result = DB::query($sql);
+		if (DB::num_rows($result)>0) {
+			$row=DB::fetch_assoc($result);
 			$info = sprintf_translate("%s`Q has been removed from your list.",$row['name']);
 			require_once("lib/systemmail.php");
 			$t = array("`\$Ignore List Removal");

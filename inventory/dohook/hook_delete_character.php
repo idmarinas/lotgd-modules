@@ -1,5 +1,5 @@
 <?php
-	$inventory = db_prefix("inventory");
+	$inventory = DB::prefix("inventory");
 	$sql = "DELETE FROM $inventory WHERE userid = " . $args['acctid'];
-	db_query($sql);
+	DB::query($sql);
 ?>

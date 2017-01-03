@@ -45,8 +45,8 @@ function newbieisland_uninstall(){
 	global $session;
 	$vname = getsetting("villagename", LOCATION_FIELDS);
 	$gname = get_module_setting("villagename");
-	$sql = "UPDATE " . db_prefix("accounts") . " SET location='$vname' WHERE location = '$gname'";
-	db_query($sql);
+	$sql = "UPDATE " . DB::prefix("accounts") . " SET location='$vname' WHERE location = '$gname'";
+	DB::query($sql);
 	if ($session['user']['location'] == $gname)
 		$session['user']['location'] = $vname;
 	return true;
@@ -74,7 +74,7 @@ function newbieisland_dohook($hookname,$args){
 		if ($SCRIPT_NAME == "superuser.php") break;
 		// actually since we're doing this sorta globally, let's just
 		// do it globally.
-		
+
 		//## Para evitar problemas, no se bloquea ningún módulo por defecto
 		//####
 		// Block all modules by default
@@ -112,15 +112,15 @@ function newbieisland_dohook($hookname,$args){
 		// unblockmodule("deputymoderator");
 		// unblockmodule("unclean");
 		// unblockmodule("stattracker");
-		
+
 		//## Módulos bloqueados para el servidor
 		//-- Propios
 		blockmodule('itemshop');//Un jugador nuevo no podrá tener acceso a lo que se vende
 		blockmodule('buildingsystem');//No se prmite crear edificios ni tener acceso a ellos. La isla no tiene edificios
-		
+
 		//-- Ajenos
 		blockmodule('worldmapen');//Se debe usar la función de abandonar isla
-		
+
 		//Let newbies see the Travel FAQ
 		//Nobody ever looks at the FAQ more than once
 		//so newbies have to see it right at the start
@@ -148,16 +148,16 @@ function newbieisland_dohook($hookname,$args){
 		if ($args['setting'] == "villagename" && $args['module']=="newbieisland") {
 			if ($session['user']['location'] == $args['old'])
 				$session['user']['location'] = $args['new'];
-			$sql = "UPDATE " . db_prefix("accounts") .
+			$sql = "UPDATE " . DB::prefix("accounts") .
 				" SET location='" . addslashes($args['new']) .
 				"' WHERE location='" . addslashes($args['old']) . "'";
-			db_query($sql);
+			DB::query($sql);
 			if (is_module_active("cities")) {
-				$sql = "UPDATE " . db_prefix("module_userprefs") .
+				$sql = "UPDATE " . DB::prefix("module_userprefs") .
 					" SET value='" . addslashes($args['new']) .
 					"' WHERE modulename='cities' AND setting='homecity'" .
 					"AND value='" . addslashes($args['old']) . "'";
-				db_query($sql);
+				DB::query($sql);
 			}
 		}
 		break;
@@ -231,10 +231,10 @@ function newbieisland_dohook($hookname,$args){
 			$args['schemas']['talk'] = "module-newbieisland";
 			$new = get_module_setting("newest-$city", "cities");
 			if ($new != 0) {
-				$sql =  "SELECT name FROM " . db_prefix("accounts") .
+				$sql =  "SELECT name FROM " . DB::prefix("accounts") .
 					" WHERE acctid='$new'";
-				$result = db_query_cached($sql, "newest-$city");
-				$row = db_fetch_assoc($result);
+				$result = DB::query_cached($sql, "newest-$city");
+				$row = DB::fetch_assoc($result);
 				$args['newestplayer'] = $row['name'];
 				$args['newestid']=$new;
 			} else {
@@ -274,11 +274,11 @@ function newbieisland_dohook($hookname,$args){
 			blocknav("weapons.php");
 			// Make sure that Blusprings can show up on newbie island.
 			unblocknav("train.php");
-			
+
 			//## Bloquear módulos
 			//-- Ajenos
 			blockmodule('worldmapen');//Se debe usar la función de abandonar isla
-			
+
 			//if you want your module to appear in the newbie village, you'll have to hook on village
 			//and unblocknav() it.  I warn you, very very few modules will ever be allowed in the newbie
 			//village and get support for appearing in the core distribution; one of the major reasons

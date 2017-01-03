@@ -35,7 +35,7 @@ function serverbalance_dohook($hookname, $args){
 		case "dk-preserve":
 			$dk=$session['user']['dragonkills'];
 			$time=$session['user']['age'];
-			$timestat=get_module_objpref("Stats",$dk,"Time");			
+			$timestat=get_module_objpref("Stats",$dk,"Time");
 			if ($timestat) {
 				$timestat=($timestat+$time)/2; //yes, sure, this is not the arithmetic average...but it costs less time to calculate.
 			} else {
@@ -43,7 +43,7 @@ function serverbalance_dohook($hookname, $args){
 			}
 			set_module_objpref("Stats",$dk,"Time",$timestat);
 			$wealth=$session['user']['gold'];
-			$wealthstat=get_module_objpref("Stats",$wealth,"Wealth");			
+			$wealthstat=get_module_objpref("Stats",$wealth,"Wealth");
 			if ($wealthstat) {
 				$wealthstat=($wealthstat+$wealth)/2; //yes, sure, this is not the arithmetic average...but it costs less time to calculate.
 			} else {
@@ -52,7 +52,7 @@ function serverbalance_dohook($hookname, $args){
 			set_module_objpref("Stats",$dk,"Wealth",$wealthstat);
 			$people=get_module_objpref("All",$dk,"Players")+1;
 			set_module_objpref("All",$dk,"Players",$people);
-			break;	
+			break;
 	}
 	return $args;
 }
@@ -67,8 +67,8 @@ function serverbalance_run(){
 	addnav("Clear Stats","runmodule.php?module=serverbalance&op=clear");
 	switch ($op) {
 		case "clear":
-			$sql="DELETE FROM ".db_prefix("module_objprefs")." WHERE modulename='serverbalance' AND objtype='Stats';";
-			$result=db_query($sql);
+			$sql="DELETE FROM ".DB::prefix("module_objprefs")." WHERE modulename='serverbalance' AND objtype='Stats';";
+			$result=DB::query($sql);
 			if ($result) {
 				output("Stats cleared.");
 			} else {
@@ -78,16 +78,16 @@ function serverbalance_run(){
 		default:
 			$i=0;
 			$sql="SELECT a.value as time, b.value as wealth,a.objid as dk
-						FROM  ".db_prefix("module_objprefs")."  AS b 
-						LEFT JOIN  ".db_prefix("module_objprefs")." AS a 
+						FROM  ".DB::prefix("module_objprefs")."  AS b
+						LEFT JOIN  ".DB::prefix("module_objprefs")." AS a
 						ON a.objid = b.objid WHERE a.modulename='serverbalance' AND a.objtype='Stats' AND
 						b.modulename='serverbalance' AND b.objtype='Stats' AND
 						a.setting='Time' AND
 						a.setting<>b.setting";
-			$result = db_query($sql);
+			$result = DB::query($sql);
 			rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
 			rawoutput("<tr class='trhead'><td>". translate_inline("Dk-#")."</td><td>".translate_inline("Dragonage avg")."</td><td>".translate_inline("Gold avg")."</td><td>". translate_inline("#Players")."</td></tr>");
-			while ($row=db_fetch_assoc($result)) {
+			while ($row=DB::fetch_assoc($result)) {
 				rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
 				output_notl($row['dk']);
 				rawoutput("</td><td>");

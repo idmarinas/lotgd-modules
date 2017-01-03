@@ -49,7 +49,7 @@ if( !is_numeric( $rare ) ) $rare = 0;
 if( !is_numeric( $rarenum ) ) $rarenum = 0;
 //
 if ($itemid>0){
-	$sql = "UPDATE ".db_prefix("magicitems")."
+	$sql = "UPDATE ".DB::prefix("magicitems")."
 		SET category=$postcat,
 		name='$name',
 		description='$describe',
@@ -66,7 +66,7 @@ if ($itemid>0){
 		rare=$rare,
 		rarenum=$rarenum
 		WHERE id=$itemid";
-	db_query( $sql );
+	DB::query $sql );
 	output( '`6The item "`^%s`6" has been successfully edited.`n`n', $displayname );
 	if( getsetting( 'usedatacache', false ) && $cat != $postcat )
 	{
@@ -76,15 +76,15 @@ if ($itemid>0){
 		mysticalshop_massinvalidate( 'modules-mysticalshop-viewgoods-'.$cat );
 	}
 }else{
-	$sql = 'LOCK TABLES '.db_prefix( 'magicitems' ).' WRITE;';
-	db_query( $sql );
-	$sql = "INSERT INTO ".db_prefix("magicitems")."
+	$sql = 'LOCK TABLES '.DB::prefix( 'magicitems' ).' WRITE;';
+	DB::query $sql );
+	$sql = "INSERT INTO ".DB::prefix("magicitems")."
 	(category,name,description,gold,gems,dk,attack,defense,charm,hitpoints,turns,favor,bigdesc,rare,rarenum)
 	VALUES ($postcat,'$name','$describe',$gold,$gems,$dk,$attack,$defense,$charm,$hitpoints,$turns,$favor,'$bigdesc',$rare,$rarenum)";
-	db_query( $sql );
+	DB::query $sql );
 	$itemid = db_insert_id();
 	$sql = 'UNLOCK TABLES;';
-	db_query( $sql );
+	DB::query $sql );
 	output( '`6The item "`^%s`6" has been saved to the database.`n`n', $displayname );
 }
 
