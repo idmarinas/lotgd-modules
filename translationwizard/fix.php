@@ -11,7 +11,7 @@ switch ($mode)
 			$sql= "DELETE from " . DB::prefix("untranslated") . " using " . DB::prefix("untranslated") ." inner join " . DB::prefix("translations") . " on " . DB::prefix("untranslated") .".intext = " . DB::prefix("translations") . ".intext and " . DB::prefix("untranslated") .".namespace = " . DB::prefix("translations") . ".uri and " . DB::prefix("untranslated") .".language = " . DB::prefix("translations") . ".language;";
 			}
 		$result=DB::query($sql);
-		debug("Result back from SQL:".$result);
+		debug("Result back from SQL:".$result->count());
 		//done
 		output("The untranslated table has been fixed of possible, already translated parts.");
 		break;
