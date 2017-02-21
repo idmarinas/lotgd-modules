@@ -192,7 +192,7 @@ function stamina_get_active_buffs($action, $userid=false){
 	$actiondetails = get_player_action($action, $userid);
 
 	//debug($bufflist);
-
+	$active_action_buffs = [];
 	if (is_array($bufflist)) {
 		foreach($bufflist as $buff => $values){
 			if ($values['action'] == $action || $values['action']=="Global" || $values['class']==$actiondetails['class']){
@@ -425,8 +425,14 @@ function process_action($action, $userid=false) {
 	stamina_advance_buffs($action, $userid);
 	$info_to_return['lvlinfo'] = stamina_level_up($action, $userid);
 
-	$actions_used[$action]['exp_earned']+=$info_to_return['exp_earned'];
-	$actions_used[$action]['lvlinfo']=$info_to_return['lvlinfo'];
+	if (! isset($actions_used[$action]))
+	{
+		$actions_used[$action] = [];
+		$actions_used[$action]['exp_earned'] = 0;
+	}
+
+	$actions_used[$action]['exp_earned'] += $info_to_return['exp_earned'];
+	$actions_used[$action]['lvlinfo'] = $info_to_return['lvlinfo'];
 
 	//We want to put a ladder of some sort in here, where the player can see the player above them in the HOF and the player below them as well.
 
