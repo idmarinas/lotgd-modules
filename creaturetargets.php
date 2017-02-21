@@ -205,9 +205,14 @@ $args['target'.$i.'']['hitpoints'] = round((($args['creaturehealth']/100)*get_mo
 		$script = $args['script'];
 		require_once "modules/staminasystem/lib/lib.php";
 		$cost = stamina_getdisplaycost("Fighting - Targeted");
-		foreach ($enemies as $index=>$badguy) {
-			for ($i=1;$i<=6;$i++) {
-				if ($badguy['istarget']==1 && $badguy['target'.$i.'']['hitpoints']>0){
+		foreach ($enemies as $index=>$badguy)
+		{
+			for ($i=1;$i<=6;$i++)
+			{
+				if (! isset($badguy['target'.$i])) continue;
+
+				if ($badguy['istarget']==1 && $badguy['target'.$i]['hitpoints']>0)
+				{
 					addnav(array("Targeting (`Q+%s%%`0)",$cost));
 					addnav(array("Aim for the %s", $badguy['target'.$i.'']['name']),
 						$script."op=fight&skill=target&target=".$i."", true);

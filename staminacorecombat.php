@@ -107,8 +107,8 @@ function staminacorecombat_uninstall(){
 function staminacorecombat_dohook($hookname,$args){
 	global $session;
 	static $damagestart = 0;
-	switch($hookname){
-		
+	switch($hookname)
+	{
 	case "forest":
 		blocknav("forest.php?op=search");
 		blocknav("forest.php?op=search&type=slum");
@@ -149,29 +149,29 @@ function staminacorecombat_dohook($hookname,$args){
 		break;
 	case "startofround-prebuffs":
 		$process = httpget("stam");
-		
+
 		switch($process){
 			case "search":
 				$return = process_action("Hunting - Normal");
-				if ($return['lvlinfo']['levelledup']==true){
+				if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup']==true){
 					output("`c`b`0You gained a level in Looking for Trouble!  This action costs fewer Stamina points now, so you can find more beasties to aggress!`b`c`n`n");
 				}
 			break;
 			case "slum":
 				$return = process_action("Hunting - Easy Fights");
-				if ($return['lvlinfo']['levelledup']==true){
+				if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup']==true){
 					output("`c`b`0You gained a level in Looking for Easy Fights!  This action costs fewer Stamina points now, so you can pick on more small creatures!`b`c`n`n");
 				}
 			break;
 			case "thrill":
 				$return = process_action("Hunting - Big Trouble");
-				if ($return['lvlinfo']['levelledup']==true){
+				if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup']==true){
 					output("`c`b`0You gained a level in Looking for Big Trouble!  This action costs fewer Stamina points now, so you can throw yourself on the mercy of large creatures more often!`b`c`n`n");
 				}
 			break;
 			case "suicide":
 				$return = process_action("Hunting - Suicidal");
-				if ($return['lvlinfo']['levelledup']==true){
+				if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup']==true){
 					output("`c`b`0You gained a level in Looking for Really Big Trouble!  This action costs fewer Stamina points now, so you can put yourself in mortal danger more often!`b`c`n`n");
 				}
 			break;
@@ -185,18 +185,18 @@ function staminacorecombat_dohook($hookname,$args){
 		$damagetaken = $damagestart - $session['user']['hitpoints'];
 		if (httpget("stam")=="fight" || httpget("op")=="fight"){
 			$return = process_action("Fighting - Standard");
-			if ($return['lvlinfo']['levelledup']==true){
+			if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup']==true){
 				output("`n`c`b`0You gained a level in Standard Fighting!  You are now level %s!  This action will cost fewer Stamina points now.`b`c`n",$return['lvlinfo']['newlvl']);
 			}
 		} else if ((httpget("op")=="fight" && httpget("auto")) || (httpget("op")=="fight" && httpget("skill"))){
 			$return = process_action("Fighting - Standard");
-			if ($return['lvlinfo']['levelledup']==true){
+			if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup']==true){
 				output("`n`c`b`0You gained a level in Standard Fighting!  You are now level %s!  This action will cost fewer Stamina points now.`b`c`n",$return['lvlinfo']['newlvl']);
 			}
 		}
 		if (httpget("stam")=="run" || httpget("op")=="run"){
 			$return = process_action("Running Away");
-			if ($return['lvlinfo']['levelledup']==true){
+			if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup']==true){
 				output("`n`c`b`0You gained a level in Running Away!  You are now level %s!  This action will cost fewer Stamina points now, so you can run away like a cowardly dog more often!`b`c`n",$return['lvlinfo']['newlvl']);
 			}
 		}
@@ -206,7 +206,7 @@ function staminacorecombat_dohook($hookname,$args){
 			for ($i=0; $i<floor($reps); $i++){
 				$return = process_action("Taking It on the Chin");
 				$staminalost += $return['points_used'];
-				if ($return['lvlinfo']['levelledup']==true){
+				if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup']==true){
 					output("`n`c`b`0You gained a level in Taking It On The Chin!  You are now level %s!  This action will cost fewer Stamina points now, so getting beaten up will tire you out a little less.  Good thing, really!`b`c`n",$return['lvlinfo']['newlvl']);
 				}
 			}
@@ -220,7 +220,7 @@ function staminacorecombat_dohook($hookname,$args){
 function staminacorecombat_applystaminabuff(){
 	//increments and applies the Exhaustion Penalty
 	global $session;
-	
+
 	$amber = get_stamina();
 	if ($amber < 100){
 		//Gives a proportionate debuff from 1 to 0.2, at 2 decimal places each time
@@ -248,14 +248,14 @@ function staminacorecombat_applystaminabuff(){
 	} else {
 		strip_buff('stamina-corecombat-exhaustion');
 	}
-	
+
 	$red = get_stamina(0);
 	if ($red < 100){
 		$death = e_rand(0,100);
 		if ($death > $red){
 			output("`\$Vision blurring, you succumb to the effects of exhaustion.  You take a step forward to strike your enemy, but instead trip over your own feet.`nAs the carpet of leaves and twigs drifts lazily up to meet your face, you close your eyes and halfheartedly reach out your hands to cushion the blow - but they sail through the ground as if it were made out of clouds.`nYou fall.`nUnconsciousness.  How you'd missed it.`0");
 			$session['user']['hitpoints']=0;
-			
+
 			redirect("shades.php");
 		}
 	}
