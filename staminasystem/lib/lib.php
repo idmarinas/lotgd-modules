@@ -181,22 +181,30 @@ function stamina_calculate_buffed_exp($action, $userid=false){
 *******************************************************
 GET ACTIVE BUFFS
 Returns an array of buffs that relate to a particular action, or class of actions.
+$isClass determine if action is a class (category) and return only all buff with this class
 *******************************************************
 */
 
-function stamina_get_active_buffs($action, $userid=false){
+function stamina_get_active_buffs($action, $userid = false, $isClass = false)
+{
 	global $session;
 	if ($userid === false) $userid = $session['user']['acctid'];
 
 	$bufflist = unserialize(get_module_pref("buffs", "staminasystem", $userid));
-	$actiondetails = get_player_action($action, $userid);
 
-	//debug($bufflist);
 	$active_action_buffs = [];
-	if (is_array($bufflist)) {
-		foreach($bufflist as $buff => $values){
-			if ($values['action'] == $action || $values['action']=="Global" || $values['class']==$actiondetails['class']){
-				if (!$values['suspended']){
+	if (is_array($bufflist))
+	{
+		foreach($bufflist as $buff => $values)
+		{
+			if (
+				(! $isClass && ($values['action'] == $action || $values['action'] == 'Global'))
+				||
+				($isClass && $values['class'] == $action)
+			)
+			{
+				if (! isset($values['suspended']) || ! $values['suspended'])
+				{
 					//debug("not suspended!");
 					$active_action_buffs[$buff] = $values;
 				}
