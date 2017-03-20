@@ -1,5 +1,4 @@
 <?php
-define("OVERRIDE_FORCED_NAV",true);
 
 function mailoptions_getmoduleinfo(){
 	$info = array(
