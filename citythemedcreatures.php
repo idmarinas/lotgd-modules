@@ -81,4 +81,4 @@ function citythemedcreatures_dohook($hookname,$args) {
 }
 
 function citythemedcreatures_run(){}
-php?>
+?>
