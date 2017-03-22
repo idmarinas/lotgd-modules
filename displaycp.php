@@ -63,7 +63,7 @@ function displaycp_dohook($hookname,$args){
 		case "charstats":
 			$point=getsetting('moneydecimalpoint',",");
 			$sep=getsetting('moneythousandssep',".");
-			
+
 			if (get_module_pref("user_showspec") && get_module_setting("spec")){
 				$spec = $specialty[$session['user']['specialty']];
 				setcharstat ("Character Info","Specialty",$spec);
@@ -88,7 +88,7 @@ function displaycp_dohook($hookname,$args){
 				$amnt = translate_inline($session['user']['seenmaster'] == 0?"No Viewed":"Viewed");
 				setcharstat("Extra Info","Master",$amnt);
 			}
-			if (get_module_pref("user_sfav") && ($session['user']['alive']) 
+			if (get_module_pref("user_sfav") && ($session['user']['alive'])
 				&& get_module_setting("fav")){
 				if (get_module_setting("wo") == 0) $title = "Vital Info";
 				if (get_module_setting("wo")) $title = "Personal Info";
@@ -111,10 +111,10 @@ function displaycp_dohook($hookname,$args){
 				if($drunk > $max) $len = $max;
 				else $len = $drunk;
 				$pct = round($len / $max * 100, 5);
-				
+
 				if ($pct > 100) $pctd = 100;
 				elseif ($pct < 0) $pct = 0;
-				
+
 				if ($drunk < 5){
 					$level = get_module_setting("sober");
 					$barcolor = "progress-drunkeness-sober";
@@ -142,7 +142,7 @@ function displaycp_dohook($hookname,$args){
 			}
 			// if (get_module_pref('user_showpf') && get_module_setting("pf")){
 			// 	setcharstat("Extra Info","Player Fights (PVPs)",$session['user']['playerfights']);
-			// }	
+			// }
 			break;
 		}
 	return $args;
