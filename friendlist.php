@@ -86,11 +86,8 @@ function friendlist_dohook($hookname,$args){
 			addnav("","runmodule.php?module=friendlist&op=faq");
 		break;
 		case "mailfunctions":
-				output_notl("`c`^[`@");
 				$t = translate_inline("Friend List");
-				rawoutput("<a href='runmodule.php?module=friendlist&op=list'>$t</a>");
-				addnav('','runmodule.php?module=friendlist&op=list');
-				output_notl("`^]`c`n");
+				array_push($args, ['runmodule.php?module=friendlist&op=list', $t]);
 				if (httpget('op')=='send'&&!($session['user']['superuser']&SU_GIVES_YOM_WARNING)) {
 					$sql = "SELECT acctid,name FROM ".DB::prefix("accounts")." WHERE login='".httppost('to')."'";
 					$result = DB::query($sql);
@@ -98,10 +95,8 @@ function friendlist_dohook($hookname,$args){
 						$row = DB::fetch_assoc($result);
 						if (in_array($row['acctid'],explode('|',get_module_pref('ignored')))) {
 							popup_header("Ye Olde Poste Office");
-							output_notl("`c`^[`%");
 							$t = translate_inline("Back to your Mail");
-							rawoutput("<a href='mail.php'>$t</a>");
-							output_notl("`^]`c`Q`n");
+							array_push($args, ['mail.php', $t]);
 							$info = translate_inline("%s`Q has ignored you, so you cannot send %s`Q Ye Olde Mail.");
 							$info = str_replace('%s',$row['name'],$info);
 							output_notl($info);
