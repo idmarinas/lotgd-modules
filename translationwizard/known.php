@@ -176,7 +176,7 @@ rawoutput("</h4>");
 $alttext= "abcdefgh-dummy-dummy-dummy"; //hopefully this text is in no module to translate ;) as the first text
 	if (httppost('quickinsert')) {
 		if (httppost('quickinsertexecute')) {
-			while($row=DB::fetch_assoc($fastinsert))
+			foreach($fastinsert as $row)
 				{
 				if ($row['t']==$row['u'] && $row['t']==$languageschema && $alttext<>$row['intext'])
 				{
@@ -225,7 +225,8 @@ $alttext= "abcdefgh-dummy-dummy-dummy"; //hopefully this text is in no module to
 		addnav("", "runmodule.php?module=translationwizard&op=known&mode=radioinsert$redirect");
 		rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
 		rawoutput("<tr class='trhead'><td>". translate_inline("Language") ."</td><td>". translate_inline("Original") ."</td><td>".translate_inline("Module / Translation")."</td><td>".translate_inline("Author")."</td><td>".translate_inline("Actions")."</td><td></td></tr>");
-		while($row=DB::fetch_assoc($result))	{
+		foreach($result as $row)
+		{
 			if ($row['t']==$row['u'] && $row['t']==$languageschema)	{
 				if ($alttext<>$row['intext']) {
 					//$i++;
@@ -255,11 +256,11 @@ $alttext= "abcdefgh-dummy-dummy-dummy"; //hopefully this text is in no module to
 				rawoutput("</td><td>");
 				rawoutput(htmlentities($row['author'],ENT_COMPAT,$coding));
 				rawoutput("</td><td>");
-				rawoutput("<a href='runmodule.php?module=translationwizard&op=known$redirect&mode=picked&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext'])."&outtext=". rawurlencode($row['outtext'])."&author=". rawurlencode($row['author'])."&version=". rawurlencode($row['version']) ."'>". translate_inline("Choose") ."</a>");
-				addnav("", "runmodule.php?module=translationwizard&op=known$redirect&mode=picked&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext'])."&outtext=". rawurlencode($row['outtext'])."&author=". rawurlencode($row['author'])."&version=". rawurlencode($row['version']));
+				rawoutput("<a href='runmodule.php?module=translationwizard&op=known$redirect&mode=picked&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext'])."&outtext=". rawurlencode($row['outtext'])."&author=". rawurlencode($row['author'])."&version=". rawurlencode(@$row['version']) ."'>". translate_inline("Choose") ."</a>");
+				addnav("", "runmodule.php?module=translationwizard&op=known$redirect&mode=picked&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext'])."&outtext=". rawurlencode($row['outtext'])."&author=". rawurlencode($row['author'])."&version=". rawurlencode(@$row['version']));
 				rawoutput("</td><td>");
-				rawoutput("<a href='runmodule.php?module=translationwizard&op=edit_single&mode=save&from=".rawurlencode("module=translationwizard&op=known$redirect&ns=".$row['namespace'])."&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext'])."&outtext=". rawurlencode($row['outtext'])."&author=". rawurlencode($row['author'])."&version=". rawurlencode($row['version']) ."'>". translate_inline("Edit+Insert") ."</a>");
-				addnav("", "runmodule.php?module=translationwizard&op=edit_single&mode=save&from=".rawurlencode("module=translationwizard&op=known$redirect&ns=".$row['namespace'])."&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext'])."&outtext=". rawurlencode($row['outtext'])."&author=". rawurlencode($row['author'])."&version=". rawurlencode($row['version']));
+				rawoutput("<a href='runmodule.php?module=translationwizard&op=edit_single&mode=save&from=".rawurlencode("module=translationwizard&op=known$redirect&ns=".$row['namespace'])."&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext'])."&outtext=". rawurlencode($row['outtext'])."&author=". rawurlencode($row['author'])."&version=". rawurlencode(@$row['version']) ."'>". translate_inline("Edit+Insert") ."</a>");
+				addnav("", "runmodule.php?module=translationwizard&op=edit_single&mode=save&from=".rawurlencode("module=translationwizard&op=known$redirect&ns=".$row['namespace'])."&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext'])."&outtext=". rawurlencode($row['outtext'])."&author=". rawurlencode($row['author'])."&version=". rawurlencode(@$row['version']));
 				rawoutput("</td></tr>");
 				//if ($i>$page) break;  //would need previous/next page and one more if which needs too much time. better to get all now
 			}
