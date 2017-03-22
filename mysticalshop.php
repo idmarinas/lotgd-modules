@@ -18,12 +18,12 @@ function mysticalshop_install(){
 }
 function mysticalshop_uninstall(){
 	require_once( './modules/mysticalshop/run/editor_what/delete.php' );
-	$items = DB::query 'SELECT id FROM '.DB::prefix( 'magicitems' ) );
+	$items = DB::query ( 'SELECT id FROM '.DB::prefix( 'magicitems' ) );
 	while( $item = DB::fetch_assoc( $items ) )
 		mysticalshop_delete_item( $item['id'] );
 
 	$sql = 'DROP TABLE IF EXISTS '.DB::prefix( 'magicitems' );
-	DB::query $sql );
+	DB::query ( $sql );
 
 	if( getsetting( 'usedatacache', false ) )
 	{
