@@ -333,7 +333,7 @@ function stamina_advance_buffs($action, $userid=false) {
 		if (count($bufflist)!=0){
 			set_module_pref("buffs", serialize($bufflist), "staminasystem", $userid);
 		} else {
-			set_module_pref("buffs", "array()", "staminasystem", $userid);
+			set_module_pref("buffs", "a:0:{}", "staminasystem", $userid);
 		}
 	}
 	return true;
@@ -366,7 +366,7 @@ Empties the player's Buffs array.  Used at newday.
 function stamina_strip_all_buffs($userid=false) {
 	global $session;
 	if ($userid === false) $userid = $session['user']['acctid'];
-	set_module_pref("buffs", "array()", "staminasystem", $userid);
+	set_module_pref("buffs", "a:0:{}", "staminasystem", $userid);
 	return true;
 }
 

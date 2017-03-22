@@ -20,8 +20,8 @@ function staminasystem_getmoduleinfo(){
 			//"daystamina"=>"Player's New Day Stamina,int|2000000",
 			"red"=>"Amount of the bar taken up in Red Stamina levels,int|300000",
 			"amber"=>"Amount of the bar taken up in Amber Stamina levels,int|500000",
-			"actions"=>"Player's Actions array,textarea|array()",
-			"buffs"=>"Player's Buffs array,textarea|array()",
+			"actions"=>"Player's Actions array,textarea|a:0:{}",
+			"buffs"=>"Player's Buffs array,textarea|a:0:{}",
 			"user_minihof"=>"Show me the mini-HOF for Stamina-related actions,bool|true",
 		)
 	);
