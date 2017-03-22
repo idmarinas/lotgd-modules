@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-$spirits = $args['spirits'];
+$spirits = isset($args['spirits']) ? $args['spirits'] : 0;
 
 if($spirits>0 && 0 != $spirits)
 {
