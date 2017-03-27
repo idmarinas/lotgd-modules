@@ -161,7 +161,7 @@ function inventory_lotgd_showform($layout,$row)
 	natsort($layout);
 	foreach ($layout as $key=>$val) {
 		$pretrans = 0;
-		if ($keypref !== false) $keyout = sprintf($keypref, $key);
+		if (isset($keypref) && $keypref !== false) $keyout = sprintf($keypref, $key);
 		else $keyout = $key;
 		$itemI = false;
 
