@@ -99,14 +99,14 @@ function moons_dohook($hookname,$args)
 	switch($hookname){
 		case "newday-runonce":
 			$changed=false;
-			show_moons($moon1, $moon2, $moon3, $place);
+			show_moons($moon1, $moon2, $moon3);
 			//tracking changed just in case a bojo has moons in place but all disabled.
 			if ($changed) modulehook("moon-cyclechange");
 			break;
 		case "newday":
 			if (is_module_active("landsky")) return $args;
 			output_notl("`n");
-			show_moons($moon1, $moon2, $moon3, $place);
+			show_moons($moon1, $moon2, $moon3);
 			break;
 		case "village-desc":
 		case "forest-desc":
@@ -121,7 +121,7 @@ function moons_dohook($hookname,$args)
 					break;
 				}
 			}
-			
+
 			$count = 0;
 			if ($moon1) $count++;
 			if ($moon2) $count++;
@@ -139,10 +139,10 @@ function moons_dohook($hookname,$args)
 			} else {
 				output($prefix, $count);
 			}
-			show_moons($moon1, $moon2, $moon3, $place);
+			show_moons($moon1, $moon2, $moon3);
 		break;
 		case "landsky-moons":
-			show_moons($moon1, $moon2, $moon3, $place);
+			show_moons($moon1, $moon2, $moon3);
 		break;
 	}
 
@@ -155,7 +155,7 @@ function moons_runevent($type){
 function moons_run(){
 }
 
-function show_moons($moon1, $moon2, $moon3, $place)
+function show_moons($moon1, $moon2, $moon3)
 {
 	if (!is_module_active("landsky")) output_notl("`n");
 	$msg = "`&The moon `#%s`& is %s`&.`0";
