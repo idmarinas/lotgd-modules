@@ -585,27 +585,25 @@ function stamina_level_up($action, $userid = false) {
 		$increment = $actions[$action]['expincrement'];
 		$stop = 1;
 		//Determine the next level's EXP requirements
-		$addup = array();
-		$addup[0] = $first;
+		$addup = [0 => $first];
 		for ($i=1; $i<=100; $i++){
 			$addup[$i] = round($addup[$i-1]*$increment);
 		}
 
-		$levels = array();
-		$levels[0] = $first;
-
-		for ($i=1; $i<=100; $i++){
+		$levels = [0 => $first];
+		for ($i=1; $i<=100; $i++)
+		{
 			$levels[$i] = ($levels[$i-1] + $addup[$i]);
 		}
 
-		if ($currentlvl != 0){
-			$currentlvlexp = $levels[$currentlvl];
+		if ($currentlvl > 0){
+			$currentlvlexp = $levels[$currentlvl-1];
 		} else {
 			$currentlvlexp = 0;
 		}
 
 		$nextlvlexp = $levels[$currentlvl];
-		$currentlvlexp = $levels[$currentlvl-1];
+		// $currentlvlexp = $levels[$currentlvl-1];
 
 		$returninfo['exp'] = $currentexp;
 		$returninfo['lvl'] = $currentlvl;
@@ -803,12 +801,13 @@ function stamina_minihof($action,$userid=false){
 		$staminasql = "SELECT setting,value,userid FROM ".DB::prefix("module_userprefs")." WHERE modulename='staminasystem' AND setting='actions'";
 		$staminaresult = DB::query($staminasql);
 
-		$scount = DB::num_rows($staminaresult);
-		for ($i=0;$i<$scount;$i++){
-			$row = DB::fetch_assoc($staminaresult);
+		foreach($staminaresult as $row)
+		{
 			$actions_array = @unserialize($row['value']);
+			if (! isset($actions_array[$action])) continue;
+
 			$actiondetails = $actions_array[$action];
-			$board[$row['userid']] = $actiondetails['exp'];
+			$board[$row['userid']] = isset($actiondetails['exp']) ? $actiondetails['exp'] : 0;
 		}
 
 		$boardinfo = stamina_minihof_assignranks($board);
@@ -865,6 +864,8 @@ function stamina_minihof_makesmallboard($boardinfo,$userid=false){
 	//get the twenty players above and below, put them in arrays
 	$largeboard = array();
 	for ($i = -10; $i <= 10; $i++){
+		if (! isset($ranks[$myrank+$i])) continue;
+
 		$acctid = $ranks[$myrank+$i];
 		$parray = array();
 		$parray['acctid'] = $acctid;
@@ -890,6 +891,7 @@ function stamina_minihof_makesmallboard($boardinfo,$userid=false){
 	}
 
 	$st = microtime(true);
+	$redoranks = false;
 	while ($largeboard[$playerposition]['xp'] > $largeboard[$playerposition-1]['xp'] && $playerposition >= 0){
 		$temp = $largeboard[$playerposition];
 		$largeboard[$playerposition] = $largeboard[$playerposition-1];
@@ -917,7 +919,7 @@ function stamina_minihof_makesmallboard($boardinfo,$userid=false){
 
 	$smallboard = array();
 	for ($i=-2; $i <= 2; $i++){
-		if ($largeboard[$playerposition+$i]){
+		if (isset($largeboard[$playerposition+$i]) && $largeboard[$playerposition+$i]){
 			$smallboard[]=$largeboard[$playerposition+$i];
 		}
 	}
@@ -926,7 +928,7 @@ function stamina_minihof_makesmallboard($boardinfo,$userid=false){
 	//get the names of the contestants in the small board
 	$sbc = count($smallboard);
 	for ($i=0; $i<$sbc; $i++){
-		if (!$smallboard[$i]['name']){
+		if (! isset($smallboard[$i]['name']) || ! $smallboard[$i]['name']){
 			$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid='".$smallboard[$i]['acctid']."'";
 			$result = DB::query_cached($sql,"playernames/playername_".$smallboard[$i]['acctid'],3600);
 			$row = DB::fetch_assoc($result);
