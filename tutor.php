@@ -59,7 +59,8 @@ function tutor_dohook($hookname,$args)
 		};
 		break;
 	case "battle":
-		$badguy = $args;
+		global $badguy;
+
 		$tutormsg = "";
 		if ($badguy['creaturehealth'] > 0 && $badguy['creaturelevel'] > $session['user']['level'] && $badguy['type'] == 'forest'){
 			$tutormsg = translate_inline("`#Eibwen`0 looks agitated!  \"`\$Look out!`3 This creature looks like it is a higher level than you!  You might want to `^run away`3! You might not be successful, but keep trying and hope you get away before you're turned into forest fertilizer!`0\"`n");
@@ -92,6 +93,7 @@ function tutor_dohook($hookname,$args)
 					tutor_talk("%s`c`b`n`b`c", $tutormsg);
 				};
 			}elseif ($session['user']['specialty']=="" && !httpget("setrace")){
+				$ls = $tp = $tk = $sa = false;
 				if (is_module_active("specialtylaser"))
 					$ls=translate_inline("Head-Mounted Laser");
 				if (is_module_active("specialtytelepathy"))
