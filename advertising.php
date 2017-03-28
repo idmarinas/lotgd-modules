@@ -308,12 +308,9 @@ function advertising_dohook($hookname,$args){
 		//they didn't opt out
 		$banners = advertising_getallads();
 		reset($banners);
-		while (list($key,$val)=each($banners)){
-			if (!isset($args[$key]))
-				$args[$key] = array();
-			elseif (!is_array($args[$key]))
-				$args[$key] = array($args[$key]);
-			array_push($args[$key],templatereplace("adwrapper",array("content"=>$val)));
+		foreach($banners as $key => $val)
+		{
+			$args[$key] = $val;
 		}
 		if (!array_key_exists('script', $args) || !is_array($args['script']))
 			$args['script']=array();
