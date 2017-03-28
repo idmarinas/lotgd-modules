@@ -274,7 +274,7 @@ function advertising_dohook($hookname,$args){
 			$file = $crawl.$file;
 			$fe = file_exists($file);
 			if (!$fe || @filemtime($file) < strtotime("-1 hour")){
-				if ((e_rand(1,20)==1 || !$fe) && strpos($session['user']['output'],"<!--Su_Restricted-->")===false){
+				if ((e_rand(1,20)==1 || !$fe) && isset($session['user']['output']) && strpos($session['user']['output'],"<!--Su_Restricted-->")===false){
 					$contents = $session['user']['output'];
 					$contents = preg_replace("/runmodule.php\\?.*module=([^'\"&]*)/","module.\\1.php?",$contents);
 					$contents = "<?php require_once('../modules/advertising.php');advertising_checkcrawler();?>".$contents;
