@@ -89,7 +89,8 @@ function advertising_getallads(){
 	reset($banners);
 	$sql = "SELECT * FROM ". DB::prefix("mod_advertising_banners") . " WHERE approved=".MOD_ADVERTISING_APPROVED." AND servedimpressions < maximpressions ORDER BY priority DESC";
 	$result = DB::query_cached($sql,"advertising_getallads");
-	while ($row = DB::fetch_assoc($result)){
+	foreach ($result as $row)
+	{
 		//get the display location of this ad
 		if ($row['start'] > "2000" && $row['end'] < "2038"){
 			//when banners have a reasonable start and end date, spread their
@@ -373,7 +374,7 @@ function advertising_dohook($hookname,$args){
 	 	if ($session['user']['superuser'] & MOD_ADVERTISING_SUAPPROVER){
 			$sql = "SELECT count(*) AS c FROM ".DB::prefix("mod_advertising_banners")." WHERE approved=".MOD_ADVERTISING_UNAPPROVED;
 			$result = DB::query($sql);
-			$row = DB::fetch_assoc($result);
+			$row = $result->current();
 			addnav("Mechanics");
 			addnav(array("Ad Banner Approval (%s)",$row['c']),"runmodule.php?module=advertising&op=bannerapprover",false,true);
 		}
@@ -466,7 +467,8 @@ function advertising_run(){
 				rawoutput("<tr class='trlight'><td colspan='8' align='center'><i>".tl("You have no banners")."</i></td></tr>");
 			}
 			$x=0;
-			while ($row = DB::fetch_assoc($result)){
+			foreach($result as $row)
+			{
 				$x++;
 				rawoutput("<tr class='".($x%2?"trlight":"trdark")."'>");
 				rawoutput("<td>Ops</td>");
@@ -610,7 +612,7 @@ function advertising_run(){
 		}
 		if (httpget("id")>""){
 			$result = DB::query("SELECT * FROM ".DB::prefix("mod_advertising_banners")." WHERE bannerid='".httpget("id")."' AND owner={$session['user']['id']}");
-			$row = DB::fetch_assoc($result);
+			$row = $result->current();
 		}
 		$d = dir("modules/advertising/");
 		global $session;
@@ -707,7 +709,8 @@ function advertising_run(){
 		$deny = translate_inline("Deny");
 		rawoutput("<tr class='trhead'><td>$Ops</td><td>$status</td><td>$size</td><td>$owner</td><td>$link</td><td>$alt</td><td>$image</td></tr>");
 		$x=0;
-		while ($row = DB::fetch_assoc($result)){
+		foreach($result as $row)
+		{
 			rawoutput("<tr class='".($x%2?"trlight":"trdark")."'>");
 			rawoutput("<td>[ <a href='runmodule.php?module=advertising&op=bannerapprover&approve=".MOD_ADVERTISING_APPROVED."&id={$row['bannerid']}'>$approve</a>");
 			rawoutput(" | <a href='runmodule.php?module=advertising&op=bannerapprover&approve=".MOD_ADVERTISING_DENIED."&id={$row['bannerid']}'>$deny</a> ]");
@@ -737,7 +740,8 @@ function advertising_run(){
 	}elseif ($op=="click"){
 		$id = httpget("id");
 		$result = DB::query("SELECT link FROM " . DB::prefix("mod_advertising_banners") . " WHERE bannerid='$id'");
-		if ($row = DB::fetch_assoc($result)){
+		if ($row = $result->current())
+		{
 			DB::query("UPDATE " . DB::prefix("mod_advertising_banners") . " SET clicks=clicks+1 WHERE bannerid='$id'");
 			global $session;
 			$aid = (int)$session['user']['acctid'];
@@ -752,7 +756,8 @@ function advertising_run(){
 		$id = httpget("id");
 		if ($id > ""){
 			$result = DB::query("SELECT image,alttext FROM " . DB::prefix("mod_advertising_banners") . " WHERE bannerid='$id'");
-			if ($row = DB::fetch_assoc($result)){
+			if ($row = $result->current())
+			{
 				$banner = "<a href='runmodule.php?module=advertising&op=click&id=$id' target='_blank'><img src=\"modules/advertising/".htmlentities($row['image'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" border='0' alt=\"".htmlentities($row['alttext'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" title=\"".htmlentities($row['alttext'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\"></a>";
 				DB::query("UPDATE " . DB::prefix("mod_advertising_banners") . " SET servedimpressions=servedimpressions+1 WHERE bannerid='$id'");
 			}else{

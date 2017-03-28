@@ -41,7 +41,8 @@ switch($mode) {
 			$pullmodules=array();
 			$sql="SELECT namespace from ".DB::prefix("untranslated")." group by namespace";
 			$result=DB::query($sql);
-			while ($row=DB::fetch_assoc($result))	{
+			foreach($result as $row)
+			{
 				array_push($pullmodules,$row['namespace']);
 			}
 		}

@@ -34,7 +34,7 @@ function allmodulegroup_dohook($hookname,$args){
 				addnav("Module Categories");
 				$sql = "SELECT count(*) as Anzahl FROM " . DB::prefix("modules");
 				$result = DB::query($sql);
-				$row = DB::fetch_assoc($result);
+				$row = $result->current();
 				$count=$row['Anzahl'];
 				addnav(array("Installierte Module (%s)",$count),"runmodule.php?module=allmodulegroup&op=active");
 			}

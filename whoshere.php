@@ -81,7 +81,7 @@ function whoshere_dohook($hookname,$args)
 		case 'newday':
 			$sql = "SELECT acctid FROM " . DB::prefix('accounts') . " WHERE loggedin = 1 and laston < '" . date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds")) . "'";
 			$result = DB::query($sql);
-			while( $row = DB::fetch_assoc($result) )
+			foreach ($result as $row)
 			{
 				DB::query("UPDATE " . DB::prefix('accounts') . " SET loggedin = 0 WHERE acctid = '" . $row['acctid'] . "'");
 			}
