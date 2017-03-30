@@ -130,7 +130,7 @@ function creaturetargets_dohook($hookname,$args){
 		if (get_module_objpref("creatures",  $args['creatureid'], "usetargets")==1){
 			for ($i=1;$i<=6;$i++) {
 				$args['target'.$i]['name'] = get_module_objpref("creatures",  $args['creatureid'], "target".$i);
-$args['target'.$i.'']['hitpoints'] = round((($args['creaturehealth']/100)*get_module_objpref("creatures",  $args['creatureid'], "hitpoints".$i."")));
+				$args['target'.$i.'']['hitpoints'] = round((($args['creaturehealth']/100)*get_module_objpref("creatures",  $args['creatureid'], "hitpoints".$i."")));
 				$args['target'.$i]['killatk'] = get_module_objpref("creatures",  $args['creatureid'], "killatk".$i);
 				$args['target'.$i]['killdef'] = get_module_objpref("creatures",  $args['creatureid'], "killdef".$i);
 				$args['target'.$i]['killhp'] = get_module_objpref("creatures",  $args['creatureid'], "killhp".$i);
@@ -142,9 +142,9 @@ $args['target'.$i.'']['hitpoints'] = round((($args['creaturehealth']/100)*get_mo
 			}
 		}
 		//Check to see if there's an AI Script involved with this creature, and if not, tell battle.php (via our modifications) to execute our AI Script at the start of the round, not the end - as long as we're actually using multiple hit targets with this creature, of course
-		if ($args['target1']['hitpoints']!=0){
+		if (isset($args['target1']['hitpoints']) && $args['target1']['hitpoints']!=0){
 			if ($args['creatureaiscript']==''){
-				$args['creatureaiscript'] = "require_once(\"ai/creaturetargetai.php\");";
+				$args['creatureaiscript'] = "require_once(\"creatureai/creaturetargetai.php\");";
 			}
 		}
 		//Give the creature a set of starting hitpoints, because it's SO DAMNED USEFUL
