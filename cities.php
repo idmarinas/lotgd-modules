@@ -91,7 +91,10 @@ function cities_dohook($hookname,$args){
 		break;
 	case "count-travels":
 		global $playermount;
-		$args['available'] += get_module_setting("allowance");
+
+		if (isset($args['available'])) $args['available'] += get_module_setting("allowance");
+		else $args['available'] = 0;
+
 		if ($playermount && isset($playermount['mountid'])) {
 			$id = $playermount['mountid'];
 			$extra = get_module_objpref("mounts", $id, "extratravel");
