@@ -34,12 +34,13 @@ if (isset($actions_used)){
 			$actions_used[$action]['lvlinfo']['currentlvlexp']=1;
 		}
 		$pct = (($actions_used[$action]['lvlinfo']['exp']-$actions_used[$action]['lvlinfo']['currentlvlexp']) / ($actions_used[$action]['lvlinfo']['nextlvlexp']-$actions_used[$action]['lvlinfo']['currentlvlexp'])) * 100;
-		$disp = "<div class='progressbar'>
-			<div class='progress-progressbar progress-progressbar-progress' style='width: $pct%;'></div>
-			<div class='progress-text'>".translate_inline("Lv").$actions_used[$action]['lvlinfo']['lvl']." (+`8".$actions_used[$action]['exp_earned']."`0 xp)</div>
+
+		$disp = "<div class='ui tiny indicating progress staminasystem action' data-percent='$pct'>
+			<div class='bar'></div>
+			<div class='label'>".translate_inline("Lv").$actions_used[$action]['lvlinfo']['lvl']." (+`8".$actions_used[$action]['exp_earned']."`0 xp)</div>
 		</div>";
 		setcharstat("Recent Actions",$action,$disp);
-		
+
 		if (get_module_pref("user_minihof")){
 			$st = microtime(true);
 			stamina_minihof($action);
@@ -53,8 +54,8 @@ if (isset($actions_used)){
 //Values
 $stamina = get_module_pref("stamina");
 $daystamina = 2000000;
-$redpoint = get_module_pref("red");
-$amberpoint = get_module_pref("amber");
+// $redpoint = get_module_pref("red");
+// $amberpoint = get_module_pref("amber");
 $redpct = get_stamina(0);
 $amberpct = get_stamina(1);
 $greenpct = get_stamina(2);
@@ -70,21 +71,9 @@ if (!$redpct)
 //Display the actual Stamina bar
 $pctoftotal = round($stamina / $daystamina * 100, 5);
 
-$greentotal = round((($daystamina - $redpoint - $amberpoint)/$daystamina)*100);
-$ambertotal = round(((($daystamina - $redpoint)/$daystamina)*100) - $greentotal);
-$redtotal = (100 - $greentotal) - $ambertotal;
-
-$greenwidth = (($greentotal / 100) * $greenpct);
-$amberwidth = (($ambertotal / 100) * $amberpct);
-$redwidth = (($redtotal / 100) * $redpct);
-
-$greendarkwidth = $greentotal - $greenwidth;
-$amberdarkwidth = $ambertotal - $amberwidth;
-$redwdarkidth = $redtotal - $redwidth;
-
-$totalwidth = $greenwidth + $amberwidth + $redwidth;
-
-if ($totalwidth > 100) $greenwidth -= ($totalwidth -100);
+if ($greenpct > 0) $color = 'green';
+else if ($amberpct > 0)	$color = 'orange';
+else $color = 'red';
 
 $alert = "";
 if (!$session['user']['dragonkills'] && $session['user']['age'] <= 1 && $greenpct <= 1){
@@ -92,14 +81,7 @@ if (!$session['user']['dragonkills'] && $session['user']['age'] <= 1 && $greenpc
 }
 
 $new = "<a href='runmodule.php?module=staminasystem&op=show' target='_blank' onclick=\"".popup("runmodule.php?module=staminasystem&op=show").";return false;\">
-		<div data-uk-tooltip='{pos:'left'}' title='$pctoftotal% $alert' class='progressbar staminabar'>
-			<div class='progress-progressbar progress-staminabar-red' style='width: $redwidth%;'></div>
-			<div class='progress-progressbar progress-staminabar-dark-red' style='width: $redwdarkidth%;'></div>
-			<div class='progress-progressbar progress-staminabar-amber' style='width: $amberwidth%;'></div>
-			<div class='progress-progressbar progress-staminabar-dark-amber' style='width: $amberdarkwidth%;'></div>
-			<div class='progress-progressbar progress-staminabar-green' style='width: $greenwidth%;'></div>
-			<div class='progress-progressbar progress-staminabar-dark-green' style='width: $greendarkwidth%;'></div>
-		</div></a>";
+		<div data-content='$pctoftotal% $alert' class='ui tooltip tiny progress remove margin $color staminasystem staminabar' data-value='$stamina' data-total='$daystamina'><div class='bar'></div></div></a>";
 
 setcharstat("Character Info", "Stamina", $new);
 
