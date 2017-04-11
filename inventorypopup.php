@@ -131,124 +131,38 @@ function inventorypopup_run(){
 		$inventory[$row['class']][] = $row;
 	}
 	$inventory = modulehook('inventorypopup-inventory', ['layout' => $layout, 'inventory' => $inventory]);
-	inventory_lotgd_showform(array_unique($inventory['layout']), $inventory['inventory']);
+	require_once 'lib/showtabs.php';
+	lotgd_showtabs($inventory['inventory'], 'inventory_lotgd_showform', true);
 	popup_footer();
 }
 
-function inventory_lotgd_showform($layout,$row)
+function inventory_lotgd_showform($layout)
 {
 	global $session;
- 	static $showform_id=0;
- 	static $title_id=0;
+
 	if (is_array($layout) && empty($layout))
 	{
-		rawoutput("<table class='inventory'>");
-		rawoutput("<tr><td>".translate_inline("The inventory is empty")."</td></tr>");
-		rawoutput("</table>");
+		$html = "<table class='ui basic very compact unstackable striped table inventory'>";
+		$html .= "<tr><td>".translate_inline("The inventory is empty")."</td></tr>";
+		$html .= "</table>";
 
-		return;
+		return $html;
 	}
 
- 	$showform_id++;
- 	$formSections = array();
-	$returnvalues = array();
-	$wheres = array("righthand"=>"Right Hand","lefthand"=>"Left Hand","head"=>"Your Head","body"=>"Upper Body","arms"=>"Your Arms","legs"=>"Lower Body","feet"=>"Your Feet","ring1"=>"First Ring","ring2"=>"Second Ring","ring3"=>"Third Ring","neck"=>"Around your Neck","belt"=>"Around your Waist");
+	$wheres = ["righthand"=>"Right Hand","lefthand"=>"Left Hand","head"=>"Your Head","body"=>"Upper Body","arms"=>"Your Arms","legs"=>"Lower Body","feet"=>"Your Feet","ring1"=>"First Ring","ring2"=>"Second Ring","ring3"=>"Third Ring","neck"=>"Around your Neck","belt"=>"Around your Waist"];
 
-	rawoutput("<table class='inventory'>");
-	rawoutput("<tr><td><div id='showFormSection$showform_id'></div></td></tr>");
-	rawoutput("<tr><td>");
+	$html = "<table class='ui basic very compact unstackable striped table inventory'>";
 	$i = 0;
-	natsort($layout);
-	foreach ($layout as $key=>$val) {
-		$pretrans = 0;
-		if (isset($keypref) && $keypref !== false) $keyout = sprintf($keypref, $key);
-		else $keyout = $key;
-		$itemI = false;
+	ksort($layout);
+	foreach ($layout as $key => $val)
+	{
+		$html .= "<tr><td>";
+		$html .= showRowItem($val);
+		$html .= '</td></tr>';
+	}
+	$html .= "</table>";
 
-		$title_id++;
-		$formSections[$title_id] = translate_inline($val);
-		rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'>");
-		foreach($row[$val] as $value)
-		{
-			rawoutput("<tr class='".($itemI?'trlight':'trdark')."'><td>");
-			showRowItem($value, $itemI);
-			rawoutput('</td></tr>');
-			$itemI = !$itemI;
-		}
-		rawoutput("<td></td></tr>");
-	}
-	rawoutput("</table>",true);
-	if ($showform_id==1){
-		$startIndex = (int)httppost("showFormTabIndex");
-		if ($startIndex == 0){
-			$startIndex = 1;
-		}
-		if (isset($session['user']['prefs']['tabconfig']) &&
-				$session['user']['prefs']['tabconfig'] == 0) {
-		} else {
-		 	rawoutput("
-		 	<script language='JavaScript'>
-		 	function prepare_form(id){
-		 		var theTable;
-		 		var theDivs='';
-		 		var x=0;
-		 		var weight='';
-		 		for (x in formSections[id]){
-		 			theTable = document.getElementById('showFormTable'+x);
-		 			if (x != $startIndex ){
-			 			theTable.style.visibility='hidden';
-			 			theTable.style.display='none';
-			 			weight='';
-			 		}else{
-			 			theTable.style.visibility='visible';
-			 			theTable.style.display='';
-			 			weight='color: yellow;';
-			 		}
-			 		theDivs += \"<div id='showFormButton\"+x+\"' class='trhead' style='\"+weight+\"float: left; cursor: pointer; cursor: hand; padding: 5px; border: 1px solid #000000;' onClick='showFormTabClick(\"+id+\",\"+x+\");'>\"+formSections[id][x]+\"</div>\";
-		 		}
-		 		theDivs += \"<div style='display: block;'>&nbsp;</div>\";
-				theDivs += \"<input type='hidden' name='showFormTabIndex' value='$startIndex' id='showFormTabIndex'>\";
-		 		document.getElementById('showFormSection'+id).innerHTML = theDivs;
-		 	}
-		 	function showFormTabClick(formid,sectionid){
-		 		var theTable;
-		 		var theButton;
-		 		for (x in formSections[formid]){
-		 			theTable = document.getElementById('showFormTable'+x);
-		 			theButton = document.getElementById('showFormButton'+x);
-		 			if (x == sectionid){
-		 				theTable.style.visibility='visible';
-		 				theTable.style.display='';
-		 				theButton.style.fontWeight='normal';
-		 				theButton.style.color='yellow';
-						document.getElementById('showFormTabIndex').value = sectionid;
-		 			}else{
-		 				theTable.style.visibility='hidden';
-		 				theTable.style.display='none';
-		 				theButton.style.fontWeight='normal';
-		 				theButton.style.color='';
-		 			}
-		 		}
-		 	}
-		 	formSections = new Array();
-			</script>");
-		}
-	}
-	if (isset($session['user']['prefs']['tabconfig']) &&
-			$session['user']['prefs']['tabconfig'] == 0) {
-	} else {
-		rawoutput("<script language='JavaScript'>");
-		rawoutput("formSections[$showform_id] = new Array();");
-		foreach ($formSections as $key=>$val) {
-			rawoutput("formSections[$showform_id][$key] = '".addslashes($val)."';");
-		}
-		rawoutput("
-		prepare_form($showform_id);
-		</script>");
-	}
-	rawoutput("</td></tr></table>");
-
-	return $returnvalues;
+	return appoencode($html, true);
 }
 
 //** Mostrar un item
@@ -257,46 +171,50 @@ function showRowItem($itsval)
 	$equip = translate_inline("Equip");
 	$unequip = translate_inline("Unequip");
 	$activate = translate_inline("Activate");
-	$drop = translate_inline("Drop");
-	$dropall = translate_inline("All");
+	$drop = translate_inline("Drop 1");
+	$dropall = translate_inline("Drop All");
 
-	rawoutput("<table class='items-list'><tr class='uk-table-middle'><td rowspan='2' class='uk-text-center'>");
-	rawoutput(($itsval['image']?'<i class="'.$itsval['image'].'"></i>':''));
-	output_notl("`n(%s)", $itsval['quantity']);
-	rawoutput('</td><td>');
-	rawoutput($itsval['equipped']?"<i class='fa fa-asterisk fa-fw'></i>":"");
-	output_notl("`b%s`b", $itsval['name']);
-	rawoutput("</td>");
-	//## Opciones
-	rawoutput("<td>");
-		if ($itsval['equipped'] && $itsval['equippable']) {
-			rawoutput("[&nbsp;<a href='runmodule.php?module=inventorypopup&op2=unequip&id={$itsval['itemid']}'>$unequip</a>&nbsp;]");
-			addnav("", "runmodule.php?module=inventorypopup&op2=unequip&id={$itsval['itemid']}");
-		} else if ($itsval['equippable'] == 1) {
-			rawoutput("[&nbsp;<a href='runmodule.php?module=inventorypopup&op2=equip&id={$itsval['itemid']}'>$equip</a>&nbsp;]");
-			addnav("", "runmodule.php?module=inventorypopup&op2=equip&id={$itsval['itemid']}");
-		}
-		if ($itsval['activationhook'] & 64) {
-			rawoutput("[&nbsp;<a href='runmodule.php?module=inventorypopup&op2=activate&id={$itsval['itemid']}'>$activate</a>&nbsp;]");
-			addnav("", "runmodule.php?module=inventorypopup&op2=activate&id={$itsval['itemid']}");
-		}
-		if ($itsval['droppable'] == true) {
-			rawoutput("[&nbsp;<a href='runmodule.php?module=inventorypopup&op2=drop&id={$itsval['itemid']}&invid={$itsval['invid']}'>$drop</a>&nbsp;|&nbsp;<a href='runmodule.php?module=inventorypopup&op2=dropall&id={$itsval['itemid']}&qty={$itsval['quantity']}'>$dropall</a>&nbsp;]");
-			addnav("", "runmodule.php?module=inventorypopup&op2=drop&id={$itsval['itemid']}&invid={$itsval['invid']}");
-			addnav("", "runmodule.php?module=inventorypopup&op2=dropall&id={$itsval['itemid']}&qty={$itsval['quantity']}");
-		}
-	rawoutput("</td>");
-
-	rawoutput("<td nowrap>");
-	output("(Gold value: `^%s`0, Gem Value: `%%s`0)", $itsval['sellvaluegold'], $itsval['sellvaluegems']);
+	$html = "<table class='ui very basic unstackable table items-list'><tr><td rowspan='2' class='center aligned collapsing'>";
+	$html .= ($itsval['image']?'<i class="'.$itsval['image'].'"></i>':'');
+	$html .= "<p>({$itsval['quantity']})</p><p>";
+	if ($itsval['equipped'] && $itsval['equippable'])
+	{
+		$html .= "<a data-tooltip='$unequip' href='runmodule.php?module=inventorypopup&op2=unequip&id={$itsval['itemid']}'>`@<i class='toggle on icon'></i>`0</a> ";
+		addnav("", "runmodule.php?module=inventorypopup&op2=unequip&id={$itsval['itemid']}");
+	}
+	else if ($itsval['equippable'] == 1)
+	{
+		$html .= "<a data-tooltip='$equip' href='runmodule.php?module=inventorypopup&op2=equip&id={$itsval['itemid']}'>`$<i class='toggle off icon'></i>`0</a> ";
+		addnav("", "runmodule.php?module=inventorypopup&op2=equip&id={$itsval['itemid']}");
+	}
+	if ($itsval['activationhook'] & 64)
+	{
+		$html .= "<a data-tooltip='$activate' href='runmodule.php?module=inventorypopup&op2=activate&id={$itsval['itemid']}'>`!<i class='hand paper icon'></i>`0</a> ";
+		addnav("", "runmodule.php?module=inventorypopup&op2=activate&id={$itsval['itemid']}");
+	}
+	if ($itsval['droppable'] == true)
+	{
+		$html .= "<a data-tooltip='$drop' href='runmodule.php?module=inventorypopup&op2=drop&id={$itsval['itemid']}&invid={$itsval['invid']}'>`Q<i class='recycle icon'></i>`0</a> ";
+		$html .= "<a data-tooltip='$dropall' href='runmodule.php?module=inventorypopup&op2=dropall&id={$itsval['itemid']}&qty={$itsval['quantity']}'>`$<i class='bomb icon'></i>`0</a>";
+		addnav("", "runmodule.php?module=inventorypopup&op2=drop&id={$itsval['itemid']}&invid={$itsval['invid']}");
+		addnav("", "runmodule.php?module=inventorypopup&op2=dropall&id={$itsval['itemid']}&qty={$itsval['quantity']}");
+	}
+	$html .= '</p></td><td class="collapsing">';
+	$html .= $itsval['equipped']?"<i class='asterisk icon'></i>":"";
+	$html .= "`b{$itsval['name']}`b";
+	$html .= "</td>";
+	$html .= "<td nowrap>";
+	$html .= sprintf("(Gold value: `^%s`0, Gem Value: `%%%s`0)", $itsval['sellvaluegold'], $itsval['sellvaluegems']);
 	$tl_desc = translate_inline($itsval['description']);
-	rawoutput("</td></tr>");
+	$html .= "</td></tr>";
 	if ('' != $itsval['description'])
 	{
-		rawoutput('<tr><td colspan="3">');
-		output_notl("`i%s`i", $tl_desc, true);
-		rawoutput('</td></tr>');
+		$html .= '<tr><td colspan="3">';
+		$html .= "`i$tl_desc`i";
+		$html .= '</td></tr>';
 	}
-	rawoutput("</table>");
+	$html .= "</table>";
+
+	return appoencode($html, true);
 }
 ?>
