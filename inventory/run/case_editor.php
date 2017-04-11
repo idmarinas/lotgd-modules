@@ -50,7 +50,7 @@
 				addnav("Item properties", "runmodule.php?module=inventory&op=editor&op2=newitem&id=$id");
 				module_editor_navs("prefs-items", "runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id=$id&submodule=");
 			}
-			if (!is_array($item)) $item = array();
+			if (!isset($item) || !is_array($item)) $item = [];
 			if ($subop=="module") {
 				$module = httpget("submodule");
 				rawoutput("<form action='runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id=$id&submodule=$module' method='POST'>");
