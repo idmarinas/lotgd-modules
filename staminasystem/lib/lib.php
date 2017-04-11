@@ -565,7 +565,8 @@ Determines whether the player is ready to level up, levels up if appropriate, re
 *******************************************************
 */
 
-function stamina_level_up($action, $userid = false) {
+function stamina_level_up($action, $userid = false)
+{
 	global $session;
 	if ($userid === false) $userid = $session['user']['acctid'];
 
@@ -577,9 +578,10 @@ function stamina_level_up($action, $userid = false) {
 		return false;
 	}
 
-	while ($stop == 0){
+	while ($stop == 0)
+	{
 		$actions = get_player_action_list($userid);
-		$currentexp = $actions[$action]['exp'];
+		$currentexp = (isset($actions[$action]['exp']) ? $actions[$action]['exp'] : 0);
 		$currentlvl = $actions[$action]['lvl'];
 		$first = $actions[$action]['firstlvlexp'];
 		$increment = $actions[$action]['expincrement'];
