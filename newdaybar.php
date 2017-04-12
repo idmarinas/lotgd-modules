@@ -55,7 +55,12 @@ function newdaybar_dohook($hookname,$args){
 
 	switch($hookname){
 		case "charstats":
-        	require_once("lib/datetime.php");
+			$showtime = get_module_setting("showtime");
+			$showbar  = get_module_setting("showbar");
+
+			if (!$showtime && !$showbar) return;
+
+        	require_once 'lib/datetime.php';
 
             $details = gametimedetails();
             $secstonewday = secondstonextgameday($details);
@@ -68,22 +73,17 @@ function newdaybar_dohook($hookname,$args){
         	elseif ($newdaypct < 0) { $newdaypct = 0; }
 
         	$ccode = "`@";
-			$hicode = "`&";
 	        $stat = "Next day";
 
-			$showtime = get_module_setting("showtime");
-			$showbar  = get_module_setting("showbar");
-	        	$new = "";
+			if ($showtime) $newdaytxt = $ccode . $newdaytxt . '`0';
+			else $newdaytxt = '';
 
-			if (!$showtime && !$showbar) $new="`b`\$hidden`b";
-			if ($showtime) $new .= $ccode . $newdaytxt;
-			if ($showbar) {
-				if ($showtime) $new .= "<br />";
-				$new .= "<div class='progressbar newdaybar'>
-					 	<div class='progress-progressbar progress-newdaybar-color' style='width: $newdaypct%;'></div>
-						 <div class='progress-text'><i class='fa fa-calendar'></i></div>
-					 </div>
-					 <script>
+			if ($showbar)
+			{
+				$new = "<div class='ui tiny indicating progress ".($newdaytxt?'':'remove margin')." newdaybar' data-percent='$newdaypct'><div class='bar'></div>";
+				if ($newdaytxt) $new .= "<div class='label'>$newdaytxt</div>";
+				$new .= '</div>';
+				rawoutput("<script>
 					 	var realSecsToTomorrow = " . $details['realsecstotomorrow'] . ";
 						var secPerDay = " . $details['secsperday'] . ";
 						function newdaybar () {
@@ -96,12 +96,15 @@ function newdaybar_dohook($hookname,$args){
 							}
 							else
 							{
-								$('.progress.newdaybar .progres-text').html('<i class=\"fa fa-sun-o fa-fw\"></i> " . translate_inline("New Day Here") . "');
+								$('.progress.newdaybar .progres-text').html('<i class=\"sun icon\"></i> " . translate_inline("New Day Here") . "');
 							}
 						}
 						newdaybar();
-					 </script>
-				";
+					 </script>");
+			}
+			else
+			{
+				$new = $newdaytxt;
 			}
 			setcharstat("Extra Info", $stat, $new);
 			break;
@@ -109,7 +112,4 @@ function newdaybar_dohook($hookname,$args){
 	return $args;
 }
 
-function newdaybar_run(){
-
-}
-?>
+function newdaybar_run(){}
