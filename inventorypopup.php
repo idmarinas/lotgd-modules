@@ -125,12 +125,11 @@ function inventorypopup_run(){
 	/*$item.equippable = 0 AND*/
 	$result = DB::query($sql);
 	$inventory = [];
-	$layout = [];
-	while($row = DB::fetch_assoc($result)) {
-		$layout[] = $row['class'];
+	foreach($result as $row)
+	{
 		$inventory[$row['class']][] = $row;
 	}
-	$inventory = modulehook('inventorypopup-inventory', ['layout' => $layout, 'inventory' => $inventory]);
+	$inventory = modulehook('inventorypopup-inventory', ['inventory' => $inventory]);
 	require_once 'lib/showtabs.php';
 	lotgd_showtabs($inventory['inventory'], 'inventory_lotgd_showform', true);
 	popup_footer();
@@ -176,7 +175,7 @@ function showRowItem($itsval)
 
 	$html = "<table class='ui very basic unstackable table items-list'><tr><td rowspan='2' class='center aligned collapsing'>";
 	$html .= ($itsval['image']?'<i class="'.$itsval['image'].'"></i>':'');
-	$html .= "<p>({$itsval['quantity']})</p><p>";
+	$html .= "<p>";
 	if ($itsval['equipped'] && $itsval['equippable'])
 	{
 		$html .= "<a data-tooltip='$unequip' href='runmodule.php?module=inventorypopup&op2=unequip&id={$itsval['itemid']}'>`@<i class='toggle on icon'></i>`0</a> ";
@@ -201,7 +200,7 @@ function showRowItem($itsval)
 	}
 	$html .= '</p></td><td class="collapsing">';
 	$html .= $itsval['equipped']?"<i class='asterisk icon'></i>":"";
-	$html .= "`b{$itsval['name']}`b";
+	$html .= "({$itsval['quantity']}) `b{$itsval['name']}`b";
 	$html .= "</td>";
 	$html .= "<td nowrap>";
 	$html .= sprintf("(Gold value: `^%s`0, Gem Value: `%%%s`0)", $itsval['sellvaluegold'], $itsval['sellvaluegems']);
