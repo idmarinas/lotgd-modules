@@ -173,7 +173,7 @@ function showRowItem($itsval)
 	$drop = translate_inline("Drop 1");
 	$dropall = translate_inline("Drop All");
 
-	$html = "<table class='ui very basic unstackable table items-list'><tr><td rowspan='2' class='center aligned collapsing'>";
+	$html = "<table class='ui very basic very compact unstackable table items-list'><tr><td rowspan='2' class='center aligned collapsing'>";
 	$html .= ($itsval['image']?'<i class="'.$itsval['image'].'"></i>':'');
 	$html .= "<p>";
 	if ($itsval['equipped'] && $itsval['equippable'])
