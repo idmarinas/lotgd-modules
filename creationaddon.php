@@ -8,14 +8,14 @@
 /*   Graphic verification for bot killing.                                 */
 /***************************************************************************/
 
-require_once("lib/http.php");
-require_once("lib/nltoappon.php");
-require_once("lib/showform.php");
+require_once 'lib/http.php';
+require_once 'lib/nltoappon.php';
+require_once 'lib/showform.php';
 
 function creationaddon_getmoduleinfo(){
 	$info = array(
 		"name"=>"Creation Addon",
-        "version"=>"3.0.1",
+        "version"=>"3.1.0",
         "author"=>"Billie Kennedy",
         "category"=>"Administrative",
         "download"=>"http://orpgs.com/modules.php?name=Downloads&d_op=viewdownload&cid=6",
@@ -24,6 +24,7 @@ function creationaddon_getmoduleinfo(){
         "settings"=>array(
 				"Create Addon,title",
 				"creationmsg"=>"This is the message to display to new users.,textarea|Para poder jugar a La Leyenda del Dragón Verde debes haber leído y aceptado las siguientes condiciones:",
+				'showform' => 'Do you want that form show or return array of data for process in your script?,bool|0',
                 "requireage"=> "Do you require the player to be a minimum age?,bool|1",
                 "age"=>"What age to players need to be to play?,int|13",
                 "requireterms"=>"Do you require the player to read the terms?,bool|1",
@@ -169,28 +170,56 @@ function creationaddon_dohook($hookname,$args){
 		case "create-form":
 
             output("`n%s`0`n`n",nltoappon(stripslashes(get_module_setting("creationmsg"))));
+			$showform = get_module_setting('showform');
 
             // Make them check a box requiring a minimum age.
-			if(get_module_setting("requireage")){
-                rawoutput("<input type=\"checkbox\" name=\"age\" />&nbsp&nbsp");
-                output("I am at or over the age of %s.`n",get_module_setting("age"));
+			if(get_module_setting("requireage"))
+			{
+				if (! $showform)
+				{
+					$args['requireage'] = sprintf(translate('I am at or over the age of %s.`n'), get_module_setting("age"));
+					$args['requireageinput'] = '<input type="checkbox" name="age">';
+				}
+				else
+				{
+					rawoutput("<input type=\"checkbox\" name=\"age\" />&nbsp&nbsp");
+					output("I am at or over the age of %s.`n",get_module_setting("age"));
+				}
 			}
 
            // Make them check a box for terms.  Give them a link.
-			if(get_module_setting("requireterms")){
-				rawoutput("<input type=\"checkbox\" name=\"terms\" />&nbsp&nbsp");
+			if(get_module_setting("requireterms"))
+			{
 				$terms = translate_inline("Terms and Agreements");
-				output("I have read the ");
-				rawoutput("<a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=terms")."; return false;\" 'class='motd'>$terms</a>.<br>");
+				$link = "<a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=terms")."; return false;\" 'class='motd'>$terms</a>";
 
+				if (! $showform)
+				{
+					$args['requireterms'] = sprintf(translate('I have read the %s'), $link);
+					$args['requiretermsinput'] = '<input type="checkbox" name="terms">';
+				}
+				else
+				{
+					rawoutput("<input type=\"checkbox\" name=\"terms\" />&nbsp&nbsp");
+					output("I have read the %s`n", $link);
+				}
 			}
 
 			// Make them check a box for Privacy Statement.  Give them a link.
-			if(get_module_setting("requireprivacy")){
-				rawoutput("<input type=\"checkbox\" name=\"privacy\" />&nbsp&nbsp");
+			if(get_module_setting("requireprivacy"))
+			{
 				$privacy = translate_inline("Privacy Policy");
-				output("I have read the ");
-				rawoutput("<a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=privacy")."; return false;\" 'class='motd'>$privacy</a>.<br>");
+				$link = "<a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=privacy")."; return false;\" 'class='motd'>$privacy</a>";
+				if (! $showform)
+				{
+					$args['requireprivacy'] = sprintf(translate('I have read the %s'), $link);
+					$args['requireprivacyinput'] = '<input type="checkbox" name="privacy">';
+				}
+				else
+				{
+					rawoutput("<input type=\"checkbox\" name=\"privacy\" />&nbsp&nbsp");
+					output("I have read the %s`n", $link);
+				}
 
 			}
 
@@ -295,7 +324,7 @@ function creationaddon_dohook($hookname,$args){
 
 function creationaddon_run(){
 	global $session;
-	require_once("lib/superusernav.php");
+	require_once 'lib/superusernav.php';
 	$op=httpget("op");
 
 	switch($op){
@@ -337,7 +366,7 @@ function creationaddon_list(){
 	page_header("Bad Name Editor");
 	global $session;
 	$op = httpget('op');
-	require_once("lib/superusernav.php");
+	require_once 'lib/superusernav.php';
 	superusernav();
 	addnav("Bad Names Editor");
 	addnav("List Names","runmodule.php?module=creationaddon&op=list&admin=true");
@@ -378,7 +407,7 @@ function creationaddon_delete(){
 	global $session;
 	$op = httpget('op');
 	$bad_id = httpget('bad_id');
-	require_once("lib/superusernav.php");
+	require_once 'lib/superusernav.php';
 	superusernav();
 	addnav("Bad Names Editor");
 	addnav("List Names","runmodule.php?module=creationaddon&op=list&admin=true");
@@ -404,7 +433,7 @@ function creationaddon_add(){
 	page_header("Bad Name Editor");
 	global $session;
 
-	require_once("lib/superusernav.php");
+	require_once 'lib/superusernav.php';
 	superusernav();
 	$badnamesarray=array(
 		"Bad Name,title",
