@@ -15,7 +15,7 @@ require_once 'lib/showform.php';
 function creationaddon_getmoduleinfo(){
 	$info = array(
 		"name"=>"Creation Addon",
-        "version"=>"3.1.0",
+        "version"=>"3.2.0",
         "author"=>"Billie Kennedy",
         "category"=>"Administrative",
         "download"=>"http://orpgs.com/modules.php?name=Downloads&d_op=viewdownload&cid=6",
@@ -168,9 +168,10 @@ function creationaddon_dohook($hookname,$args){
 		break;
 
 		case "create-form":
-
-            output("`n%s`0`n`n",nltoappon(stripslashes(get_module_setting("creationmsg"))));
 			$showform = get_module_setting('showform');
+
+			if ($showform) $args['creationmsg'] = nltoappon(stripslashes(get_module_setting("creationmsg")));
+			else output("`n%s`0`n`n",nltoappon(stripslashes(get_module_setting("creationmsg"))));
 
             // Make them check a box requiring a minimum age.
 			if(get_module_setting("requireage"))
