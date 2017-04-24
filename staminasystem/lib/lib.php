@@ -61,21 +61,29 @@ function get_player_action($action, $userid=false) {
 	if ($userid === false) $userid = $session['user']['acctid'];
 	$playeractions=unserialize(get_module_pref("actions","staminasystem",$userid));
 	//Check to see if this action is set for this player, and if not, set it
-	if (!isset($playeractions[$action])){
+	if (!isset($playeractions[$action]))
+	{
 		//debug("Action ".$action." not set!");
 		$defaultactions = get_default_action_list();
 		if (isset($defaultactions[$action])){
 			//debug($defaultactions[$action]);
 			$playeractions[$action] = $defaultactions[$action];
 			$playeractions[$action]['lvl'] = 0;
+			$playeractions[$action]['exp'] = 0;
+			$playeractions[$action]['levelledup'] = false;
 			$playeractions[$action]['naturalcost'] = $defaultactions[$action]['maxcost'];
 			set_module_pref("actions", serialize($playeractions), "staminasystem", $userid);
+
 			return($playeractions[$action]);
-		} else {
+		}
+		else
+		{
 			return false;
 		}
-	} else {
-		return($playeractions[$action]);
+	}
+	else
+	{
+		return $playeractions[$action];
 	}
 }
 
@@ -163,9 +171,12 @@ Returns the experience gained for the given action, taking buffs into account
 *******************************************************
 */
 
-function stamina_calculate_buffed_exp($action, $userid=false){
+function stamina_calculate_buffed_exp($action, $userid=false)
+{
 	global $session;
+
 	if ($userid === false) $userid = $session['user']['acctid'];
+
 	$active_action_buffs = stamina_get_active_buffs($action, $userid);
 	$actiondetails = get_player_action($action, $userid);
 	$buffedexp = e_rand(80,120);
@@ -406,13 +417,20 @@ Calculates buffs, awards experience, returns experience awarded.
 *******************************************************
 */
 
-function stamina_award_exp($action, $userid=false) {
+function stamina_award_exp($action, $userid=false)
+{
 	global $session;
+
 	if ($userid === false) $userid = $session['user']['acctid'];
+
 	$totalexp = stamina_calculate_buffed_exp($action, $userid);
 	$actionlist = get_player_action_list($userid);
-	$actionlist[$action]['exp'] += $totalexp;
+
+	if (isset($actionlist[$action]['exp'])) $actionlist[$action]['exp'] += $totalexp;
+	else $actionlist[$action]['exp'] = $totalexp;
+
 	set_module_pref("actions",serialize($actionlist),"staminasystem",$userid);
+
 	return $totalexp;
 }
 
@@ -424,10 +442,13 @@ Calculates buffs, awards experience, upgrades level, removes cost, advances buff
 *******************************************************
 */
 
-function process_action($action, $userid=false) {
+function process_action($action, $userid=false)
+{
 	global $session, $actions_used;
+
 	if ($userid === false) $userid = $session['user']['acctid'];
-	$info_to_return = array("points_used" => 0, "exp_earned" => 0);
+
+	$info_to_return = ["points_used" => 0, "exp_earned" => 0];
 	$info_to_return['points_used']  = stamina_take_action_cost($action, $userid);
 	$info_to_return['exp_earned']  = stamina_award_exp($action, $userid);
 	stamina_advance_buffs($action, $userid);
@@ -611,6 +632,7 @@ function stamina_level_up($action, $userid = false)
 		$returninfo['lvl'] = $currentlvl;
 		$returninfo['nextlvlexp'] = $nextlvlexp;
 		$returninfo['currentlvlexp'] = $currentlvlexp;
+		$returninfo['levelledup'] = false;
 
 		//Check if player's exp is more than level requirement, and level up if true
 		if ($currentexp > $nextlvlexp && $actions[$action]['lvl']<=100){
@@ -894,7 +916,8 @@ function stamina_minihof_makesmallboard($boardinfo,$userid=false){
 
 	$st = microtime(true);
 	$redoranks = false;
-	while ($largeboard[$playerposition]['xp'] > $largeboard[$playerposition-1]['xp'] && $playerposition >= 0){
+	while (isset($largeboard[$playerposition]['xp']) && $largeboard[$playerposition]['xp'] > $largeboard[$playerposition-1]['xp'] && $playerposition >= 0)
+	{
 		$temp = $largeboard[$playerposition];
 		$largeboard[$playerposition] = $largeboard[$playerposition-1];
 		$largeboard[$playerposition-1] = $temp;
