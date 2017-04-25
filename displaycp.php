@@ -56,15 +56,20 @@ function displaycp_install(){
 function displaycp_uninstall(){
 	return true;
 }
-function displaycp_dohook($hookname,$args){
+function displaycp_dohook($hookname, $args)
+{
 	global $session;
-	$specialty = modulehook("specialtynames");
-	switch ($hookname){
-		case "charstats":
-			$point=getsetting('moneydecimalpoint',",");
-			$sep=getsetting('moneythousandssep',".");
 
-			if (get_module_pref("user_showspec") && get_module_setting("spec")){
+	$specialty = modulehook('specialtynames');
+
+	switch ($hookname)
+	{
+		case "charstats":
+			$point = getsetting('moneydecimalpoint', ',');
+			$sep = getsetting('moneythousandssep', '.');
+
+			if (get_module_pref("user_showspec") && get_module_setting("spec"))
+			{
 				$spec = $specialty[$session['user']['specialty']];
 				setcharstat ("Character Info","Specialty",$spec);
 			}
