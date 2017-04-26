@@ -292,7 +292,7 @@ function advertising_dohook($hookname,$args){
 		}//end if
 
 		//see if they opted out by subscription.
-		if ($session['loggedin']) {
+		if (isset($session['loggedin']) && $session['loggedin']) {
 			if (get_module_pref("optouttill") >= date("Y-m-d H:i:s")){
 				debug("Opt-out by subscription");
 				return $args;
