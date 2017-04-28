@@ -6,7 +6,7 @@
 function newbieisland_getmoduleinfo(){
 	$info = array(
 		"name"=>"Newbie Island",
-		"version"=>"1.0",
+		"version"=>"1.1",
 		"author"=>"Eric Stevens",
 		"category"=>"General",
 		"download"=>"core_module",
@@ -74,53 +74,41 @@ function newbieisland_dohook($hookname,$args){
 		if ($SCRIPT_NAME == "superuser.php") break;
 		// actually since we're doing this sorta globally, let's just
 		// do it globally.
-
-		//## Para evitar problemas, no se bloquea ningún módulo por defecto
-		//####
 		// Block all modules by default
-		//blockmodule(true);
+		blockmodule(true);
 		// Make sure to unblock ourselves
-		// unblockmodule("newbieisland");
-		// // You need to explicitly allow newbies to interact with a module
-		// // in the village or forest
-		// unblockmodule("tutor");
-		// unblockmodule("raceelf");
-		// unblockmodule("racehuman");
-		// unblockmodule("racedwarf");
-		// unblockmodule("racetroll");
-		// unblockmodule("specialtydarkarts");
-		// unblockmodule("specialtythiefskills");
-		// unblockmodule("specialtymysticpower");
-		// unblockmodule("specialtychickenmage");
-		// // Even newbies get advertising
-		// unblockmodule("advertising");
-		// unblockmodule("advertising_google");
-		// unblockmodule("advertising_amazon");
-		// unblockmodule("advertising_splitreason");
-		// unblockmodule("funddrive");
-		// unblockmodule("funddriverewards");
-		// unblockmodule("customeq");
-		// unblockmodule('expbar');
-		// unblockmodule("healthbar");
-		// unblockmodule("serversuspend");
-		// unblockmodule("timeplayed");
-		// unblockmodule("collapse");
-		// unblockmodule("mutemod");
-		// unblockmodule("faqmute");
-		// unblockmodule("extlinks");
-		// unblockmodule("pvpimmunity");
-		// unblockmodule("deputymoderator");
-		// unblockmodule("unclean");
-		// unblockmodule("stattracker");
-
-		//## Módulos bloqueados para el servidor
-		//-- Propios
-		blockmodule('itemshop');//Un jugador nuevo no podrá tener acceso a lo que se vende
-		blockmodule('buildingsystem');//No se prmite crear edificios ni tener acceso a ellos. La isla no tiene edificios
-
-		//-- Ajenos
-		blockmodule('worldmapen');//Se debe usar la función de abandonar isla
-
+		unblockmodule("newbieisland");
+		// You need to explicitly allow newbies to interact with a module
+		// in the village or forest
+		unblockmodule("tutor");
+		unblockmodule("raceelf");
+		unblockmodule("racehuman");
+		unblockmodule("racedwarf");
+		unblockmodule("racetroll");
+		unblockmodule("specialtydarkarts");
+		unblockmodule("specialtythiefskills");
+		unblockmodule("specialtymysticpower");
+		unblockmodule("specialtychickenmage");
+		// Even newbies get advertising
+		unblockmodule("advertising");
+		unblockmodule("advertising_google");
+		unblockmodule("advertising_amazon");
+		unblockmodule("advertising_splitreason");
+		unblockmodule("funddrive");
+		unblockmodule("funddriverewards");
+		unblockmodule("customeq");
+		unblockmodule('expbar');
+		unblockmodule("healthbar");
+		unblockmodule("serversuspend");
+		unblockmodule("timeplayed");
+		unblockmodule("collapse");
+		unblockmodule("mutemod");
+		unblockmodule("faqmute");
+		unblockmodule("extlinks");
+		unblockmodule("pvpimmunity");
+		unblockmodule("deputymoderator");
+		unblockmodule("unclean");
+		unblockmodule("stattracker");
 		//Let newbies see the Travel FAQ
 		//Nobody ever looks at the FAQ more than once
 		//so newbies have to see it right at the start
@@ -167,11 +155,25 @@ function newbieisland_dohook($hookname,$args){
 		if ($session['user']['location'] == $city){
 			$turns = getsetting("turns",10);
 			$turns = round($turns/2);
-			$args['turnstoday'] .= ", Newbie Island: $turns";
-			$session['user']['turns']+= $turns;
-			//output("`n`&The very air of this island invigorates you; you receive `^%s`& turns!`n`0",$turns);
-			//Stamina compatibility
-			output("`n`&El mismo aire de esta isla le vigoriza; ¡recibes `^algo`& de resistencia!`n`0");
+
+			if (is_module_active('staminasystem'))
+			{
+				require_once 'modules/staminasystem/lib/lib.php';
+
+				$stamina = $turns * 25000;
+				$args['turnstoday'] .= ", Newbie Island: Stamina $stamina";
+
+                addstamina($stamina);
+				output("`n`&The very air of this island invigorates you; you receive some Stamina!`n`0");
+			}
+			else
+			{
+				$args['turnstoday'] .= ", Newbie Island: $turns";
+				$session['user']['turns']+= $turns;
+
+				output("`n`&The very air of this island invigorates you; you receive `^%s`& turns!`n`0",$turns);
+			}
+
 			apply_buff("newbiecoddle",array(
 				"name"=>"",
 				"rounds"=>-1,
@@ -267,18 +269,11 @@ function newbieisland_dohook($hookname,$args){
 			blocknav("gardens.php");
 			blocknav("rock.php");
 			blocknav("clan.php");
-			//blocknav("runmodule.php",true);
+			blocknav("runmodule.php",true);
 			blocknav("mercenarycamp.php");
 			blocknav("hof.php");
-			blocknav("armor.php");
-			blocknav("weapons.php");
 			// Make sure that Blusprings can show up on newbie island.
 			unblocknav("train.php");
-
-			//## Bloquear módulos
-			//-- Ajenos
-			blockmodule('worldmapen');//Se debe usar la función de abandonar isla
-
 			//if you want your module to appear in the newbie village, you'll have to hook on village
 			//and unblocknav() it.  I warn you, very very few modules will ever be allowed in the newbie
 			//village and get support for appearing in the core distribution; one of the major reasons
@@ -286,7 +281,9 @@ function newbieisland_dohook($hookname,$args){
 		}
 		break;
 	case "village-desc":
-		if ($session['user']['location'] == $city && 1 != $session['user']['level']){// Sólo se permite dejar la isla si se ha subido de nivel
+		//-- Only can leave de island when player is level 2 or above
+		if ($session['user']['location'] == $city && 1 < $session['user']['level'])
+		{
 			addnav($args['gatenav']);
 			addnav(array("Leave %s",$city),"runmodule.php?module=newbieisland&op=leave");
 			unblocknav("runmodule.php?module=newbieisland&op=leave");
