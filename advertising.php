@@ -252,8 +252,10 @@ function advertising_getbanner($w,$h,$id=false){
 		*/
 }
 
-function advertising_dohook($hookname,$args){
-	global $session;
+function advertising_dohook($hookname,$args)
+{
+	global $session, $lotgd_tpl;
+
 	if ($hookname=="everyfooter"){
 		// Exclude the installer pages from the advertiser because they break
 		// badly causing a slowdown when you try to upgrade
@@ -311,7 +313,7 @@ function advertising_dohook($hookname,$args){
 		reset($banners);
 		foreach($banners as $key => $val)
 		{
-			$args[$key] = $val;
+			$args[$key] = $lotgd_tpl->renderThemeTemplate('body/adwrapper.twig', ['content' => $val]);
 		}
 		if (!array_key_exists('script', $args) || !is_array($args['script']))
 			$args['script']=array();
