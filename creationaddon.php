@@ -55,7 +55,7 @@ function creationaddon_getmoduleinfo(){
 
 function creationaddon_install(){
 
-	if (db_table_exists(DB::prefix("badnames"))) {
+	if (DB::table_exists(DB::prefix("badnames"))) {
 		debug("Bad Names table already exists");
 	}else{
 		debug("Creating Bad Names table");

@@ -67,12 +67,11 @@ function translationwizard_install(){
 
 function translationwizard_uninstall() {
 	debug ("Performing Uninstall on Translation Wizard. Thank you for using!`n`n");
-	if(db_table_exists(DB::prefix("temp_translations"))){
-		$result=DB::query("DROP TABLE ".DB::prefix("temp_translations"));
-	}
+
+	$result = DB::query("DROP TABLE IF EXISTS ".DB::prefix("temp_translations"));
+
 	return $result;
 }
-
 
 function translationwizard_dohook($hookname, $args){
 	global $session;

@@ -49,7 +49,7 @@
 
 
 	require_once("lib/tabledescriptor.php");
-	if (!db_table_exists($skills)) {
+	if (!DB::table_exists($skills)) {
 		synctable($skills, $skills_table, true);
 		synctable($skillsbuffs, $skillsbuffs_table, true);
 		$sql = "INSERT INTO ".$skills." (`skillid`, `name`, `ccode`, `requirement`, `cooldown`, `execvalue`, `buffids`) VALUES (2, 'Gil Toss', '`^', '\$session[''user''][''gold'']>100', 5, '\$session[''user''][''gold'']-=100;', 'a:1:{i:1;i:1;}'), (3, 'Torment', '`7', '\$session[''user''][''gravefights'']>1', 5, '\$session[''user''][''gravefights'']--;', 'a:1:{i:2;i:1;}');";

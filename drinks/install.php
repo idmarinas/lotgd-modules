@@ -1,6 +1,6 @@
 <?php
 function drinks_install_private(){
-	if (db_table_exists(DB::prefix("drinks"))) {
+	if (DB::table_exists(DB::prefix("drinks"))) {
 		debug("Drinks table already exists");
 	}else{
 		debug("Creating drinks table");
