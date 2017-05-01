@@ -71,7 +71,7 @@ function mysticalshop_delete_item( $id )
 				.$extra_sql
 			.' WHERE acctid IN('.$accts.')';
 		DB::query $cleanup_sql );
-		$affected = db_affected_rows();
+		$affected = DB::affected_rows();
 		if( $affected > 0 )
 			output( 'Player accounts refunded: %s. ', $affected );
 
@@ -99,13 +99,13 @@ function mysticalshop_delete_item( $id )
 				.') AND modulename=\'mysticalshop\'
 					AND setting=\'favoradd\'';
 			DB::query $cleanuser_sql );
-			$affected_prefs = db_affected_rows();
+			$affected_prefs = DB::affected_rows();
 			DB::query $clearname_sql );
-			$affected_prefs += db_affected_rows();
+			$affected_prefs += DB::affected_rows();
 			DB::query $clearturns_sql );
-			$affected_prefs += db_affected_rows();
+			$affected_prefs += DB::affected_rows();
 			DB::query $clearfavor_sql );
-			$affected_prefs += db_affected_rows();
+			$affected_prefs += DB::affected_rows();
 			if( $affected_prefs > 0 )
 				output( 'Player preferences cleared: %s.', $affected_prefs );
 		}

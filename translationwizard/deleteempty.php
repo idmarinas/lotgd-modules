@@ -13,7 +13,7 @@ switch ($mode)
 	case "delete": //autodelete more
 	$sql= "DELETE FROM  ".DB::prefix("untranslated")." WHERE namespace=''";
 	$result = DB::query($sql);
-	output("`bOperation commenced, %s rows found and deleted`b`n`n",db_affected_rows($result));
+	output("`bOperation commenced, %s rows found and deleted`b`n`n",DB::affected_rows($result));
 
 	break;
 

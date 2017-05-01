@@ -89,7 +89,7 @@
 				$sql = "DELETE FROM ".DB::prefix("magicitembuffs")." WHERE buffid = $id LIMIT 1";
 				$result = DB::query($sql);
 				invalidatedatacache("magicitem-buff-$id");
-				if (db_affected_rows($result)) output("`^Buff has been succesfully deleted.`n`n");
+				if (DB::affected_rows($result)) output("`^Buff has been succesfully deleted.`n`n");
 				else output("`3While deleting this buff, an error occured. Probably someone else already deleted this buff.`n`n");
 				$sql = "UPDATE ".DB::prefix("magicitems")." SET buffid = 0 WHERE buffid = '$id'";
 				DB::query($sql);

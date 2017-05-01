@@ -30,7 +30,7 @@ function inventoryviewer_dohook($hookname, $args){
 			if ($itemid > 0) {
 				$sql = "DELETE FROM $inventory WHERE invid = $itemid LIMIT 1";
 				DB::query($sql);
-				if (db_affected_rows()) {
+				if (DB::affected_rows()) {
 					output("Item gel�scht.`n");
 				}
 			} else if (httppostisset('additem') && httppost('additem') > 0) {
@@ -42,7 +42,7 @@ function inventoryviewer_dohook($hookname, $args){
 				$in = join(",", $array);
 				$sql = "DELETE FROM $inventory WHERE invid IN ($in)";
 				DB::query($sql);
-				output("%s Items gel�scht.", db_affected_rows());
+				output("%s Items gel�scht.", DB::affected_rows());
 			}
 
 			$sql = "SELECT itemid, name, class FROM $item ORDER BY class ASC, name ASC";

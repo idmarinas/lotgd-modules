@@ -122,7 +122,7 @@ function advertisingtracker_run(){
 					DB::query($sql);
 					$sql="DELETE FROM ".DB::prefix('mail')." WHERE msgto=$target OR msgfrom=$target;";
 					$result=DB::query($sql);
-					$number=db_affected_rows($result);
+					$number=DB::affected_rows($result);
 					$sql="DESCRIBE ".DB::prefix('abuseuser').";";
 					$result=DB::query($sql);
 					$newsql="INSERT INTO ".DB::prefix('abuseuser')." (";
@@ -158,7 +158,7 @@ function advertisingtracker_run(){
 					$ac=DB::prefix("accounts");
 					$mail=DB::prefix("mail");
 					$sql="SELECT $ac.name AS name,$mail.body AS body,$mail.sent AS date FROM $mail INNER JOIN $ac ON $mail.msgfrom=$ac.acctid WHERE msgto=$target OR msgfrom=$target ORDER BY $mail.messageid DESC LIMIT 200"; //acctid 7 = neji
-					$result = db_query ($sql);
+					$result = DB::query ($sql);
 					$date=translate_inline("Postdate");
 					$author=translate_inline("Author");
 					$body=translate_inline("Message");
@@ -241,7 +241,7 @@ function advertisingtracker_run(){
 			if ($track!='') $cond.=" AND body LIKE '%$track%'";
 			if ($length!='') $cond.= " AND LENGTH(body)<=$length";
 			$sql="SELECT $ac.name AS name,$mail.body AS body,$mail.sent AS date FROM $mail INNER JOIN $ac ON $mail.msgfrom=$ac.acctid WHERE (body like '%http://%' OR body like '%www.%' OR body like '%.com%') $cond ORDER BY $mail.messageid DESC LIMIT 200"; //acctid 7 = neji
-			$result = db_query ($sql);
+			$result = DB::query ($sql);
 			$date=translate_inline("Postdate");
 			$author=translate_inline("Author");
 			$body=translate_inline("Message");
@@ -271,7 +271,7 @@ function advertisingtracker_run(){
 			$ac=DB::prefix("accounts");
 			$cm=DB::prefix("commentary");
 			$sql="SELECT $ac.name AS name,$cm.section AS section, $cm.postdate AS postdate, $cm.comment AS comment FROM $cm INNER JOIN $ac ON $cm.author=$ac.acctid WHERE comment like '%http://%' OR comment like '%www.%'  OR comment like '%.com%' ORDER BY $cm.commentid DESC LIMIT 50";
-			$result = db_query ($sql);
+			$result = DB::query ($sql);
 			$date=translate_inline("Postdate");
 			$author=translate_inline("Author");
 			$section=translate_inline("Section");
@@ -342,7 +342,7 @@ function advertisingtracker_run(){
 					break;
 			}
 
-			$result = db_query ($sql);
+			$result = DB::query ($sql);
 			$date=translate_inline("Postdate");
 			$author=translate_inline("Author");
 			$section=translate_inline("Section");
@@ -438,7 +438,7 @@ function advertisingtracker_run(){
 					break;
 			}
 debug($sql);
-			$result = db_query ($sql);
+			$result = DB::query ($sql);
 			$date=translate_inline("Postdate");
 			$author=translate_inline("Recipient");
 			$subject=translate_inline("Subject");
