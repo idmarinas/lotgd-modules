@@ -2,7 +2,7 @@
 /* Superuser Login by Catscradler
    Superusers can sign in even when the server is full.
    Anyone may navigate to the page /index.php?op=backdoor
-   Only superusers with commentary or user editor privileges (includes MEGAUSERS) 
+   Only superusers with commentary or user editor privileges (includes MEGAUSERS)
    will be able to successfully sign in on this page.
    Everyone else will be directed back to the regular login page with an
    error message.
@@ -21,12 +21,18 @@ function sulogin_getmoduleinfo(){
 	return $info;
 }
 
-function sulogin_install(){
+function sulogin_install()
+{
 	module_addhook("header-home");
 	module_addhook("check-login");
+
 	global $session;
-	if ($session['user']['superuser'] & SU_MANAGE_MODULES)
+
+	if (isset($session['user']['superuser']) && $session['user']['superuser'] & SU_MANAGE_MODULES)
+	{
 		output("Superusers can now log in at any time using the page /index.php?op=backdoor");
+	}
+
 	return true;
 }
 
