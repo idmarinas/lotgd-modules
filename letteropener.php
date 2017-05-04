@@ -68,20 +68,16 @@ function letteropener_run(){
 	if(get_module_setting("outbox")) $maildb="mailoutbox";
 
     $op = httpget('op');
-    $order = "acctid";
-    if ($sort!="") $order = "$sort";
+    $order = 'acctid';
     $display = 0;
     $query = httppost('q');
     if ($query === false) $query = httpget('q');
-
 
     addnav("Back to the grotto","superuser.php");
     addnav(array("Show last %s YOMs",get_module_setting("num")),"runmodule.php?module=letteropener&op=lastfew");
     if ($op=="read")
     {
         $id = httpget('id');
-
-
 
         $sql = "SELECT msgfrom,msgto from " . DB::prefix($maildb) . " where messageid=\"".$id."\"";
         $result = DB::query($sql);
