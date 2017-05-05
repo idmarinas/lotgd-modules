@@ -159,11 +159,11 @@
 			$id = httpget('id');
 			$sql = "DELETE FROM ".DB::prefix("item")." WHERE itemid = $id LIMIT 1";
 			$result = DB::query($sql);
-			if (db_affected_rows($result)) output("Item succesfully deleted.`n`n");
+			if (DB::affected_rows($result)) output("Item succesfully deleted.`n`n");
 			else output("While deleting this item an error occurred. Probably someone has already deleted this item.`n`n");
 			$sql = "DELETE FROM ".DB::prefix("inventory")." WHERE itemid = $id";
 			$result = DB::query($sql);
-			if (db_affected_rows($result)) output("This item has been removed %s times from players' inventories.`n`n", db_affected_rows($result));
+			if (DB::affected_rows($result)) output("This item has been removed %s times from players' inventories.`n`n", DB::affected_rows($result));
 			else output("No item has been deleted from players' inventories.`n`n");
 			invalidatedatacache("item-activation-fightnav-specialties");
 			invalidatedatacache("item-activation-forest");
@@ -280,7 +280,7 @@
 			$id = httpget('id');
 			$sql = "DELETE FROM ".DB::prefix("itembuffs")." WHERE buffid = $id LIMIT 1";
 			$result = DB::query($sql);
-			if (db_affected_rows($result)) output("Buff succesfully deleted.`n`n");
+			if (DB::affected_rows($result)) output("Buff succesfully deleted.`n`n");
 			else output("While deleting this buffs an error occured. Probably someone else already deleted this buff.`n`n");
 	}
 	page_footer();
