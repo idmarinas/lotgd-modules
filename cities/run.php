@@ -104,9 +104,8 @@
 				if (DB::num_rows($result) == 0) {
 					// There is nothing in the database to challenge you,
 					// let's give you a doppleganger.
-					$badguy = array();
-					$badguy['creaturename']=
-						"An evil doppleganger of ".$session['user']['name'];
+					$badguy = [];
+					$badguy['creaturename'] = "An evil doppleganger of ".$session['user']['name'];
 					$badguy['creatureweapon']=$session['user']['weapon'];
 					$badguy['creaturelevel']=$session['user']['level'];
 					$badguy['creaturegold']=0;
@@ -120,7 +119,7 @@
 					$aiscriptfile=$badguy['creatureaiscript'].".php";
 					if (file_exists($aiscriptfile)) {
 						//file there, get content and put it into the ai script field.
-						$badguy['creatureaiscript']="require_once '".$aiscriptfile."')';
+						$badguy['creatureaiscript']="require_once '".$aiscriptfile."'";
 					}
 					else
 					{
