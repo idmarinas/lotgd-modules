@@ -5,15 +5,15 @@
 	$danger = httpget("d");
 	$su = httpget("su");
 	if ($op != "faq") {
-		require_once("lib/forcednavigation.php");
+		require_once 'lib/forcednavigation.php';
 		do_forced_nav(false, false);
 	}
 
 	// I really don't like this being out here, but it has to be since
 	// events can define their own op=.... and we might need to handle them
 	// otherwise things break.
-	require_once("lib/events.php");
-	if ($session['user']['specialinc'] != "" || httpget("eventhandler")){
+	require_once 'lib/events.php';
+	if (! isset($session['user']['specialinc']) || $session['user']['specialinc'] != "" || httpget("eventhandler")){
 		$in_event = handle_event("travel",
 			"runmodule.php?module=cities&city=".urlencode($city)."&d=$danger&continue=1&",
 			"Travel");
@@ -29,7 +29,7 @@
 		$args = modulehook("count-travels", array('available'=>0,'used'=>0));
 		$free = max(0, $args['available'] - $args['used']);
 		if ($city==""){
-			require_once("lib/villagenav.php");
+			require_once 'lib/villagenav.php';
 			page_header("Travel");
 			modulehook("collapse{", array("name"=>"traveldesc"));
 			output("`%Travelling the world can be a dangerous occupation.");
@@ -97,7 +97,7 @@
 				$args = array("soberval"=>0.9,
 						"sobermsg"=>"`&Facing your bloodthirsty opponent, the adrenaline rush helps to sober you up slightly.", "schema"=>"module-cities");
 				modulehook("soberup", $args);
-				require_once("lib/forestoutcomes.php");
+				require_once 'lib/forestoutcomes.php';
 				$sql = "SELECT * FROM " . DB::prefix("creatures") . " WHERE creaturelevel = '{$session['user']['level']}' AND forest = 1 ORDER BY rand(".e_rand().") LIMIT 1";
 				$result = DB::query($sql);
 				restore_buff_fields();
@@ -120,7 +120,7 @@
 					$aiscriptfile=$badguy['creatureaiscript'].".php";
 					if (file_exists($aiscriptfile)) {
 						//file there, get content and put it into the ai script field.
-						$badguy['creatureaiscript']="require_once('".$aiscriptfile."');";
+						$badguy['creatureaiscript']="require_once '".$aiscriptfile."')';
 					}
 					else
 					{
@@ -174,18 +174,18 @@
 
 	if ($battle){
 		page_header("You've been waylaid!");
-		require_once("battle.php");
+		require_once 'battle.php';
 		if ($victory){
-			require_once("lib/forestoutcomes.php");
+			require_once 'lib/forestoutcomes.php';
 			forestvictory($newenemies,"This fight would have yielded an extra turn except it was during travel.");
 			addnav("Continue your journey","runmodule.php?module=cities&op=travel&city=".urlencode($city)."&continue=1&d=$danger");
 			module_display_events("travel",
 				"runmodule.php?module=cities&city=".urlencode($city)."&d=$danger&continue=1");
 		}elseif ($defeat){
-			require_once("lib/forestoutcomes.php");
+			require_once 'lib/forestoutcomes.php';
 			forestdefeat($newenemies,array("travelling to %s",$city));
 		}else{
-			require_once("lib/fightnav.php");
+			require_once 'lib/fightnav.php';
 			fightnav(true,true,"runmodule.php?module=cities&city=".urlencode($city)."&d=$danger");
 		}
 		page_footer();
