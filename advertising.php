@@ -263,7 +263,8 @@ function advertising_dohook($hookname,$args)
 		global $session;
 		$crawl = get_module_setting("crawldir");
 		if ($crawl>""){
-			$fullfile = basename($session['user']['restorepage']);
+			if (isset($session['user']['restorepage'])) $fullfile = basename($session['user']['restorepage']);
+			else $fullfile = '';
 			if ($fullfile == "") return $args;
 			if (strpos($fullfile,"?")) {
 				$file = substr($fullfile,0,strpos($fullfile,"?"));
