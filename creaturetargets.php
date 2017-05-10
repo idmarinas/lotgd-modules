@@ -127,6 +127,9 @@ function creaturetargets_dohook($hookname,$args){
 	global $session, $enemies;
 	switch($hookname){
 	case "buffbadguy":
+
+        if (! isset($args['creatureid']) || ! $args['creatureid']) return $args;
+
 		if (get_module_objpref("creatures",  $args['creatureid'], "usetargets")==1){
 			for ($i=1;$i<=6;$i++) {
 				$args['target'.$i]['name'] = get_module_objpref("creatures",  $args['creatureid'], "target".$i);

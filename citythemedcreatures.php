@@ -43,6 +43,9 @@ function citythemedcreatures_dohook($hookname,$args) {
         break;
 
         case "buffbadguy":
+
+            if (! isset($args['creatureid']) || ! $args['creatureid']) return $args;
+
 			if(!get_module_objpref("creatures",$args['creatureid'],"creatureanywhere")
 			&& (!get_module_objpref("creatures",$args['creatureid'],"creatureloc")!=
 				get_module_pref("lastloc"))){

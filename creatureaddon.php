@@ -47,6 +47,8 @@ function creatureaddon_uninstall(){
 function creatureaddon_dohook($hookname,$args){
 	global $session;
 
+    if (! isset($args['creatureid']) || ! $args['creatureid']) return $args;
+
 	switch($hookname){
 		case "gravefight-start":
 			if (get_module_objpref("creatures",  $args['creatureid'], "description")){
