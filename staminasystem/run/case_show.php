@@ -89,7 +89,7 @@ function show_actions($act)
 
 		//current exp - current lvl exp / current exp - nextlvlexp
 
-		$html .= "<tr><td class='collapsing'>". sprintf("`^$key`0 Lv %s", $level). "</td><td>";
+		$html .= "<tr><td class='collapsing'>". sprintf(translate_inline('`^%s`0 Lv %s'), translate_inline($key), $level). "</td><td>";
 
 		if ($values['lvl']<100)
 		{
@@ -116,4 +116,3 @@ function show_actions($act)
 
 	return appoencode($html, true);
 }
-?>
