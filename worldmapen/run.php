@@ -71,6 +71,7 @@ function worldmapen_run_real(){
 		}
 	}
 	page_header("Journey");
+    $chatoverride = 0;
 	//is the player looking at chat?
 	if (httpget('comscroll') || httpget('comscroll')===0 || httpget('comment') || httpget('refresh')){
 		$chatoverride = 1;
