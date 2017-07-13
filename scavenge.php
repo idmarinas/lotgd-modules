@@ -94,7 +94,7 @@ function scavenge_runevent($type)
 	$session['user']['specialinc'] = "module:scavenge";
 	$op = httpget('op');
 	switch ($type) {
-	case graveyard:
+	case 'graveyard':
 		if ($op=="" || $op=="search") {
 			output("`\$Searching for a poor soul to torment as you stride from grave to grave, you catch sight of a pile of bodies stacked awkwardly in a pit. ");
 			output("Your scavenging instincts are tingling, and you espy pouches full of the promise of `^gold`\$ or `%gems`\$.`n`n");
@@ -354,7 +354,7 @@ function scavenge_runevent($type)
 			$session['user']['specialinc'] = "";
 		}
 		break;
-	case village:
+	case 'village':
 		$seen_wraith=get_module_pref("seen_wraith");
 		if (($seen_wraith!=0)&&($op=="")) {
 			output("`\$Drifting out of a side alleyway, you spot a hooded figure approaching you slowly, almost drifting on the wind. ");
