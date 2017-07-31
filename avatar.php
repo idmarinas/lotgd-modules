@@ -234,7 +234,7 @@ function avatar_get_all_images($race, $gender, $selset, $button)
 
 	if ($button !== false) {
 		$str .= "<tr><td colspan=6 align=center>";
-		$str .= "<input type='submit' class='button' value='$button'>";
+		$str .= "<input type='submit' class='ui button' value='$button'>";
 		$str .= "</td></tr>";
 	}
 	$str .= "</table>";
