@@ -13,12 +13,12 @@ function mysticalshop_delete_item( $id )
 	$item_categories = array( 'ring', 'amulet', 'weapon', 'armor', 'cloak',
 			'helm', 'glove', 'boot', 'misc' );
 
-	$item_stats_array = DB::fetch_assoc( DB::query $item_stats_sql ) );
+	$item_stats_array = DB::fetch_assoc( DB::query( $item_stats_sql ) );
 	$item_name = $item_stats_array['name'];
 	$item_catint = $item_stats_array['category'];
 	$item_cat = strtolower( $item_categories[$item_catint] );
 
-	DB::query $del_sql );
+	DB::query( $del_sql );
 	output( '`^Item %s`^ deleted.`n', $item_name );
 
 	$prefs_table = DB::prefix( 'module_userprefs' );
@@ -29,7 +29,7 @@ function mysticalshop_delete_item( $id )
 				.' WHERE modulename=\'mysticalshop\' AND setting=\''.$item_cat
 				.( $item_cat == 'boot' ? 's' : '' )
 				.'\' AND value=\'1\')';
-	$accts_result = DB::query $accts_sql );
+	$accts_result = DB::query( $accts_sql );
 	$accts = '';
 	while( $acct_array = DB::fetch_assoc( $accts_result ) )
 		$accts.= $acct_array['userid'].',';
@@ -41,7 +41,7 @@ function mysticalshop_delete_item( $id )
 			$default_weapon = trim( get_module_setting( 'def_weapon' ) );
 			if( $default_weapon === '' )
 			{
-				$default_weapon = DB::fetch_assoc( DB::query 'DESC '.DB::prefix( 'accounts' ).' weapon' ) );
+				$default_weapon = DB::fetch_assoc( DB::query( 'DESC '.DB::prefix( 'accounts' ).' weapon' ) );
 				$default_weapon = $default_weapon['Default'];
 			}
 			$extra_sql = ',weaponvalue=0,weapondmg=0,weapon=\''.$default_weapon.'\'';
@@ -51,7 +51,7 @@ function mysticalshop_delete_item( $id )
 			$default_armor = trim( get_module_setting( 'def_armor' ) );
 			if( $default_armor === '' )
 			{
-				$default_armor = DB::fetch_assoc( DB::query 'DESC '.DB::prefix( 'accounts' ).' armor' ) );
+				$default_armor = DB::fetch_assoc( DB::query( 'DESC '.DB::prefix( 'accounts' ).' armor' ) );
 				$default_armor = $default_armor['Default'];
 			}
 			$extra_sql = ',armorvalue=0,armordef=0,armor=\''.$default_armor.'\'';
@@ -70,7 +70,7 @@ function mysticalshop_delete_item( $id )
 				.'),deathpower=deathpower-('.(int)$item_stats_array['favor'].')'
 				.$extra_sql
 			.' WHERE acctid IN('.$accts.')';
-		DB::query $cleanup_sql );
+		DB::query( $cleanup_sql );
 		$affected = DB::affected_rows();
 		if( $affected > 0 )
 			output( 'Player accounts refunded: %s. ', $affected );
@@ -98,13 +98,13 @@ function mysticalshop_delete_item( $id )
 				.') WHERE userid IN ('.$accts
 				.') AND modulename=\'mysticalshop\'
 					AND setting=\'favoradd\'';
-			DB::query $cleanuser_sql );
+			DB::query( $cleanuser_sql );
 			$affected_prefs = DB::affected_rows();
-			DB::query $clearname_sql );
+			DB::query( $clearname_sql );
 			$affected_prefs += DB::affected_rows();
-			DB::query $clearturns_sql );
+			DB::query( $clearturns_sql );
 			$affected_prefs += DB::affected_rows();
-			DB::query $clearfavor_sql );
+			DB::query( $clearfavor_sql );
 			$affected_prefs += DB::affected_rows();
 			if( $affected_prefs > 0 )
 				output( 'Player preferences cleared: %s.', $affected_prefs );
@@ -121,4 +121,3 @@ function mysticalshop_delete_item( $id )
 		mysticalshop_massinvalidate( 'modules-mysticalshop-viewgoods-'.$item_catint );
 	}
 }
-?>
