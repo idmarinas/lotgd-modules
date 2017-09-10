@@ -100,7 +100,10 @@ function oldman_bettinggame($from)
 
 function oldman_runevent($type)
 {
-	global $session;
+    global $session;
+
+    if (is_module_active('alignment')) require_once 'modules/alignment/func.php';
+
 	// We assume this event only shows up in the forest currently.
 	$from = "forest.php?";
 	$session['user']['specialinc'] = "module:oldman";

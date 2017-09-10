@@ -260,6 +260,7 @@ function breakin_run(){
 		set_module_pref("breaktoday",1);
 		if (get_module_setting("guilt")) set_module_pref("guilt",2);
 		if (is_module_active('alignment')) {
+            require_once 'modules/alignment/func.php';
 			align("-2");
 		}
 		output("`7You lean on the door heavily with one shoulder, and it gives way with a crack as the wood splinters around the lock.`n`n");
