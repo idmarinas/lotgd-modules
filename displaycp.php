@@ -11,18 +11,17 @@ function displaycp_getmoduleinfo(){
 		"description"=>"This module will display many different things for a user, including drunkeness, specialty, charm, DKs and many other things.",
 		"settings"=>array(
 			"Drunkeness Bar Settings,title",
-			"sober"=>"Name of True Soberness,text|Sobrio",
-			"level1"=>"Name of Level One of Drunkeness,text|Mareado",
-			"level2"=>"Name of Level Two of Drunkeness,text|Alegre",
-			"level3"=>"Name of Level Three of Drunkeness,text|Cantarín",
-			"level4"=>"Name of Level Four of Drunkeness,text|Como una cuba",
-			"level5"=>"Name of True Drunkeness,text|Cogorza",
+			"sober"=>"Name of True Soberness,text|Sober",
+			"level1"=>"Name of Level One of Drunkeness,text|Buzzed",
+			"level2"=>"Name of Level Two of Drunkeness,text|Tipsy",
+			"level3"=>"Name of Level Three of Drunkeness,text|Sloshed",
+			"level4"=>"Name of Level Four of Drunkeness,text|Stumbling",
+			"level5"=>"Name of True Drunkeness,text|Crap-Faced",
 			"Favor Display Settings,title",
 			"wo"=>"Which heading does this fall under,enum,0,Vital Info,1,Personal Info,2,Extra Info|0",
 			"Admin Overrides,title",
 			"spec"=>"Allow users to show Specialty,bool|1",
 			"charm"=>"Allow users to show Charm,bool|1",
-			"dk"=>"Allow users to show Dragonkills,bool|0",
 			"dsdk"=>"Allow users to see Days Since DK,bool|0",
 			"gib"=>"Allow users to show Gold in Bank,bool|1",
 			"mast"=>"Allow users to show Seen Master,bool|1",
@@ -35,7 +34,6 @@ function displaycp_getmoduleinfo(){
 			"Stat Display Control Panel,title",
 			"user_showspec"=>"Do you wish for Specialty to be displayed?,bool|1",
 			"user_showcharm"=>"Do you wish for Charm to be displayed?,bool|1",
-			// "user_showdk"=>"Do you wish for Dragonkills to be displayed?,bool|1",
 			// "user_showdsdk"=>"Do you wish for Day Since DK to be displayed?,bool|1",
 			"user_showgib"=>"Do you wish for Gold In Bank to be displayed?,bool|1",
 			"user_showmast"=>"Do you wish to see if you have fought your master yet today?,bool|1",
@@ -73,10 +71,6 @@ function displaycp_dohook($hookname, $args)
 				$spec = $specialty[$session['user']['specialty']];
 				setcharstat ("Character Info","Specialty",$spec);
 			}
-			// if (get_module_pref("user_showdk") && get_module_setting("dk")){
-			// 	$amnt = $session['user']['dragonkills'];
-			// 	setcharstat ("Extra Info","Dragonkills",$amnt);
-			// }
 			// if (get_module_pref("user_showdsdk") && get_module_setting("dsdk")){
 			// 	$amnt = $session['user']['age'];
 			// 	setcharstat ("Extra Info","Days Since DK",$amnt);
@@ -117,8 +111,7 @@ function displaycp_dohook($hookname, $args)
 				else $len = $drunk;
 				$pct = round($len / $max * 100, 5);
 
-				if ($pct > 100) $pctd = 100;
-				elseif ($pct < 0) $pct = 0;
+                $pct = min(max(0, $pct), 100);
 
 				if ($drunk < 5){
 					$level = get_module_setting("sober");
