@@ -76,19 +76,23 @@ function crying_dohook($hookname,$args){
 	return $args;
 }
 
-function crying_runevent($type) {
+function crying_runevent($type)
+{
 	global $session;
-	$innname = getsetting("innname", LOCATION_INN);
+
+    if (is_module_active('alignment')) require_once 'modules/alignment/func.php';
+
+    $innname = getsetting("innname", LOCATION_INN);
 	$op = httpget('op');
 	$session['user']['specialinc'] = "module:crying";
 	$from = "inn.php?";
 
 	if ($op == "") {
-		output("`7As you are standing in %s, minding your own business, a woman begins to sob loudly.",$innname); 
-		output("You watch as she walks away from Cedrik and over to where her husband is sitting, crying, \"I lost it, and now HE has lost it too! We shall never afford another ring as beautiful as that one!\"`n`n");	 
+		output("`7As you are standing in %s, minding your own business, a woman begins to sob loudly.",$innname);
+		output("You watch as she walks away from Cedrik and over to where her husband is sitting, crying, \"I lost it, and now HE has lost it too! We shall never afford another ring as beautiful as that one!\"`n`n");
 		output("You watch her as she wrings her hands and cries inconsolably.`n`n");
-		output("Your hand strays to the piece of jewelry in your pocket, and you wonder whether you should return the ring to her.");	
-		output("After all, it might be very valuable, and perhaps you could sell it for gems.");	 
+		output("Your hand strays to the piece of jewelry in your pocket, and you wonder whether you should return the ring to her.");
+		output("After all, it might be very valuable, and perhaps you could sell it for gems.");
 		output("You struggle with your conscience, wondering what to do.");
 		set_module_pref("seentoday",1);
 		addnav("Return the Ring",$from."op=give");
@@ -97,7 +101,7 @@ function crying_runevent($type) {
 	}elseif ($op == "give") {
 		set_module_pref("ring",0,"breakin");
 		$whathappens=e_rand(1,5);
-		output("You approach the lady and gently touch her shoulder.");	 
+		output("You approach the lady and gently touch her shoulder.");
 		output("As she turns around and faces you with teary eyes, you extend your hand and offer the ring.`n`n");
 		output("Her eyes become saucers, and she grabs the ring in gratitude, before throwing her arms about you in ecstatic gratitude.`n`n");
 		output("`&\"You are indeed a warrior of true noble heart! Please, accept this gift of my gratitude, and wear it with pride!\"");
