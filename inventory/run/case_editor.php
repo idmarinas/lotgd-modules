@@ -31,7 +31,7 @@ switch(httpget('op2'))
 
         if (isset($item['itemid']) && $item['itemid'] == 0) unset($item['itemid']);
         $id = inject_item($item);
-        httpset($id);
+        httpset('id', $id);
 
         invalidatedatacache("item-activation-fightnav-specialties");
         invalidatedatacache("item-activation-forest");
