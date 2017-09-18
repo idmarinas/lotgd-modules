@@ -80,6 +80,9 @@ function newbieisland_dohook($hookname,$args){
 		unblockmodule("newbieisland");
 		// You need to explicitly allow newbies to interact with a module
 		// in the village or forest
+		unblockmodule('staminasystem');
+		unblockmodule('staminacorecombat');
+		unblockmodule('displaycp');
 		unblockmodule("tutor");
 		unblockmodule("raceelf");
 		unblockmodule("racehuman");
