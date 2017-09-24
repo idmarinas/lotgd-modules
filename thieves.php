@@ -8,7 +8,7 @@
 / 2.23.04  (7th revision) -scs-
 
 v2.0.0 (IDMarinas)
-	- Adapted for IDMarinas version maybe incompatible with other versions and error fixed
+	- Adapted for IDMarinas version error fixed, maybe incompatible with other versions
 
 v1.8 (XChrisX)
  - Changed to support multiple enemies. Removed buff, added real thieves. Hidden
@@ -147,8 +147,6 @@ function thieves_elf_help($from)
 {
 	global $session;
 
-	require_once 'modules/staminasystem/lib/lib.php';
-
 	$gems = $session['user']['gems'];
 	$op = httpget("op");
 	$salut = translate_inline($session['user']['sex'] ? "noble Lady":"dear Sire");
@@ -271,9 +269,18 @@ function thieves_elf_help($from)
 			output("`^You drink the water and discover that your health has returned!`n");
 			$session['user']['hitpoints']=$session['user']['maxhitpoints'];
 		} else {
-			output("`^You drink the water and feel invigorated!`n");
-			output("`&You win same stamina!.");
-            addstamina(25000);
+            output("`^You drink the water and feel invigorated!`n");
+            if (is_module_active('staminasystem'))
+            {
+                require_once 'modules/staminasystem/lib/lib.php';
+                output("`&You win same stamina!.");
+                addstamina(25000);
+            }
+            else
+            {
+                output("`&You gain a forest fight.");
+                $session['user']['turns']++;
+            }
 		}
 	} else {
 		$session['user']['specialinc']="";
@@ -294,11 +301,16 @@ function thieves_elf_help($from)
 	output("`0");
 }
 
-function thieves_fight($costlose) {
-	$op = httpget("op");
-	global $session;
+function thieves_fight($costlose)
+{
+    global $session;
 
-	if ($op=="stand"){
+	$op = httpget("op");
+
+    if ($op == 'stand')
+    {
+        require_once 'lib/creaturefunctions.php';
+
 		$dkb = round($session['user']['dragonkills']*.1);
 		$usemultis = get_module_setting("usemultis");
 		if ($usemultis == "multi") {
@@ -326,6 +338,7 @@ function thieves_fight($costlose) {
 				"creatureattack" => $session['user']['attack']*.9,
 				"creaturedefense" => $session['user']['defense']*.9,
 				"creaturehealth" => INT_MAX,
+				"creaturemaxhealth" => INT_MAX,
 				"diddamage" => 0,
 				"hidehitpoints" => 1, // Hide the ridiculous amount of health, Lonestrider has
 				"cannotbetarget" => 1,
@@ -340,7 +353,8 @@ function thieves_fight($costlose) {
 				// go first.
 				"didsurprise"=>1,
 				"type"=>"lonestrider"
-			];
+            ];
+            $lonestrider = lotgd_transform_creature($lonestrider, false);
 			$thief = [
 				'creaturename' => translate_inline("`\$Lonestrider's Thief`0"),
 				'creaturelevel' => $badguylevel,
@@ -348,10 +362,11 @@ function thieves_fight($costlose) {
 				'creatureattack' => $session['user']['level'],
 				'creaturedefense' => $session['user']['level'],
 				'creaturehealth' => $badguylevel*11,
+				'creaturemaxhealth' => $badguylevel*11,
 				'diddamage' => 0,
 				'didsurprise' => 1,
 				'type' => 'lonestrider-thief'
-			];
+            ];
 			$thief = buffbadguy($thief);
 			$stack = [];
 			$stack[] = $lonestrider;
@@ -363,7 +378,7 @@ function thieves_fight($costlose) {
 			$badguyatt = $session['user']['attack'];
 			$badguydef = $session['user']['defense'];
 			if ($session['user']['level'] > 9) {
-				$baduyhp *= 1.05;
+				$badguyhp *= 1.05;
 			}
 			if ($session['user']['level'] < 4) {
 				$badguyhp *= .9;
@@ -378,13 +393,15 @@ function thieves_fight($costlose) {
 				"creatureattack"=>$badguyatt,
 				"creaturedefense"=>$badguydef,
 				"creaturehealth"=>round($badguyhp,0),
+				"creaturemaxhealth"=>round($badguyhp,0),
 				"diddamage"=>0,
 				"noadjust"=>1, // This is a pre-generated monster
 				// This next line looks odd, but it's basically telling the
 				// battle code, not to do the determination for surprise.  This
 				// means player gets first hit against Lonestrider, he will never
 				// go first.
-				"didsurprise"=>1);
+                "didsurprise"=>1);
+            $badguy = lotgd_transform_creature($badguy, false);
 			apply_buff('thieves', array(
 				"startmsg"=>"`n`^You are surrounded by thieves with many tiny daggers!`n`n",
 				"name"=>"`%Stabbing Knives",
@@ -483,7 +500,7 @@ function thieves_fight($costlose) {
 			if ($session['user']['gems'] > 0) {
 				output("Fortunately for you, they do not notice your other purse containing the remainder of your gems.");
 			}
-            removestamina(25000);
+
 			$iname = getsetting("innname", LOCATION_INN);
 			$vname = getsetting("villagename", LOCATION_FIELDS);
 			output("`n`nYou lay, moaning on the forest trail, barely clinging to life, as small forest critters and the occasional adventurer pass you by, leaving you to die.");
@@ -491,7 +508,18 @@ function thieves_fight($costlose) {
 			output("He raises a healing potion to your lips, and drags you to %s in %s.", $iname, $vname);
 			output("There, he purchases a room from %s`6, and leaves coin for your care, departing before you fully gain consciousness, leaving no opportunity to thank him.`n`n", getsetting("barkeep", "`tCedrik"));
 			if (is_module_active("jeweler")) thieves_jewels();
-			output("`^You lose same stamina while unconscious.");
+            if (is_module_active('staminasystem'))
+            {
+                require_once 'modules/staminasystem/lib/lib.php';
+                output("`^You lose same stamina while unconscious.");
+                removestamina(25000);
+            }
+            else
+            {
+                output("`^You lose a forest fight while unconscious.");
+                $session['user']['turns']--;
+            }
+
 			$session['user']['specialinc']="";
 			$session['user']['specialmisc']="";
 			$session['user']['boughtroomtoday']=1;
