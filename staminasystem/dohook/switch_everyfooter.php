@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if (!$session['user']['loggedin']) return $args;
 if (!$session['user']['alive']) return $args;
@@ -8,33 +8,39 @@ require_once("lib/redirect.php");
 
 $amber = get_stamina();
 if ($amber < 100)
-{	
-	$cansado = (!$session['user']['sex']?'cansado':'cansada');
-	$exhausto = (!$session['user']['sex']?'exhausto':'exhausta');
+{
 	//Gives a proportionate debuff from 1 to 0.2, at 2 decimal places each time
 	$buffvalue=round(((($amber/100)*80)+20)/100,2);
 	$script = '';
 	if ($buffvalue < 0.3)
 	{
 		$buffmsg = "`\$You're getting `bdangerously exhausted!`b`0";
-		$script = stamina_notification("Lo dicho, estás peligrosamente $exhausto.", 'La reunión con Ramius está cerca...', 'warning');
+        $message = translate_inline('That said, you\'re dangerously exhausted.');
+        $title = sprintf(translate_inline('The meeting with %s is close...'), getsetting('deathoverlord', '`$Ramius`0'));
+		$script = stamina_notification($message, $title, 'warning');
 	}
 	else if ($buffvalue < 0.6)
 	{
 		$buffmsg = "`\$You're getting `bexhausted!`b`0";
-		$script = stamina_notification("... Que no sea por que no te lo advertí, estás $exhausto.", '¿Ganas de visitar a Ramius?', 'warning');
+        $message = translate_inline('...Other than why I did not warn you, you\'re exhausted.');
+        $title = sprintf(translate_inline('Do you want to visit %s?'), getsetting('deathoverlord', '`$Ramius`0'));
+		$script = stamina_notification($message, $title, 'warning');
 	}
 	else if ($buffvalue < 0.8)
 	{
 		$buffmsg = "`4You're getting `ivery`i tired...`0";
-		$script = stamina_notification("Enserio deberías tomarte un descanso, estás muy $cansado.", 'La energía te abandona...', 'warning');
+        $message = translate_inline('You really should take a break, you\'re very tired.');
+        $title = translate_inline('The stamina leaves you...');
+		$script = stamina_notification($message, $title, 'warning');
 	}
 	else if ($buffvalue < 1)
 	{
-		$buffmsg = "`0You're getting tired...";
-		$script = stamina_notification("Deberías tomarte un descanso, estás un poco $cansado.", 'La energía te abandona.', 'warning');
+        $buffmsg = "`0You're getting tired...";
+        $message = translate_inline('You should take a break, you\'re a little tired.');
+        $title = translate_inline('The stamina leaves you...');
+		$script = stamina_notification($message, $title, 'warning');
 	}
-	
+
 	apply_buff('stamina-corecombat-exhaustion', array(
 		"name"=>"Exhaustion",
 		"atkmod"=>$buffvalue,
@@ -43,10 +49,10 @@ if ($amber < 100)
 		"roundmsg"=>$buffmsg,
 		"schema"=>"module-staminacorecombat"
 	));
-    
+
     if ($script) rawoutput($script);
-} 
-else 
+}
+else
 {
 	strip_buff('stamina-corecombat-exhaustion');
 }
@@ -59,11 +65,13 @@ if ($red < 100)
 		output("`\$Vision blurring, you succumb to the effects of exhaustion.  You take a step forward to strike your enemy, but instead trip over your own feet.`nAs the carpet of leaves and twigs drifts lazily up to meet your face, you close your eyes and halfheartedly reach out your hands to cushion the blow - but they sail through the ground as if it were made out of clouds.`nYou fall.`nUnconsciousness.  How you'd missed it.`0");
 		$session['user']['hitpoints']=0;
 		$session['user']['alive']=0;
-			
+
 		redirect("shades.php");
-	}
-	$script = stamina_notification('Estás en peligro, si continuas con tus acciones corres el riesgo de visitar a Ramius.', 'Ya es tarde para ti', 'danger');
-	
+    }
+    $message = sprintf(translate_inline('You are in danger, if you continue with your actions you run the risk of visiting %s.'), getsetting('deathoverlord', '`$Ramius`0'));
+    $title = translate_inline('It\'s too late for you');
+	$script = stamina_notification($message, $title, 'danger');
+
 	rawoutput($script);
 }
 // return true;
@@ -71,18 +79,17 @@ if ($red < 100)
 
 function stamina_notification($message, $title, $status)
 {
-	$icon = "<i class='fa fa-exclamation-triangle fa-fw fa-2x'></i>";
-	
-	$message = "<h6 class='uk-text-left'>$icon $title</h6>$message<br><em>Cuanto mayor sea el cansando mayor será la penalización al ataque y defensa.</em>";
-	
+	$message = "$message<br><br><em>".translate_inline('The greater the tiring the greater the penalty to attack and defense.')."</em>";
+
 	$script = "<script type='text/javascript'>
-		UIkit.notify({
-			message : '".addslashes($message)."',
-			status  : '$status',
-			timeout : 1000,
-			pos     : 'top-right'
+		Lotgd.notify({
+            message : '".addslashes(appoencode($message, true))."',
+            title : '".addslashes(appoencode($title, true))."',
+			type  : '$status',
+			timeOut : 40000,
+			escapeHtml : false
 		});
-	</script>";	
-	
-	return $script;	
+	</script>";
+
+	return $script;
 }
