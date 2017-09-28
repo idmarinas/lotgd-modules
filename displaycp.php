@@ -68,7 +68,8 @@ function displaycp_dohook($hookname, $args)
 
 			if (get_module_pref("user_showspec") && get_module_setting("spec"))
 			{
-				$spec = $specialty[$session['user']['specialty']];
+                if (isset($specialty[$session['user']['specialty']])) $spec = $specialty[$session['user']['specialty']];
+                else $spec = '??';
 				setcharstat ("Character Info","Specialty",$spec);
 			}
 			// if (get_module_pref("user_showdsdk") && get_module_setting("dsdk")){
