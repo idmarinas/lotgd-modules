@@ -50,7 +50,7 @@ if ($amber < 100)
 		"schema"=>"module-staminacorecombat"
 	));
 
-    if ($script) rawoutput($script);
+    if ($script && $red >= 100) rawoutput($script);
 }
 else
 {
