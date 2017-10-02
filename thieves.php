@@ -130,7 +130,7 @@ function thieves_jewels(){
 
 function thieves_install(){
 	module_addeventhook("forest",
-			"require_once(\"modules/thieves.php\");
+			"require_once 'modules/thieves.php';
 			return thieves_chance();");
 	return true;
 }
@@ -222,11 +222,13 @@ function thieves_elf_help($from)
 		$costlose = round(($gems*get_module_setting("costlose")/100),0);
 		if ($costlose < 0) $costlose = 0;
 		thieves_fight($costlose);
-	} elseif ($op == "thiefskill") {
-		$session['user']['specialinc'] = "";
+    } elseif ($op == "thiefskill")
+    {
+        require_once 'lib/increment_specialty.php';
+
+		$session['user']['specialinc'] = '';
 		// We know the user has a gem since otherwise Lonestrider would
 		// give them one (since we're in the elf side)
-		require_once("lib/increment_specialty.php");
 		output("`n`n`6You anxiously tell `\$Lonestrider`6 a short story of your adventures and mention that you're also a elvish thief, following in his footsteps.");
 		output("A puckish smile crosses his lips and he laughs.");
 		output("You feel a breeze tickle the back of your neck and you turn around to check it out.");
@@ -298,7 +300,7 @@ function thieves_elf_help($from)
 			)
 		);
 	}
-	output("`0");
+	output('`0');
 }
 
 function thieves_fight($costlose)
@@ -430,113 +432,130 @@ function thieves_fight($costlose)
 		$op="fight";
 		httpset('op', "fight");
 	}
-	if ($op=="fight"){
-		$battle=true;
-	}
-	if ($battle){
-		require_once("battle.php");
-		if ($victory){
-			if (e_rand(1, 100) < get_module_setting("chancebackstab")) {
+    if ($op == 'fight') { $battle = true; }
+
+    if ($battle)
+    {
+        //-- Any data for personalize results
+        $battleDefeatWhere = false;//-- Use for create a news, set to false for not create news
+        $battleShowResult = false;//-- Show result of battle. If no need any extra modification of result no need change this
+
+        require_once 'battle.php';
+
+        if ($victory)
+        {
+            if (e_rand(1, 100) < get_module_setting('chancebackstab'))
+            {
 				$costlose2 = round($costlose*1.5);
-				if ($costlose2 > $session['user']['gems'])
-					$costlose2 = $session['user']['gems'];
-				$session['user']['gems']-=$costlose2;
-				output("`n`\$Lonestrider's`6 thieves lay slain at your feet but the elfin leader has vanished.");
-				output("Eagerly you glance about the area, looking for `\$Lonestrider`6 himself.");
-				output("The forest is absolutely silent.");
-				output("Suddenly, you feel something cold and sharp against your neck.");
-				output("The speed of elves is often astonishing, but the silence should have given him away.`n`n");
-				output("\"`\$That was well done, but our business isn't concluded as of yet. I'm afraid you'll have to excuse the knife at your throat.  Just a formality, really. Now, before taking my leave, I'll take some of those gems.`6\"`n`n");
-				output("You're about to say something exceptionally clever when a crack against the back of your skull sends you spiraling into darkness.");
-				output("You wake up with a splitting headache and find `6that `\$Lonestrider`6 has taken `%%s gems`6 from your unconcious body.", $costlose2);
+				if ($costlose2 > $session['user']['gems']) $costlose2 = $session['user']['gems'];
+				$session['user']['gems'] -= $costlose2;
+				$lotgdBattleContent['battleend'][] = ["`n`\$Lonestrider's`6 thieves lay slain at your feet but the elfin leader has vanished."];
+				$lotgdBattleContent['battleend'][] = ["Eagerly you glance about the area, looking for `\$Lonestrider`6 himself."];
+				$lotgdBattleContent['battleend'][] = ["The forest is absolutely silent."];
+				$lotgdBattleContent['battleend'][] = ["Suddenly, you feel something cold and sharp against your neck."];
+				$lotgdBattleContent['battleend'][] = ["The speed of elves is often astonishing, but the silence should have given him away.`n`n"];
+				$lotgdBattleContent['battleend'][] = ["\"`\$That was well done, but our business isn't concluded as of yet. I'm afraid you'll have to excuse th knife at your throat.  Just a formality, really. Now, before taking my leave, I'll take some of those gems.`6\"`n`n"];
+				$lotgdBattleContent['battleend'][] = ["You're about to say something exceptionally clever when a crack against the back of your skull sends yo spiraling into darkness."];
+				$lotgdBattleContent['battleend'][] = ["You wake up with a splitting headache and find `6that `\$Lonestrider`6 has taken `%%s gems`6 from you unconcious body.", $costlose2];
 				debuglog("lost $costlose2 gems to Lonestrider backstab");
-				if (get_module_setting("losegold")) {
+                if (get_module_setting("losegold"))
+                {
 					$goldloss = $session['user']['gold'];
 					if ($goldloss)
 					{
 						$session['user']['gold'] = 0;
-						output("Additionally, you find `^%s gold`6 gone.", $goldloss);
+						$lotgdBattleContent['battleend'][] = ["Additionally, you find `^%s gold`6 gone.", $goldloss];
 						debuglog("lost $goldloss gold to Lonestrider backstab");
 					}
 				}
-				require_once("lib/taunt.php");
+				require_once 'lib/taunt.php';
 				$taunt = select_taunt_array();
-				addnews("`%%s`2 challenged `4Lonestrider `2and his band of thieves and put up a fierce fight! Unfortunately, `\$Lonestrider `2got the last blow in.`n%s",$session[user][name], $taunt);
-				$session['user']['specialmisc']="";
-				$session['user']['specialinc']="";
-			} else {
-				output("`n`6Many of `\$Lonestrider's`6 thieves lay slain at your feet.");
-				output("`\$Lonestrider`6 himself has disappeared at some point in the battle, when things were looking sour for his men.`n");
+				addnews("`%%s`2 challenged `4Lonestrider `2and his band of thieves and put up a fierce fight! Unfortunately, `\$Lonestrider `2got the last blow in.`n%s",$session['user']['name'], $taunt);
+				$session['user']['specialmisc'] = '';
+				$session['user']['specialinc'] = '';
+            }
+            else
+            {
+				$lotgdBattleContent['battleend'][] = ["`n`6Many of `\$Lonestrider's`6 thieves lay slain at your feet."];
+				$lotgdBattleContent['battleend'][] = ["`\$Lonestrider`6 himself has disappeared at some point in the battle, when things were looking sour for hi men.`n"];
 				if (is_module_active("dag")) {
 					//one-sixth of max bounty at this level, roughly 67/level
 					$bounty = round(get_module_setting("bountymax", "dag")*
 							$session['user']['level'] / 6, 0);
-					output("Unfortunately this means that you will not have any chance to bring in his head for reward from Dag.");
-					output("Some of the dead thieves around you have prices on their heads though, and so you are able to collect `^%s gold `6for their slaying.`n", $bounty);
+					$lotgdBattleContent['battleend'][] = ["Unfortunately this means that you will not have any chance to bring in his head for reward from Dag."];
+					$lotgdBattleContent['battleend'][] = ["Some of the dead thieves around you have prices on their heads though, and so you are able to collect `^%s gold `6for their slaying.`n", $bounty];
 					$session['user']['gold']+=$bounty;
 					debuglog("gained $bounty gold for the head of some of Lonestrider's thieves");
 				}
-				output("While casually rifling through some of the dead thieves' pockets, you discover `5a healing potion`6, which you quickly imbibe.");
+				$lotgdBattleContent['battleend'][] = ["While casually rifling through some of the dead thieves' pockets, you discover `5a healing potion`6, whic you quickly imbibe."];
 				if ($session['user']['specialmisc']=="triedtorun") {
-					output("`n`nYou find none of the gems you tried to use to distract the thieves on any of the bodies.");
-					output("`\$Lonestrider`6 must have taken them when he ran.");
-				}
-				if ($session['user']['hitpoints'] <
-						$session['user']['maxhitpoints'])
-					$session['user']['hitpoints']=
-						$session['user']['maxhitpoints'];
+					$lotgdBattleContent['battleend'][] = ["`n`nYou find none of the gems you tried to use to distract the thieves on any of the bodies."];
+					$lotgdBattleContent['battleend'][] = ["`\$Lonestrider`6 must have taken them when he ran."];
+                }
+
+				if ($session['user']['hitpoints'] < $session['user']['maxhitpoints']) $session['user']['hitpoints'] = $session['user']['maxhitpoints'];
 			}
-			$session['user']['specialinc']="";
-			$session['user']['specialmisc']="";
+
+            $session['user']['specialinc'] = '';
+            $session['user']['specialmisc'] = '';
+
 			strip_buff('thieves');
-		}elseif ($defeat){
-			strip_buff('thieves');
-			require_once("lib/taunt.php");
-			$taunt = select_taunt_array();
+        }
+        elseif ($defeat)
+        {
+            require_once 'lib/taunt.php';
+
+            strip_buff('thieves');
+
+			$taunt = select_taunt();
 			$session['user']['gems']-=$costlose;
 			addnews("`%%s`6 challenged `4Lonestrider `6and his band of thieves, but was no match for the rogues!`n%s",$session['user']['name'],$taunt);
 			debuglog("lost $costlose gems when Lonestrider's thieves knocked him unconscious.");
-			output("`n`\$Lonestrider's`6 thieves have laid you unconscious, and help themselves to the `%%s`6 gems that they find in one of your purses.", $costlose);
+			$lotgdBattleContent['battleend'][] = ["`n`\$Lonestrider's`6 thieves have laid you unconscious, and help themselves to the `%%s`6 gems that they find in one of your purses.", $costlose];
 			if ($session['user']['gems'] > 0) {
-				output("Fortunately for you, they do not notice your other purse containing the remainder of your gems.");
+				$lotgdBattleContent['battleend'][] = ["Fortunately for you, they do not notice your other purse containing the remainder of your gems."];
 			}
 
 			$iname = getsetting("innname", LOCATION_INN);
 			$vname = getsetting("villagename", LOCATION_FIELDS);
-			output("`n`nYou lay, moaning on the forest trail, barely clinging to life, as small forest critters and the occasional adventurer pass you by, leaving you to die.");
-			output("It is not until a villager from hated Eythgim Village sees you that your aid comes though.");
-			output("He raises a healing potion to your lips, and drags you to %s in %s.", $iname, $vname);
-			output("There, he purchases a room from %s`6, and leaves coin for your care, departing before you fully gain consciousness, leaving no opportunity to thank him.`n`n", getsetting("barkeep", "`tCedrik"));
+			$lotgdBattleContent['battleend'][] = ["`n`nYou lay, moaning on the forest trail, barely clinging to life, as small forest critters and the occasional adventurer pass you by, leaving you to die."];
+			$lotgdBattleContent['battleend'][] = ["It is not until a villager from hated Eythgim Village sees you that your aid comes though."];
+			$lotgdBattleContent['battleend'][] = ["He raises a healing potion to your lips, and drags you to %s in %s.", $iname, $vname];
+			$lotgdBattleContent['battleend'][] = ["There, he purchases a room from %s`6, and leaves coin for your care, departing before you fully gain consciousness, leaving no opportunity to thank him.`n`n", getsetting("barkeep", "`tCedrik")];
 			if (is_module_active("jeweler")) thieves_jewels();
             if (is_module_active('staminasystem'))
             {
                 require_once 'modules/staminasystem/lib/lib.php';
-                output("`^You lose same stamina while unconscious.");
+                $lotgdBattleContent['battleend'][] = ["`^You lose same stamina while unconscious."];
                 removestamina(25000);
             }
             else
             {
-                output("`^You lose a forest fight while unconscious.");
+                $lotgdBattleContent['battleend'][] = ["`^You lose a forest fight while unconscious."];
                 $session['user']['turns']--;
             }
 
-			$session['user']['specialinc']="";
-			$session['user']['specialmisc']="";
-			$session['user']['boughtroomtoday']=1;
-			if ($session['user']['hitpoints'] <
-					$session['user']['maxhitpoints'])
-				$session['user']['hitpoints']=$session['user']['maxhitpoints'];
+			$session['user']['specialinc'] = '';
+			$session['user']['specialmisc'] = '';
+			$session['user']['boughtroomtoday'] = 1;
+
+            if ($session['user']['hitpoints'] < $session['user']['maxhitpoints']) $session['user']['hitpoints'] = $session['user']['maxhitpoints'];
+
 			$session['user']['location'] = $vname;
-			addnav("Wake Up!","inn.php?op=strolldown");
-		}else{
+			addnav('Wake Up!', 'inn.php?op=strolldown');
+        }
+        else
+        {
 			fightnav(true,true);
 		}
-	}
+    }
+
+    battleshowresults($lotgdBattleContent);
 }
 
 function thieves_runevent($type)
 {
-	require_once("lib/buffs.php");
+	require_once 'lib/buffs.php';
 	global $session;
 	// We assume this event only shows up in the forest currently.
 	$from = "forest.php?";
