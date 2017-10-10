@@ -3,3 +3,14 @@ dbconnect.php
 /node_modules
 /dist
 /bower_components
+
+## Temporal
+/images
+/modules/marriage
+/modules/commentaryinfo
+/modules/scrapbots
+/modules/titans
+/modules/dag
+/modules/clanbuffs
+/modules/lib
+/modules/abandoncastle
