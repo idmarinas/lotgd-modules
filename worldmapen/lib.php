@@ -107,32 +107,39 @@ function worldmapen_viewmap($showloc){
 					$cellvalue = $map[$x][$y];
 					$terrainName = translate_inline($map[$x][$y]);
 
-					foreach($vloc as $loc=>$val) {
-						if ($y == get_module_setting($loc."Y") && $x == get_module_setting($loc."X")) {
-							$cityText = "<i class='fa fa-home' data-uk-tooltip title='$loc ({$x}, {$y}) ($terrainName)'></i>";
+                    foreach($vloc as $loc => $val)
+                    {
+                        if ($y == get_module_setting($loc."Y") && $x == get_module_setting($loc."X"))
+                        {
+                            $cityText = "<i class='home icon'></i>";
+                            $title = "class='ui tooltip' title='$loc ({$x}, {$y}) ($terrainName)'";
 							$city = true;
 							break;
 						}
 						else
 						{
-							$cityText = "&nbsp;";
+                            $cityText = "&nbsp;";
+                            $title = '';
 							$city = false;
 						}
 					}
-					if ($showloc){
+                    if ($showloc)
+                    {
 						if ($y == $worldmapY && $x == $worldmapX){
-							rawoutput("<td class='{$colorUserLoc}'>");
+							rawoutput("<td style='background: {$colorUserLoc};' $title>");
 						}else{
 							if (!$city)
-								rawoutput("<td class='{$colors[$cellvalue]}' data-uk-tooltip alt='({$x}, {$y}) ($terrainName)' title='({$x}, {$y}) $terrainName'>");
+								rawoutput("<td style='background: {$colors[$cellvalue]};' class='ui tooltip' alt='({$x}, {$y}) ($terrainName)' title='({$x}, {$y}) $terrainName'>");
 							else
-								rawoutput("<td class='{$colors[$cellvalue]}'>");
+								rawoutput("<td style='background: {$colors[$cellvalue]};' $title>");
 						}
-					}else{
+                    }
+                    else
+                    {
 						if (!$city)
-							rawoutput("<td class='{$colors[$cellvalue]}' data-uk-tooltip alt='({$x}, {$y}) ($terrainName)' title='({$x}, {$y}) $terrainName'>");
+							rawoutput("<td style='background: {$colors[$cellvalue]};' class='ui tooltip' alt='({$x}, {$y}) ($terrainName)' title='({$x}, {$y}) $terrainName'>");
 						else
-							rawoutput("<td class='{$colors[$cellvalue]}'>");
+							rawoutput("<td style='background: {$colors[$cellvalue]};' $title>");
 					}
 					rawoutput($cityText);
 					rawoutput("</td>");
@@ -174,10 +181,10 @@ function worldmapen_viewmap($showloc){
 					$cellvalue = $map[$x][$y];
 					$terrainName = translate_inline($map[$x][$y]);
 					// We do y x y for the id to address issues when x = 11 y = 5 and x = 1 and y = 15
-					rawoutput("<td id=\"".$x."-".$y."\" onclick=\"changeColor(this.id);\" class=\"{$colors[$cellvalue]}\" align=center valign=middle alt='({$x}, {$y}) $terrainName' title='({$x}, {$y}) $terrainName'><input type=\"hidden\" id=\"".$x."-".$y."b\" name=\"".$x.".".$y."\" value=\"{$cellvalue}\">",true);
+					rawoutput("<td id=\"".$x."-".$y."\" onclick=\"changeColor(this.id);\" style='background: {$colors[$cellvalue]};' align=center valign=middle alt='({$x}, {$y}) $terrainName' title='({$x}, {$y}) $terrainName'><input type=\"hidden\" id=\"".$x."-".$y."b\" name=\"".$x.".".$y."\" value=\"{$cellvalue}\">",true);
 					foreach($vloc as $loc=>$val) {
 						if ($y == get_module_setting($loc."Y") && $x == get_module_setting($loc."X")) {
-							rawoutput("<i class='fa fa-home' data-uk-tooltip title='$loc ({$x}, {$y}) $terrainName'></i>");
+							rawoutput("<i class='home icon ui tooltip' title='$loc ({$x}, {$y}) $terrainName'></i>");
 							break;
 						}
 					}
@@ -263,7 +270,8 @@ function worldmapen_viewsmallmap(){
 
 			foreach($vloc as $loc=>$val) {
 				if ($smallmapY == get_module_setting($loc."Y") && $smallmapX == get_module_setting($loc."X")) {
-					$cityText = "<i class='fa fa-home' data-uk-tooltip title='$loc ({$smallmapX}, {$smallmapY}) ($terrainName)'></i>";
+					$cityText = "<i class='home icon'></i>";
+                    $title = "class='ui tooltip' title='$loc ({$x}, {$y}) ($terrainName)'";
 					$city = true;
 					break;
 				}else{
@@ -272,13 +280,13 @@ function worldmapen_viewsmallmap(){
 				}
 			}
 			if ($i == floor($smallmapsize * $smallmapsize / 2)) {
-				rawoutput("<td class='{$colorUserLoc}'>");
+				rawoutput("<td style='background: {$colorUserLoc};'>");
 				$blindoutput.="Your current location: ";
 			} else if ($x < $sizeX){
 				if (!$city)
-					rawoutput("<td class='{$colors[$cellvalue]}' data-uk-tooltip title='({$smallmapX}, {$smallmapY}) ($terrainName)'>");
+					rawoutput("<td style='background: {$colors[$cellvalue]};' class='ui tooltip' title='({$smallmapX}, {$smallmapY}) ($terrainName)'>");
 				else
-					rawoutput("<td class='{$colors[$cellvalue]}'>");
+					rawoutput("<td style='background: {$colors[$cellvalue]};' $title>");
 			}
 			rawoutput($cityText);
 			if ($smallmapY > $worldmapY+1 || $smallmapY < $worldmapY-1) $blind_dist_y = "Far ";
@@ -388,10 +396,10 @@ function worldmapen_viewmapkey($showloc,$small){
 
 	if ($showloc){
 		rawoutput("<table class='map7'><tr>");
-		rawoutput("<td class='terrain {$colorUserLoc}'>&nbsp;</td><td>"); output("Current Location"); rawoutput("</td>");
+		rawoutput("<td style='background: {$colorUserLoc};' class='terrain'>&nbsp;</td><td>"); output("Current Location"); rawoutput("</td>");
 		rawoutput("</tr><tr>");
 		if (get_module_setting("enableTerrains")==1){
-			rawoutput("<td class='terrain {$terrainColor}'>&nbsp;</td><td>");
+			rawoutput("<td style='background: {$terrainColor};' class='terrain'>&nbsp;</td><td>");
 			output("Current Terrain: %s", translate_inline($currentTerrain));
 			rawoutput("</td>");
 			rawoutput("</tr><tr>");
@@ -425,13 +433,14 @@ function worldmapen_viewmapkey($showloc,$small){
 //		debug($terrainDef);
 
 		$i = 0;
-		foreach ($terrainDef AS $name=>$terrain) {
-			if ($i % 6 == 0) {
-				rawoutput("</tr><tr>");
-	   		}
+        foreach ($terrainDef AS $name=>$terrain)
+        {
+			if ($i % 6 == 0) { rawoutput("</tr><tr>"); }
 			//Blame CMJ for this mess
-			if (get_module_setting("usestamina")==1){
-				require_once('modules/staminasystem/lib/lib.php');
+            if (get_module_setting("usestamina")==1)
+            {
+                require_once 'modules/staminasystem/lib/lib.php';
+
 				switch ($terrain['type']){
 					case "Plains":
 						$terrain["moveCost"] = stamina_getdisplaycost("Travelling - Plains")."%";
@@ -466,7 +475,7 @@ function worldmapen_viewmapkey($showloc,$small){
 				}
 			}
 			$terrainName = translate_inline($name);
-			rawoutput("<td class='terrain {$terrain['color']}'>&nbsp;</td><td>{$terrainName} - ".$terrain["moveCost"]."</td>");
+			rawoutput("<td style='background: {$terrain['color']};' class='terrain'>&nbsp;</td><td>{$terrainName} - ".$terrain["moveCost"]."</td>");
 
 			$i++;
 		}
@@ -718,7 +727,7 @@ function worldmapen_camp_list(){
 	//PvP Display
 	$_SERVER['REQUEST_URI'] = preg_replace( '/op=[a-z]*/', 'op=continue', $_SERVER['REQUEST_URI'] );
 	// ^- That's a hack to prevent stop cheaters from clicking BIO and back to get gold, turns, etc.
-	require_once("lib/pvplist.php");
+	require_once "lib/pvplist.php";
 	output_notl('`n`c');
 	pvplist($loc,"runmodule.php?module=worldmapen", "&op=combat&pvp=1", $sql);
 	output_notl('`c');
@@ -732,7 +741,7 @@ function worldmapen_terrain_cost($x, $y, $z=1) {
 	$terrain = worldmapen_getTerrain($x, $y, $z);
 	//Little bit to interact with Expanded Stamina System, added by Caveman Joe
 	if (get_module_setting("usestamina") == 1){
-		require_once('modules/staminasystem/lib/lib.php');
+		require_once 'modules/staminasystem/lib/lib.php';
 		switch ($terrain['type']){
 			case "Plains":
 				return stamina_getdisplaycost("Travelling - Plains",2);
@@ -773,68 +782,68 @@ function worldmapen_terrain_cost($x, $y, $z=1) {
 function worldmapen_terrain_takestamina($x, $y, $z=1) {
 	global $session;
 	$terrain = worldmapen_getTerrain($x, $y, $z);
-	require_once('modules/staminasystem/lib/lib.php');
+	require_once 'modules/staminasystem/lib/lib.php';
 	switch ($terrain['type']){
 		case "Plains":
 			$plains = process_action("Travelling - Plains");
+            if ($plains['lvlinfo']['levelledup']==true){
+                output("`n`c`b`0You gained a level in Travel across plains!  You are now level %s!  This action will cost fewer Stamina points now, so you can saunter across more fields per day.`b`c`n",$plains['lvlinfo']['newlvl']);
+            }
 			break;
 		case "Forest":
 			$forest = process_action("Travelling - Forest");
+            if ($forest['lvlinfo']['levelledup']==true){
+                output("`n`c`b`0You gained a level in Travel across dense jungle!  You are now level %s!  This action will cost fewer Stamina points now, so you can navigate more thick jungle terrain per day.`b`c`n",$forest['lvlinfo']['newlvl']);
+            }
 			break;
 		case "River":
 			$river = process_action("Travelling - River");
+            if ($river['lvlinfo']['levelledup']==true){
+                output("`n`c`b`0You gained a level in Travel across rivers!  You are now level %s!  This action will cost fewer Stamina points now, so you can wade through more rivers in a single day.`b`c`n",$river['lvlinfo']['newlvl']);
+            }
 			break;
 		case "Ocean":
 			$ocean = process_action("Travelling - Ocean");
+            if ($ocean['lvlinfo']['levelledup']==true){
+                output("`n`c`b`0You gained a level in Travel across deep water!  You are now level %s!  This action will cost fewer Stamina points now, so you can swim more in a single day.`b`c`n",$ocean['lvlinfo']['newlvl']);
+            }
 			break;
 		case "Earth":
 			$earth = process_action("Travelling - Earth");
+            if ($earth['lvlinfo']['levelledup']==true){
+                output("`n`c`b`0You gained a level in Travel across earth!  You are now level %s!  This action will cost fewer Stamina points now, so you can saunter across more beachy terrain in a single day.`b`c`n",$earth['lvlinfo']['newlvl']);
+            }
 			break;
 		case "Air":
 			$air = process_action("Travelling - Air");
+            if ($air['lvlinfo']['levelledup']==true){
+                output("`n`c`b`0You gained a level in Travel across air!  You are now level %s!  This action will cost fewer Stamina points now, so you can fly through for air in a single day.`b`c`n",$air['lvlinfo']['newlvl']);
+            }
 			break;
 		case "Desert":
 			$desert = process_action("Travelling - Desert");
+            if ($desert['lvlinfo']['levelledup']==true){
+                output("`n`c`b`0You gained a level in Travel across deserts!  You are now level %s!  This action will cost fewer Stamina points now, so you can saunter across more beachy terrain in a single day.`b`c`n",$desert['lvlinfo']['newlvl']);
+            }
 			break;
 		case "Swamp":
 			$swamp = process_action("Travelling - Swamp");
+            if ($swamp['lvlinfo']['levelledup']==true){
+                output("`n`c`b`0You gained a level in Travel across swamps!  You are now level %s!  This action will cost fewer Stamina points now, so you can wade through more swampy goo every day.`b`c`n",$swamp['lvlinfo']['newlvl']);
+            }
 			break;
 		case "Mountains":
 			$mount = process_action("Travelling - Mountains");
+            if ($mount['lvlinfo']['levelledup']==true){
+                output("`n`c`b`0You gained a level in Travel across mountains!  You are now level %s!  This action will cost fewer Stamina points now, so you can scale more mountains in a single day.`b`c`n",$mount['lvlinfo']['newlvl']);
+            }
 			break;
 		case "Snow":
 			$snow = process_action("Travelling - Snow");
+            if ($snow['lvlinfo']['levelledup']==true){
+                output("`n`c`b`0You gained a level in Travel across snow!  You are now level %s!  This action will cost fewer Stamina points now, so you can stomp through more snow in a single day.`b`c`n",$snow['lvlinfo']['newlvl']);
+            }
 			break;
-	}
-	if ($plains['lvlinfo']['levelledup']==true){
-		output("`n`c`b`0You gained a level in Travel across plains!  You are now level %s!  This action will cost fewer Stamina points now, so you can saunter across more fields per day.`b`c`n",$plains['lvlinfo']['newlvl']);
-	}
-	if ($forest['lvlinfo']['levelledup']==true){
-		output("`n`c`b`0You gained a level in Travel across dense jungle!  You are now level %s!  This action will cost fewer Stamina points now, so you can navigate more thick jungle terrain per day.`b`c`n",$forest['lvlinfo']['newlvl']);
-	}
-	if ($river['lvlinfo']['levelledup']==true){
-		output("`n`c`b`0You gained a level in Travel across rivers!  You are now level %s!  This action will cost fewer Stamina points now, so you can wade through more rivers in a single day.`b`c`n",$river['lvlinfo']['newlvl']);
-	}
-	if ($ocean['lvlinfo']['levelledup']==true){
-		output("`n`c`b`0You gained a level in Travel across deep water!  You are now level %s!  This action will cost fewer Stamina points now, so you can swim more in a single day.`b`c`n",$ocean['lvlinfo']['newlvl']);
-	}
-	if ($earth['lvlinfo']['levelledup']==true){
-		output("`n`c`b`0You gained a level in Travel across earth!  You are now level %s!  This action will cost fewer Stamina points now, so you can saunter across more beachy terrain in a single day.`b`c`n",$earth['lvlinfo']['newlvl']);
-	}
-	if ($desert['lvlinfo']['levelledup']==true){
-		output("`n`c`b`0You gained a level in Travel across deserts!  You are now level %s!  This action will cost fewer Stamina points now, so you can saunter across more beachy terrain in a single day.`b`c`n",$desert['lvlinfo']['newlvl']);
-	}
-	if ($swamp['lvlinfo']['levelledup']==true){
-		output("`n`c`b`0You gained a level in Travel across swamps!  You are now level %s!  This action will cost fewer Stamina points now, so you can wade through more swampy goo every day.`b`c`n",$swamp['lvlinfo']['newlvl']);
-	}
-	if ($mount['lvlinfo']['levelledup']==true){
-		output("`n`c`b`0You gained a level in Travel across mountains!  You are now level %s!  This action will cost fewer Stamina points now, so you can scale more mountains in a single day.`b`c`n",$mount['lvlinfo']['newlvl']);
-	}
-	if ($snow['lvlinfo']['levelledup']==true){
-		output("`n`c`b`0You gained a level in Travel across snow!  You are now level %s!  This action will cost fewer Stamina points now, so you can stomp through more snow in a single day.`b`c`n",$snow['lvlinfo']['newlvl']);
-	}
-	if ($air['lvlinfo']['levelledup']==true){
-		output("`n`c`b`0You gained a level in Travel across air!  You are now level %s!  This action will cost fewer Stamina points now, so you can fly through for air in a single day.`b`c`n",$air['lvlinfo']['newlvl']);
 	}
 }
 
@@ -880,7 +889,7 @@ function worldmapen_encounter($x, $y, $z=1) {
 	}
 	//Interaction with Stamina system - increases encounter rate by 1% for every percentage point of player's Amber stamina used
 	if (get_module_setting("usestamina") == 1){
-		require_once('modules/staminasystem/lib/lib.php');
+		require_once 'modules/staminasystem/lib/lib.php';
 		$amber = get_stamina();
 		if ($amber < 100){
 			output("`4You are getting tired`0.  Monsters have a tendency to swarm towards contestants who look like they're half-asleep.  You might want to consider setting up camp, or doing something to raise your Stamina.`n");
