@@ -39,7 +39,8 @@ function listspam_blocker_dohook($hookname,$args){
 				'accesses'=>0,
 				);
 		}
-		$parts = explode("-",$_GET['c']);
+        $c = isset($_GET['c']) ? $_GET['c'] : [];
+        $parts = explode('-', $c);
 		if ($parts[0] == '1'){
 			//they're probably not carrying sessions, each lists hit counts *5
 			$lists[$classC]['accesses'] += 5;
