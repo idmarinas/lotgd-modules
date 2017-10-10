@@ -72,6 +72,7 @@ function get_player_action($action, $userid=false) {
 			$playeractions[$action]['exp'] = 0;
 			$playeractions[$action]['levelledup'] = false;
 			$playeractions[$action]['naturalcost'] = $defaultactions[$action]['maxcost'];
+			$playeractions[$action]['naturalcostbase'] = $defaultactions[$action]['maxcost'];
 			set_module_pref("actions", serialize($playeractions), "staminasystem", $userid);
 
 			return($playeractions[$action]);
@@ -83,6 +84,8 @@ function get_player_action($action, $userid=false) {
 	}
 	else
 	{
+        if (! isset($playeractions[$action]['naturalcostbase'])) $playeractions[$action]['naturalcostbase'] = $playeractions[$action]['naturalcost'];
+
 		return $playeractions[$action];
 	}
 }
@@ -148,16 +151,22 @@ Returns the cost of performing an action, taking buffs into account.
 *******************************************************
 */
 
-function stamina_calculate_buffed_cost($action, $userid=false){
-	global $session;
-	if ($userid === false) $userid = $session['user']['acctid'];
-	$active_action_buffs = stamina_get_active_buffs($action, $userid);
+function stamina_calculate_buffed_cost($action, $userid = false)
+{
+    global $session;
+
+    if ($userid === false) $userid = $session['user']['acctid'];
+
 	$actiondetails = get_player_action($action, $userid);
+    $active_action_buffs_class = stamina_get_active_buffs($actiondetails['class'], $userid, true);
+    $active_action_buffs = array_merge(stamina_get_active_buffs($action, $userid), $active_action_buffs_class);
+
 	//debug($actiondetails);
-	$naturalcost = $actiondetails['naturalcost'];
-	$buffedcost = $naturalcost;
-	if (is_array($active_action_buffs)){
-		foreach($active_action_buffs as $key => $values){
+	$buffedcost = $actiondetails['naturalcostbase'];
+    if (is_array($active_action_buffs))
+    {
+        foreach($active_action_buffs as $key => $values)
+        {
 			$buffedcost = $buffedcost * $values['costmod'];
 		}
 	}
@@ -177,11 +186,15 @@ function stamina_calculate_buffed_exp($action, $userid=false)
 
 	if ($userid === false) $userid = $session['user']['acctid'];
 
-	$active_action_buffs = stamina_get_active_buffs($action, $userid);
 	$actiondetails = get_player_action($action, $userid);
+    $active_action_buffs_class = stamina_get_active_buffs($actiondetails['class'], $userid, true);
+    $active_action_buffs = array_merge(stamina_get_active_buffs($action, $userid), $active_action_buffs_class);
+
 	$buffedexp = e_rand(80,120);
-	if (is_array($active_action_buffs) && $active_action_buffs){
-		foreach($active_action_buffs as $buff => $values){
+    if (is_array($active_action_buffs) && $active_action_buffs)
+    {
+        foreach($active_action_buffs as $buff => $values)
+        {
 			$buffedexp = round($buffedexp * $values['expmod']);
 		}
 	}
@@ -641,6 +654,7 @@ function stamina_level_up($action, $userid = false)
 			$actions[$action]['lvl']++;
 			//reduce costs
 			$actions[$action]['naturalcost'] -= $actions[$action]['costreduction'];
+			$actions[$action]['naturalcostbase'] = $actions[$action]['naturalcost'];
 			//write back array to modulepref
 			set_module_pref("actions", serialize($actions), "staminasystem", $userid);
 			//set "levelledup" to true, so that the module can output levelling up text
@@ -712,6 +726,7 @@ function stamina_level_down($action, $userid = false)
 			$actions[$action]['lvl']++;
 			//reduce costs
 			$actions[$action]['naturalcost'] -= $actions[$action]['costreduction'];
+			$actions[$action]['naturalcostbase'] = $actions[$action]['naturalcost'];
 			//write back array to modulepref
 			set_module_pref("actions", serialize($actions), "staminasystem", $userid);
 			//set "levelledup" to true, so that the module can output levelling up text
