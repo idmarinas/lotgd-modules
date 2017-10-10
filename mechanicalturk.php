@@ -32,7 +32,7 @@ function mechanicalturk_install(){
 		'uid'=>array('name'=>'uid', 'type'=>'int(11) unsigned'),
 		'key-PRIMARY'=>array('name'=>'PRIMARY', 'type'=>'primary key',	'unique'=>'1', 'columns'=>'creatureid'),
 	);
-	require_once("lib/tabledescriptor.php");
+	require_once 'lib/tabledescriptor.php';
 	synctable(DB::prefix('mechanicalturk'), $mechanicalturk, true);
 	module_addhook("forest");
 	module_addhook("superuser");
@@ -59,15 +59,19 @@ function mechanicalturk_dohook($hookname,$args){
 	return $args;
 }
 
-function mechanicalturk_run(){
-	global $session;
-	require_once("common.php");
-	require_once("lib/http.php");
+function mechanicalturk_run()
+{
+    global $session;
+
+	require_once 'common.php';
+    require_once 'lib/http.php';
+
 	page_header("Report a Monster Sighting");
 	$points = get_module_setting("addpoints");
-	switch (httpget("creatureaction")){
+    switch (httpget("creatureaction"))
+    {
 		case "report":
-			require_once("lib/showform.php");
+			require_once 'lib/showform.php';
 			// $level = 1;
 			output('You head into a little hut on the outskirts of the Outpost, close to where the clearing turns to jungle.`n`n');
 			output('An excitable-looking man sits behind a desk, a pair of binoculars slung around his neck.`n`n');
@@ -137,7 +141,7 @@ function mechanicalturk_run(){
 			break;
 		case "edit":
 			$id=httpget("id");
-			require_once("lib/showform.php");
+			require_once 'lib/showform.php';
 			addnav("Back to the Jungle","forest.php");
 			$form = array(
 				"Creature Properties,title",
@@ -189,7 +193,7 @@ function mechanicalturk_run(){
 			$result = DB::query($sql);
 			$row=DB::fetch_assoc($result);
 			$message = translate_mail(array('It\'s not good news to hear, but I\'m afraid your monster idea (the one named %s) just wasn\'t what we were looking for. Please feel free to try again, though!',$row['creaturename']));
-			require_once("lib/systemmail.php");
+			require_once 'lib/systemmail.php';
 			systemmail($row['uid'],translate_inline("Your monster has been rejected!"),$message);
 			$sql = "DELETE FROM " . DB::prefix("mechanicalturk") . " WHERE creatureid = '$id'";
 			DB::query( $sql );
@@ -203,8 +207,8 @@ function mechanicalturk_run(){
 			$row=DB::fetch_assoc($result);
 			debug ($row);
 			output("Sending this to creatures.php.");
-			require_once("lib/showform.php");
-			require_once("lib/listfiles.php");
+			require_once 'lib/showform.php';
+			require_once 'lib/listfiles.php';
 			$sort = list_files("creatureai", array());
 			sort($sort);
 			$scriptenum=implode("",$sort);
@@ -231,7 +235,7 @@ function mechanicalturk_run(){
 			rawoutput("".$row['description']."");
 			output("`n`n`bCOPY THIS TO YOUR CLIPBOARD NOW.`b The Description is not automated and must be input manually.");
 			$message = translate_mail(array('Congratulations! Your monster idea (the one named %s) has been accepted! Your Donator Points have also been applied to your account. Enjoy them!',$row['creaturename']));
-			require_once("lib/systemmail.php");
+			require_once 'lib/systemmail.php';
 			systemmail($row['uid'],translate_inline("Your monster idea has been accepted!"),$message);
 			addnav("","creatures.php?op=save");
 			$acctid = $row['uid'];
