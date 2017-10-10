@@ -11,10 +11,10 @@ function petitionspam_blocker_getmoduleinfo(){
 		"category"=>"Administrative",
 		"download"=>"core_module",
 		"settings"=>array(
-			'hidden_reqname'=>"Name of hidden field which must be populated,|".md5(getmicrotime(true).e_rand()),
-			'hidden_reqvalue'=>"Value of hidden field which must be populated,|".md5(getmicrotime(true).e_rand()),
-			'hidden_noname'=>"Name of hidden field which must NOT be populated,|".md5(getmicrotime(true).e_rand()),
-			'hidden_novalue'=>"Value of hidden field which must NOT be populated,|".md5(getmicrotime(true).e_rand()),
+			'hidden_reqname'=>"Name of hidden field which must be populated,|".md5(microtime(true).e_rand()),
+			'hidden_reqvalue'=>"Value of hidden field which must be populated,|".md5(microtime(true).e_rand()),
+			'hidden_noname'=>"Name of hidden field which must NOT be populated,|".md5(microtime(true).e_rand()),
+			'hidden_novalue'=>"Value of hidden field which must NOT be populated,|".md5(microtime(true).e_rand()),
 			'spambottext'=>'Text to be displayed for potential spam bots:,textarea|'.$message,
 		)
 	);
