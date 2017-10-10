@@ -1,11 +1,8 @@
-var
-	gulp = require('gulp-help')(require('gulp')),
+var gulp = require('gulp-help')(require('gulp'))
 
-	//-- Tasks
-	build = require('./gulp/tasks/build'),
-	del = require('./gulp/tasks/delete')
-
-;
+//-- Tasks
+var build = require('./gulp/tasks/build')
+var del = require('./gulp/tasks/delete')
 
 require('./gulp/tasks/collections/copy')(gulp);
 
@@ -14,8 +11,8 @@ require('./gulp/tasks/collections/copy')(gulp);
  */
 gulp.task('default', false, [
   'build'
-]);
+])
 
-gulp.task('build' , 'Builds all files from source', build);
+gulp.task('build' , 'Builds all files from source', build)
 
-gulp.task('delete' , 'Delete dist folder', del);
+gulp.task('delete' , 'Delete dist folder', del)

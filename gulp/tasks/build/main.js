@@ -1,18 +1,14 @@
-/*******************************
-				Copy main files
+/** *****************************
+                Copy main files
 *******************************/
-var
-	//-- Dependencias
-	gulp = require('gulp'),
-	del = require('del'),
+//-- Dependencias
+var gulp = require('gulp')
 
-	//-- Configuration
-	config = require('../../config/default')
-;
+//-- Configuration
+var config = require('../../config/default')
 
-module.exports = function(callback)
+module.exports = function (callback)
 {
-	return gulp.src(config.files.main, {base : '.'})
-		.pipe(gulp.dest(config.paths.build + '/modules'))
-	;
-};
+    return gulp.src(config.files.main, {base: '.'})
+        .pipe(gulp.dest(config.paths.build + '/modules'))
+}
