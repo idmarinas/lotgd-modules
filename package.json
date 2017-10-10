@@ -1,34 +1,35 @@
 {
-  "name": "idmarinas-ignis-modules-others",
-  "version": "1.0.0",
-  "description": "Módulos ajenos creados por otros y adaptados para usar en mi versión del juego.",
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "main": "Gruntfile.js",
-  "homepage": "http://dragonverde.infommo.es",
-  "devDependencies": {
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-licenser": "^1.0.2",
-    "gulp-put": "^0.0.3",
-    "gulp-remove-code": "^1.0.2",
-    "gulp-strip-comments": "^2.4.2",
-    "gulp-help": "^1.6.1",
-    "better-console": "^1.0.0",
-    "require-dir": "^0.3.0",
-    "merge-stream": "^1.0.0",
-    "run-sequence": "^1.2.2",
-    "jscs": "^3.0.7"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://idmarinas@bitbucket.org/idmarinas/lotgd-modulos-ajenos.git"
-  },
-  "author": "Ivan Diaz Marinas",
-  "license": "SEE LICENSE IN <LICENSE.txt>"
+    "name": "idmarinas-lotgd-modules",
+    "version": "2.4.0",
+    "description": "Modules created by others and adapt to IDMarinas Edition.",
+    "engines": {
+        "node": ">= 0.10.0"
+    },
+    "main": "Gruntfile.js",
+    "homepage": "http://lotgd.infommo.es",
+    "devDependencies": {
+        "del": "^2.2.0",
+        "gulp": "^3.9.1",
+        "gulp-concat": "^2.6.0",
+        "gulp-licenser": "^1.0.2",
+        "gulp-put": "^0.0.3",
+        "gulp-remove-code": "^1.0.2",
+        "gulp-strip-comments": "^2.4.2",
+        "gulp-help": "^1.6.1",
+        "better-console": "^1.0.0",
+        "require-dir": "^0.3.0",
+        "merge-stream": "^1.0.0",
+        "run-sequence": "^1.2.2",
+        "jscs": "^3.0.7",
+        "eslint": "^3.14.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://idmarinas@bitbucket.org/idmarinas/lotgd-modules"
+    },
+    "author": "Ivan Diaz Marinas",
+    "license": "SEE LICENSE IN <LICENSE.txt>"
 }
