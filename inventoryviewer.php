@@ -73,7 +73,7 @@ function inventoryviewer_dohook($hookname, $args){
 			while ($row = DB::fetch_assoc($result)){
 				$varname = 'inventory'.$row['invid'];
 				$args['userinfo'][$varname] = "<input type='checkbox' name='deleteitemarray[]' value='{$row['invid']}'> ".$row['class']." / ".sanitize($row['name']).",viewonly";
-				$args['user'][$varname] = sprintf("Gold %s, Gems %s, Ladungen %s [ <a href='user.php?op=edit&userid={$args['user']['acctid']}&deleteitem={$row['invid']}'>L�schen</a> ]", $row['sellvaluegold'], $row['sellvaluegems'], $row['charges']);
+				$args['user'][$varname] = sprintf("Gold %s, Gems %s, Ladungen %s [ <a href='user.php?op=edit&userid={$args['user']['acctid']}&deleteitem={$row['invid']}'>Delete</a> ]", $row['sellvaluegold'], $row['sellvaluegems'], $row['charges']);
 				addnav("", "user.php?op=edit&userid={$args['user']['acctid']}&deleteitem={$row['invid']}");
 			}
 			break;
