@@ -41,9 +41,11 @@
 		output("Speak to an admin about donating money.");
 	}
 	output("Actually, we are considering it.`n");
-	if (is_module_active("newbieisland")) {
-		$newbieisland=get_module_setting("villagename", "newbieisland");
-		if(isset($session['user']['location']) && $session['user']['location'] == $newbieisland){
+    if (is_module_active("newbieisland"))
+    {
+		$newbieisland = get_module_setting("villagename", "newbieisland");
+        if(isset($session['user']['location']) && $session['user']['location'] == $newbieisland)
+        {
 			$newbieisland = translate_inline($newbieisland);
 			output("`^7. I'm on %s.", $newbieisland);
 			output("Why can't I see the Travel link or any of the other stuff this section talks about?`n");
