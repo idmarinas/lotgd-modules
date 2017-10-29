@@ -5,14 +5,13 @@
 
 function createfiltertitle_getmoduleinfo()
 {
-	$info = array(
-		"name"=>"Title Filter at Creation",
-		"category"=>"Administrative",
-		"author"=>"dying",
-		"version"=> "0.1",
-		"download"=>"core_module",
-	);
-   return $info;
+   return [
+        "name" => "Title Filter at Creation",
+        "category" => "Administrative",
+        "author" => "dying",
+        "version" => "0.1.1",
+        "download" => "core_module",
+   ];
 }
 
 function createfiltertitle_install()
@@ -29,39 +28,44 @@ function createfiltertitle_uninstall()
 
 function createfiltertitle_dohook($hookname, $args)
 {
-	switch ($hookname) {
-	case "check-create":
-		$sql = "SELECT male,female FROM ".DB::prefix("titles");
-		$res = DB::query($sql);
+    switch ($hookname)
+    {
+        case "check-create":
+            if (! isset($args['name'])) return $args; //-- If not defined not check nothing
 
-		$errmsg =
-			translate_inline("Your name contains the in-game title \"%s\".");
+            $sql = "SELECT male,female FROM ".DB::prefix("titles");
+            $res = DB::query($sql);
 
-		$name = str_replace(" ", "", $args['name']);
+            $errmsg = translate_inline("Your name contains the in-game title \"%s\".");
 
-		while ($row = DB::fetch_assoc($res)) {
-			$tf = str_replace(" ", "", $row['female']);
-			$f1 = "/^" . $tf . "/i";
-			$f2 = "/" . $tf . "$/i";
-			if ( (preg_match($f1, $name) > 0) ||
-					(preg_match($f2, $name) > 0) ) {
-				$args['blockaccount'] = 1;
-				if($args['msg']) $args['msg'] .= "`n";
-				$args['msg'] .= sprintf($errmsg, $row['female']);
-			}
+            $name = str_replace(" ", "", $args['name']);
 
-			$tm = str_replace(" ", "", $row['male']);
-			if ($tm != $tf) {
-				$m1 = "/^" . $tm . "/i";
-				$m2 = "/" . $tm . "$/i";
-				if ( (preg_match($m1, $name) > 0) ||
-						(preg_match($m2, $name) > 0) ) {
-					$args['blockaccount'] = 1;
-					if($args['msg']) $args['msg'] .= "`n";
-					$args['msg'] .= sprintf($errmsg, $row['male']);
-				}
-			}
-		}
+            while ($row = DB::fetch_assoc($res))
+            {
+                $tf = str_replace(" ", "", $row['female']);
+                $f1 = "/^" . $tf . "/i";
+                $f2 = "/" . $tf . "$/i";
+                if ( (preg_match($f1, $name) > 0) || (preg_match($f2, $name) > 0) )
+                {
+                    $args['blockaccount'] = 1;
+                    if($args['msg']) $args['msg'] .= "`n";
+                    $args['msg'] .= sprintf($errmsg, $row['female']);
+                }
+
+                $tm = str_replace(" ", "", $row['male']);
+                if ($tm != $tf)
+                {
+                    $m1 = "/^" . $tm . "/i";
+                    $m2 = "/" . $tm . "$/i";
+                    if ( (preg_match($m1, $name) > 0) ||
+                            (preg_match($m2, $name) > 0) )
+                            {
+                        $args['blockaccount'] = 1;
+                        if($args['msg']) $args['msg'] .= "`n";
+                        $args['msg'] .= sprintf($errmsg, $row['male']);
+                    }
+                }
+            }
 		break;
 	}
 	return $args;
