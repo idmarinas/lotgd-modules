@@ -97,9 +97,11 @@ function creationaddon_dohook($hookname,$args){
 	switch($hookname){
 
         case "check-create":
-			if (isset($args['blockaccount'])) $blockaccount = $args['blockaccount'];
+            if (isset($args['blockaccount'])) $blockaccount = $args['blockaccount'];
+            else $blockaccount = false;
 
-			// We are going to check the bad name list.
+            $msg = '';
+            // We are going to check the bad name list.
 			if(get_module_setting("filter_badnames")){
 				$sql = "SELECT * FROM " . DB::prefix("badnames");
 				$result= DB::query($sql);

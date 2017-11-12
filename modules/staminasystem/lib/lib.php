@@ -333,10 +333,12 @@ function stamina_advance_buffs($action, $userid=false) {
 
 	$write=0;
 
-	if (is_array($bufflist)){
+    if (is_array($bufflist))
+    {
 		foreach($bufflist as $buff => $values){
 			if ($values['action'] == $action || $values['action']=="Global" || $values['class']==$actiondetails['class']){
-				if (!$values['suspended']){
+                if (! isset($values['suspended']) || ! $values['suspended'])
+                {
 					if ($values['roundmsg']) output_notl("%s`n",stripslashes($values['roundmsg']));
 					if ($values['rounds'] > 0){
 						$values['rounds']--;
@@ -455,13 +457,13 @@ Calculates buffs, awards experience, upgrades level, removes cost, advances buff
 *******************************************************
 */
 
-function process_action($action, $userid=false)
+function process_action($action, $userid = false)
 {
 	global $session, $actions_used;
 
-	if ($userid === false) $userid = $session['user']['acctid'];
+    if ($userid === false) $userid = $session['user']['acctid'];
 
-	$info_to_return = ["points_used" => 0, "exp_earned" => 0];
+	$info_to_return = ['action' => $action, 'points_used' => 0, 'exp_earned' => 0];
 	$info_to_return['points_used']  = stamina_take_action_cost($action, $userid);
 	$info_to_return['exp_earned']  = stamina_award_exp($action, $userid);
 	stamina_advance_buffs($action, $userid);
@@ -477,6 +479,9 @@ function process_action($action, $userid=false)
 	$actions_used[$action]['lvlinfo'] = $info_to_return['lvlinfo'];
 
 	//We want to put a ladder of some sort in here, where the player can see the player above them in the HOF and the player below them as well.
+
+    //-- Hook to aditional process
+    modulehook('staminasystem-process-action', ['action' => $info_to_return]);
 
 	return $info_to_return;
 }
@@ -601,16 +606,18 @@ Determines whether the player is ready to level up, levels up if appropriate, re
 
 function stamina_level_up($action, $userid = false)
 {
-	global $session;
+    global $session;
+
 	if ($userid === false) $userid = $session['user']['acctid'];
 
-	$returninfo = array();
-	$stop = 0;
+    $actions = get_player_action_list($userid);
 
-	$actions = get_player_action_list($userid);
-	if ($actions[$action]['lvl']>=100){
-		return false;
-	}
+    //-- No need level up, are maxed
+    if ($actions[$action]['lvl']>=100) { return false; }
+
+	$returninfo = [];
+    $returninfo['class'] = $actions[$action]['class'];
+	$stop = 0;
 
 	while ($stop == 0)
 	{
@@ -661,7 +668,8 @@ function stamina_level_up($action, $userid = false)
 			$returninfo['levelledup'] = true;
 			$returninfo['newlvl'] = $actions[$action]['lvl'];
 		}
-	}
+    }
+
 	return $returninfo;
 }
 

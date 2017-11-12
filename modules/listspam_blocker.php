@@ -22,7 +22,8 @@ function listspam_blocker_uninstall(){
 	return true;
 }
 
-function listspam_blocker_dohook($hookname,$args){
+function listspam_blocker_dohook($hookname,$args)
+{
 	switch($hookname){
 	case "header-list":
 		$lists = get_module_setting("lists");
@@ -30,8 +31,7 @@ function listspam_blocker_dohook($hookname,$args){
 			$lists = unserialize($lists);
 		}
 		if (!is_array($lists)) $lists = array();
-		$classC = explode(".",$_SERVER['REMOTE_ADDR']);
-		$classC = $classC[0].'.'.$classC[1].'.'.$classC[2];
+		$classC = $_SERVER['REMOTE_ADDR'];
 
 		if (!array_key_exists($classC,$lists)){
 			$lists[$classC] = array(
@@ -39,7 +39,7 @@ function listspam_blocker_dohook($hookname,$args){
 				'accesses'=>0,
 				);
 		}
-        $c = isset($_GET['c']) ? $_GET['c'] : [];
+        $c = isset($_GET['c']) ? $_GET['c'] : '';
         $parts = explode('-', $c);
 		if ($parts[0] == '1'){
 			//they're probably not carrying sessions, each lists hit counts *5

@@ -64,7 +64,7 @@ function staminahof_run(){
 			$row = DB::fetch_assoc($staminaresult);
 			$actions_array = @unserialize($row['value']);
 			$actiondetails = $actions_array[$hof];
-			if (!$actiondetails['exp']) continue;
+			if (! isset($actiondetails['exp']) || ! $actiondetails['exp']) continue;
 			$hofpage[$row['userid']]['exp'] = $actiondetails['exp'];
 			$hofpage[$row['userid']]['lvl'] = $actiondetails['lvl'];
 		}

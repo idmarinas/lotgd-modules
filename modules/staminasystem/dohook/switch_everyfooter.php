@@ -41,16 +41,19 @@ if ($amber < 100)
 		$script = stamina_notification($message, $title, 'warning');
 	}
 
-	apply_buff('stamina-corecombat-exhaustion', array(
-		"name"=>"Exhaustion",
-		"atkmod"=>$buffvalue,
-		"defmod"=>$buffvalue,
-		"rounds"=>-1,
-		"roundmsg"=>$buffmsg,
-		"schema"=>"module-staminacorecombat"
-	));
+    if ($script)
+    {
+        apply_buff('stamina-corecombat-exhaustion', [
+            'name' => 'Exhaustion',
+            'atkmod' => $buffvalue,
+            'defmod' => $buffvalue,
+            'rounds' => -1,
+            'roundmsg' => $buffmsg,
+            'schema' => 'module-staminacorecombat'
+        ]);
 
-    if ($script && $red >= 100) rawoutput($script);
+        rawoutput($script);
+    }
 }
 else
 {

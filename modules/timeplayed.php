@@ -34,14 +34,18 @@ function timeplayed_dohook($hookname,$args){
 	global $session;
 	switch($hookname){
 	case "everyhit-loggedin":
-		$prefs = get_all_module_prefs();
+		$prefs = [
+            'lastcountedhit' => get_module_pref('lastcountedhit', 'timeplayed'),
+            'countedtime' => get_module_pref('countedtime', 'timeplayed'),
+            'countedhits' => get_module_pref('countedhits', 'timeplayed')
+        ];
 
 		$sincelast = time() - $prefs['lastcountedhit'];
-		if ($sincelast < getsetting("LOGINTIMEOUT",900) && $sincelast > 0){
-			set_module_pref("countedtime",$prefs['countedtime'] + $sincelast);
-			set_module_pref("countedhits",$prefs['countedhits'] + 1);
+		if ($sincelast < getsetting('LOGINTIMEOUT', 900) && $sincelast > 0){
+			set_module_pref('countedtime', $prefs['countedtime'] + $sincelast);
+			set_module_pref('countedhits', $prefs['countedhits'] + 1);
 		}
-		set_module_pref("lastcountedhit",time());
+		set_module_pref('lastcountedhit', time());
 		break;
 	case "biostat":
 		if (get_module_pref("countedhits", false, $args['acctid']) < 100){
@@ -53,7 +57,7 @@ function timeplayed_dohook($hookname,$args){
 				break;
 			}
 		}
-		require_once("lib/datetime.php");
+		require_once 'lib/datetime.php';
 		$reltime = strtotime("+".round(timeplayed_estimatetotaltime($args['acctid']),0)." seconds");
 		output("`^Estimated Time Played: `@%s`n",reltime($reltime,false));
 		break;
@@ -93,5 +97,3 @@ function timeplayed_estimatetotaltime($who){
 
 	return $estimatedtime + $counted;
 }
-
-?>

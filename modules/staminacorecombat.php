@@ -236,15 +236,18 @@ function staminacorecombat_applystaminabuff(){
 		}
 		if ($buffvalue < 0.3){
 			$buffmsg = "`\$You're getting `bdangerously exhausted!`b`0";
-		}
-		apply_buff('stamina-corecombat-exhaustion', array(
-			"name"=>"Exhaustion",
-			"atkmod"=>$buffvalue,
-			"defmod"=>$buffvalue,
-			"rounds"=>-1,
-			"roundmsg"=>$buffmsg,
-			"schema"=>"module-staminacorecombat"
-		));
+        }
+        if (isset($buffmsg))
+        {
+            apply_buff('stamina-corecombat-exhaustion', array(
+                "name"=>"Exhaustion",
+                "atkmod"=>$buffvalue,
+                "defmod"=>$buffvalue,
+                "rounds"=>-1,
+                "roundmsg"=>$buffmsg,
+                "schema"=>"module-staminacorecombat"
+            ));
+        }
 	} else {
 		strip_buff('stamina-corecombat-exhaustion');
 	}

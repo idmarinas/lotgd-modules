@@ -68,12 +68,16 @@ function cities_uninstall(){
 	return true;
 }
 
-function cities_dohook($hookname,$args){
-	global $session;
-	$city = getsetting("villagename", LOCATION_FIELDS);
-	$home = $session['user']['location']==get_module_pref("homecity");
-	$capital = $session['user']['location']==$city;
-	switch($hookname){
+function cities_dohook($hookname,$args)
+{
+    global $session;
+
+    $city = getsetting("villagename", LOCATION_FIELDS);
+    $session['user']['location'] = isset($session['user']['location']) ? $session['user']['location'] : '0';
+	$home = $session['user']['location'] == get_module_pref("homecity");
+	$capital = $session['user']['location'] == $city;
+    switch($hookname)
+    {
     case "validatesettings":
 		if ($args['dangerchance'] < $args['safechance']) {
 			$args['validation_error'] = "Danger chance must be equal to or greater than the safe chance.";
