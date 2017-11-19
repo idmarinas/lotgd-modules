@@ -139,7 +139,7 @@ function newbieisland_dohook($hookname, $args)
             if ($runonce !== false) break;
             $runonce = true;
             if ($options['type'] == 'forest') {
-                rawoutput($args['fightoutput']);
+                if (isset($args['fightoutput']) && $args['fightoutput']) rawoutput($args['fightoutput']);
                 output("`n`n`\$You have been slain by %s!",$args['creaturename']);
                 addnav("Continue","runmodule.php?module=newbieisland&op=resurrect");
                 page_footer();

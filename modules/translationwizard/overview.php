@@ -11,8 +11,7 @@ output_notl("`n`n");
 		{
 		while($row=DB::fetch_assoc($result))
 			{
-			$i++;
-			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+			rawoutput("<tr>");
 			rawoutput("<td>");
 			rawoutput(htmlentities($row['language'],ENT_COMPAT,$coding));
 			rawoutput("</td><td>");
@@ -32,8 +31,7 @@ rawoutput("<tr class='trhead'><td>". translate_inline("Language") ."</td><td>".t
 		{
 		while($row=DB::fetch_assoc($result))
 			{
-			$i++;
-			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+			rawoutput("<tr>");
 			rawoutput("<td>");
 			rawoutput(htmlentities($row['language'],ENT_COMPAT,$coding));
 			rawoutput("</td><td>");
@@ -53,8 +51,7 @@ rawoutput("<tr class='trhead'><td>". translate_inline("Language") ."</td><td>". 
 		{
 		while($row=DB::fetch_assoc($result))
 			{
-			$i++;
-			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+			rawoutput("<tr>");
 			rawoutput("<td>");
 			rawoutput(htmlentities($row['language'],ENT_COMPAT,$coding));
 			rawoutput("</td><td>");
@@ -74,8 +71,7 @@ rawoutput("<tr class='trhead'><td>". translate_inline("Language") ."</td><td>".t
 		{
 		while($row=DB::fetch_assoc($result))
 			{
-			$i++;
-			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+			rawoutput("<tr>");
 			rawoutput("<td>");
 			rawoutput(htmlentities($row['language'],ENT_COMPAT,$coding));
 			rawoutput("</td><td>");
@@ -95,8 +91,7 @@ rawoutput("<tr class='trhead'><td>". translate_inline("Language") ."</td><td>". 
 		{
 		while($row=DB::fetch_assoc($result))
 			{
-			$i++;
-			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+			rawoutput("<tr>");
 			rawoutput("<td>");
 			rawoutput(htmlentities($row['language'],ENT_COMPAT,$coding));
 			rawoutput("</td><td>");
@@ -116,8 +111,7 @@ rawoutput("<tr class='trhead'><td>". translate_inline("Language") ."</td><td>".t
 		{
 		while($row=DB::fetch_assoc($result))
 			{
-			$i++;
-			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+			rawoutput("<tr>");
 			rawoutput("<td>");
 			rawoutput(htmlentities($row['language'],ENT_COMPAT,$coding));
 			rawoutput("</td><td>");
@@ -126,4 +120,3 @@ rawoutput("<tr class='trhead'><td>". translate_inline("Language") ."</td><td>".t
 			}
 		}
 		rawoutput("</table>");
-?>

@@ -224,7 +224,9 @@ function goldmine_runevent($type)
 				}
 				// If we are still dead, see if the horse dies too.
 				$session['user']['specialinc']="";
-				if ($dead) {
+                if ($dead)
+                {
+                    $horsedead = 0;
 					if (e_rand(1,100) <= $horsecandie) $horsedead = 1;
 					output("You have been crushed under a ton of rock.`n`nPerhaps the next adventurer will recover your body and bury it properly.`n");
 					if ($horsedead) {

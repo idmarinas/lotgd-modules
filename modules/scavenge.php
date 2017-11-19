@@ -2,8 +2,8 @@
 // translator ready
 // addnews rady
 
-require_once("lib/http.php");
-require_once("lib/villagenav.php");
+require_once 'lib/http.php';
+require_once 'lib/villagenav.php';
 
 function scavenge_getmoduleinfo(){
     $info = array(
@@ -403,7 +403,7 @@ function scavenge_runevent($type)
 						($session['user']['darkarts']>=$rand_skills)) {
 					output("At the sight of the fell being your training instantly kicks in - you quickly chant an incantation to banish the creature back to the fell depths from whence it came.`n`n");
 					output("`&You feel more experienced in the Dark Arts!");
-					require_once("lib/increment_specialty.php");
+					require_once 'lib/increment_specialty.php';
 					increment_specialty("`$");
 					$session['user']['specialinc'] = "";
 				} else {

@@ -97,8 +97,8 @@ function creationaddon_dohook($hookname,$args){
 	switch($hookname){
 
         case "check-create":
+            $blockaccount = false;
             if (isset($args['blockaccount'])) $blockaccount = $args['blockaccount'];
-            else $blockaccount = false;
 
             $msg = '';
             // We are going to check the bad name list.
