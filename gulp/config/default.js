@@ -16,7 +16,7 @@ module.exports = {
     files: {
         //-- Files to copy
         main: [
-            //-- All files includin subdirectories
+            //-- All files including subdirectories
             '**{,/**,/.htaccess}',
             //-- Ignore files of development
             '!gulp{,/**}',
