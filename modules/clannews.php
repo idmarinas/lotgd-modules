@@ -41,7 +41,7 @@ function clannews_dohook($hookname, $args)
 			. " ORDER BY " . DB::prefix("news") . ".newsid DESC LIMIT " . $maxevents;
 		$res = DB::query_cached($sql, "clan-news-{$session['user']['clanid']}");
 
-        if (! DB::num_rows($rest)) return $args;
+        if (! DB::num_rows($res)) return $args;
 
 		output("`n`n`b`&Recent News for %s:`b`0`n", $claninfo['clanname']);
 		rawoutput("<div class='ui segment'><ul class='ui list'>");
