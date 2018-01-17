@@ -1,6 +1,6 @@
 {
     "name": "idmarinas-lotgd-modules",
-    "version": "2.4.0",
+    "version": "2.5.0",
     "description": "Modules created by others and adapt to IDMarinas Edition.",
     "engines": {
         "node": ">= 0.10.0"
@@ -8,25 +8,24 @@
     "main": "Gruntfile.js",
     "homepage": "http://lotgd.infommo.es",
     "devDependencies": {
-        "del": "^2.2.0",
+        "better-console": "^1.0.1",
+        "del": "^2.2.2",
+        "eslint": "^3.19.0",
+        "eslint-config-standard": "^6.2.1",
+        "eslint-loader": "^1.6.1",
+        "eslint-plugin-promise": "^3.6.0",
+        "eslint-plugin-standard": "^2.3.1",
         "gulp": "^3.9.1",
         "gulp-concat": "^2.6.0",
+        "gulp-help": "^1.6.1",
         "gulp-licenser": "^1.0.2",
         "gulp-put": "^0.0.3",
         "gulp-remove-code": "^1.0.2",
-        "gulp-strip-comments": "^2.4.2",
-        "gulp-help": "^1.6.1",
-        "better-console": "^1.0.0",
-        "require-dir": "^0.3.0",
-        "merge-stream": "^1.0.0",
-        "run-sequence": "^1.2.2",
+        "gulp-strip-comments": "^2.5.2",
         "jscs": "^3.0.7",
-        "eslint": "^3.14.1",
-        "eslint-loader": "^1.6.1",
-        "eslint-config-standard": "^6.2.1",
-        "eslint-plugin-promise": "^3.4.0",
-        "eslint-plugin-standard": "^2.0.1"
-
+        "merge-stream": "^1.0.0",
+        "require-dir": "^0.3.0",
+        "run-sequence": "^1.2.2"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
