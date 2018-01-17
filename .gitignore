@@ -1,5 +1,6 @@
 lotgd.esproj
 dbconnect.php
+package-lock.json
 /node_modules
 /dist
 /bower_components
