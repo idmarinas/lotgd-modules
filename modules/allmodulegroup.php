@@ -7,10 +7,10 @@ require_once("lib/superusernav.php");
 function allmodulegroup_getmoduleinfo(){
 	$info = array(
 	"name"=>"All Module Group - Modulemanager",
-	"version"=>"0.1",
+	"version"=>"0.2",
 		"author"=>"`2R`@o`ghe`2n `Qvon `2Fa`@lk`genbr`@uch`0",
 		"category"=>"Administrative",
-		"download"=>"http://www.lotgd.de/downloads/allmodulegroup.zip"
+		"download"=>"//www.lotgd.de/downloads/allmodulegroup.zip"
 	);
 	return $info;
 }
@@ -43,16 +43,18 @@ function allmodulegroup_dohook($hookname,$args){
 	return $args;
 }
 
-function allmodulegroup_run() {
-	global $session;
+function allmodulegroup_run()
+{
+    global $session, $REQUEST_URI;
+
 	tlschema("modulemanage");
 	page_header("Module Manager");
 	$op = httpget('op');
 
 	superusernav();
 	//Module-Liste neu aufbauen
-	addnav("Module Categories");
-	addnav("",$REQUEST_URI);
+	addnav('Module Categories');
+	addnav('', $REQUEST_URI);
 	$module = httpget('module');
 
 	if (is_array($module)){
@@ -85,11 +87,18 @@ function allmodulegroup_run() {
 	if ($op=="active") {
 	 	//Listen
 		output("`$`cAlle Modules`n`c`0");
+		$sortby=httpget('sortby');
+		if (!$sortby) $sortby="installdate";
+		$order=httpget('order');
+		$tcat = translate_inline($cat);
+		output("`n`b%s Modules`b`n", $tcat);
+		$deactivate = translate_inline("Deactivate");
 		$activate = translate_inline("Activate");
 		$uninstall = translate_inline("Uninstall");
 		$reinstall = translate_inline("Reinstall");
 		$strsettings = translate_inline("Settings");
-		$strnosettings = translate_inline("`\$No Settings`0");
+		$strnosettings = translate_inline("No Settings");
+		$uninstallconfirm = translate_inline("Are you sure you wish to uninstall this module?  All user preferences and module settings will be lost.  If you wish to temporarily remove access to the module, you may simply deactivate it.");
 		$status = translate_inline("Status");
 		$mname = translate_inline("Module Name");
 		$ops = translate_inline("Ops");
@@ -98,72 +107,79 @@ function allmodulegroup_run() {
 		$installstr = translate_inline("by %s");
 		$active = translate_inline("`@Active`0");
 		$inactive = translate_inline("`\$Inactive`0");
-		rawoutput("<form action='modules.php?op=mass' method='POST'>");
-		addnav("","modules.php?op=mass");
-		rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>",true);
-		rawoutput(" <tr class='trhead'>");
-		rawoutput("  <td>&nbsp;</td>");
-		rawoutput("  <td>$ops</td>");
-		rawoutput("  <td>$status</td>");
-		rawoutput("  <td>$mname</td>");
-		rawoutput("  <td>$mauth</td>");
-		rawoutput("  <td>$inon</td>");
-		rawoutput(" </tr>");
+        rawoutput("<form action='modules.php?op=mass&cat=$cat' method='POST'>");
+		addnav("","modules.php?op=mass&cat=$cat");
+		rawoutput("<table class='ui small very compact selectable striped table'>",true);
+		rawoutput("<thead><tr><th>&nbsp;</th><th>$ops</th><th><a href='modules.php?cat=$cat&sortby=active&order=".($sortby=="active"?!$order:1)."'>$status</a></th><th><a href='modules.php?cat=$cat&sortby=formalname&order=".($sortby=="formalname"?!$order:1)."'>$mname</a></th><th><a href='modules.php?cat=$cat&sortby=moduleauthor&order=".($sortby=="moduleauthor"?!$order:1)."'>$mauth</a></th><th><a href='modules.php?cat=$cat&sortby=installdate&order=".($sortby=="installdate"?!$order:0)."'>$inon</a></th></thead></tr>");
+		addnav("","modules.php?cat=$cat&sortby=active&order=".($sortby=="active"?!$order:1));
+		addnav("","modules.php?cat=$cat&sortby=formalname&order=".($sortby=="formalname"?!$order:1));
+		addnav("","modules.php?cat=$cat&sortby=moduleauthor&order=".($sortby=="moduleauthor"?!$order:1));
+		addnav("","modules.php?cat=$cat&sortby=installdate&order=".($sortby=="installdate"?$order:0));
 
 		$sql = "SELECT * FROM " . DB::prefix("modules") . " ORDER BY active ASC, category ASC";
 		$result = DB::query($sql);
-		if (DB::num_rows($result)==0){
-			rawoutput(" <tr class='trlight'>");
-			rawoutput("  <td colspan='6' align='center'>");
+
+        $number = DB::num_rows($result);
+        if ($number == 0)
+        {
+			rawoutput("<tr><td colspan='6' align='center'>");
 			output("`i-- No Modules Installed--`i");
-			rawoutput("  </td>");
-			rawoutput(" </tr>");
+			rawoutput("</td></tr>");
 		}
 
-		for ($i=0;$i<DB::num_rows($result);$i++){
+        for ($i = 0; $i < $number; $i++)
+        {
 			$row = DB::fetch_assoc($result);
-			rawoutput(" <tr class='".($i%2?"trlight":"trdark")."'>",true);
-			rawoutput("  <td nowrap valign='top'>");
-			rawoutput("   <input type='checkbox' name='module[]' value=\"{$row['modulename']}\">");
-			rawoutput("  </td>");
-			rawoutput("  <td valign='top' nowrap>[ ");
-			rawoutput("   <a href='modules.php?op=activate&module={$row['modulename']}'>");
-			output_notl($activate);
+			rawoutput("<tr>",true);
+			rawoutput("<td class='collapsing'>");
+			rawoutput("<div class='ui checkbox'><input type='checkbox' name='module[]' value=\"{$row['modulename']}\"></div>");
+			rawoutput("</td><td class='collapsing'>");
+			if ($row['active']){
+				rawoutput("<a data-tooltip='$deactivate' href='modules.php?op=deactivate&module={$row['modulename']}&cat=$cat'>");
+				output_notl('<i class="green link power icon"></i>', true);
+				rawoutput("</a>");
+				addnav("","modules.php?op=deactivate&module={$row['modulename']}&cat=$cat");
+			}else{
+				rawoutput("<a data-tooltip='$activate' href='modules.php?op=activate&module={$row['modulename']}&cat=$cat'>");
+				output_notl('<i class="red link power icon"></i>', true);
+				rawoutput("</a>");
+				addnav("","modules.php?op=activate&module={$row['modulename']}&cat=$cat");
+			}
+			rawoutput(" <a data-tooltip='$uninstall' href='modules.php?op=uninstall&module={$row['modulename']}&cat=$cat' onClick='return confirm(\"$uninstallconfirm\");'>");
+			output_notl('<i class="red corner remove icon"></i>', true);
 			rawoutput("</a>");
-			addnav("","modules.php?op=activate&module={$row['modulename']}");
-
-			rawoutput(" |<a href='modules.php?op=uninstall&module={$row['modulename']}' onClick='return confirm(\"$uninstallconfirm\");'>");
-			output_notl($uninstall);
+			addnav("","modules.php?op=uninstall&module={$row['modulename']}&cat=$cat");
+			rawoutput(" <a data-tooltip='$reinstall' href='modules.php?op=reinstall&module={$row['modulename']}&cat=$cat'>");
+			output_notl('<i class="orange corner undo icon"></i>', true);
 			rawoutput("</a>");
-			addnav("","modules.php?op=uninstall&module={$row['modulename']}");
-			rawoutput(" | <a href='modules.php?op=reinstall&module={$row['modulename']}'>");
-			output_notl($reinstall);
-			rawoutput("</a>");
-			addnav("","modules.php?op=reinstall&module={$row['modulename']}");
+			addnav("","modules.php?op=reinstall&module={$row['modulename']}&cat=$cat");
 
 			if ($session['user']['superuser'] & SU_EDIT_CONFIG) {
-				if (strstr($row['infokeys'], "|settings|")) {
-					rawoutput(" | <a href='configuration.php?op=modulesettings&module={$row['modulename']}'>");
-					output_notl($strsettings);
+				if (strstr($row['infokeys'], "|settings|"))
+				{
+					rawoutput(" <a data-tooltip='$strsettings' href='configuration.php?op=modulesettings&module={$row['modulename']}'>");
+					output_notl('<i class="blue link settings icon"></i>', true);
 					rawoutput("</a>");
 					addnav("","configuration.php?op=modulesettings&module={$row['modulename']}");
-				} else {
-					output_notl(" | %s", $strnosettings);
+				}
+				else
+				{
+					output_notl(' <span data-tooltip="%s"><i class="red settings icon"></i></span>', $strnosettings, true);
 				}
 			}
 
-			rawoutput(" ]</td><td valign='top'>");
+			rawoutput("</td><td>");
 			output_notl($row['active']?$active:$inactive);
 			require_once("lib/sanitize.php");
-			rawoutput("</td><td nowrap valign='top'><span title=\"".
+			rawoutput("</td><td nowrap><span title=\"".
 					(isset($row['description'])&&$row['description']?
 					 $row['description']:sanitize($row['formalname']))."\">");
 			output_notl("%s", $row['formalname']);
 			rawoutput("<br>");
-			output_notl("(%s)", $row['modulename']);
-			rawoutput("</span></td><td valign='top'>");
+			output_notl("(%s) V%s", $row['modulename'],$row['version']);
+			rawoutput("</span></td><td>");
 			output_notl("`#%s`0", $row['moduleauthor'], true);
-			rawoutput("</td><td nowrap valign='top'>");
+			rawoutput("</td><td nowrap>");
 			$line = sprintf($installstr, $row['installedby']);
 			output_notl("%s", $row['installdate']);
 			rawoutput("<br>");
