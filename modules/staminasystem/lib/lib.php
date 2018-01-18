@@ -617,6 +617,7 @@ function stamina_level_up($action, $userid = false)
 
 	$returninfo = [];
     $returninfo['class'] = $actions[$action]['class'];
+    $returninfo['levelledup'] = false;
 	$stop = 0;
 
 	while ($stop == 0)
@@ -652,7 +653,6 @@ function stamina_level_up($action, $userid = false)
 		$returninfo['lvl'] = $currentlvl;
 		$returninfo['nextlvlexp'] = $nextlvlexp;
 		$returninfo['currentlvlexp'] = $currentlvlexp;
-		$returninfo['levelledup'] = false;
 
 		//Check if player's exp is more than level requirement, and level up if true
 		if ($currentexp > $nextlvlexp && $actions[$action]['lvl']<=100){
