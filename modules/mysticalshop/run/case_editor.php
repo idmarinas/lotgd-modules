@@ -46,7 +46,8 @@ if( $what == 'add' || $what == 'edit' )
 	//debug($itemarray_extra_fields);
 	$itemarray = array_merge( $itemarray, $itemarray_extra_fields );
 }
-require_once("modules/mysticalshop/run/editor_what/$what.php");
+require_once "modules/mysticalshop/run/editor_what/$what.php";
+
 //here's a module hook, if anyone ever needs it
 modulehook("mysticalshop-editor", array());
 addnav("Actions");

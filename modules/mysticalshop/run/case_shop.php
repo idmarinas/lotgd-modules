@@ -5,5 +5,5 @@ $hasgift = get_module_pref("gifted");
 $disnum = get_module_setting("discountnum");
 if ($disnum == 0) $disnum = 1;
 $id = httpget('id');
-require_once("modules/mysticalshop/run/shop_what/$what.php");
-?>
+
+require_once "modules/mysticalshop/run/shop_what/$what.php";

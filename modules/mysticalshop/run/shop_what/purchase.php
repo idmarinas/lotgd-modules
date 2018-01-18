@@ -2,7 +2,7 @@
 if( is_numeric( $id ) )
 {
 	//time to buy our goods. Sorry, no credit cards accepted
-	require_once( './modules/mysticalshop/lib.php' );
+	require_once './modules/mysticalshop/lib.php';
 
 	$nameprice = mysticalshop_additem( $id, $cat, false );
 	$name = $nameprice['name'];
