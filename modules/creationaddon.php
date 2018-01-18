@@ -18,8 +18,8 @@ function creationaddon_getmoduleinfo(){
         "version"=>"3.2.0",
         "author"=>"Billie Kennedy",
         "category"=>"Administrative",
-        "download"=>"http://orpgs.com/modules.php?name=Downloads&d_op=viewdownload&cid=6",
-        "vertxtloc"=>"http://www.orpgs.com/downloads/",
+        "download"=>"//orpgs.com/modules.php?name=Downloads&d_op=viewdownload&cid=6",
+        "vertxtloc"=>"//www.orpgs.com/downloads/",
         "allowanonymous"=>true,
         "settings"=>array(
 				"Create Addon,title",
@@ -92,7 +92,7 @@ function creationaddon_dohook($hookname,$args){
 	$year=httppost('year');
 	$terms=httppost('terms');
 	$privacy=httppost('privacy');
-	$msg='';
+	$msg = '';
 
 	switch($hookname){
 
@@ -100,7 +100,7 @@ function creationaddon_dohook($hookname,$args){
             $blockaccount = false;
             if (isset($args['blockaccount'])) $blockaccount = $args['blockaccount'];
 
-            $msg = '';
+            if (! isset($args['msg'])) { $args['msg'] = ''; }
             // We are going to check the bad name list.
 			if(get_module_setting("filter_badnames")){
 				$sql = "SELECT * FROM " . DB::prefix("badnames");
