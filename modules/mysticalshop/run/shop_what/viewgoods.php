@@ -42,8 +42,8 @@ $count = DB::num_rows($result);
 if ($count == 0){
 	output("`6No Items on record yet.`0");
 }else{
-	rawoutput( '<table cellspacing="1" cellpadding="2" width="100%">' );
-	rawoutput("<tr class=\"trhead\"><td>$ops</td><td>$name</td><td>$cost</td><td>$quantity</td></tr>");
+	rawoutput('<table class="ui very compact striped table">');
+	rawoutput("<thead><tr><th>$ops</th><th>$name</th><th>$cost</th><th>$quantity</th></tr></thead>");
 	$i = false;
 	while($row = DB::fetch_assoc($result)){
 		$rare = $row['rare'];
@@ -56,14 +56,13 @@ if ($count == 0){
 		$category = $item_categories[$cat];
 		$sellid = get_module_pref( $category.'id' );
 
-		$class = $i ? 'trlight' : 'trdark';
-		rawoutput( '<tr class="'.$class.'">' );
+		rawoutput('<tr>');
 		//if player owns an item, then they have to sell first
 		if( $category == 'boot' )
 		  $category = 'boots';
 		if( get_module_pref( $category ) )
 		{
-			rawoutput( '<td>[<a href="'.htmlentities( $from.'op=shop&what=preview&id=' ).$row['id'].'">'.$buy.'</a>] [<a href="'.htmlentities( $from.'op=shop&what=sell&id='.$sellid.'&cat=' ).$cat.'">'.$sell.'</a>]' );
+			rawoutput( '<td class="collapsing">[<a href="'.htmlentities( $from.'op=shop&what=preview&id=' ).$row['id'].'">'.$buy.'</a>] [<a href="'.htmlentities( $from.'op=shop&what=sell&id='.$sellid.'&cat=' ).$cat.'">'.$sell.'</a>]' );
 			rawoutput( '[<a href="'.htmlentities( $from.'op=shop&what=sellbuy&sellid='.$sellid.'&buyid='.$row['id'].'&cat=' ).$cat.'">'.$sellbuy.'</a>]' );
 			addnav( '', $from.'op=shop&what=preview&id='.$row['id'] );
 			addnav( '', $from.'op=shop&what=sell&id='.$sellid.'&cat='.$cat );
@@ -91,11 +90,11 @@ if ($count == 0){
 		rawoutput("</tr>");
 		if (get_module_setting("displaydesc")){
 			if ($row['description']>""){
-				rawoutput( '<tr class="'.$class.'"><td colspan="5">' );
+				rawoutput( '<tr><td colspan="5">' );
 				output("`i`3Description: %s`0`i", $row['description']);
 				rawoutput("</td></tr>");
 			}else{
-				rawoutput( '<tr class="'.$class.'"><td colspan="5">');
+				rawoutput( '<tr><td colspan="5">');
 				output("`i`3No description available`0`i");
 				rawoutput("</td></tr>");
 			}
