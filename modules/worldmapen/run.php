@@ -43,7 +43,7 @@ function worldmapen_run_real(){
 	}
 	if (!get_module_setting("worldmapenInstalled")) {
 		page_header("A rip in the fabric of space and time");
-		require_once("lib/villagenav.php");
+		require_once 'lib/villagenav.php';
 		villagenav();
 		output("`^The admins of this game haven't yet finished installing the worldmapen module.");
 		output("You should send them a petition and tell them that they forgot to generate the initial locations of the cities.");
@@ -60,7 +60,7 @@ function worldmapen_run_real(){
 	$buymap = httpget("buymap");
 	$worldmapCostGold = get_module_setting("worldmapCostGold");
 	$pvp = httpget('pvp');
-	require_once("lib/events.php");
+	require_once 'lib/events.php';
 	if ($session['user']['specialinc'] != "" || httpget("eventhandler")){
 		$in_event = handle_event(get_module_setting("randevent"),
 		"runmodule.php?module=worldmapen&op=continue&", "Travel");
@@ -75,7 +75,7 @@ function worldmapen_run_real(){
 	//is the player looking at chat?
 	if (httpget('comscroll') || httpget('comscroll')===0 || httpget('comment') || httpget('refresh')){
 		$chatoverride = 1;
-		require_once("lib/commentary.php");
+		require_once 'lib/commentary.php';
 		addcommentary();
 		$loc = get_module_pref("worldXYZ","worldmapen");
 		viewcommentary("mapchat-".$loc,"Chat with others who walk this path...",25);
@@ -95,7 +95,7 @@ function worldmapen_run_real(){
 		worldmapen_determinenav();
 		if (get_module_setting("smallmap")) worldmapen_viewsmallmap();
 		if (!$chatoverride){
-			require_once("lib/commentary.php");
+			require_once 'lib/commentary.php';
 			addcommentary();
 			$loc = get_module_pref("worldXYZ","worldmapen");
 			viewcommentary("mapchat-".$loc,"Chat with others who walk this path...",25);
@@ -114,7 +114,7 @@ function worldmapen_run_real(){
 		worldmapen_determinenav();
 		if (get_module_setting("smallmap")) worldmapen_viewsmallmap();
 		if (!$chatoverride){
-			require_once("lib/commentary.php");
+			require_once 'lib/commentary.php';
 			addcommentary();
 			$loc = get_module_pref("worldXYZ","worldmapen");
 			viewcommentary("mapchat-".$loc,"Chat with others who walk this path...",25);
@@ -231,14 +231,14 @@ function worldmapen_run_real(){
 				$badguy['creaturename']="An evil doppleganger of ".$session['user']['name'];
 				$badguy['creatureweapon']=$session['user']['weapon'];
 				$badguy['creaturelevel']=$session['user']['level'];
-				$badguy['creaturegold']= rand(($session['user']['level'] * 15),($session['user']['level'] * 30));
+				$badguy['creaturegold']= mt_rand(($session['user']['level'] * 15), ($session['user']['level'] * 30));
 				$badguy['creatureexp'] = round($session['user']['experience']/10, 0);
 				$badguy['creaturehealth']=$session['user']['maxhitpoints'];
 				$badguy['creatureattack']=$session['user']['attack'];
 				$badguy['creaturedefense']=$session['user']['defense'];
 			} else {
 				$badguy = DB::fetch_assoc($result);
-				require_once("lib/forestoutcomes.php");
+				require_once 'lib/forestoutcomes.php';
 				$badguy = buffbadguy($badguy);
 			}
 			calculate_buff_fields();
@@ -261,7 +261,7 @@ function worldmapen_run_real(){
 			worldmapen_determinenav();
 			if (get_module_setting("smallmap")) worldmapen_viewsmallmap();
 			if (!$chatoverride){
-				require_once("lib/commentary.php");
+				require_once 'lib/commentary.php';
 				addcommentary();
 				$loc = get_module_pref("worldXYZ","worldmapen");
 				viewcommentary("mapchat-".$loc,"Chat with others who walk this path...",25);
@@ -295,7 +295,7 @@ function worldmapen_run_real(){
 				output("`5\"`!Enjoy your newfound sight,`5\"  the gypsy says as she walks away to greet some patrons that have just strolled in.");
 				$session['user']['gold']-=$worldmapCostGold;
 				set_module_pref("worldmapbuy",1);
-				require_once("lib/villagenav.php");
+				require_once 'lib/villagenav.php';
 				villagenav();
 			}
 		}
@@ -330,7 +330,7 @@ function worldmapen_run_real(){
 		worldmapen_determinenav();
 		if (get_module_setting("smallmap")) worldmapen_viewsmallmap();
 		if (!$chatoverride){
-			require_once("lib/commentary.php");
+			require_once 'lib/commentary.php';
 			addcommentary();
 			$loc = get_module_pref("worldXYZ","worldmapen");
 			viewcommentary("mapchat-".$loc,"Chat with others who walk this path...",25);
@@ -345,7 +345,7 @@ function worldmapen_run_real(){
 		}
 	} elseif ($op=="combat") {
 		// Okay, we've picked a person to fight.
-		require_once("lib/pvpsupport.php");
+		require_once 'lib/pvpsupport.php';
 		$name = httpget("name");
 		$badguy = setup_target($name);
 		$failedattack = false;
@@ -384,7 +384,7 @@ function worldmapen_run_real(){
 					$battle = false;
 					worldmapen_determinenav();
 					if (get_module_setting("smallmap")) worldmapen_viewsmallmap();
-					require_once("lib/commentary.php");
+					require_once 'lib/commentary.php';
 					addcommentary();
 					$loc = get_module_pref("worldXYZ","worldmapen");
 					viewcommentary("mapchat-".$loc,"Chat with others who walk this path...",25);
@@ -396,7 +396,7 @@ function worldmapen_run_real(){
 				}
 			} else {
 				if (get_module_setting("smallmap")) worldmapen_viewsmallmap();
-				require_once("lib/commentary.php");
+				require_once 'lib/commentary.php';
 				addcommentary();
 				$loc = get_module_pref("worldXYZ","worldmapen");
 				viewcommentary("mapchat-".$loc,"Chat with others who walk this path...",25);
@@ -416,14 +416,16 @@ function worldmapen_run_real(){
 			$shady = true;
 		}
 	}
-	if ($battle){
-		include_once("battle.php");
-		if( isset( $enemies ) && !$pvp )
-			$badguy = &$enemies;
+    if ($battle)
+    {
+		require_once 'battle.php';
+		if( isset( $enemies ) && !$pvp ) $badguy = &$enemies;
 
-		if ($victory){
-			if ($pvp) {
-				require_once("lib/pvpsupport.php");
+        if ($victory)
+        {
+            if ($pvp)
+            {
+				require_once 'lib/pvpsupport.php';
 				$aliveloc = $badguy['location'];
 				pvpvictory($badguy, $aliveloc, $options);
 				addnews("`4%s`3 defeated `4%s`3 while they were camped in the wilderness.`0", $session['user']['name'], $badguy['creaturename']);
@@ -431,7 +433,7 @@ function worldmapen_run_real(){
 			} else {
 				if (!$chatoverride && !httpget('frombio')){
 					//is talking
-					require_once("lib/forestoutcomes.php");
+					require_once 'lib/forestoutcomes.php';
 					forestvictory($badguy, false);
 				}
 			}
@@ -439,38 +441,43 @@ function worldmapen_run_real(){
 			worldmapen_determinenav();
 			if (get_module_setting("smallmap")) worldmapen_viewsmallmap();
 			if (!$chatoverride){
-				require_once("lib/commentary.php");
+				require_once 'lib/commentary.php';
 				addcommentary();
 				$loc = get_module_pref("worldXYZ","worldmapen");
 				viewcommentary("mapchat-".$loc,"Chat with others who walk this path...",25);
 			}
 			worldmapen_viewmapkey(true, false);
-		}elseif ($defeat){
+        }
+        elseif ($defeat)
+        {
 			// Reset the players body to the last city they were in
 			$session['user']['location'] = get_module_pref('lastCity');
 			if ($pvp) {
-				require_once("lib/pvpsupport.php");
-				require_once("lib/taunt.php");
+				require_once 'lib/pvpsupport.php';
+				require_once 'lib/taunt.php';
 				$killedloc = $badguy['location'];
 				$taunt = select_taunt();
 				pvpdefeat($badguy, $killedloc, $taunt, $options);
 				addnews("`4%s`3 was defeated while attacking `4%s`3 as they were camped in the wilderness.`0`n%s", $session['user']['name'], $badguy['creaturename'], $taunt);
 			} else {
-				require_once("lib/forestoutcomes.php");
+				require_once 'lib/forestoutcomes.php';
 				forestdefeat($badguy,"in the wild");
 			}
 			output("`n`n`&You are sure that someone, sooner or later, will stumble over your corpse and return it to %s`& for you.`0" , $session['user']['location']);
-		}else{
-			require_once("lib/fightnav.php");
+        }
+        else
+        {
+			require_once 'lib/fightnav.php';
 			$allow = true;
-			$extra = "";
-			if ($pvp) {
-				$allow=false;
-				$extra="pvp=1&";
+			$extra = '';
+            if ($pvp)
+            {
+				$allow = false;
+				$extra = 'pvp=1&';
 			}
-			fightnav($allow,$allow,"runmodule.php?module=worldmapen&$extra");
+			fightnav($allow, $allow, "runmodule.php?module=worldmapen&$extra");
 		}
-	}
+    }
+
 	page_footer();
 }
-?>
