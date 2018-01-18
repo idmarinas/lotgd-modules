@@ -66,7 +66,7 @@ function analytics_run(){
     while($currow = DB::fetch_assoc($curresult))
     {
         $trimdate = substr($currow['regdate'],0,10);
-        if (isset($players[$trimdate]))
+        if (isset($players[$trimdate]['stillalive']))
         {
             $players[$trimdate]['stillalive']['characters'] += 1;
             $players[$trimdate]['stillalive']['donation'] += $currow['donation'];
@@ -84,7 +84,7 @@ function analytics_run(){
     while($exprow = DB::fetch_assoc($expresult))
     {
         $trimdate = substr($exprow['datecreated'],0,10);
-        if (isset($players[$trimdate]))
+        if (isset($players[$trimdate]['dead']))
         {
             $players[$trimdate]['dead']['characters'] += 1;
             $players[$trimdate]['dead']['donation'] += $exprow['donation'];
