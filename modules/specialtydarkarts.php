@@ -107,25 +107,27 @@ function specialtydarkarts_dohook($hookname,$args){
 		$args[$spec] = "specialtydarkarts";
 		break;
 	case "incrementspecialty":
-		if($session['user']['specialty'] == $spec) {
+        if($session['user']['specialty'] == $spec)
+        {
+            global $lotgdBattleContent;
+
 			$new = get_module_pref("skill") + 1;
 			set_module_pref("skill", $new);
 			$c = $args['color'];
 			$name = translate_inline($name);
-			output("`n%sYou gain a level in `&%s%s to `#%s%s!",
-					$c, $name, $c, $new, $c);
+			$lotgdBattleContent['battleend'][] = sprintf(translate_inline('`n%sYou gain a level in `&%s%s to `#%s%s!'), $c, $name, $c, $new, $c);
 			$x = $new % 3;
 			if ($x == 0){
-				output("`n`^You gain an extra use point!`n");
+				$lotgdBattleContent['battleend'][] = translate_inline('`n`^You gain an extra use point!`n');
 				set_module_pref("uses", get_module_pref("uses") + 1);
 			}else{
 				if (3-$x == 1) {
-					output("`n`^Only 1 more skill level until you gain an extra use point!`n");
+					$lotgdBattleContent['battleend'][] = translate_inline('`n`^Only 1 more skill level until you gain an extra use point!`n');
 				} else {
-					output("`n`^Only %s more skill levels until you gain an extra use point!`n", (3-$x));
+					$lotgdBattleContent['battleend'][] = sprintf(translate_inline('`n`^Only %s more skill levels until you gain an extra use point!`n'), (3-$x));
 				}
 			}
-			output_notl("`0");
+			$lotgdBattleContent['battleend'][] = '`0';
 		}
 		break;
 	case "newday":
@@ -172,7 +174,7 @@ function specialtydarkarts_dohook($hookname,$args){
 				case 1:
 					if (getsetting("enablecompanions", true)) {
 						apply_companion('skeleton_warrior', array(
-							"name"=>"`4Skeleton Warrior",
+							"name"=>translate_inline('`4Skeleton Warrior'),
 							"hitpoints"=>round($session['user']['level']*3.33,0)+10,
 							"maxhitpoints"=>round($session['user']['level']*3.33,0)+10,
 							"attack"=>round((($session['user']['level']/4)+2))*round((($session['user']['level']/3)+2))+1.5,
