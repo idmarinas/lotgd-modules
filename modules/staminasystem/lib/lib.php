@@ -339,7 +339,7 @@ function stamina_advance_buffs($action, $userid=false) {
 			if ($values['action'] == $action || $values['action']=="Global" || $values['class']==$actiondetails['class']){
                 if (! isset($values['suspended']) || ! $values['suspended'])
                 {
-					if ($values['roundmsg']) output_notl("%s`n",stripslashes($values['roundmsg']));
+					if (isset($values['roundmsg']) && $values['roundmsg']) output_notl("%s`n",stripslashes($values['roundmsg']));
 					if ($values['rounds'] > 0){
 						$values['rounds']--;
 						$write=1;
