@@ -7,7 +7,9 @@ require_once "modules/staminasystem/lib/lib.php";
 require_once("lib/redirect.php");
 
 $amber = get_stamina();
-if ($amber < 100)
+$red = get_stamina(0);
+
+if ($amber < 100 && $red >= 100)
 {
 	//Gives a proportionate debuff from 1 to 0.2, at 2 decimal places each time
 	$buffvalue=round(((($amber/100)*80)+20)/100,2);
@@ -60,7 +62,6 @@ else
 	strip_buff('stamina-corecombat-exhaustion');
 }
 
-$red = get_stamina(0);
 if ($red < 100)
 {
 	$death = e_rand(0,80);
