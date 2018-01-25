@@ -13,10 +13,10 @@ History Log:
  v1.2.1
  o Now checks to make sure bands are valid - kickme
 */
-require_once("lib/addnews.php");
-require_once("lib/http.php");
-require_once("lib/systemmail.php");
-require_once("lib/villagenav.php");
+require_once 'lib/addnews.php';
+require_once 'lib/http.php';
+require_once 'lib/systemmail.php';
+require_once 'lib/villagenav.php';
 
 function pvpblock_getmoduleinfo(){
 	$info = array(
@@ -174,7 +174,7 @@ function pvpblock_run(){
 
 	// Make sure users canot cheat.
 	if ($op != "faq") {
-		require_once("lib/forcednavigation.php");
+		require_once 'lib/forcednavigation.php';
 		do_forced_nav(false, false);
 	}
 
@@ -229,8 +229,7 @@ function pvpblock_faq() {
 		output("Band Five: DK %s and up", get_module_setting("bandFour")+1);
 		rawoutput("</li>");
 		rawoutput("</ol>");
-		output("`n`@You are in band %s.`n",
-				pvpblock_bandcalc($session['user']['dragonkills']));
+		output("`n`@You are in band %s.`n", pvpblock_bandcalc(isset($session['user']['dragonkills']) ? $session['user']['dragonkills'] : 0));
 	} else {
 		output("`@Not at the present time.`n`n");
 	}
@@ -261,7 +260,7 @@ function pvpblock_bandrange() {
 		output("`n`%Shame on you! You really could have hurt `&%s`0`%.",
 				$result);
 		if (is_module_active('alignment')) {
-			require_once("modules/alignment.php");
+			require_once 'modules/alignment.php';
 			align("-1");
 			output("`n`\$You feel more `bEVIL`b...");
 		}
@@ -308,7 +307,7 @@ function pvpblock_clan() {
 	}
 	output("`n`%Shame on you! You really could have hurt `&%s`0`%.",$result);
 	if (is_module_active('alignment')) {
-		require_once("modules/alignment.php");
+		require_once 'modules/alignment.php';
 		align("-1");
 		output("`n`\$You feel more `bEVIL`b...");
 	}
@@ -347,7 +346,7 @@ function pvpblock_clanside() {
 	}
 	output("`n`%Shame on you! You really could have hurt `&%s`0`%.",$result);
 	if (is_module_active('alignment')) {
-		require_once("modules/alignment.php");
+		require_once 'modules/alignment.php';
 		align("-1");
 		output("`n`\$You feel more `bEVIL`b...");
 	}
