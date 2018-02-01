@@ -418,7 +418,14 @@ function worldmapen_run_real(){
 	}
     if ($battle)
     {
-		require_once 'battle.php';
+        //-- Any data for personalize results
+        $battleDefeatWhere = 'in the wild';//-- Use for create a news, set to false for not create news
+        $battleShowResult = false;//-- Show result of battle. If no need any extra modification of result no need change this
+        $battleProcessVictoryDefeat = false;//-- Process victory or defeat functions when the battle is over
+
+
+        require_once 'battle.php';
+
 		if( isset( $enemies ) && !$pvp ) $badguy = &$enemies;
 
         if ($victory)
@@ -430,20 +437,24 @@ function worldmapen_run_real(){
 				pvpvictory($badguy, $aliveloc, $options);
 				addnews("`4%s`3 defeated `4%s`3 while they were camped in the wilderness.`0", $session['user']['name'], $badguy['creaturename']);
 				$badguy=array();
-			} else {
-				if (!$chatoverride && !httpget('frombio')){
+            }
+            else
+            {
+                if (!$chatoverride && !httpget('frombio'))
+                {
 					//is talking
-					require_once 'lib/forestoutcomes.php';
-					forestvictory($badguy, false);
+                    battlevictory($badguy, (isset($options['denyflawless'])?$options['denyflawless']:$battleDenyFlawless), $battleInForest);
 				}
-			}
+            }
+
 			//has just beaten a badguy
 			worldmapen_determinenav();
-			if (get_module_setting("smallmap")) worldmapen_viewsmallmap();
-			if (!$chatoverride){
+			if (get_module_setting('smallmap')) worldmapen_viewsmallmap();
+            if (!$chatoverride)
+            {
 				require_once 'lib/commentary.php';
 				addcommentary();
-				$loc = get_module_pref("worldXYZ","worldmapen");
+				$loc = get_module_pref("worldXYZ", "worldmapen");
 				viewcommentary("mapchat-".$loc,"Chat with others who walk this path...",25);
 			}
 			worldmapen_viewmapkey(true, false);
@@ -452,17 +463,20 @@ function worldmapen_run_real(){
         {
 			// Reset the players body to the last city they were in
 			$session['user']['location'] = get_module_pref('lastCity');
-			if ($pvp) {
+            if ($pvp)
+            {
 				require_once 'lib/pvpsupport.php';
 				require_once 'lib/taunt.php';
 				$killedloc = $badguy['location'];
 				$taunt = select_taunt();
 				pvpdefeat($badguy, $killedloc, $taunt, $options);
 				addnews("`4%s`3 was defeated while attacking `4%s`3 as they were camped in the wilderness.`0`n%s", $session['user']['name'], $badguy['creaturename'], $taunt);
-			} else {
-				require_once 'lib/forestoutcomes.php';
-				forestdefeat($badguy,"in the wild");
-			}
+            }
+            else
+            {
+                battledefeat($badguy, $battleDefeatWhere, $battleInForest, $battleDefeatCanDie, $battleDefeatLostExp, $battleDefeatLostGold);
+            }
+
 			output("`n`n`&You are sure that someone, sooner or later, will stumble over your corpse and return it to %s`& for you.`0" , $session['user']['location']);
         }
         else
@@ -476,7 +490,9 @@ function worldmapen_run_real(){
 				$extra = 'pvp=1&';
 			}
 			fightnav($allow, $allow, "runmodule.php?module=worldmapen&$extra");
-		}
+        }
+
+        battleshowresults($lotgdBattleContent);
     }
 
 	page_footer();
