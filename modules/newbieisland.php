@@ -3,52 +3,56 @@
 // addnews ready
 // mail ready
 
-function newbieisland_getmoduleinfo(){
-	$info = array(
-		"name"=>"Newbie Island",
-		"version"=>"1.1",
-		"author"=>"Eric Stevens",
-		"category"=>"General",
-		"download"=>"core_module",
-		"settings"=>array(
-			"Newbie Island,title",
-			"villagename"=>"Name for the newbie island|Isle of Wen",
-			"chatiscentralvillage"=>"Is chat actually tied to the central village?,bool|0"
-		),
-		"prefs"=>array(
-			"Newbie Island,title",
-			"leftisland"=>"Left the newbie island,bool|0",
-		),
-	);
-	return $info;
+function newbieisland_getmoduleinfo()
+{
+	return [
+		'name' => 'Newbie Island',
+		'version' => '1.1',
+		'author' => 'Eric Stevens',
+		'category' => 'General',
+		'download' => 'core_module',
+		'settings' => [
+			'Newbie Island,title',
+			'villagename' => 'Name for the newbie island|Isle of Wen',
+			'chatiscentralvillage' => 'Is chat actually tied to the central village?,bool|0'
+        ],
+		'prefs' => [
+			'Newbie Island,title',
+			'leftisland' => 'Left the newbie island,bool|0',
+        ],
+    ];
 }
 
-function newbieisland_install(){
-	module_addhook("newday");
-	module_addhook("villagetext");
-	module_addhook("stabletext");
-	module_addhook("charstats");
-	module_addhook("validlocation");
-	module_addhook("moderate");
-	module_addhook("changesetting");
-	module_addhook("forest");
-	module_addhook("travel");
-	module_addhook("village-desc");
-	module_addhook("battle-defeat");
-	module_addhook("pvpcount");
-	module_addhook_priority("everyhit-loggedin",25);
-	module_addhook("scrylocation");
+function newbieisland_install()
+{
+	module_addhook('newday');
+	module_addhook('villagetext');
+	module_addhook('stabletext');
+	module_addhook('charstats');
+	module_addhook('validlocation');
+	module_addhook('moderate');
+	module_addhook('changesetting');
+	module_addhook('forest');
+	module_addhook('travel');
+	module_addhook('village-desc');
+	module_addhook('battle-defeat');
+	module_addhook('pvpcount');
+	module_addhook_priority('everyhit-loggedin',25);
+    module_addhook('scrylocation');
+
 	return true;
 }
 
-function newbieisland_uninstall(){
-	global $session;
+function newbieisland_uninstall()
+{
+    global $session;
+
 	$vname = getsetting("villagename", LOCATION_FIELDS);
 	$gname = get_module_setting("villagename");
 	$sql = "UPDATE " . DB::prefix("accounts") . " SET location='$vname' WHERE location = '$gname'";
 	DB::query($sql);
-	if ($session['user']['location'] == $gname)
-		$session['user']['location'] = $vname;
+    if ($session['user']['location'] == $gname) $session['user']['location'] = $vname;
+
 	return true;
 }
 
@@ -128,33 +132,42 @@ function newbieisland_dohook($hookname, $args)
             //so newbies have to see it right at the start
             if ($SCRIPT_NAME == "petition.php") unblockmodule("cities");
         break;
-        case "pvpcount":
+        case 'pvpcount':
             if ($args['loc'] != $city) break;
             $args['handled'] = 1;
         break;
-        case "battle-defeat":
+        case 'battle-defeat':
             if ($session['user']['location'] != $city) break;
-            global $options;
+
             static $runonce = false;
+
             if ($runonce !== false) break;
+
+            global $options, $lotgdBattleContent;
+
             $runonce = true;
-            if ($options['type'] == 'forest') {
-                if (isset($args['fightoutput']) && $args['fightoutput']) rawoutput($args['fightoutput']);
-                output("`n`n`\$You have been slain by %s!",$args['creaturename']);
-                addnav("Continue","runmodule.php?module=newbieisland&op=resurrect");
+            if ($options['type'] == 'forest')
+            {
+                $lotgdBattleContent['battleend'][] = ["`&`bYou have been defeated by `%%s`&!`b`n", $args['creaturename']];
+
+                battleshowresults($lotgdBattleContent);
+
+                addnav('Continue', 'runmodule.php?module=newbieisland&op=resurrect');
                 page_footer();
             }
-            break;
-        case "changesetting":
+        break;
+        case 'changesetting':
             // Ignore anything other than villagename setting changes
-            if ($args['setting'] == "villagename" && $args['module']=="newbieisland") {
-                if ($session['user']['location'] == $args['old'])
-                    $session['user']['location'] = $args['new'];
+            if ($args['setting'] == 'villagename' && $args['module'] == 'newbieisland')
+            {
+                if ($session['user']['location'] == $args['old']) $session['user']['location'] = $args['new'];
                 $sql = "UPDATE " . DB::prefix("accounts") .
                     " SET location='" . addslashes($args['new']) .
                     "' WHERE location='" . addslashes($args['old']) . "'";
                 DB::query($sql);
-                if (is_module_active("cities")) {
+
+                if (is_module_active("cities"))
+                {
                     $sql = "UPDATE " . DB::prefix("module_userprefs") .
                         " SET value='" . addslashes($args['new']) .
                         "' WHERE modulename='cities' AND setting='homecity'" .
@@ -162,12 +175,13 @@ function newbieisland_dohook($hookname, $args)
                     DB::query($sql);
                 }
             }
-            break;
-        case "newday":
+        break;
+        case 'newday':
             newbieisland_checkcity();
             global $session;
-            if ($session['user']['location'] == $city){
-                $turns = getsetting("turns",10);
+            if ($session['user']['location'] == $city)
+            {
+                $turns = getsetting('turns', 10);
                 $turns = round($turns/2);
 
                 if (is_module_active('staminasystem'))
@@ -178,140 +192,156 @@ function newbieisland_dohook($hookname, $args)
                     $args['turnstoday'] .= ", Newbie Island: Stamina $stamina";
 
                     addstamina($stamina);
-                    output("`n`&The very air of this island invigorates you; you receive some Stamina!`n`0");
+                    output('`n`&The very air of this island invigorates you; you receive some Stamina!`n`0');
                 }
                 else
                 {
                     $args['turnstoday'] .= ", Newbie Island: $turns";
-                    $session['user']['turns']+= $turns;
+                    $session['user']['turns'] += $turns;
 
-                    output("`n`&The very air of this island invigorates you; you receive `^%s`& turns!`n`0",$turns);
+                    output('`n`&The very air of this island invigorates you; you receive `^%s`& turns!`n`0', $turns);
                 }
 
-                apply_buff("newbiecoddle",array(
-                    "name"=>"",
-                    "rounds"=>-1,
-                    "minioncount"=>1,
-                    "mingoodguydamage"=>0,
-                    "maxgoodguydamage"=>"(<hitpoints><<maxhitpoints>?-1:0)",
-                    "effectfailmsg"=>"`#Eibwen`3 flits past and heals you for {damage}.",
-                    "effectnodmgmsg"=>""
-                    )
+                apply_buff('newbiecoddle', [
+                        'name' => '',
+                        'rounds' => -1,
+                        'minioncount' => 1,
+                        'mingoodguydamage' => 0,
+                        'maxgoodguydamage' => '(<hitpoints><<maxhitpoints>?-1:0)',
+                        'effectfailmsg' => '`#Eibwen`3 flits past and heals you for {damage}.',
+                        'effectnodmgmsg' => ''
+                    ]
                 );
             }
-            break;
-        case "validlocation":
-            if (is_module_active("cities"))
-                $args[$city]="village-newbie";
-            break;
-        case "moderate":
-                tlschema("commentary");
-                $args["village-newbie"]=sprintf_translate("%s", $city);
+        break;
+        case 'validlocation':
+            if (is_module_active('cities')) $args[$city] = 'village-newbie';
+        break;
+        case 'moderate':
+                tlschema('commentary');
+                $args["village-newbie"] = translate_inline($city);
                 tlschema();
-            break;
-        case "travel":
-            $capital = getsetting("villagename", LOCATION_FIELDS);
+        break;
+        case 'travel':
+            $capital = getsetting('villagename', LOCATION_FIELDS);
             $hotkey = substr($city, 0, 1);
-            tlschema("module-cities");
-            if ($session['user']['superuser'] & SU_EDIT_USERS){
+            tlschema('module-cities');
+            if ($session['user']['superuser'] & SU_EDIT_USERS)
+            {
                 addnav("Superuser");
                 addnav(array("%s?Go to %s", $hotkey, $city),"runmodule.php?module=cities&op=travel&city=$city&su=1");
             }
             tlschema();
-            break;
-        case "forest":
-            if ($session['user']['location'] == $city){
-                blocknav("forest.php?op=search&type=suicide");
-                blocknav("forest.php?op=search&type=thrill");
-                blocknav("runmodule.php?module=outhouse");
-                if ($session['user']['level'] >= 5){
-                    output("`^This forest no longer poses any challenge to your superior skills.");
-                    output("You feel the urge to move forward in the world, to seek out new adventures.");
-                    blocknav("forest.php?op=search",true);
+        break;
+        case 'forest':
+            if ($session['user']['location'] == $city)
+            {
+                blocknav('forest.php?op=search&type=suicide');
+                blocknav('forest.php?op=search&type=thrill');
+                blocknav('runmodule.php?module=outhouse');
+                if ($session['user']['level'] >= 5)
+                {
+                    output('`^This forest no longer poses any challenge to your superior skills.');
+                    output('You feel the urge to move forward in the world, to seek out new adventures.');
+                    blocknav('forest.php?op=search', true);
                 }
             }
-            break;
-        case "villagetext":
+        break;
+        case 'villagetext':
             newbieisland_checkcity();
-            if ($session['user']['location'] == $city){
-                $args['text']=array("`&`c`b%s`b`cYou are in a village whose very buildings emanate with the feel of magic.  Around you are the scared looking faces of other young adventurers.  You have no idea exactly how it is that you got to this place, but you feel that it is very safe to remain here for some time.`n", $city);
+
+            if ($session['user']['location'] == $city)
+            {
+                $args['text'] = ["`&`c`b%s`b`cYou are in a village whose very buildings emanate with the feel of magic.  Around you are the scared looking faces of other young adventurers.  You have no idea exactly how it is that you got to this place, but you feel that it is very safe to remain here for some time.`n", $city];
                 $args['schemas']['text'] = "module-newbieisland";
-                $args['clock']="`n`7From the position of the sun, you can tell that it is: `&%s`7.`n";
+                $args['clock'] = "`n`7From the position of the sun, you can tell that it is: `&%s`7.`n";
                 $args['schemas']['clock'] = "module-newbieisland";
                 //newbies don't want to know what day it is.
-                $args['title']=array("%s, Home to New Adventurers", $city);
+                $args['title'] = array("%s, Home to New Adventurers", $city);
                 $args['schemas']['title'] = "module-newbieisland";
-                $args['sayline']="says";
+                $args['sayline'] = 'says';
                 $args['schemas']['sayline'] = "module-newbieisland";
-                $args['talk']="`n`&Nearby some local residents talk:`n";
+                $args['talk'] = "`n`&Nearby some local residents talk:`n";
                 $args['schemas']['talk'] = "module-newbieisland";
                 $new = get_module_setting("newest-$city", "cities");
-                if ($new != 0) {
+                if ($new != 0)
+                {
                     $sql =  "SELECT name FROM " . DB::prefix("accounts") .
                         " WHERE acctid='$new'";
                     $result = DB::query_cached($sql, "newest-$city");
                     $row = DB::fetch_assoc($result);
                     $args['newestplayer'] = $row['name'];
                     $args['newestid']=$new;
-                } else {
+                }
+                else
+                {
                     $args['newestplayer'] = $new;
-                    $args['newestid']="";
+                    $args['newestid'] = '';
                 }
-                if ($new == $session['user']['acctid']) {
-                    $args['newest']="`n`7As you wander your new home, you feel your jaw dropping at the wonders around you.";
-                } else {
-                    $args['newest']="`n`7Wandering the island, looking frightened, is `&%s`7.";
+                if ($new == $session['user']['acctid'])
+                {
+                    $args['newest'] = '`n`7As you wander your new home, you feel your jaw dropping at the wonders around you.';
                 }
-                $args['schemas']['newest'] = "module-newbieisland";
-                if (get_module_setting("chatiscentralvillage")){
-                    $args['section']="village";
-                }else{
-                    $args['section']="village-newbie";
+                else
+                {
+                    $args['newest'] = '`n`7Wandering the island, looking frightened, is `&%s`7.';
                 }
-                $args['gatenav']="Village Gates";
-                $args['fightnav']="Village Gates";
-                $args['infonav']="Other";
-                $args['schemas']['gatenav'] = "module-newbieisland";
-                $args['schemas']['fightnav'] = "module-newbieisland";
-                $args['schemas']['infonav'] = "module-newbieisland";
-                blocknav("pvp.php");
-                blocknav("lodge.php");
-                blocknav("gypsy.php");
-                blocknav("pavilion.php");
-                blocknav("inn.php");
-                blocknav("stables.php");
-                blocknav("gardens.php");
-                blocknav("rock.php");
-                blocknav("clan.php");
-                // blocknav("runmodule.php",true);
-                blocknav("mercenarycamp.php");
-                blocknav("hof.php");
+
+                $args['schemas']['newest'] = 'module-newbieisland';
+                if (get_module_setting('chatiscentralvillage'))
+                {
+                    $args['section'] = 'village';
+                }
+                else
+                {
+                    $args['section'] = 'village-newbie';
+                }
+                $args['gatenav']  = 'Village Gates';
+                $args['fightnav'] = 'Village Gates';
+                $args['infonav'] = 'Other';
+                $args['schemas']['gatenav'] = 'module-newbieisland';
+                $args['schemas']['fightnav'] = 'module-newbieisland';
+                $args['schemas']['infonav'] = 'module-newbieisland';
+                blocknav('pvp.php');
+                blocknav('lodge.php');
+                blocknav('gypsy.php');
+                blocknav('pavilion.php');
+                blocknav('inn.php');
+                blocknav('stables.php');
+                blocknav('gardens.php');
+                blocknav('rock.php');
+                blocknav('clan.php');
+                // blocknav('runmodule.php',true);
+                blocknav('mercenarycamp.php');
+                blocknav('hof.php');
                 // Make sure that Blusprings can show up on newbie island.
-                unblocknav("train.php");
+                unblocknav('train.php');
                 //if you want your module to appear in the newbie village, you'll have to hook on village
                 //and unblocknav() it.  I warn you, very very few modules will ever be allowed in the newbie
                 //village and get support for appearing in the core distribution; one of the major reasons
                 //FOR the newbie village is to keep the village very simple for new players.
             }
-            break;
-        case "village-desc":
+        break;
+        case 'village-desc':
             //-- Only can leave de island when player is level 2 or above
             if ($session['user']['location'] == $city && 1 < $session['user']['level'])
             {
                 addnav($args['gatenav']);
-                addnav(array("Leave %s",$city),"runmodule.php?module=newbieisland&op=leave");
-                unblocknav("runmodule.php?module=newbieisland&op=leave");
+                addnav(['Leave %s', $city], 'runmodule.php?module=newbieisland&op=leave');
+                unblocknav('runmodule.php?module=newbieisland&op=leave');
             }
-            break;
-        case "scrylocation":
-            if (get_module_setting("chatiscentralvillage")) {
+        break;
+        case 'scrylocation':
+            if (get_module_setting("chatiscentralvillage"))
+            {
                 $flipped = array_flip($args);
-                if (isset($flipped['village-newbie'])) {
+                if (isset($flipped['village-newbie']))
+                {
                     unset($flipped['village-newbie']);
                     $args = array_flip($flipped);
                 }
             }
-            break;
+        break;
     }
 
 	return $args;
