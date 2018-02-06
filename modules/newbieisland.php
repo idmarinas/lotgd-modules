@@ -80,7 +80,7 @@ function newbieisland_dohook($hookname, $args)
             // Block all modules by default
             blockmodule(true);
             // Make sure to unblock ourselves
-            unblockmodule("newbieisland");
+            unblockmodule('newbieisland');
             // You need to explicitly allow newbies to interact with a module
             // in the village or forest
             unblockmodule('staminasystem');
@@ -90,37 +90,37 @@ function newbieisland_dohook($hookname, $args)
             unblockmodule('mysticalshop_buffs');
             unblockmodule('inventary');
             unblockmodule('inventorypopup');
-            unblockmodule("tutor");
-            unblockmodule("raceelf");
-            unblockmodule("racehuman");
-            unblockmodule("racedwarf");
-            unblockmodule("racetroll");
-            unblockmodule("specialtydarkarts");
-            unblockmodule("specialtythiefskills");
-            unblockmodule("specialtymysticpower");
-            unblockmodule("specialtychickenmage");
+            unblockmodule('tutor');
+            unblockmodule('raceelf');
+            unblockmodule('racehuman');
+            unblockmodule('racedwarf');
+            unblockmodule('racetroll');
+            unblockmodule('specialtydarkarts');
+            unblockmodule('specialtythiefskills');
+            unblockmodule('specialtymysticpower');
+            unblockmodule('specialtychickenmage');
             // Even newbies get advertising
-            unblockmodule("advertising");
-            unblockmodule("advertising_google");
-            unblockmodule("advertising_amazon");
-            unblockmodule("advertising_splitreason");
-            unblockmodule("funddrive");
-            unblockmodule("funddriverewards");
-            unblockmodule("customeq");
+            unblockmodule('advertising');
+            unblockmodule('advertising_google');
+            unblockmodule('advertising_amazon');
+            unblockmodule('advertising_splitreason');
+            unblockmodule('funddrive');
+            unblockmodule('funddriverewards');
+            unblockmodule('customeq');
             unblockmodule('expbar');
-            unblockmodule("healthbar");
-            unblockmodule("serversuspend");
-            unblockmodule("timeplayed");
-            unblockmodule("collapse");
-            unblockmodule("mutemod");
-            unblockmodule("faqmute");
-            unblockmodule("extlinks");
-            unblockmodule("pvpimmunity");
-            unblockmodule("deputymoderator");
-            unblockmodule("unclean");
-            unblockmodule("stattracker");
+            unblockmodule('healthbar');
+            unblockmodule('serversuspend');
+            unblockmodule('timeplayed');
+            unblockmodule('collapse');
+            unblockmodule('mutemod');
+            unblockmodule('faqmute');
+            unblockmodule('extlinks');
+            unblockmodule('pvpimmunity');
+            unblockmodule('deputymoderator');
+            unblockmodule('unclean');
+            unblockmodule('stattracker');
 
-            //-- Hook for unblock custom modules
+            //-- Hook used for module unblockmodules
             modulehook('newbieisland-everyhit-loggedin');
 
             //Let newbies see the Travel FAQ
