@@ -56,16 +56,20 @@ Returns False if the action is not installed.
 =======================================================
 */
 
-function get_player_action($action, $userid=false) {
-	global $session;
-	if ($userid === false) $userid = $session['user']['acctid'];
-	$playeractions=unserialize(get_module_pref("actions","staminasystem",$userid));
+function get_player_action($action, $userid=false)
+{
+    global $session;
+
+    if ($userid === false) $userid = $session['user']['acctid'];
+
+	$playeractions = unserialize(get_module_pref('actions', 'staminasystem', $userid));
 	//Check to see if this action is set for this player, and if not, set it
-	if (!isset($playeractions[$action]))
+	if (! isset($playeractions[$action]))
 	{
 		//debug("Action ".$action." not set!");
 		$defaultactions = get_default_action_list();
-		if (isset($defaultactions[$action])){
+        if (isset($defaultactions[$action]))
+        {
 			//debug($defaultactions[$action]);
 			$playeractions[$action] = $defaultactions[$action];
 			$playeractions[$action]['lvl'] = 0;
@@ -73,9 +77,9 @@ function get_player_action($action, $userid=false) {
 			$playeractions[$action]['levelledup'] = false;
 			$playeractions[$action]['naturalcost'] = $defaultactions[$action]['maxcost'];
 			$playeractions[$action]['naturalcostbase'] = $defaultactions[$action]['maxcost'];
-			set_module_pref("actions", serialize($playeractions), "staminasystem", $userid);
+			set_module_pref('actions', serialize($playeractions), 'staminasystem', $userid);
 
-			return($playeractions[$action]);
+			return $playeractions[$action];
 		}
 		else
 		{
@@ -84,7 +88,24 @@ function get_player_action($action, $userid=false) {
 	}
 	else
 	{
-        if (! isset($playeractions[$action]['naturalcostbase'])) $playeractions[$action]['naturalcostbase'] = $playeractions[$action]['naturalcost'];
+        $defaultactions = get_default_action_list();
+
+        if ($playeractions[$action]['lvl'] > 100)
+        {
+            $exp = $playeractions[$action]['exp'];
+            $playeractions[$action] = $defaultactions;
+			$playeractions[$action]['lvl'] = 0;
+			$playeractions[$action]['exp'] = $exp;
+			$playeractions[$action]['levelledup'] = false;
+			$playeractions[$action]['naturalcost'] = $defaultactions[$action]['maxcost'];
+            $playeractions[$action]['naturalcostbase'] = $defaultactions[$action]['maxcost'];
+
+            stamina_level_up($action);
+        }
+
+        if (! isset($playeractions[$action]['naturalcostbase'])) $playeractions[$action]['naturalcostbase'] = $defaultactions['maxcost'];
+        if (! isset($playeractions[$action]['naturalcost'])) $playeractions[$action]['naturalcost'] = $defaultactions['maxcost'];
+        if (! isset($playeractions[$action]['naturalcostbase'])) $playeractions[$action]['naturalcostbase'] = $defaultactions['maxcost'];
 
 		return $playeractions[$action];
 	}
@@ -613,7 +634,7 @@ function stamina_level_up($action, $userid = false)
     $actions = get_player_action_list($userid);
 
     //-- No need level up, are maxed
-    if ($actions[$action]['lvl']>=100) { return false; }
+    if ($actions[$action]['lvl'] >= 100) { return false; }
 
 	$returninfo = [];
     $returninfo['class'] = $actions[$action]['class'];
@@ -622,7 +643,7 @@ function stamina_level_up($action, $userid = false)
 
 	while ($stop == 0)
 	{
-		$actions = get_player_action_list($userid);
+		// $actions = get_player_action_list($userid);
 		$currentexp = (isset($actions[$action]['exp']) ? $actions[$action]['exp'] : 0);
 		$currentlvl = $actions[$action]['lvl'];
 		$first = $actions[$action]['firstlvlexp'];
@@ -630,21 +651,19 @@ function stamina_level_up($action, $userid = false)
 		$stop = 1;
 		//Determine the next level's EXP requirements
 		$addup = [0 => $first];
-		for ($i=1; $i<=100; $i++){
+        for ($i = 1; $i <= 100; $i++)
+        {
 			$addup[$i] = round($addup[$i-1]*$increment);
 		}
 
 		$levels = [0 => $first];
-		for ($i=1; $i<=100; $i++)
+		for ($i = 1; $i <= 100; $i++)
 		{
 			$levels[$i] = ($levels[$i-1] + $addup[$i]);
 		}
 
-		if ($currentlvl > 0){
-			$currentlvlexp = $levels[$currentlvl-1];
-		} else {
-			$currentlvlexp = 0;
-		}
+        if ($currentlvl > 0) { $currentlvlexp = $levels[$currentlvl-1]; }
+        else { $currentlvlexp = 0; }
 
 		$nextlvlexp = $levels[$currentlvl];
 		// $currentlvlexp = $levels[$currentlvl-1];
@@ -655,20 +674,22 @@ function stamina_level_up($action, $userid = false)
 		$returninfo['currentlvlexp'] = $currentlvlexp;
 
 		//Check if player's exp is more than level requirement, and level up if true
-		if ($currentexp > $nextlvlexp && $actions[$action]['lvl']<=100){
+        if ($currentexp > $nextlvlexp && $actions[$action]['lvl'] < 100)
+        {
 			$stop = 0;
 			//level up
 			$actions[$action]['lvl']++;
 			//reduce costs
 			$actions[$action]['naturalcost'] -= $actions[$action]['costreduction'];
 			$actions[$action]['naturalcostbase'] = $actions[$action]['naturalcost'];
-			//write back array to modulepref
-			set_module_pref("actions", serialize($actions), "staminasystem", $userid);
 			//set "levelledup" to true, so that the module can output levelling up text
 			$returninfo['levelledup'] = true;
 			$returninfo['newlvl'] = $actions[$action]['lvl'];
 		}
     }
+
+	//write back array to modulepref
+	set_module_pref('actions', serialize($actions), 'staminasystem', $userid);
 
 	return $returninfo;
 }
