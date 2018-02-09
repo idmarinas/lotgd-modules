@@ -210,7 +210,7 @@ function stamina_calculate_buffed_exp($action, $userid=false)
 	if ($userid === false) $userid = $session['user']['acctid'];
 
 	$actiondetails = get_player_action($action, $userid);
-    $active_action_buffs_class = stamina_get_active_buffs($actiondetails['class'], $userid, true);
+    $active_action_buffs_class = stamina_get_active_buffs(isset($actiondetails['class'])?$actiondetails['class']:'', $userid, true);
     $active_action_buffs = array_merge(stamina_get_active_buffs($action, $userid), $active_action_buffs_class);
 
 	$buffedexp = e_rand(80,120);
