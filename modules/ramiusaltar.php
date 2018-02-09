@@ -279,10 +279,10 @@ function ramiusaltar_run(){
 
 
  		output("`c`b`^Sacrifices to the Altar of Ramius`0`b`c`n");
-		rawoutput("<table cellspacing='0' cellpadding='2' align='center'>");
-		rawoutput("<tr align=center class=\"trhead\">");
-		output_notl("<td align=left>`b".translate('Name')."`b</td><td>`b".translate('Favor Gained')."`b</td><td>`b".translate('Sacrifices')."`b</td><td>`b".translate('HP given')."`b</td><td>`b".translate('Turns given')."`b</td><td>`b".translate('Max HP given')."`b</td>", true);
-		rawoutput("</tr>");
+		rawoutput("<table class='ui very compact striped table'>");
+		rawoutput("<thead><tr>");
+		output_notl("<th>`b".translate('Name')."`b</th><th>`b".translate('Favor Gained')."`b</th><th>`b".translate('Sacrifices')."`b</th><th>`b".translate('HP given')."`b</th><th>`b".translate('Turns given')."`b</th><th>`b".translate('Max HP given')."`b</th>", true);
+		rawoutput("</tr></thead>");
 
 		$settings = array("sacrificedtoday",
 						"totalgained",
@@ -291,22 +291,24 @@ function ramiusaltar_run(){
 						"totalturnloss",
 						"totalmaxhploss" );
 
-		for($i = 1; $i < $count; $i++){
-			$userpref = get_all_module_prefs("ramiusaltar", $i);
+        for($i = 1; $i < $count; $i++)
+        {
+			$userpref = get_all_module_prefs('ramiusaltar', $i);
 
 			$sql = "SELECT acctid,name FROM " . DB::prefix("accounts") . " WHERE acctid=" . $i . " AND locked=0 AND (superuser & " . SU_HIDE_FROM_LEADERBOARD . ") = 0";
 			$result = DB::query($sql);
 			if (DB::num_rows($result) < 1) { continue; }
-			if ($userpref["totalsacrifices"] < 1) { continue; }
+			if (! isset($userpref['totalsacrifices']) || $userpref['totalsacrifices'] < 1) { continue; }
 			$row = DB::fetch_assoc($result);
 
-			rawoutput("<tr align=center>");
+			rawoutput("<tr>");
+            for ($j = 0; $j < 6; $j++)
+            {
 
-			for ($j = 0; $j < min(6, count($userpref)); $j++) {
+				if ($j == 0) { output_notl("<td>%s</td>", $row['name'], true); continue; }
 
-				if ($j == 0) { output_notl("<td align=left>%s</td>", $row['name'], true); continue; }
-
-				output_notl("<td>%s</td>", $userpref[$settings[$j]], true);
+                $value = isset($userpref[$settings[$j]]) ? $userpref[$settings[$j]] : 0;
+				output_notl("<td>%s</td>", $value, true);
 
 			}
 			rawoutput("</tr>");
