@@ -223,8 +223,8 @@ $alttext= "abcdefgh-dummy-dummy-dummy"; //hopefully this text is in no module to
 	    } else if (DB::num_rows($result)>0) {
 		rawoutput("<form action='runmodule.php?module=translationwizard&op=known&mode=radioinsert$redirect' method='post'>");
 		addnav("", "runmodule.php?module=translationwizard&op=known&mode=radioinsert$redirect");
-		rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
-		rawoutput("<tr class='trhead'><td>". translate_inline("Language") ."</td><td>". translate_inline("Original") ."</td><td>".translate_inline("Module / Translation")."</td><td>".translate_inline("Author")."</td><td>".translate_inline("Actions")."</td><td></td></tr>");
+		rawoutput("<table class='ui very compact striped table'>");
+		rawoutput("<thead><tr><th>". translate_inline("Language") ."</th><th>". translate_inline("Original") ."</th><th>".translate_inline("Module / Translation")."</th><th>".translate_inline("Author")."</th><th>".translate_inline("Actions")."</th><th></th></tr></thead>");
 		foreach($result as $row)
 		{
 			if ($row['t']==$row['u'] && $row['t']==$languageschema)	{
