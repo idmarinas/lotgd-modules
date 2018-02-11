@@ -18,13 +18,18 @@ Returns arrays for every Action default.
 =======================================================
 */
 
-function get_default_action_list() {
-	$actions = unserialize(get_module_setting("actionsarray", "staminasystem"));
-	if (!is_array($actions)) {
-		$actions = array();
-		set_module_setting("actionsarray", serialize($actions), "staminasystem");
-	}
-	$actions = unserialize(get_module_setting("actionsarray", "staminasystem"));
+function get_default_action_list()
+{
+    $actions = unserialize(get_module_setting('actionsarray', 'staminasystem'));
+
+    if (! is_array($actions))
+    {
+		$actions = [];
+		set_module_setting('actionsarray', serialize($actions), 'staminasystem');
+    }
+
+    // $actions = unserialize(get_module_setting('actionsarray', 'staminasystem'));
+
 	return $actions;
 }
 
@@ -35,15 +40,21 @@ Returns arrays for every action for the given player.
 =======================================================
 */
 
-function get_player_action_list($userid=false) {
-	global $session;
-	if ($userid === false) $userid = $session['user']['acctid'];
-	$actions = unserialize(get_module_pref("actions", "staminasystem", $userid));
-	if (!is_array($actions)) {
-		$actions = array();
-		set_module_pref("actions", serialize($actions), "staminasystem", $userid);
-	}
-	$actions=unserialize(get_module_pref("actions", "staminasystem", $userid));
+function get_player_action_list($userid=false)
+{
+    global $session;
+
+    if ($userid === false) $userid = $session['user']['acctid'];
+
+    $actions = unserialize(get_module_pref('actions', 'staminasystem', $userid));
+
+    if (! is_array($actions))
+    {
+		$actions = [];
+		set_module_pref('actions', serialize($actions), 'staminasystem', $userid);
+    }
+
+
 	return $actions;
 }
 
@@ -88,10 +99,7 @@ function get_player_action($action, $userid=false)
 	}
 	else
 	{
-        if (! isset($playeractions[$action]['naturalcostbase'])) $playeractions[$action]['updated'] = false;
-        if (! isset($playeractions[$action]['naturalcost'])) $playeractions[$action]['updated'] = false;
-
-        if (isset($playeractions[$action]['updated']) && $playeractions[$action]['updated'])
+        if (! isset($playeractions[$action]['updated']) || ! $playeractions[$action]['updated'])
         {
             $defaultactions = get_default_action_list();
 
@@ -106,7 +114,7 @@ function get_player_action($action, $userid=false)
 
 			set_module_pref('actions', serialize($playeractions), 'staminasystem', $userid);
 
-            stamina_level_up($action);
+            stamina_level_up($action, $userid);
         }
 
 		return $playeractions[$action];
@@ -619,7 +627,69 @@ function get_stamina($type = 1, $realvalue = false, $userid = false) {
 	return $returnvalue;
 }
 
+/**
+ * Check if the action have all necesary options
+ *
+ * @param string $action
+ * @param array $actions
+ *
+ * @param boolean $userid
+ *
+ * @return boolean
+ */
+function stamina_check_action($action, $actions, $userid = false)
+{
+    global $session;
 
+    if ($userid === false) $userid = $session['user']['acctid'];
+
+	//-- Generate action for player
+	if (! isset($actions[$action]))
+	{
+		$defaultactions = get_default_action_list();
+        if (isset($defaultactions[$action]))
+        {
+			//debug($defaultactions[$action]);
+			$actions[$action] = $defaultactions[$action];
+			$actions[$action]['lvl'] = 0;
+			$actions[$action]['exp'] = 0;
+			$actions[$action]['levelledup'] = false;
+			$actions[$action]['naturalcost'] = $defaultactions[$action]['maxcost'];
+            $actions[$action]['naturalcostbase'] = $defaultactions[$action]['maxcost'];
+
+			set_module_pref('actions', serialize($actions), 'staminasystem', $userid);
+        }
+
+		return false;
+	}
+	else
+	{
+        if (
+            ! isset($actions[$action]['naturalcostbase']) ||
+            ! isset($actions[$action]['naturalcost']) ||
+            ! isset($actions[$action]['firstlvlexp']) ||
+            ! isset($actions[$action]['expincrement']) ||
+            ! isset($actions[$action]['costreduction'])
+        )
+        {
+            $defaultactions = get_default_action_list();
+
+            $exp = $actions[$action]['exp'];
+            $actions[$action] = $defaultactions;
+			$actions[$action]['lvl'] = 0;
+			$actions[$action]['exp'] = $exp;
+			$actions[$action]['levelledup'] = false;
+			$actions[$action]['naturalcost'] = $defaultactions[$action]['maxcost'];
+            $actions[$action]['naturalcostbase'] = $defaultactions[$action]['maxcost'];
+
+			set_module_pref('actions', serialize($actions), 'staminasystem', $userid);
+
+            return false;
+        }
+	}
+
+    return true;
+}
 /*
 *******************************************************
 LEVEL UP
@@ -639,9 +709,14 @@ function stamina_level_up($action, $userid = false)
     if ($actions[$action]['lvl'] >= 100) { return false; }
 
 	$returninfo = [];
-    $returninfo['class'] = $actions[$action]['class'];
+    $returninfo['class'] = isset($actions[$action]['class']) ? $actions[$action]['class'] : '';
     $returninfo['levelledup'] = false;
-	$stop = 0;
+    $stop = 0;
+
+    if (! stamina_check_action($action, $actions, $userid))
+    {
+        return stamina_level_up($action, $userid);
+    }
 
 	while ($stop == 0)
 	{
