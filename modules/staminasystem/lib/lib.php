@@ -99,23 +99,23 @@ function get_player_action($action, $userid=false)
 	}
 	else
 	{
-        if (! isset($playeractions[$action]['updated']) || ! $playeractions[$action]['updated'])
-        {
-            $defaultactions = get_default_action_list();
+        // if (! isset($playeractions[$action]['updated']) || ! $playeractions[$action]['updated'])
+        // {
+        //     $defaultactions = get_default_action_list();
 
-            $exp = $playeractions[$action]['exp'];
-            $playeractions[$action] = $defaultactions;
-			$playeractions[$action]['lvl'] = 0;
-			$playeractions[$action]['exp'] = $exp;
-			$playeractions[$action]['levelledup'] = false;
-			$playeractions[$action]['naturalcost'] = $defaultactions[$action]['maxcost'];
-            $playeractions[$action]['naturalcostbase'] = $defaultactions[$action]['maxcost'];
-            $playeractions[$action]['updated'] = true;
+        //     $exp = $playeractions[$action]['exp'];
+        //     $playeractions[$action] = $defaultactions[$action];
+		// 	$playeractions[$action]['lvl'] = 0;
+		// 	$playeractions[$action]['exp'] = $exp;
+		// 	$playeractions[$action]['levelledup'] = false;
+		// 	$playeractions[$action]['naturalcost'] = $defaultactions[$action]['maxcost'];
+        //     $playeractions[$action]['naturalcostbase'] = $defaultactions[$action]['maxcost'];
+        //     $playeractions[$action]['updated'] = true;
 
-			set_module_pref('actions', serialize($playeractions), 'staminasystem', $userid);
+		// 	set_module_pref('actions', serialize($playeractions), 'staminasystem', $userid);
 
-            stamina_level_up($action, $userid);
-        }
+        //     stamina_level_up($action, $userid);
+        // }
 
 		return $playeractions[$action];
 	}
@@ -669,13 +669,14 @@ function stamina_check_action($action, $actions, $userid = false)
             ! isset($actions[$action]['naturalcost']) ||
             ! isset($actions[$action]['firstlvlexp']) ||
             ! isset($actions[$action]['expincrement']) ||
-            ! isset($actions[$action]['costreduction'])
+            ! isset($actions[$action]['costreduction']) ||
+            $actions[$action]['lvl'] > 100
         )
         {
             $defaultactions = get_default_action_list();
 
-            $exp = $actions[$action]['exp'];
-            $actions[$action] = $defaultactions;
+            $exp = isset($actions[$action]['exp']) ? $actions[$action]['exp'] : 0;
+            $actions[$action] = $defaultactions[$action];
 			$actions[$action]['lvl'] = 0;
 			$actions[$action]['exp'] = $exp;
 			$actions[$action]['levelledup'] = false;
