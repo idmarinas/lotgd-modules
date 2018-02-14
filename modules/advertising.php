@@ -314,7 +314,7 @@ function advertising_dohook($hookname,$args)
 		reset($banners);
 		foreach($banners as $key => $val)
 		{
-			$args[$key] = $lotgd_tpl->renderThemeTemplate('body/adwrapper.twig', ['content' => $val]);
+			$args[$key] = $lotgd_tpl->renderThemeTemplate('content/adwrapper.twig', ['content' => $val]);
 		}
 		if (!array_key_exists('script', $args) || !is_array($args['script']))
 			$args['script']=array();
