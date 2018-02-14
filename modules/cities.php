@@ -183,7 +183,7 @@ function cities_dohook($hookname,$args)
 			blocknav("inn.php");
 			blocknav("stables.php");
 			blocknav("rock.php");
-			blocknav("hof.php");
+			// blocknav("hof.php");
 			blocknav("mercenarycamp.php");
 		}elseif ($capital){
 			//in capital city.
@@ -193,7 +193,7 @@ function cities_dohook($hookname,$args)
 			blocknav("armor.php");
 		}else{
 			//in another city.
-			blocknav("train.php");
+			// blocknav("train.php");
 			blocknav("inn.php");
 			blocknav("stables.php");
 			blocknav("rock.php");
