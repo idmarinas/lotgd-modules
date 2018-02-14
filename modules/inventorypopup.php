@@ -3,106 +3,114 @@
 // addnews ready
 // mail ready
 
-function inventorypopup_getmoduleinfo(){
-	$info = array(
-		"name"=>"Inventory Popup System",
-		"version"=>"1.0",
-		"author"=>"Christian Rutsch",
-		"category"=>"Inventory",
-		"download"=>"http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1033",
-		"override_forced_nav"=>true,
-	);
-	return $info;
+function inventorypopup_getmoduleinfo()
+{
+	return [
+		'name' => 'Inventory Popup System',
+		'version' => '1.0',
+		'author' => 'Christian Rutsch',
+		'category' => 'Inventory',
+		'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1033',
+		'override_forced_nav' => true,
+    ];
 }
-function inventorypopup_install(){
-	module_addhook("charstats");
+function inventorypopup_install()
+{
+    module_addhook('charstats');
+
 	return true;
 }
 
-function inventorypopup_uninstall(){
-	return true;
-}
+function inventorypopup_uninstall() { return true; }
 
-function inventorypopup_dohook($hookname,$args){
-	global $session;
-	switch ($hookname) {
-		case "charstats":
-			$open = translate_inline("Open Inventory");
-			addnav("runmodule.php?module=inventorypopup");
-			addcharstat("Equipment Info");
-			addcharstat("Inventory", "<a href='runmodule.php?module=inventorypopup' target='inventory' onClick=\"".popup("runmodule.php?module=inventorypopup&op=charstat").";return false;\">$open</a>");
-			break;
-	}
+function inventorypopup_dohook($hookname, $args)
+{
+    global $session;
+
+    if ($hookname == 'charstats')
+    {
+		$open = translate_inline("Open Inventory");
+		addnav("runmodule.php?module=inventorypopup");
+		addcharstat("Equipment Info");
+		addcharstat("Inventory", "<a href='runmodule.php?module=inventorypopup' target='inventory' onClick=\"".popup("runmodule.php?module=inventorypopup&op=charstat").";return false;\">$open</a>");
+    }
+
 	return $args;
 }
 
-function inventorypopup_run(){
+function inventorypopup_run()
+{
 	global $session;
 
-	require_once("lib/itemhandler.php");
-	require_once("lib/sanitize.php");
+	require_once 'lib/itemhandler.php';
+	require_once 'lib/sanitize.php';
 
-	popup_header("Your Inventory");
+	popup_header('Your Inventory');
 
-	mydefine("HOOK_NEWDAY", 1);
-	mydefine("HOOK_FOREST", 2);
-	mydefine("HOOK_VILLAGE", 4);
-	mydefine("HOOK_SHADES", 8);
-	mydefine("HOOK_FIGHTNAV", 16);
-	mydefine("HOOK_TRAIN", 32);
-	mydefine("HOOK_INVENTORY", 64);
+	mydefine('HOOK_NEWDAY', 1);
+	mydefine('HOOK_FOREST', 2);
+	mydefine('HOOK_VILLAGE', 4);
+	mydefine('HOOK_SHADES', 8);
+	mydefine('HOOK_FIGHTNAV', 16);
+	mydefine('HOOK_TRAIN', 32);
+	mydefine('HOOK_INVENTORY', 64);
 
-	$item = DB::prefix("item");
+	$item = DB::prefix('item');
 	$inventory = DB::prefix("inventory");
 	$op2 = httpget('op2');
-	$id = httpget('id');
-	switch($op2) {
-		case "equip":
-			$thing = get_item((int)$id);
+    $id = (int) httpget('id');
+
+    switch($op2)
+    {
+		case 'equip':
+			$thing = get_item($id);
 			$sql = "SELECT $inventory.itemid FROM $inventory INNER JOIN $item ON $inventory.itemid = $item.itemid WHERE $item.equipwhere = '".$thing['equipwhere']."' AND $inventory.equipped = 1";
-			$result = DB::query($sql);
+            $result = DB::query($sql);
+            $wh = [];
 			while ($row = DB::fetch_assoc($result)) $wh[] = $row['itemid'];
-			if (is_array($wh) && count($wh)) {
-				modulehook("unequip-item", array("ids"=>$wh));
+            if (is_array($wh) && count($wh))
+            {
+                modulehook('unequip-item', ['ids' => $wh]);
+
 				$sql = "UPDATE $inventory SET equipped = 0 WHERE itemid IN (".join(",",$wh).")";
 				DB::query($sql);
 			}
-			modulehook("equip-item", array("id"=>$id));
+            modulehook('equip-item', ['id' => $id]);
+
 			$sql = "UPDATE $inventory SET equipped = 1 WHERE itemid = $id AND userid = {$session['user']['acctid']} LIMIT 1";
 			$result = DB::query($sql);
 		break;
-		case "unequip":
-			modulehook("unequip-item", array("ids"=>array($id)));
+		case 'unequip':
+			modulehook('unequip-item', ['ids' => [$id]]);
 			$sql = "UPDATE $inventory SET equipped = 0 WHERE itemid = $id AND userid = {$session['user']['acctid']}";
 			$result = DB::query($sql);
 		break;
-		case "drop":
+		case 'drop':
 			$id = httpget('id');
 			$invid = httpget('invid');
 			remove_item((int)$id, 1, false, $invid);
 		break;
-		case "dropall":
+		case 'dropall':
 			$id = httpget('id');
 			$qty = httpget('qty');
 			remove_item((int)$id, $qty);
 		break;
-		case "activate":
+		case 'activate':
+            require_once 'lib/buffs.php';
+
 			$id = httpget('id');
-			$acitem = get_inventory_item((int)$id);
-			require_once("lib/buffs.php");
-			if ($acitem['buffid'] > 0)
-			apply_buff($acitem['name'], get_buff($acitem['buffid']));
-			if ($acitem['charges'] > 1)
-			uncharge_item((int)$id, 1);
-			else
-			remove_item((int)$id);
-			if ($acitem['execvalue'] > "") {
-				if ($acitem['exectext'] > "") {
-					output($acitem['exectext'], $acitem['name']);
-				} else {
-					output("You activate %s!", $acitem['name']);
-				}
-				require_once("lib/itemeffects.php");
+            $acitem = get_inventory_item((int)$id);
+
+			if ($acitem['buffid'] > 0) apply_buff($acitem['name'], get_buff($acitem['buffid']));
+			if ($acitem['charges'] > 1) uncharge_item((int)$id, 1);
+            else remove_item((int)$id);
+
+            if ($acitem['execvalue'] > '')
+            {
+                if ($acitem['exectext'] > '') { output($acitem['exectext'], $acitem['name']); }
+                else { output("You activate %s!", $acitem['name']); }
+
+				require_once 'lib/itemeffects.php';
 				output_notl("`n`n%s`n", get_effect($acitem));
 			}
 		break;
@@ -129,9 +137,12 @@ function inventorypopup_run(){
 	{
 		$inventory[$row['class']][] = $row;
 	}
-	$inventory = modulehook('inventorypopup-inventory', ['inventory' => $inventory]);
-	require_once 'lib/showtabs.php';
-	lotgd_showtabs($inventory['inventory'], 'inventory_lotgd_showform', true);
+    $inventory = modulehook('inventorypopup-inventory', ['inventory' => $inventory]);
+
+    require_once 'lib/showtabs.php';
+
+    lotgd_showtabs($inventory['inventory'], 'inventory_lotgd_showform', true);
+
 	popup_footer();
 }
 
