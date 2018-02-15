@@ -1,5 +1,5 @@
 <?php
-	require_once("lib/itemhandler.php");
+	require_once 'lib/itemhandler.php';
 	$inventory = get_inventory();
 	$count=0;
 	while ($item = DB::fetch_assoc($inventory)) {

@@ -66,7 +66,7 @@ if ($itemid>0){
 		rare=$rare,
 		rarenum=$rarenum
 		WHERE id=$itemid";
-	DB::query $sql );
+	DB::query( $sql );
 	output( '`6The item "`^%s`6" has been successfully edited.`n`n', $displayname );
 	if( getsetting( 'usedatacache', false ) && $cat != $postcat )
 	{
@@ -77,14 +77,14 @@ if ($itemid>0){
 	}
 }else{
 	$sql = 'LOCK TABLES '.DB::prefix( 'magicitems' ).' WRITE;';
-	DB::query $sql );
+	DB::query( $sql );
 	$sql = "INSERT INTO ".DB::prefix("magicitems")."
 	(category,name,description,gold,gems,dk,attack,defense,charm,hitpoints,turns,favor,bigdesc,rare,rarenum)
 	VALUES ($postcat,'$name','$describe',$gold,$gems,$dk,$attack,$defense,$charm,$hitpoints,$turns,$favor,'$bigdesc',$rare,$rarenum)";
-	DB::query $sql );
+	DB::query( $sql );
 	$itemid = db_insert_id();
 	$sql = 'UNLOCK TABLES;';
-	DB::query $sql );
+	DB::query( $sql );
 	output( '`6The item "`^%s`6" has been saved to the database.`n`n', $displayname );
 }
 

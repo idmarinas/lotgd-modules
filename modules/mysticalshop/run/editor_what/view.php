@@ -25,8 +25,8 @@ if ($count == 0){
 	$goldc = translate_inline("Cost Gold");
 	$gemc = translate_inline("Cost Gems");
 	$cate = translate_inline("Category");
-	rawoutput( '<table cellspacing="2" cellpadding="2" width="100%">' );
-	rawoutput( '<tr class="trhead"><td>'.$ops.'</td><td>'.$itemid.'</td><td>'.$name.'</td><td>'.$goldc.'</td><td>'.$gemc.'</td><td>'.$cate.'</td></tr>' );
+	rawoutput( '<table class="ui very compact striped table">' );
+	rawoutput( '<thead><tr><th>'.$ops.'</th><th>'.$itemid.'</th><th>'.$name.'</th><th>'.$goldc.'</th><th>'.$gemc.'</th><th>'.$cate.'</th></tr></thead>' );
 	$i = false;
 	while($row = DB::fetch_assoc($result)){
 		$id = $row['id'];

@@ -192,6 +192,15 @@ function stamina_calculate_buffed_cost($action, $userid = false)
     $active_action_buffs_class = stamina_get_active_buffs($actiondetails['class'], $userid, true);
     $active_action_buffs = array_merge(stamina_get_active_buffs($action, $userid), $active_action_buffs_class);
 
+    if (! isset($actiondetails['naturalcostbase']))
+    {
+        $actions = get_player_action_list($userid);
+
+        stamina_check_action($action, $details, $userid);
+
+        return stamina_calculate_buffed_cost($action, $userid);
+    }
+
 	//debug($actiondetails);
 	$buffedcost = $actiondetails['naturalcostbase'];
     if (is_array($active_action_buffs))
@@ -200,7 +209,8 @@ function stamina_calculate_buffed_cost($action, $userid = false)
         {
 			$buffedcost = $buffedcost * $values['costmod'];
 		}
-	}
+    }
+
 	return $buffedcost;
 }
 
@@ -691,6 +701,7 @@ function stamina_check_action($action, $actions, $userid = false)
 
     return true;
 }
+
 /*
 *******************************************************
 LEVEL UP
@@ -976,12 +987,12 @@ function stamina_minihof($action,$userid=false){
 
 	output("`n`n");
 	rawoutput("<div align=center>");
-	rawoutput("<table cellspacing='0' cellpadding='5'>");
-	rawoutput("<tr class='trhead'><td colspan=3><strong>".translate_inline($action)."</strong></td></tr>");
-	rawoutput("<tr class='trhead'><td><strong>".translate_inline("Rank")."</strong></td><td><strong>".translate_inline("Name")."</strong></td><td><strong>".translate_inline("Experience")."</strong></td></tr>");
+	rawoutput("<table class='ui very compact striped collapsing table'>");
+	rawoutput("<thead><tr><th class='center aligned' colspan=3>".translate_inline($action)."</th></tr>");
+    rawoutput("<tr><th>".translate_inline("Rank")."</th><th>".translate_inline("Name")."</th><th>".translate_inline("Experience")."</th></tr></thead>");
 	$count = count($smallboard);
 	for ($i=0; $i < $count; $i++){
-		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+		rawoutput("<tr>");
 		if ($smallboard[$i]['acctid'] == $userid){
 			rawoutput("<td><strong>".number_format($smallboard[$i]['rank'])."</strong></td><td><strong>".appoencode($smallboard[$i]['name'])."</strong></td><td><strong>".number_format($smallboard[$i]['xp'])."</strong></td></tr>");
 		} else {
