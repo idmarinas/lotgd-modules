@@ -12,9 +12,9 @@ if( is_numeric( $id ) )
 		output( '`2%s`2 sizes you up, then decides that separating you from your %s`2 right now would be too exhausting an experience for you.', $shopkeep, $row['name'] );
 		output( 'The sale is off!`0`n`n' );
 	}
-	elseif( $row['attack'] >= $user['attack']
-			|| $row['defense'] >= $user['defense']
-			|| $row['hitpoints'] >= $user['maxhitpoints']
+	elseif( $row['attack'] > $user['attack']
+			|| $row['defense'] > $user['defense']
+			|| $row['hitpoints'] > $user['maxhitpoints']
 			|| $row['charm'] > $user['charm']
 			|| $row['favor'] > $user['deathpower']
 		)
@@ -54,7 +54,7 @@ if( is_numeric( $id ) )
 			$default_weapon = trim( get_module_setting( 'def_weapon' ) );
 			if( $default_weapon === '' )
 			{
-				$default_weapon = DB::fetch_assoc( DB::query( 'DESC '.DB::prefix( 'accounts' ).' weapon' ) );
+				$default_weapon = DB::query( 'DESC '.DB::prefix( 'accounts' ).' weapon' )->current();
 				$default_weapon = $default_weapon['Default'];
 			}
 			$session['user']['weapon']= $default_weapon;
@@ -70,7 +70,7 @@ if( is_numeric( $id ) )
 			$default_armor = trim( get_module_setting( 'def_armor' ) );
 			if( $default_armor === '' )
 			{
-				$default_armor = DB::fetch_assoc( DB::query( 'DESC '.DB::prefix( 'accounts' ).' armor' ) );
+				$default_armor = DB::query( 'DESC '.DB::prefix( 'accounts' ).' armor' )->current();
 				$default_armor = $default_armor['Default'];
 			}
 			$session['user']['armor']= $default_armor;
