@@ -62,7 +62,14 @@ function inventorypopup_run()
 
     switch($op2)
     {
-		case 'equip':
+        case 'equip':
+            if ($session['user']['weaponvalue'] || $session['user']['armorvalue'])
+            {
+                output('`4Before you can equip this new item, you have to sell that old equipment.`0`n');
+
+                break;
+            }
+
 			$thing = get_item($id);
 			$sql = "SELECT $inventory.itemid FROM $inventory INNER JOIN $item ON $inventory.itemid = $item.itemid WHERE $item.equipwhere = '".$thing['equipwhere']."' AND $inventory.equipped = 1";
             $result = DB::query($sql);
@@ -75,10 +82,11 @@ function inventorypopup_run()
 				$sql = "UPDATE $inventory SET equipped = 0 WHERE itemid IN (".join(",",$wh).")";
 				DB::query($sql);
 			}
-            modulehook('equip-item', ['id' => $id]);
 
 			$sql = "UPDATE $inventory SET equipped = 1 WHERE itemid = $id AND userid = {$session['user']['acctid']} LIMIT 1";
-			$result = DB::query($sql);
+            $result = DB::query($sql);
+
+            modulehook('equip-item', ['id' => $id]);
 		break;
 		case 'unequip':
 			modulehook('unequip-item', ['ids' => [$id]]);

@@ -50,7 +50,7 @@ function inv_statvalues_dohook($hookname, $args)
 			$session['user']['attack'] += $attack;
 			$session['user']['defense'] += $defense;
 			$session['user']['maxhitpoints'] += $maxhitpoints;
-            if ($attack != 0 && $defense != 0 && $maxhitpoints != 0)
+            if ($attack != 0 || $defense != 0 || $maxhitpoints != 0)
             {
 				debuglog("'s stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
 				debug("Your stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
@@ -59,14 +59,14 @@ function inv_statvalues_dohook($hookname, $args)
 		case 'unequip-item':
             while(list($key, $id) = each($args['ids']))
             {
-				$attack = -get_module_objpref('items', $id, 'attack');
-				$defense = -get_module_objpref('items', $id, 'defense');
-				$maxhitpoints = -get_module_objpref('items', $id, 'maxhitpoints');
+				$attack = - get_module_objpref('items', $id, 'attack');
+				$defense = - get_module_objpref('items', $id, 'defense');
+				$maxhitpoints = - get_module_objpref('items', $id, 'maxhitpoints');
 				$session['user']['attack'] += $attack;
 				$session['user']['defense'] += $defense;
                 $session['user']['maxhitpoints'] += $maxhitpoints;
 
-                if ($attack != 0 && $defense != 0 && $maxhitpoints != 0)
+                if ($attack != 0 || $defense != 0 || $maxhitpoints != 0)
                 {
 					debuglog("'s stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
 					debug("Your stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
@@ -75,20 +75,35 @@ function inv_statvalues_dohook($hookname, $args)
 		break;
 		case 'dk-preserve':
 			$sql = "SELECT itemid FROM inventory WHERE equipped = 1 AND userid = {$session['user']['acctid']}";
-			$result = db_query($sql);
-            while ($row = db_fetch_assoc($result))
+            $result = DB::query($sql);
+            $unequip = [];
+            while ($row = DB::fetch_assoc($result))
             {
-				$id = $row['itemid'];
-				$attack = -get_module_objpref('items', $id, 'attack');
-				$defense = -get_module_objpref('items', $id, 'defense');
-				$maxhitpoints = -get_module_objpref('items', $id, 'maxhitpoints');
+                $id = $row['itemid'];
+                $unequip[] = $id;
+				$attack = - get_module_objpref('items', $id, 'attack');
+				$defense = - get_module_objpref('items', $id, 'defense');
+				$maxhitpoints = - get_module_objpref('items', $id, 'maxhitpoints');
 				$session['user']['attack'] += $attack;
 				$session['user']['defense'] += $defense;
 				$session['user']['maxhitpoints'] += $maxhitpoints;
-                if ($attack != 0 && $defense != 0 && $maxhitpoints != 0)
+                if ($attack != 0 || $defense != 0 || $maxhitpoints != 0)
                 {
                     debuglog("'s stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
+					debug("Your stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
                 }
+            }
+
+            //-- Unequip all equipment
+            if (count($unequip))
+            {
+                $updated = DB::updated('inventory');
+                $updated->set(['equipped' => 0])
+                    ->where->equalTo('userid', $session['user']['acctid'])
+                        ->equalTo('equipped', 1)
+                        ->in('itemid', $unequip)
+                ;
+                DB::execute($updated);
             }
         break;
     }
