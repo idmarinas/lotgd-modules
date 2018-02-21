@@ -314,19 +314,28 @@ function thieves_fight($costlose)
         require_once 'lib/creaturefunctions.php';
 
 		$dkb = round($session['user']['dragonkills']*.1);
-		$usemultis = get_module_setting("usemultis");
-		if ($usemultis == "multi") {
+		$usemultis = get_module_setting('usemultis');
+        if ($usemultis == 'multi')
+        {
 			$usemultis = true;
-		} elseif ($usemultis == "setting") {
-			$dklimit = getsetting("multifightdk", 10);
-			if ($session['user']['dragonkills'] >= $dklimit) {
+        }
+        elseif ($usemultis == 'setting')
+        {
+			$dklimit = getsetting('multifightdk', 10);
+            if ($session['user']['dragonkills'] >= $dklimit)
+            {
 				$usemultis = true;
-			} else {
+            }
+            else
+            {
 				$usemultis = false;
 			}
-		} else {
+        }
+        else
+        {
 			$usemultis = false;
-		}
+        }
+
 		if ($usemultis == true)
 		{
 			require_once 'lib/forestoutcomes.php';
@@ -334,102 +343,103 @@ function thieves_fight($costlose)
 			$badguylevel = $session['user']['level']+1;
 
 			$lonestrider = [
-				"creaturename" => translate_inline("`6Lonestrider`0"),
-				"creaturelevel" => $badguylevel,
-				"creatureweapon" => translate_inline("Jewel-hilted dagger"),
-				"creatureattack" => $session['user']['attack']*.9,
-				"creaturedefense" => $session['user']['defense']*.9,
-				"creaturehealth" => INT_MAX,
-				"creaturemaxhealth" => INT_MAX,
-				"diddamage" => 0,
-				"hidehitpoints" => 1, // Hide the ridiculous amount of health, Lonestrider has
-				"cannotbetarget" => 1,
+				'creaturename' => translate_inline('`6Lonestrider`0'),
+				'creaturelevel' => $badguylevel,
+				'creatureweapon' => translate_inline('Jewel-hilted dagger'),
+				'creatureattack' => $session['user']['attack'] * .9,
+				'creaturedefense' => $session['user']['defense'] * .9,
+				'creaturehealth' => INT_MAX,
+				'creaturemaxhealth' => INT_MAX,
+				'diddamage' => 0,
+				'hidehitpoints' => 1, // Hide the ridiculous amount of health, Lonestrider has
+				'cannotbetarget' => 1,
 				// Setting the next one to ANYTHING will make this badguy flee, if only he is left in the fight.
 				// TRUE would lead to output the standard text.
 				// Any string will be interpreted as TRUE AND it will replace the standard text.
-				"fleesifalone" => "{badguy} recognizes that he will be no match for you and flees.",
-				"noadjust" => 1, // This is a pre-generated monster
+				'fleesifalone' => '{badguy} recognizes that he will be no match for you and flees.',
+				'noadjust' => 1, // This is a pre-generated monster
 				// This next line looks odd, but it's basically telling the
 				// battle code, not to do the determination for surprise.  This
 				// means player gets first hit against Lonestrider, he will never
 				// go first.
-				"didsurprise"=>1,
-				"type"=>"lonestrider"
+				'didsurprise' => 1,
+				'type' => 'lonestrider'
             ];
             $lonestrider = lotgd_transform_creature($lonestrider, false);
-			$thief = [
-				'creaturename' => translate_inline("`\$Lonestrider's Thief`0"),
-				'creaturelevel' => $badguylevel,
-				'creatureweapon' => translate_inline("Stabbing Knive"),
-				'creatureattack' => $session['user']['level'],
-				'creaturedefense' => $session['user']['level'],
-				'creaturehealth' => $badguylevel*11,
-				'creaturemaxhealth' => $badguylevel*11,
-				'diddamage' => 0,
-				'didsurprise' => 1,
-				'type' => 'lonestrider-thief'
-            ];
-			$thief = buffbadguy($thief);
+            $thief = lotgd_generate_creature_levels($badguylevel);
+
+            $thief['creaturename'] = translate_inline("`\$Lonestrider's Thief`0");
+            $thief['creatureweapon'] = translate_inline('Stabbing Knives');
+            $thief['creaturehealth'] = round($thief['creaturehealth'] * 5);
+            $thief['creatureattack'] = round($thief['creatureattack'] * .9);
+            $thief['creaturedefense'] = round($thief['creaturedefense'] * .9);
+            $thief['diddamage'] = 0;
+            $thief['didsurprise'] = 1;
+            $thief['type'] = 'lonestrider-thief';
+
+            $thief = lotgd_transform_creature($thief, false);
+            $thief = buffbadguy($thief);
+            $thief['creaturegold'] = 0;//-- This creature not give gold
+
 			$stack = [];
 			$stack[] = $lonestrider;
-			$maxthieves = min(15, $session['user']['level']+1);
-			for ($i=0;$i<$maxthieves;$i++) $stack[] = $thief;
-		} else {
-			$badguylevel = $session['user']['level']+1;
-			$badguyhp = $session['user']['maxhitpoints'] * 1.05;
-			$badguyatt = $session['user']['attack'];
-			$badguydef = $session['user']['defense'];
-			if ($session['user']['level'] > 9) {
-				$badguyhp *= 1.05;
-			}
-			if ($session['user']['level'] < 4) {
-				$badguyhp *= .9;
-				$badguyatt *= .9;
-				$badguydef *= .9;
-				$badguylevel--;
-			}
-			$badguy = array(
-				"creaturename"=>translate_inline("`\$Lonestrider's Thieves`0"),
-				"creaturelevel"=>$badguylevel,
-				"creatureweapon"=>translate_inline("Many Stabbing Knives"),
-				"creatureattack"=>$badguyatt,
-				"creaturedefense"=>$badguydef,
-				"creaturehealth"=>round($badguyhp,0),
-				"creaturemaxhealth"=>round($badguyhp,0),
-				"diddamage"=>0,
-				"noadjust"=>1, // This is a pre-generated monster
-				// This next line looks odd, but it's basically telling the
-				// battle code, not to do the determination for surprise.  This
-				// means player gets first hit against Lonestrider, he will never
-				// go first.
-                "didsurprise"=>1);
+			$maxthieves = min(15, $session['user']['level'] + 1);
+			for ($i = 0; $i < $maxthieves; $i++) $stack[] = $thief;
+        }
+        else
+        {
+            $badguylevel = $session['user']['level'] + 1;
+            if ($session['user']['level'] < 4) { $badguylevel--; }
+
+            $badguy = lotgd_generate_creature_levels($badguylevel);
+            $badguy['creaturename'] = translate_inline("`\$Lonestrider's Thieves`0");
+            $badguy['creatureweapon'] = translate_inline('Many Stabbing Knives');
+
+            if ($session['user']['level'] > 9) { $badguy['creaturehealth'] = round($badguy['creaturehealth'] * 1.05); }
+            if ($session['user']['level'] < 4)
+            {
+                $badguy['creaturehealth'] = round($badguy['creaturehealth'] * .9);
+                $badguy['creatureattack'] = round($badguy['creatureattack'] * .9);
+                $badguy['creaturedefense'] = round($badguy['creaturedefense'] * .9);
+            }
+
+            $badguy['diddamage'] = 0;
+            $badguy['noadjust'] = 1;
+            $badguy['didsurprise'] = 1;
+            $badguy['type'] = 'lonestrider-thief';
+
             $badguy = lotgd_transform_creature($badguy, false);
-			apply_buff('thieves', array(
-				"startmsg"=>"`n`^You are surrounded by thieves with many tiny daggers!`n`n",
-				"name"=>"`%Stabbing Knives",
-				"rounds"=>15,
-				"wearoff"=>"The thieves have become exhausted.",
-				"minioncount"=>min(15, $session['user']['level']),
-				"mingoodguydamage"=>0,
-				"maxgoodguydamage"=>1+$dkb,
-				"effectmsg"=>"`\$A thief `4stabs you for `\${damage}`4 damage.",
-				"effectnodmgmsg"=>"`\$A thief `4tries to stab you but `^MISSES`4.",
-				"effectfailmsg"=>"`\$A thief `4tries to stab you but `^MISSES`4.",
-				"schema"=>"module-thieves",
-				));
+
+            $badguy['creaturegold'] = 0;//-- This creature not give gold
+
+			apply_buff('thieves', [
+				'startmsg' => '`n`^You are surrounded by thieves with many tiny daggers!`n`n',
+				'name' => '`%Stabbing Knives',
+				'rounds' => 15,
+				'wearoff' => 'The thieves have become exhausted.',
+				'minioncount' => min(15, $session['user']['level']),
+				'mingoodguydamage' => 0,
+				'maxgoodguydamage' => 1+$dkb,
+				'effectmsg' => "`\$A thief `4stabs you for `\${damage}`4 damage.",
+				'effectnodmgmsg' => "`\$A thief `4tries to stab you but `^MISSES`4.",
+				'effectfailmsg' => "`\$A thief `4tries to stab you but `^MISSES`4.",
+				'schema' => 'module-thieves',
+            ]);
 			$stack[] = $badguy;
-		}
+        }
+
 		$attackstack = array(
-			'enemies'=>$stack,
-			'options'=>array('type'=>'lonestrider')
+			'enemies' => $stack,
+			'options' => array('type'=>'lonestrider')
 		);
-		$session['user']['badguy']=createstring($attackstack);
-		$op="fight";
-		httpset('op', "fight");
+		$session['user']['badguy'] = createstring($attackstack);
+		$op = 'fight';
+		httpset('op', 'fight');
 	}
-	if ($op=="run"){
+    if ($op == "run")
+    {
 		output("There are too many thieves blocking the way now, you have no chance to run!");
-		$op="fight";
+		$op = "fight";
 		httpset('op', "fight");
 	}
     if ($op == 'fight') { $battle = true; }
@@ -477,7 +487,7 @@ function thieves_fight($costlose)
             else
             {
 				$lotgdBattleContent['battleend'][] = ["`n`6Many of `\$Lonestrider's`6 thieves lay slain at your feet."];
-				$lotgdBattleContent['battleend'][] = ["`\$Lonestrider`6 himself has disappeared at some point in the battle, when things were looking sour for hi men.`n"];
+				$lotgdBattleContent['battleend'][] = ["`\$Lonestrider`6 himself has disappeared at some point in the battle, when things were looking sour for his men.`n"];
 				if (is_module_active("dag")) {
 					//one-sixth of max bounty at this level, roughly 67/level
 					$bounty = round(get_module_setting("bountymax", "dag")*
@@ -487,7 +497,7 @@ function thieves_fight($costlose)
 					$session['user']['gold']+=$bounty;
 					debuglog("gained $bounty gold for the head of some of Lonestrider's thieves");
 				}
-				$lotgdBattleContent['battleend'][] = ["While casually rifling through some of the dead thieves' pockets, you discover `5a healing potion`6, whic you quickly imbibe."];
+				$lotgdBattleContent['battleend'][] = ["While casually rifling through some of the dead thieves' pockets, you discover `5a healing potion`6, which you quickly imbibe."];
 				if ($session['user']['specialmisc']=="triedtorun") {
 					$lotgdBattleContent['battleend'][] = ["`n`nYou find none of the gems you tried to use to distract the thieves on any of the bodies."];
 					$lotgdBattleContent['battleend'][] = ["`\$Lonestrider`6 must have taken them when he ran."];
