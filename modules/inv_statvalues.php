@@ -43,13 +43,17 @@ function inv_statvalues_dohook($hookname, $args)
     {
 		case 'equip-item':
 			$id = $args['id'];
-			debug($id);
+			// debug($id);
 			$attack = get_module_objpref('items', $id, 'attack');
 			$defense = get_module_objpref('items', $id, 'defense');
 			$maxhitpoints = get_module_objpref('items', $id, 'maxhitpoints');
 			$session['user']['attack'] += $attack;
 			$session['user']['defense'] += $defense;
-			$session['user']['maxhitpoints'] += $maxhitpoints;
+            $session['user']['maxhitpoints'] += $maxhitpoints;
+
+            $session['user']['weapondmg'] += $attack;
+            $session['user']['armordef'] += $defense;
+
             if ($attack != 0 || $defense != 0 || $maxhitpoints != 0)
             {
 				debuglog("'s stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
@@ -66,6 +70,9 @@ function inv_statvalues_dohook($hookname, $args)
 				$session['user']['defense'] += $defense;
                 $session['user']['maxhitpoints'] += $maxhitpoints;
 
+                $session['user']['weapondmg'] += $attack;
+                $session['user']['armordef'] += $defense;
+
                 if ($attack != 0 || $defense != 0 || $maxhitpoints != 0)
                 {
 					debuglog("'s stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
@@ -77,6 +84,7 @@ function inv_statvalues_dohook($hookname, $args)
 			$sql = "SELECT itemid FROM inventory WHERE equipped = 1 AND userid = {$session['user']['acctid']}";
             $result = DB::query($sql);
             $unequip = [];
+
             while ($row = DB::fetch_assoc($result))
             {
                 $id = $row['itemid'];
@@ -86,7 +94,11 @@ function inv_statvalues_dohook($hookname, $args)
 				$maxhitpoints = - get_module_objpref('items', $id, 'maxhitpoints');
 				$session['user']['attack'] += $attack;
 				$session['user']['defense'] += $defense;
-				$session['user']['maxhitpoints'] += $maxhitpoints;
+                $session['user']['maxhitpoints'] += $maxhitpoints;
+
+                $session['user']['weapondmg'] += $attack;
+                $session['user']['armordef'] += $defense;
+
                 if ($attack != 0 || $defense != 0 || $maxhitpoints != 0)
                 {
                     debuglog("'s stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
