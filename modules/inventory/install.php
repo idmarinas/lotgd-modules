@@ -23,6 +23,7 @@
 		'hide'=> array('name'=>'hide', 'type'=>'tinyint', 'default'=>'0', 'null'=>'0'),
 		'customvalue'=> array('name'=>'customvalue', 'type'=>'text', 'null'=>'0'),
 		'execvalue'=> array('name'=>'execvalue', 'type'=>'text', 'null'=>'0'),
+		'execrequisites'=> array('name'=>'execrequisites', 'type'=>'text', 'null'=>'0'),
 		'exectext'=> array('name'=>'exectext', 'type'=>'varchar(70)', 'null'=>'0'),
 		'noeffecttext'=> array('name'=>'noeffecttext', 'type'=>'varchar(70)', 'null'=>'0'),
 		'activationhook'=> array('name'=>'activationhook', 'type'=>'varchar(50)', 'default'=>'0', 'null'=>'0'),
@@ -48,9 +49,10 @@
 		'specialvalue' => array('name'=>'specialvalue', 'type'=>'text', 'null'=>'0'),
 		'equipped' => array('name'=>'equipped', 'type'=>'tinyint(2)', 'null'=>'0'),
 		'charges' => array('name'=>'charges', 'type'=>'tinyint', 'default'=>'0', 'null'=>'0'),
+		'key-userid' => array('name'=>'userid', 'type'=>'KEY', 'columns'=>['userid']),
 		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>['invid']));
 
-	$buff_table = array(
+        $buff_table = array(
 		'buffid'=> array('name'=>'buffid', 'type'=>'int(10) unsigned',	'null'=>'0', 'extra'=>'auto_increment'),
 		'buffname'=> array('name'=>'buffname', 'type'=>'varchar(255)', 'null'=>1, 'default' => NULL),
 		'buffshortname'=> array('name'=>'buffshortname', 'type'=>'varchar(100)', 'null'=>0),

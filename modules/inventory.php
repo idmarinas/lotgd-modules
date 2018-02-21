@@ -7,8 +7,8 @@ function inventory_getmoduleinfo()
 {
 	return [
 		'name' => 'Inventory Basic System',
-		'version' => '2.0.1',
-		'author' => 'Christian Rutsch',
+		'version' => '2.1.0',
+		'author' => 'Christian Rutsch, Improved by <a href="//draconia.infommo.es">IDMarinas</a>',
 		'category' => 'Inventory',
 		'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1033',
 //		'override_forced_nav' => true,
@@ -22,7 +22,8 @@ function inventory_getmoduleinfo()
 				'weight' => 'Maximum weiht users can carry?, int|0,1|0',
 				'Note: Setting this to 0 will allow the user to carry a limitless weight of items, note',
 				'droppable' => 'Items are droppable?, bool|1',
-			'Inventory - Setup,title',
+            'Inventory - Setup,title',
+                'enum_equip' => 'List of equipment as enum,text|,No where,head,On the Head,neck,Around the Neck,armor,As Armor,mainhand,As Weapon,belt,As Belt,offhand,As Shield,righthand,Right Gloves,trausers,On Pants,lefthand,Left Gloves,rightring,As right ring,feet,As Shoes,leftring,As left ring',
 				'withcharstats' => 'Enable the charstat popup for the inventory,bool|0',
 				'Please understand that this function is still in an early beta phase and not fully working!,note',
         ]

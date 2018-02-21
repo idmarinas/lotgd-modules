@@ -79,13 +79,20 @@ switch(httpget('op2'))
                 $buffsjoin = "0,none," . join(",",$buffs);
             else
                 $buffsjoin = "0,none,";
-            $enum_equip=",No where,righthand,Right Hand,lefthand,Left Hand,head,On the Head,body,On Upper Body,arms,On the Arms,legs,On Lower Body,feet,As Shoes,ring,As Ring,neck,Around the Neck,belt,As Belt";
+            // $enum_equip=",No where,righthand,Right Hand,lefthand,Left Hand,head,On the Head,body,On Upper Body,arms,On the Arms,legs,On Lower Body,feet,As Shoes,ring,As Ring,neck,Around the Neck,belt,As Belt";
+            $enum_equip = get_module_setting('enum_equip', 'inventory');
             rawoutput("<form action='runmodule.php?module=inventory&op=editor&op2=newitem2&id=$id' method='post'>");
-            addnav("", "runmodule.php?module=inventory&op=editor&op2=newitem2&id=$id");
-            $sort = list_files("items",array());
+            addnav('', "runmodule.php?module=inventory&op=editor&op2=newitem2&id=$id");
+
+            $sort = list_files('items', []);
             sort($sort);
-            $scriptenum=implode("",$sort);
-            $scriptenum=",,none".$scriptenum;
+            $scriptenum = implode('', $sort);
+            $scriptenum = ',,none'.$scriptenum;
+
+            $sort = list_files('items_requisites', []);
+            sort($sort);
+            $scriptenumrequisite = implode('', $sort);
+            $scriptenumrequisite = ',,none'.$scriptenumrequisite;
             $format = array(
                 "Basic information,title",
                     "itemid"=>"Item id,viewhiddenonly",
@@ -104,9 +111,10 @@ switch(httpget('op2'))
                     "exectext"=>"Text to display upon activation of the item,string,100",
                     "Use %s to insert the item's name!,note",
                     "noeffecttext"=>"Text to display if item has no effect,string,100",
-                    //Se cambia por un sistema de archivos
+                    //-- Change for a files system
                     // "execvalue"=>"Exec value,textarea",
-                    "execvalue"=>"Exec value file,enum".$scriptenum,
+                    "execvalue"=>"Exec value file,enumsearch".$scriptenum,
+                    "execrequisites"=>"Exec custom requisites,enumsearch".$scriptenumrequisite,
                     "Please see the file 'lib/itemeffects.php' for possible values,note",
                     "hide"=>"Hide item from inventory?,bool",
                 "Buffs and activation,title",
