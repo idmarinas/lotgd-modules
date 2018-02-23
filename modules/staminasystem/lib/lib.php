@@ -67,7 +67,7 @@ Returns False if the action is not installed.
 =======================================================
 */
 
-function get_player_action($action, $userid=false)
+function get_player_action($action, $userid = false)
 {
     global $session;
 
@@ -99,23 +99,10 @@ function get_player_action($action, $userid=false)
 	}
 	else
 	{
-        // if (! isset($playeractions[$action]['updated']) || ! $playeractions[$action]['updated'])
-        // {
-        //     $defaultactions = get_default_action_list();
-
-        //     $exp = $playeractions[$action]['exp'];
-        //     $playeractions[$action] = $defaultactions[$action];
-		// 	$playeractions[$action]['lvl'] = 0;
-		// 	$playeractions[$action]['exp'] = $exp;
-		// 	$playeractions[$action]['levelledup'] = false;
-		// 	$playeractions[$action]['naturalcost'] = $defaultactions[$action]['maxcost'];
-        //     $playeractions[$action]['naturalcostbase'] = $defaultactions[$action]['maxcost'];
-        //     $playeractions[$action]['updated'] = true;
-
-		// 	set_module_pref('actions', serialize($playeractions), 'staminasystem', $userid);
-
-        //     stamina_level_up($action, $userid);
-        // }
+        if (! stamina_check_action($action, $playeractions, $userid))
+        {
+            return get_player_action($action, $userid);
+        }
 
 		return $playeractions[$action];
 	}
@@ -191,15 +178,6 @@ function stamina_calculate_buffed_cost($action, $userid = false)
 	$actiondetails = get_player_action($action, $userid);
     $active_action_buffs_class = stamina_get_active_buffs($actiondetails['class'], $userid, true);
     $active_action_buffs = array_merge(stamina_get_active_buffs($action, $userid), $active_action_buffs_class);
-
-    if (! isset($actiondetails['naturalcostbase']))
-    {
-        $actions = get_player_action_list($userid);
-
-        stamina_check_action($action, $details, $userid);
-
-        return stamina_calculate_buffed_cost($action, $userid);
-    }
 
 	//debug($actiondetails);
 	$buffedcost = $actiondetails['naturalcostbase'];
