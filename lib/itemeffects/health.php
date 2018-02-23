@@ -31,12 +31,12 @@ function restore_hitpoints($hitpoints, $overrideMaxhitpoints = false, $canDie = 
 		if ($hitpoints == $maxRestoreHP)
 		{
 			$session['user']['hitpoints'] += $hitpoints;
-			$out[] = sprintf_translate('`^Your hitpoints have been `@fully`^ restored.`0`n');
+			$out[] = '`^Your hitpoints have been `@fully`^ restored.`0`n';
 		}
 		else
 		{
 			$session['user']['hitpoints'] += $hitpoints;
-			$out[] = sprintf_translate('`^You have been `@healed`^ for %s points.`0`n', $hitpoints);
+			$out[] = ['`^You have been `@healed`^ for %s points.`0`n', $hitpoints];
         }
 
 		debuglog("Restored $hitpoints health points using the item {$item['itemid']}");
@@ -47,24 +47,24 @@ function restore_hitpoints($hitpoints, $overrideMaxhitpoints = false, $canDie = 
 
         if ($session['user']['hitpoints'] > 0)
         {
-			$out[] = sprintf_translate('`^You `4loose`^ %s hitpoints.`0`n', abs($hitpoints));
+			$out[] = ['`^You `4loose`^ %s hitpoints.`0`n', abs($hitpoints)];
 			debuglog("Loss $hitpoints hitpoints using item {$item['itemid']}");
         }
         else if ($session['user']['hitpoints'] <= 0 && false == $canDie)
         {
 			$session['user']['hitpoints'] = 1;
-            $out[] = sprintf_translate('`^You were `$almost`^ killed.`0`n');
+            $out[] = '`^You were `$almost`^ killed.`0`n';
 			debuglog("Were almost killed when using item {$item['itemid']}");
         }
         else
         {
 			$session['user']['hitpoints'] = 0;
 			$session['user']['alive'] = 0;
-			$out[] = sprintf_translate('`$You die. ¡What a pity!.`0`n');
+			$out[] = '`$You die. ¡What a pity!.`0`n';
 			debuglog("Died when I used the item {$item['itemid']}");
         }
 	}
-	else { $out[] = sprintf_translate('`&You used "`i%s`i" but it had no effect.`0`n',$item['name']); }
+	else { $out[] = ['`&You used "`i%s`i" but it had no effect.`0`n', $item['name']]; }
 
 	return $out;
 
