@@ -93,6 +93,11 @@ switch(httpget('op2'))
             sort($sort);
             $scriptenumrequisite = implode('', $sort);
             $scriptenumrequisite = ',,none'.$scriptenumrequisite;
+
+            $sort = list_files('items_customvalue', []);
+            sort($sort);
+            $scriptenumcustomvalue = implode('', $sort);
+            $scriptenumcustomvalue = ',,none'.$scriptenumcustomvalue;
             $format = array(
                 "Basic information,title",
                     "itemid"=>"Item id,viewhiddenonly",
@@ -107,7 +112,8 @@ switch(httpget('op2'))
                     "droppable"=>"Is this item droppable,bool",
                     "level"=>"Minimum level needed,range,1,15,1|1",
                     "dragonkills"=>"Dragonkills needed,int|0",
-                    "customvalue"=>"Custom value for shop,textarea",
+                    "customvalue"=>"Custom detailed information (show in shop for example),textarea",
+                    "execcustomvalue"=>"Custom exec value for detailed information (this information need process),enumsearch".$scriptenumcustomvalue,
                     "exectext"=>"Text to display upon activation of the item,string,100",
                     "Use %s to insert the item's name!,note",
                     "noeffecttext"=>"Text to display if item has no effect,string,100",

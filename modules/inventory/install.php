@@ -22,6 +22,7 @@
 		'link'=> array('name'=>'link', 'type'=>'text', 'null'=>'0'),
 		'hide'=> array('name'=>'hide', 'type'=>'tinyint', 'default'=>'0', 'null'=>'0'),
 		'customvalue'=> array('name'=>'customvalue', 'type'=>'text', 'null'=>'0'),
+		'execcustomvalue'=> array('name'=>'execcustomvalue', 'type'=>'text', 'null'=>'0'),
 		'execvalue'=> array('name'=>'execvalue', 'type'=>'text', 'null'=>'0'),
 		'execrequisites'=> array('name'=>'execrequisites', 'type'=>'text', 'null'=>'0'),
 		'exectext'=> array('name'=>'exectext', 'type'=>'varchar(70)', 'null'=>'0'),
