@@ -43,7 +43,7 @@ function inventory_uninstall()
 	return true;
 }
 
-function inventory_dohook($hookname,$args)
+function inventory_dohook($hookname, $args)
 {
     require "modules/inventory/dohook/hook_$hookname.php";
 
@@ -74,18 +74,22 @@ function inventory_showformitem($keyout, $val, $info)
 	rawoutput("<select name='$keyout'>");
 	$sql = "SELECT itemid, name, class FROM ".DB::prefix("item")." ORDER BY class ASC";
 	$result = DB::query($sql);
-	$class = "";
-    while ($row=DB::fetch_assoc($result))
+	$class = '';
+    while ($row = DB::fetch_assoc($result))
     {
-		if ($class != $row['class']) {
+        if ($class != $row['class'])
+        {
 			rawoutput("<option value=''>=== {$row['class']} ===</option>");
 			$class = $row['class'];
 		}
 		$name = full_sanitize($row['name']);
-		if ($val == $row['itemid']) {
-			$selected = "selected";
-		} else {
-			$selected = "";
+        if ($val == $row['itemid'])
+        {
+			$selected = 'selected';
+        }
+        else
+        {
+			$selected = '';
 		}
 		rawoutput("<option value='{$row['itemid']}' $selected>{$row['itemid']} - $name</option>");
 	}
