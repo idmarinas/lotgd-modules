@@ -6,14 +6,15 @@ if ($skill == 'ITEM')
 {
     require_once 'lib/buffs.php';
 
-	$itemid = (int)httpget('l');
+	$itemid = (int) httpget('l');
 	$invid = httpget('invid');
     $item = get_inventory_item_by_id($itemid, $invid);
 
     if ($item['buffid'] > 0)
     {
 		apply_buff($item['name'], get_buff($item['buffid']));
-	}
+    }
+
     if ($item['execvalue'] > '')
     {
         require_once 'lib/itemeffects.php';
