@@ -60,8 +60,10 @@ function inv_statvalues_dohook($hookname, $args)
 				debug("Your stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
 			}
 		break;
-		case 'unequip-item':
-            while(list($key, $id) = each($args['ids']))
+        case 'unequip-item':
+            if (! is_array($args['ids']) || empty($args['ids'])) { return $args; }
+
+            foreach($args['ids'] as $key => $id)
             {
 				$attack = - get_module_objpref('items', $id, 'attack');
 				$defense = - get_module_objpref('items', $id, 'defense');
@@ -81,14 +83,14 @@ function inv_statvalues_dohook($hookname, $args)
 			}
 		break;
 		case 'dk-preserve':
-			$sql = "SELECT itemid FROM inventory WHERE equipped = 1 AND userid = {$session['user']['acctid']}";
+			$sql = "SELECT itemid, invid FROM inventory WHERE equipped = 1 AND userid = {$session['user']['acctid']}";
             $result = DB::query($sql);
             $unequip = [];
 
             while ($row = DB::fetch_assoc($result))
             {
                 $id = $row['itemid'];
-                $unequip[] = $id;
+                $unequip[] = $row['invid'];
 				$attack = - get_module_objpref('items', $id, 'attack');
 				$defense = - get_module_objpref('items', $id, 'defense');
 				$maxhitpoints = - get_module_objpref('items', $id, 'maxhitpoints');
@@ -112,8 +114,7 @@ function inv_statvalues_dohook($hookname, $args)
                 $updated = DB::updated('inventory');
                 $updated->set(['equipped' => 0])
                     ->where->equalTo('userid', $session['user']['acctid'])
-                        ->equalTo('equipped', 1)
-                        ->in('itemid', $unequip)
+                        ->in('invid', $unequip)
                 ;
                 DB::execute($updated);
             }
