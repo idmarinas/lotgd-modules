@@ -39,19 +39,21 @@
 		'equippable'=> array('name'=>'equippable', 'type'=>'tinyint(2)', 'default'=>'0', 'null'=>'0'),
 		'equipwhere'=> array('name'=>'equipwhere', 'type'=>'varchar(15)', 'default'=>'', 'null'=>'0'),
 		'key-findchance' => array('name'=>'findchance', 'type'=>'key', 'columns'=> ['findchance']),
-		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=> ['itemid']));
+        'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=> ['itemid']));
 
-	$inventory_table = array(
-		'invid'=>array('name'=>'invid', 'type'=>'int unsigned', 'null'=>'0', 'extra'=>'auto_increment'),
-		'userid'=> array('name'=>'userid', 'type'=>'int unsigned'),
-		'itemid' => array('name'=>'itemid', 'type'=>'int unsigned', 'null'=> '1',),
-		'sellvaluegold' => array('name'=>'sellvaluegold', 'type'=>'int unsigned', 'null'=>'0'),
-		'sellvaluegems' => array('name'=>'sellvaluegems', 'type'=>'int unsigned', 'null'=>'0'),
-		'specialvalue' => array('name'=>'specialvalue', 'type'=>'text', 'null'=>'0'),
-		'equipped' => array('name'=>'equipped', 'type'=>'tinyint(2)', 'null'=>'0'),
-		'charges' => array('name'=>'charges', 'type'=>'tinyint', 'default'=>'0', 'null'=>'0'),
-		'key-userid' => array('name'=>'userid', 'type'=>'KEY', 'columns'=>['userid']),
-		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>['invid']));
+	$inventory_table = [
+		'invid'=>['name'=>'invid', 'type'=>'int unsigned', 'null'=>'0', 'extra'=>'auto_increment'],
+		'userid'=> ['name'=>'userid', 'type'=>'int unsigned'],
+		'itemid' => ['name'=>'itemid', 'type'=>'int unsigned', 'null'=> '0',],
+		'sellvaluegold' => ['name'=>'sellvaluegold', 'type'=>'int unsigned', 'null'=>'0'],
+		'sellvaluegems' => ['name'=>'sellvaluegems', 'type'=>'int unsigned', 'null'=>'0'],
+		'specialvalue' => ['name'=>'specialvalue', 'type'=>'text', 'null'=>'0'],
+		'equipped' => ['name'=>'equipped', 'type'=>'tinyint(2)', 'null'=>'0'],
+		'charges' => ['name'=>'charges', 'type'=>'tinyint', 'default'=>'0', 'null'=>'0'],
+		'key-itemid' => ['name'=>'itemid', 'type'=>'KEY', 'columns'=>['itemid']],
+		'key-userid' => ['name'=>'userid', 'type'=>'KEY', 'columns'=>['userid']],
+        'key-PRIMARY' => ['name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>['invid'] ]
+    ];
 
         $buff_table = array(
 		'buffid'=> array('name'=>'buffid', 'type'=>'int(10) unsigned',	'null'=>'0', 'extra'=>'auto_increment'),
@@ -86,23 +88,24 @@
 		'key-PRIMARY' => array('name'=>'PRIMARY', 'type'=>'primary key', 'unique'=>'1', 'columns'=>['buffid']),
 		'key-UNIQUE' => array('name'=>'buffname', 'type'=>'unique key', 'columns'=>['buffname']));
 
-	require_once("lib/tabledescriptor.php");
+    require_once 'lib/tabledescriptor.php';
+
 	synctable($item, $item_table, true);
 	synctable($inventory, $inventory_table, true);
 	synctable($itembuffs, $buff_table, true);
 
-	module_addhook("superuser");
-	module_addhook("dragonkill");
-	module_addhook("battle-defeat");
-	module_addhook("delete_character");
+	module_addhook('superuser');
+	module_addhook('dragonkill');
+	module_addhook('battle-defeat-end');
+	module_addhook('delete_character');
 
-	module_addhook("fightnav-specialties");
-	module_addhook("apply-specialties");
-	module_addhook("newday");
-	module_addhook("forest");
-	module_addhook("village");
-	module_addhook("shades");
-	module_addhook("footer-train");
+	module_addhook('fightnav-specialties');
+	module_addhook('apply-specialties');
+	module_addhook('newday');
+	module_addhook('forest');
+	module_addhook('village');
+	module_addhook('shades');
+	module_addhook('footer-train');
 
-	module_addhook("showformextensions");
+	module_addhook('showformextensions');
 ?>
