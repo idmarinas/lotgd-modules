@@ -23,20 +23,20 @@ function restore_turns($turns)
     $out = [];
     if ($turns > 0)
     {
-        if($turns == 1) { $out[] = '`^You `@gain`^ one turn.`n'; }
-        else { $out[] = ['`^You `@gain`^ %s turns.`n', $turns]; }
+        if($turns == 1) { $out[] = '`^You `@gain`^ one turn.`0`n'; }
+        else { $out[] = ['`^You `@gain`^ %s turns.`0`n', $turns]; }
     }
     else
     {
         if ($session['user']['turns'] <= 0)
         {
-            $out[] = '`^You `$lose`^ all your turns.`n';
+            $out[] = '`^You `$lose`^ all your turns.`0`n';
             $session['user']['turns'] = 0;
         }
         else
         {
-            if($turns == -1) { $out[] = '`^You `$lose`^ one turn.`n'; }
-            else { $out[] = ['`^You `$lose`^ %s turns.`n', abs($turns)]; }
+            if($turns == -1) { $out[] = '`^You `$lose`^ one turn.`0`n'; }
+            else { $out[] = ['`^You `$lose`^ %s turns.`0`n', abs($turns)]; }
         }
     }
 
