@@ -1,12 +1,12 @@
 <?php
-/*
+/**
  * Restore hitpoints
  *
  * @var int $hitpoins Can be negative
  * @var bool $overrideMaxhitpoints Allow restore more than maxhitpoints of character
  * @var bool $canDie Can die for effect of item?
  *
- * return array|false Return false if nothing happend or an array of messages
+ * @return array|false Return false if nothing happend or an array of messages
  */
 function restore_hitpoints($hitpoints, $overrideMaxhitpoints = false, $canDie = true)
 {
@@ -67,5 +67,4 @@ function restore_hitpoints($hitpoints, $overrideMaxhitpoints = false, $canDie = 
 	else { $out[] = ['`&You used "`i%s`i" but it had no effect.`0`n', $item['name']]; }
 
 	return $out;
-
 }

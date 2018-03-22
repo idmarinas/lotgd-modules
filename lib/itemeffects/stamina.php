@@ -1,10 +1,10 @@
 <?php
-/*
+/**
  * Restore Stamina
  *
  * @var int $stamina Can be negative
  *
- * return array|false Return false if nothing happend or an array of messages
+ * @return array|false Return false if nothing happend or an array of messages
  */
 function restore_stamina($stamina)
 {
