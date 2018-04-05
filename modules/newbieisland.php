@@ -73,12 +73,12 @@ function newbieisland_dohook($hookname, $args)
             // We need to do this so that we can do the location test
             // correctly and exclude non-basic races, and all the gewgaws on
             // the newday page(s).
-            if ($SCRIPT_NAME == "newday.php") newbieisland_checkcity();
+            if ($SCRIPT_NAME == 'newday.php') newbieisland_checkcity();
 
             // Exit early if the user isn't in the newbie island.
             if ($session['user']['location'] != $city) break;
             // Do not block anything in the grotto!
-            if ($SCRIPT_NAME == "superuser.php") break;
+            if ($SCRIPT_NAME == 'superuser.php') break;
             // actually since we're doing this sorta globally, let's just
             // do it globally.
             // Block all modules by default
@@ -123,6 +123,7 @@ function newbieisland_dohook($hookname, $args)
             unblockmodule('deputymoderator');
             unblockmodule('unclean');
             unblockmodule('stattracker');
+            unblockmodule('unblockmodules');
 
             //-- Hook used for module unblockmodules
             modulehook('newbieisland-everyhit-loggedin');
@@ -324,7 +325,7 @@ function newbieisland_dohook($hookname, $args)
         break;
         case 'village-desc':
             //-- Only can leave de island when player is level 2 or above
-            if ($session['user']['location'] == $city && 1 < $session['user']['level'])
+            if ($session['user']['location'] == $city && $session['user']['level'] > 1)
             {
                 addnav($args['gatenav']);
                 addnav(['Leave %s', $city], 'runmodule.php?module=newbieisland&op=leave');
@@ -347,10 +348,14 @@ function newbieisland_dohook($hookname, $args)
 	return $args;
 }
 
-function newbieisland_checkcity(){
-	global $session;
-	$city = get_module_setting("villagename");
-	if (!get_module_pref("leftisland") && $session['user']['dragonkills'] ==0 && $session['user']['level'] <= 5){
+function newbieisland_checkcity()
+{
+    global $session;
+
+    $city = get_module_setting('villagename');
+
+    if (!get_module_pref('leftisland') && $session['user']['dragonkills'] == 0 && $session['user']['level'] <= 5)
+    {
 		$session['user']['location'] = $city;
 	}
 }
@@ -375,10 +380,13 @@ function newbieisland_run()
 		output("In the distance, you can just make out the dark outlines of another land.");
 		output("Nearby, you can see the discarded tools left here by another adventurer, along with some wooden planks and some heavy twine.");
 		output("It occurs to you that these materials would make an excellent raft, which you could use to leave this place.");
-		if ($session['user']['level'] <= 4){
+        if ($session['user']['dragonkills'] == 0 && $session['user']['level'] <= 4)
+        {
 			output("`n`n`#You are not so certain that you want to leave this island.");
 			output("It feels so safe here on the island, and you're not quite sure that you really want to leave the peaceful solitude behind.");
-		}else{
+        }
+        else
+        {
 			output("`n`n`#Confident that you're ready for any challenge the world has to throw at you, you are ready to rid yourself of this island, and seek out adventure in the world at large.");
 		}
 		output("`n`n`^Once you leave %s, you can never journey back to it.",$city);
@@ -407,14 +415,20 @@ function newbieisland_run()
 		output("You now lay on a soft mat with a feather pillow in a forest.");
 		output("Nearby, you can hear the sounds of a village, and you feel as though much strength has come back.");
 		output("Getting up from your mat, you are ready to take on the world once more.");
-		set_module_pref("leftisland",true);
-		addnav("Seek out the village","village.php");
-		if (is_module_active("cities")) {
+
+        set_module_pref('leftisland', true);
+
+        addnav('Seek out the village', 'village.php');
+
+        if (is_module_active("cities"))
+        {
 			//new farmthing, set them to wandering around this city.
 			set_module_setting("newest-$city", $session['user']['acctid'], 'cities');
-			$session['user']['location'] = get_module_pref("homecity","cities");
-		}else{
-			$session['user']['location'] = getsetting("villagename", LOCATION_FIELDS);
+			$session['user']['location'] = get_module_pref('homecity', 'cities');
+        }
+        else
+        {
+			$session['user']['location'] = getsetting('villagename', LOCATION_FIELDS);
 		}
 		page_footer();
 		break;
