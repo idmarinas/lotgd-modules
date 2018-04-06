@@ -92,7 +92,7 @@ function newbieisland_dohook($hookname, $args)
             unblockmodule('displaycp');
             unblockmodule('mysticalshop');
             unblockmodule('mysticalshop_buffs');
-            unblockmodule('inventary');
+            unblockmodule('inventory');
             unblockmodule('inventorypopup');
             unblockmodule('tutor');
             unblockmodule('raceelf');
