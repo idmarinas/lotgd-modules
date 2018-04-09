@@ -111,12 +111,12 @@ function inv_statvalues_dohook($hookname, $args)
             //-- Unequip all equipment
             if (count($unequip))
             {
-                $updated = DB::updated('inventory');
-                $updated->set(['equipped' => 0])
+                $update = DB::update('inventory');
+                $update->set(['equipped' => 0])
                     ->where->equalTo('userid', $session['user']['acctid'])
                         ->in('invid', $unequip)
                 ;
-                DB::execute($updated);
+                DB::execute($update);
             }
         break;
     }
