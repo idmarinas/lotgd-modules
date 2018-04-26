@@ -2,11 +2,12 @@
 /**
  * Restore Stamina
  *
- * @var int $stamina Can be negative
+ * @param int $stamina Can be negative
+ * @param array $item Data of item
  *
  * @return array|false Return false if nothing happend or an array of messages
  */
-function restore_stamina($stamina)
+function restore_stamina($stamina, $item)
 {
     //-- Not do nothing if module Stamina is NOT active
     if (! is_module_active('staminasystem')) { return false; }
@@ -14,7 +15,7 @@ function restore_stamina($stamina)
     //-- No stamina restore
     if ($stamina == 0) { return false; }
 
-    global $item, $lotgdFormat;
+    global $lotgdFormat;
 
     require_once 'modules/staminasystem/lib/lib.php';
 

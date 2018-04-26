@@ -4,15 +4,16 @@
  * Increased/Decreased gems of player
  *
  * @param int $gems
+ * @param array $item Data of item
  *
  * @return array|false Return false if nothing happend or an array of messages
  */
-function itemeffects_increased_gems($gems)
+function itemeffects_increased_gems($gems, $item)
 {
     //-- No gems to add/remove
     if ($gems == 0) { return false; }
 
-    global $session, $item;
+    global $session;
 
     $session['user']['gems'] += $gems;
 

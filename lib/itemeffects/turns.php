@@ -2,11 +2,12 @@
 /**
  * Restore turns
  *
- * @var int $turns Can be negative
+ * @param int $turns Can be negative
+ * @param array $item Data of item
  *
  * @return array|false Return false if nothing happend or an array of messages
  */
-function restore_turns($turns)
+function restore_turns($turns, $item)
 {
     //-- Not do nothing if module Stamina is active
     if (is_module_active('staminasystem')) { return false; }
@@ -14,7 +15,7 @@ function restore_turns($turns)
     //-- No turns restore
     if ($turns == 0) { return false; }
 
-    global $session, $item;
+    global $session;
 
     $session['user']['turns'] += $turns;
 
