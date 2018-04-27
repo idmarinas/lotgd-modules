@@ -172,7 +172,7 @@ function creationaddon_dohook($hookname,$args){
 		case "create-form":
 			$showform = get_module_setting('showform');
 
-			if ($showform) $args['creationmsg'] = nltoappon(stripslashes(get_module_setting("creationmsg")));
+			if (! $showform) $args['creationmsg'] = nltoappon(stripslashes(get_module_setting("creationmsg")));
 			else output("`n%s`0`n`n",nltoappon(stripslashes(get_module_setting("creationmsg"))));
 
             // Make them check a box requiring a minimum age.
