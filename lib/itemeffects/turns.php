@@ -7,7 +7,7 @@
  *
  * @return array|false Return false if nothing happend or an array of messages
  */
-function restore_turns($turns, $item)
+function itemeffects_restore_turns($turns, $item)
 {
     //-- Not do nothing if module Stamina is active
     if (is_module_active('staminasystem')) { return false; }
@@ -42,4 +42,23 @@ function restore_turns($turns, $item)
     }
 
     return $out;
+}
+
+/**
+ * OBSOLETE
+ *
+ * @param int $hitpoins Can be negative
+ * @param array $item Data of item
+ *
+ * @return array|false Return false if nothing happend or an array of messages
+ */
+function restore_turns($turns, $item)
+{
+    trigger_error(sprintf(
+        'Function %s is obsolete since 2.6.0; and delete in version 3.0.0 please use "%s" instead',
+        __FUNCTION__,
+        'itemeffects_restore_turns'
+    ), E_USER_DEPRECATED);
+
+    return itemeffects_restore_turns($turns, $item);
 }
