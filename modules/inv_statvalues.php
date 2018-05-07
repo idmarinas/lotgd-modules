@@ -42,11 +42,11 @@ function inv_statvalues_dohook($hookname, $args)
     switch ($hookname)
     {
 		case 'equip-item':
-			$id = $args['id'];
+			$id = $args['itemid'];
 			// debug($id);
-			$attack = get_module_objpref('items', $id, 'attack');
-			$defense = get_module_objpref('items', $id, 'defense');
-			$maxhitpoints = get_module_objpref('items', $id, 'maxhitpoints');
+			$attack = get_module_objpref('items', $id, 'attack', 'inv_statvalues');
+			$defense = get_module_objpref('items', $id, 'defense', 'inv_statvalues');
+			$maxhitpoints = get_module_objpref('items', $id, 'maxhitpoints', 'inv_statvalues');
 			$session['user']['attack'] += $attack;
 			$session['user']['defense'] += $defense;
             $session['user']['maxhitpoints'] += $maxhitpoints;
@@ -57,7 +57,9 @@ function inv_statvalues_dohook($hookname, $args)
             if ($attack != 0 || $defense != 0 || $maxhitpoints != 0)
             {
 				debuglog("'s stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
-				debug("Your stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
+                debug("Your stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
+
+                $args['inv_statvalues_result'] = true;
 			}
 		break;
         case 'unequip-item':
@@ -65,9 +67,9 @@ function inv_statvalues_dohook($hookname, $args)
 
             foreach($args['ids'] as $key => $id)
             {
-				$attack = - get_module_objpref('items', $id, 'attack');
-				$defense = - get_module_objpref('items', $id, 'defense');
-				$maxhitpoints = - get_module_objpref('items', $id, 'maxhitpoints');
+				$attack = - get_module_objpref('items', $id, 'attack', 'inv_statvalues');
+				$defense = - get_module_objpref('items', $id, 'defense', 'inv_statvalues');
+				$maxhitpoints = - get_module_objpref('items', $id, 'maxhitpoints', 'inv_statvalues');
 				$session['user']['attack'] += $attack;
 				$session['user']['defense'] += $defense;
                 $session['user']['maxhitpoints'] += $maxhitpoints;
@@ -91,9 +93,9 @@ function inv_statvalues_dohook($hookname, $args)
             {
                 $id = $row['itemid'];
                 $unequip[] = $row['invid'];
-				$attack = - get_module_objpref('items', $id, 'attack');
-				$defense = - get_module_objpref('items', $id, 'defense');
-				$maxhitpoints = - get_module_objpref('items', $id, 'maxhitpoints');
+				$attack = - get_module_objpref('items', $id, 'attack', 'inv_statvalues');
+				$defense = - get_module_objpref('items', $id, 'defense', 'inv_statvalues');
+				$maxhitpoints = - get_module_objpref('items', $id, 'maxhitpoints', 'inv_statvalues');
 				$session['user']['attack'] += $attack;
 				$session['user']['defense'] += $defense;
                 $session['user']['maxhitpoints'] += $maxhitpoints;
