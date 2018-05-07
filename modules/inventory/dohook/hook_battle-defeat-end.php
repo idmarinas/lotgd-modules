@@ -2,6 +2,9 @@
 
 require_once 'lib/itemhandler.php';
 
+//-- Not lost items in training
+if ('train' == $args['options']['type']) return $args;
+
 $inventory = get_inventory();
 $count = 0;
 $ids = [];
