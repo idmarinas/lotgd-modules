@@ -6,7 +6,7 @@ function allhof_getmoduleinfo(){
 		"author"=>"DaveS, idea by Caesar",
 		"category"=>"Administrative",
 		"download"=>"",
-		"requires"=>array(		   "cities"=>"Core",		), 
+		"requires"=>array(		   "cities"=>"Core",		),
 	);
 	return $info;
 }
@@ -31,6 +31,5 @@ function allhof_dohook($hookname,$args){
 	}
 	return $args;
 }
-function allhof_run(){
-}
-?>
+
+function allhof_run() {}
