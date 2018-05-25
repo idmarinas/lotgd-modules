@@ -30,7 +30,12 @@ if ($skill == 'ITEM')
 			$lotgdBattleContent['battlerounds'][$countround]['allied'][] = sprintf(translate_inline('You activate %s!'), $item['name']);
         }
 
-        $lotgdBattleContent['battlerounds'][$countround]['allied'][] = sprintf('%s`n', get_effect($item, $item['noeffecttext']));
+        $result = get_effect($item);
+
+        foreach($result as $key => $message)
+        {
+            $lotgdBattleContent['battlerounds'][$countround]['allied'][] = $message;
+        }
     }
 
     if ($item['charges'] > 1)
