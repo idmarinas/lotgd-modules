@@ -1496,7 +1496,7 @@ function stamina_minihof_assignranks_old($board)
     }
     $en = microtime(true);
     $to = $en - $st;
-    debug("Rank assignment: ".$to);
+    debug("Rank assignment: $to");
     $boardinfo=[];
     $boardinfo['board'] = $board;
     $boardinfo['ranks'] = $ranks;
