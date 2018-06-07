@@ -444,6 +444,29 @@ function stamina_take_action_cost($action, $userid=false) {
 	return $totalcost;
 }
 
+/**
+ * Check if user has stamina for use action
+ *
+ * @param string $action
+ * @param int $userid
+ * @param int $qty Number of times the ability is to be used
+ *
+ * @return boolean
+ */
+function stamina_check_can_use($action, $userid = false, $qty = 1)
+{
+    global $session;
+
+    if ($userid === false) $userid = $session['user']['acctid'];
+
+    $totalcost = stamina_calculate_buffed_cost($action, $userid) * $qty;
+
+    $stamina = (int) get_module_pref('stamina', 'staminasystem', $userid) ;
+
+    if ($totalcost <= $stamina) { return true; }
+    else { return false; }
+}
+
 /*
 *******************************************************
 AWARD EXPERIENCE
@@ -912,10 +935,9 @@ function removestamina($amount, $userid = false){
 	if ($userid === false) $userid = $session['user']['acctid'];
 
 
-	$newstamina = get_module_pref("stamina", "staminasystem", $userid) - $amount;
-	if ($newstamina < 0){
-		$newstamina = 0;
-	}
+    $newstamina = get_module_pref('stamina', 'staminasystem', $userid) - $amount;
+    $newstamina = max($newstamina, 0);
+
 	set_module_pref("stamina",$newstamina,"staminasystem",$userid);
 
 	return $newstamina;
