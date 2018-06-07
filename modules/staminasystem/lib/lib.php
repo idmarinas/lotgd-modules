@@ -43,7 +43,7 @@ function get_player_action_list($userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -72,7 +72,7 @@ function get_player_action($action, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -169,7 +169,7 @@ function apply_stamina_buff($referencename, $buff, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -189,7 +189,7 @@ function stamina_calculate_buffed_cost($action, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -223,7 +223,7 @@ function stamina_calculate_buffed_exp($action, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -257,7 +257,7 @@ function stamina_get_active_buffs($action, $userid = false, $isClass = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -271,7 +271,7 @@ function stamina_get_active_buffs($action, $userid = false, $isClass = false)
         foreach ($bufflist as $buff => $values)
         {
             if (
-                (! $isClass && ($values['action'] == $action || $values['action'] == 'Global'))
+                (! $isClass && ($values['action'] == $action || 'Global' == $values['action']))
                 ||
                 ($isClass && $values['class'] == $action)
             ) {
@@ -298,7 +298,7 @@ function suspend_stamina_buff($referencename, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -325,7 +325,7 @@ function restore_stamina_buff($referencename, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -355,7 +355,7 @@ function restore_all_stamina_buffs($userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -376,7 +376,7 @@ function mass_suspend_stamina_buffs($name, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -387,7 +387,7 @@ function mass_suspend_stamina_buffs($name, $userid = false)
         // debug("Okay, it's an array");
         foreach ($bufflist as $buff => $values)
         {
-            if (strpos($buff, $name) !== false)
+            if (false !== strpos($buff, $name))
             {
                 //debug("Suspending buff ".$buff);
                 $bufflist[$buff]['suspended'] = true;
@@ -419,7 +419,7 @@ function stamina_advance_buffs($action, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -433,7 +433,7 @@ function stamina_advance_buffs($action, $userid = false)
     {
         foreach ($bufflist as $buff => $values)
         {
-            if ($values['action'] == $action || $values['action'] == 'Global' || $values['class'] == $actiondetails['class'])
+            if ($values['action'] == $action || 'Global' == $values['action'] || $values['class'] == $actiondetails['class'])
             {
                 if (! isset($values['suspended']) || ! $values['suspended'])
                 {
@@ -448,7 +448,7 @@ function stamina_advance_buffs($action, $userid = false)
                         $write = 1;
                     }
 
-                    if ($values['rounds'] == 0)
+                    if (0 == $values['rounds'])
                     {
                         if ($values['wearoffmsg'])
                         {
@@ -468,7 +468,7 @@ function stamina_advance_buffs($action, $userid = false)
 
     if ($write)
     {
-        if (count($bufflist) != 0)
+        if (0 != count($bufflist))
         {
             set_module_pref('buffs', serialize($bufflist), 'staminasystem', $userid);
         }
@@ -492,7 +492,7 @@ function strip_stamina_buff($buff, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -516,7 +516,7 @@ function stamina_strip_all_buffs($userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -552,7 +552,7 @@ function stamina_take_action_cost($action, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -575,7 +575,7 @@ function stamina_check_can_use($action, $userid = false, $qty = 1)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -605,7 +605,7 @@ function stamina_award_exp($action, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -638,7 +638,7 @@ function process_action($action, $userid = false)
 {
     global $session, $actions_used;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -704,7 +704,7 @@ function get_stamina($type = 1, $realvalue = false, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -753,7 +753,7 @@ function get_stamina($type = 1, $realvalue = false, $userid = false)
 
     switch ($type) {
         case 0:
-            if ($realvalue === false)
+            if (false === $realvalue)
             {
                 $returnvalue = $redpct;
             }
@@ -763,7 +763,7 @@ function get_stamina($type = 1, $realvalue = false, $userid = false)
             }
             break;
         case 1:
-            if ($realvalue === false)
+            if (false === $realvalue)
             {
                 $returnvalue = $amberpct;
             }
@@ -773,7 +773,7 @@ function get_stamina($type = 1, $realvalue = false, $userid = false)
             }
             break;
         case 2:
-            if ($realvalue === false)
+            if (false === $realvalue)
             {
                 $returnvalue = $greenpct;
             }
@@ -783,7 +783,7 @@ function get_stamina($type = 1, $realvalue = false, $userid = false)
             }
             break;
         case 3:
-            if ($realvalue === false)
+            if (false === $realvalue)
             {
                 $returnvalue = $totalpct;
             }
@@ -813,7 +813,7 @@ function stamina_check_action($action, $actions, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -878,7 +878,7 @@ function stamina_level_up($action, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -901,7 +901,7 @@ function stamina_level_up($action, $userid = false)
         return stamina_level_up($action, $userid);
     }
 
-    while ($stop == 0)
+    while (0 == $stop)
     {
         // $actions = get_player_action_list($userid);
         $currentexp = (isset($actions[$action]['exp']) ? $actions[$action]['exp'] : 0);
@@ -972,7 +972,7 @@ function stamina_level_down($action, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -987,7 +987,7 @@ function stamina_level_down($action, $userid = false)
         return false;
     }
 
-    while ($stop == 0)
+    while (0 == $stop)
     {
         $actions = get_player_action_list($userid);
         $currentexp = $actions[$action]['exp'];
@@ -1012,7 +1012,7 @@ function stamina_level_down($action, $userid = false)
             $levels[$i] = ($levels[$i - 1] + $addup[$i]);
         }
 
-        if ($currentlvl != 0)
+        if (0 != $currentlvl)
         {
             $currentlvlexp = $levels[$currentlvl];
         }
@@ -1060,7 +1060,7 @@ function stamina_process_newday($userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -1120,7 +1120,7 @@ function addstamina($amount, $userid = false)
     global $session;
 
     //debug("Adding ".$amount." Stamina points");
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -1134,7 +1134,7 @@ function removestamina($amount, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -1151,7 +1151,7 @@ function stamina_minihof($action, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -1227,7 +1227,7 @@ function stamina_minihof_makesmallboard($boardinfo, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -1379,7 +1379,7 @@ function stamina_minihof_old($action, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
@@ -1449,7 +1449,7 @@ function stamina_minihof_smallboard_old($boardinfo, $userid = false)
 {
     global $session;
 
-    if ($userid === false)
+    if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
