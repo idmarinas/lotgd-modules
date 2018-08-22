@@ -31,12 +31,12 @@ function smallcaptcha_111_uninstall(){
 function smallcaptcha_111_dohook($hookname, $args){
 	global $session;
 	switch ($hookname) {
-		case "addpetition": 
+		case "addpetition":
 			if (httppost('alpha')!=sha1(httppost('gamma')).date("zty") || httppost('gamma')=='' || httppost('alpha')=='') {
 				$args['cancelreason']="`c`b`\$Sorry, but you entered the wrong captcha code, try again`b`c`n`n";
 				$args['cancelpetition']=true;
 			}
-			break;							
+			break;
 		case "petitionform":
 			output("`nPlease enter the following numbers in the Captcha Box to verify you are not a bot hopping into the server:`n");
 			$n = new Number( rand(1000,9999) );
@@ -61,7 +61,7 @@ class Digit {
   var $matrix  = array();
   var $bitmasks = array(31599, 18740, 29607, 31143, 18921, 31183, 31695, 18727, 31727, 31215);
 
-  function digit( $dig ) {
+  function __construct( $dig ) {
     $this->matrix[] = array(0, 0, 0); // 2^0, 2^1, 2^2 ... usw.
     $this->matrix[] = array(0, 0, 0);
     $this->matrix[] = array(0, 0, 0);
@@ -88,7 +88,7 @@ class Number {
   var $num = 0;
   var $digits = array();
 
-  function number( $num ) {
+  function __construct( $num ) {
     $this->num = (int)$num;
 
     $r = "{$this->num}";
