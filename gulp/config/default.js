@@ -23,6 +23,7 @@ module.exports = {
             '!gulpfile.js',
             '!assets{,/**}',
             '!dist{,/**}',
+            '!waiting{,/**}',
             '!node_modules{,/**}',
             '!bower_components{,/**}',
             '!**/*.{dist,md,lock,json}',
