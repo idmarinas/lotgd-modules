@@ -7,7 +7,7 @@ require_once("lib/pvpsupport.php");
 require_once("lib/http.php");
 require_once("lib/taunt.php");
 require_once("lib/villagenav.php");
-require_once("lib/battle-skills.php");
+// require_once("lib/battle-skills.php");
 require_once("lib/systemmail.php");
 function jailvisit_getmoduleinfo(){
 		$info = array(
