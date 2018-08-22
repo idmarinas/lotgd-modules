@@ -79,6 +79,7 @@ function inv_statvalues_dohook($hookname, $args)
 
                 if ($attack != 0 || $defense != 0 || $maxhitpoints != 0)
                 {
+                    $args['inv_statvalues_result'] = true;
 					debuglog("'s stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
 					debug("Your stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
 				}
