@@ -70,7 +70,7 @@ function pvpnocheat_dohook($hookname,$args){
 		}
 		if ($sameipnames>0)
 			if (get_module_setting('showsameipmsg'))
-				output(get_module_setting('sameipmsg'),$nameipnames);
+				output(get_module_setting('sameipmsg'),$sameipnames);
 			debuglog("had $sameipnames instances in the field with the same IP address");
 
 		break;
