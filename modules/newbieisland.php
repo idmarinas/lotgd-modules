@@ -94,6 +94,7 @@ function newbieisland_dohook($hookname, $args)
             unblockmodule('mysticalshop_buffs');
             unblockmodule('inventory');
             unblockmodule('inventorypopup');
+            unblockmodule('inv_statvalues');
             unblockmodule('tutor');
             unblockmodule('raceelf');
             unblockmodule('racehuman');
