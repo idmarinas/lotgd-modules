@@ -80,8 +80,7 @@ if (!$session['user']['dragonkills'] && $session['user']['age'] <= 1 && $greenpc
 	$alert = "- " . translate_inline("When you run low on Stamina, you become weaker in combat.  Recover Stamina by eating, drinking or using a New Day.");
 }
 
-$new = "<a href='runmodule.php?module=staminasystem&op=show' target='_blank' onclick=\"".popup("runmodule.php?module=staminasystem&op=show").";return false;\">
-		<div data-content='$pctoftotal% $alert' class='ui tooltip tiny progress remove margin $color staminasystem staminabar' data-value='$stamina' data-total='$daystamina'><div class='bar'></div></div></a>";
+$new = "<a id='staminasystem' data-size='fullscreen' data-force='true' href='runmodule.php?module=staminasystem&op=show' target='_blank' onclick=\"Lotgd.embed(this)\"><div data-content='$pctoftotal% $alert' class='ui tooltip tiny progress remove margin $color staminasystem staminabar' data-value='$stamina' data-total='$daystamina'><div class='bar'></div></div></a>";
 
 setcharstat("Character Info", "Stamina", $new);
 
