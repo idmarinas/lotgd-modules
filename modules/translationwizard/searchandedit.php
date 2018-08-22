@@ -193,7 +193,7 @@ case "save":
 	$sql="UPDATE ".DB::prefix("translations")." set language='".httppost('language')."', uri='".httppost('uri')."', intext='".httppost('intext')."', outtext='".httppost('outtext')."', author='".httppost('author')."', version='".httppost('version')."' WHERE tid=".httppost('tid').";";
 	$result=DB::query($sql);
 	debug($sql);
-	if (!result) redirect('runmodule.php?module=translationwizard&op=searchandedit&error=4&mode=select'); //back to the roots
+	if (!$result) redirect('runmodule.php?module=translationwizard&op=searchandedit&error=4&mode=select'); //back to the roots
 	redirect('runmodule.php?module=translationwizard&op=searchandedit&error=5&mode=select'); //back to the roots, no error but success
 
 break;
