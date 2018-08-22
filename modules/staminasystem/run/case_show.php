@@ -67,7 +67,7 @@ function show_actions($act)
 	$cost = translate_inline("Natural Cost");
 	$buff = translate_inline("Buff");
 	$total = translate_inline("Total");
-	$html = "<table class='ui basic very compact unstackable table stamina'><thead><tr><th>$action</th><th>$experience</th><th>$cost</th><th>$buff</th><th>$total</th></tr></thead>";
+	$html = "<table class='ui very basic very compact unstackable striped table stamina'><thead><tr><th>$action</th><th>$experience</th><th>$cost</th><th>$buff</th><th>$total</th></tr></thead>";
 
 	ksort($act);
 	foreach($act as $key => $values)
