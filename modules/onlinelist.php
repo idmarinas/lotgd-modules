@@ -32,49 +32,67 @@ function onlinelist_dohook($hookname, $args)
             $list_mods = '';
             $list_players = '';
 
-            //-- Se elimina de las dos consultas, ya que no se usa después
-            // ,alive,location,sex,level,laston,loggedin,lastip,uniqueid
-            $sql = 'SELECT name FROM '.DB::prefix('accounts')." WHERE locked=0 AND loggedin=1 AND superuser > 0 AND laston > '".date('Y-m-d H:i:s', strtotime('-'.getsetting('LOGINTIMEOUT', 900).' seconds'))."' ORDER BY superuser DESC, level DESC";
-            $result = DB::query($sql);
-            $count = DB::num_rows($result);
-            $list_mods = appoencode(sprintf(translate_inline('`bOnline Staff`n(%s Staff Member):`b`n'), $count));
-            $onlinecount_mods = 0;
+            //-- Staff users
+            $select = DB::select('accounts');
+            $select->columns(['name'])
+                ->order('superuser DESC, level DESC')
+                ->where->equalTo('locked', 0)
+                    ->equalTo('loggedin', 1)
+                    ->greaterThan('superuser', 0)
+                    ->greaterThan('laston', date('Y-m-d H:i:s', strtotime('-'.getsetting('LOGINTIMEOUT', 900).' seconds')))
+            ;
+            $result = DB::execute($select);
 
-            for ($i = 0; $i < $count; $i++)
+            $list_mods = appoencode(sprintf(translate_inline('`bOnline Staff`n(%s Staff Member):`b`n'), $result->count()));
+            $onlinecount_mods = $result->count();
+
+            if ($result->count())
             {
-                $row = DB::fetch_assoc($result);
-                $list_mods .= appoencode("`^{$row['name']}`n");
-                $onlinecount_mods++;
+                foreach ($result as $key => $value)
+                {
+                    $list_mods .= appoencode("`%{$value['name']}`0`n");
+                }
             }
-            DB::free_result($result);
-
-            if (0 == $onlinecount_mods)
+            else
             {
                 $list_mods .= appoencode(translate_inline('`iNone`i'));
             }
 
-            $sql = 'SELECT name FROM '.DB::prefix('accounts')." WHERE superuser = 0 AND locked=0 AND loggedin=1 AND laston>'".date('Y-m-d H:i:s', strtotime('-'.getsetting('LOGINTIMEOUT', 900).' seconds'))."' ORDER BY level DESC";
-            $result = DB::query($sql);
-            $count = DB::num_rows($result);
-            $list_players = appoencode(sprintf(translate_inline('`bCharacters Online`n(%s Players):`b`n'), $count));
-            $onlinecount_players = 0;
+            //-- Normal users
+            $select = DB::select('accounts');
+            $select->columns(['name'])
+                ->order('level DESC')
+                ->where->equalTo('locked', 0)
+                    ->equalTo('loggedin', 1)
+                    ->equalTo('superuser', 0)
+                    ->greaterThan('laston', date('Y-m-d H:i:s', strtotime('-'.getsetting('LOGINTIMEOUT', 900).' seconds')))
+            ;
+            $result = DB::execute($select);
 
-            for ($i = 0; $i < $count; $i++)
+            $list_players = appoencode(sprintf(translate_inline('`bCharacters Online`n(%s Players):`b`n'), $result->count()));
+            $onlinecount_players = $result->count();
+
+            if ($result->count())
             {
-                $row = DB::fetch_assoc($result);
-                $list_players .= appoencode("`^{$row['name']}`n");
-                $onlinecount_players++;
-            }
-            DB::free_result($result);
+                $row = array_slice(DB::toArray($result), 0, 10);//-- Only show 5 users
+                foreach ($row as $key => $value)
+                {
+                    $list_players .= appoencode("`^{$value['name']}`0`n");
+                }
 
-            if (0 == $onlinecount_players)
+                if ($result->count() > 5)
+                {
+                    $list_players .= appoencode(sprintf(translate_inline('`$...`nand %s Players more`0`n'), ($result->count() - 10)));
+                }
+            }
+            else
             {
                 $list_players .= appoencode(translate_inline('`iNone`i'));
             }
 
             $args['list'] = $list_mods.'<br>'.$list_players;
             $args['count'] = $onlinecount_mods + $onlinecount_players;
-            break;
+        break;
     }
 
     return $args;
