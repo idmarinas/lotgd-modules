@@ -81,7 +81,7 @@ function funddrive_dohook($hookname,$args)
 		switch(get_module_setting("usebar"))
 		{
 			case 1:
-				$res = '<div class="ui indicating tiny progress healthbar '.(!$text ? 'remove margin': '').'" data-value="'.$current.'" data-total="'.$goal.'"><div class="bar"></div>';
+				$res = '<div class="ui indicating tiny progress'.(!$text ? 'remove margin': '').'" data-value="'.$current.'" data-total="'.$goal.'"><div class="bar"></div>';
 				if ($text) $res .= '<div class="label">'.$text.'</div>';
 				$res .= '</div>';
 				break;
