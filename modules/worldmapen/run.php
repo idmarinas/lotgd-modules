@@ -299,30 +299,24 @@ function worldmapen_run_real()
             {
                 $session['user']['turns']--;
             }
-            //Fix to only search for Forest type creatures, added by CavemanJoe
-            $sql = 'SELECT * FROM '.DB::prefix('creatures')." WHERE creaturelevel = '{$session['user']['level']}' AND forest = 1 ORDER BY rand(".e_rand().') LIMIT 1';
-            $result = DB::query($sql);
+
+            require_once 'lib/forestoutcomes.php';
+
+            $result = lotgd_search_creature(1, $session['user']['level'], $session['user']['level']);
+
             restore_buff_fields();
 
-            if (0 == DB::num_rows($result))
+            if (0 == count($result))
             {
                 // There is nothing in the database to challenge you,
                 // let's give you a doppleganger.
-                $badguy = [];
-                $badguy['creaturename'] = 'An evil doppleganger of '.$session['user']['name'];
+                $badguy = lotgd_generate_creature_levels($session['user']['level']);
+                $badguy['creaturename'] = "An evil doppleganger of {$session['user']['name']}";
                 $badguy['creatureweapon'] = $session['user']['weapon'];
-                $badguy['creaturelevel'] = $session['user']['level'];
-                $badguy['creaturegold'] = mt_rand(($session['user']['level'] * 15), ($session['user']['level'] * 30));
-                $badguy['creatureexp'] = round($session['user']['experience'] / 10, 0);
-                $badguy['creaturehealth'] = $session['user']['maxhitpoints'];
-                $badguy['creatureattack'] = $session['user']['attack'];
-                $badguy['creaturedefense'] = $session['user']['defense'];
             }
             else
             {
-                $badguy = DB::fetch_assoc($result);
-                require_once 'lib/forestoutcomes.php';
-                $badguy = buffbadguy($badguy);
+                $badguy = buffbadguy($result[0]);
             }
             calculate_buff_fields();
             $badguy['playerstarthp'] = $session['user']['hitpoints'];
