@@ -30,6 +30,7 @@ function serversuspend_dohook($hookname,$args){
 			"index.php"=>true,
 			"login.php"=>true,
 			"installer.php"=>true,
+			"runmodule.php?module=advertising"=>true,
 		);
 		global $session;
 		$script = substr($_SERVER['SCRIPT_NAME'],strrpos($_SERVER['SCRIPT_NAME'],"/")+1);
