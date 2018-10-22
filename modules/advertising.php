@@ -710,7 +710,7 @@ function advertising_run(){
 		$image = translate_inline("Image");
 		$approve = translate_inline("Approve");
 		$deny = translate_inline("Deny");
-		rawoutput("<tr class='trhead'><td>$Ops</td><td>$status</td><td>$size</td><td>$owner</td><td>$link</td><td>$alt</td><td>$image</td></tr>");
+		rawoutput("<tr class='trhead'><td>$ops</td><td>$status</td><td>$size</td><td>$owner</td><td>$link</td><td>$alt</td><td>$image</td></tr>");
 		$x=0;
 		foreach($result as $row)
 		{
