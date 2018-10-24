@@ -175,7 +175,7 @@ function gardener_run()
         ];
 
         $myphrase = $phrases[$question];
-        list($q, $a) = preg_split('\\|', $myphrase);
+        list($q, $a) = explode('|', $myphrase);
         set_module_pref('expectanswer', $a);
 
         output('`7The old man asks you his question:`n`n');
