@@ -13,7 +13,7 @@ $magic_table = DB::prefix( 'magicitems' );
 $sql = 'SELECT COUNT(id) AS c FROM '.$magic_table
 	.' WHERE '.$userdk.'>=dk AND category='.$cat
 	.' ORDER BY category';
-$result = DB::query_cached( $sql, 'modules-mysticalshop-viewgoods-'.$cat.'-'.$userdk, 3600 );
+$result = DB::query( $sql );
 $row = DB::fetch_assoc($result);
 $total = $row['c'];
 addnav("Pages");
@@ -37,7 +37,7 @@ $sellbuy = translate_inline("Sell & Buy");
 $buy = translate_inline("Examine");
 $quantity = translate_inline("Quantity");
 $viewbuy = translate_inline("Examine or Buy");
-$result = DB::query_cached( $sql, 'modules-mysticalshop-viewgoods-'.$cat.'-'.$userdk.'-page-'.$min.'-'.$perpage, 3600 );
+$result = DB::query( $sql );
 $count = DB::num_rows($result);
 if ($count == 0){
 	output("`6No Items on record yet.`0");

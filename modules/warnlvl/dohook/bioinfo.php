@@ -1,4 +1,7 @@
 <?php
+
+    $id = $args['acctid'];
+
 	if( $session['user']['superuser'] & SU_GIVES_YOM_WARNING )
 	{
 		addnav('Warnings');
@@ -12,7 +15,7 @@
 		$total = 0;
 		$list2 = '';
 		$allprefs = get_module_pref('allprefs','warnlvl',$id);
-		if( !empty($allprefs) ) 
+		if( !empty($allprefs) )
 		{
 			$allprefs = unserialize($allprefs);
 			$count = ( isset($allprefs['reason']) ) ? count($allprefs['reason']) : 0;

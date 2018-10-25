@@ -270,7 +270,7 @@ function newbieisland_dohook($hookname, $args)
                 {
                     $sql =  "SELECT name FROM " . DB::prefix("accounts") .
                         " WHERE acctid='$new'";
-                    $result = DB::query_cached($sql, "newest-$city");
+                    $result = DB::query($sql);
                     $row = DB::fetch_assoc($result);
                     $args['newestplayer'] = $row['name'];
                     $args['newestid']=$new;

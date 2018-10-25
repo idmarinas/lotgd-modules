@@ -39,7 +39,7 @@ function innchat_dohook($hookname,$args){
 		// hit it multiple times within ten minutes, it'll use the same
 		// random name of player or master.  We'll invalidate the name when someone's name changes
 		// for any reason.
-		$res = DB::query_cached($sql, "innchat-names");
+		$res = DB::query($sql);
 		$row = DB::fetch_assoc($res);
 		// Give 2 out of X (currently 7 (5+these 2)) chances of hearing about
 		// a player.

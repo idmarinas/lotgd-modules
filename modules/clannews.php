@@ -39,7 +39,7 @@ function clannews_dohook($hookname, $args)
 			. " ON " . DB::prefix("news") . ".accountid = " . DB::prefix("accounts") . ".acctid"
 			. " WHERE " . DB::prefix("accounts") . ".clanid = " . $session['user']['clanid']
 			. " ORDER BY " . DB::prefix("news") . ".newsid DESC LIMIT " . $maxevents;
-		$res = DB::query_cached($sql, "clan-news-{$session['user']['clanid']}");
+		$res = DB::query($sql);
 
         if (! DB::num_rows($res)) return $args;
 

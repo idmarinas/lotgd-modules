@@ -53,7 +53,7 @@ modulehook("mysticalshop-editor", array());
 addnav("Actions");
 //let's just display items that are actually available.
 $sql = 'SELECT category FROM '.DB::prefix( 'magicitems' ).' GROUP BY category ORDER BY category';
-$result = DB::query_cached( $sql, 'modules-mysticalshop-editorcats', 3600 );
+$result = DB::query( $sql );
 $shortcuts = array( 'g', 't', 'W', 'o', 'C', 'H', 'v', 'B', 'M' );
 while( $row = DB::fetch_assoc( $result ) ){
 	$category = $row['category'];

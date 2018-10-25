@@ -11,7 +11,7 @@ $del = translate_inline("Delete");
 $give = translate_inline("Preview");
 $delconfirm = translate_inline("Are you sure you wish to delete this item?");
 $sql = 'SELECT * FROM '.DB::prefix( 'magicitems' ).' WHERE id>=0 AND category='.$cat.' ORDER BY gold';
-$result = DB::query_cached( $sql, 'modules-mysticalshop-view-'.$cat, 3600 );
+$result = DB::query( $sql );
 $count = DB::num_rows($result);
 if ($count == 0){
 	if( $cat != 100 )

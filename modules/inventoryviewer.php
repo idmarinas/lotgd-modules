@@ -46,7 +46,7 @@ function inventoryviewer_dohook($hookname, $args){
 			}
 
 			$sql = "SELECT itemid, name, class FROM $item ORDER BY class ASC, name ASC";
-			$result = DB::query_cached($sql, "allitems", 3600);
+			$result = DB::query($sql);
 			if (DB::num_rows($result)) {
 				output("`n`nEin Item an den Spieler geben: ");
 				rawoutput("<select name='additem'>");

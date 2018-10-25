@@ -126,7 +126,7 @@ function friendlist_dohook($hookname,$args){
 				}
 				if (implode(",",$friends)!='') {
 					$sql = "SELECT loggedin,laston$addon FROM ".DB::prefix("accounts")." WHERE acctid IN (".implode(",",$friends).") AND locked=0";
-					$result = DB::query_cached($sql,"friendliststat-".$session['user']['acctid'],60);
+					$result = DB::query($sql);
 					while ($row=DB::fetch_assoc($result)) {
 						$loggedin=$row['loggedin'];
 						if ($row['laston']<$last) {

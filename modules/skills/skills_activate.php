@@ -1,7 +1,7 @@
 <?php
 	$l = httpget('l'); //type of attack
 	$sql = "SELECT * FROM ".DB::prefix("skills")." WHERE skillid = $l";
-	$result = DB::query_cached($sql, "skills-skill-$l");
+	$result = DB::query($sql);
 	$skill = DB::fetch_assoc($result);
 	$ccode = $skill['ccode'];
 	set_module_pref("cooldown",$skill['cooldown']);

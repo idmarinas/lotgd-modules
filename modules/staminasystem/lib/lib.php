@@ -1337,7 +1337,7 @@ function stamina_minihof_makesmallboard($boardinfo, $userid = false)
         if (! isset($smallboard[$i]['name']) || ! $smallboard[$i]['name'])
         {
             $sql = 'SELECT name FROM '.DB::prefix('accounts')." WHERE acctid='".$smallboard[$i]['acctid']."'";
-            $result = DB::query_cached($sql, 'playernames/playername_'.$smallboard[$i]['acctid'], 3600);
+            $result = DB::query($sql);
             $row = DB::fetch_assoc($result);
             $smallboard[$i]['name'] = $row['name'];
         }

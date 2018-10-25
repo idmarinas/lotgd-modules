@@ -79,7 +79,7 @@ function pumpkin_dohook($hookname, $args){
 				$winner>0){
 			$sql = "SELECT name FROM ". DB::prefix("accounts") .
 				" WHERE acctid='$winner'";
-			$result = DB::query_cached($sql, "pumpkinwinner");
+			$result = DB::query($sql);
 			$row = DB::fetch_assoc($result);
 			output("`n`QA very intricately carved pumpkin sits on a pedestal, with a shiny placard reading \"`&%s`Q\".`n",$row['name']);
 		}

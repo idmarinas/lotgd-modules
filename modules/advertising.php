@@ -108,7 +108,7 @@ function advertising_getallads()
     }
     reset($banners);
     $sql = 'SELECT * FROM '.DB::prefix('mod_advertising_banners').' WHERE approved='.MOD_ADVERTISING_APPROVED.' AND servedimpressions < maximpressions ORDER BY priority DESC';
-    $result = DB::query_cached($sql, 'advertising_getallads');
+    $result = DB::query($sql);
 
     foreach ($result as $row)
     {
@@ -328,7 +328,7 @@ function advertising_getbanner($w, $h, $id = false)
 
 function advertising_dohook($hookname, $args)
 {
-    global $session, $lotgd_tpl;
+    global $session;
 
     if ('everyfooter' == $hookname)
     {
@@ -429,7 +429,7 @@ function advertising_dohook($hookname, $args)
 
         foreach ($banners as $key => $val)
         {
-            $args[$key] = $lotgd_tpl->renderThemeTemplate('content/adwrapper.twig', ['content' => $val]);
+            $args[$key] = LotgdTheme::renderThemeTemplate('content/adwrapper.twig', ['content' => $val]);
         }
 
         if (! array_key_exists('script', $args) || ! is_array($args['script']))

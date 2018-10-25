@@ -118,7 +118,7 @@ function funddrive_getpercent(){
 	}
 	$start = date("Y")."-".$targetmonth."-01";
 	$end = date("Y-m-d",strtotime("+1 month",strtotime($start)));
-	$result = DB::query_cached("SELECT sum(amount) AS gross, sum(txfee) AS fees FROM ".DB::prefix("paylog")." WHERE processdate >= '$start' AND processdate < '$end'","mod_funddrive_totals",10);
+	$result = DB::query("SELECT sum(amount) AS gross, sum(txfee) AS fees FROM ".DB::prefix("paylog")." WHERE processdate >= '$start' AND processdate < '$end'");
 	$goal = get_module_setting("goalamount");
 	$base = get_module_setting("baseamount");
 	$row = DB::fetch_assoc($result);

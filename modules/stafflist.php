@@ -103,7 +103,7 @@ function stafflist_run(){
 
 	$biolink=get_module_setting("biolink");
 	$sql = "SELECT p1.userid, (p1.value+0) AS rank,	p2.value AS descr, u.name, u.login, u.sex, u.laston, u.loggedin FROM ".DB::prefix("accounts")." as u, ".DB::prefix("module_userprefs")." as p1, ".DB::prefix("module_userprefs")." as p2 WHERE (p1.value+0) > 0 AND p1.modulename='stafflist' AND p1.setting='rank' AND p1.userid=u.acctid AND p2.modulename='stafflist' AND p2.setting='desc' AND p2.userid=u.acctid ORDER BY rank DESC, u.acctid ASC";
-	$result = DB::query_cached($sql, "stafflist", 600);
+	$result = DB::query($sql);
 	$count = DB::num_rows($result);
 
 	output("`c`b`@Staff List`0`b`c`n`n");

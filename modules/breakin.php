@@ -149,7 +149,7 @@ function breakin_dohook($hookname,$args){
 			output("`nYou are serving time in the stocks for trying to break into the Inn!`n");
 		} else {
 			$sql = "SELECT name FROM " . DB::prefix("accounts") . " WHERE acctid='$thisID'";
-			$result = DB::query_cached($sql, "stocks");
+			$result = DB::query($sql);
 			$row = DB::fetch_assoc($result);
 			output("`n%s was put into the stocks for trying to break into the Inn!`n",$row['name']);
 		}

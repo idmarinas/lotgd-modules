@@ -24,7 +24,7 @@ output_notl( '`0' );
 modulehook("mysticalshop", array());
 addnav("Merchandise");
 $sql = 'SELECT category,MIN(dk) as dks FROM '.DB::prefix( 'magicitems' ).' GROUP BY category ORDER BY category';
-$result = DB::query_cached( $sql, 'modules-mysticalshop-enter', 3600 );
+$result = DB::query( $sql );
 
 $specialty = $session['user']['specialty'];
 $userdk = $session['user']['dragonkills'];

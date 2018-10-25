@@ -61,7 +61,7 @@ function statue_dohook($hookname, $args)
             else
             {
                 $sql = 'SELECT name FROM '.DB::prefix('accounts')." WHERE acctid='$hero'";
-                $result = DB::query_cached($sql, 'lasthero');
+                $result = DB::query($sql);
                 $row = DB::fetch_assoc($result);
                 output('`n`@The inhabitants of %s are busy erecting a statue for their newest hero, `&%s`@ on the only statue pedestal around.  The remains of the statue that had stood there before lie in such ruins around the pedestal that it is no longer recognizable.`0`n', $session['user']['location'], $row['name']);
             }

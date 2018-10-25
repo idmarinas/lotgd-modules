@@ -2,7 +2,7 @@
 	$script = $args['script'];
 
 	$sql = "SELECT * FROM ".DB::prefix("skills");
-	$result = DB::query_cached($sql, "skills-navs");
+	$result = DB::query($sql);
 	$first = false;
 	$number = DB::num_rows($result);
 	$cooldown = get_module_pref("cooldown");

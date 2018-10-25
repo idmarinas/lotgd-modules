@@ -88,7 +88,7 @@
 			$no = translate_inline("No");
 			if ($id != "") {
 				$sql = "SELECT * FROM ".DB::prefix("skills")." WHERE skillid = $id";
-				$result = DB::query_cached($sql, "skills-skill-$id");
+				$result = DB::query($sql);
 				$skill = DB::fetch_assoc($result);
 			}
 			else {
