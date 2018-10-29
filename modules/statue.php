@@ -27,7 +27,7 @@ function statue_install()
     module_addhook('village-desc');
     module_addhook('dragonkill');
     module_addhook('namechange');
-    module_addhook('hometext');
+    module_addhook('index');
 
     return true;
 }
@@ -66,7 +66,7 @@ function statue_dohook($hookname, $args)
                 output('`n`@The inhabitants of %s are busy erecting a statue for their newest hero, `&%s`@ on the only statue pedestal around.  The remains of the statue that had stood there before lie in such ruins around the pedestal that it is no longer recognizable.`0`n', $session['user']['location'], $row['name']);
             }
         break;
-        case 'hometext':
+        case 'index':
             if (! get_module_setting('showonindex'))
             {
                 break;
@@ -83,7 +83,7 @@ function statue_dohook($hookname, $args)
                 $heroname = $result['name'];
             }
 
-            $args['messages'] = [['`@The most recent hero of the realm is: `&%s`0`n`n', $heroname]];
+            output("`@The most recent hero of the realm is: `&%s`0`n`n",$heroname, true);
         break;
         case 'dragonkill':
             set_module_setting('hero', $session['user']['acctid']);
