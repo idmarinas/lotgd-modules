@@ -64,8 +64,6 @@ function warnlvl_dohook($hookname, $args)
 {
 	global $session;
 
-	$id = $args['acctid'];
-
 	require("modules/warnlvl/dohook/$hookname.php");
 
 	return $args;

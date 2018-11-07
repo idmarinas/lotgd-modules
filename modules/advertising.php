@@ -319,11 +319,6 @@ function advertising_getbanner($w, $h, $id = false)
     }
 
     return "<iframe src='$src' width='$w' height='$h' scrolling='no' style='border:0px none;margin:0px;float: left; clear: both;' frameborder='0'></iframe>";
-    /*return "<div class='modAdvertisingAd' onMouseOver='showAdInfo(this);' onMouseOut='hideAdInfo(this);' style='position: relative;'>"
-        ."<div class='label'><a href='runmodule.php?module=advertising&op=about' target='_blank' onClick=\"".popup("'+this.href+'")."; return false;\">Advertise here</a></div>"
-        ."<iframe src='$src' width='$w' height='$h' scrolling='no' style='border:0px none;margin:0px;float: left; clear: both;' frameborder='0'></iframe>"
-        ."</div>";
-        */
 }
 
 function advertising_dohook($hookname, $args)

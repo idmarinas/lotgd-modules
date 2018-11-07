@@ -56,7 +56,6 @@ function dragoneggpoints_dohook($hookname,$args){
 					$info=$dragoneggs;
 				}else{
 					$vc=translate_inline(" `&[`^ Info `&]");
-					//$info="<a href='runmodule.php?module=dragoneggpoints&op=explain' onClick=\"".popup("runmodule.php?module=dragoneggpoints&op=explain").";return false;\" target='_blank' align='center' class=\"charinfo\" style=\"font-size:12px\">"."`^".get_module_pref("gates").$vc."</a>";
 					$info="<a href='runmodule.php?module=dragoneggpoints&op=explain'\">`^".$dragoneggs.$vc."</a>";
 					addnav("","runmodule.php?module=dragoneggpoints&op=explain");
 				}

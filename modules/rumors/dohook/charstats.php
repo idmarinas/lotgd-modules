@@ -10,7 +10,6 @@
 		}else{
 			if ($rumors>0) $ab=$array[$rumors]." `&[`^ Info `&]";
 			else $ab=translate_inline("None `&[`^ Info `&]");
-			//$info2="<a href='runmodule.php?module=rumors&op=rumors' onClick=\"".popup("runmodule.php?module=rumors&op=rumors").";return false;\" target='_blank' align='center' class=\"charinfo\" style=\"font-size:12px\">"."`^".$ab."</a>";
 			$info2="<a href='runmodule.php?module=rumors&op=rumors'\">"."`^".$ab."</a>";
 			addnav("","runmodule.php?module=rumors&op=rumors");
 		}

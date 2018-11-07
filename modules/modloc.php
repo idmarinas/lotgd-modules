@@ -13,7 +13,6 @@ History Log:
  o Various updates, fixes and optimizations
 */
 require_once 'lib/superusernav.php';
-require_once 'lib/dbwrapper.php';
 require_once 'lib/debuglog.php';
 
 function modloc_getmoduleinfo()
