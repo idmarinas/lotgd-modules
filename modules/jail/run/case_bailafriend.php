@@ -23,7 +23,7 @@ for ($i = 0 ; $i < DB::num_rows($result) ; $i++)
 	output
 	(
 		"<a href=\"mail.php?op=write&to=".rawurlencode($row['login'])."\" target=\"_blank\"
-		onClick=\"".popup("mail.php?op=write&to=".rawurlencode($row['login'])."").";return false;\">
+		onClick=\"Lotgd.embed(this)\">
 		<img src='images/newscroll.GIF'width='16' height='16' alt='$write' border='0'></a>",true
 	);
 	output

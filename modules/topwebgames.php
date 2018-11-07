@@ -161,7 +161,7 @@ function topwebgames_dohook($hookname, $args)
             $acct = $session['user']['acctid'];
             $url = "http://www.topwebgames.com/in.asp?id=$id&acctid=$acct&alwaysreward=1";
             $vote = translate('`^Vote now! `&Gain `%1 Gem`0');
-            $vote = "<a href='$url' target='_blank' onClick=\"".popup($url, '800x600').";return false;\">$img<br>".$vote.'</a>';
+            $vote = "<a href='$url' target='_blank' onClick=\"Lotgd.embed(this)\">$img<br>".$vote.'</a>';
             set_module_pref('voted', 0);
         }
         else

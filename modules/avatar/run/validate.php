@@ -37,7 +37,7 @@
 								$i++;
 								$url=get_module_pref("avatar","avatar",$row['acctid']);
 								rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td><a href='$url' target='_blank'><img src='$url' align='center' width='150' height='150'></a></td><td>");
-								rawoutput("<a href='mail.php?op=write&to={$row['login']}' class='colLtGreen' target='_blank' onClick=\"".popup("mail.php?op=write&to={$row['login']}").";return false;\">".sanitize($row['name'])."</a></td><td>");
+								rawoutput("<a href='mail.php?op=write&to={$row['login']}' class='colLtGreen' target='_blank' onClick=\"Lotgd.embed(this)\">".sanitize($row['name'])."</a></td><td>");
 								$inval=translate_inline("Invalidate");
 								rawoutput("<a href='runmodule.php?module=avatar&op=validate&mode=invalidate&who={$row['acctid']}'>$inval</a></td></tr>");
 								addnav("","runmodule.php?module=avatar&op=validate&mode=invalidate&who={$row['acctid']}");
@@ -110,7 +110,7 @@
 				output("`^Avatar:`0`n");
 				rawoutput("</td><td valign='top'>$image</td></tr><td></td><td>$url</td></table>");				addnav("Actions");
 				output("Username: ");
-				rawoutput("<a href='mail.php?op=write&to={$row['login']}' class='colLtGreen' target='_blank' onClick=\"".popup("mail.php?op=write&to={$row['login']}").";return false;\">".sanitize($row['name'])."</a>");
+				rawoutput("<a href='mail.php?op=write&to={$row['login']}' class='colLtGreen' target='_blank' onClick=\"Lotgd.embed(this)\">".sanitize($row['name'])."</a>");
 				output_notl("`n");
 				output("Email: ");
 				rawoutput("<a href='mailto:{$row['email']}'>{$row['email']}</a>");
@@ -181,7 +181,7 @@
 					$i=!$i;
 					$url=get_module_pref("avatar","avatar",$row['acctid']);
 					rawoutput("<tr class='".($i?"trlight":"trdark")."'><td><a href='$url' target='_blank'><img src='$url' align='center' width='150' height='150'></a></td><td>");
-					rawoutput("<a href='mail.php?op=write&to={$row['login']}' class='colLtGreen' target='_blank' onClick=\"".popup("mail.php?op=write&to={$row['login']}").";return false;\">".sanitize($row['name'])."</a></td><td>");
+					rawoutput("<a href='mail.php?op=write&to={$row['login']}' class='colLtGreen' target='_blank' onClick=\"Lotgd.embed(this)\">".sanitize($row['name'])."</a></td><td>");
 					rawoutput("<a href='runmodule.php?module=avatar&op=validate&mode=validate&who={$row['acctid']}'>$details</a><br><br>");
 					addnav("","runmodule.php?module=avatar&op=validate&mode=validate&who={$row['acctid']}");
 					rawoutput("<a href='runmodule.php?module=avatar&op=validate&mode=&giveok=1&user={$row['acctid']}'>$validate</a><br><br>");

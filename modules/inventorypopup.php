@@ -32,7 +32,7 @@ function inventorypopup_dohook($hookname, $args)
 		$open = translate_inline("Open Inventory");
 		addnav("runmodule.php?module=inventorypopup");
 		addcharstat("Equipment Info");
-		addcharstat("Inventory", "<a href='runmodule.php?module=inventorypopup' target='inventory' onClick=\"".popup("runmodule.php?module=inventorypopup&op=charstat").";return false;\">$open</a>");
+		addcharstat("Inventory", "<a href='runmodule.php?module=inventorypopup' target='inventory' onClick=\"Lotgd.embed(this)\">$open</a>");
     }
 
 	return $args;

@@ -194,7 +194,7 @@ function creationaddon_dohook($hookname,$args){
 			if(get_module_setting("requireterms"))
 			{
 				$terms = translate_inline("Terms and Agreements");
-				$link = "<a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=terms")."; return false;\" 'class='motd'>$terms</a>";
+				$link = "<a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>$terms</a>";
 
 				if (! $showform)
 				{
@@ -212,7 +212,7 @@ function creationaddon_dohook($hookname,$args){
 			if(get_module_setting("requireprivacy"))
 			{
 				$privacy = translate_inline("Privacy Policy");
-				$link = "<a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=privacy")."; return false;\" 'class='motd'>$privacy</a>";
+				$link = "<a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>$privacy</a>";
 				if (! $showform)
 				{
 					$args['requireprivacy'] = sprintf(translate('I have read the %s'), $link);
@@ -262,7 +262,7 @@ function creationaddon_dohook($hookname,$args){
 
 			if(get_module_setting("requireprivacy") && get_module_setting('showfooter')){
 				$privacy = translate_inline("Privacy Policy");
-				$privacyfooter= "<br><a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=privacy")."; return false;\" 'class='motd'>$privacy</a>";
+				$privacyfooter= "<br><a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>$privacy</a>";
 				addnav("","runmodule.php?module=creationaddon&op=privacy");
 				if (!isset($args['source'])) {
 
@@ -278,7 +278,7 @@ function creationaddon_dohook($hookname,$args){
 			if(get_module_setting("requireterms") && get_module_setting('showfooter')){
 
 				$terms = translate_inline("Terms and Agreements");
-				$termsfooter="<br><a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"".popup("runmodule.php?module=creationaddon&op=terms")."; return false;\" 'class='motd'>$terms</a>";
+				$termsfooter="<br><a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>$terms</a>";
 				addnav("","runmodule.php?module=creationaddon&op=terms");
 				if (!isset($args['source'])) {
 

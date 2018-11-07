@@ -93,7 +93,7 @@
 				}
 				rawoutput('<tr class="trlight"><td>' . $reason . ':</td><td><select name="reason' . $i . '">' . $options . '</select></td></tr>');
 				rawoutput('<tr class="trdark"><td valign="top">' . $comment . ':</td><td><textarea class="input" name="comments' . $i . '" cols="40" rows="5">' . htmlentities(str_replace("`n", "\n", $allprefs['comments'][$i]), ENT_COMPAT, getsetting("charset", "ISO-8859-1")) . '</textarea></td></tr>');
-				rawoutput("<tr class=\"trlight\"><td>$subber:</td><td><input type=\"text\" name=\"subber_id$i\" size=\"3\" maxlength=\"5\" value=\"$subber_id\" />&nbsp;<a href=\"mail.php?op=write&to=" . rawurlencode($row['login']) . "\" target=\"_blank\" onClick=\"" . popup("mail.php?op=write&to=" . rawurlencode($row['login'])) . ";return false;\">");
+				rawoutput("<tr class=\"trlight\"><td>$subber:</td><td><input type=\"text\" name=\"subber_id$i\" size=\"3\" maxlength=\"5\" value=\"$subber_id\" />&nbsp;<a href=\"mail.php?op=write&to=" . rawurlencode($row['login']) . "\" target=\"_blank\" onClick=\"Lotgd.embed(this)\">");
 				rawoutput('<img src="images/newscroll.GIF" width="16" height="16" alt="' . $writemail . '" border="0"></a> <a href="bio.php?char=' . $subber_id . '&ret=' . urlencode($_SERVER['REQUEST_URI']) . '" title="' . $biopage . '">'  . appoencode($row['name']) . '</a></td></tr>');
 				rawoutput('<tr class="trdark"><td>' . $date . ':</td><td>' . date('D, jS F, Y', $allprefs['date'][$i]) . ' (' . translate_inline(time_since($allprefs['date'][$i])) . $ago .')</td></tr>');
 				rawoutput('<tr class="trlight"><td>' . $delete . ':</td><td><input type="checkbox" name="delete' . $i . '" value="1" /></td></tr>');

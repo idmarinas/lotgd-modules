@@ -137,7 +137,7 @@ function friendlist_dohook($hookname,$args){
 							if ($addon!="") {
 								if ($onlinelist!="") $onlinelist.=", ";
 								if (get_module_setting('linkType')==1) {
-									$onlinelist.="<a href='mail.php?op=write&to={$row['login']}' class='colLtGreen' target='_blank' onClick=\"".popup("mail.php?op=write&to={$row['login']}").";return false;\">";
+									$onlinelist.="<a href='mail.php?op=write&to={$row['login']}' class='colLtGreen' target='_blank' onClick=\"Lotgd.embed(this)\">";
 								} elseif (get_module_setting('linkType')==2&&$bl) {
 									$link="bio.php?char=".rawurlencode($row['login'])."&ret=".urlencode($_SERVER['REQUEST_URI']);
 									$onlinelist.="<a href='$link' class='colLtGreen'>";
