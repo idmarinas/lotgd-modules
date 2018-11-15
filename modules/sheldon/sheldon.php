@@ -289,7 +289,7 @@ if ($battle){
 }
 if ($op=="memberlist") {
 	$pp = 40;
-	$page = httpget('page');
+	$page = (int) httpget('page');
 	$pageoffset = (int)$page;
 	if ($pageoffset > 0) $pageoffset--;
 	$pageoffset *= $pp;

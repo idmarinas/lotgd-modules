@@ -72,7 +72,7 @@ function alt_char_list_run()
     {
 		case "":
 			$nmf = translate_inline("`inone`i");
-			$page = httpget('page');
+			$page = (int) httpget('page');
 			$pp = get_module_setting("pp");
 			$pageoffset = (int)$page;
 			if ($pageoffset > 0) $pageoffset--;

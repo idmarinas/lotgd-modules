@@ -364,7 +364,7 @@ function docks_docks(){
 		elseif ($op2=="fishweight") $title=translate_inline("Most Fish Caught by Weight");
 		elseif ($op2=="numberfish") $title=translate_inline("Most Fish Caught by Number");
 		output("`b`c`^%s`b`c`n`7",$title);
-		$page = httpget('page');
+		$page = (int) httpget('page');
 		$pp = 40;
 		$pageoffset = (int)$page;
 		if ($pageoffset > 0) $pageoffset--;

@@ -70,7 +70,7 @@ if ($op=="tattoo") {
 if ($op=="memberlist") {
 	global $session;
 	$pp = 40;
-	$page = httpget('page');
+	$page = (int) httpget('page');
 	$pageoffset = (int)$page;
 	if ($pageoffset > 0) $pageoffset--;
 	$pageoffset *= $pp;

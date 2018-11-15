@@ -173,7 +173,7 @@ if ($op=="heal"){
 }
 if ($op == "hof") {
 	page_header("Hall of Fame");
-	$page = httpget('page');
+	$page = (int) httpget('page');
 	$pp = get_module_setting("pp");
 	$pageoffset = (int)$page;
 	if ($pageoffset > 0) $pageoffset--;
