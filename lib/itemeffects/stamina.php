@@ -15,8 +15,6 @@ function itemeffects_restore_stamina($stamina, $item)
     //-- No stamina restore
     if ($stamina == 0) { return false; }
 
-    global $lotgdFormat;
-
     require_once 'modules/staminasystem/lib/lib.php';
 
     $out = [];
@@ -27,9 +25,9 @@ function itemeffects_restore_stamina($stamina, $item)
 
         addstamina($stamina);
 
-        $staminaPercent = $lotgdFormat->numeral(get_stamina(3) - $percent, 2);
+        $staminaPercent = LotgdFormat::numeral(get_stamina(3) - $percent, 2);
 
-        $out[] = ['`@Restore `b%s`b points of Stamina, about `b%s%%`b of your total Stamina by using `i%s`i.`0`n', $lotgdFormat->numeral($stamina), $staminaPercent, $item['name']];
+        $out[] = ['`@Restore `b%s`b points of Stamina, about `b%s%%`b of your total Stamina by using `i%s`i.`0`n', LotgdFormat::numeral($stamina), $staminaPercent, $item['name']];
 
         debuglog("Restore $stamina points of Stamina by using {$item['itemid']}");
     }
@@ -39,9 +37,9 @@ function itemeffects_restore_stamina($stamina, $item)
 
         removestamina(abs($stamina));
 
-        $staminaPercent = $lotgdFormat->numeral($percent - get_stamina(3), 2);
+        $staminaPercent = LotgdFormat::numeral($percent - get_stamina(3), 2);
 
-        $out[] = ['`$Lost `b%s`b points of Stamina, about `b%s%%`b of your total Stamina by using `i%s`i.`0`n', $lotgdFormat->numeral(abs($stamina)), $staminaPercent, $item['name']];
+        $out[] = ['`$Lost `b%s`b points of Stamina, about `b%s%%`b of your total Stamina by using `i%s`i.`0`n', LotgdFormat::numeral(abs($stamina)), $staminaPercent, $item['name']];
 
         debuglog("Lost $stamina points of Stamina by using {$item['itemid']}");
     }
