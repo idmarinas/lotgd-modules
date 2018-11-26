@@ -1,6 +1,6 @@
 <?php
 
-$spirits = isset($args['spirits']) ? $args['spirits'] : 0;
+$spirits = $args['spirits'] ?? 0;
 
 if($spirits > 0)
 {
@@ -8,7 +8,7 @@ if($spirits > 0)
 	addstamina($stamina);
 	debug("Turns Added");
 }
-else if (0 != $spirits)
+else if ($spirits < 0)
 {
     $stamina = (abs($spirits)*25000)*2;
 	removestamina($stamina);
