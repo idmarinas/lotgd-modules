@@ -83,6 +83,21 @@ plugins:
             file: "phpcs.xml"
     phan:
         enabled: true
+        config:
+            file_extensions:
+                - "php"
+            exclude_analysis_directory_list:
+                - "assets/"
+                - "cache/"
+                - "crawl/"
+                - "error_docs/"
+                - "gulp/"
+                - "images/"
+                - "logd_snapshots/"
+                - "resources/"
+                - "templates/"
+                - "themes/"
+                - "vendor/"
 exclude_patterns:
     - "config/"
     - "db/"
