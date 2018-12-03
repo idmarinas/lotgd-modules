@@ -85,9 +85,10 @@ plugins:
         enabled: true
         config:
             file_extensions: "php"
+            target_php_version: "7.1"
             globals_type_map:
-                - "DB"
-                - "LotgdLocator"
+                - "DB": "\\DB"
+                - "LotgdLocator": "\\LotgdLocator"
             exclude_analysis_directory_list:
                 - "assets/"
                 - "cache/"
