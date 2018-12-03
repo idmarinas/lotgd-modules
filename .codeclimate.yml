@@ -7,12 +7,18 @@ checks:
         enabled: true
     file-lines:
         enabled: true
+        config:
+            threshold: 350
     method-complexity:
         enabled: true
+        config:
+            threshold: 12
     method-count:
         enabled: true
     method-lines:
         enabled: true
+        config:
+            threshold: 35
     nested-control-flow:
         enabled: true
     return-statements:
@@ -25,15 +31,18 @@ plugins:
     nodesecurity:
         enabled: true
     sonar-php:
-        enabled: true
+        enabled: false
         exclude_patterns:
-            - "**/assets/"
-            - "**/error_docs/"
-            - "**/gulp/"
-            - "**/images/"
-            - "**/resources/"
-            - "**/templates/"
-            - "**/themes/"
+            - "assets/"
+            - "cache/"
+            - "crawl/"
+            - "error_docs/"
+            - "gulp/"
+            - "images/"
+            - "logd_snapshots/"
+            - "resources/"
+            - "templates/"
+            - "themes/"
             - "**/*.ico"
             - "**/*.png"
         config:
@@ -41,17 +50,39 @@ plugins:
     phpmd:
         enabled: true
         exclude_patterns:
-            - "**/assets/"
-            - "**/error_docs/"
-            - "**/gulp/"
-            - "**/images/"
-            - "**/resources/"
-            - "**/templates/"
-            - "**/themes/"
+            - "assets/"
+            - "cache/"
+            - "crawl/"
+            - "error_docs/"
+            - "gulp/"
+            - "images/"
+            - "logd_snapshots/"
+            - "resources/"
+            - "templates/"
+            - "themes/"
         config:
             file_extensions:
                 - php
-            rulesets: "cleancode,codesize,controversial,design,naming,unusedcode,phpmd-ruleset.xml"
+            rulesets: "cleancode,controversial,design,naming,unusedcode"
+    phpcodesniffer:
+        enabled: false
+        exclude_patterns:
+            - "assets/"
+            - "cache/"
+            - "crawl/"
+            - "error_docs/"
+            - "gulp/"
+            - "images/"
+            - "logd_snapshots/"
+            - "resources/"
+            - "templates/"
+            - "themes/"
+        config:
+            file_extensions: "php"
+            standard: "PSR2"
+            file: "phpcs.xml"
+    phan:
+        enabled: true
 exclude_patterns:
     - "config/"
     - "db/"
@@ -63,7 +94,8 @@ exclude_patterns:
     - "**/test/"
     - "**/tests/"
     - "Tests/"
-    - "**/vendor/"
+    - "vendor/"
     - "**/*_test.go"
     - "**/*.d.ts"
-    - "**/semantic/"
+    - "semantic/"
+    - "resources/jqueryCookieGuard.1.1.0.js"
