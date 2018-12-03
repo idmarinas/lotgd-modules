@@ -84,8 +84,7 @@ plugins:
     phan:
         enabled: true
         config:
-            file_extensions:
-                - "php"
+            file_extensions: "php"
             exclude_analysis_directory_list:
                 - "assets/"
                 - "cache/"
