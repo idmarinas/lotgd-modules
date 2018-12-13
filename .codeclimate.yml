@@ -5,6 +5,8 @@ checks:
         enabled: true
     complex-logic:
         enabled: true
+        config:
+            threshold: 5
     file-lines:
         enabled: true
         config:
@@ -12,7 +14,7 @@ checks:
     method-complexity:
         enabled: true
         config:
-            threshold: 12
+            threshold: 15
     method-count:
         enabled: true
     method-lines:
@@ -21,17 +23,32 @@ checks:
             threshold: 35
     nested-control-flow:
         enabled: true
+        config:
+            threshold: 5
     return-statements:
         enabled: true
+        config:
+            threshold: 5
     similar-code:
         enabled: true
     identical-code:
         enabled: true
 plugins:
+    editorconfig:
+        enabled: true
+        exclude_patterns:
+            - "images/"
+            - "**/*.ico"
+            - "**/*.png"
+        config:
+            editorconfig: .editorconfig
     nodesecurity:
         enabled: true
+    eslint:
+        enabled: true
+        channel: "eslint-5"
     sonar-php:
-        enabled: false
+        enabled: true
         exclude_patterns:
             - "assets/"
             - "cache/"
@@ -47,6 +64,11 @@ plugins:
             - "**/*.png"
         config:
             file_extensions: "php"
+        checks:
+            php:S3776:
+                enabled: false
+            php:S1192:
+                enabled: false
     phpmd:
         enabled: true
         exclude_patterns:
@@ -64,8 +86,11 @@ plugins:
             file_extensions:
                 - php
             rulesets: "cleancode,controversial,design,naming,unusedcode"
+        checks:
+            CleanCode/StaticAccess:
+                enabled: false
     phpcodesniffer:
-        enabled: false
+        enabled: true
         exclude_patterns:
             - "assets/"
             - "cache/"
@@ -79,16 +104,31 @@ plugins:
             - "themes/"
         config:
             file_extensions: "php"
-            standard: "PSR2"
-            file: "phpcs.xml"
+            standard: "PSR2,phpcs.xml"
+        checks:
+            Squiz Functions MultiLineFunctionDeclaration OneParamPerLine:
+                enabled: false
+            Squiz ControlStructures ControlSignature SpaceAfterCloseParenthesis:
+                enabled: false
+            Squiz Functions MultiLineFunctionDeclaration NewlineBeforeOpenBrace:
+                enabled: false
+            Squiz ControlStructures ControlSignature SpaceAfterCloseBrace:
+                enabled: false
+            Squiz ControlStructures ControlSignature SpaceAfterKeyword:
+                enabled: false
     phan:
-        enabled: true
+        enabled: false
         config:
             file_extensions: "php"
             target_php_version: "7.1"
-            globals_type_map:
-                - "DB": "\\DB"
-                - "LotgdLocator": "\\LotgdLocator"
+            minimum_severity: 3
+            ignore_undeclared: true
+            output_mode: "codeclimate"
+            directory:
+                - "config/"
+                - "cronjob/"
+                - "lib/"
+                - "src/"
             exclude_analysis_directory_list:
                 - "assets/"
                 - "cache/"
