@@ -2,6 +2,7 @@ lotgd.esproj
 dbconnect.php
 /node_modules
 /dist
+*.dist
 /bower_components
 
 ## This modules not are revised and not commit it
