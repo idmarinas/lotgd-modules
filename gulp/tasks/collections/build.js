@@ -1,11 +1,12 @@
-/** *****************************
-                Define Sub-Tasks
-*******************************/
-
 module.exports = function (gulp)
 {
     //-- Tasks
-    var main = require('../build/main')
+    const main = require('../build/main')
+    const build = require('../build')
 
-    gulp.task('main', 'Copy main files of application', main)
+    gulp.task('build', build)
+    gulp.task('build').description = 'Build files of application'
+
+    gulp.task('main', main)
+    gulp.task('main').description = 'Copy main files of application'
 }

@@ -1,17 +1,9 @@
 //-- Dependencies
-var gulp = require('gulp-help')(require('gulp'))
-var runSequence = require('run-sequence')
+const { series } = require('gulp')
 
-require('./collections/build')(gulp)
-
-module.exports = function (callback)
+module.exports = function (cb)
 {
-    console.info('Building application')
+    console.info('Building application modules')
 
-    runSequence(
-        'delete',
-        'main',
-
-        callback
-    )
+    return series('delete', 'main')(cb)
 }

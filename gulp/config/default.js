@@ -26,7 +26,7 @@ module.exports = {
             '!waiting{,/**}',
             '!node_modules{,/**}',
             '!bower_components{,/**}',
-            '!**/*.{dist,md,lock,json}',
+            '!**/*.{dist,md,lock,json}{,/**}',
             '!semantic{,/**}',
             //-- Other files
             '!{CHANGELOG.txt,QUICKINSTALL.TXT,README_FIRST.txt,README.txt,INSTALL.TXT}'
