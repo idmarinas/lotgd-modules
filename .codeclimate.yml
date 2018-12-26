@@ -85,7 +85,7 @@ plugins:
         config:
             file_extensions:
                 - php
-            rulesets: "cleancode,controversial,design,naming,unusedcode"
+            rulesets: "phpmd-ruleset.xml"
         checks:
             CleanCode/StaticAccess:
                 enabled: false
