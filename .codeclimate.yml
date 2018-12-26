@@ -83,14 +83,15 @@ plugins:
             - "templates/"
             - "themes/"
         config:
-            file_extensions:
-                - php
+            file_extensions: "php"
             rulesets: "phpmd-ruleset.xml"
         checks:
             CleanCode/StaticAccess:
                 enabled: false
+            Naming/BooleanGetMethodName:
+                enabled: false
     phpcodesniffer:
-        enabled: true
+        enabled: false
         exclude_patterns:
             - "assets/"
             - "cache/"
