@@ -1,4 +1,5 @@
 ![GitHub issues](https://img.shields.io/github/issues/idmarinas/lotgd-modules.svg)
+[![DepShield Badge](https://depshield.sonatype.org/badges/idmarinas/lotgd-modules/depshield.svg)](https://depshield.github.io)
 [![Website](https://img.shields.io/website-up-down-green-red/https/lotgd.infommo.es.svg?label=lotgd-demo)](https://lotgd.infommo.es)
 [![built with gulp](https://img.shields.io/badge/gulp-builds_this_project-eb4a4b.svg?logo=gulp)](http://gulpjs.com/)
 
