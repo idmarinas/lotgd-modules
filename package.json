@@ -22,7 +22,7 @@
         "eslint-plugin-standard": "^4.0.0",
         "gulp": "^4.0.0",
         "gulp-concat": "^2.6.1",
-        "gulp-help": "github:chmontgomery/gulp-help#gulp4",
+        "gulp-help": "chmontgomery/gulp-help#gulp4",
         "gulp-licenser": "^1.0.2",
         "gulp-put": "^0.0.3",
         "gulp-remove-code": "^3.0.4",
