@@ -24,14 +24,13 @@ function itemeffects_increased_gold($gold, $item)
 
     $out = [];
 
+    $message = ['`^You `$lose`^ %s gold.`0`n', abs($gold)];
     if ($gold > 0)
     {
-        $out[] = ['`^You `@gain`^ %s gold.`0`n', $gold];
+        $message = ['`^You `@gain`^ %s gold.`0`n', $gold];
     }
-    else
-    {
-        $out[] = ['`^You `$lose`^ %s gold.`0`n', abs($gold)];
-    }
+
+    $out[]= $message;
 
     return $out;
 }
