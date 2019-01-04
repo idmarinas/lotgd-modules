@@ -17,6 +17,8 @@ checks:
             threshold: 15
     method-count:
         enabled: true
+        config:
+            threshold: 25
     method-lines:
         enabled: true
         config:
@@ -69,6 +71,8 @@ plugins:
                 enabled: false
             php:S1192:
                 enabled: false
+            php:S1448:
+                enabled: false
     phpmd:
         enabled: true
         exclude_patterns:
@@ -84,7 +88,7 @@ plugins:
             - "themes/"
         config:
             file_extensions: "php"
-            rulesets: "phpmd-ruleset.xml"
+            rulesets: "phpmd.xml"
         checks:
             CleanCode/StaticAccess:
                 enabled: false
