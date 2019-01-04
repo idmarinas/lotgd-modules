@@ -1,19 +1,25 @@
 <?php
 /**
- * Restore turns
+ * Restore turns.
  *
- * @param int $turns Can be negative
- * @param array $item Data of item
+ * @param int   $turns Can be negative
+ * @param array $item  Data of item
  *
  * @return array|false Return false if nothing happend or an array of messages
  */
 function itemeffects_restore_turns($turns, $item)
 {
     //-- Not do nothing if module Stamina is active
-    if (is_module_active('staminasystem')) { return false; }
+    if (is_module_active('staminasystem'))
+    {
+        return false;
+    }
 
     //-- No turns restore
-    if ($turns == 0) { return false; }
+    if (0 == $turns)
+    {
+        return false;
+    }
 
     global $session;
 
@@ -22,10 +28,17 @@ function itemeffects_restore_turns($turns, $item)
     debuglog("'s turns were altered by $turns by item {$item['itemid']}.");
 
     $out = [];
+
     if ($turns > 0)
     {
-        if($turns == 1) { $out[] = '`^You `@gain`^ one turn.`0`n'; }
-        else { $out[] = ['`^You `@gain`^ %s turns.`0`n', $turns]; }
+        if (1 == $turns)
+        {
+            $out[] = '`^You `@gain`^ one turn.`0`n';
+        }
+        else
+        {
+            $out[] = ['`^You `@gain`^ %s turns.`0`n', $turns];
+        }
     }
     else
     {
@@ -36,8 +49,14 @@ function itemeffects_restore_turns($turns, $item)
         }
         else
         {
-            if($turns == -1) { $out[] = '`^You `$lose`^ one turn.`0`n'; }
-            else { $out[] = ['`^You `$lose`^ %s turns.`0`n', abs($turns)]; }
+            if (-1 == $turns)
+            {
+                $out[] = '`^You `$lose`^ one turn.`0`n';
+            }
+            else
+            {
+                $out[] = ['`^You `$lose`^ %s turns.`0`n', abs($turns)];
+            }
         }
     }
 
@@ -45,10 +64,10 @@ function itemeffects_restore_turns($turns, $item)
 }
 
 /**
- * OBSOLETE
+ * OBSOLETE.
  *
- * @param int $hitpoins Can be negative
- * @param array $item Data of item
+ * @param int   $hitpoins Can be negative
+ * @param array $item     Data of item
  *
  * @return array|false Return false if nothing happend or an array of messages
  */
