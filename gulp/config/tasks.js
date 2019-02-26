@@ -1,10 +1,10 @@
 //-- Dependencies
-var gutil = require('gulp-util')
+var env = require('minimist')(process.argv.slice(2))
 
 //-- Options
-var themeOptions = { theme: gutil.env.theme || 'jade' }
-var envOptions = { env: gutil.env.env || 'development' }
-var options = Object.assign(gutil.env, envOptions, themeOptions)
+var themeOptions = { theme: env.env.theme || 'jade' }
+var envOptions = { env: env.env.env || 'development' }
+var options = Object.assign(env.env, envOptions, themeOptions)
 
 module.exports = {
     log: {
