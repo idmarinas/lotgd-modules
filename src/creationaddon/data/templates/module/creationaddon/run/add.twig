@@ -1,0 +1,9 @@
+{% translate_default_domain 'module-creationaddon' %}
+
+<form action="{{ 'runmodule.php?module=creationaddon&op=add&admin=true'|lotgd_url }}" method="POST">
+    {{ form }}
+
+    <div class="field">
+        <button class="ui button" type="submit">{{ 'superuser.add.button'|t|uncolorize }}</button>
+    </div>
+</form>

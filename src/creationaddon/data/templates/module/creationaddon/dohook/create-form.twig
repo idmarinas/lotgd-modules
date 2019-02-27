@@ -1,0 +1,66 @@
+{% translate_default_domain 'module-creationaddon' %}
+
+<br>
+<div class="grouped fields">
+    {% if creationMessage %}
+        <div class="required field">
+            <label for="">{{ creationMessage|e('html')|colorize }}</label>
+        </div>
+    {% endif %}
+
+    {% if requireage %}
+        <div class="field">
+            <div class="ui checkbox field">
+                <input type="checkbox" name="age">
+                <label>{{ 'input.label.age'|t({'age': age})|colorize }}</label>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if requireterms %}
+        <div class="field">
+            <div class="ui checkbox field">
+                <input type="checkbox" name="terms">
+                {% set terms = '<a href="' ~ 'runmodule.php?module=creationaddon&op=terms'|lotgd_url ~ '" target="_blank" onClick="Lotgd.embed(this)">' ~ 'terms'|t|uncolorize ~ '</a>' %}
+                <label>{{ 'input.label.terms'|t({'terms': terms})|colorize }}</label>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if requireprivacy %}
+        <div class="field">
+            <div class="ui checkbox field">
+                <input type="checkbox" name="privacy">
+                {% set privacy = '<a href="' ~ 'runmodule.php?module=creationaddon&op=privacy'|lotgd_url ~ '" target="_blank" onClick="Lotgd.embed(this)">' ~ 'privacy'|t|uncolorize ~ '</a>' %}
+                <label>{{ 'input.label.privacy'|t({'privacy': privacy})|colorize }}</label>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if askbday %}
+        <div class="inline field">
+            <label id="bday">{{ 'input.label.birthday'|t|colorize }}</label>
+            {{ 'input.select.month'|t }}
+            <select aria-label="{{ 'input.select.year'|t|uncolorize }}" class="ui compact dropdown" name="month" id="month">
+                {% for month in 1..12 %}
+                    <option value="{{ month }}">{{ month }}</option>
+                {% endfor %}
+            </select>
+            {{ 'input.select.day'|t }}
+            <select aria-label="{{ 'input.select.day'|t|uncolorize }}" class="ui compact dropdown" name="day" id="day">
+                {% for day in 1..31 %}
+                    <option value="{{ day }}">{{ day }}</option>
+                {% endfor %}
+            </select>
+            {% if requireyear %}
+                {{ 'input.select.year'|t }}
+                <select aria-label="{{ 'input.select.year'|t|uncolorize }}" class="ui compact dropdown" name="year" id="year">
+                    {% for year in 0..75 %}
+                        {% set x = ('now'|date('Y') - 13) - year %}
+                        <option value="{{ x }}">{{ x }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
