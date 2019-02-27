@@ -17,19 +17,7 @@ module.exports = {
         //-- Files to copy
         main: [
             //-- All files including subdirectories
-            '**{,/**,/.htaccess}',
-            //-- Ignore files of development
-            '!gulp{,/**}',
-            '!gulpfile.js',
-            '!assets{,/**}',
-            '!dist{,/**}',
-            '!waiting{,/**}',
-            '!node_modules{,/**}',
-            '!bower_components{,/**}',
-            '!**/*.{dist,md,lock,json}{,/**}',
-            '!semantic{,/**}',
-            //-- Other files
-            '!{CHANGELOG.txt,QUICKINSTALL.TXT,README_FIRST.txt,README.txt,INSTALL.TXT}'
+            'src/{,/**}'
         ]
     }
 }

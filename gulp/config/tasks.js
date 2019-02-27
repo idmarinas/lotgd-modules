@@ -2,9 +2,8 @@
 var env = require('minimist')(process.argv.slice(2))
 
 //-- Options
-var themeOptions = { theme: env.env.theme || 'jade' }
-var envOptions = { env: env.env.env || 'development' }
-var options = Object.assign(env.env, envOptions, themeOptions)
+var envOptions = { env: env.env || 'development' }
+var options = Object.assign(env, envOptions)
 
 module.exports = {
     log: {
