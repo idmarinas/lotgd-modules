@@ -135,7 +135,6 @@ function creationaddon_dohook($hookname, $args)
                 \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.privacy', [], 'module-creationaddon'));
 
                 $blockaccount = true;
-
             }
 
             if (get_module_setting('chkbday'))
@@ -198,7 +197,7 @@ function creationaddon_dohook($hookname, $args)
 
             if (get_module_setting('requireterms') && get_module_setting('showfooter'))
             {
-                $terms = \LotgdTranslator::t('terms', [], 'module-creationaddon');;
+                $terms = \LotgdTranslator::t('terms', [], 'module-creationaddon');
                 $termsfooter = "<br><a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>$terms</a>";
                 addnav('', 'runmodule.php?module=creationaddon&op=terms');
 
