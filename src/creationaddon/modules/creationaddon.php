@@ -171,7 +171,7 @@ function creationaddon_dohook($hookname, $args)
 
         case 'create-form':
             $args['templates'] = [
-                'module/creationaddon/dohook/create-form.twig' => [
+                'creationaddon/dohook/create-form.twig' => [
                     'creationMessage' => get_module_setting('creationmsg'),
                     'requireage' => (bool) get_module_setting('requireage'),
                     'age' => (int) get_module_setting('age'),
@@ -271,7 +271,7 @@ function creationaddon_run()
             $params = [
                 'terms' => get_module_setting('terms')
             ];
-            rawoutput(LotgdTheme::renderModuleTemplate('module/creationaddon/run/terms.twig', $params));
+            rawoutput(LotgdTheme::renderModuleTemplate('creationaddon/run/terms.twig', $params));
         break;
 
         case 'privacy':
@@ -280,7 +280,7 @@ function creationaddon_run()
             $params = [
                 'privacy' => get_module_setting('privacy')
             ];
-            rawoutput(LotgdTheme::renderModuleTemplate('module/creationaddon/run/privacy.twig', $params));
+            rawoutput(LotgdTheme::renderModuleTemplate('creationaddon/run/privacy.twig', $params));
         break;
 
         case 'list':
@@ -322,7 +322,7 @@ function creationaddon_list()
     $params = [
         'paginator' => $paginator
     ];
-    rawoutput(LotgdTheme::renderModuleTemplate('module/creationaddon/run/list.twig', $params));
+    rawoutput(LotgdTheme::renderModuleTemplate('creationaddon/run/list.twig', $params));
 
     page_footer();
 }
@@ -413,7 +413,7 @@ function creationaddon_add()
     ];
     $params['form'] = lotgd_showform($badnamesarray, [], true, false, false);
 
-    rawoutput(LotgdTheme::renderModuleTemplate('module/creationaddon/run/add.twig', $params));
+    rawoutput(LotgdTheme::renderModuleTemplate('creationaddon/run/add.twig', $params));
 
     page_footer();
 }
