@@ -18,21 +18,43 @@ All this work was done without intention to offend or break the license on which
 
 # Structure of modules for version 4.0.0
 ```
-src/
-    moduleName/
-        data/
-            templates/
-                module/
-                    moduleName/
-                        file.twig
-            translations
-                en/
-                    module/
-                        moduleName.yaml
-        modules/
-            moduleName.php
-        src/
+..\src
+├── moduleName
+│   ├── data
+│   │   ├── template
+│   │   │   └── module
+│   │   │       └── moduleName
+│   │   │           └── file.twig
+│   │   └── translation
+│   │       └── en
+│   │           └── module
+│   │               └── moduleName.yaml
+│   ├── modules
+│   │   └── moduleName.php
+│   └── src
+│       └── local
+│           └── Entity
+│               └── ModuleModuleName.php
 ```
 > Simplifying, each module is included in its own folder, which copies the LoTGD structure.
 
-## This modules may not work in other version ##
+> This structure is only for this repository, when the command `gulp` is executed the structure of the modules becomes:
+```
+data
+├── template
+│   └── module
+│       └── moduleName
+│           └── file.twig
+└── translation
+    └── en
+        └── module
+            └── moduleName.yaml
+modules
+└── moduleName.php
+src
+└── local
+    └── Entity
+        └── ModuleModuleName.php
+```
+
+## This modules not work in other version ##
