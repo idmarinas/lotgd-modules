@@ -16,6 +16,8 @@ This modules are created for community of LOTGD and published in ([DragonPrime](
 These modules are downloaded from ([DragonPrime](http://dragonprime.net)) and adapted to work in LOTGD IDMarinas Edition and are published in this repository so that other members can use them with LOTGD IDMarinas Edition.
 All this work was done without intention to offend or break the license on which the modules and the core of LOTGD are based.
 
+> **_NOTE:_**  This modules not work in other version
+
 # Structure of modules for version 4.0.0
 ```
 ..\src
@@ -57,4 +59,11 @@ src
         └── ModuleModuleName.php
 ```
 
-## This modules not work in other version ##
+# Obsolete modules
+
+> These modules are obsolete and it is not recommended to use them in a version greater than or equal to 4.0.0.
+>
+> On many occasions, the functionality has been included in the core.
+
+-   `serversuspend.php` Server Maintenance Suspension
+    >   The core now includes this feature.
