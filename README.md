@@ -1,7 +1,20 @@
-![GitHub issues](https://img.shields.io/github/issues/idmarinas/lotgd-modules.svg)
-[![DepShield Badge](https://depshield.sonatype.org/badges/idmarinas/lotgd-modules/depshield.svg)](https://depshield.github.io)
+![GitHub release](https://img.shields.io/github/release/idmarinas/lotgd-modules.svg)
+![GitHub Release Date](https://img.shields.io/github/release-date/idmarinas/lotgd-modules.svg)
 [![Website](https://img.shields.io/website-up-down-green-red/https/lotgd.infommo.es.svg?label=lotgd-demo)](https://lotgd.infommo.es)
+[![Build in PHP](https://img.shields.io/badge/PHP-^7.1-8892BF.svg?logo=php)](http://php.net/)
+![Installation](https://img.shields.io/badge/install-sucess-orange.svg?maxAge=2592000)
+![Upgrade](https://img.shields.io/badge/upgrade-success-green.svg?maxAge=2592000)
+![Working](https://img.shields.io/badge/working-succes-green.svg?maxAge=2592000)
+
+![GitHub top language](https://img.shields.io/github/languages/top/idmarinas/lotgd-modules.svg)
+![GitHub language count](https://img.shields.io/github/languages/count/idmarinas/lotgd-modules.svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4553239eac9e717f1cce/maintainability)](https://codeclimate.com/github/idmarinas/lotgd-modules/maintainability)
+[![DepShield Badge](https://depshield.sonatype.org/badges/idmarinas/lotgd-modules/depshield.svg)](https://depshield.github.io)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/idmarinas/lotgd-modules.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/idmarinas/lotgd-modules/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/idmarinas/lotgd-modules.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/idmarinas/lotgd-modules/context:javascript)
+
 [![built with gulp](https://img.shields.io/badge/gulp-builds_this_project-eb4a4b.svg?logo=gulp)](http://gulpjs.com/)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=idmarinas/lotgd-modules)](https://dependabot.com)
 
 [![PayPal - The safer, easier way to pay online!](https://img.shields.io/badge/donate-help_my_project-ffaa29.svg?logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CAYNPHQ8VN92C&source=url)
 [![Liberapay - Donate](https://img.shields.io/liberapay/receives/IDMarinas.svg?logo=liberapay)](https://liberapay.com/IDMarinas/donate)
