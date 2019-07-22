@@ -1,0 +1,52 @@
+specialty.name: 'Dark Arts'
+
+section:
+    choose.select: 'Killing a lot of woodland creatures'
+    set.paragraph:
+        - '`5Growing up, you recall killing many small woodland creatures, insisting that they were plotting against you.'
+        - 'Your parents, concerned that you had taken to killing the creatures barehanded, bought you your very first pointy twig.'
+        - "It wasn't until your teenage years that you began performing dark rituals with the creatures, disappearing into the forest for days on end, no one quite knowing where those sounds came from.`0"
+    newday.paragraph: '`n`2For being interested in {color}{name}`0, you receive `^{bonus,plural, =1{1 extra use} other{# extra uses}}`0 of {color}{name}`0 for today.`0`n'
+
+battle:
+    increment:
+        specialty:
+            level: '`n{color}You gain a level in `&{name}`0 to `#{level,number}`0.`0!'
+            gain: '`n`^You gain an extra use point!`0`n'
+            need: '`n`^Only {level,plural, =1{1 more skill level} other{# more skill levels}} until you gain an extra use point!`n'
+
+navigation:
+    category:
+        uses: '{color}{name} ({uses,plural, =1{1 point} other{# points}})`0'
+    nav:
+        skill1: '{color} &#149; Skeleton Crew `7({use,number})`0`0'
+        skill2: '{color} &#149; Voodoo `7({use,number})`0`0'
+        skill3: '{color} &#149; Curse Spirit `7({use,number})`0`0'
+        skill4: '{color} &#149; Wither Soul `7({use,number})`0`0'
+
+skill:
+    companion:
+        name: '`4Skeleton Warrior`0'
+        dyingtext: '`$Your skeleton warrior crumbles to dust.`0`n'
+    da0:
+        startmsg: 'Exhausted, you try your darkest magic, a bad joke. {badguy} looks at you for a minute, thinking, and finally gets the joke. Laughing, it swings at you again.'
+    da1:
+        startmsg: '`$You call on the spirits of the dead, and skeletal hands claw at {badguy} from beyond the grave.`0'
+        name: '`$Skeleton Crew`0'
+        wearoff: 'Your skeleton minions crumble to dust.'
+        effectmsg: '`)An undead minion hits {badguy} for `^{damage}`0 damage.`0'
+        effectnodmgmsg: '`)An undead minion tries to hit {badguy} but `$MISSES`0!`0'
+    da2:
+        startmsg: '`$You pull out a tiny doll that looks like {badguy}.`0'
+        effectmsg: 'You thrust a pin into the {badguy} doll hurting it for `^{damage}`0 points!'
+    da3:
+        startmsg: "`$You place a curse on {badguy}'s ancestors.`0"
+        name: '`$Curse Spirit`0'
+        wearoff: 'Your curse has faded.'
+        roundmsg: '{badguy} staggers under the weight of your curse, and deals only half damage.'
+    da4:
+        startmsg: '`$You hold out your hand and {badguy} begins to bleed from its ears.`0'
+        name: '`$Wither Soul`0'
+        wearoff: "Your victim's soul has been restored."
+        roundmsg: '{badguy} claws at its eyes, trying to release its own soul, and cannot attack or defend.'
+
