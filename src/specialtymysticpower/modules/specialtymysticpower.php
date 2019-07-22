@@ -171,6 +171,9 @@ function specialtymysticpower_dohook($hookname, $args)
             $uses = get_module_pref('uses');
             $script = $args['script'];
 
+            //-- Change text domain for navigation
+            \LotgdNavigation::setTextDomain('module-specialtymysticpower');
+
             if ($uses > 0)
             {
                 \LotgdNavigation::addHeader('navigation.category.uses', [
@@ -205,7 +208,10 @@ function specialtymysticpower_dohook($hookname, $args)
                     'params' => ['color' => $ccode, 'use' => 5]
                 ]);
             }
-            break;
+
+            //-- Restore text domain for navigation
+            \LotgdNavigation::setTextDomain();
+        break;
         case 'apply-specialties':
             $skill = \LotgdHttp::getQuery('skill');
             $l = \LotgdHttp::getQuery('l');
