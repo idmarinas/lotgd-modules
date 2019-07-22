@@ -82,8 +82,8 @@ function specialtydarkarts_dohook($hookname, $args)
         case 'choose-specialty':
             if ('' == $session['user']['specialty'] || '0' == $session['user']['specialty'])
             {
-                \LotgdNavigation::addHeader('common.category.basic');
-                \LotgdNavigation::addNavNtl("{$ccode}{$name}`0", "newday.php?setspecialty={$spec}{$resline}");
+                \LotgdNavigation::addHeader('category.basic');
+                \LotgdNavigation::addNavNotl("{$ccode}{$name}`0", "newday.php?setspecialty={$spec}{$resline}");
 
                 $params = [
                     'colorCode' => $ccode,
