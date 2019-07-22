@@ -84,7 +84,7 @@ function specialtymysticpower_dohook($hookname, $args)
         case 'choose-specialty':
             if ('' == $session['user']['specialty'] || '0' == $session['user']['specialty'])
             {
-                \LotgdNavigation::addHeader('common.category.basic');
+                \LotgdNavigation::addHeader('category.basic');
                 \LotgdNavigation::addNavNotl("{$ccode}{$name}`0", "newday.php?setspecialty={$spec}{$resline}");
 
                 $params = [
@@ -101,7 +101,7 @@ function specialtymysticpower_dohook($hookname, $args)
             {
                 page_header($name);
 
-                rawoutput(\LotgdTheme::renderModuleTemplate('specialtymysticpower/dohook/set-specialty.twig', $params));
+                rawoutput(\LotgdTheme::renderModuleTemplate('specialtymysticpower/dohook/set-specialty.twig', []));
             }
         break;
         case 'specialtycolor':

@@ -99,7 +99,7 @@ function specialtydarkarts_dohook($hookname, $args)
             {
                 page_header($name);
 
-                rawoutput(\LotgdTheme::renderModuleTemplate('specialtydarkarts/dohook/set-specialty.twig', $params));
+                rawoutput(\LotgdTheme::renderModuleTemplate('specialtydarkarts/dohook/set-specialty.twig', []));
             }
         break;
         case 'specialtycolor':
