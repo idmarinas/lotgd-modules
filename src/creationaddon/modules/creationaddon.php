@@ -170,15 +170,13 @@ function creationaddon_dohook($hookname, $args)
         break;
 
         case 'create-form':
-            $args['templates'] = [
-                'creationaddon/dohook/create-form.twig' => [
-                    'creationMessage' => get_module_setting('creationmsg'),
-                    'requireage' => (bool) get_module_setting('requireage'),
-                    'age' => (int) get_module_setting('age'),
-                    'requireterms' => (bool) get_module_setting('requireterms'),
-                    'requireprivacy' => (bool) get_module_setting('requireprivacy'),
-                    'requireyear' => (bool) get_module_setting('requireyear'),
-                ]
+            $args['templates']['module/creationaddon/dohook/create-form.twig'] = [
+                'creationMessage' => get_module_setting('creationmsg'),
+                'requireage' => (bool) get_module_setting('requireage'),
+                'age' => (int) get_module_setting('age'),
+                'requireterms' => (bool) get_module_setting('requireterms'),
+                'requireprivacy' => (bool) get_module_setting('requireprivacy'),
+                'requireyear' => (bool) get_module_setting('requireyear')
             ];
         break;
 
