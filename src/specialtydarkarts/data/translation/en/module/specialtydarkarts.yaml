@@ -44,7 +44,7 @@ skill:
         name: '`$Curse Spirit`0'
         wearoff: 'Your curse has faded.'
         roundmsg: '{badguy} staggers under the weight of your curse, and deals only half damage.'
-    da4:
+    da5:
         startmsg: '`$You hold out your hand and {badguy} begins to bleed from its ears.`0'
         name: '`$Wither Soul`0'
         wearoff: "Your victim's soul has been restored."

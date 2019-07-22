@@ -122,7 +122,7 @@ function specialtydarkarts_dohook($hookname, $args)
 
                 $lotgdBattleContent['battleend'][] = [
                     'battle.increment.specialty.level',
-                    [ 'color'=> $c, 'name' => $name, 'level' => $new ],
+                    ['color' => $c, 'name' => $name, 'level' => $new],
                     'module-specialtydarkarts'
                 ];
                 $x = $new % 3;
@@ -140,7 +140,7 @@ function specialtydarkarts_dohook($hookname, $args)
                 {
                     $lotgdBattleContent['battleend'][] = [
                         'battle.increment.specialty.need',
-                        [ 'level' => \floor(3 - $x) ],
+                        ['level' => \floor(3 - $x)],
                         'module-specialtydarkarts'
                     ];
                 }
@@ -183,28 +183,28 @@ function specialtydarkarts_dohook($hookname, $args)
                     ]
                 ]);
                 \LotgdNavigation::addNav('navigation.nav.skill1', "{$script}op=fight&skill={$spec}&l=1", [
-                    'params' => [ 'color' => $ccode, 'use' => 1 ]
+                    'params' => ['color' => $ccode, 'use' => 1]
                 ]);
             }
 
             if ($uses > 1)
             {
                 \LotgdNavigation::addNav('navigation.nav.skill2', "{$script}op=fight&skill={$spec}&l=2", [
-                    'params' => [ 'color' => $ccode, 'use' => 2 ]
+                    'params' => ['color' => $ccode, 'use' => 2]
                 ]);
             }
 
             if ($uses > 2)
             {
                 \LotgdNavigation::addNav('navigation.nav.skill3', "{$script}op=fight&skill={$spec}&l=3", [
-                    'params' => [ 'color' => $ccode, 'use' => 3 ]
+                    'params' => ['color' => $ccode, 'use' => 3]
                 ]);
             }
 
             if ($uses > 4)
             {
                 \LotgdNavigation::addNav('navigation.nav.skill4', "{$script}op=fight&skill={$spec}&l=5", [
-                    'params' => [ 'color' => $ccode, 'use' => 5 ]
+                    'params' => ['color' => $ccode, 'use' => 5]
                 ]);
             }
 
@@ -236,7 +236,7 @@ function specialtydarkarts_dohook($hookname, $args)
                                     ],
                                     'ignorelimit' => true, // Does not count towards companion limit...
                                 ], true);
-                                // Because of this last "true" the companion can be added any time.
+                            // Because of this last "true" the companion can be added any time.
                                 // Even, if the player controls already more companions than normally allowed!
                             }
                             else
@@ -277,14 +277,14 @@ function specialtydarkarts_dohook($hookname, $args)
                             ]);
                             break;
                         case 5:
-                            apply_buff('da4', [
-                                'startmsg' => \LotgdTranslator::t('skill.da4.startmsg', [], 'module-specialtydarkarts'),
-                                'name' => \LotgdTranslator::t('skill.da4.name', [], 'module-specialtydarkarts'),
+                            apply_buff('da5', [
+                                'startmsg' => \LotgdTranslator::t('skill.da5.startmsg', [], 'module-specialtydarkarts'),
+                                'name' => \LotgdTranslator::t('skill.da5.name', [], 'module-specialtydarkarts'),
                                 'rounds' => 5,
-                                'wearoff' => \LotgdTranslator::t('skill.da4.wearoff', [], 'module-specialtydarkarts'),
+                                'wearoff' => \LotgdTranslator::t('skill.da5.wearoff', [], 'module-specialtydarkarts'),
                                 'badguyatkmod' => 0,
                                 'badguydefmod' => 0,
-                                'roundmsg' => \LotgdTranslator::t('skill.da4.roundmsg', [], 'module-specialtydarkarts'),
+                                'roundmsg' => \LotgdTranslator::t('skill.da5.roundmsg', [], 'module-specialtydarkarts'),
                                 'schema' => 'module-specialtydarkarts'
                             ]);
                             break;
@@ -307,4 +307,6 @@ function specialtydarkarts_dohook($hookname, $args)
     return $args;
 }
 
-function specialtydarkarts_run() {}
+function specialtydarkarts_run()
+{
+}
