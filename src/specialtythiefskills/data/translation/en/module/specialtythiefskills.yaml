@@ -1,0 +1,42 @@
+specialty.name: 'Thieving Skills'
+
+section:
+    choose.select: 'Stealing from the rich and giving to yourself'
+    set.paragraph:
+        - '`6Growing up, you recall discovering that a casual bump in a crowded room could earn you the coin purse of someone otherwise more fortunate than you.'
+        - 'You also discovered that the back side of your enemies were considerably more prone to a narrow blade than the front side was to even a powerful weapon.`0'
+    newday.paragraph: '`n`2For being interested in {color}{name}`0, you receive `^{bonus,plural, =1{1 extra use} other{# extra uses}}`0 of {color}{name}`0 for today.`0`n'
+
+
+navigation:
+    category:
+        uses: '{color}{name} ({uses,plural, =1{1 point} other{# points}})`0'
+    nav:
+        skill1: '{color} &#149; Insult `7({use,number})`0`0'
+        skill2: '{color} &#149; Poison Blade `7({use,number})`0`0'
+        skill3: '{color} &#149; Hidden Attack `7({use,number})`0`0'
+        skill4: '{color} &#149; Backstab `7({use,number})`0`0'
+
+skill:
+    ts0:
+        startmsg: 'You try to attack {badguy} by putting your best thievery skills into practice, but instead, you trip over your feet.'
+    ts1:
+        startmsg: '`^You call {badguy} a bad name, making it cry.`0'
+        name: '`^Insult`0'
+        wearoff: 'Your victim stops crying and wipes its nose.'
+        roundmsg: '{badguy} feels dejected and cannot attack as well.'
+    ts2:
+        startmsg: '`^You apply some poison to your {weapon}.`0'
+        name: '`^Poison Attack`0'
+        wearoff: "Your victim's blood has washed the poison from your {weapon}."
+        roundmsg: 'Your attack is multiplied!'
+    ts3:
+        starmsg: '`^With the skill of an expert thief, you virtually disappear, and attack {badguy} from a safer vantage point.`0'
+        name: '`^Hidden Attack`0'
+        wearoff: 'Your victim has located you.'
+        roundmsg: '{badguy} cannot locate you, and swings wildly!'
+    ts5:
+        startmsg: '`^Using your skills as a thief, you disappear behind {badguy} and slide a thin blade between its vertebrae!`0'
+        name: '`^Backstab`0'
+        wearoff: "Your victim won't be so likely to let you get behind it again!"
+        roundmsg: 'Your attack is multiplied, as is your defense!'
