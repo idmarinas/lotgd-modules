@@ -74,7 +74,6 @@ function specialtymysticpower_dohook($hookname, $args)
     $spec = 'MP';
     $name = \LotgdTranslator::t('specialty.name', [], 'module-specialtymysticpower');
     $ccode = '`%';
-    $ccode2 = '`%%'; // We need this to handle the damned sprintf escaping.
 
     switch ($hookname)
     {
