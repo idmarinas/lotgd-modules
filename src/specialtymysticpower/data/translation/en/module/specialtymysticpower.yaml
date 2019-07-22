@@ -1,0 +1,56 @@
+specialty.name: 'Dark Arts'
+
+section:
+    choose.select: 'Dabbling in mystical forces'
+    set.paragraph:
+        - '`3Growing up, you remember knowing there was more to the world than the physical, and what you could place your hands on.'
+        - 'You realized that your mind itself, with training, could be turned into a weapon.'
+        - 'Over time, you began to control the thoughts of small creatures, commanding them to do your bidding, and also to begin to tap into the mystical force known as mana, which could be shaped into the elemental forms of fire, water, ice, earth, and wind.'
+        - 'To your delight, it could also be used as a weapon against your foes.'
+    newday.paragraph: '`n`2For being interested in {color}{name}`0, you receive `^{bonus,plural, =1{1 extra use} other{# extra uses}}`0 of {color}{name}`0 for today.`0`n'
+
+battle:
+    increment:
+        specialty:
+            level: '`n{color}You gain a level in `&{name}`0 to `#{level,number}`0.`0!'
+            gain: '`n`^You gain an extra use point!`0`n'
+            need: '`n`^Only {level,plural, =1{1 more skill level} other{# more skill levels}} until you gain an extra use point!`n'
+
+navigation:
+    category:
+        uses: '{color}{name} ({uses,plural, =1{1 point} other{# points}})`0'
+    nav:
+        skill1: 'e?{color} &#149; Regeneration`0 `7({use,number})`0'
+        skill2: 'e?{color} &#149; Earth Fist`0 `7({use,number})`0'
+        skill3: 'e?{color} &#149; Siphon Life`0 `7({use,number})`0'
+        skill4: 'e?{color} &#149; Lightning Aura`0 `7({use,number})`0'
+
+skill:
+    mp0:
+        startmsg: 'You furrow your brow and call on the powers of the elements. A tiny flame appears. {badguy} lights a cigarette from it, giving you a word of thanks before swinging at you again.'
+    mp1:
+        startmsg: '`^You begin to regenerate!`0'
+        name: '`%Regeneration`0'
+        wearoff: 'You have stopped regenerating.'
+        effectmsg: 'You regenerate for {damage} health.'
+        effectnodmgmsg: 'You have no wounds to regenerate.'
+        auramsg: '`5Your {companion} regenerates for `^{damage} health`0 due to your healing aura.`0'
+    mp2:
+        startmsg: '`^{badguy}`% is clutched by a fist of earth and slammed to the ground!`0'
+        name: '`%Earth Fist`0'
+        wearoff: 'The earthen fist crumbles to dust.'
+        effectmsg: '`)A huge fist of earth pummels {badguy} for `^{damage}`0 points.`0'
+    mp3:
+        startmsg: '`^Your weapon glows with an unearthly presence.`0'
+        name: '`%Siphon Life`0'
+        wearoff: "Your weapon's aura fades."
+        effectmsg: 'You are healed for {damage} health.'
+        effectnodmgmsg: 'You feel a tingle as your weapon tries to heal your already healthy body.'
+        effectfailmsg: 'Your weapon wails as you deal no damage to your opponent.'
+    mp5:
+        startmsg: '`^Your skin sparkles as you assume an aura of lightning.`0'
+        name: '`%Lightning Aura`0'
+        effectoff: 'With a fizzle, your skin returns to normal.'
+        effectmsg: '{badguy} recoils as lightning arcs out from your skin, hitting for `^{damage}`) damage.'
+        effectnodmgmsg: '{badguy} is slightly singed by your lightning, but otherwise unharmed.'
+        effectfailmsg: '{badguy} is slightly singed by your lightning, but otherwise unharmed.'
