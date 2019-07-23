@@ -1,0 +1,35 @@
+# Title for village
+title: '{village} City'
+
+# Description of village
+description:
+    - '`c`b`^{village}, Ancestral Home of the Elves`0`b`c`n'
+    - '`6You stand on the forest floor. {village} rises about you, appearing to be one with the forest.'
+    - 'Ancient, frail-looking buildings appear to grow from the forest floor, the tree limbs, and on the very treetops.'
+    - 'The magnificent trees clutch delicately to these homes of elves.'
+    - 'Bright motes of light swirl around you as you move about.`0`n'
+
+# Commentary
+commentary:
+    talk: '`n`^Nearby some villagers converse:`0`n' # Talk
+    sayLine: 'converses' # Sayline
+    button: 'Converse' # Add button
+    charsLeft: 'You have %s characters left.'
+    status: # This is optional
+        game: 'Message of the Game Master'
+        you: "It's a comment from you."
+        afk: 'Away from Keyboard'
+        nearby: 'Nearby'
+        offline: 'Offline'
+        dni: "DNI (please don't try to talk to this player right now!)"
+        online: 'Online'
+
+# Clock of the elf village
+clock:
+    - '`n`6Capturing one of the tiny lights, you peer delicately into your hands.`n'
+    - 'The fairy within tells you that it is `^{clock}`6 before disappearing in a tiny sparkle.`n'
+
+
+# Text for new player
+newestOther: '`n`6Looking at the buildings high above, and looking a little queasy at the prospect of such heights is `^{name}`0.`0'
+newestPlayer: '`n`6You stare around in wonder at the excessively tall buildings and feel just a bit queasy at the prospect of looking down from those heights.`0'

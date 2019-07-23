@@ -1,0 +1,43 @@
+title: "Gadriel's Weapons"
+
+description:
+    - '`7The Elven Ranger pads gracefully towards you as you enter, examining you from head to foot, an expression of piqued interest upon his fine elven features.'
+    - 'The tiny elf has magnificent blond hair reaching almost to his knees, and he spends a long moment memorizing your every facial feature.'
+    - '{sameRace,select,
+        1{
+            His assessment finally concluded, a gleam settles in his eyes, and a small smile graces his expression.`n`n
+            `5"You will be richly rewarded for respecting the acquired skill of your own blood,`0" he says. `5"Before you lie the greatest feats of workmanship known in all the lands, the grace and power that only the Elves can create. To wield an Elven weapon is an honor unsurpassed.`0"
+            You warm to his pride in your shared Elven blood, and proudly display your {weaponName}.`0`n`n
+        }
+        other{
+            Gleaming eyes narrow as his assessment is concluded, and his face becomes a hardened mask which sets your teeth on edge. Despite his tiny stature, you feel intimidated, and he revels in your discomfort.`n`n
+            Speaking at last, his words are measured and calculated. `5"You have shown surprising intelligence,`0" he barks coldly, `5"for having sought the finest workmanship in all the lands. No other being can hope to posess the grace and pure power of we Elves. No other weapons have one tenth the nobility and quality of what you see here. And no creature shall wield them as well as an Elf would, though you may try as you might.`0"
+            You attempt bravado in the face of such arrogance, and thrust forward your {weaponName} for inspection.`0`n`n
+        }
+    }'
+
+trade.in: "{sameRace,select,
+    1{
+        `5Gadriel`0`7 looks at you and says, &quot;`0I'll give you `^{value,number}`0 trade-in value for your `~{weaponName}`0.
+        Tell me which instrument of battle you wish to own.&quot`0;
+    }
+    other{
+        `5Gadriel`0`7 takes your `5{weaponName}`0 and examines it again quitely. After some seconds he gives it back to you with a cold look in his eyes.
+        `5&quot;`^{value,number}`0 gold is all I can give you for this.&quot;`0, he says.`0`n`n
+    }
+}"
+
+nosuchweapon: "`!MightyE`0 `7looks at you, confused for a second, then realizes that you've apparently taken one too many bonks on the head, and nods and smiles.`0"
+
+tryagain: '`7Try again?`0'
+
+notenoughgold:
+    - '`7Waiting until `!MightyE`0 looks away, you reach carefully for the `5{weaponName}`0, which you silently remove from the rack upon which it sits.'
+    - 'Secure in your theft, you turn around and head for the door, swiftly, quietly, like a ninja, only to discover that upon reaching the door, the ominous `!MightyE`0 stands, blocking your exit. You execute a flying kick. Mid flight, you hear the "SHING" of a sword leaving its sheath.... your foot is gone.'
+    - 'You land on your stump, and `!MightyE`0 stands in the doorway, claymore once again in its back holster, with no sign that it had been used, his arms folded menacingly across his burly chest.'
+    - "&quot;`#Perhaps you'd like to pay for that?`0&quot; is all he has to say as you collapse at his feet, lifeblood staining the planks under your remaining foot.`n`n"
+    - 'You wake up some time later, having been tossed unconscious into the street.`0'
+
+payweapon:
+    - 'Gadriel takes your `5{playerWeapon}`0 and puts it on a rack behind him.'
+    - 'Then, with a flourish, he pick up a new `5{weaponName}`0, deftly demonstrating its use, before handing it to you with gallantry and grace.`0'
