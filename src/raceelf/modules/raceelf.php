@@ -287,18 +287,24 @@ function raceelf_dohook($hookname, $args)
             if ($session['user']['location'] == $capital)
             {
                 \LotgdNavigation::addHeader('navigation.category.travel.safer');
-                \LotgdNavigation::addNav('navigation.nav.go', [ 'key' => $hotkey, 'city' => $city], "runmodule.php?module=cities&op=travel&city={$ccity}");
+                \LotgdNavigation::addNav('navigation.nav.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
+                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                ]);
             }
             elseif ($session['user']['location'] != $city)
             {
                 \LotgdNavigation::addHeader('navigation.category.travel.dangerous');
-                \LotgdNavigation::addNav('navigation.nav.go', [ 'key' => $hotkey, 'city' => $city], "runmodule.php?module=cities&op=travel&city={$ccity}&d=1");
+                \LotgdNavigation::addNav('navigation.nav.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
+                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                ]);
             }
 
             if ($session['user']['superuser'] & SU_EDIT_USERS)
             {
                 \LotgdNavigation::addHeader('navigation.category.superuser');
-                \LotgdNavigation::addNav('navigation.nav.go', [ 'key' => $hotkey, 'city' => $city], "runmodule.php?module=cities&op=travel&city={$ccity}&su=1");
+                \LotgdNavigation::addNav('navigation.nav.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
+                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                ]);
             }
             tlschema();
         break;
@@ -337,14 +343,15 @@ function raceelf_dohook($hookname, $args)
         case 'weapon-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain'] = 'raceelf-village';
+                $args['textDomain'] = 'raceelf-weapon';
                 $args['textDomainNavigation'] = 'raceelf-navigation';
             }
         break;
-        case 'page-params-tpl-params':
+        case 'page-weapon-tpl-params':
             if ($session['user']['location'] == $city)
             {
                 $args['sameRace'] = ($session['user']['race'] == $race);
+                $args['weaponName'] = $session['user']['weapon'];
             }
         break;
     }

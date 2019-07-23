@@ -19,7 +19,7 @@ description:
 trade.in: "{sameRace,select,
     1{
         `5Gadriel`0`7 looks at you and says, &quot;`0I'll give you `^{value,number}`0 trade-in value for your `~{weaponName}`0.
-        Tell me which instrument of battle you wish to own.&quot`0;
+        Tell me which instrument of battle you wish to own.&quot`0
     }
     other{
         `5Gadriel`0`7 takes your `5{weaponName}`0 and examines it again quitely. After some seconds he gives it back to you with a cold look in his eyes.
