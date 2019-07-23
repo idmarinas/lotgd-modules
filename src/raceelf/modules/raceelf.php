@@ -284,29 +284,36 @@ function raceelf_dohook($hookname, $args)
 
             tlschema('module-cities');
 
+            //-- Change text domain for navigation
+            \LotgdNavigation::setTextDomain('cities-navigation');
+
             if ($session['user']['location'] == $capital)
             {
-                \LotgdNavigation::addHeader('navigation.category.travel.safer');
-                \LotgdNavigation::addNav('navigation.nav.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
+                \LotgdNavigation::addHeader('headers.travel.safer');
+                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
                     'params' => [ 'key' => $hotkey, 'city' => $city]
                 ]);
             }
             elseif ($session['user']['location'] != $city)
             {
-                \LotgdNavigation::addHeader('navigation.category.travel.dangerous');
-                \LotgdNavigation::addNav('navigation.nav.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
+                \LotgdNavigation::addHeader('headers.travel.dangerous');
+                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
                     'params' => [ 'key' => $hotkey, 'city' => $city]
                 ]);
             }
 
             if ($session['user']['superuser'] & SU_EDIT_USERS)
             {
-                \LotgdNavigation::addHeader('navigation.category.superuser');
-                \LotgdNavigation::addNav('navigation.nav.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
+                \LotgdNavigation::addHeader('headers.superuser');
+                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
                     'params' => [ 'key' => $hotkey, 'city' => $city]
                 ]);
             }
+
             tlschema();
+
+            //-- Restore text domain for navigation
+            \LotgdNavigation::setTextDomain();
         break;
         case 'village-text-domain':
             raceelf_checkcity();

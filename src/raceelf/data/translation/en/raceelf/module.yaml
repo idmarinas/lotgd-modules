@@ -10,13 +10,3 @@ section:
 racial.buff.name: '`@Elvish Awareness`0'
 
 moderate: 'City of {city}'
-
-navigation:
-    category:
-        travel:
-            safer: 'Safer Travel'
-            dangerous: 'More Dangerous Travel'
-        superuser: Superuser
-    nav:
-        character.racename: '`^Elf`0'
-        go: '{key}?Go to {city}'
