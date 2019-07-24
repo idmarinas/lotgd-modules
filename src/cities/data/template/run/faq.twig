@@ -1,0 +1,26 @@
+{% translate_default_domain 'cities-module' %}
+
+<a href="petition.php?op=faq">{{ 'section.faq.return.content'|t|colorize }}</a>
+<hr>
+{{ 'section.faq.paragraph'|t|colorize }}
+
+{{ 'section.faq.content.one'|t(_context)|colorize }}
+
+{{ 'section.faq.content.two'|t(_context)|colorize }}
+
+{{ 'section.faq.content.three'|t(_context)|colorize }}
+
+{{ 'section.faq.content.four'|t(_context)|colorize }}
+
+{{ 'section.faq.content.five'|t(_context)|colorize }}
+
+{{ 'section.faq.content.six'|t(_context)|colorize }}
+
+{% if newbieIsland and location %}
+    {{ 'section.faq.content.seven'|t(_context)|colorize }}
+{% endif %}
+
+<br>
+<hr>
+<a href="petition.php?op=faq">{{ 'section.faq.return.content'|t|colorize }}</a>
+
