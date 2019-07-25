@@ -91,7 +91,6 @@ function raceelf_uninstall()
     $vname = getsetting('villagename', LOCATION_FIELDS);
     $gname = get_module_setting('villagename');
 
-
     try
     {
         $charactersRepository = \Doctrine::getRepository('LotgdCore:Characters');
@@ -231,7 +230,7 @@ function raceelf_dohook($hookname, $args)
         case 'setrace':
             if ($session['user']['race'] == $race)
             {
-                rawoutput(\LotgdTheme::renderModuleTemplate('specialtydarkarts/dohook/setrace.twig', []));
+                rawoutput(\LotgdTheme::renderModuleTemplate('raceelf/dohook/setrace.twig', []));
 
                 if (is_module_active('cities'))
                 {
