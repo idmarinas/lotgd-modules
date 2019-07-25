@@ -16,7 +16,7 @@ function creationaddon_getmoduleinfo()
     return [
         'name' => 'Creation Addon',
         'version' => '4.0.0',
-        'author' => 'Billie Kennedy, enhanced by IDMarinas',
+        'author' => 'Billie Kennedy, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'download' => '//orpgs.com/modules.php?name=Downloads&d_op=viewdownload&cid=6',
         'vertxtloc' => '//www.orpgs.com/downloads/',
