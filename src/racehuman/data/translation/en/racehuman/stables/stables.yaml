@@ -1,0 +1,54 @@
+title: "Bertold's Bestiary"
+
+section:
+    offer: "`n`n`6Bertold strokes your creature's flank and offers you `^{costGold,number}`0 gold and `%{costGems,number}`0 gems for your {mountName}`0."
+    not.found.beast: "`6&quot;`^I'm sorry, I don't stock any such animal.`0&quot;, Bertold say apologetically.`0"
+    default:
+        description:
+            - '`6Just outside the outskirts of the village, a training area and riding range has been set up.'
+            - 'Many people from all across the land mingle as Bertold, a strapping man with a wind-weathered face, extols the virtues of each of the creatures in his care.'
+            - "As you approach, Bertold smiles broadly, &quot;`^Ahh! how can I help you today, my friend?`0&quot; he asks in a booming voice.`0"
+    examine:
+        creature:
+            - '`7Creature: `&{name}`0`n'
+            - '`7Description: `&{description}`0`n'
+            - '`7Cost: `^{costGold,number}`0 gold, `%{costGems,number}`0 gems`0.`n`n'
+        fineBeast:
+            '00': "`6&quot;`^Yes, yes, that's one of my finest beasts!`0&quot; says Bertold.`0`n`n"
+            '01': "`6&quot;`^Doesn't this one have fine musculature?`0&quot; he asks.`0`n`n"
+            '02': '`7"`&Och, this beastie will serve ye well indeed,`0" says the dwarf.`0`n`n'
+            '03': "`6&quot;`^You'll not find a better trained creature in all the land!`0&quot; exclaims Bertold.`0`n`n"
+            '04': "`6&quot;`^And a bargain this one'd be at twice the price!`0&quot; booms Bertold.`0`n`n"
+    buymount.confirm:
+        - "`n`n`7Merick whistles. &quot;`&Yer mount shure is a foyne one, {userSex,select, 1{m'lass} other{m'lad}}. Are ye sure ye wish t' part wae it?`0&quot;`n`n"
+        - "He waits for your answer.`0"
+    confirmbuy:
+        no.money: '`6Bertold looks over the gold and gems you offer and turns up his nose, "`^Obviously you misheard my price.  This {mountName} will cost you `^{costGold,number} gold`0  and `%{costGems,number} gems`0 and not a penny less.`0"'
+        mount:
+            replace: '`6Patting {mountName} on the rump, you hand the reins as well as the money for your new creature, and Bertold hands you the reins of a `&{mountNameNew}`0.`0'
+            new: '`6You hand over the money for your new creature, and Bertold hands you the reins of a new `&{mountNameNew}`0.`0'
+    feed:
+        forbidden:
+            - "`6&quot;`^I'm terribly sorry friend, but I don't stock feed here."
+            - "I'm not a common stable after all!  Perhaps you should look elsewhere to feed your creature.`6&quot;"
+        not.gold: "`6&quot;`^I'm sorry, but that is just not enough money to pay for food here.`0&quot; Bertold turns his back on you, and you lead {mountName} away to find other places for feeding.`0"
+        not.hungry:
+                - '`&{mountName}`0 `6picks briefly at the food and then ignores it.'
+                - 'Bertold, being honest, shakes his head and hands you back your gold.`0'
+        hungry:
+            hungry:
+                - "`6{mountName} seems to inhale the food provided. {mountName}, the greedy creature that it is, then goes snuffling at Bertold's pockets for more food.`n"
+                - "Bertold shakes his head in amusement and collects `&{grubPrice,number}`6 gold from you."
+            full:
+                - "`n`6&quot;`^Well, friend, your {mountName}`^ is full up now."
+                - "Come back tomorrow if it hungers again, and I'll be happy to sell you more.`6&quot; says Bertold with a genial smile."
+            half:
+                - "`&{mountName}`0 `6dives into the provided food and gets through about half of it before stopping."
+                - "&quot;`^Well, {mountName} wasn't as hungry as you thought.`6&quot; says Bertold as he hands you back all but {grubPrice,number} gold.`0"
+    sale:
+        confirm:
+            - '`n`n`6Bertold eyes your mount up and down, checking it over carefully.'
+            - '"`^Are you quite sure you wish to part with this creature?`0"'
+        sold:
+            -  "`6With but a single tear, you hand over the reins to your {mountName} to Bertold's stableboy."
+            - "The tear dries quickly, and the {repayGold,number} gold and {repayGems,number} gem in hand helps you quickly overcome your sorrow."

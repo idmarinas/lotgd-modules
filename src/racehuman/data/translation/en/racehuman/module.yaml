@@ -1,0 +1,15 @@
+character.racename: Human
+
+section:
+    choose:
+        select: "{openLink}On the plains in the city of {city}{closeLink}, the city of `&men`0; always following your father and looking up to his every move, until he sought out the `@Green Dragon`0, never to be seen again.`n`n"
+        set.paragraph:
+            - '`&As a human, your size and strength permit you the ability to effortlessly wield weapons, tiring much less quickly than other races.`n'
+            - '`^You gain {bonus,plural, =1{one extra forest fight}} =2{two extra forest fights} =3{three extra forest fights} other{# extra forest fights}} each day!`0'
+    newday:
+        stamina: '`n`&Because you are human, you gain `^some stamina`0 for today!`n`0'
+        turns: '`n`&Because you are human, you gain `^{bonus,plural, =1{one extra forest fight}} =2{two extra forest fights} =3{three extra forest fights} other{# extra forest fights}}`0 for today!`n`0'
+
+locs:
+    moderate: 'City of {city}'
+    stables: 'The Village of {city}'

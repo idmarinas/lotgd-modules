@@ -1,0 +1,14 @@
+{% translate_default_domain 'racehuman-module' %}
+
+{% if staminaSystem %}
+    {{ 'section.newday.stamina'|t|colorize }}
+{% else %}
+    {{ 'section.newday.turn'|t(_context)|colorize }}
+{% endif %}
+
+
+
+
+output();
+
+output(, $word, 1 == $bonus ? $fight : $fights);

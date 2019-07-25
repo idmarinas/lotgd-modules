@@ -1,0 +1,59 @@
+# Title for village
+title: '{village} City of Men'
+
+# Description of village
+description:
+    - "`c`b`&{village}, City of Men`0´b´c`n"
+    - "`7You are standing in the heart of {village}."
+    - "Though called a city, this stronghold of humans is little more than a fortified village."
+    - "The city's low defensive walls are surrounded by rolling plains which gradually turn into thick forest in the distance."
+    - "Some residents are engaged in conversation around the well in the village square.`0`n"
+
+# Commentary
+commentary:
+    talk: '`n`@Nearby some villagers talk:`0`n' # Talk
+    sayLine: 'says' # Sayline
+    button: 'Say' # Add button
+    charsLeft: 'You have %s characters left.'
+    status: # This is optional
+        game: 'Message of the Game Master'
+        you: "It's a comment from you."
+        afk: 'Away from Keyboard'
+        nearby: 'Nearby'
+        offline: 'Offline'
+        dni: "DNI (please don't try to talk to this player right now!)"
+        online: 'Online'
+
+# Clock of the village
+clock: '`n`7The great sundial at the heart of the city reads `&{clock}`0.`7`n'
+
+# Text for new player
+newestOther: '`n`2Wandering near the inn is `&{name}`0, looking completely lost.`0'
+newestPlayer: "`n`2You're the newest member of the village. As such, you wander around, gaping at the sights, and generally looking lost.`0"
+
+
+$new = get_module_setting("newest-$city", 'cities');
+
+if (0 != $new)
+{
+    $sql = 'SELECT name FROM '.DB::prefix('accounts').
+        " WHERE acctid='$new'";
+    $result = DB::query($sql);
+    $row = DB::fetch_assoc($result);
+    $args['newestplayer'] = $row['name'];
+    $args['newestid'] = $new;
+}
+else
+{
+    $args['newestplayer'] = $new;
+    $args['newestid'] = '';
+}
+
+if ($new == $session['user']['acctid'])
+{
+    $args['newest'] = '`n`7As you wander your new home, you feel your jaw dropping at the wonders around you.';
+}
+else
+{
+    $args['newest'] = '`n`7Wandering the village, jaw agape, is `&%s`7.';
+}
