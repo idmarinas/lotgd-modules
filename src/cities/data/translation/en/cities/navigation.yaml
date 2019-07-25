@@ -15,6 +15,7 @@ headers:
         safer: 'Safer Travel'
         dangerous: 'More Dangerous Travel'
     superuser: Superuser
+    forget: 'Forget about it'
 
 # Menu navs
 navs:
@@ -45,8 +46,8 @@ navs:
     healer: "H?Healer's Hut"
     character.racename: '`^Elf`0'
     go: '{key}?Go to {city}'
-    turns: 'You have `${n,plural,  =1{1 turn} other{# turns}} free`0!'
-    travels: 'You have `${n,plural,  =1{1 travel} other{# travels}} free`0!'
+    turns: 'You have `${n,plural, =1{1 turn} other{# turns}} free`0!'
+    travels: 'You have `${n,plural, =1{1 travel} other{# travels}} free`0!'
     continue: Continue
     journey: 'Continue your journey'
     enter: 'Enter {location}'
