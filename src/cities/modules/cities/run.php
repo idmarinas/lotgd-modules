@@ -48,16 +48,16 @@ if ('travel' == $op)
     {
         page_header('title.travel', [], 'cities-module');
 
-        addnav('Forget about it');
+        \LotgdNavigation::addHeader('headers.forget', ['textDomain' => 'cities-navigation']);
         \LotgdNavigation::villageNav();
 
         modulehook('pre-travel');
 
-        $params['canTravel'] = (! ($session['user']['superuser'] & SU_EDIT_USERS) && ($session['user']['turns'] <= 0) && 0 == $free);
+        $params['canTravel'] = ! (! ($session['user']['superuser'] & SU_EDIT_USERS) && ($session['user']['turns'] <= 0) && 0 == $free);
 
         if ($params['canTravel'])
         {
-            \LotgdNavigation::addHeader('category.travel', [ 'textDomain' => 'cities-navigation']);
+            \LotgdNavigation::addHeader('headers.travel', ['textDomain' => 'cities-navigation']);
             modulehook('travel');
             // this line rewritten so as not to clash with the hitch module.
         }
@@ -197,7 +197,7 @@ elseif ('fight' == $op || 'run' == $op)
             'location' => $session['user']['location']
         ];
 
-        \LotgdNavigation::addNav('navs.enter', [ 'location' => $session['user']['location'] ], 'village.php');
+        \LotgdNavigation::addNav('navs.enter', ['location' => $session['user']['location']], 'village.php');
 
         rawoutput(LotgdTheme::renderModuleTemplate('cities/run/escape.twig', $params));
 
