@@ -272,7 +272,7 @@ function racehuman_dohook($hookname, $args)
         case 'moderate':
             if (is_module_active('cities'))
             {
-                $args["village-$race"] = \LotgdTranslator::t('moderate', [ 'city' => $city ], $race);
+                $args["village-$race"] = \LotgdTranslator::t('locs.moderate', [ 'city' => $city ], $race);
             }
         break;
         case 'travel':
