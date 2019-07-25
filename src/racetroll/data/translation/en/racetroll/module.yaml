@@ -1,0 +1,11 @@
+character.racename: Troll
+
+section:
+    choose.select: "{openLink}In the swamps of {city}{closeLink}`2 as a `@Troll`0, fending for yourself from the very moment you crept out of your leathery egg, slaying your yet unhatched siblings, and feasting on their bones.`0`n`n"
+    set.paragraph:
+        - '`@As a troll, and having always fended for yourself, the ways of battle are not foreign to you.`0`n'
+        - '`^You gain extra attack!`0'
+
+racial.buff.name: '`@Trollish Strength`0'
+
+locs.moderate: 'City of {city}'
