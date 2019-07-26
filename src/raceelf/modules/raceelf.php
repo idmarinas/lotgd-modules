@@ -327,6 +327,7 @@ function raceelf_dohook($hookname, $args)
             if ($session['user']['location'] == $city)
             {
                 $args['village'] = $city;
+                $args['commentarySection'] = "village-{$race}"; //-- Commentary section
 
                 //-- Newest player in realm
                 $args['newestplayer'] = (int) get_module_setting("newest-{$city}", 'cities');
