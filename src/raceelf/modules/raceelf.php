@@ -371,6 +371,7 @@ function raceelf_dohook($hookname, $args)
 function raceelf_checkcity()
 {
     global $session;
+
     $race = 'raceelf-module';
     $city = get_module_setting('villagename');
 

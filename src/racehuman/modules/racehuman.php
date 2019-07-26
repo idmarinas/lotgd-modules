@@ -363,7 +363,8 @@ function racehuman_dohook($hookname, $args)
 function racehuman_checkcity()
 {
     global $session;
-    $race = 'Human';
+
+    $race = 'racehuman-module';
     $city = get_module_setting('villagename');
 
     if ($session['user']['race'] == $race && is_module_active('cities') && get_module_pref('homecity', 'cities') != $city)
