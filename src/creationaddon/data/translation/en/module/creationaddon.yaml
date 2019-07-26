@@ -1,33 +1,35 @@
-'input':
-    'label':
-        'age': 'I am at or over the age of {age,number}.'
-        'terms': 'I have read the {terms}'
-        'privacy': 'I have read the {privacy}'
-        'birthday': 'Please enter your Birthday'
-    'select':
-        'month': 'Month'
-        'day': 'Day'
-        'year': 'Year'
-'terms': 'Terms and Agreements'
-'privacy': 'Privacy Policy'
-'superuser':
-    'editor': 'Bad Name Editor'
-    'delete':
-        'success': '"{name}" has been deleted.'
-        'fail': 'Failed to delete from database.'
-    'add':
-        'success': 'Added "{name}" to the Bad Name List.'
-        'duplicate': 'Name "{name}" already in the list.'
-        'error': 'There was an error adding the name to the database.'
-        'button': 'Add'
-'list':
-    'table':
-        'header': 'List of Bad Names'
-        'notFound': 'No items found'
-        'delete': 'Delete'
-'check':
-    'filterName': 'Sorry, but your name contains a word which is not allowed.'
-    'age': 'You must be at least years {age,number} old to play.'
-    'terms': 'You must read the terms.'
-    'privacy': 'You must read the privacy policy.'
-    'chkbday': 'Sorry but you do not meet the minimum age requirements.'
+input:
+    label:
+        age: 'I am at or over the age of {age,number}.'
+        terms: 'I have read the {terms}'
+        privacy: 'I have read the {privacy}'
+        birthday: 'Please enter your Birthday'
+    select:
+        month: 'Month'
+        day: 'Day'
+        year: 'Year'
+terms: 'Terms and Agreements'
+privacy: 'Privacy Policy'
+superuser:
+    editor: 'Bad Name Editor'
+    delete:
+        success: '"{name}" has been deleted.'
+        fail: 'Failed to delete from database.'
+    add:
+        success: 'Added "{name}" to the Bad Name List.'
+        duplicate: 'Name "{name}" already in the list.'
+        error: 'There was an error adding the name to the database.'
+        button: 'Add'
+list:
+    table:
+        header: 'List of Bad Names'
+        notFound: 'No items found'
+        delete: 'Delete'
+check:
+    filterName: 'Sorry, but your name contains a word which is not allowed.'
+    age: 'You must be at least years {age,number} old to play.'
+    terms: 'You must read the terms.'
+    privacy: 'You must read the privacy policy.'
+    chkbday: 'Sorry but you do not meet the minimum age requirements.'
+
+navigation.nav.editor: 'Bad Names Editor'

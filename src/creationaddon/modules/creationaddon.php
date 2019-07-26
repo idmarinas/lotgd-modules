@@ -242,10 +242,10 @@ function creationaddon_dohook($hookname, $args)
             // lets do something here
             if ($session['user']['superuser'] & SU_EDIT_USERS)
             {
-                \LotgdNavigation::addHeader('Module Configurations');
+                \LotgdNavigation::addHeader('superuser.category.module', [ 'textDomain' => 'navigation-app' ]);
                 // Stick the admin=true on so that when we call runmodule it'll
                 // work to let us edit bad names even when the module is deactivated.
-                \LotgdNavigation::addNav('Bad Names Editor', 'runmodule.php?module=creationaddon&op=list&admin=true');
+                \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=creationaddon&op=list&admin=true', [ 'textDomain' => 'module-creationaddon']);
             }
         break;
     }
