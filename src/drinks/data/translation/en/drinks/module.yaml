@@ -41,6 +41,7 @@ navigation:
     category:
         editor: 'Drink Editor'
     nav:
+        update: Update
         editor: 'Drinks Editor'
         ale: '{name} (`^{cost,number}`0 gold)'
         add: 'Add a drink'
@@ -72,6 +73,8 @@ editor:
                     del:
                         label: Del
                         confirm: 'Are you sure you wish to delete this drink?'
+                    yes: '`$Yes`0'
+                    no: '`^No`0'
 
 flash.message:
     file.run.not.found: 'Sorry, but the "run" -> "{file}" file for the "{module}" module is not programmed.'
