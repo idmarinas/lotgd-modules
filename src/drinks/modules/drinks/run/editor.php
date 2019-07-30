@@ -11,6 +11,9 @@ page_header('editor.title', [], $textDomain);
 
 \LotgdNavigation::superuserGrottoNav();
 
+//-- Change text domain for navigation
+\LotgdNavigation::setTextDomain('drinks-module');
+
 \LotgdNavigation::addHeader('navigation.category.editor');
 \LotgdNavigation::addNav('navigation.nav.add', 'runmodule.php?module=drinks&act=editor&op=add&admin=true');
 
@@ -71,6 +74,9 @@ $drinksForm = [
     'buffeffectnodmgmsg' => 'No damage message (see below)',
     'buffeffectmsg' => 'Effect message (see below)',
 ];
+
+//-- Change text domain for navigation
+\LotgdNavigation::setTextDomain('drinks-module');
 
 \LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=drinks&act=editor');
 

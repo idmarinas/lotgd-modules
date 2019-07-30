@@ -276,5 +276,8 @@ function drinks_run()
 
     require_once "modules/drinks/run/{$act}.php";
 
+    //-- Restore text domain for navigation
+    \LotgdNavigation::setTextDomain();
+
     page_footer();
 }

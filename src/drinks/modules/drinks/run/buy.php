@@ -9,6 +9,9 @@ $repository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
 $drunk = get_module_pref('drunkeness');
 $maxDrunk = get_module_setting('maxdrunk');
 
+//-- Change text domain for navigation
+\LotgdNavigation::setTextDomain($textDomain);
+
 $params = [
     'textDomain' => $textDomain,
     'innName' => getsetting("innname", LOCATION_INN),
