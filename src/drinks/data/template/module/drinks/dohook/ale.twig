@@ -1,0 +1,7 @@
+{% translate_default_domain textDomain %}
+
+{% if hardkDrink %}
+    {{ 'section.ale.hard.drink'|t(_context)|colorize }}
+{% endif %}
+
+{{ 'section.ale.paragraph'|t(_context)|format(('drunk.list.0' ~ drunk)|t)|colorize }}

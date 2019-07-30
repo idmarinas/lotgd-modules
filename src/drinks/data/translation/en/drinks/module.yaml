@@ -1,0 +1,83 @@
+
+drunk.list:
+    '0-1':  'stone cold sober'
+    '00': 'quite sober'
+    '01': 'barely buzzed'
+    '02': 'pleasantly buzzed'
+    '03': 'almost drunk'
+    '04': 'barely drunk'
+    '05': 'solidly drunk'
+    '06': 'sloshed'
+    '07': 'hammered'
+    '08': 'really hammered'
+    '09': 'almost unconscious'
+    '010':  'about to pass out'
+
+section:
+    newday:
+        stamina: "`n`&Waking up in the gutter after your last little 'adventure with alcohol', you `$lose some`0 stamina crawling back to your normal lodging.`0`n"
+        turn: "`n`&Waking up in the gutter after your last little 'adventure with alcohol', you `$lose 1`0 turn crawling back to your normal lodging.`0`n"
+    ale:
+        drink:
+            demand: 'Pounding your fist on the bar, you demand another drink'
+            too:
+                many: "{barkeep} eyes you critically. &quot;`%Ya've had enough of the hard stuff, my friend. No more of that for you today.`0&quot;"
+                drunk: " but {barkeep} continues to clean the glass he was working on. &quot;`%You've had enough {userSex,select, 1{lass} other{lad}},`0&quot; he declares."
+            buy:
+                buyed:
+                    - "{barkeep} pulls out a glass, and pours a foamy ale from a tapped barrel behind him. He slides it down the bar, and you catch it with your warrior-like reflexes.`n`n"
+                    - "Turning around, you take a big chug of the hearty draught, and give {partner} an ale-foam mustache smile.`n`n"
+                turn:
+                    vigorous: "`&You feel vigorous!`n"
+                    lethargic: "`&You feel lethargic!`n"
+                hp:
+                    healthy: '`&You feel healthy!`n'
+                    sick: '`&You feel sick!`n'
+                not.money: "You don't have enough money. How can you buy {drinkName} if you don't have any money!?!"
+        paragraph: '`n`n`7You now feel %s.`n`n'
+
+navigation:
+    category:
+        editor: 'Drink Editor'
+    nav:
+        editor: 'Drinks Editor'
+        ale: '{name} (`^{cost,number}`0 gold)'
+        add: 'Add a drink'
+        main: 'Drink Editor Main'
+        properties: 'Drink properties'
+        return:
+            inn: 'I?Return to the Inn'
+            talk: 'Go back to talking to {barkeep}'
+
+editor:
+    title: 'Drink Editor'
+    subtitle:
+        current: 'Current drinks'
+        adding: 'Adding a new drink'
+        editing: 'Editing a drink'
+    section:
+        default:
+            table:
+                thead:
+                    ops: Ops
+                    id: ID
+                    name: Name
+                    dkn: Drunkeness
+                    hard: 'Hard Alchool?'
+                tbody:
+                    edit: Edit
+                    deactivate: Deactivate
+                    activate: Activate
+                    del:
+                        label: Del
+                        confirm: 'Are you sure you wish to delete this drink?'
+
+flash.message:
+    file.run.not.found: 'Sorry, but the "run" -> "{file}" file for the "{module}" module is not programmed.'
+    editor:
+        remove:
+            success: 'Drink successfully erased'
+            error: "Couldn't erase the drink."
+        save:
+            module: 'Drink settings for module "{name}" saved!'
+            saved: 'Drink saved!'

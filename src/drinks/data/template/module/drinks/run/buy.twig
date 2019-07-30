@@ -1,0 +1,28 @@
+{% translate_default_domain textDomain %}
+
+{{ '`c`b%s´b´c'|format(title)|colorize }}
+
+{{ 'section.ale.drink.demand'|t(_context)|colorize }}
+{{ drunkeness ? ', ' : '. ' }}
+
+{% if drunkeness %}
+    {{ 'section.ale.drink.toodrunk'|t(_context)|colorize }}
+{% else %}
+    {% if buyed %}
+        {{ 'section.ale.drink.buy.buyed'|t(_context)|colorize }}
+        <br><br>
+        {% if vigorous %}
+            {{ 'section.ale.drink.buy.turns.vigorous'|t|colorize }}
+        {% elseif lethargic %}
+            {{ 'section.ale.drink.buy.turns.lethargic'|t|colorize }}
+        {% endif %}
+
+        {% if healthy %}
+            {{ 'section.ale.drink.buy.hp.healthy'|t|colorize }}
+        {% elseif sick %}
+            {{ 'section.ale.drink.buy.hp.sick'|t|colorize }}
+        {% endif %}
+    {% else %}
+        {{ 'section.ale.drink.buy.not.money'|t(_context)|colorize }}
+    {% endif %}
+{% endif %}
