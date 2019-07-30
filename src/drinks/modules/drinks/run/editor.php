@@ -72,6 +72,8 @@ $drinksForm = [
     'buffeffectmsg' => 'Effect message (see below)',
 ];
 
+\LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=drinks&act=editor');
+
 if ('del' == $op)
 {
     $entity = $repository->find($drinkid);
@@ -173,9 +175,9 @@ if ('' == $op)
     $drinksRepository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
 
     $query = $drinksRepository->createQueryBuilder('u');
-    $query->orderBy('u.id', 'DESC');
+    $query->orderBy('u.id', 'ASC');
 
-    $params['paginator'] = $drinksRepository->getPagination($query, $page, 50);
+    $params['paginator'] = $drinksRepository->getPaginator($query, $page, 50);
 }
 elseif ('edit' == $op || 'add' == $op)
 {
