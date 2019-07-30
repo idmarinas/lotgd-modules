@@ -107,8 +107,11 @@ function cities_dohook($hookname, $args)
         case 'drinks-check':
             if ($session['user']['location'] == $city)
             {
-                $val = get_module_objpref('drinks', $args['drinkid'], 'servedcapital');
-                $args['allowdrink'] = $val;
+                foreach($args as $key => $drink)
+                {
+                    $val = get_module_objpref('drinks', $drink['id'], 'servedcapital');
+                    $args[$key]['allowdrink'] = $val;
+                }
             }
         break;
         case 'count-travels':
