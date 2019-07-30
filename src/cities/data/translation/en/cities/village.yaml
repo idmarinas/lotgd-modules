@@ -3,8 +3,8 @@ title: '{village}, the Capital City'
 
 # Description of village
 description:
-    - '`Q`b`c%s, the Capital City´b´c'
-    - 'All around you, the people of the city of %s move about their business.'
+    - '`Q`b`c{village}, the Capital City´b´c'
+    - 'All around you, the people of the city of {village} move about their business.'
     - 'No one seems to pay much attention to you as they all seem absorbed in their own lives and problems.'
     - 'Along various streets you see many different types of shops, each with a sign out front proclaiming the business done therein.'
     - 'Off to one side, you see a very curious looking rock which attracts your eye with its strange shape and color.'
