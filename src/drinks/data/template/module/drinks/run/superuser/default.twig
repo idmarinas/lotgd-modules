@@ -11,52 +11,25 @@
         </tr>
     </thead>
     <tbody>
+        {% set options = { 'text': 'editor.section.default.table.tbody.del.confirm'|t }|json_encode %}
         {% for drink in paginator %}
             <tr>
                 <td>
-                    <div class="ui icon buttons">
+                    <div class="ui mini icon buttons">
                         <a href="{{ ('runmodule.php?module=drinks&act=editor&op=edit&admin=true&drinkid=' ~ drink.id)|lotgd_url }}" class="ui orange button">{{ 'editor.section.default.table.tbody.edit'|t|uncolorize }}</a>
                         {% if drink.active %}
-                            <a href="{{ ('runmodule.php?module=drinks&act=editor&op=deactivate&admin=true' ~ drink.id)|lotgd_url }}" class="ui button">{{ 'editor.section.default.table.tbody.deactivate'|t|uncolorize }}</a>
+                            <a href="{{ ('runmodule.php?module=drinks&act=editor&op=deactivate&admin=true&drinkid=' ~ drink.id)|lotgd_url }}" class="ui button">{{ 'editor.section.default.table.tbody.deactivate'|t|uncolorize }}</a>
                         {% else %}
-                            <a href="{{ ('runmodule.php?module=drinks&act=editor&op=activate&admin=true' ~ drink.id)|lotgd_url }}" class="ui button">{{ 'editor.section.default.table.tbody.activate'|t|uncolorize }}</a>
+                            <a href="{{ ('runmodule.php?module=drinks&act=editor&op=activate&admin=true&drinkid=' ~ drink.id)|lotgd_url }}" class="ui button">{{ 'editor.section.default.table.tbody.activate'|t|uncolorize }}</a>
                         {% endif %}
-                        <a href="{{ ('runmodule.php?module=drinks&act=editor&op=del&admin=true' ~ drink.id)|lotgd_url }}" onclick="Lotgd.confirm(this, event)" class="ui red button">{{ 'editor.section.default.table.tbody.del'|t|uncolorize }}</a>
+                        <a href="{{ ('runmodule.php?module=drinks&act=editor&op=del&admin=true&drinkid=' ~ drink.id)|lotgd_url }}" onclick="Lotgd.confirm(this, event)" class="ui red button" data-options="{{ options|e('html_attr') }}">{{ 'editor.section.default.table.tbody.del.label'|t|uncolorize }}</a>
                     </div>
                 </td>
+                <td>{{ '`^%s`0'|format(drink.id)|colorize }}</td>
+                <td>{{ '`&%s`0'|format(drink.name)|colorize }}</td>
+                <td>{{ '`^%s`0'|format(drink.drunkeness)|colorize }}</td>
+                <td>{{ (drink.harddrink ? 'editor.section.default.table.tbody.yes' : 'editor.section.default.table.tbody.no')|t|colorize }}</td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
-
-        for ($i = 0; $i < DB::num_rows($result); $i++)
-        {
-            $row = DB::fetch_assoc($result);
-            $id = $row['drinkid'];
-            rawoutput("<tr class='".($i % 2 ? 'trlight' : 'trdark')."'>");
-            if ($row['active'])
-            {
-                rawoutput(" | <a href='runmodule.php?module=drinks&act=editor&op=deactivate&drinkid=$id&admin=true'>$deac</a>");
-                addnav('', "runmodule.php?module=drinks&act=editor&op=deactivate&drinkid=$id&admin=true");
-            }
-            else
-            {
-                rawoutput(" | <a href='runmodule.php?module=drinks&act=editor&op=activate&drinkid=$id&admin=true'>$act</a>");
-                addnav('', "runmodule.php?module=drinks&act=editor&op=activate&drinkid=$id&admin=true");
-            }
-
-            rawoutput(" | <a href='runmodule.php?module=drinks&act=editor&op=del&drinkid=$id&admin=true' onClick='return confirm(\"$conf\");'>$del</a> ]</td>");
-            addnav('', "runmodule.php?module=drinks&act=editor&op=del&drinkid=$id&admin=true");
-            output_notl('<td>`^%s</td>`0', $id, true);
-            output_notl('<td>`&%s`0</td>', $row['name'], true);
-            output_notl('<td>`^%s`0</td>', $row['drunkeness'], true);
-            $hard = translate_inline('`^No');
-
-            if ($row['harddrink'])
-            {
-                $hard = translate_inline('`$Yes');
-            }
-            output_notl('<td>%s`0</td>', $hard, true);
-            rawoutput('</tr>');
-        }
-        rawoutput('</table>');
