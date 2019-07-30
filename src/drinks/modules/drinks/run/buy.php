@@ -10,8 +10,8 @@ $drunk = get_module_pref('drunkeness');
 $maxDrunk = get_module_setting('maxdrunk');
 
 $params = [
-    'title' => getsetting("innname", LOCATION_INN),
     'textDomain' => $textDomain,
+    'innName' => getsetting("innname", LOCATION_INN),
     'drunk' => $drunk,
     'maxDrunk' => $maxDrunk,
     'drunkeness' => (int) ($drunk > $maxDrunk),
@@ -19,7 +19,7 @@ $params = [
     'barkeep' => getsetting('barkeep', '`tCedrik`0')
 ];
 
-page_header(\LotgdSanitize::fullSanitize($params['title']), [], $textDomain);
+page_header('section.ale.drink.title', [ 'innName' => \LotgdSanitize::fullSanitize($params['innName']) ], $textDomain);
 
 if (! $params['drunkeness'])
 {

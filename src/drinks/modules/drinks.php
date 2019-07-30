@@ -169,7 +169,7 @@ function drinks_dohook($hookname, $args)
             $args['includeTemplatesPost']['module/drinks/dohook/ale.twig'] = [
                 'textDomain' => $textDomain,
                 'barkeep' => getsetting('barkeep', '`tCedrik`0'),
-                'title' => getsetting('innname', LOCATION_INN),
+                'innName' => getsetting('innname', LOCATION_INN),
                 'userSex' => $session['user']['sex'],
                 'drunk' => $drunk,
                 'hardDrink' => $hardDrink,

@@ -19,6 +19,7 @@ section:
         turn: "`n`&Waking up in the gutter after your last little 'adventure with alcohol', you `$lose 1`0 turn crawling back to your normal lodging.`0`n"
     ale:
         drink:
+            title: '{innName}'
             demand: 'Pounding your fist on the bar, you demand another drink'
             too:
                 many: "{barkeep} eyes you critically. &quot;`%Ya've had enough of the hard stuff, my friend. No more of that for you today.`0&quot;"

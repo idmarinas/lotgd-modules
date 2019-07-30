@@ -1,6 +1,6 @@
 {% translate_default_domain textDomain %}
 
-{{ '`c`b%s´b´c'|format(title)|colorize }}
+{{ '`c`b%s´b´c'|format('section.ale.drink.title'|t(_context))|colorize }}
 
 {{ 'section.ale.drink.demand'|t(_context)|colorize }}
 {{ drunkeness ? ', ' : '. ' }}
