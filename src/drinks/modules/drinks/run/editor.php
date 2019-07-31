@@ -201,7 +201,7 @@ elseif ('edit' == $op || 'add' == $op)
         module_objpref_edit('drinks', $module, $drinkid);
         $mostrecentmodule = $oldmodule;
         rawoutput('</form>');
-        \LotgdNavigation::addLink("runmodule.php?module=drinks&act=editor&op=save&subop=module&editmodule={$module}&drinkid={$drinkid}&admin=true");
+        \LotgdNavigation::addNavAllow("runmodule.php?module=drinks&act=editor&op=save&subop=module&editmodule={$module}&drinkid={$drinkid}&admin=true");
     }
     elseif ('' == $subop)
     {
