@@ -319,8 +319,8 @@ function raceelf_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain'] = 'raceelf-village';
-                $args['textDomainNavigation'] = 'raceelf-navigation';
+                $args['textDomain'] = 'raceelf-village-village';
+                $args['textDomainNavigation'] = 'raceelf-village-navigation';
             }
         break;
         case 'page-village-tpl-params':
