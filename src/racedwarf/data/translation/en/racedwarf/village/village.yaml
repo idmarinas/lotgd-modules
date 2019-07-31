@@ -1,0 +1,33 @@
+# Title for village
+title: 'The Caverns of dwarves'
+
+# Description of village
+description:
+    - '`c`b`#Cavernous {village}, home of the dwarves`0´b´c`n'
+    - '`3Deep in the heart of Mount {village} lie the ancient caverns that the Dwarves have called home for centuries.'
+    - 'Colossal columns, covered with deeply carved geometric shapes, stretch up into the darkness, supporting the massive weight of the mountain above.'
+    - 'All around you, stout dwarves discuss legendary treasures and drink heartily from mighty steins, which they readily fill from tremendous barrels nearby.`0`n'
+
+# Commentary
+commentary:
+    talk: '`n`#Nearby some villagers brag:`0`n' # Talk
+    sayLine: 'brags' # Sayline
+    button: 'Brag' # Add button
+    charsLeft: 'You have %s characters left.'
+    status: # This is optional
+        game: 'Message of the Game Master'
+        you: "It's a comment from you."
+        afk: 'Away from Keyboard'
+        nearby: 'Nearby'
+        offline: 'Offline'
+        dni: "DNI (please don't try to talk to this player right now!)"
+        online: 'Online'
+
+# Clock of the village
+clock:
+    - '`n`3A cleverly crafted crystal prism allows a beam of light to fall through a crack in the great ceiling.'
+    - '`nIt illuminates age old markings carved into the cavern floor, telling you that on the surface it is `#{clock}`0.`0`n'
+
+# Text for new player
+newestOther: '`n`3Pounding an empty stein against a yet unopened barrel of ale, wondering how to get to the sweet nectar inside is `#{name}`0.`0'
+newestPlayer: '`n`3Being rather new to this life, you pound an empty stein against an ale keg in an attempt to get some of the fabulous ale therein.'
