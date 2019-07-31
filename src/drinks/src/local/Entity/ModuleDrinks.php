@@ -87,35 +87,35 @@ class ModuleDrinks
     /**
      * @var int
      *
-     * @ORM\Column(name="hpmin", type="integer", nullable=false)
+     * @ORM\Column(name="hpmin", type="smallint", nullable=false)
      */
     private $hpmin = 0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="hpmax", type="integer", nullable=false)
+     * @ORM\Column(name="hpmax", type="smallint", nullable=false)
      */
     private $hpmax = 0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="hppercent", type="integer", nullable=false)
+     * @ORM\Column(name="hppercent", type="smallint", nullable=false)
      */
     private $hppercent = 0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="turnmin", type="integer", nullable=false)
+     * @ORM\Column(name="turnmin", type="smallint", nullable=false)
      */
     private $turnmin = 0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="turnmax", type="integer", nullable=false)
+     * @ORM\Column(name="turnmax", type="smallint", nullable=false)
      */
     private $turnmax = 0;
 
@@ -152,28 +152,28 @@ class ModuleDrinks
      *
      * @ORM\Column(name="buffatkmod",type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
-    private $buffatkmod;
+    private $buffatkmod = null;
 
     /**
      * @var string
      *
      * @ORM\Column(name="buffdefmod",type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
-    private $buffdefmod;
+    private $buffdefmod = null;
 
     /**
      * @var string
      *
      * @ORM\Column(name="buffdmgmod",type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
-    private $buffdmgmod;
+    private $buffdmgmod = null;
 
     /**
      * @var string
      *
      * @ORM\Column(name="buffdmgshield",type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
-    private $buffdmgshield;
+    private $buffdmgshield = null;
 
     /**
      * @var string
@@ -661,7 +661,7 @@ class ModuleDrinks
      */
     public function setBuffatkmod($buffatkmod)
     {
-        $this->buffatkmod = $buffatkmod;
+        $this->buffatkmod = ('' == $buffatkmod ? null : $buffatkmod);
 
         return $this;
     }
@@ -685,7 +685,7 @@ class ModuleDrinks
      */
     public function setBuffdefmod($buffdefmod)
     {
-        $this->buffdefmod = $buffdefmod;
+        $this->buffdefmod = ('' == $buffdefmod ? null : $buffdefmod);
 
         return $this;
     }
@@ -709,7 +709,7 @@ class ModuleDrinks
      */
     public function setBuffdmgmod($buffdmgmod)
     {
-        $this->buffdmgmod = $buffdmgmod;
+        $this->buffdmgmod = ('' == $buffdmgmod ? null : $buffdmgmod);
 
         return $this;
     }
@@ -733,7 +733,7 @@ class ModuleDrinks
      */
     public function setBuffdmgshield($buffdmgshield)
     {
-        $this->buffdmgshield = $buffdmgshield;
+        $this->buffdmgshield = ('' == $buffdmgshield ? null : $buffdmgshield);
 
         return $this;
     }
