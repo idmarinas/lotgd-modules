@@ -247,7 +247,7 @@ if ($battle)
 
     $battleDefeatWhere = false;
 
-    require_once 'battle.php';
+    require_once 'public/battle.php';
 
     if ($victory)
     {
