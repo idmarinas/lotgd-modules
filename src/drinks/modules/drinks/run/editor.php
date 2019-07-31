@@ -112,7 +112,7 @@ elseif ('save' == $op)
         $module =  \LotgdHttp::getQuery('editmodule');
 
         $message = 'flash.message.editor.save.module';
-        $paramsFlashMessages = ['name' => $module];
+        $paramsFlashMessage = ['name' => $module];
         // Save module settings
         reset($post);
 
