@@ -128,7 +128,7 @@ elseif ('save' == $op)
         $drinkEntity = $repository->find($drinkid);
         $drinkEntity = $repository->hydrateEntity($post, $drinkEntity);
 
-        \Doctrine::persist($creatureEntity);
+        \Doctrine::persist($drinkEntity);
         \Doctrine::flush();
 
         $drinkid = $drinkEntity->getId();
