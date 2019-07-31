@@ -136,7 +136,7 @@ elseif ('save' == $op)
 
     if ($message)
     {
-        \LotgdFlashMessages::addInfoMessage($message, $paramsFlashMessage, $textDomain);
+        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t($message, $paramsFlashMessage, $textDomain));
     }
 
     $op = 'edit';
