@@ -105,7 +105,7 @@ if ('travel' == $op)
         // Let's give the lower DK people a slightly better chance.
         $dlevel = cities_dangerscale($danger);
 
-        if (e_rand(0, 100) < $dlevel && '1' != $su)
+        if (mt_rand(0, 100) < $dlevel && '1' != $su)
         {
             //they've been waylaid.
 
@@ -176,7 +176,7 @@ if ('travel' == $op)
 }
 elseif ('fight' == $op || 'run' == $op)
 {
-    if ('run' == $op && e_rand(1, 5) < 3)
+    if ('run' == $op && mt_rand(1, 5) < 3)
     {
         // They managed to get away.
         page_header('title.escape', [], 'cities-module');
