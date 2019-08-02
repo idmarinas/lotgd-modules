@@ -8,8 +8,8 @@ function calendar_getmoduleinfo()
 {
     return [
         'name' => 'Calendar',
-        'author' => 'JT Traub',
-        'version' => '1.0',
+        'author' => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'version' => '2.0.0',
         'category' => 'General',
         'download' => 'core_module',
         'settings' => [
@@ -23,6 +23,9 @@ function calendar_getmoduleinfo()
             'curWkday' => 'What day of the week is it?|',
             'curWkdayName' => 'What is the name of current weekday?,viewonly',
             'curYear' => 'What is the current year?,int|',
+        ],
+        'requires' => [
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
         ]
     ];
 }
