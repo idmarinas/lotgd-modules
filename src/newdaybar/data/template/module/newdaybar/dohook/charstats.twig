@@ -1,0 +1,27 @@
+{% translate_default_domain 'module-newdaybar' %}
+
+<script>
+    var realSecsToTomorrow = '{{ realSecsToTomorrow }}'
+    var secPerDay = '{{ secsPerDay }}'
+
+    var bar = setInterval(newdaybar, 1000)
+
+    function newdaybar ()
+    {
+        if (realSecsToTomorrow > 0)
+        {
+            realSecsToTomorrow--
+
+            $('.lotgd.progress.newdaybar').progress('set progress', realSecsToTomorrow)
+
+            $('.newdaybar.timer.label').children('span').text(Lotgd.duration(realSecsToTomorrow))
+        }
+
+        else
+        {
+            clearInterval(bar)
+
+            $('.newdaybar.timer.label').html('<i class=\"sun icon\"></i> {{ "charstats.newday"|t|uncolorize }}')
+        }
+    }
+</script>
