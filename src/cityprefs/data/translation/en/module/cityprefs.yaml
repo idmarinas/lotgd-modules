@@ -1,0 +1,54 @@
+title:
+    default: 'City Prefs Editor'
+    properties: '{city} Properties'
+
+section:
+    default:
+        table:
+            thead:
+                id: ID
+                name: City Name
+                module: Module
+                edit: Edit
+    edit:
+        paragraph:
+            - 'Changing these values will not affect the city itself, just what city is associated with the preferences.'
+            - 'This is useful if you want to preserve prefs after removing a city.'
+        form:
+            input:
+                name:
+                    label: 'City name'
+                module:
+                    label: 'Module name'
+            button:
+                submit: Submit
+    delete:
+        confirm: 'Are you sure you want to delete this city?  All city prefs will be deleted.  If you would like to retain these settings for a future city, just rename it.'
+
+navigation:
+    category:
+        operations: Operations
+        prefs: 'Module Prefs'
+    nav:
+        editor: 'City Prefs'
+        back:
+            list: 'Back to city list'
+            properties: 'Back to city properties'
+        modloc: 'Module locations'
+        modsettings: 'Module settings'
+        journey: 'Journey to {city}'
+        autoadd: 'Auto-add new cities'
+        city:
+            edit: 'Edit city name and module'
+            delete: 'Delete this city'
+
+flash.message:
+    update:
+        not.found: 'There were no new locations found.'
+        found: 'Added {count,plural, =1{1 location} other{# locations}}: {location}'
+    module:
+        saved: 'Saved!'
+        select: 'Select a pref to edit.'
+    edit.updated: 'The city name is now {city} and the module name is {module}.'
+    delete.success: 'The city "{name}" has been deleted.'
+

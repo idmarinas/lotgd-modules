@@ -1,0 +1,24 @@
+{% translate_default_domain textDomain %}
+
+<table class="ui very compact striped collapsing centered table">
+    <thead>
+        <tr>
+            <th>{{ 'section.default.table.thead.id'|t|uncolorize }}</th>
+            <th>{{ 'section.default.table.thead.name'|t|uncolorize }}</th>
+            <th>{{ 'section.default.table.thead.module'|t|uncolorize }}</th>
+            <th>{{ 'section.default.table.thead.edit'|t|uncolorize }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for city in paginator %}
+            <tr>
+                <td>{{ city.id }}</td>
+                <td>{{ city.cityName }}</td>
+                <td>{{ city.module }}</td>
+                <td>
+                    <a href="{{ ('runmodule.php?module=cityprefs&op=editmodule&cityid=' ~ city.id)|lotgd_url }}"><i class="edit icon"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

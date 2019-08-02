@@ -1,0 +1,17 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.edit.paragraph'|t|colorize }}
+
+<form action="{{ ('runmodule.php?module=cityprefs&op=editcity&cityid=' ~ city.id)|lotgd_url }}" method="post" class="ui form">
+    <div class="ui field">
+        <label for="cityName">{{ 'section.edit.form.input.name.label'|t|colorize }}</label>
+        <input type="text" name="cityName" id="cityName" value="{{ city.cityName }}">
+    </div>
+    <div class="ui field">
+        <label for="module">{{ 'section.edit.form.input.module.label'|t|colorize }}</label>
+        <input type="text" name="module" id="module" value="{{ city.module }}">
+    </div>
+    <div class="ui field">
+        <button type="submit" class="ui button">{{ 'section.edit.form.button.submit'|t|uncolorize }}</button>
+    </div>
+</form>
