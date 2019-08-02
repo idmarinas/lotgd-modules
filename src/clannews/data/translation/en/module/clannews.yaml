@@ -1,0 +1,3 @@
+segment:
+    title: '`&Recent News for {name}`0'
+    not.found: '`$The members of the clan "{name}" are not known in the Kingdom.`0'

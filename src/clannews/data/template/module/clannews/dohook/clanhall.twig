@@ -1,0 +1,14 @@
+{% translate_default_domain textDomain %}
+
+<div class="ui segment">
+    <div class="ui header">{{ 'segment.title'|t(_context)|colorize }}</div>
+    {% if result|length %}
+        <ul class="ui list">
+            {% for news in result %}
+                <li>{{ show_news_item(news)|colorize }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        {{ 'segment.not.found'|t(_context)|colorize }}
+    {% endif %}
+</div>
