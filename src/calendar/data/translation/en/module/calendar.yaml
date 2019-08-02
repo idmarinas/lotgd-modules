@@ -1,5 +1,3 @@
-
-
 section:
-    newday: '`n`^Today is `#{wkDayName}`0, `#{day,number} {monthName}`0 in the year `#{year}`0.`0`n'
-    village: '`n`&A passerby remarks that today is `^{wkDayName}`0, `^{day,number} {monthName}`0 in the year `^{year}`0.`0`n'
+    newday: '`n`^Today is `#{wkDayName}`0, `#{day,number} {monthName}`0 in the year `#{year,number}`0.`0`n'
+    village: '`n`&A passerby remarks that today is `^{wkDayName}`0, `^{day,number} {monthName}`0 in the year `^{year,number}`0.`0`n'

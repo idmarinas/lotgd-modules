@@ -1,7 +1,3 @@
 {% translate_default_domain textDomain %}
 
-{% if staminaSystem %}
-    {{ 'section.newday.stamina'|t|colorize }}
-{% else %}
-    {{ 'section.newday.turn'|t(_context)|colorize }}
-{% endif %}
+{{ 'section.newday'|t(_context)|colorize }}
