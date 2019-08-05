@@ -1,0 +1,31 @@
+# Title for village
+title: 'Home to New Adventurers'
+
+# Description of village
+description:
+    - '`&`c`b{village}´b´c'
+    - 'You are in a village whose very buildings emanate with the feel of magic.'
+    - 'Around you are the scared looking faces of other young adventurers.'
+    - 'You have no idea exactly how it is that you got to this place, but you feel that it is very safe to remain here for some time.`0`n'
+
+# Commentary
+commentary:
+    talk: '`n`&Nearby some local residents talk:`0`n' # Talk
+    sayLine: 'says' # Sayline
+    button: 'Add' # Add button
+    charsLeft: 'You have %s characters left.'
+    status: # This is optional
+        game: 'Message of the Game Master'
+        you: "It's a comment from you."
+        afk: 'Away from Keyboard'
+        nearby: 'Nearby'
+        offline: 'Offline'
+        dni: "DNI (please don't try to talk to this player right now!)"
+        online: 'Online'
+
+# Clock of the village
+clock: '`n`7From the position of the sun, you can tell that it is: `&{clock}`0.`0`n'
+
+# Text for new player
+newestOther: '`n`7Wandering the island, looking frightened, is `&{name}`0.`0'
+newestPlayer: '`n`7As you wander your new home, you feel your jaw dropping at the wonders around you.`0'

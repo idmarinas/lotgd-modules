@@ -1,0 +1,11 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.leave.paragraph'|t(_context)|colorize }}
+
+{% if canLeave %}
+    {{ 'section.leave.raft.yes'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.leave.raft.no'|t(_context)|colorize }}
+{% endif %}
+
+{{ 'section.leave.footer'|t(_context)|colorize }}
