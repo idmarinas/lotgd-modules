@@ -108,7 +108,7 @@ function racedwarf_install()
     module_addhook('village');
     module_addhook('validlocation');
     module_addhook('validforestloc');
-    module_addhook('moderate');
+    module_addhook('moderate-comment-sections');
     module_addhook('drinks-text');
     module_addhook('changesetting');
     module_addhook('drinks-check');
@@ -291,7 +291,7 @@ function racedwarf_dohook($hookname, $args)
                 $args[$city] = "village-$race";
             }
         break;
-        case 'moderate':
+        case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
                 $args["village-$race"] = \LotgdTranslator::t('locs.moderate', [ 'city' => $city ], $race);

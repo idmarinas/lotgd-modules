@@ -73,7 +73,7 @@ function raceelf_install()
     module_addhook('travel');
     module_addhook('validlocation');
     module_addhook('validforestloc');
-    module_addhook('moderate');
+    module_addhook('moderate-comment-sections');
     module_addhook('changesetting');
     module_addhook('raceminedeath');
     module_addhook('pvpadjust');
@@ -270,7 +270,7 @@ function raceelf_dohook($hookname, $args)
                 $args[$city] = "village-$race";
             }
         break;
-        case 'moderate':
+        case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
                 $args["village-$race"] = \LotgdTranslator::t('moderate', [ 'city' => $city ], $race);
