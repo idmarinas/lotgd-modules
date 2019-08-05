@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.give.paragraph'|t(_context)|colorize }}
+
+{% if gived %}
+    {{ ('section.give.case.0' ~ case)|t(_context)|colorize }}
+{% else %}
+    {{ 'section.give.no.gems'|t(_context)|colorize }}
+{% endif %}
