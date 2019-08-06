@@ -1,0 +1,74 @@
+title:
+    superuser: 'Actions Management'
+    show: 'Your Stamina statistics'
+
+section:
+    superuser:
+        title: '`c`bActions Management´b´c`n`n'
+        paragraph: 'Here you can see all the Actions that have been installed, along with their default values.`n`n'
+        table:
+            thead:
+                name: Action name
+                cost:
+                    max: Max Cost
+                    min: Min Cost
+                    reduction: 'Cost--/lvl'
+                exp:
+                    use: EXP per usage
+                    level: EXP for level
+                dk: 'DK carryover %%'
+    show:
+        paragraph:
+            - "`n`nHere is the nitty-gritty of your Stamina statistics."
+            - "The most important value is the total cost, over there on the right."
+            - "If there's anything in the Buff column, something's temporarily affecting the cost of performing that action (negative numbers are good!)."
+            - "More details follow after the stats.`n`n"
+        bar.label: 'Total Stamina: {currentStamina,number} / {totalStamina,number} | Amber point: {amberPoint,number} | Red point: {redPoint,number}'
+        buffs:
+            title: '`n`n`bAction Buffs´b:`n'
+            item: '%s {rounds,plural, =0{} =1{1 round left} other{# rounds left}}`n'
+            none: None.
+        footer:
+            - "`n`nRemember, using the Stamina system is easy - just keep in mind that the more you do something, the better you get at it."
+            - "So if you do a lot of the things you enjoy doing the most, the game will let you do more of those things each day."
+            - "All of the statistics you see above can help you fine-tune your character, but honestly, 99%% of the time you needn't worry about the statistics and mechanics - they're only there for when you're curious!`n`n"
+            - "All Bonuses and Penalties are cleared at the start of each game day.`n`n"
+    charstats:
+        alert: 'When you run low on Stamina, you become weaker in combat. Recover Stamina by eating, drinking or using a New Day.'
+
+navigation:
+    nav:
+        editor: 'Stamina Actions management'
+
+charstats.stat: Stamina
+
+buff:
+    name: '`&Exhaustion`0'
+    '0.3': "`$You're getting `bdangerously exhausted!´b`0"
+    '0.6': "`$You're getting `bexhausted!´b`0"
+    '0.8': "`4You're getting `ivery`i tired...`0"
+    '01': "You're getting tired..."
+
+notify:
+    '0.3':
+        message: "That said, you're dangerously exhausted."
+        title: 'The meeting with {deathOverlord} is close...'
+    '0.6':
+        message: "...Other than why I did not warn you, you're exhausted."
+        title: 'Do you want to visit {deathOverlord}?'
+    '0.8':
+        message: "You really should take a break, you're very tired."
+        title: 'The stamina leaves you...'
+    '01':
+        message: "You should take a break, you're a little tired."
+        title: 'The stamina leaves you...'
+    red:
+        message: 'You are in danger, if you continue with your actions you run the risk of visiting {deathOverlord}.'
+        title: "It's too late for you"
+
+flash.message.death:
+    0: "Vision blurring, you succumb to the effects of exhaustion. You take a step forward to strike your enemy, but instead trip over your own feet."
+    1: "As the carpet of leaves and twigs drifts lazily up to meet your face, you close your eyes and halfheartedly reach out your hands to cushion the blow - but they sail through the ground as if it were made out of clouds."
+    2: "You fall."
+    3: "Unconsciousness. How you'd missed it."
+    union: '<br>'

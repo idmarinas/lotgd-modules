@@ -1,0 +1,22 @@
+{% translate_default_domain textDomain %}
+
+<div class="ui lotgd small progress remove margin {{ barColor}} staminasystem staminabar" data-value={{ currentStamina }} data-total="{{ totalStamina }}">
+    <div class='bar'></div>
+	<div class='label'>{{ 'section.show.bar.label'|t(_context)|colorize }}</div>
+</div>
+
+{{ 'section.show.paragraph'|t(_context)|colorize }}
+
+{{ tabs }}
+
+{{ 'section.show.buffs.title'|t(_context)|colorize }}
+
+{% for buff in buffList %}
+    {% if buff.name %}
+        {{ 'section.show.buffs.item'|t({ 'name': buff.name, 'rounds': buff.rounds })|colorize }}
+    {% endif %}
+{% else %}
+    {{ 'section.show.buffs.none'|t(_context)|colorize }}
+{% endfor %}
+
+{{ 'section.show.footer'|t(_context)|colorize }}
