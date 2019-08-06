@@ -1150,29 +1150,16 @@ function stamina_minihof($action, $userid = false)
         $smallboard = stamina_minihof_makesmallboard($boardinfo, $userid);
     }
 
+    $params = [
+        'textDomain' => 'module-staminasystem',
+        'board' => $smallboard,
+        'action' => translate_inline($action),
+        'userId' => $userid
+    ];
+
     //display the board!
 
-    output('`n`n');
-    rawoutput('<div align=center>');
-    rawoutput("<table class='ui very compact striped collapsing table'>");
-    rawoutput("<thead><tr><th class='center aligned' colspan=3>".translate_inline($action).'</th></tr>');
-    rawoutput('<tr><th>'.translate_inline('Rank').'</th><th>'.translate_inline('Name').'</th><th>'.translate_inline('Experience').'</th></tr></thead>');
-    $count = count($smallboard);
-
-    for ($i = 0; $i < $count; $i++)
-    {
-        rawoutput('<tr>');
-
-        if ($smallboard[$i]['acctid'] == $userid)
-        {
-            rawoutput('<td><strong>'.number_format($smallboard[$i]['rank']).'</strong></td><td><strong>'.appoencode($smallboard[$i]['name']).'</strong></td><td><strong>'.number_format($smallboard[$i]['xp']).'</strong></td></tr>');
-        }
-        else
-        {
-            rawoutput('<td>'.number_format($smallboard[$i]['rank']).'</td><td>'.appoencode($smallboard[$i]['name']).'</td><td>'.number_format($smallboard[$i]['xp']).'</td></tr>');
-        }
-    }
-    rawoutput('</table></div>');
+    rawoutput(LotgdTheme::renderModuleTemplate('staminasystem/lib/minihof.twig', $params));
 }
 
 function stamina_minihof_makesmallboard($boardinfo, $userid = false)

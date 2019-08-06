@@ -36,6 +36,14 @@ section:
     charstats:
         alert: 'When you run low on Stamina, you become weaker in combat. Recover Stamina by eating, drinking or using a New Day.'
 
+lib.minihof:
+    table:
+        thead:
+            rank: Rank
+            name: Name
+            exp: Experience
+        tbody.not.found: '`$Not found players`0'
+
 navigation:
     nav:
         editor: 'Stamina Actions management'

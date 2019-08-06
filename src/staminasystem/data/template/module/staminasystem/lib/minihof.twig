@@ -1,0 +1,28 @@
+{% translate_default_domain textDomain %}
+
+<br><br>
+<table class="ui very compact striped centered collapsing table">
+    <thead>
+        <tr>
+            <th colspan="3" class="center aligned">{{ action }}</th>
+        </tr>
+    </thead>
+    <thead>
+        <tr>{{ 'lib.minihof.table.thead.rank'|t|uncolorize }}</tr>
+        <tr>{{ 'lib.minihof.table.thead.name'|t|uncolorize }}</tr>
+        <tr>{{ 'lib.minihof.table.thead.exp'|t|uncolorize }}</tr>
+    </thead>
+    <tbody>
+        {% for row in board %}
+            <tr class="{{ row.acctid == userId ? 'active' : '' }}">
+                <td>{{ row.rank|numeral }}</td>
+                <td>{{ row.name|colorize }}</td>
+                <td>{{ row.xp|numeral }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3" class="center aligned">{{ 'lib.minihof.table.tbody.not.found'|t|colorize }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
