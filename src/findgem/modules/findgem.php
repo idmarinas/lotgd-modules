@@ -12,8 +12,7 @@ function findgem_getmoduleinfo()
         'category' => 'Forest Specials',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
-            'cities' => '>=2.0.0|Multiple Cities - Core module'
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
         ]
     ];
 }
