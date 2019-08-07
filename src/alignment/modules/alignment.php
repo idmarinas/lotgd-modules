@@ -5,7 +5,7 @@ function alignment_getmoduleinfo()
     return [
         'name' => 'Alignment Core',
         'author' => '`QWebPixie and Chris Vorndran`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '1.9.0',
+        'version' => '2.0.0',
         'category' => 'Stat Display',
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=64',
         'vertxtloc' > 'http://dragonprime.net/users/Sichae/',
