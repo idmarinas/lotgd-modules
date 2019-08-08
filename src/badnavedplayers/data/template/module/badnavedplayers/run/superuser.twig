@@ -1,0 +1,35 @@
+{% translate_default_domain textDomain %}
+
+{% if result|length %}
+    {{ 'section.superuser.paragraph'|t|colorize }}
+    <br>
+    <form action="{{ 'runmodule.php?module=badnaved_players&op=fix'|lotgd_url }}" method="post" class="ui form">
+        <div class="ui field">
+            <table class="ui very compact basic striped collapsing centered table">
+                <thead>
+                    <tr>
+                        <th>{{ 'section.superuser.table.thead.name'|t|uncolorize }}</th>
+                        <th>{{ 'section.superuser.table.thead.navs'|t|uncolorize }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <td>{{ row.name|colorize }}</td>
+                            <td class="center aligned">
+                                <div class="ui lotgd toggle checkbox">
+                                    <input type="checkbox" name="fixnav[]" value="{{ row.id }}" />
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="ui center aligned field">
+            <button type="submit" class="ui button">{{ 'section.superuser.form.button.submit'|t|uncolorize }}</button>
+        </div>
+    </form>
+{% else %}
+    {{ 'section.superuser.not.found'|t|colorize }}
+{% endif %}

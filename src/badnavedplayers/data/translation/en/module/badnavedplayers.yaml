@@ -1,0 +1,16 @@
+title: 'Badnaved Players'
+
+section.superuser:
+    paragraph: '`n`3To rescue players from badnav land, tick the box next to their name and click the button.`0`n'
+    not.found: '`n`3No players are trapped in badnav land at this time.`0'
+    table:
+        thead:
+            name: Name
+            navs: Fix Navs
+    form:
+        button:
+            submit: Fix Them
+
+navigation.nav.superuser: 'Badnaved Players (`b`${count,number}`0´b)'
+
+flash.message.fixed: "`n`@{n,plural, =1{1 player was} other{# players were's}} rescued from badnav land.`0`n"
