@@ -1,0 +1,25 @@
+{% translate_default_domain textDomain %}
+
+<div class="center aligned">
+    <div class="ui small icon header">
+        <img class="icon" border="0" src="images/topwebgames-88x31.gif" alt="{{ 'image.alt'|t(_context)|uncolorize }}">
+        <div class="content">
+            <p>Top Web Games</p>
+
+            <div class="sub header">
+                {% if canVote %}
+                    <a href="{{ 'http://www.topwebgames.com/in.asp?id=' ~ id ~ '&acctid=' ~ acctId ~ '&alwaysreward=1' }}" target="_blank" rel="noopener noreferrer">
+                        {{ 'twg.vote'|t(_context)|colorize }}
+                    </a>
+                {% else %}
+                    {{ 'twg.voted'|t(_context)|colorize }}
+                {% endif %}
+
+                <br><br>
+
+                {{ 'votes'|t(_context)|colorize }}
+                {{ 'rank'|t(_context)|colorize }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+image.alt: 'Vote for {serverName} in Top Web Games'
+rank: '`&Rank this week: `@{rank,select, error{TWG Error} other{{rank}}}`0`0`n'
+votes: '`&Votes this week: `^{votes,select, error{TWG Error} other{{votes}}}`0`0`n'
+twg:
+    vote: '`^Vote now!`0 `&Gain`0 `%1 Gem`0'
+    voted: '`@Already voted this week`0'
