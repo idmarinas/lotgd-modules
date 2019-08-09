@@ -77,3 +77,7 @@ src
 
 -   `serversuspend.php` Server Maintenance Suspension
     >   The core now includes this feature.
+-   `translationwizard.php` Translation Wizard
+    >   The core now use a diferent translation system.
+-   `unclean.php` Unclean Commentary Tracker
+    >   New comment system allow hide/unhide comments. In future version allow to delete hide comments.
