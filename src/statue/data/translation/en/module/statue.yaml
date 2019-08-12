@@ -1,0 +1,32 @@
+
+section:
+    home.hero:
+        yes: '`@The most recent hero of the realm is: `&{heroName}`0.`0`n`n'
+        no: '`@There is no hero at the moment, will you be the first?`0`n`n'
+    village:
+        hero:
+            no:
+                erected: '`n`@The people wandering past periodically stop to admire a statue of the ancient hero, `&MightyE`0.`0`n'
+                erecting:
+                    - '`n`@The inhabitants of {location} are busy re-erecting a statue for their ancient hero, `&MightyE`0 on the only statue pedestal around.'
+                    - 'The remains of the statue that had stood there before lie in such ruins around the pedestal that it is no longer recognizable.`0`n'
+            yes:
+                erected: '`n`@The inhabitants of {location} have erected a statue for their newest hero, `&{heroName}`0 on the only statue pedestal around.  The remains of the statue that had stood there before have been removed.`0`n'
+                erecting:
+                    - '`n`@The inhabitants of {location} are busy erecting a statue for their newest hero, `&{heroName}`0 on the only statue pedestal around.'
+                    - 'The remains of the statue that had stood there before lie in such ruins around the pedestal that it is no longer recognizable.`0`n'
+            examine: '<a href="village.php?op=astatue">Examine Statue</a>'
+        examine:
+            break:
+                closer: '`n`@You take a closer look at the statue of `&{heroName}`0. As you lean closer for a better view, you stumble and smash the statue.`n`7The people of {location} grab you and start to publicly humulate you.`0'
+                remember: 'The last thing you can remember before losing consciousness is some thugs rifling through your pockets'
+                partner: '{partner} `7watches the whole thing before walking back into the inn. The last thing you can remember before losing consciousness is the sound of the hard wood of the stocks crashing together around your neck!`0`n'
+                capital: 'The last thing you can remember before losing consciousness is {partner} watches the whole thing before walking back into the inn.'
+                lost:
+                    gold: '`nYour `^gold`0 was taken!'
+                    gems: '`nYour `%gems`0 were taken!'
+                    charm: '`nYou `4lose`0 some charm!'
+                    hitpoints: '`nYou `4lose`0 some hitpoints!'
+            view: '`n`@You take a closer look at the statue of `&{heroName}`0. From the amount of detail in the statue, you think that the people of {location} must love `&{heroName}`0.`0`n'
+
+news.broke.statue: '`&{playerName} `7broke the statue in {location}!'

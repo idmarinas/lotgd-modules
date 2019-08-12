@@ -1,0 +1,8 @@
+{% translate_default_domain textDomain %}
+
+{% if hero %}
+    {{ 'section.home.hero.yes'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.home.hero.no'|t(_context)|colorize }}
+{% endif %}
+
