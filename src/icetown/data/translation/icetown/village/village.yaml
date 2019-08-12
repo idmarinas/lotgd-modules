@@ -1,0 +1,31 @@
+# Title for village
+title: 'Ice Town'
+
+# Description of village
+description:
+    - '`c`b`&{vilage}`0´b´c`n'
+    - '`7You are standing in a wonderland of white.'
+    - 'Crystal icicles wink at you from the eaves of the buildings and huts nearby.'
+    - 'Villagers are chatting, their words emerging in frosty fog.`0`n'
+
+# Commentary
+commentary:
+    talk: '`n`&Nearby some visitors excitedly chat:`0`n' # Talk
+    sayLine: '`7converses`0' # Sayline
+    button: 'Converse' # Add button
+    charsLeft: 'You have %s characters left.'
+    status: # This is optional
+        game: 'Message of the Game Master'
+        you: "It's a comment from you."
+        afk: 'Away from Keyboard'
+        nearby: 'Nearby'
+        offline: 'Offline'
+        dni: "DNI (please don't try to talk to this player right now!)"
+        online: 'Online'
+
+# Clock of the village
+clock: '`n`7The clock on the church reads `&{clock}`0.`0`n'
+
+# Text for new player
+newestOther: ''
+newestPlayer: ''

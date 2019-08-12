@@ -1,0 +1,5 @@
+news.pvp:
+    win: '`4{playerName}`0 `3defeated `4{creatureName}`0 in fair combat on the ski slopes of {location}.`0'
+    defeated: '`%{playerName}`0 `5has been slain while attacking `^{creatureName}`0 on the ski slopes of `&{location}`0.`0'
+
+moderate: 'City of {city}'
