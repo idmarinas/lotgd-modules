@@ -62,9 +62,9 @@ if ('travel' == $op)
             // this line rewritten so as not to clash with the hitch module.
         }
 
-        module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
-
         rawoutput(LotgdTheme::renderModuleTemplate('cities/run/travel.twig', $params));
+
+        module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
 
         page_footer();
     }
