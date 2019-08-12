@@ -215,15 +215,15 @@ function ghosttown_dohook($hookname, $args)
                 $args['textDomain'] = 'ghosttown-village-village';
                 $args['textDomainNavigation'] = 'ghosttown-village-navigation';
 
-                blocknav('lodge.php');
-                blocknav('weapons.php');
-                blocknav('armor.php');
-                blocknav('clan.php');
-                blocknav('pvp.php');
-                blocknav('forest.php');
-                blocknav('gardens.php');
-                blocknav('gypsy.php');
-                blocknav('bank.php');
+                \LotgdNavigation::blockHideLink('lodge.php');
+                \LotgdNavigation::blockHideLink('weapons.php');
+                \LotgdNavigation::blockHideLink('armor.php');
+                \LotgdNavigation::blockHideLink('clan.php');
+                \LotgdNavigation::blockHideLink('pvp.php');
+                \LotgdNavigation::blockHideLink('forest.php');
+                \LotgdNavigation::blockHideLink('gardens.php');
+                \LotgdNavigation::blockHideLink('gypsy.php');
+                \LotgdNavigation::blockHideLink('bank.php');
 
                 $allow = get_module_pref('allow') || get_module_setting('allowtravel');
 
