@@ -1,0 +1,38 @@
+# Title for village
+title: 'Ghost Town'
+
+# Description of village
+description:
+    - '`c`b`&{village}`0´b´c`n'
+    - '`6You are standing in a deserted ghost town.'
+    - 'Swinging on rusty hooks, a sign proclaiming "{village}" has been vandalized to read "{defaced}".'
+    - 'Eerie silence greets you from the shadows, and the nearby cemetery echoes the sounds of departed unrestful souls.`0`n'
+
+# Commentary
+commentary:
+    talk: '`n`&Nearby some visitors whisper in hushed tones:`0`n' # Talk
+    sayLine: 'whispers' # Sayline
+    button: 'Whisper' # Add button
+    charsLeft: 'You have %s characters left.'
+    status: # This is optional
+        game: 'Message of the Game Master'
+        you: "It's a comment from you."
+        afk: 'Away from Keyboard'
+        nearby: 'Nearby'
+        offline: 'Offline'
+        dni: "DNI (please don't try to talk to this player right now!)"
+        online: 'Online'
+
+# Clock of the village
+clock: '`n`7The rusted iron clock on the old church reads `&{clock}`0.`0`n'
+
+# Text for new player
+newestOther: ''
+newestPlayer: ''
+
+
+                if (is_module_active('calendar'))
+                {
+                    $args['calendar'] = '`n`7A ghostly voice whispers from nowhere that it is `&%s`7, `&%s %s %s`7.`n';
+                    $args['schemas']['calendar'] = 'module-ghosttown';
+                }

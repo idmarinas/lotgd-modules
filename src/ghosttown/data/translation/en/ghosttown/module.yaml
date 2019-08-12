@@ -1,0 +1,5 @@
+news.pvp:
+    win: '`4{playerName}`3 defeated `4{creatureName}`0 in fair combat near the campfire in {location}.'
+    defeated: '`%{playerName}`0 `5has been slain while attacking `^{creatureName}`0 near the campfire in `&{location}`0.`0'
+
+moderate: 'City of {city}'
