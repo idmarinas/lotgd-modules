@@ -1,0 +1,43 @@
+action:
+    hunting:
+        normal: '`b`0You gained a level in Looking for Trouble! This action costs fewer Stamina points now, so you can find more beasties to aggress!´b`n`n'
+        easy: '`b`0You gained a level in Looking for Easy Fights! This action costs fewer Stamina points now, so you can pick on more small creatures!´b`n`n'
+        thrill: '`b`0You gained a level in Looking for Big Trouble! This action costs fewer Stamina points now, so you can throw yourself on the mercy of large creatures more often!´b`n`n'
+        suicide: '`b`0You gained a level in Looking for Really Big Trouble!  This action costs fewer Stamina points now, so you can put yourself in mortal danger more often!´b`n`n'
+    fighting:
+        standard: '`n`b`0You gained a level in Standard Fighting!  You are now level {level,number}! This action will cost fewer Stamina points now.´b`n'
+        running: '`n`b`0You gained a level in Running Away! You are now level {level,number}! This action will cost fewer Stamina points now, so you can run away like a cowardly dog more often!´b`n'
+        chin: '`n`b`0You gained a level in Taking It On The Chin! You are now level {level,number}! This action will cost fewer Stamina points now, so getting beaten up will tire you out a little less.  Good thing, really!´b`n'
+        blow: '`0The force of the blow sends you reeling, and knocks {stamina,number} Stamina points out of you!`n'
+
+stamina.buff:
+    name: 'Exhaustion'
+    roundmsg:
+        '0.3': "`$You're getting `bdangerously exhausted!´b`0"
+        '0.6': "`$You're getting `bexhausted!´b`0"
+        '0.8': "`4You're getting `ivery´i tired...`0"
+        '01': "You're getting tired..."
+
+navigation:
+    nav:
+        trouble:
+            normal: 'T?Look for Trouble (`Q{cost}%`0)'
+            big: 'B?Look for Big Trouble (`Q{cost}%`0)'
+        easy: 'E?Look for an Easy Fight (`Q{cost}%`0)'
+        suicidally: '*?Search `$Suicidally`0 (`Q{cost}%`0)'
+        fight:
+            live: 'F?Fight (`Q{cost}%`0)'
+            death: 'F?Torment (`Q{cost}%`0)'
+        run:
+            live: 'R?Run (`Q{cost}%`0)'
+            death: 'R?Flee (`Q{cost}%`0)'
+        abort: Abort
+        auto:
+            '05': '5?For 5 Rounds (`Q{cost}%`0)'
+            '010': '1?For 10 Rounds (`Q{cost}%`0)'
+
+flash.message.stamina.death:
+    - "`$Vision blurring, you succumb to the effects of exhaustion."
+    - "You take a step forward to strike your enemy, but instead trip over your own feet.`n"
+    - "As the carpet of leaves and twigs drifts lazily up to meet your face, you close your eyes and halfheartedly reach out your hands to cushion the blow - but they sail through the ground as if it were made out of clouds.`n"
+    - "You fall.`nUnconsciousness. How you'd missed it.`0"
