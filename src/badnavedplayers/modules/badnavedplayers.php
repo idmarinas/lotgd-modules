@@ -50,7 +50,7 @@ function badnavedplayers_dohook($hookname, $args)
             ->getSingleScalarResult()
         ;
 
-        \LotgdNavigation::addHeader('superuser.category.actions', [ 'textDomain' => 'app-navigation' ]);
+        \LotgdNavigation::addHeader('superuser.category.actions', [ 'textDomain' => 'navigation-app' ]);
         \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=badnavedplayers', [
             'textDomain' => 'module-badnavedplayers',
             'params' => [
