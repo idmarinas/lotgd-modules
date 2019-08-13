@@ -1,0 +1,40 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.run.current.user'|t(_context)|colorize }}
+
+<br>
+
+<form action="{{ formSearch|lotgd_url }}" method="post">
+    <div class="field">
+        <label for="name">{{ 'section.run.form.label.name'|t|colorize }}</label>
+        <div class="ui action input">
+            <input type="text" name="name" id="name">
+            <button class="ui button" type="submit">{{ 'section.run.form.button.submit'|t|uncolorize }}</button>
+        </div>
+    </div>
+</form>
+
+{% if isSearch %}
+    <table class="ui very compact striped table">
+        <thead>
+            <tr>
+                <th>{{ 'section.run.table.thead.op'|t|uncolorize }}</th>
+                <th>{{ 'section.run.table.thead.acctid'|t|uncolorize }}</th>
+                <th>{{ 'section.run.table.thead.login'|t|uncolorize }}</th>
+                <th>{{ 'section.run.table.thead.name'|t|uncolorize }}</th>
+                <th>{{ 'section.run.table.thead.level'|t|uncolorize }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for character in paginator %}
+                <tr>
+                    <td><a href="{{ ('runmodule.php?module=allprefseditor&userid=' ~ character.acctid)|lotgd_url }}">{{ 'section.run.table.tbody.edit'|t|colorize }}</a></td>
+                    <td>{{ character.acctid|numeral }}</td>
+                    <td>{{ character.login }}</td>
+                    <td>{{ character.name|colorize }}</td>
+                    <td>{{ character.level|numeral }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

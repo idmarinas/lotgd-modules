@@ -1,0 +1,21 @@
+title: 'Allprefs Editor'
+
+section.run:
+    current.user: '`c`b`^Current User:`0´b `${name}`0´c'
+    form:
+        label:
+            name: 'Search for Another Player'
+        button:
+            submit: 'Search'
+    table:
+        thead:
+            op: Op
+            name: Name
+            login: Login
+            acctid: AcctID
+            level: Level
+        tbody.edit: Edit
+
+navigation.nav:
+    edit: 'Edit user'
+    editors: Allprefs Editors
