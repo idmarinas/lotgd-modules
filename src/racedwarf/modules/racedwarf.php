@@ -123,6 +123,7 @@ function racedwarf_install()
 function racedwarf_uninstall()
 {
     global $session;
+
     $vname = getsetting('villagename', LOCATION_FIELDS);
     $gname = get_module_setting('villagename');
 
@@ -182,8 +183,6 @@ function racedwarf_uninstall()
 
         return false;
     }
-
-    DB::query($sql);
 
     return true;
 }
