@@ -1,0 +1,21 @@
+{% translate_default_domain textDomain %}
+
+{% if 60 < healthPercent %}
+    {% set barIcon = '<i class="orange heart icon animated pulse"></i>' %}
+{% elseif 25 < healthPercent %}
+    {% set baricon = '<i class="red heartbeat icon animated flash infinite"></i>' %}
+{% endif %}
+
+<div class="ui tiny indicating lotgd progress healthbar {{ showLabel ? '' : 'remove margin' }}" data-value="{{ healthCurrent }}" data-total="{{ healthMax }}">
+    <div class="bar"></div>
+    {% if showLabel %}
+        <div class="label">
+            {% if showCurrent %}
+                {{ '`&%s`0'|format(healthCurrent)|colorize }}
+            {% endif %}
+            {% if showCurrent and showMax %}
+                {{ '/`&%s`0'|format(healthRealMax)|colorize }}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
