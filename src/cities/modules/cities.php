@@ -69,9 +69,32 @@ function cities_uninstall()
     // I think I have a patch however :)
     $city = getsetting('villagename', LOCATION_FIELDS);
     $inn = getsetting('innname', LOCATION_INN);
-    $sql = 'UPDATE '.DB::prefix('accounts')." SET location='".addslashes($city)."' WHERE location!='".addslashes($inn)."'";
-    DB::query($sql);
-    $session['user']['location'] = $city;
+
+    try
+    {
+        $charactersRepository = \Doctrine::getRepository('LotgdCore:Characters');
+
+        //-- Updated location
+        $query = $charactersRepository->getQueryBuilder();
+        $query->update('LotgdCore:Characters', 'u')
+            ->set('u.location', ':new')
+            ->where('u.location = :old')
+
+            ->setParameter('old', $inn)
+            ->setParameter('new', $city)
+
+            ->getQuery()
+            ->execute()
+        ;
+
+        $session['user']['location'] = $city;
+    }
+    catch (\Throwable $th)
+    {
+        \Tracy\Debugger::log($th);
+
+        return false;
+    }
 
     return true;
 }
