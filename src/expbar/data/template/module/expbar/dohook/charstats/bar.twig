@@ -1,0 +1,19 @@
+{% translate_default_domain textDomain %}
+
+<div class="ui tiny lotgd progress expbar {{ showLabel ? '' : 'remove margin' }} {{ canLevelUp ? 'violet' : 'blue' }}" data-value="{{ experienceCurrent }}" data-total="{{ experienceRequire }}">
+    <div class="bar">
+    {% if showLabel %}
+        <div class="label">
+            {% if canLevelUp %}
+                {{ 'challange.master'|t(_context)|colorize }} <i class="green level up icon animated flash"></i>
+            {% else %}
+                {% if showNum %}
+                    {{ experienceCurrent|numeral }}
+                {% endif %}
+                {% if showNext %}
+                    {{ '/`G%s`0'|format(experienceRequire|numeral)|colorize }}
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

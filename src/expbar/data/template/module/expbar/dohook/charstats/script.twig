@@ -1,0 +1,14 @@
+{% translate_default_domain textDomain %}
+
+{% if canLevelUp %}
+    <script>
+        var animatedName = 'animated flash'
+        $('.level.up.icon').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+            var self = this
+            $(self).removeClass(animatedName);
+            setTimeout(function () {
+                $(self).addClass(animatedName)
+            }, 5000)
+        });
+    </script>
+{% endif %}
