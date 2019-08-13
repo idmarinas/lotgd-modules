@@ -8,9 +8,11 @@
         </tr>
     </thead>
     <thead>
-        <tr>{{ 'lib.minihof.table.thead.rank'|t|uncolorize }}</tr>
-        <tr>{{ 'lib.minihof.table.thead.name'|t|uncolorize }}</tr>
-        <tr>{{ 'lib.minihof.table.thead.exp'|t|uncolorize }}</tr>
+        <tr>
+            <th>{{ 'lib.minihof.table.thead.rank'|t|uncolorize }}</th>
+            <th>{{ 'lib.minihof.table.thead.name'|t|uncolorize }}</th>
+            <th>{{ 'lib.minihof.table.thead.exp'|t|uncolorize }}</th>
+        </tr>
     </thead>
     <tbody>
         {% for row in board %}
