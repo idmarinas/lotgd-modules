@@ -11,10 +11,10 @@
     {% if showLabel %}
         <div class="label">
             {% if showCurrent %}
-                {{ '`&%s`0'|format(healthCurrent)|colorize }}
+                {{ '`&%s`0'|format(healthCurrent|numeral)|colorize }}
             {% endif %}
             {% if showCurrent and showMax %}
-                {{ '/`&%s`0'|format(healthRealMax)|colorize }}
+                {{ '/`&%s`0'|format(healthRealMax|numeral)|colorize }}
             {% endif %}
         </div>
     {% endif %}
