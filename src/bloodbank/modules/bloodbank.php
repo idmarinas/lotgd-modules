@@ -109,7 +109,7 @@ function bloodbank_run()
             'textDomain' => $textDomain
         ];
 
-        rawoutput(\LotgdTheme::renderModuleTemplate('bloodbank/run/donate', $params));
+        rawoutput(\LotgdTheme::renderModuleTemplate('bloodbank/run/donate.twig', $params));
     }
     elseif ('give' == $op && 1 == $giventoday)
     {
@@ -117,7 +117,7 @@ function bloodbank_run()
             'textDomain' => $textDomain
         ];
 
-        rawoutput(\LotgdTheme::renderModuleTemplate('bloodbank/run/donated', $params));
+        rawoutput(\LotgdTheme::renderModuleTemplate('bloodbank/run/donated.twig', $params));
     }
 
     page_footer();
