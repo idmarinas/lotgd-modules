@@ -105,7 +105,6 @@ function racedwarf_install()
     module_addhook('village-text-domain');
     module_addhook('page-village-tpl-params');
     module_addhook('travel');
-    module_addhook('village');
     module_addhook('validlocation');
     module_addhook('validforestloc');
     module_addhook('moderate-comment-sections');
