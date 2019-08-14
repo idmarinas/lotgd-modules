@@ -257,8 +257,6 @@ function creationaddon_run()
 {
     global $session;
 
-    require_once 'lib/superusernav.php';
-
     $op = (string) \LotgdHttp::getQuery('op');
 
     switch ($op)
@@ -301,12 +299,10 @@ function creationaddon_list()
 {
     global $session;
 
-    require_once 'lib/superusernav.php';
-
     page_header('superuser.editor', [], 'module-creationaddon');
 
     $page = (int) \LotgdHttp::getQuery('page', 1);
-    superusernav();
+    \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
 
     $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModuleCreationAddon::class);
@@ -329,13 +325,11 @@ function creationaddon_delete()
 {
     global $session;
 
-    require_once 'lib/superusernav.php';
-
     $bad_id = (int) \LotgdHttp::getQuery('bad_id', 0);
 
     page_header('superuser.editor', [], 'module-creationaddon');
 
-    superusernav();
+    \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
 
     $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModuleCreationAddon::class);
@@ -362,11 +356,9 @@ function creationaddon_add()
 {
     global $session;
 
-    require_once 'lib/superusernav.php';
-
     page_header('superuser.editor', [], 'module-creationaddon');
 
-    superusernav();
+    \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
 
     $banname = (string) \LotgdHttp::getPost('bname', '');
