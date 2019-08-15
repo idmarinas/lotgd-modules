@@ -4,7 +4,7 @@ function landsky_getmoduleinfo()
 {
     return [
         'name' => 'The Sky',
-        'version' => '3.0.0',
+        'version' => '2.0.0',
         'author' => '`@CortalUX`&, with modifications by `#Lonnyl`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>`0',
         'category' => 'General',
         'vertxtloc' => 'http://dragonprime.net/users/CortalUX/',
