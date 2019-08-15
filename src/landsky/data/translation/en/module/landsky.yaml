@@ -1,0 +1,16 @@
+
+sky:
+    deadsky:
+        '00': 'Night of the Soul'
+        '01': "Morn' of Death"
+        '02': 'Torment'
+        '03': 'Eternal Pain'
+        '04': 'Rebirth'
+    sky:
+        '00': 'Night'
+        '01': 'Morning'
+        '02': 'Noon'
+        '03': 'Afternoon'
+        '04': 'Evening'
+
+bright: 'It is too bright to make out the {moonsCount,plural, =1{moon} other{moons}}.'

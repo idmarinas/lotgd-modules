@@ -1,0 +1,30 @@
+{% translate_default_domain textDomain %}
+
+<br>
+<table class="ui very compact very basic collapsing centered table">
+    <tr>
+        <td>
+            <div style="background-image: url({{ './images/landsky/' ~ landsky_image ~ '_bg.png' }}); background-repeat: repeat; border:0; clip:auto; clear:both; width: 50px; height: 50px; overflow:hidden;">
+                <img src="{{ './images/landsky/' ~ landsky_image ~ '.png' }}" alt='The sky..' style="width: {{ dimensions.width ~ 'px' }}; height: {{ dimensions.height ~ 'px' }}; border:0; position:relative; top: 0px; left:-{{ dimensions.offset ~ 'px' }};">
+            </div>
+        </td>
+        <td>
+            {% if showMoons %}
+                {% for moon in moons %}
+                    {{ moon[0]|tl(moon[1], moon[2])|colorize }}
+                {% endfor %}
+            {% else %}
+                {{ 'bright'|t(_context) }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="center aligned">
+            {% if landsky_c %}
+                {{ '`b`^%s`0´b'|format(('sky.sky.0' ~ landsky_word)|t)|colorize }}
+            {% else %}
+                {{ '`b`3%s`0´b'|format(('sky.deadsky.0' ~ landsky_word)|t)|colorize }}
+            {% endif %}
+        </td>
+    </tr>
+</table>
