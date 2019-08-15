@@ -1,0 +1,23 @@
+info: '`&The moon `#{moonName}`0 is {phase}.`0`n'
+
+moon:
+    phase:
+        new: '`)new`0'
+        crescent:
+            waning: 'a `7waning crescent`0'
+            waxing: 'a `7waxing crescent`0'
+        full:
+            half: '`6half full`0'
+            full: '`^full`0'
+            half.waning: '`6half full and waning`0'
+        gibbous:
+            waning: '`6waning gibbous`0'
+            waxing: '`6waxing gibbous`0'
+    name:
+        '01': Vordus
+        '02': Erela
+        '03': Lurani
+
+prefix:
+    forest: '`n`&High above the trees around you, the {count,plural, =1{moon is} other{# moons are}} visible.`n'
+    village: '`n`&Over the buildings of the town, the {count,plural, =1{moon is} other{# moons are}} visible.`n'
