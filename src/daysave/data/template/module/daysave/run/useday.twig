@@ -1,0 +1,17 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.useday.paragraph'|t(_context)|colorize }}
+
+{% set fullText = 'chronofiddling.sphere.full'|t(_context)|uncolorize %}
+
+{% for i in 1..days %}
+    <img src="images/daysphere-full.png" alt="{{ fullText }}" title="{{ fullText }}">
+{% endfor %}
+
+{% if empty %}
+    {% set emptyText = 'chronofiddling.sphere.empty'|t(_context)|uncolorize %}
+
+    {% for i in 1..empty %}
+    <img src="images/daysphere-empty.png" alt="{{ emptyText }}" title="{{ emptyText }}">
+    {% endfor %}
+{% endif %}
