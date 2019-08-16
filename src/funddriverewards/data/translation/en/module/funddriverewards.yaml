@@ -1,0 +1,9 @@
+section:
+    newday.paragraph:
+        - '`2As a reward for donating, all players will receive an extra forest fight every game day for each `@{ffPerPct,number}%`0 over `@{ffStartAt,number}%`0, up to `@{maxFf,number}`0 total fights.'
+        - '`nYou receive `^{addedFights,plural, =1{1 extra fight} other{# extra fights}}`0!`0'
+
+flash.message.heal:
+    more: 'As a reward for donating, all players will receive a discount on healing costs of {healPerPct,number}% for each percent donated over {healStartAt,number}%, up to {maxHeal,number}% total.'
+    less: 'As a reward for donating, all players will receive a discount on healing costs of {healPerPct,number}% for each {divider,number}% donated over {healStartAt,number}%, up to {maxHeal,number}% total.'
+    result: 'As a result, your costs are reduced by {pctOff}%!'
