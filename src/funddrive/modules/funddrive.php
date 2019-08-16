@@ -45,8 +45,6 @@ function funddrive_uninstall()
 
 function funddrive_dohook($hookname, $args)
 {
-    global $html;
-
     require_once 'modules/funddrive/lib.php';
 
     if ('everyfooter' == $hookname)
@@ -65,8 +63,8 @@ function funddrive_dohook($hookname, $args)
             'showDollars' => get_module_setting('showdollars'),
         ];
 
-        $html['paypal'] = $html['paypal'] ?? '';
-        $html['paypal'] .= \LotgdTheme::renderModuleTemplate('funddrive/dohook/everyfooter.twig', $params);
+        $args['paypal'] = $args['paypal'] ?? '';
+        $args['paypal'] .= \LotgdTheme::renderModuleTemplate('funddrive/dohook/everyfooter.twig', $params);
     }
     elseif ('donation' == $hookname)
     {
