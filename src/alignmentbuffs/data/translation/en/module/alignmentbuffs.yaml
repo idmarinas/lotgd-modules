@@ -1,0 +1,16 @@
+
+section.newday:
+    activate1: "`$ `nThere's no one more evil than you. You attack without thought, giving you a nasty edge on every fight.`0`n"
+    activate2: '`$ `nYou truly are the spawn of the devil. Creatures cower at your passing, making it easyer to attack them.`0`n'
+    activate3: "`$ `nYou feel a bit like a rebel today. While you attack without regret, you don't waste a thought about your own skin.`0`n"
+    activate4: '`2 `nYou can feel the goodness all around you. A blanket of warm air protects you, but also hinders your attacks.`0`n'
+    activate5: '`2 `nYour faith in goodness in yourself and everyone else shields you from harm.`0`n'
+    activate6: '`2 `nThe world is a safe place because of people like you. In return, the world keeps you safe of but the worst attacks against you.`0`n'
+
+buff:
+    name1: 'Bad to the bones'
+    name2: 'Son of the devil'
+    name3: 'A wee bit bad'
+    name4: 'In accord with nature'
+    name5: 'Shield of faith'
+    name6: 'Protector of the world'
