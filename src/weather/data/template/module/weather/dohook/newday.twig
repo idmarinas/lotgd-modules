@@ -1,0 +1,7 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.newday.weather'|t(_context)|colorize }}
+
+{% if gotFight %}
+    {{ 'section.newday.got.fight'|t(_context)|colorize }}
+{% endif %}

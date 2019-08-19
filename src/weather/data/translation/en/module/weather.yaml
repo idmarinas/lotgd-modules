@@ -1,0 +1,36 @@
+section:
+    newday:
+        weather: "`n`@From the ache in your battle weary bones, you know today's weather will be `^{weatherNormal}`0.`0`n"
+        got.fight: '`nShades has frozen over, and you may find the energy for an extra torment should you visit {deathOverlord}!`n'
+
+weather:
+    normal:
+        report: "`n`&Today's weather is expected to be `^{weather}`0.`0`n`n"
+        '01': 'overcast and cool, with sunny periods'
+        '02': 'warm and sunny'
+        '03': 'rainy'
+        '04': 'foggy'
+        '05': 'cool with blue skies'
+        '06': 'hot and sunny'
+        '07': 'high winds with scattered showers'
+        '08': 'thundershowers'
+    micro:
+        report: '`n`&The weather elf is predicting `^{weather}`0 today.`0`n`n'
+        '01': 'snow flurries'
+        '02': 'clear and cold'
+        '03': 'snow blizzards'
+        '04': 'frost'
+        '05': 'soft falling snow'
+        '06': 'some great skiing weather'
+        '07': 'a possibility of snow'
+        '08': 'fog and frost'
+    shades:
+        report: '`n`7The atmosphere in Shades is currently `^{weather}`0.`n`0`n`n'
+        '01': '`7a thick, bitter fog`0'
+        '02': '`Qraining fire and brimstone`0'
+        '03': '`7dark, dank and depressingly dismal`0'
+        '04': '`#suffering from acidic rainfall`0'
+        '05': '`#frozen over`0' # This is a special weather don't change the meaning
+        '06': '`qprone to cyclonic dust devils`0'
+        '07': '`6oppresively hot and uncomfortably muggy`0'
+        '08': '`^blowing winds of hellfire`0'
