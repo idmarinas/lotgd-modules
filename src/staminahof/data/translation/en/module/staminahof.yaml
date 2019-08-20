@@ -1,0 +1,21 @@
+title: 'Action Level Rankings'
+
+section:
+    default.paragraph: 'What would you like to see?'
+    hof:
+        table:
+            thead:
+                name: Name
+                level: Level
+                rank: Rank
+                exp: Experience
+
+navigation:
+    category:
+        exit: Exit
+        pages: Pages
+        actions: Actions
+    nav:
+        ranking: 'Action Level Rankings'
+        return: 'Return to the HOF'
+        page: 'Page {page,number}'
