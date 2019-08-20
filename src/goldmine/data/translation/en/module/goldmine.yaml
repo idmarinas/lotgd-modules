@@ -1,0 +1,62 @@
+section:
+    default.paragraph:
+        - '`2You found an old abandoned mine in the depths of the forest.'
+        - 'There is some old mining equipment nearby.`n`n'
+        - '`^As you look around you realize that this is going to be a lot of work.`0'
+        - 'So much so in fact that you will lose a forest fight for the day if you attempt it.`n`n'
+        - '`^Looking around a bit more, you do notice what looks like evidence of occasional cave-ins in the mine.`0`0`n`n'
+    no.paragraph: "`2You decide you don't have time for this slow way to gain gold and gems, and so leave the old mine behind and go on your way...`0`n"
+    mine:
+        tether.msg: '`&Seeing that the mine entrance is too small for your {mountName}, you tether it off to the side of the entrance.`n'
+        paragraph: '`2You pick up the mining equipment and start mining for gold and gems...`0`n`n'
+        result:
+            '01':
+                - '`2After a few hours of hard work you have only found worthless stones and one skull...`0`n`n'
+                - '`^You lose some stamina while digging.`0`n`n'
+            '02':
+                - '`^After a few hours of hard work, you find {goldWin,number} gold!`n`n'
+                - 'You lose some stamina while digging.`0`n`n'
+            '03':
+                - '`^After a few hours of hard work, you find `%{gemsWin,plural, =1{1 gem} other{# gems}}`0 !`n`n'
+                - 'You lose some stamina while digging.`0`n`n'
+            '04':
+                - '`^You have found the mother lode!`n`n'
+                - 'After a few hours of hard work, you find `%{gemsWin,plural, =1{1 gem} other{# gems}}`0 and {goldWin,number} gold!`n`n'
+                - 'You lose some stamina while digging.`0`n`n'
+            '05':
+                paragraph:
+                    - '`2After a lot of hard work you believe you have spotted a `&huge`0 `%gem`0 and some `6gold`0.`n'
+                    - 'Anxious to be rich, you rear back and slam the pick home, knowing that the harder you hit, the quicker you will be done....`n'
+                    - '`7Unfortunately, you are quickly done in.`0`n'
+                    - 'Your over-exuberant hit caused a massive cave in.`0`n'
+                dead:
+                    yes:
+                        - 'You have been crushed under a ton of rock.`n`n'
+                        - 'Perhaps the next adventurer will recover your body and bury it properly.`n'
+                    no:
+                        paragraph: '`n`&Your close call scared you so badly that you cannot face any more opponents today.`0`n'
+                        save:
+                            horse: '`7{mountName} managed to drag you to safety in the nick of time!`0`n'
+                            race: '`7Through sheer luck, you manage to escape the cave-in intact!`0`n'
+                    horse:  "`7{mountName}'s bones were buried right alongside yours.`0"
+                    paragraph:
+                        - '`2At least you learned something about mining from this experience and have gained {expWin,number} experience.`0`n`n'
+                        - '`3You may continue to play tomorrow`n'
+                        - '`^{goldLost,number} gold`0 and `%{gemsLost,plural, =1{1 gem} other{# gems}}`0 were lost when you were buried!`0'
+
+
+                horse:
+                    enter:
+                        yes:
+                            - '`7{mountName} managed to escape being crushed.'
+                            - 'You know that it is trained to return to the village.`0`n'
+                        no:
+                            - '`7Fortunately you left your {mountName} tethered outside.'
+                            - 'You know that it is trained to return to the village.`0`n'
+
+navigation.nav:
+    mine: 'Mine for gold and gems'
+    return: 'Return to the forest'
+    news: 'Daily News'
+
+news.dead: '{playerName} was completely buried after becoming greedy digging in the mines.'

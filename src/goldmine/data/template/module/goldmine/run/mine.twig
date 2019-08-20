@@ -1,0 +1,45 @@
+{% translate_default_domain textDomain %}
+
+{% if tether %}
+    {% if tetherMsg %}
+        {{ tetherMsg|colorize }}
+    {% else %}
+        {{ 'section.mine.tether.msg'|t(_context)|colorize }}
+    {% endif %}
+{% endif %}
+
+{{ 'section.mine.paragraph'|t(_context)|colorize }}
+
+{% if mineResult == 1 %}
+    {{ 'section.mine.result.01'|t(_context)|colorize }}
+{% elseif mineResult == 2 %}
+    {{ 'section.mine.result.02'|t(_context)|colorize }}
+{% elseif mineResult == 3 %}
+    {{ 'section.mine.result.03'|t(_context)|colorize }}
+{% elseif mineResult == 4 %}
+    {{ 'section.mine.result.04'|t(_context)|colorize }}
+{% elseif mineResult == 5 %}
+    {{ 'section.mine.result.05.paragraph'|t(_context)|colorize }}
+
+    {% if dead %}
+        {{ 'section.mine.result.05.dead.yes'|t(_context)|colorize }}
+
+        {% if horseDead %}
+            {{ horseDeadMsg|default('section.mine.result.05.dead.horse'|t(_context))|colorize }}
+        {% elseif hasHorse %}
+            {% if horseCanEnter %}
+                {{ 'section.mine.result.05.horse.enter.yes'|t(_context)|colorize }}
+            {% else %}
+                {{ 'section.mine.result.05.horse.enter.no'|t(_context)|colorize }}
+            {% endif %}
+        {% endif %}
+        {{ 'section.mine.result.05.dead.paragraph'|t(_context)|colorize }}
+    {% else %}
+        {% if horseSave %}
+            {{ horseSaveMsg|default('section.mine.result.05.dead.no.save.horse'|t(_context))|colorize }}
+        {% elseif raceSave %}
+            {{ raceMsg|default('section.mine.result.05.dead.no.save.race'|t(_context))|colorize }}
+        {% endif %}
+        {{ 'section.mine.result.05.dead.no.paragraph'|t(_context)|colorize }}
+    {% endif %}
+{% endif %}
