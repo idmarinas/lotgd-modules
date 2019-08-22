@@ -55,7 +55,7 @@ function creationaddon_getmoduleinfo()
 
 function creationaddon_install()
 {
-    \Doctrine::syncEntity(\Lotgd\Local\Entity\ModuleCreationAddon::class, true);
+    \Doctrine::createSchema(['LotgdLocal:ModuleCreationAddon'], true);
 
     module_addhook('create-form');
     module_addhook('check-create');
@@ -68,6 +68,8 @@ function creationaddon_install()
 
 function creationaddon_uninstall()
 {
+    \Doctrine::dropSchema(['LotgdLocal:ModuleCreationAddon']);
+
     return true;
 }
 
@@ -248,6 +250,7 @@ function creationaddon_dohook($hookname, $args)
                 \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=creationaddon&op=list&admin=true', [ 'textDomain' => 'module-creationaddon']);
             }
         break;
+        default: break;
     }
 
     return $args;
