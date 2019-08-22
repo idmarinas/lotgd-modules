@@ -55,7 +55,7 @@ function creationaddon_getmoduleinfo()
 
 function creationaddon_install()
 {
-    \Doctrine::createSchema(['LotgdLocal:ModuleCreationAddon'], true);
+    \Doctrine::createSchema(['LotgdLocal:ModCreationAddon'], true);
 
     module_addhook('create-form');
     module_addhook('check-create');
@@ -68,7 +68,7 @@ function creationaddon_install()
 
 function creationaddon_uninstall()
 {
-    \Doctrine::dropSchema(['LotgdLocal:ModuleCreationAddon']);
+    \Doctrine::dropSchema(['LotgdLocal:ModCreationAddon']);
 
     return true;
 }

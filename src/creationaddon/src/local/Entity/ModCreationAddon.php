@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table
  * @ORM\Entity
  */
-class ModuleCreationAddon
+class ModCreationAddon
 {
     /**
      * @var int
