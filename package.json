@@ -10,7 +10,7 @@
     "devDependencies": {
         "babel-eslint": "^10.0.3",
         "better-console": "^1.0.1",
-        "del": "^5.0.0",
+        "del": "^5.1.0",
         "eslint": "^6.2.2",
         "eslint-config-standard": "^14.0.1",
         "eslint-friendly-formatter": "^4.0.1",
