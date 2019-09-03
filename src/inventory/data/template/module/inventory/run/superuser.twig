@@ -1,0 +1,56 @@
+{% translate_default_domain textDomain %}
+
+<table class="ui very compact celled striped table">
+    <caption>{{ 'section.superuser.carrying'|t(_context)|colorize }}</caption>
+    <thead>
+        <tr>
+            <th scope="col">{{ 'section.superuser.table.thead.name'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.superuser.table.thead.gold'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.superuser.table.thead.gems'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.superuser.table.thead.quantity'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.superuser.table.thead.options'|t|uncolorize }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set itemCount = 0 %}
+        {% set weightCount = 0 %}
+
+        {% for slot in inventory %}
+            {% set itemCount = itemCount + slot.quantity %}
+            {% set weightCount = weightCount + (slot.item.weight * slot.quantity) %}
+
+            <tr>
+                <td>{{ slot.equipped ? '*' : '' }} {{ slot.item.name }}</td>
+                <td>{{ '`^%s`0'|format(slot.sellValueGold|numeral)|colorize }}</td>
+                <td>{{ '`%%%s`0'|format(slot.sellValueGems|numeral)|colorize }}</td>
+                <td>{{ slot.quantity|numeral }}</td>
+                <td>
+                    {% if slot.equipped %}
+                        {{ 'section.superuser.table.tbody.equipped'|t|colorize }}
+                    {% else %}
+                        <a href="{{ ('runmodule.php?module=inventory&op=superuser&op2=dropitem&acctid=' ~ ownerId ~ '&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.superuser.table.tbody.drop'|t|colorize }}</a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">{{ '`7`i%s´i`0'|format(slot.item.description)|colorize }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td class="center aligned" colspan="5">{{ 'section.superuser.table.tbody.empty'|t(_context)|colorize }}</td>
+            </tr>
+        {% endfor %}
+
+        {% if limitTotal %}
+            <tr>
+                <td class="center aligned" colspan="5">{{ 'section.superuser.table.tbody.limit'|t(_context)|colorize }}</td>
+            </tr>
+        {% endif %}
+
+        {% if weightTotal %}
+            <tr>
+                <td class="center aligned" colspan="5">{{ 'section.superuser.table.tbody.weight'|t(_context)|colorize }}</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>

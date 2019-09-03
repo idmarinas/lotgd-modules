@@ -1,0 +1,70 @@
+{% translate_default_domain textDomain %}
+
+<table class="ui very compact celled striped table">
+    <caption>{{ 'section.default.carrying'|t(_context)|colorize }}</caption>
+    <thead>
+        <tr>
+            <th scope="col">{{ 'section.default.table.thead.name'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.gold'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.gems'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.quantity'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.options'|t|uncolorize }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set itemCount = 0 %}
+        {% set weightCount = 0 %}
+
+        {% for slot in inventory %}
+            {% set itemCount = itemCount + slot.quantity %}
+            {% set weightCount = weightCount + (slot.item.weight * slot.quantity) %}
+
+            <tr>
+                <td>{{ slot.equipped ? '*' : '' }} {{ slot.item.name }}</td>
+                <td>{{ '`^%s`0'|format(slot.sellValueGold|numeral)|colorize }}</td>
+                <td>{{ '`%%%s`0'|format(slot.sellValueGems|numeral)|colorize }}</td>
+                <td>{{ slot.quantity|numeral }}</td>
+                <td class="collapsing">
+                    {% if slot.equipped and slot.item.equippable %}
+                        <a href="{{ ('runmodule.php?module=inventory&op2=unequip&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.unequip'|t|colorize }}</a> |
+                    {% elseif slot.item.equippable %}
+                        <a href="{{ ('runmodule.php?module=inventory&op2=equip&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.equip'|t|colorize }}</a> |
+                    {% endif %}
+
+                    {% if slot.item.activationHook b-and 64 %}
+                        <a href="{{ ('runmodule.php?module=inventory&op2=activate&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.activate'|t|colorize }}</a> |
+                    {% endif %}
+
+                    {% if slot.equipped %}
+                        {{ 'section.default.table.tbody.equipped'|t|colorize }}
+                    {% elseif slot.item.droppable %}
+                        <a href="{{ ('runmodule.php?module=inventory&op2=dropitem&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.drop'|t|colorize }}</a>
+                    {% else %}
+                        {{ 'section.default.table.tbody.undrop'|t|colorize }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">{{ '`7`i%s´i`0'|format(slot.item.description)|colorize }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td class="center aligned" colspan="5">{{ 'section.default.table.tbody.empty'|t(_context)|colorize }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+    <tfoot>
+        {% if limitTotal %}
+            <tr>
+                <th scope="colgroup" class="center aligned" colspan="5">{{ 'section.default.table.tbody.limit'|t(_context)|colorize }}</th>
+            </tr>
+        {% endif %}
+
+        {% if weightTotal %}
+            <tr>
+                <th scope="colgroup" class="center aligned" colspan="5">{{ 'section.default.table.tbody.weight'|t(_context)|colorize }}</th>
+            </tr>
+        {% endif %}
+    </tfoot>
+</table>

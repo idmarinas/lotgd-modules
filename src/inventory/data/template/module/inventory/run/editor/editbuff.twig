@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+<form action="{{ ('runmodule.php?module=inventory&op=editor&op2=newbuff&id=' ~ buffId)|lotgd_url }}" method='post'>
+    {{ form }}
+
+    <div class="field">
+        <button type="submit" class="ui button">{{ 'section.editor.editbuff.form.button.submit'|t|uncolorize }}</button>
+    </div>
+</form>

@@ -1,0 +1,7 @@
+<div class="ui info message">
+    {{ activate[0]|t(activate[1], activate[2])|colorize }}
+</div>
+
+{% for msg in messages %}
+    {{ msg[0]|t(msg[1], msg[2])|colorize }}
+{% endfor %}

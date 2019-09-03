@@ -1,0 +1,33 @@
+{% translate_default_domain textDomain %}
+
+
+{% set classOld = '' %}
+{% set editButton = 'section.editor.showbuffs.button.edit'|t|uncolorize %}
+{% set deleteButton = 'section.editor.showbuffs.button.delete'|t|uncolorize %}
+{% set delConfirm = { 'text': 'section.editor.showbuffs.del.confirm'|t|uncolorize }|json_encode %}
+
+<table class="ui very compact striped table">
+    <caption>{{ 'section.editor.showbuffs.table.caption'|t|colorize }}</caption>
+    <thead>
+        <tr>
+            <th scope="col" colspan="30" class="center aligned">{{ 'section.editor.showbuffs.table.th'|t|colorize }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for buff in results %}
+        <tr>
+            <td class="collapsing">
+                <div class="ui mini icon buttons">
+                    <a href="{{ ('runmodule.php?module=inventory&op=editor&op2=newbuff&id=' ~ buff.id)|lotgd_url }}" class="ui yellow button" data-tooltip="{{ editButton }}">
+                        <i class="edit icon"></i>
+                    </a>
+                    <a href="{{ ('runmodule.php?module=inventory&op=editor&op2=delbuff&id=' ~ buff.id)|lotgd_url }}" class="ui red button" data-tooltip="{{ deleteButton }}" data-options="{{ delConfirm|e('html_attr') }}" onclick="Lotgd.confirm(this, event)">
+                        <i class="trash icon"></i>
+                    </a>
+                </div>
+            </td>
+            <td>{{ '`^%s`0 `7-`0 `&`i%s´i`0'|format(buff.key, buff.name)|colorize }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

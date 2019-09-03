@@ -1,0 +1,142 @@
+title:
+    inventory: "{name}'s Inventory"
+    superuser: "Superuser view: Inventory of {name}"
+    editor: 'Item Editor'
+
+section:
+    default:
+        carrying: '`^You`0 `&are carrying these items`0'
+        table:
+            thead:
+                name: Name
+                gold: Gold value
+                gems: Gem value
+                quantity: Quantity
+                options: Options
+            tbody:
+                empty: "`iYou don't have any object.´i"
+                undrop: '`$Undroppable`0'
+                equipped: '`4Item is equiped`0'
+                limit: 'You are currently carrying `^{itemCount,number}`0 / `^{limitTotal,number}`0 items.'
+                weight: 'Your items have a total weight of `^{weightCount,number}`0. You must not carry more than `^{weightTotal,number}`0.'
+                action:
+                    equip: Equip
+                    unequip: Unequip
+                    drop: Drop this once
+                    activate: Activate
+    superuser:
+        carrying: '`^{owner}`0 `&is carrying these items`0'
+        table:
+            thead:
+                name: Name
+                gold: Gold value
+                gems: Gem value
+                quantity: Quantity
+                options: Options
+            tbody:
+                empty: '`i{owner} does not have any items.´i'
+                drop: Drop this once
+                equipped: '`$Item is equiped`0'
+                limit: '{owner} is currently carrying `^{itemCount,number}`0 / `^{limitTotal,number}`0 items.'
+                weight: "{owner}'s items have a total weight of `^{weightCount,number}`0. {owner} must not carry more than `^{weightTotal,number}`0."
+    editor:
+        default:
+            table.caption: 'List of Items of server'
+            button:
+                edit: Edit
+                delete: Delete
+                take: Take
+            del.confirm: 'Do you really want to delete this item?'
+        delitem:
+            item:
+                yes: 'Item succesfully deleted.`n`n'
+                no: 'While deleting this item an error occurred. Probably someone has already deleted this item.`n`n'
+            inventory:
+                yes: "This item has been removed {inventory,plural, =1{1 time} other{# times}} from players' inventories.`n`n"
+                no: "No item has been deleted from players' inventories.`n`n"
+        edititem:
+            form:
+                button:
+                    submit: Save
+        delbuff:
+            buff:
+                yes: 'Buff succesfully deleted.`n`n'
+                no: 'While deleting this buffs an error occured. Probably someone else already deleted this buff.`n`n'
+        showbuffs:
+            table:
+                caption: 'List of Buffs for items'
+                th: 'buff key - buff name'
+            button:
+                edit: Edit
+                delete: Delete
+            del.confirm: 'Do you really want to delete this buff?'
+        editbuff:
+            form:
+                button:
+                    submit: Save
+
+battle:
+    defeated.end: '`n`${n,plural, =1{One of your items got} other{Overall `^#`0 of your items have been}} damaged during the fight.`0'
+
+item:
+    effect:
+        text:
+            nothing: '`&Nothing happens.`0`n'
+            problem: '`4There was a problem with the item `b`i{itemName}´i´b, its effect has been lost.`0.`n'
+            requisites: '`4You need `b{dragonkills,number}´b DragonKills and Level `b{level,number}´b for use `b`i{itemName}´i´b`0.`n'
+    activate: 'You activate "`@{itemName}`0"!'
+    unequip:
+        success: 'You unequip {itemName}'
+        error: 'Cannot unequip that item'
+    equip:
+        old: 'Before you can equip this new item, you have to sell that old equipment.'
+        requisites: "You don't meet the minimum requirements to be able to equip '<b>{itemName}</b>'"
+        error: 'Cannot equip that item'
+        success: 'You equip {itemName}'
+
+equipment:
+    none: No where
+    head: On the Head
+    neck: Around the Neck
+    armor: As Armor
+    mainhand: As Weapon
+    belt: As Belt
+    offhand: As Shield
+    righthand: Right Gloves
+    trausers: On Pants
+    lefthand: Left Gloves
+    rightring: As right ring
+    feet: As Shoes
+    leftring: As left ring
+
+navigation:
+    category:
+        inventory: Inventory
+        items: Items
+        return: Return
+        options:
+            items: 'Options - Items'
+            buffs: 'Options - Buffs'
+            other: 'Options - Other'
+    nav:
+        return.whence: 'Return whence you came'
+        update: Update inventory
+        inventory: View Inventory
+        item.use: '{name} `7({quantity,number})`0'
+        editor: 'X?Item Editor'
+        news: Daily News
+        item:
+            new: 'New Item'
+            show: 'Show all items'
+            properties: 'Item properties'
+
+flash.message:
+    dragonkill:
+        - "Shattered around you lie the remains of {n,plural, =1{a once mighty item} other{once mighty items}} destroyed by the power of the dragon's flames.<br>"
+        - 'It seems `^{n,plural, =1{1 item} other{# items}}`0 have been destroyed.'
+    save:
+        module: 'Item settings for module "{name}" saved!'
+        saved: 'Item saved!'
+        buff: 'Buff saved!'
+    item:
+        take: 'Item no. {itemId,number} added once, you now have {count,plural, =1{1 piece} other{# pieces}}.'

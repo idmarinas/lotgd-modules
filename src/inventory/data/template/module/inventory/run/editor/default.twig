@@ -1,0 +1,39 @@
+{% translate_default_domain textDomain %}
+
+{% set classOld = '' %}
+{% set editButton = 'section.editor.default.button.edit'|t|uncolorize %}
+{% set deleteButton = 'section.editor.default.button.delete'|t|uncolorize %}
+{% set takeButton = 'section.editor.default.button.take'|t|uncolorize %}
+{% set delConfirm = { 'text': 'section.editor.default.del.confirm'|t|uncolorize }|json_encode %}
+
+<table class="ui very compact striped table">
+    <caption>{{ 'section.editor.default.table.caption'|t|colorize }}</caption>
+    {% for item in results %}
+        {% if item.class != classOld %}
+            <thead>
+                <tr>
+                    <th scope="col" colspan="3">{{ item.class }}</th>
+                </tr>
+            </thead>
+            {% set classOld = item.class %}
+        {% endif %}
+
+        <tr>
+            <td class="collapsing">
+                <div class="ui mini icon buttons">
+                    <a href="{{ ('runmodule.php?module=inventory&op=editor&op2=newitem&id=' ~ item.id)|lotgd_url }}" class="ui yellow button" data-tooltip="{{ editButton }}">
+                        <i class="edit icon"></i>
+                    </a>
+                    <a href="{{ ('runmodule.php?module=inventory&op=editor&op2=delitem&id=' ~ item.id)|lotgd_url }}" class="ui red button" data-tooltip="{{ deleteButton }}" data-options="{{ delConfirm|e('html_attr') }}" onclick="Lotgd.confirm(this, event)">
+                        <i class="trash icon"></i>
+                    </a>
+                    <a href="{{ ('runmodule.php?module=inventory&op=editor&op2=takeitem&id=' ~ item.id)|lotgd_url }}" class="ui button" data-tooltip="{{ takeButton }}">
+                        <i class="hand paper outline icon"></i>
+                    </a>
+                </div>
+            </td>
+            <td class="collapsing">{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+        </tr>
+    {% endfor %}
+</table>
