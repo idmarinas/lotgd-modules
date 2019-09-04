@@ -136,10 +136,13 @@ function alignmentbuffs_dohook($hookname, $args)
                 apply_buff('alignment', $buff);
             }
 
-            $args['includeTemplatesPost']['module/alignmentbuffs/dohook/newday.twig'] = [
-                'textDomain' => 'module-alignmentbuffs',
-                'activate' => $activate
-            ];
+            if ($activate ?? false)
+            {
+                $args['includeTemplatesPost']['module/alignmentbuffs/dohook/newday.twig'] = [
+                    'textDomain' => 'module-alignmentbuffs',
+                    'activate' => $activate
+                ];
+            }
         break;
     }
 
