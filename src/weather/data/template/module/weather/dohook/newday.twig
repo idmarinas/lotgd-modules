@@ -1,6 +1,6 @@
 {% translate_default_domain textDomain %}
 
-{{ 'section.newday.weather'|t(_context)|colorize }}
+{{ 'section.newday.weather'|t(_context|merge({ 'weather': ('weather.normal.0' ~ weatherNormal)|t}))|colorize }}
 
 {% if gotFight %}
     {{ 'section.newday.got.fight'|t(_context)|colorize }}

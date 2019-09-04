@@ -1,6 +1,6 @@
 section:
     newday:
-        weather: "`n`@From the ache in your battle weary bones, you know today's weather will be `^{weatherNormal}`0.`0`n"
+        weather: "`n`@From the ache in your battle weary bones, you know today's weather will be `^{weather}`0.`0`n"
         got.fight: '`nShades has frozen over, and you may find the energy for an extra torment should you visit {deathOverlord}!`n'
 
 weather:
