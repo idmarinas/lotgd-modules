@@ -7,7 +7,7 @@ function funddrive_getpercent()
     //-- Use cache to save queries
     if (! $fundDrive || is_array($fundDrive) || empty($fundDrive))
     {
-        $targetmonth = get_module_setting('targetmonth');
+        $targetmonth = get_module_setting('targetmonth', 'funddrive');
         $targetmonth = $targetmonth ?: date('m');
 
         $start = date('Y').'-'.$targetmonth.'-01';
@@ -26,17 +26,17 @@ function funddrive_getpercent()
             ->getSingleResult()
         ;
 
-        $goal = get_module_setting('goalamount');
-        $base = get_module_setting('baseamount');
+        $goal = (int) get_module_setting('goalamount', 'funddrive');
+        $base = (int) get_module_setting('baseamount', 'funddrive');
 
         $current = $row['gross'] + $base;
 
-        if (get_module_setting('deductfees'))
+        if (get_module_setting('deductfees', 'funddrive'))
         {
             $current -= $row['fees'];
         }
 
-        $pct = round($current / $goal * 100, 0);
+        $pct = round(($current / $goal) * 100, 0);
 
 
         $fundDrive = [
