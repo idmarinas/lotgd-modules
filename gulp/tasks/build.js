@@ -5,5 +5,5 @@ module.exports = function (cb)
 {
     console.info('Building application modules')
 
-    return series('delete', 'main')(cb)
+    return series('delete', 'main', 'css')(cb)
 }
