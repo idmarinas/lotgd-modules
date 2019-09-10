@@ -116,11 +116,11 @@ function daysave_dohook($hookname, $args)
             \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=village', ['textDomain' => 'module-daysave']);
         break;
         case 'shades':
-            \LotgdNavigation::addHeader('navigation.category.new.day');
+            \LotgdNavigation::addHeader('navigation.category.new.day', ['textDomain' => 'module-daysave']);
             \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=shades', ['textDomain' => 'module-daysave']);
         break;
         case 'worldnav':
-            \LotgdNavigation::addHeader('navigation.category.new.day');
+            \LotgdNavigation::addHeader('navigation.category.new.day', ['textDomain' => 'module-daysave']);
             \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=worldmapen', ['textDomain' => 'module-daysave']);
         break;
     }
