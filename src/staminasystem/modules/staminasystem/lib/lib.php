@@ -93,20 +93,16 @@ function get_player_action($action, $userid = false)
 
             return $playeractions[$action];
         }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        if (! stamina_check_action($action, $playeractions, $userid))
-        {
-            return get_player_action($action, $userid);
-        }
 
-        return $playeractions[$action];
+        return false;
     }
+
+    if (! stamina_check_action($action, $playeractions, $userid))
+    {
+        return get_player_action($action, $userid);
+    }
+
+    return $playeractions[$action];
 }
 
 /*
@@ -737,50 +733,47 @@ function get_stamina($type = 1, $realvalue = false, $userid = false)
         $redpct = 100;
     }
 
-    switch ($type) {
-        case 0:
-            if (false === $realvalue)
-            {
-                $returnvalue = $redpct;
-            }
-            else
-            {
-                $returnvalue = $redvalue;
-            }
-            break;
+    switch ($type)
+    {
         case 1:
+            $returnvalue = $ambervalue;
+
             if (false === $realvalue)
             {
                 $returnvalue = $amberpct;
             }
-            else
-            {
-                $returnvalue = $ambervalue;
-            }
-            break;
+        break;
+
         case 2:
+            $returnvalue = $greenvalue;
+
             if (false === $realvalue)
             {
                 $returnvalue = $greenpct;
             }
-            else
-            {
-                $returnvalue = $greenvalue;
-            }
-            break;
+        break;
+
         case 3:
+            $returnvalue = $totalstamina;
+
             if (false === $realvalue)
             {
                 $returnvalue = $totalpct;
             }
-            else
-            {
-                $returnvalue = $totalstamina;
-            }
-            break;
+        break;
         case 4:
             $returnvalue = $maxstamina;
-            break;
+        break;
+
+        case 0:
+        default:
+            $returnvalue = $redvalue;
+
+            if (false === $realvalue)
+            {
+                $returnvalue = $redpct;
+            }
+        break;
     }
 
     return $returnvalue;
@@ -908,13 +901,11 @@ function stamina_level_up($action, $userid = false)
             $levels[$i] = ($levels[$i - 1] + $addup[$i]);
         }
 
+        $currentlvlexp = 0;
+
         if ($currentlvl > 0)
         {
             $currentlvlexp = $levels[$currentlvl - 1];
-        }
-        else
-        {
-            $currentlvlexp = 0;
         }
 
         $nextlvlexp = $levels[$currentlvl];
@@ -995,13 +986,11 @@ function stamina_level_down($action, $userid = false)
             $levels[$i] = ($levels[$i - 1] + $addup[$i]);
         }
 
+        $currentlvlexp = 0;
+
         if (0 != $currentlvl)
         {
             $currentlvlexp = $levels[$currentlvl];
-        }
-        else
-        {
-            $currentlvlexp = 0;
         }
 
         $nextlvlexp = $levels[$currentlvl];
@@ -1212,13 +1201,10 @@ function stamina_minihof_makesmallboard($boardinfo, $userid = false)
 
     //now, check the player's rank is where it should be.  If not, re-work the ranks.  If the player is off the page, run assignranks and start again.
 
+    $playerposition = $myrank;
     if ($myrank >= 10)
     {
         $playerposition = 10;
-    }
-    else
-    {
-        $playerposition = $myrank;
     }
 
     $st = microtime(true);
@@ -1297,6 +1283,7 @@ function stamina_minihof_assignranks($board)
     $boardinfo = [];
     $boardinfo['board'] = $board;
     $boardinfo['ranks'] = $ranks;
+
     return $boardinfo;
 }
 
@@ -1363,10 +1350,8 @@ function stamina_minihof_sort($x, $y)
     {
         return 1;
     }
-    else
-    {
-        return -1;
-    }
+
+    return -1;
 }
 
 function stamina_minihof_smallboard_old($boardinfo, $userid = false)
