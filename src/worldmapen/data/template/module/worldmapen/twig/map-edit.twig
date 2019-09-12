@@ -1,0 +1,82 @@
+{% translate_default_domain textDomain %}
+
+<div class="ui worldmapen centered one column grid">
+    <div class="row">
+        <div class="center aligned middle aligned column">
+            <form action="{{ 'runmodule.php?module=worldmapen&op=edit&subop=terrain&act=save'|lotgd_url }}" method="post" class="ui form">
+                <div class="field">
+                    {% for def in terrainDefs %}
+                        <div class="ui radio checkbox">
+                            <input
+                                {{ def.type == 'forest' ? 'checked' : '' }}
+                                id="{{ def.type }}"
+                                type="radio"
+                                name="color"
+                                value="{{ def.type }}"
+                                data-color="{{ def.color }}"
+                                data-name="{{ ('map.terrain.' ~ def.type)|t }}"
+                            >
+                            <label for="{{ def.type }}">{{ ('map.terrain.' ~ def.type)|t }}</label>
+                        </div>
+                    {% endfor %}
+                    <br>
+                    <div class="center aligned">
+                        <label id="color-select" class="ui primary label">???</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <table class='map1'>
+                        {% for y in sizeY .. 1 %}
+                            <tr>
+                                <th scope="row">{{ y }}</th>
+                                {% for x in 1 .. sizeX %}
+                                    {% set terrain = worldMap[x][y] %}
+
+                                    <input type="hidden" id="{{ x ~ '-' ~ y ~ 'b' }}" name="{{ x ~ '.' ~ y }}" value="{{ terrain }}">
+                                    {% if not cityMap[x ~ ',' ~ y] %}
+                                        <td onclick="changeColor(this.id);" id="{{ x ~ '-' ~ y }}" style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|t }})">&nbsp;</td>
+                                    {% else %}
+                                        <td onclick="changeColor(this.id);" id="{{ x ~ '-' ~ y }}" style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="{{ cityMap[x ~ ',' ~ y] }} ({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|t }})">
+                                            <i class='home icon'></i>
+                                        </td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        <tfoot>
+                            <tr>
+                                <th scope="col"><sup>Y</sup>/<sub>X</sub></th>
+                                {% for x in 1 .. sizeX %}
+                                    <th scope="col">{{ x }}</th>
+                                {% endfor %}
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="field">
+                    <button type="submit" class="ui button">{{ 'section.editor.form.button.submit'|t|uncolorize }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#color-select').text($("input[name='color']:checked").data('name'))
+
+    $("input[name='color']").on('change', function ()
+    {
+        $('#color-select').text($(this).data('name'))
+    })
+
+    function changeColor(target)
+    {
+        var selected = $("input[name='color']:checked")
+
+        if (undefined === selected.val()) return
+
+        $('#' + target).css('background', selected.data('color'))
+        $('#' + target + 'b').val(selected.val())
+    }
+
+</script>

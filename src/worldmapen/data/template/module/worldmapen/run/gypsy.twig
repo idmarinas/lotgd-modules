@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+{% if buyed is same as(true) %}
+    {{ 'section.gypsy.buy.yes'|t(_context)|colorize }}
+{% elseif buyed is same as(false) %}
+    {{ 'section.gypsy.buy.no'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.gypsy.enter'|t(_context)|colorize }}
+{% endif %}

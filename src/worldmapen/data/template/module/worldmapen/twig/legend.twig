@@ -1,0 +1,47 @@
+{% translate_default_domain textDomain %}
+
+<div class="worldmapen legend">
+    <div class="ui blue message">
+        <div class="ui small header">{{ 'map.legend.title'|t(_context)|colorize }}</div>
+        {% if showLocation %}
+            <div class="ui horizontal list">
+                <div class="item">
+                    <div class="ui avatar image" style="background: {{ colorUserLoc }}"></div>
+                    <div class="content">
+                        <div class="ui tiny header">{{ 'map.legend.current.location'|t(_context)|colorize }}</div>
+                    </div>
+                </div>
+                {% if enableTerrains %}
+                    <div class="item">
+                        <div class="ui avatar image" style="background: {{ terrain.color }}"></div>
+                        <div class="content">
+                            <div class="ui tiny header">{{ 'map.legend.current.terrain'|t(_context|merge({ 'terrainName': ('map.terrain.' ~ terrain.type)|t }))|colorize }}</div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if enableTerrains %}
+            <hr>
+            <div class="ui small header">
+                {{ 'map.legend.terrains'|t|colorize }}
+            </div>
+            <div class="ui horizontal list">
+                {% for name,def in terrainDef %}
+                    <div class="item">
+                        <div class="ui avatar image" style="background: {{ def.color }}"></div>
+                        <div class="content">
+                            <div class="ui tiny header">{{ ('map.terrain.' ~ def.type)|t }} - {{ def.moveCost|numeral(-1) }}%</div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="item">
+                    <div class="ui avatar image" style="background: #111111;"></div>
+                    <div class="content">
+                        <div class="ui tiny header">{{ 'map.terrain.edge'|t }}</div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

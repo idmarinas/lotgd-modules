@@ -1,0 +1,52 @@
+{% translate_default_domain textDomain %}
+
+{% if condition %}
+    {{ 'section.lib.determinenav.tired'|t(_context)|colorize }}
+{% endif %}
+
+<!-- Boundaries messages -->
+<!-- North -->
+{% if nBoundary is same as(true) %}
+    {{ '`c`n`!%s`0`n´c'|format('boundary.n'|t)|colorize }}
+{% elseif nBoundary is same as(false) %}
+    {{ 'map.move.tired.n'|t|colorize }}
+{% endif %}
+<!-- East -->
+{% if eBoundary is same as(true) %}
+    {{ '`c`n`!%s`0`n´c'|format('boundary.e'|t)|colorize }}
+{% elseif eBoundary is same as(false) %}
+    {{ 'map.move.tired.e'|t|colorize }}
+{% endif %}
+<!-- South -->
+{% if sBoundary is same as(true) %}
+    {{ '`c`n`!%s`0`n´c'|format('boundary.s'|t)|colorize }}
+{% elseif sBoundary is same as(false) %}
+    {{ 'map.move.tired.s'|t|colorize }}
+{% endif %}
+<!-- West -->
+{% if wBoundary is same as(true) %}
+    {{ '`c`n`!%s`0`n´c'|format('boundary.w'|t)|colorize }}
+{% elseif wBoundary is same as(false) %}
+    {{ 'map.move.tired.w'|t|colorize }}
+{% endif %}
+<!-- Northeast -->
+{% if neBoundary is same as(false) %}
+    {{ 'map.move.tired.ne'|t|colorize }}
+{% endif %}
+<!-- Northwest -->
+{% if nwBoundary is same as(false) %}
+    {{ 'map.move.tired.nw'|t|colorize }}
+{% endif %}
+<!-- Southeast -->
+{% if seBoundary is same as(false) %}
+    {{ 'map.move.tired.se'|t|colorize }}
+{% endif %}
+<!-- Southweast -->
+{% if swBoundary is same as(false) %}
+    {{ 'map.move.tired.sw'|t|colorize }}
+{% endif %}
+<br>
+<!-- List of campers -->
+{% if campingAllowed %}
+    {{ module_worldmapen_show_campers() }}
+{% endif %}

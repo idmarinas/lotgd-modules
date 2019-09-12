@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.editor.manual.paragraph'|t(_context)|colorize }}
+
+<br>
+
+<form method="post" action="{{ 'runmodule.php?module=worldmapen&op=edit&subop=manual&act=save&admin=true'|lotgd_url }}">
+    {{ form }}
+</form>

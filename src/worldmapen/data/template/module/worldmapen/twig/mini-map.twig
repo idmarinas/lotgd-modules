@@ -1,0 +1,43 @@
+{% translate_default_domain textDomain %}
+
+{% set smallMapY = worldMapY + (smallMapSize / 2)|round(0, 'floor') %}
+{% set middleLoc = (smallMapSize * smallMapSize / 2)|round(0, 'floor') %}
+{% set i = 0 %}
+
+<div class="ui worldmapen centered grid">
+    {% if showCompass %}
+        <div class="center aligned middle aligned five wide column">{{ module_worldmapen_show_compass(mapLinks) }}</div>
+    {% endif %}
+    <div class="center aligned middle aligned five wide column">
+        <table class='map4'>
+            {% for y in smallMapSize .. 1 %}
+                {% set smallMapX = worldMapX - (smallMapSize / 2)|round(0, 'floor') %}
+
+                <tr>
+                    {% for x in 1 .. smallMapSize %}
+                        {% set terrain = worldMap[smallMapX][smallMapY] %}
+
+                        {% if i == middleLoc %}
+                            {% set city = cityMap[smallMapX ~ ',' ~ smallMapY] %}
+                            <td style="background: {{ colorUserLoc }};" class="ui lotgd tooltip center aligned" title="{{ 'map.current'|t|uncolorize }} {{ city }} ({{ smallMapX }}, {{ smallMapY }}) ({{ ('map.terrain.' ~ terrain)|t }})">
+                                {% if city %} <i class='home icon'></i> {% else %} &nbsp; {% endif %}
+                            </td>
+                        {% elseif not terrain %}
+                            <td style="background: #111111;" class="ui lotgd tooltip center aligned" title="{{ 'map.terrain.edge'|t }}">&nbsp;</td>
+                        {% elseif not cityMap[smallMapX ~ ',' ~ smallMapY] %}
+                            <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="({{ smallMapX }}, {{ smallMapY }}) ({{ ('map.terrain.' ~ terrain)|t }})">&nbsp;</td>
+                        {% else %}
+                            <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="{{ cityMap[smallMapX ~ ',' ~ smallMapY] }} ({{ smallMapX }}, {{ smallMapY }}) ({{ ('map.terrain.' ~ terrain)|t }})">
+                                <i class='home icon'></i>
+                            </td>
+                        {% endif %}
+
+                        {% set smallMapX = smallMapX + 1 %}
+                        {% set i = i + 1 %}
+                    {% endfor %}
+                </tr>
+                {% set smallMapY = smallMapY - 1 %}
+            {% endfor %}
+        </table>
+    </div>
+</div>

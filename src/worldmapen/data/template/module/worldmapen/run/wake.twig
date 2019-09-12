@@ -1,0 +1,13 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.wake.paragraph'|t(_context)|colorize }}
+
+{% if showSmallMap %}
+    {{ module_worldmapen_show_mini_map(mapLinks) }}
+{% endif %}
+
+{{ commentary_block({
+    'section': 'mapchat-' ~ mapLoc
+}, textDomain) }}
+
+{{ module_worldmapen_show_legend(true) }}

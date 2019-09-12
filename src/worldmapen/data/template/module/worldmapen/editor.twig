@@ -1,0 +1,7 @@
+{% translate_default_domain textDomain %}
+
+{{ include_module('worldmapen/editor/' ~ tpl|default('default') ~ '.twig') }}
+
+<hr>
+
+{{ module_worldmapen_show_legend(false) }}

@@ -1,0 +1,11 @@
+{% translate_default_domain textDomain %}
+
+{{ pvp_list_table({
+    'paginator': paginator,
+    'returnLink': returnLink,
+    'pvpTimeOut': pvpTimeOut,
+    'linkBase': linkBase,
+    'linkExtra': linkExtra
+}) }}
+
+{{ pvp_list_sleepers({ 'sleepers': sleepers }) }}

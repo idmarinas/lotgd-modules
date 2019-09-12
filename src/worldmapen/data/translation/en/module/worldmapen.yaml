@@ -1,0 +1,187 @@
+title:
+    not.installed: 'A rip in the fabric of space and time'
+    journey: Journey
+    editor: World Editor
+
+section:
+    not.installed:
+        - "`^The admins of this game haven't yet finished installing the worldmapen module."
+        - 'You should send them a petition and tell them that they forgot to generate the initial locations of the cities.'
+        - 'Until then, you are kind of stuck here, so I hope you like where you are.`n`n'
+        - 'After all, remember:`nWherever you go, there you are.`0'
+    beginjourney:
+        paragraph: '`b`&The gates of {location} stand closed behind you.`0´b`n`n'
+    tradeturn:
+        paragraph: 'You can trade one Turn for {pointsTrade,number} Travel Points. Do you want to do this now?'
+    tradeturnconfirm:
+        paragraph: 'By conserving energy that you would have otherwise used for fighting creatures, you have gained {pointsTrade,number} Travel Points.'
+    gypsy:
+        enter:
+            - '`5"`!Ah, yes.  An adventurer.  I could tell by looking into your eyes,`0" the gypsy says.`n'
+            - '"`!Many people have lost their way while journeying without a guide such as this.'
+            - 'It will let you see all the world.`0"`n "`!Yes, yes.'
+            - "Let's see... What sort of price should we put on this?"
+            - 'Hmm. How about `^{worldmapCostGold,number}`0 gold?`0"`0'
+        buy:
+            no: '`5"`!What do you take me for? A blind hag? Come back when you have the money`0"`0'
+            yes: '`5"`!Enjoy your newfound sight,`0" the gypsy says as she walks away to greet some patrons that have just strolled in.'
+    wake:
+        paragraph:
+            - 'You yawn and stretch and look around your campsite.`n`n'
+            - 'Ah, how wonderful it is to sleep in the open air!`n'
+            - 'The world seems full of possibilities today.`n`n'
+    combat:
+        paragraph: '`n`nYou survey the area again.`n'
+    fight:
+        paragraph:
+            - 'You set off running at a breakneck pace!`n`n'
+            - 'A short time later, you have managed to avoid your opponent, so you stop to catch your breath.'
+            - 'As you look around, you realize that all you really managed was to run in circles.'
+    lib:
+        determinenav:
+            tired: 'You are too tired to go anywhere.`n'
+    editor:
+        form:
+            button:
+                submit: Save Terrain
+        manual:
+            paragraph:
+                - '`^Maximum X value is `b{maxX,number}´b`0`n'
+                - '`^Maximum Y value is `b{maxY,number}´b`0`n'
+
+map:
+    current: 'Your position'
+    terrain:
+        plains: 'Plains'
+        forest: 'Forest'
+        river: 'River'
+        ocean: 'Ocean'
+        earth: 'Earth'
+        desert: 'Desert'
+        swamp: 'Swamp'
+        mountains: 'Mountains'
+        snow: 'Snow'
+        air: 'Air'
+        edge: 'Map Edge'
+    compass:
+        label: Compass
+        n: North
+        nw: Northwest
+        ne: Northeast
+        s: South
+        sw: Southwest
+        se: Southeast
+        w: West
+        e: East
+    legend:
+        title: 'MAP KEY'
+        current:
+            location: Current Location
+            terrain: 'Current Terrain: {terrainName}'
+        terrains:
+            - 'Terrains<br>'
+            - 'Terrain Color, Terrain Type, Terrain Movement Cost'
+    move:
+        tired:
+            n: "Can't move North`n"
+            e: "Can't move East`n"
+            s: "Can't move South`n"
+            w: "Can't move West`n"
+            ne: "Can't move Northeast`n"
+            nw: "Can't move Northwest`n"
+            se: "Can't move Southeast`n"
+            sw: "Can't move Southwest`n"
+
+leave.gates:
+    '01': 'A shiver runs down your back as you face the forest around you.'
+    '02': "You're all alone now..."
+    '03': 'The sound of the forest settles in around you as you think to yourself what evil must lurk within.'
+    '04': 'Perhaps I should go back in...'
+    '05': "A howling noise bellows from deep within the forest. You hear the guards from the other side of the gates yell &quot;Good Luck!&quot; and what sounds like they'll never make it."
+
+navigation:
+    category:
+        area: Outpost Area
+        superuser: Superuser
+        map: Map
+        prolonged: Prolonged Travel
+        go: You can go
+        quit: Logout
+        trade: 'Trade a Turns'
+        editor: Map Editor
+    nav:
+        enter: 'Enter {name}'
+        continue: Continue
+        go: 'Go to {location}'
+        map: 'M?World Map'
+        camp: '`$Set up camp`0'
+        safe:
+            north: Safe North
+            east: Safe East
+            south: Safe South
+            west: Safe West
+        move:
+            north: 'T?North (`Q{cost,number}%`0)'
+            east: 'H?East (`Q{cost,number}%`0)'
+            south: 'B?South (`Q{cost,number}%`0)'
+            west: 'F?West (`Q{cost,number}%`0)'
+            neast: 'Y?North-East (`Q{cost,number}%`0)'
+            nwest: 'R?North-West (`Q{cost,number}%`0)'
+            seast: 'N?South-East (`Q{cost,number}%`0)'
+            swest: 'V?South-West (`Q{cost,number}%`0)'
+        trade:
+            points: Trade a Turn for Travel Points
+            yes: 'Yes, use a turn'
+            no: 'No, cancel and return to the map'
+        gypsy:
+            forget: Forget it
+            buy: 'Buy World Map (`^{cost,number} gold`0)'
+            leave: Leave quickly
+        editor:
+            superuser: World Map Editor
+            regen: Replace Cities
+            manual: Manually Place Cities
+            terrain: Edit terrain type
+            return: 'E?Return to World Map Editor'
+
+# Boundary Messages
+boundary:
+    n: 'To the north are the impenetrable mountains of Loa.' # Northern boundary
+    e: 'The vast ocean of silence lay to your east. Long before you can remember ships stopped sailing across to the other continents. But why?' # Eastern boundary
+    s: 'To the south you can see a great ravine that seems to stretch on forever.' # Southern boundary
+    w: 'To the west lays the barren wasteland of the Goiu desert.  No one has ever survived out there.' # Western boundary
+
+commentary:
+    talk: '`nChat with others who walk this path...`n' # Talk
+    sayLine: 'says' # Sayline
+    button: 'Chat' # Add button
+    charsLeft: 'You have %s characters left.'
+    status: # This is optional
+        game: 'Message of the Game Master'
+        you: "It's a comment from you."
+        afk: 'Away from Keyboard'
+        nearby: 'Nearby'
+        offline: 'Offline'
+        dni: "DNI (please don't try to talk to this player right now!)"
+        online: 'Online'
+
+flash.message:
+    destination:
+        - "<strong>You've Arrived in {name}.</strong>"
+        - '<br>You have reached the outer gates of the city.'
+    figth.run:
+        pvp: 'Your pride prevents you from running'
+        pve: "You try to run, but you don't manage to get away!"
+    battle.defeated: 'You are sure that someone, sooner or later, will stumble over your corpse and return it to {location} for you.`0'
+    encounter.tired:
+        - 'You are getting tired.'
+        - "Monsters have a tendency to swarm towards contestants who look like they're half-asleep."
+        - 'You might want to consider setting up camp, or doing something to raise your Stamina.'
+    saved:
+        map: 'Worldmap saved!'
+        settings: 'Settings saved successfully.'
+
+news:
+    battle:
+        victory: '`3`4{playerName}`0 defeated `4{creatureName}`0 while they were camped in the wilderness.`0'
+        defeated: '`3`4{playerName}`0 was defeated while attacking `4{creatureName}`0 as they were camped in the wilderness.`0`n'
