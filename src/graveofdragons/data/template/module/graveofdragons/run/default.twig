@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.default.paragraph'|t(_context)|colorize }}
+
+{% if canEnter %}
+    {{ 'section.default.enter.yes'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.default.enter.no'|t(_context)|colorize }}
+{% endif %}

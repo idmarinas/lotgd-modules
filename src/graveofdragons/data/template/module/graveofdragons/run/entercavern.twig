@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.entercavern.paragraph'|t(_context)|colorize }}
+
+{% if canSearch %}
+    {{ 'section.entercavern.search.yes'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.entercavern.search.no'|t(_context)|colorize }}
+{% endif %}
