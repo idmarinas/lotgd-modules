@@ -1,0 +1,13 @@
+{% translate_default_domain textDomain %}
+
+{% if correct %}
+    {{ 'section.answer.correct'|t|colorize }}
+
+    {% if reward %}
+        {{ 'section.answer.reward.gold'|t(_context)|colorize }}
+    {% else %}
+        {{ 'section.answer.reward.gem'|t(_context)|colorize }}
+    {% endif %}
+{% else %}
+    {{ 'section.answer.uncorrect'|t|colorize }}
+{% endif %}

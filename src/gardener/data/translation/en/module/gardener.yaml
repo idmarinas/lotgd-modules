@@ -1,0 +1,64 @@
+title: Gardener
+
+subtitle: '`c`b`&The Gardener`0´b´c'
+
+section:
+    seen:
+        paragraph:
+            - '`n`7You walk towards the gardener again.'
+            - 'He smiles and then turns back to his work.`0`n`n'
+    enter:
+        paragraph:
+            - '`7In one corner of the {gardens,select, 0{square} other{Gardens}}, a path leads away through the trees.'
+            - 'Beyond a white gazebo, a small man is tending a small patch of flowers.'
+            - 'As you approach, he straightens, and greets you with a smile.`n`n'
+            - '"`%Welcome to my gardens!`0" he exclaims.'
+            - "&quot;`%I know they're a little rough now, but I've a reward for you, if you know how to look after them!`0&quot; he exclaims.`n`n"
+            - 'Seeing as how the rest of the Gardens are meticulously well kept, you wonder what the small man is so concerned about.'
+            - 'The offer of a reward, however, is intriguing.`0`n`n'
+    ask:
+        paragraph: '`7The old man asks you his question:`0`n`n'
+    answer:
+        correct:
+            - '`7"`%Hey, you know what the Gardens are all about!`0" he exclaims.'
+            - "&quot;`%You're right, of course, and I have something for you.`0&quot;`0`n`n"
+        reward:
+            gem: '`^He hands you a `%gem`0!`0'
+            gold: '`^He hands you a bag containing {reward,number} gold!'
+        uncorrect:
+            - "`7&quot;`%Oh dear, I hope you're new around here!`0&quot; he exclaims."
+            - "&quot;`%I'm afraid that answer is wrong.`0&quot;`n`n"
+            - 'You wander away sadly, determined to try harder next time.`0'
+
+question:
+    '00': 'It is ok to get romantic in an adult manner in the Gardens.'
+    '01': 'It is ok to hit players in the Gardens.'
+    '02': 'It is ok to get undressed in the Gardens.'
+    '03': 'The Gardens are a place where you can use websites and email addresses.'
+    '04': 'You can be rude to other players in the Gardens.'
+    '05': 'You can say anything you like in the Gardens.'
+    '06': 'You may roleplay a violent fight in the Gardens.'
+    '07': 'You may roleplay a bedroom love scene in the Gardens.'
+    '08': 'You may roleplay that another player is defenseless.'
+    '09': 'You may upset other players.'
+    '010': 'You may try to annoy others.'
+    '011': 'You may ask every player in the Gardens to marry you.'
+    '012': 'It is ok to discuss game secrets in the Gardens.'
+    '013': 'The Gardens are for adults only, so you can speak about anything there.'
+    '014': 'You may ask players to behave if they are breaking rules.'
+    '015': 'The Gardens are a good place to rest from fighting.'
+    '016': 'It is ok to hug other players in the Gardens.'
+    '017': 'You may roleplay in the Gardens.'
+    '018': 'You may get married in the Gardens.'
+    '019': 'You should report players being cruel to others.'
+
+
+
+
+navigation:
+    nav:
+        return:
+            garden: 'G?Return to the Gardens'
+        ask:
+            yes: 'True'
+            no: 'False'
