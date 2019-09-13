@@ -113,7 +113,7 @@ function weather_dohook($hookname, $args)
                 $params['weather'] = get_module_setting('microwx');
             }
 
-            $args['includeTemplatesPre']['module/weather/weather.twig'] = $params;
+            $args['includeTemplatesPost']['module/weather/weather.twig'] = $params;
         break;
         case 'village-desc':
             $enablemicro = get_module_setting('enablemicro', 'weather');
