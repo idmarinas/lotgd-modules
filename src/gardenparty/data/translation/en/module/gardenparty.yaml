@@ -1,0 +1,36 @@
+title: '{barman} in {clothes}'
+
+section:
+    hook.gardens:
+        time: "There's a party going on! It's a {name}!"
+        inn: '{barman} is here, wearing (of all things) {clothes}, serving food and drinks.`n`n'
+    run:
+        paragraph:
+            - "You wander over to where {barman} is standing in the gardens, and ask to buy {missed}, but he tells you that you don't have enough gold to buy it."
+            - "You think it's a little odd that you're being charged for food and drinks at {partyType}, but ignore this, eager to get back to the revelry."
+
+party:
+    type: birthday party for MightyE
+    barman.clothes: a Hawaiian shirt
+    miss:
+        item: 'a bogus item'
+        comment: 'mutters something that you cannot make out.'
+
+consumption:
+    cake: Birthday Cake
+    drink: Grape Soda
+    mote: pigs out and takes a huge bite of Birthday Cake.
+
+buff:
+    name.miss: 'Party Fever'
+    msg:
+        cake: '`b{name}´b increased your defense.'
+        drink: '`b{name}´b increased your attack.'
+        miss: 'In the distance you hear the sounds of "Happy Birthday" being sung.'
+
+navigation:
+    category:
+        party: 'Party Treats!'
+    nav:
+        consumption: '{name} (`^{cost,number} gold`0)'
+        return: 'Back to the party'
