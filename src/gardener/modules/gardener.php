@@ -148,30 +148,32 @@ function gardener_run()
     }
     elseif ('ask' == $op)
     {
+        $params['tpl'] = 'ask';
+
         // The questions have their expected answer associated with them
         // now, so you can change questions at your whim as long as you
         // put the correct answers there.
         $phrases = [
-            \LotgdTranslate::t('question.00', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.01', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.02', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.03', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.04', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.05', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.06', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.07', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.08', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.09', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.010', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.011', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.012', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.013', [], $textDomain).'|0',
-            \LotgdTranslate::t('question.014', [], $textDomain).'|1',
-            \LotgdTranslate::t('question.015', [], $textDomain).'|1',
-            \LotgdTranslate::t('question.016', [], $textDomain).'|1',
-            \LotgdTranslate::t('question.017', [], $textDomain).'|1',
-            \LotgdTranslate::t('question.018', [], $textDomain).'|1',
-            \LotgdTranslate::t('question.019', [], $textDomain).'|1'
+            \LotgdTranslator::t('question.00', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.01', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.02', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.03', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.04', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.05', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.06', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.07', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.08', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.09', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.010', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.011', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.012', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.013', [], $textDomain).'|0',
+            \LotgdTranslator::t('question.014', [], $textDomain).'|1',
+            \LotgdTranslator::t('question.015', [], $textDomain).'|1',
+            \LotgdTranslator::t('question.016', [], $textDomain).'|1',
+            \LotgdTranslator::t('question.017', [], $textDomain).'|1',
+            \LotgdTranslator::t('question.018', [], $textDomain).'|1',
+            \LotgdTranslator::t('question.019', [], $textDomain).'|1'
         ];
 
         $question = array_rand($phrases);
