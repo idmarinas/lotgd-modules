@@ -25,6 +25,9 @@ function gardener_getmoduleinfo()
         'prefs' => [
             'Gardener - User Preferences,title',
             'seentoday' => 'Has the player visited today?,bool|0',
+        ],
+        'requires' => [
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
         ]
     ];
 }

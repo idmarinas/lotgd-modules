@@ -12,6 +12,9 @@ function soulgem_getmoduleinfo()
         'author' => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Graveyard Specials',
         'download' => 'core_module',
+        'requires' => [
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
+        ]
     ];
 }
 

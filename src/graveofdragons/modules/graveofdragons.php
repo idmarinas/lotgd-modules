@@ -24,6 +24,9 @@ function graveofdragons_getmoduleinfo()
             'maxgems' => 'Maximum amount of gems to find while searching,range,1,10,1|4',
             'lethality' => 'Percent of soulpoints to take when encountering the beast, range,10,100,10|50'
         ],
+        'requires' => [
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
+        ]
     ];
 }
 
