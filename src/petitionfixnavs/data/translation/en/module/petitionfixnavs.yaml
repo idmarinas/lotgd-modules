@@ -1,0 +1,11 @@
+title: 'Fixed Navs'
+
+commentary: 'has fixed this users navs'
+
+mail:
+    subject: Your petition
+    message:
+        - 'Your navs have been fixed, you should be able to navigate from the stuck page now. If not, please petition again. (This is an automatic message).'
+        - '`n`nRegards {moderator}'
+
+navigation.nav:fix: 'Fix this users navs'
