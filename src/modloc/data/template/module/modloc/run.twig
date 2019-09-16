@@ -1,0 +1,44 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.run.paragraph'|t(_context)|colorize }}
+
+<div class="center aligned">
+    {{ '`c`b`&%s`0´b´c'|format(section|t(_context))|colorize }}
+
+    {{ 'section.run.list'|t(_context)|colorize }}
+</div>
+
+<table class="ui centered collapsing very compact striped table">
+    <thead>
+        <tr>
+            <th scope="col">{{ 'section.run.table.thead.module'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.run.table.thead.question'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.run.table.thead.location'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.run.table.thead.link'|t|uncolorize }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mod in modules %}
+            <tr>
+                <td>{{ '`&%s`0'|format(mod.module)|colorize }}</td>
+                <td>{{ '`@%s`0'|format(mod.question)|colorize }}</td>
+                <td>{{ '`^%s`0'|format(mod.location)|colorize }}</td>
+                <td>{{ '`#[<a href="%s">%s</a>]`0'|format(('configuration.php?op=modulesettings&module=' ~ mod.modulename)|lotgd_url, 'section.run.table.tbody.setting'|t)|colorize }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">{{ '`b`@%s`0´b'|format('section.run.table.tbody.count.none'|t(_context))|colorize }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{{ 'section.run.table.tbody.count.total'|t(_context)|colorize }}
+
+{% for loc, count in locations %}
+    {{ 'section.run.footer.loc'|t({'count': count, 'loc': loc})|colorize }}
+{% endfor %}
+
+{% if errors %}
+    {{ 'section.run.footer.error'|t({'n': errors})|colorize }}
+{% endif %}

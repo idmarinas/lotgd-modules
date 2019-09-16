@@ -1,0 +1,32 @@
+title: 'Module Location List'
+
+section.run:
+    paragraph: '`c`i`@Due to the fact that some sites can become very cluttered, this tool allows you to see all modules with location settings, and to which location they are hooked. You can also view by city.`0´i´c`n`n'
+    list: '`n`^`bModule Location List:´b`0`n'
+    table:
+        thead:
+            module: 'Module Name'
+            question: 'Location Question'
+            location: 'Current Location'
+            link: 'Settings Link'
+        tbody:
+            setting: Setting
+            count:
+                none: 'No modules are hooked to this location.'
+                total: '`n`@There are `^{modulesCount,plural, =1{1 module} other{# modules}}`0 location settings.`0'
+    footer:
+        loc: '`n`^{loc}`0 has {count,plural, =1{`^1`0 module} other{`^#`0 modules}} hooked to it.`0'
+        error: '`n`%There are {n,plural, =1{`^1`0 module} other{`^#`0 modules}} hooked to nonexistent locations.`0'
+    section:
+        all: 'Currently showing all location settings.'
+        error: 'Currently showing modules hooked to nonexistent locations.'
+        filter: 'Only showing modules that are currently hooked to `@{location}`0.'
+
+navigation:
+    category:
+        locations: 'Module Locations'
+        filter: Filter
+    nav:
+        locations: View Module Locations
+        all: 'Show All'
+        error: 'Show Errors'
