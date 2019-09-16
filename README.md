@@ -81,3 +81,15 @@ src
     >   The core now use a diferent translation system.
 -   `unclean.php` Unclean Commentary Tracker
     >   New comment system allow hide/unhide comments. In future version allow to delete hide comments.
+-   `allmodulegroup.php` All Module Group - Modulemanager
+    >   The core now includes this feature.
+-   `sulogin.php` Superuser Login
+    >   The core now includes this feature.
+-   `last_installed.php` Additional Module Operations
+    >   These function may be included in a future version of the core.
+-   `charrestore.php` Character Restorer
+    >   Core include a new system of Backups for characters, and allow restore it.
+-   `meaninglesscode.php` Hide Meaningless Appo Codes
+    >   Core include a Sanitize for remove non color codes.
+-   `deputymoderator.php` Deputy Moderator
+    >   These function may be included in a future version of the core.
