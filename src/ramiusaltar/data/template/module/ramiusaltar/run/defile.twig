@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+{{ ('section.defile.rand.0' ~ rand(0, 2))|t(_context)|colorize }}
+
+{% if defiled %}
+    {{ 'section.defile.defiled.yes'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.defile.defiled.no'|t(_context)|colorize }}
+{% endif %}

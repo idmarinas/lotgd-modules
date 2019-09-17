@@ -1,0 +1,83 @@
+title: 'Altar of Ramius'
+
+subtitle: '`c`b`7Altar of `4Ramius.`0´b´c`n'
+
+section:
+    default:
+        sacrificed:
+            yes: '`nYou are still weak from your previous sacrifice today.  Another visit could do great harm!`n'
+            no:
+                - '`n`2You kneel at the altar of `4Ramius`2, a chill moving through your body.`n'
+                - '`n`2You set your jaw and prepare to sacrifice to the overlord of death.'
+                - '`n`2Do you:'
+    give:
+        blood:
+            yes:
+                - '`n`7You make a jagged cut on your `Q{part}`0 with your `Q{weapon}`0, dripping blood on the altar.`n'
+                - "`nThe etched foreign symbols on the stone altar begin to glow, and you find yourself chanting the words repeatedly, though you know you've never seen the language."
+                - '`nFear fills you, and you hurry away from this place. You lose most of your `&health`0.`0`n'
+            no: '`n`2You feel too weak to give blood right now, and back away from the altar.'
+        spirit:
+            yes:
+                - '`n`7You decide to offer to curse your spirit in return for a blessing.`n'
+                - "`nThe etched foreign symbols on the stone altar begin to glow, and you find yourself chanting the words repeatedly, though you know you've never seen the language."
+                - '`nFear fills you, and you hurry away from this place. You lose `&{hpLost,number} Max HP`0.`0`n'
+            no: '`n`2Your spirit is not strong enough to sacrifice. You back away from the altar.`0'
+        flesh:
+            yes:
+                - '`n`7You tear some flesh from your `Q{part}`0 with your `Q{weapon}`0. Gasping in pain, you close your eyes and drop your sacrifice.`n'
+                - "`nThe etched foreign symbols on the stone altar begin to glow, and you find yourself chanting the words repeatedly, though you know you've never seen the language."
+                - '`nFear fills you, and you hurry away from this place.'
+                - '{useStamina,select, 1{You lose `@some stamina`0} other{You lose `@{turnsLost,plural, =1{1 turn} other{# turns}}`0}}.`0`n'
+            no: '`n`2You feel too tired to give flesh right now, and back away from the altar.`0'
+        pleased:
+            yes: '`n`n`&You feel `4Ramius`0 is pleased. You gain {favorGain,number} favor!`0'
+            no: '`n`4Ramius`0 `7is displeased!`0'
+        part:
+            '00': arm
+            '01': leg
+            '02': neck
+            '03': torso
+            '04': toe
+            '05': shoulder
+            '06': hip
+            '07': ear
+            '08': 'tibiofibular articulation, just between the lateral condyle of the tibia and the fibula'
+    defile:
+        defiled:
+            yes:
+                - '`n`4Ramius `7hears of your deed, and is outraged!'
+                - '`n`7You lose `4{favorLost,number} favor`7!'
+                - '`n`7Emboldened from your rebuke of the feared `4Ramius`7, you gain {useStamina,select, 0{`@1 turn`0} other{`@some stamina`0}}!.`0'
+            no: "`n`4Ramius`7 hears of your deed, but says he's never even heard of {name}, and ignores you.`0`n"
+        rand:
+            '00': '`n`7You kick a clod of loose dirt towards the altar.`n'
+            '01': '`n`7You aim and spit directly on top of the altar.`n'
+            '02': '`n`7You swing your {weapon} at the altar, chipping the stone.`n'
+    hof:
+        subtitle: '`c`b`^Sacrifices to the Altar of Ramius`0´b´c`n'
+        table:
+            thead:
+                name: Name
+                favor: Favor Gained
+                sacrifices: Sacrifices
+                hp: HP given
+                turns: Turns given
+                stamina: Stamina given
+                maxHp: Max HP given
+navigation:
+    nav:
+        altar: 'Altar of Ramius'
+        rank: 'Blood & sacrifice'
+        default:
+            blood: 'B? `2Give `@B`0lood`0'
+            flesh: 'F? `2Give `@F`0lesh`0'
+            spirit: 'S? `2Give `@S`0pirit`0'
+            defile: 'D? `6`^D`0efile the altar`0'
+        give:
+            return: 'A?Return to the Altar'
+        hof:
+            back: 'Back to HOF'
+
+
+

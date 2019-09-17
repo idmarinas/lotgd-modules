@@ -1,0 +1,5 @@
+{% translate_default_domain textDomain %}
+
+{{ 'subtitle'|t(_context)|colorize }}
+
+{{ include_module('ramiusaltar/run/' ~ tpl|default('default') ~ '.twig') }}

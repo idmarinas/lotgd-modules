@@ -1,0 +1,72 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.hof.subtitle'|t(_context)|colorize }}
+
+<table class="ui very compact striped table">
+    <thead>
+        <tr>
+            <th scope="col">{{ 'section.hof.table.thead.name'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.hof.table.thead.favor'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.hof.table.thead.sacrifices'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.hof.table.thead.hp'|t|uncolorize }}</th>
+            <th scope="col">{{ ('section.hof.table.thead.' ~ useStamina ? 'stamina' : 'turns')|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.hof.table.thead.maxHp'|t|uncolorize }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in paginator %}
+            <tr>
+                <td>{{ user.name|colorize }}</td>
+                <td>{{ user.gained|numeral }}</td>
+                <td>{{ user.sacrifices|numeral }}</td>
+                <td>{{ user.hpLost|numeral }}</td>
+                <td>{{ user.turns|numeral }}</td>
+                <td>{{ user.maxHpLost|numeral }}</td>
+            </tr>
+        {% else %}
+
+        {% endfor %}
+    </tbody>
+</table>
+
+<!--
+$settings = ['sacrificedtoday',
+    'totalgained',
+    'totalsacrifices',
+    'totalhploss',
+    'totalturnloss',
+    'totalmaxhploss'];
+
+for ($i = 1; $i < $count; $i++)
+{
+    $userpref = get_all_module_prefs('ramiusaltar', $i);
+
+    $sql = 'SELECT acctid,name FROM '.DB::prefix('accounts').' WHERE acctid='.$i.' AND locked=0 AND (superuser & '.SU_HIDE_FROM_LEADERBOARD.') = 0';
+    $result = DB::query($sql);
+
+    if (DB::num_rows($result) < 1)
+    {
+        continue;
+    }
+
+    if (! isset($userpref['totalsacrifices']) || $userpref['totalsacrifices'] < 1)
+    {
+        continue;
+    }
+    $row = DB::fetch_assoc($result);
+
+    rawoutput('<tr>');
+
+    for ($j = 0; $j < 6; $j++)
+    {
+        if (0 == $j)
+        {
+            output_notl('<td>%s</td>', $row['name'], true);
+            continue;
+        }
+
+        $value = $userpref[$settings[$j]] ?? 0;
+        output_notl('<td>%s</td>', $value, true);
+    }
+    rawoutput('</tr>');
+} -->
