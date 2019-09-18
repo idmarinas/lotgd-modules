@@ -32,12 +32,12 @@ function worldmapen_run_real()
         $cname = (string) \LotgdHttp::getQuery('cname');
         $session['user']['location'] = $cname;
 
-        \LotgdNavigation::addNav('navigation.av.enter', 'village.php', [
+        \LotgdNavigation::addNav('navigation.nav.enter', 'village.php', [
             'textDomain' => $textDomain,
             'params' => [ 'name' => $cname ]
         ]);
 
-        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.messages.destination', [ 'name' => $cname ], $textDomain));
+        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.destination', [ 'name' => $cname ], $textDomain));
     }
 
     if ('' != $session['user']['specialinc'] || \LotgdHttp::getQuery('eventhandler'))
