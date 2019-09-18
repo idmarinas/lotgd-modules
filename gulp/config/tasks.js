@@ -2,7 +2,7 @@
 var env = require('minimist')(process.argv.slice(2))
 
 //-- Options
-var envOptions = { env: env.env || 'development' }
+var envOptions = { env: env.env || 'development', project: env.project || 'main' }
 var options = Object.assign(env, envOptions)
 
 module.exports = {
@@ -31,6 +31,21 @@ module.exports = {
         if (options.env === 'production') return true
         else if (options.env === 'prod') return true
         else return false
+    },
+
+    /**
+     * Get files to copy.
+     *
+     * @param {object} files Allowed config.files in config file
+     */
+    getProject: function (files)
+    {
+        if (files[options.project])
+        {
+            return files[options.project]
+        }
+
+        return files.main
     },
 
     theme: function ()

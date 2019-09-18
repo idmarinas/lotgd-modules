@@ -1,5 +1,6 @@
-//-- Modify with your data
-module.exports = {
+const merge = require('lodash.merge')
+
+const config = {
     paths: {
         //-- Directory for construct game
         build: 'dist'
@@ -12,3 +13,15 @@ module.exports = {
         ]
     }
 }
+
+var custom = {}
+try
+{
+    custom = require('../custom/config/default')
+}
+catch (error)
+{
+    console.log('Not find custom config default')
+}
+
+module.exports = merge(config, custom)
