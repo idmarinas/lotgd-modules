@@ -1,0 +1,37 @@
+{% translate_default_domain textDomain %}
+
+{{ 'paragraph'|t(_context)|colorize }}
+
+{% if special %}
+    {% if hasHorse %}
+        {% if isPartialRecharge %}
+            {% if mount.partrecharge %}
+                {{ mount.partrecharge|colorize }}
+            {% else %}
+                {{ 'horse.recharge.partial'|t(_context)|colorize }}
+            {% endif %}
+        {% else %}
+            {% if mount.recharge %}
+                {{ mount.recharge|colorize }}
+            {% else %}
+                {{ 'horse.recharge.full'|t(_context)|colorize }}
+            {% endif %}
+        {% endif %}
+
+        {{ 'healed'|t(_context)|colorize }}
+
+        {% if staminaSystem %}
+            {{ 'lost.stamina'|t(_context)|colorize }}
+        {% else %}
+            {{ 'lost.turns'|t(_context)|colorize }}
+        {% endif %}
+    {% else %}
+        {{ 'horse.no'|t(_context)|colorize }}
+    {% endif %}
+{% else %}
+    {{ 'nothing'|t(_context)|colorize }}
+{% endif %}
+
+{{ commentary_block({
+    'section': 'grassyfield'
+}, textDomain) }}

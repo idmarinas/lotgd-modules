@@ -1,0 +1,36 @@
+paragraph: '`n`c`#You Stumble Upon a Grassy Field`0´c`n`n'
+
+nothing: '`&You relax a while in the fields enjoying the sun and the shade.`0'
+
+horse:
+    no:
+        - '`&Deciding to take a moment and a load off your poor weary feet you take a quick break from your ventures to take in the beautiful surroundings.`0'
+        - '`n`n`^Your break leaves you completely healed!`0'
+    recharge:
+        partial: '`&You allow {mountName} to frolic and gambol in the field.`0'
+        full: '`&You allow {mountName} to hunt and rest in the field.`0'
+
+healed: '`n`^Your nap leaves you completely healed!`0'
+
+sober.msg: '`n`&Naps are quite a sobering experience!`0`n'
+
+lost:
+    turns: '`n`n`^You lose a forest fight for today.`0'
+    stamina: '`n`n`^You lose same stamina.`0'
+
+# Commentary
+commentary:
+    talk: '`n`n`@Talk with the others lounging here.`0`n' # Talk
+    sayLine: 'speak lazily' # Sayline
+    button: 'Speak lazily' # Add button
+    charsLeft: 'You have %s characters left.'
+    status: # This is optional
+        game: 'Message of the Game Master'
+        you: "It's a comment from you."
+        afk: 'Away from Keyboard'
+        nearby: 'Nearby'
+        offline: 'Offline'
+        dni: "DNI (please don't try to talk to this player right now!)"
+        online: 'Online'
+
+navigation.nav.return: 'Return to the forest'
