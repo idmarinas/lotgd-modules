@@ -1,0 +1,15 @@
+win:
+    yes:
+        - '`^You discover a skin of liquid hanging over the limb of a tree.'
+        - 'Since the sigils inscribed on the skin are those of someone you recognize as a very powerful warrior from the village, you decide that it would be safe to take a sip.`n`n`n'
+        - 'Man is that stuff potent!'
+        - 'You feel `!hyper`0.`n`n'
+        - 'You `%receive one`0 extra turn!`0'
+    no:
+        - '`^Walking along a path in the forest, you come upon a field of flowers.'
+        - 'Stopping to pick one, you inhale its scent.`n`n'
+        - '`$Yawn!`0'
+        - 'Man, that flower scent made you really sleepy.'
+        - 'You stumble off the path to take a nap.`0`n`n'
+
+lose: '`^You `%lose one`0 turn!`0'

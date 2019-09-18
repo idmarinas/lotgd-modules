@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+{% if win %}
+    {{ 'win.yes'|t(_context)|colorize }}
+{% else %}
+    {{ 'win.no'|t(_context)|colorize }}
+
+    {{ 'lose'|t(_context)|colorize }}
+{% endif %}
