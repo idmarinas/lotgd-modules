@@ -134,14 +134,14 @@ function weather_dohook($hookname, $args)
             $args[] = \LotgdTheme::renderModuleTemplate('weather/weather.twig', $params);
         break;
         case 'page-home-tpl-params':
-            $args['includeTemplatesPre']['module/weather/weather.twig'] = [
+            $args['includeTemplatesIndex']['module/weather/weather.twig'] = [
                 'textDomain' => $textDomain,
                 'weather' => get_module_setting('weather'),
                 'type' => 'normal'
             ];
         break;
         case 'page-shades-tpl-params':
-            $args['includeTemplatesPre']['module/weather/weather.twig'] = [
+            $args['includeTemplatesPost']['module/weather/weather.twig'] = [
                 'textDomain' => $textDomain,
                 'weather' => get_module_setting('shadeswx'),
                 'type' => 'shades'
