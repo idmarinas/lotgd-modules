@@ -3,8 +3,7 @@
 namespace Lotgd\Local\Twig\Extension;
 
 use Lotgd\Core\Pattern as PatternCore;
-use Lotgd\Core\ServiceManager;
-use Twig\Extension\AbstractExtension;
+use Lotgd\Core\Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class ModuleWorldmapen extends AbstractExtension
@@ -19,14 +18,6 @@ class ModuleWorldmapen extends AbstractExtension
     use Pattern\MapEditTerrain;
     use Pattern\Map;
     use Pattern\MiniMap;
-
-    /**
-     * @param ServiceManager $serviceManager
-     */
-    public function __construct(ServiceManager $serviceManager)
-    {
-        $this->setContainer($serviceManager);
-    }
 
     /**
      * {@inheritdoc}

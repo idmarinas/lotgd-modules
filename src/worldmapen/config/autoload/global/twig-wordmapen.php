@@ -2,6 +2,6 @@
 
 return [
     'twig_extensions' => [
-        \Lotgd\Local\Twig\Extension\ModuleWorldmapen::class => true
+        \Lotgd\Local\Twig\Extension\ModuleWorldmapen::class
     ]
 ];
