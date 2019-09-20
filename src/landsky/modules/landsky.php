@@ -89,7 +89,7 @@ function landsky_dohook($hookname, $args)
     switch($hookname)
     {
         case 'page-home-tpl-params':
-            if (2 == $showhome && 'page-home-tpl-params' == $hookname)
+            if (! $showhome)
             {
                 return $args;
             }
@@ -97,11 +97,6 @@ function landsky_dohook($hookname, $args)
             $args['includeTemplatesIndex']['module/landsky/sky.twig'] = $params;
         break;
         case 'page-shades-tpl-params':
-            if (2 == $showhome && 'page-home-tpl-params' == $hookname)
-            {
-                return $args;
-            }
-
             $args['includeTemplatesPost']['module/landsky/sky.twig'] = $params;
         break;
         case 'village-desc':
