@@ -1,0 +1,37 @@
+{% translate_default_domain textDomain %}
+
+{% if not seenLover %}
+    {% if married %}
+        {% if flirtSuccess %}
+            {{ 'section.run.married.barmaid.success'|t(_context)|colorize }}
+        {% else %}
+            {{ 'section.run.married.barmaid.fail.paragraph'|t(_context|merge({ 'msg': ('section.run.married.barmaid.fail.msg.0' ~ random(1, 4))|t(_context) }))|colorize }}
+        {% endif %}
+    {% elseif not flirt %}
+        {{ 'section.run.flirt.barmaid.select'|t(_context)|colorize }}
+    {% else %}
+        {% if flirt == 2 %}
+            {{ 'section.run.flirt.barmaid.case.02.paragraph'|t(_context)|colorize }}
+        {% elseif flirt == 3 %}
+            {{ 'section.run.flirt.barmaid.case.03.paragraph'|t(_context)|colorize }}
+        {% elseif flirt == 4 %}
+            {{ 'section.run.flirt.barmaid.case.04.paragraph'|t(_context)|colorize }}
+        {% elseif flirt == 5 %}
+            {{ 'section.run.flirt.barmaid.case.05.paragraph'|t(_context)|colorize }}
+        {% elseif flirt == 7 %}
+            {{ 'section.run.flirt.barmaid.case.07.paragraph'|t(_context)|colorize }}
+        {% endif %}
+
+        {{ ('section.run.flirt.barmaid.case.' ~ flirt ~ '.' ~ flirtCase)|t(_context)|colorize }}
+
+        {% if charmGain %}
+            {{ 'section.run.flirt.barmaid.charm.gain'|t(_context)|colorize }}
+        {% endif %}
+
+        {% if charmLost %}
+            {{ 'section.run.flirt.barmaid.charm.lost'|t(_context)|colorize }}
+        {% endif %}
+    {% endif %}
+{% else %}
+    {{ 'section.run.flirt.barmaid.seen'|t(_context)|colorize }}
+{% endif %}

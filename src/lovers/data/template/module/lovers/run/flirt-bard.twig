@@ -1,0 +1,29 @@
+{% translate_default_domain textDomain %}
+
+{% if not seenLover %}
+    {% if married %}
+        {% if flirtSuccess %}
+            {{ 'section.run.married.bard.success'|t(_context)|colorize }}
+        {% else %}
+            {{ 'section.run.married.bard.fail.paragraph'|t(_context|merge({ 'msg': ('section.run.married.bard.fail.msg.0' ~ random(1, 4))|t(_context) }))|colorize }}
+        {% endif %}
+    {% else %}
+        {% if flirt %}
+            {% if flirt == 7 %}
+                {{ 'section.run.flirt.bard.case.07.paragraph'|t(_context)|colorize }}
+            {% endif %}
+
+            {{ ('section.run.flirt.bard.case.' ~ flirt ~ '.' ~ flirtCase)|t(_context)|colorize }}
+
+            {% if charmGain %}
+                {{ 'section.run.flirt.bard.charm.gain'|t(_context)|colorize }}
+            {% endif %}
+
+            {% if charmLost %}
+                {{ 'section.run.flirt.bard.charm.lost'|t(_context)|colorize }}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% else %}
+    {{ 'section.run.flirt.bard.seen'|t(_context)|colorize }}
+{% endif %}

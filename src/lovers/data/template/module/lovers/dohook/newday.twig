@@ -1,0 +1,7 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.hook.newday.paragraph'|t(_context)|colorize }}
+
+{% if user.charm <= 0 %}
+    {{ 'section.hook.newday.note'|t(_context)|colorize }}
+{% endif %}
