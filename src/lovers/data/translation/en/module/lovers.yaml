@@ -220,15 +220,14 @@ navigation:
                 grab: 'Grab her backside'
                 carry: 'Carry her upstairs'
                 marry: 'Marry her'
-        chat:
-            bard: 'Chat with {name}'
-            barmaid: 'Gossip with {name}'
         inn: 'I?Return to the Inn'
         chat:
             bard:
+                chat: 'Chat with {name}'
                 ask: 'Ask about your manliness'
                 sports: 'Discuss Sports'
             barmaid:
+                chat: 'Gossip with {name}'
                 gossip: Gossip
                 fat: 'Ask if your {armor} makes you look fat'
 

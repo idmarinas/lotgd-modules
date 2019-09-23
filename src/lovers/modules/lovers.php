@@ -86,16 +86,16 @@ function lovers_dohook($hookname, $args)
 
             if (SEX_MALE != $session['user']['prefs']['sexuality'])
             {
-                \LotgdNavigation::addNav('navigation.nav.chat.bard', 'runmodule.php?module=lovers&op=chat', [
+                \LotgdNavigation::addNav('navigation.nav.chat.bard.chat', 'runmodule.php?module=lovers&op=chat', [
                     'textDomain' => $textDomain,
-                    'params' => ['partner' => getsetting('bard', '`^Seth`0')]
+                    'params' => ['name' => getsetting('bard', '`^Seth`0')]
                 ]);
             }
             else
             {
-                \LotgdNavigation::addNav('navigation.nav.chat.barmaid', 'runmodule.php?module=lovers&op=chat', [
+                \LotgdNavigation::addNav('navigation.nav.chat.barmaid.chat', 'runmodule.php?module=lovers&op=chat', [
                     'textDomain' => $textDomain,
-                    'params' => ['partner' => getsetting('barmaid', '`%Violet`0')]
+                    'params' => ['name' => getsetting('barmaid', '`%Violet`0')]
                 ]);
             }
         break;
