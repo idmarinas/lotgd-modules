@@ -1,0 +1,38 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.run.numbers'|t(_context)|colorize }}
+{{ 'section.run.jackpot'|t(_context)|colorize }}
+
+{% if prize %}
+    {{ 'section.run.winners.yes'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.run.winners.no'|t(_context)|colorize }}
+{% endif %}
+
+{% if pick %}
+    {{ 'section.run.buyed'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.run.buy.paragraph'|t(_context)|colorize }}
+    <br>
+    <br>
+    <form action="{{ 'runmodule.php?module=lottery&op=buy'|lotgd_url }}" method="post" class="ui form">
+        <div class="center aligned inline field">
+            {% for select in 0..3 %}
+                <select class="ui lotgd compact selection dropdown" name="lotto[{{ select }}]" id="lotto{{ select + 1 }}">
+                    {% for option in 0..9 %}
+                        <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+                {% if select < 3 %}
+                    -
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="center aligned field">
+            <button type="submit" class="ui button">{{ 'section.run.form.button.submit'|t|uncolorize }}</button>
+        </div>
+    </form>
+{% endif %}
+<br>
+<br>
+{{ 'section.run.paragraph'|t(_context)|colorize }}

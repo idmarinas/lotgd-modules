@@ -1,0 +1,39 @@
+title: "{barman}'s Lottery"
+
+section:
+    hook:
+        newday:
+            numbers: "`n`@Today's lottery numbers are `^{n0}-{n1}-{n2}-{n3}`0`n"
+            win: "`$You won today's lottery!`0`n"
+            jackpot: '`$The jackpot is `^{prize,number}`0 gold, money that has been deposited in to your bank account!`0`n'
+    run:
+        numbers: "`7Today's lottery numbers are `^{n0}-{n1}-{n2}-{n3}`0.`0"
+        jackpot: '`7The jackpot is now up to `^{jackpot,number}`0 gold!`0`n`n'
+        winners:
+            yes: '`7The {winners,plural, =1{winner} other{# winners}} of the last jackpot `^{winners,select, 0{} 1{got {prize,number}} other{each got {prize,number}}}`0 gold!`0`n`n'
+            no: '`7There were no recent jackpot winners!`0`n`n'
+        buyed: "`7You bought a lottery ticket for tomorrow's drawing; the numbers you chose are: `^{pn0}-{pn1}-{pn2}-{pn3}`0`0`n`n"
+        buy:
+            paragraph:
+                - '`7Lottery tickets cost `^{cost,number}`0 gold.'
+                - "If you would like to buy one for tomorrow's drawing, please choose your numbers below and click &quot;Buy&quot;.`0"
+        form:
+            button.submit: Buy
+        paragraph:
+            - 'A drawing is held at the start of each game day.'
+            - 'If the numbers you chose match, in any order, you win the jackpot for the day!'
+            - 'If no one matches the jackpot on a particular day, the sum will roll over for the following game day.'
+            - 'A portion of the proceeds of the lottery go to help injured forest creatures.'
+
+navigation:
+    category.return: Return
+    nav:
+        lottery: "{barman}'s Lottery"
+        inn: 'I?Return to the Inn'
+
+news.winner: '`@{playerName} won `^{prize,number}`0 gold in the lottery!`0'
+
+flash.message:
+    error:
+        lotto: '`$You seem to have mumbled when you requested the lottery tickets. Please restate your numbers.`0`n`n'
+        gold: '`$You do not have enough to buy a lottery ticket!`0`n`n'

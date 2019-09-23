@@ -1,0 +1,8 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.hook.newday.numbers'|t(_context)|colorize }}
+
+{% if winner %}
+    <span class="ui big text">{{ 'section.hook.newday.win'|t(_context)|colorize }}</span>
+    {{ 'section.hook.newday.jackpot'|t(_context)|colorize }}
+{% endif %}
