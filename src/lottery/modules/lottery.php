@@ -61,6 +61,7 @@ function lottery_dohook($hookname, $args)
             $pround = get_module_pref('roundnum');
 
             $params = [
+                'textDomain' => 'module-lottery',
                 'numbers' => $numbers,
                 'n0' => $numbers[0],
                 'n1' => $numbers[1],
