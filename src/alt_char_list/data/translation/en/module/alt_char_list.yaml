@@ -1,0 +1,34 @@
+title: 'Alternate Character List'
+
+section:
+    default:
+        table:
+            thead:
+                name: 'Character Name (login)'
+                ip: 'Alts by IP'
+                id: 'Alts by ID'
+                email: 'Alts by Email'
+            tbody:
+                none: '`inone´i'
+    search:
+        form:
+            char_name:
+                label: Character Name
+            button:
+                submit: Submit
+        table:
+            caption: 'Results for "{search}"'
+            thead:
+                name: Name
+                ip: IP
+                id: ID
+                email: Email
+
+navigation:
+    category:
+        other: 'Other Actions'
+    nav:
+        list: 'Alternate Character List'
+        view: View Possible Alts
+        search: Search
+        return: 'Return to viewing character'

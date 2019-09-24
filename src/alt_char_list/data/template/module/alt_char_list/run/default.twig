@@ -1,0 +1,43 @@
+{% translate_default_domain textDomain %}
+
+<table class="ui very compact striped table">
+    <caption>{{ 'title'|t|colorize }}</caption>
+    <thead>
+        <tr>
+            <th scope="col">{{ 'section.default.table.thead.name'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.ip'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.id'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.email'|t|uncolorize }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for acct in accounts %}
+            <tr>
+                <td>{{ acct.acct.name|colorize }} ({{ acct.acct.login }})</td>
+                <td>
+                    {% for rowIp in acct.ip %}
+                        {{ rowIp.name|colorize }} ({{ rowIp.login }})<br>
+                    {% else %}
+                        {{ 'section.default.table.tbody.none'|t|colorize }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for rowId in acct.id %}
+                        <strong>{{ rowId.name|colorize }}</strong> ({{ rowId.login }})<br>
+                    {% else %}
+                        {{ 'section.default.table.tbody.none'|t|colorize }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for rowEmail in acct.email %}
+                        <strong>{{ rowEmail.name|colorize }}</strong> ({{ rowEmail.login }})<br>
+                    {% else %}
+                        {{ 'section.default.table.tbody.none'|t|colorize }}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{{ navigation_pagination(paginator) }}

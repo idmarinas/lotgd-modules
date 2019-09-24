@@ -1,0 +1,37 @@
+{% translate_default_domain textDomain %}
+
+<form action="{{ 'runmodule.php?module=alt_char_list&op=search'|lotgd_url }}" method="post" class="center aligned">
+    <div class="field">
+        <label for="char_mane">{{ 'section.search.form.char_name.label'|t|colorize }}</label>
+        <div class="ui action input">
+            <input type="text" name="char_name" id="char_name">
+            <button type="submit" class="ui button">{{ 'section.search.form.button.submit'|t|uncolorize }}</button>
+        </div>
+    </div>
+</form>
+
+{% if paginator %}
+    <table class="ui very compact striped table">
+        <caption>{{ 'section.search.table.caption'|t(_context)|colorize }}</caption>
+        <thead>
+            <tr>
+                <th scope="col">{{ 'section.search.table.thead.name'|t|colorize }}</th>
+                <th scope="col">{{ 'section.search.table.thead.ip'|t|colorize }}</th>
+                <th scope="col">{{ 'section.search.table.thead.id'|t|colorize }}</th>
+                <th scope="col">{{ 'section.search.table.thead.email'|t|colorize }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in paginator %}
+                <tr>
+                    <td><a href="{{ ('runmodule.php?module=alt_char_list&id=' ~ row.acctid)|lotgd_url }}">{{ row.name|colorize }}</a></td>
+                    <td>{{ row.lastip }}</td>
+                    <td>{{ row.uniqueid }}</td>
+                    <td>{{ row.emailaddress }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {{ navigation_pagination(paginator) }}
+{% endif %}
