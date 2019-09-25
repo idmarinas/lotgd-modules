@@ -1,0 +1,10 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.run.treetime.paragraph'|t(_context)|colorize }}
+
+<form action="{{ 'runmodule.php?module=clantrees&op=alter&what=time'|lotgd_url }}" method="post" class="ui form">
+    {{ form }}
+    <div class="field">
+        <button type="submit" class="ui button">{{ ('section.run.treetime.form.button.submit.' ~ staminaSystem ? 'stamina' : 'turn')|t|uncolorize }}</button>
+    </div>
+</form>

@@ -1,0 +1,8 @@
+
+
+navigation:
+    category:
+        warning: Warnings
+    nav:
+        level: Warning Level
+        warn: Warn Player

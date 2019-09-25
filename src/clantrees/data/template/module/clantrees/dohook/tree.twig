@@ -1,0 +1,17 @@
+{% translate_default_domain textDomain %}
+
+{% if isBestTree %}
+    {{ 'section.hook.tree.best'|t(_context)|colorize }}
+{% endif %}
+
+{% if bonus %}
+    {{ 'section.hook.tree.bonus.paragraph'|t(_context)|colorize }}
+
+    {% if competitive %}
+        {% if isBestTree %}
+            {{ 'section.hook.tree.bonus.best'|t(_context)|colorize }}
+        {% else %}
+            {{ 'section.hook.tree.bonus.nobest'|t(_context)|colorize }}
+        {% endif %}
+    {% endif %}
+{% endif %}

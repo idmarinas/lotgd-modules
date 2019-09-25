@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.run.treebaubles.paragraph'|t(_context)|colorize }}
+
+<form action="{{ 'runmodule.php?module=clantrees&op=alter&what=gems'|lotgd_url }}" method="post" class="ui form">
+    <div class="field">
+        <button type="submit" class="ui button">{{ 'section.run.treebaubles.form.button.submit'|t|uncolorize }}</button>
+    </div>
+</form>
