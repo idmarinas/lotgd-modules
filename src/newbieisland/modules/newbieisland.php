@@ -340,17 +340,17 @@ function newbieisland_dohook($hookname, $args)
                 $args['textDomain'] = 'newbieisland-village-village';
                 $args['textDomainNavigation'] = 'newbieisland-village-navigation';
 
-                blocknav('pvp.php');
-                blocknav('lodge.php');
-                blocknav('gypsy.php');
-                blocknav('pavilion.php');
-                blocknav('inn.php');
-                blocknav('stables.php');
-                blocknav('gardens.php');
-                blocknav('rock.php');
-                blocknav('clan.php');
-                blocknav('mercenarycamp.php');
-                blocknav('hof.php');
+                \LotgdNavigation::blockHideLink('pvp.php');
+                \LotgdNavigation::blockHideLink('lodge.php');
+                \LotgdNavigation::blockHideLink('gypsy.php');
+                \LotgdNavigation::blockHideLink('pavilion.php');
+                \LotgdNavigation::blockHideLink('inn.php');
+                \LotgdNavigation::blockHideLink('stables.php');
+                \LotgdNavigation::blockHideLink('gardens.php');
+                \LotgdNavigation::blockHideLink('rock.php');
+                \LotgdNavigation::blockHideLink('clan.php');
+                \LotgdNavigation::blockHideLink('mercenarycamp.php');
+                \LotgdNavigation::blockHideLink('hof.php');
                 // Make sure that Blusprings can show up on newbie island.
                 unblocknav('train.php');
                 //if you want your module to appear in the newbie village, you'll have to hook on village
@@ -383,7 +383,7 @@ function newbieisland_dohook($hookname, $args)
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
 
-                \LotgdNavigation::setTextDomain('newbieisland-village-village');
+                \LotgdNavigation::setTextDomain('newbieisland-village-navigation');
 
                 \LotgdNavigation::addHeader('headers.gate');
                 \LotgdNavigation::addNav('navs.leave', 'runmodule.php?module=newbieisland&op=leave', [
