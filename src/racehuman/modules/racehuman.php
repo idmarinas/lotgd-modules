@@ -147,6 +147,8 @@ function racehuman_dohook($hookname, $args)
     $city = get_module_setting('villagename');
     $race = 'racehuman-module'; //-- Now race is a textDomain for translator
 
+    \LotgdNavigation::setTextDomain($race);
+
     switch ($hookname)
     {
         case 'racenames':
@@ -200,7 +202,7 @@ function racehuman_dohook($hookname, $args)
             }
         break;
         case 'chooserace':
-            \LotgdNavigation::addNav('navigation.nav.character.racename', "newday.php?setrace={$race}{$resline}");
+            \LotgdNavigation::addNav('character.racename', "newday.php?setrace={$race}{$resline}");
 
             $params = [
                 'city' => $city,
@@ -357,6 +359,8 @@ function racehuman_dohook($hookname, $args)
             $args[$city] = \LotgdTranslator::t('locs.stables', [ 'city' => $city ], $race);
         break;
     }
+
+    \LotgdNavigation::setTextDomain();
 
     return $args;
 }

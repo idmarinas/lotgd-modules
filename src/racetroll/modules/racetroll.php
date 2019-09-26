@@ -147,6 +147,8 @@ function racetroll_dohook($hookname, $args)
     $city = get_module_setting('villagename');
     $race = 'racetroll-module';
 
+    \LotgdNavigation::setTextDomain($race);
+
     switch ($hookname)
     {
         case 'racenames':
@@ -212,7 +214,7 @@ function racetroll_dohook($hookname, $args)
             }
         break;
         case 'chooserace':
-            \LotgdNavigation::addNav('navigation.nav.character.racename', "newday.php?setrace={$race}{$resline}");
+            \LotgdNavigation::addNav('character.racename', "newday.php?setrace={$race}{$resline}");
 
             $params = [
                 'city' => $city,
@@ -338,6 +340,8 @@ function racetroll_dohook($hookname, $args)
             }
         break;
     }
+
+    \LotgdNavigation::setTextDomain();
 
     return $args;
 }

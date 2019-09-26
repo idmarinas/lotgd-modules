@@ -218,7 +218,7 @@ function raceelf_dohook($hookname, $args)
             }
         break;
         case 'chooserace':
-            \LotgdNavigation::addNav('navigation.nav.character.racename', "newday.php?setrace={$race}{$resline}");
+            \LotgdNavigation::addNav('character.racename', "newday.php?setrace={$race}{$resline}");
 
             $params = [
                 'city' => $city,
