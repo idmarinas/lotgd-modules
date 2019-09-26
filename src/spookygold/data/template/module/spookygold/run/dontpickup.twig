@@ -1,0 +1,7 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.dontpickup.paragraph'|t(_context)|colorize }}
+
+{% if coward %}
+    {{ 'section.dontpickup.coward'|t(_context)|colorize }}
+{% endif %}
