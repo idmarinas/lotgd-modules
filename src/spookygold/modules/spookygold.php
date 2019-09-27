@@ -19,8 +19,6 @@
  * 0.7 Corrected an additional grammar mistake.
 */
 
-require_once 'lib/fightnav.php';
-
 function spookygold_getmoduleinfo()
 {
     return [
@@ -254,6 +252,7 @@ function spookygold_fight()
     {
         $battleProcessVictoryDefeat = false;
 
+        require_once 'lib/fightnav.php';
         require_once 'battle.php';
 
         if ($victory)
