@@ -8,7 +8,6 @@ use Twig\TwigFunction;
 
 class ModuleWorldmapen extends AbstractExtension
 {
-    use PatternCore\Container;
     use PatternCore\Theme;
     use PatternCore\Translator;
     use Pattern\Campers;
