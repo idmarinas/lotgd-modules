@@ -1,0 +1,15 @@
+
+section.runevent:
+    paragraph: '`5A very drunk patron stumbles into you as you make your way across the crowded room.`0`n`n'
+    lucky:
+        no:
+            - '`5He is carrying a nearly full glass of ale.'
+            - 'As he collides with you, it spills all over your nearly clean clothes!'
+            - 'As you look up, you notice {partner} watching you and become acutely embarrassed.'
+            - 'You notice {partner} is trying to keep from laughing out loud at your mishap.`0'
+            - '`n`n`&You `$lose 1`0 charm point.`0'
+        yes:
+            - '`5Fortunately his glass was already empty.'
+            - 'You escort him over to a chair where he can sit without running into everyone else.'
+            - "As you stand up, you catch {partner}'s`5 eye and receive a big smile for your kindness.`0"
+            - '`n`n`&You gain `^1`0 charm.`0'

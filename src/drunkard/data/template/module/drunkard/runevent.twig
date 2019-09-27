@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.runevent.paragraph'|t(_context)|colorize }}
+
+{% if lucky %}
+    {{ 'section.runevent.lucky.yes'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.runevent.lucky.no'|t(_context)|colorize }}
+{% endif %}
