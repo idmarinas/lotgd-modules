@@ -31,7 +31,7 @@ function goldmine_getmoduleinfo()
                 'deathmsg' => 'Message when mount dies|',
                 'savemsg' => 'Message when mount saves player|',
         ],
-        'require' => [
+        'requires' => [
             'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
         ],
     ];
