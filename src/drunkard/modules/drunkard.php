@@ -21,7 +21,7 @@ function drunkard_getmoduleinfo()
             'Drunkard User Preferences,title',
             'seen' => 'How many times has the drunkard been seen?,int|0'
         ],
-        'require' => [
+        'requires' => [
             'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
         ],
     ];

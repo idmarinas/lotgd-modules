@@ -22,7 +22,7 @@ function offering_getmoduleinfo()
             'Offering Special User Preferences,title',
             'seen' => 'Seen special today?,bool|0',
         ],
-        'require' => [
+        'requires' => [
             'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
         ],
     ];
@@ -82,7 +82,7 @@ function offering_runevent($type)
         $seen++;
         set_module_pref('seen', $seen);
 
-        \LotgdNavigation::addNav('navigation.nav.default.shop', ['amount' => $amt], 'village.php?op=shop');
+        \LotgdNavigation::addNav('navigation.nav.default.shop', 'village.php?op=shop', [ 'params' => ['amount' => $amt]]);
         \LotgdNavigation::addNav('navigation.nav.default.nope', 'village.php?op=nope');
     }
     elseif ('nope' == $op)
