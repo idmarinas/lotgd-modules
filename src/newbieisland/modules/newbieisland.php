@@ -418,7 +418,9 @@ function newbieisland_run()
     $city = get_module_setting('villagename');
     $op = \LotgdHttp::getQuery('op');
 
-    \LotgdNavigation::setTextDomain('newbieisland-village-village');
+    $textDomain = 'newbieisland-module';
+
+    \LotgdNavigation::setTextDomain('newbieisland-village-navigation');
 
     switch ($op)
     {
@@ -433,7 +435,7 @@ function newbieisland_run()
                 'canLeave' => false,
                 'city' => $city
             ];
-            if (0 == $session['user']['dragonkills'] && $session['user']['level'] > 4)
+            if ($session['user']['dragonkills'] >= 0 || $session['user']['level'] > 4)
             {
                 $params['canLeave'] = true;
                 \LotgdNavigation::addHeader('headers.leave');
