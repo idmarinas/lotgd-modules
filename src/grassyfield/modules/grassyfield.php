@@ -18,7 +18,7 @@ function grassyfield_getrounds()
 {
     global $playermount, $session;
 
-    $buff = unserialize($playermount['mountbuff']);
+    $buff = $playermount['mountbuff'];
     $maxrounds = $buff['rounds'];
     $cur = $session['bufflist']['mount']['rounds'] ?? 0;
 
