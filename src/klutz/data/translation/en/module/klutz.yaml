@@ -1,0 +1,8 @@
+paragraph:
+    - "`7While you're minding your own business, a lady plows headlong into you.`n`n"
+    - "`&&quot;Oh! Oh, I'm terribly sorry! I mustn't have been watching where I was going...&quot;`n`n"
+    - '`0She scrambles on the ground, trying to collect all the things she has dropped.'
+    - 'You help her gather her belongings.`n`n'
+    - '`^She is most grateful for your help!`0.`0`n`n'
+
+gem: '`7As a thank you, she hands you a `5gem`0!`0'

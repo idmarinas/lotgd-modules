@@ -1,0 +1,7 @@
+{% translate_default_domain textDomain %}
+
+{{ 'paragraph'|t(_context)|colorize }}
+
+{% if gem %}
+    {{ 'gem'|t(_context)|colorize }}
+{% endif %}
