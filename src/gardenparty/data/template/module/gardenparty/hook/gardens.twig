@@ -1,12 +1,4 @@
 {% translate_default_domain textDomain %}
 
-{{ 'section.hook.gardens.party.time'|(_context|merge({'name': 'party.type'|t }))|colorize }}
-{{ 'section.hook.gardens.party.inn'|t(_context|merge({'clothes': 'party.barman.clothes'|t }))|colorize }}
-
-
-output(, get_module_setting('partytype'));
-output(
-    '%s`0 is here, wearing (of all things) %s, serving food and drinks.`n`n',
-    getsetting('barkeep', '`tCedrik'),
-    get_module_setting('cedrikclothes')
-);
+{{ 'section.hook.gardens.time'|t(_context|merge({'name': 'party.type'|t }))|colorize }}
+{{ 'section.hook.gardens.inn'|t(_context|merge({'clothes': 'party.barman.clothes'|t }))|colorize }}
