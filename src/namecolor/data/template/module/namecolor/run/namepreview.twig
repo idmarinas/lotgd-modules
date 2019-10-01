@@ -1,0 +1,16 @@
+{% translate_default_domain textDomain %}
+
+{% if not error %}
+    {{ 'section.preview.paragraph'|t(_context)|colorize }}
+{% else %}
+    <form action="{{ 'runmodule.php?module=namecolor&op=namepreview'|lotgd_url }}" method="post" class="ui form">
+        <div class="field">
+            <label for="newname">{{ 'section.default.form.label'|t|colorize }}</label>
+            <input type="text" name="newname" id="newname" value="{{ newName }}">
+        </div>
+        <div class="ui message">
+            {{ 'section.default.form.note'|t(_context)|colorize }}
+        </div>
+        <div class="field"><button type="submit" class="ui button">{{ 'section.default.form.submit'|t|colorize }}</button></div>
+    </form>
+{% endif %}

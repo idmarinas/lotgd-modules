@@ -1,0 +1,31 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.default.subtitle'|t(_context)|colorize }}
+
+{{ 'section.default.say'|t(_context)|colorize }}
+
+{% if reBuy %}
+    {{ 'section.default.rebuy.yes'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.default.rebuy.no'|t(_context)|colorize }}
+{% endif %}
+
+{% if pointsAvailable < cost %}
+    {{ 'section.default.buy.no'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.default.buy.yes'|t(_context)|colorize }}
+
+    {{ 'section.default.form.current'|t(_context) }}: {{ regName }},
+    {{ 'section.default.form.look'|t(_context)|colorize }}
+
+    <form action="{{ 'runmodule.php?module=namecolor&op=namepreview'|lotgd_url }}" method="post" class="ui form">
+        <div class="field">
+            <label for="newname">{{ 'section.default.form.label'|t|colorize }}</label>
+            <input type="text" name="newname" id="newname" value="{{ regName }}">
+        </div>
+        <div class="ui message">
+            {{ 'section.default.form.note'|t(_context)|colorize }}
+        </div>
+        <div class="field"><button type="submit" class="ui button">{{ 'section.default.form.submit'|t|colorize }}</button></div>
+    </form>
+{% endif %}
