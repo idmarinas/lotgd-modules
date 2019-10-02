@@ -51,7 +51,7 @@ function alt_char_list_dohook($hookname, $args)
             if ($allowed)
             {
                 \LotgdNavigation::addHeader('common.superuser.category', [ 'textDomain' => 'navigation-app' ]);
-                \LotgdNavigation::addNav('navigaiton.nav.view', "runmodule.php?module=alt_char_list&id={{$args['acctid']}&ret=".urlencode($args['return_link']), [ 'textDomain' => 'module-alt_char_list' ]);
+                \LotgdNavigation::addNav('navigation.nav.view', "runmodule.php?module=alt_char_list&id={{$args['acctid']}&ret=".urlencode($args['return_link']), [ 'textDomain' => 'module-alt_char_list' ]);
             }
         break;
         default: break;
