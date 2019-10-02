@@ -1,0 +1,32 @@
+title: "Hunter's Lodge"
+
+section:
+    default:
+        subtitle: '`3`bCustomize Title`b`0`n`n'
+        say:
+            - '`7Because you have earned sufficient points, you have been granted the ability to set a custom title of your choosing.'
+            - "The title must be appropriate, and the admin of the game can reset if it isn't (as well as penalize you for abusing the game)."
+            - 'The title may not be more than 25 characters long including any characters used for colorization!.`n`n'
+        form:
+            current: 'Your title is currently'
+            look: '`7which looks like "{otitle}"`0`n`n'
+            label: '`7How would you like your title to look?`0`n'
+            submit: Preview
+            note: 'Remember close all codes.'
+    preview.paragraph:
+        - '`7Your new title will look like this: {ntitle}`0`n'
+        - '`7Your entire name will look like: {ntitle} {nname}`0`n`n'
+        - '`7Is this how you wish it to look?`0'
+    changed.paragraph: 'Your custom title has been set.'
+
+points.description: 'The ability to choose a custom in-game title costs {initial,plural, =1{1 point} other{# points}} initially and {extra,plural, =1{1 point} other{# points}} for every change thereafter. [NOTE: A title is the prefix on your name like Farmboy or Page]'
+
+navigation:
+    category.confirm: 'Confirm Custom Title'
+    nav:
+        change: 'Set Custom Title ({cost,plural, =1{1 point} other{# points}})'
+        return: 'L?Return to the Lodge'
+        yes: 'Yes'
+        no: 'No'
+
+news.changed: '`^{from} has become known as {new}.`0'

@@ -1,0 +1,19 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.default.subtitle'|t(_context)|colorize }}
+
+{{ 'section.default.say'|t(_context)|colorize }}
+
+{{ 'section.default.form.current'|t(_context) }}: "{{ otitle }}",
+{{ 'section.default.form.look'|t(_context)|colorize }}
+
+<form action="{{ 'runmodule.php?module=titlechange&op=titlepreview'|lotgd_url }}" method="post" class="ui form">
+    <div class="field">
+        <label for="newname">{{ 'section.default.form.label'|t|colorize }}</label>
+        <input type="text" name="newname" id="newname" value="{{ otitle }}">
+    </div>
+    <div class="ui message">
+        {{ 'section.default.form.note'|t(_context)|colorize }}
+    </div>
+    <div class="field"><button type="submit" class="ui button">{{ 'section.default.form.submit'|t|colorize }}</button></div>
+</form>
