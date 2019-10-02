@@ -134,7 +134,7 @@ function alignment_dohook($hookname, $args)
 
         break;
         case 'biostat':
-            $align = get_align_name($args['target']);
+            $align = get_align_name($args['target']['acctid']);
 
             $args['messages'][] = [
                 'alignment.biostat',
