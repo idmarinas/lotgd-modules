@@ -135,7 +135,7 @@ function namecolor_run()
                 $newname = str_replace(['`i', '´i'], '', $newname);
             }
             //-- Deleted center code and other
-            $newname = preg_replace('/[`´][cHw]/', '', $newname);
+            $newname = preg_replace('/[`´][ncHw]/', '', $newname);
 
             $comp1 = strtolower(\LotgdSanitize::fullSanitize($params['regName']));
             $comp2 = strtolower(\LotgdSanitize::fullSanitize($newname));
