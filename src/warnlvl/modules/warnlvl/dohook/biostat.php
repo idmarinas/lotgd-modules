@@ -1,8 +1,10 @@
 <?php
 
+$yomWarning = ($session['user']['superuser'] & SU_GIVES_YOM_WARNING);
+
 if (get_module_setting('show') || $yomWarning)
 {
-    $id = $args['target'];
+    $id = $args['target']['acctid'];
     $change = false;
     $count = 0;
     $total = 0;
@@ -59,48 +61,45 @@ if (get_module_setting('show') || $yomWarning)
 
     if ($count > 0 && $total > 0)
     {
-        output('`^Warnings: `@%s `@currently has `$%s %s`@. %s in total.`n', $args['name'], $count, translate_inline(1 == $count ? 'warning' : 'warnings'), $total);
         $args['messages'][] = [
-            'alignment.biostat',
-            [ 'align' => ${$align} ],
-            'alignment-module'
+            'bio.warnings',
+            [
+                'name' => $args['target']['name'],
+                'count' => $count,
+                'total' => $total
+            ],
+            'module-warnlvl'
         ];
     }
     elseif (0 == $count && $total > 0)
     {
-        output('`^Warnings: `@%s `@has no current warnings, but has had %s in the past.`n', $args['name'], $total);
         $args['messages'][] = [
-            'alignment.biostat',
-            [ 'align' => ${$align} ],
-            'alignment-module'
+            'bio.total',
+            [
+                'name' => $args['target']['name'],
+                'total' => $total
+            ],
+            'module-warnlvl'
         ];
     }
     else
     {
-        output('`^Warnings: `@%s `@has had no warnings at all.`n', $args['name']);
         $args['messages'][] = [
-            'alignment.biostat',
-            [ 'align' => ${$align} ],
-            'alignment-module'
+            'bio.none',
+            [ 'name' => $args['target']['name'] ],
+            'module-warnlvl'
         ];
     }
 
-    if (1 == $count)
+    if ($count)
     {
-        output('This warning was for the following reason: %s`n`n', $list2);
         $args['messages'][] = [
-            'alignment.biostat',
-            [ 'align' => ${$align} ],
-            'alignment-module'
-        ];
-    }
-    elseif ($count > 1)
-    {
-        output('These warnings were for the following reasons: %s`n`n', $list2);
-        $args['messages'][] = [
-            'alignment.biostat',
-            [ 'align' => ${$align} ],
-            'alignment-module'
+            'bio.reason',
+            [
+                'reasons' => $list2,
+                'count' => $count
+            ],
+            'module-warnlvl'
         ];
     }
 }

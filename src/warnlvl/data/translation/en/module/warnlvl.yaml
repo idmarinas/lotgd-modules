@@ -1,4 +1,13 @@
-
+bio:
+    warnings: '`^Warnings:`0 `@{name} currently has `${count,plural, =1{1 warning} other{# warnings}}`0. {total,number} in total.`0`n'
+    total: '`^Warnings:`0 `@{name} has no current warnings, but has had {total,number} in the past.`0`n'
+    none: '`^Warnings:`0 `@{name} has had no warnings at all.`0`n'
+    reason:
+        - '{count,select,
+            1{This warning was for the following reason}
+            other{These warnings were for the following reasons}
+        }:'
+        - '`n{reasons}`n`n'
 
 navigation:
     category:
