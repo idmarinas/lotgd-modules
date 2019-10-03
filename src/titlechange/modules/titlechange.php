@@ -14,7 +14,7 @@ function titlechange_getmoduleinfo()
         'settings' => [
             'Title Change Module Settings,title',
             'initialpoints' => 'How many donator points needed to get first title change?,int|5000',
-            'extrapoints' => 'How many additional donator points needed for subsequent title changes?,int|0',
+            'extrapoints' => 'How many additional donator points needed for subsequent title changes?,int|25',
             'bold' => 'Allow bold?,bool|1',
             'italics' => 'Allow italics?,bool|1',
             'blank' => 'Allow blank titles?,bool|1',
