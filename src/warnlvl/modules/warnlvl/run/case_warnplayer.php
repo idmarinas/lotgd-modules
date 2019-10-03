@@ -51,7 +51,7 @@
     $submit = translate_inline('Submit');
 
     rawoutput('<form action="runmodule.php?module=warnlvl&op=warnplayersubmit" method="POST">');
-    addnav('', 'runmodule.php?module=warnlvl&op=warnplayersubmit');
+    \LotgdNavigation::addNavAllow('runmodule.php?module=warnlvl&op=warnplayersubmit');
     rawoutput('<table border="0" cellpadding="2" cellspacing="1" bgcolor="#000000" align="center">');
     rawoutput('<tr class="trhead"><td>'.$name.':</td><td>'.appoencode('`#'.$row_name).'</td></tr>');
 

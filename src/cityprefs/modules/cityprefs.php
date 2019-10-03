@@ -304,7 +304,7 @@ function cityprefs_run()
                 rawoutput("<form action='runmodule.php?module=cityprefs&op=editmodulesave&cityid={$cityId}&mdule={$mdule}' method='POST'>");
                 module_objpref_edit('city', $mdule, $cityId);
                 rawoutput('</form>');
-                addnav('', "runmodule.php?module=cityprefs&op=editmodulesave&cityid={$cityId}&mdule={$mdule}");
+                \LotgdNavigation::addNavAllow("runmodule.php?module=cityprefs&op=editmodulesave&cityid={$cityId}&mdule={$mdule}");
             }
 
             if ($message)

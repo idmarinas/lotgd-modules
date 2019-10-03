@@ -187,7 +187,7 @@ function creationaddon_dohook($hookname, $args)
             {
                 $privacy = \LotgdTranslator::t('privacy', [], 'module-creationaddon');
                 $privacyfooter = "<br><a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>$privacy</a>";
-                addnav('', 'runmodule.php?module=creationaddon&op=privacy');
+                \LotgdNavigation::addNavAllow('runmodule.php?module=creationaddon&op=privacy');
 
                 $args['source'] = $args['source'] ?? [];
                 $args['source'] = is_array($args['source']) ? $args['source'] : [$args['source']];
@@ -199,7 +199,7 @@ function creationaddon_dohook($hookname, $args)
             {
                 $terms = \LotgdTranslator::t('terms', [], 'module-creationaddon');
                 $termsfooter = "<br><a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>$terms</a>";
-                addnav('', 'runmodule.php?module=creationaddon&op=terms');
+                \LotgdNavigation::addNavAllow('runmodule.php?module=creationaddon&op=terms');
 
                 $args['source'] = $args['source'] ?? [];
                 $args['source'] = is_array($args['source']) ? $args['source'] : [$args['source']];
