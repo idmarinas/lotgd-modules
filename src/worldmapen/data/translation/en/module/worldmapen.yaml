@@ -110,6 +110,9 @@ navigation:
         trade: 'Trade a Turns'
         editor: Map Editor
     nav:
+        journey: Journey
+        mundane: 'M?Return to the Mundane'
+        world: 'V?Return to the World'
         enter: 'Enter {name}'
         continue: Continue
         go: 'Go to {location}'
@@ -134,6 +137,7 @@ navigation:
             yes: 'Yes, use a turn'
             no: 'No, cancel and return to the map'
         gypsy:
+            ask: Ask about World Map
             forget: Forget it
             buy: 'Buy World Map (`^{cost,number} gold`0)'
             leave: Leave quickly

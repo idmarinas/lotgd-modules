@@ -135,7 +135,7 @@ function gardener_run()
     {
         $params['tpl'] = 'enter';
 
-        addnav('Try for a Reward', 'runmodule.php?module=gardener&op=ask');
+        \LotgdNavigation::addNav('navigation.nav.try', 'runmodule.php?module=gardener&op=ask');
 
         if ($gardens)
         {

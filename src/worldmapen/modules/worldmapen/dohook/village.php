@@ -1,9 +1,4 @@
 <?php
 
-// blocknav("runmodule.php?module=cities&op=travel");
-
-// if (get_module_setting("showforestnav")==0)
-    // blocknav("forest.php");
-
 \LotgdNavigation::addHeader('headers.gate', [ 'textDomain' => 'navigation-village' ]);
-addnav('Journey', 'runmodule.php?module=worldmapen&op=beginjourney');
+\LotgdNavigation::addNav('navigation.nav.journey', 'runmodule.php?module=worldmapen&op=beginjourney', [ 'textDomain' => 'module-worldmapen' ]);

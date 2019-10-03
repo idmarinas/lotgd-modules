@@ -57,6 +57,7 @@ question:
 
 navigation:
     nav:
+        try: Try for a Reward
         return:
             garden: 'G?Return to the Gardens'
         ask:

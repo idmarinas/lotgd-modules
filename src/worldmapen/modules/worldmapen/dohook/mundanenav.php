@@ -2,6 +2,6 @@
 
 if ('World' == $session['user']['location'])
 {
-    addnav('M?Return to the Mundane', 'runmodule.php?module=worldmapen&op=continue');
+    \LotgdNavigation::addNav('navigation.nav.mundane', 'runmodule.php?module=worldmapen&op=continue', [ 'textDomain' => 'module-worldmapen' ]);
     $args['handled'] = 1;
 }

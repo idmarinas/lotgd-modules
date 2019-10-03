@@ -8,8 +8,8 @@
 
     page_header('Warning Level Allprefs Editor');
 
-    $subop = httpget('subop');
-    $id = httpget('userid');
+    $subop = \LotgdHttp::getQuery('subop');
+    $id = \LotgdHttp::getQuery('userid');
 
     addnav('Navigation');
     addnav('Return to the Grotto', 'superuser.php');
@@ -77,7 +77,7 @@
             $click = translate_inline('Save');
 
             rawoutput("<form action='runmodule.php?module=warnlvl&op=superuser&userid=$id' method='POST'>");
-            addnav('', "runmodule.php?module=warnlvl&op=superuser&userid=$id");
+            \LotgdNavigation::addNavAllow("runmodule.php?module=warnlvl&op=superuser&userid=$id");
             rawoutput('<table border="0" cellpadding="2" cellspacing="1" bgcolor="#000000" align="center">');
             rawoutput('<tr><td colspan="2" class="trhead"><b>'.$title.'</b></td></tr>');
 
