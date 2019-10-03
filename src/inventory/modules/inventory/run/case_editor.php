@@ -21,12 +21,12 @@ page_header('title.editor', [], $params['textDomain']);
 \LotgdNavigation::setTextDomain($params['textDomain']);
 
 \LotgdNavigation::addHeader('navigation.category.options.items');
-\LotgdNavigation::addnav('navigation.nav.item.new', 'runmodule.php?module=inventory&op=editor&op2=newitem');
-\LotgdNavigation::addnav('navigation.nav.item.show', 'runmodule.php?module=inventory&op=editor&op2=showitems');
+\LotgdNavigation::addNav('navigation.nav.item.new', 'runmodule.php?module=inventory&op=editor&op2=newitem');
+\LotgdNavigation::addNav('navigation.nav.item.show', 'runmodule.php?module=inventory&op=editor&op2=showitems');
 
 \LotgdNavigation::addHeader('navigation.category.options.buffs');
-\LotgdNavigation::addnav('New Buff', 'runmodule.php?module=inventory&op=editor&op2=newbuff');
-\LotgdNavigation::addnav('Show all buffs', 'runmodule.php?module=inventory&op=editor&op2=showbuffs');
+\LotgdNavigation::addNav('New Buff', 'runmodule.php?module=inventory&op=editor&op2=newbuff');
+\LotgdNavigation::addNav('Show all buffs', 'runmodule.php?module=inventory&op=editor&op2=showbuffs');
 
 \LotgdNavigation::addHeader('navigation.category.options.other');
 
