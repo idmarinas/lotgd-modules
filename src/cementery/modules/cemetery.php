@@ -49,7 +49,6 @@ function cemetery_dohook($hookname, $args)
             }
         break;
         case 'footer-shades':
-            addnav('Places');
             \LotgdNavigation::addHeader('category.places');
             \LotgdNavigation::addNav('nav.haunt', "runmodule.php?module=cemetery&op=deadspeak", [
                     'textDomain' => 'module-cemetery',
