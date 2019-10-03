@@ -115,9 +115,6 @@ function worldmapen_editor_real()
         default: $params['tpl'] = 'default'; break;
     }
 
-
-    addnav('update', 'runmodule.php?module=worldmapen&op=edit&admin=true');
-
     \LotgdNavigation::addNav('navigation.nav.editor.regen', 'runmodule.php?module=worldmapen&op=edit&subop=regen');
     \LotgdNavigation::addNav('navigation.nav.editor.manual', 'runmodule.php?module=worldmapen&op=edit&subop=manual');
     \LotgdNavigation::addNav('navigation.nav.editor.terrain', 'runmodule.php?module=worldmapen&op=edit&subop=terrain');
