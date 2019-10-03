@@ -477,20 +477,21 @@ function racedwarf_checkcity()
 
 function racedwarf_run()
 {
-    $op = httpget('op');
+    $op = \LotgdHttp::getQuery('op');
 
-    switch ($op)
+    $textDomain = 'racedwarf-module';
+
+    if ('ale' == $op)
     {
-        case 'ale':
-            require_once 'lib/villagenav.php';
-            page_header('Great Kegs of Ale');
-            output('`3You make your way over to the great kegs of ale lined up near by, looking to score a hearty draught from their mighty reserves.');
-            output('A mighty dwarven barkeep named `$G`4argoyle`3 stands at least 4 feet tall, and is serving out the drinks to the boisterous crowd.');
-            addnav('Drinks');
-            modulehook('ale');
-            addnav('Other');
-            villagenav();
-            page_footer();
-        break;
+        page_header('title', [], $textDomain);
+
+        \LotgdNavigation::addHeader('navigation.category.drinks', [ 'textDomain' => $textDomain ]);
+        modulehook('ale');
+        \LotgdNavigation::addHeader('navigation.category.other', [ 'textDomain' => $textDomain ]);
+        \LotgdNavigation::villageNav();
+
+        rawoutput(LotgdTheme::renderModuleTemplate('racedwarf/run.twig', $params));
+
+        page_footer();
     }
 }

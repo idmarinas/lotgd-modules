@@ -1,3 +1,5 @@
+title: 'Great Kegs of Ale'
+
 character.racename: Dwarf
 
 raceminedeath.save: 'Fortunately your dwarven skill let you escape unscathed.`n'
@@ -25,28 +27,12 @@ section:
                     healthy: '`&You feel healthy!`n'
                     sick: '`&You feel sick!`n'
                 not.money: "You don't have enough money. How can you buy {drinkName} if you don't have any money!?!"
+    run.paragraph:
+        - '`3You make your way over to the great kegs of ale lined up near by, looking to score a hearty draught from their mighty reserves.'
+        - 'A mighty dwarven barkeep named `$G`0`4argoyle`0 stands at least 4 feet tall, and is serving out the drinks to the boisterous crowd.`0'
 
 locs.moderate: 'City of {city}'
 
-
-            # $args['return'] = 'B?Return to the Bar';
-            # $args['schemas']['return'] = 'module-racedwarf';
-            # $args['returnlink'] = 'runmodule.php?module=racedwarf&op=ale';
-
-            # // bloquear el acceso a la taberna "inn.php" y al bartender "inn.php?op=bartender"
-
-            # $args['demand'] = 'Pounding your fist on the bar, you demand another drink';
-            # $args['schemas']['demand'] = 'module-racedwarf';
-            # $args['barkeep'] = '`$G`4argoyle';
-            # $args['schemas']['barkeep'] = 'module-racedwarf';
-            # $args['toodrunk'] = ' but `0{barkeep}`0 the bartender continues to clean the stein he was working on and growls,  "`qNo more of my drinks for you!`0"';
-            # $args['schemas']['toodrunk'] = 'module-racedwarf';
-            # $args['toomany'] = "`\$G`4argoyle`0 the bartender furrows his balding head.  \"`qYou're too weak to handle any more of `QMY`q brew.  Begone!`0\"";
-            # $args['schemas']['toomany'] = 'module-racedwarf';
-            # $args['drinksubs'] = [
-            #     '/Cedrik/' => $args['barkeep'].'`0',
-            #     '/ Violet /' => translate_inline(' a stranger '),
-            #     '/ Seth /' => translate_inline(' a stranger '),
-            #     '/ `.Violet`. /' => translate_inline(' a stranger '),
-            #     '/ `.Seth`. /' => translate_inline(' a stranger '),
-            # ];
+navigation.category:
+    drinks: Drinks
+    other: Other
