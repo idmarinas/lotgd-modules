@@ -186,7 +186,7 @@ function inventory_install()
         $paginator = \DB::paginator($select, $page, 100);
     } while ($paginator->getCurrentItemCount() && $page <= $pageCount);
 
-    \LotgdFlashMessages::addInfoMessage(sprintf('Import %s rows from "itembuff" to "mod_inventory_buff" table', $importCount));
+    \LotgdFlashMessages::addInfoMessage(sprintf('Import %s rows from "inventory" to "mod_inventory" table', $importCount));
 
     set_module_setting('data_imported', 1);
 
