@@ -1,0 +1,113 @@
+
+section:
+    default.paragraph:
+        - '{bard} clears his throat and drinks some water.'
+        - "&quot;I'm sorry, my throat is just too dry.&quot;"
+    sing:
+        paragraph: '{bard} clears his throat and begins:`n`n'
+        case:
+            '00':
+                - '`^`@Green Dragon`0 is green,`n'
+                - '`@Green Dragon`0 is fierce.`n'
+                - 'I fancy for a`n'
+                - '`@Green Dragon`0 to pierce.`0`n`n'
+                - '`^{staminaSystem,select, 0{You receive 2 turns!} other{You receive some stamina!}}`0'
+            '01':
+                - '{master}, I scoff at thee and tickleth your toes.`n'
+                - 'For they smell most foul and seethe a stench far greater than you know!`n`n'
+                - 'You feel jovial, {staminaSystem,select, 0{and gain 1 turn} other{and gain some stamina}}.'
+            '02':
+                - '`^Membrane Man, Membrane Man.`n'
+                - 'Membrane man hates {playerName} man.`n'
+                - 'They have a fight, Membrane wins.`n'
+                - 'Membrane Man.`n`n'
+                - "You're not quite sure what to make of this."
+                - "You merely back away, and think you'll visit {bard} when he's feeling better."
+                - 'Having rested a while though, you think you could face another forest creature.`0'
+            '03':
+                - "`^Gather 'round and I'll tell you a tale`n"
+                - 'most terrible and dark`n'
+                - 'of {barman} and his unclean beer`n'
+                - 'and how he hates this bard!`n`n'
+                - "You realize he's right, {barman}'s beer really is nasty."
+                - "That's why most patrons prefer his ale."
+                - "Though you don't really gain anything from the tale from {bard}, you do happen to notice a few gold on the ground!`0"
+            '04':
+                - 'So a pirate goes into a bar with a steering wheel in his pants.`n'
+                - 'The bartender says, "You know you have a steering wheel in your pants?"`n'
+                - "The pirate replies, &quot;Yaaarr, 'tis drivin' me nuts!&quot;`n`n"
+                - '`0With a good hearty chuckle in your soul, you advance on the world, ready for anything!'
+            '05':
+                - 'Listen close and hear me well: every second we draw even closer to death. *wink*`n`n'
+                - '{staminaSystem,select,
+                    0{Depressed, you head for home... and lose 1 turn!}
+                    other{Depressed, you head for home... and lose some stamina!}
+                }'
+            '06':
+                - 'I love MightyE, MightyE weaponry, I love MightyE, MightyE weaponry, I love MightyE, MightyE weaponry, nothing kills as good as MightyE... WEAPONRY!`n`n'
+                - 'You think {bard} is quite correct.`n'
+                - 'You want to go out and kill something.'
+                - 'You leave and think about bees and fish for some reason.'
+            '07':
+                - '{bard} seems to sit up and prepare himself for something impressive.'
+                - 'He then burps loudly in your face.'
+                - '"`^Was that entertaining enough?`0"`n`n'
+                - '`0The smell is overwhelming.'
+                - 'You feel a little ill and lose some hitpoints.'
+            '08':
+                - '"`^What is the sound of one hand clapping?`0" asks {bard}.'
+                - "{goldLost,select,
+                    0{While you ponder this conundrum, {bard} attempts to 'liberate' a small entertainment fee from your purse, but doesn't find enough to bother with.}
+                    other{
+                        While you ponder this conundrum, {bard} 'liberates' a small entertainment fee from your purse.`n`n
+                        You lose {goldLost,number} gold!
+                    }
+                }"
+            '09':
+                - 'What do you call a fish with no eyes?`n`n'
+                - 'A fsshh.`n`n'
+                - '`0You groan as {bard} laughs heartily.'
+                - '{gemsGain,plural,
+                        =0{Shaking your head, you turn to go back to the inn.}
+                        =1{Shaking your head, you notice a gem in the dust.}
+                        other{Shaking your head, you notice # gems in the dust.}
+                }'
+            '10':
+                - '{bard} plays a soft but haunting melody.`n`n'
+                - 'You feel relaxed, and your wounds seem to fade away.'
+            '11':
+                - '{bard} plays a melancholy dirge for you.`n`n'
+                - 'You feel lower in spirits, you may not be able to face as many villains today.'
+            '12':
+                - 'The ants go marching one by one, hoorah, hoorah.`n'
+                - 'The ants go marching one by one, hoorah, hoorah!`n'
+                - 'The ants go marching one by one and the littlest one stops to suck his thumb, and they all go marching down, to the ground, to get out of the rain...`n'
+                - 'bum bum bum`n'
+                - 'The ants go marching two by two, hoorah, hoorah!....`n`n'
+                - '{bard} continues to sing, but not wishing to learn how high he can count, you quietly leave.`n`n'
+                - 'Having rested a while, you feel refreshed.'
+            '13':
+                - '{bard} plays a rousing call-to-battle that wakes the warrior spirit inside of you.`n`n'
+                - '{staminaSystem,select,
+                    0{You receive 1 turn!}
+                    other{You receive some stamina!}
+                }'
+            '14':
+                - '{bard} begins to play, but a lute string snaps, striking you square in the eye.`n`n'
+                - "`0\"`^Whoops, careful, you'll shoot your eye out kid!`0\"`n`n"
+                - 'You lose some hitpoints!'
+            '15':
+                - '{bard} begins to play, but a rowdy patron stumbles past, spilling beer on you.'
+                - 'You miss the performance as you wipe the swill from your {armor}.'
+            '16':
+                - '{bard} stares at you thoughtfully, obviously rapidly composing an epic poem...`n`n'
+                - "`^U-G-L-Y, You ain't got no alibi -- you ugly, yeah yeah, you ugly!`n`n"
+                - "{ugly,select,
+                    0{`n`n`0Depressed, you lose a charm point.}
+                    other{`0If you had any charm, you'd have been offended, instead, {bard} breaks a lute string.}
+                }"
+navigation:
+    category.to: 'Where to?'
+    nav:
+        listen: 'L?Listen to {bard} the Bard'
+        return: 'I?Return to the Inn'
