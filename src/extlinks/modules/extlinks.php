@@ -68,7 +68,7 @@ function extlinks_install()
 {
     module_addhook('village');
     module_addhook('footer-shades');
-    module_addhook('index');
+    module_addhook('homemiddle');
     module_addhook('validatesettings');
 
     return true;
@@ -169,7 +169,7 @@ function extlinks_dohook($hookname, $args)
         case 'footer-shades':
             $testloc = EXTLINK_SHADES;
         break;
-        case 'index':
+        case 'homemiddle':
             $testloc = EXTLINK_INDEX;
         break;
         default: return $args;
