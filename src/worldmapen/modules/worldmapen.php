@@ -211,6 +211,16 @@ function worldmapen_install()
         ]);
     }
 
+    //-- Upgraded map to new version
+    if (get_module_setting('mapUpgraded', 'worldmapen'))
+    {
+        require_once 'modules/worldmapen/lib.php';
+
+        worldmapen_upgrade_map();
+
+        set_module_setting('mapUpgraded', 1, 'worldmapen');
+    }
+
     return true;
 }
 

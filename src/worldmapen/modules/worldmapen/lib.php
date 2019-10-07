@@ -697,6 +697,30 @@ function worldmapen_loadMap(?int $z = 1)
     return $terrains[$z] ?? $terrains;
 }
 
+function worldmapen_upgrade_map()
+{
+    $map = get_module_setting('TerrainDefinition', 'worldmapen');
+
+    if ($map)
+    {
+        $terrains = unserialize($map);
+
+        foreach($terrains as $z => $valueZ)
+        {
+            foreach ($valueZ as $x => $valueX)
+            {
+                foreach($valueX as $y => $terrain)
+                {
+                    $terrains[$z][$y][$x] = strtolower($terrain);
+                }
+            }
+        }
+
+        set_module_setting('TerrainDefinition', serialize($terrains), 'worldmapen');
+    }
+}
+
+
 /**
  * Saved map.
  *
