@@ -50,6 +50,21 @@ function weather_install()
     module_addhook('page-shades-tpl-params');
     module_addhook('page-home-tpl-params');
 
+    if (! get_module_setting('updated', 'weather'))
+    {
+        set_module_setting('weather', mt_rand(1, 8));
+        set_module_setting('microwx', mt_rand(1, 8));
+
+        $shadeswx = mt_rand(1, 8);
+
+        if (5 == $shadeswx)
+        {
+            increment_module_setting('counter', 1, 'weather');
+        }
+
+        set_module_setting('shadeswx', $shadeswx);
+    }
+
     return true;
 }
 
@@ -103,7 +118,7 @@ function weather_dohook($hookname, $args)
 
             $params = [
                 'textDomain' => $textDomain,
-                'weather' => get_module_setting('weather'),
+                'weather' => get_module_setting('weather', 'weather'),
                 'type' => 'normal'
             ];
 
@@ -121,14 +136,14 @@ function weather_dohook($hookname, $args)
 
             $params = [
                 'textDomain' => $textDomain,
-                'weather' => get_module_setting('weather'),
+                'weather' => get_module_setting('weather', 'weather'),
                 'type' => 'normal'
             ];
 
             if (($microloc == $session['user']['location']) && (1 == $enablemicro))
             {
                 $params['type'] = 'micro';
-                $params['weather'] = get_module_setting('microwx');
+                $params['weather'] = get_module_setting('microwx', 'weather');
             }
 
             $args[] = \LotgdTheme::renderModuleTemplate('weather/weather.twig', $params);
@@ -136,14 +151,14 @@ function weather_dohook($hookname, $args)
         case 'page-home-tpl-params':
             $args['includeTemplatesIndex']['module/weather/weather.twig'] = [
                 'textDomain' => $textDomain,
-                'weather' => get_module_setting('weather'),
+                'weather' => get_module_setting('weather', 'weather'),
                 'type' => 'normal'
             ];
         break;
         case 'page-shades-tpl-params':
             $args['includeTemplatesPost']['module/weather/weather.twig'] = [
                 'textDomain' => $textDomain,
-                'weather' => get_module_setting('shadeswx'),
+                'weather' => get_module_setting('shadeswx', 'weather'),
                 'type' => 'shades'
             ];
         break;
