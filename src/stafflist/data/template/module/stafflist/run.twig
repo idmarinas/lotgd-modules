@@ -1,0 +1,45 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.subtitle'|t(_context)|colorize }}
+
+{% if result %}
+    <table class="ui very compact striped table">
+        <caption></caption>
+        <thead>
+            <tr>
+                <th scope="col">{{ 'section.table.thead.name'|t|uncolorize }}</th>
+                <th scope="col">{{ 'section.table.thead.sex'|t|uncolorize }}</th>
+                {% if showDesc %}
+                    <th scope="col">{{ 'section.table.thead.desc'|t|uncolorize }}</th>
+                {% endif %}
+                {% if showOn %}
+                    <th scope="col">{{ 'section.table.thead.on'|t|uncolorize }}</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in result %}
+                <tr>
+                    <td>
+                        {% if user.loggedin and showBioLink %}
+                            <a href="{{ ('bio.php?char=' ~ row.userid ~ '&ret=' ~ returnLink|e('url'))|lotgd_url }}"><i class="user icon"></i></a>
+                        {% endif %}
+                        {{ row.name|colorize }}
+                    </td>
+                    <td>{{ 'section.table.tbody.sex'|t({'sex': row.sex })|colorize }}</td>
+                    {% if showDesc %}
+                        <td>{{ '`#%s`0'|format(row.descr)|colorize }}</td>
+                    {% endif %}
+
+                    {% if showOn %}
+                        <td>{{ (row.loggedin ? 'section.table.tbody.yes' : 'section.table.tbody.no')|t|colorize }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    {{ 'section.empty'|t(_context)|colorize }}
+{% endif %}
+
+{{ '`n`n`c`@%s`0´c'|format(blurb)|colorize }}

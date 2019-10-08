@@ -1,0 +1,24 @@
+title: 'Staff List'
+
+section:
+    subtitle: '`c`b`@Staff List`0´b´c`n`n'
+    empty:
+        - '`c`@This server appears to not have any staff.'
+        - 'Most likely, no one has been added to this list yet.`0´c'
+    table:
+        thead:
+            name: Name
+            sex: Sex
+            desc: Description
+            on: Online
+        tbody:
+            sex: '{sex,select,
+                1{`%Female`0}
+                other{`!Male`0}
+            }'
+            yes: '`@Yes`0'
+            no: '`$No`0'
+
+navigation:
+    nav:
+        list: Staff List
