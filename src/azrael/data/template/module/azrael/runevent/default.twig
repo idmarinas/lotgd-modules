@@ -1,0 +1,17 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.default.paragraph'|t(_context)|colorize }}
+
+{% if ghosttown %}
+    {{ 'section.default.ghost.town'|t(_context)|colorize }}
+{% endif %}
+
+{{ 'section.default.sinister'|t(_context)|colorize }}
+
+{% if canPay %}
+    {{ 'section.default.can.pay.yes'|t(_context)|colorize }}
+{% else %}
+    {{ 'section.default.can.pay.no'|t(_context)|colorize }}
+{% endif %}
+
+{{ 'section.default.do'|t(_context)|colorize }}

@@ -1,0 +1,80 @@
+
+section:
+    default:
+        paragraph:
+            - "`7While you're exploring {city}, you are approached by a four-foot-tall, walking sheet.`n`n"
+            - '"`&TRICK OR TREAT!"`0 it screams in a high-pitched voice.`n`n'
+            - 'You survey the sheet, trying to decide what might be inside.`0'
+        ghost.town: '`7After all, this strange tourist town seems genuinely spooky.`0'
+        sinister: "`7You can't help wondering if it's a child in there, or something far more sinister.`0`n`n"
+        can.pay:
+            yes: '`7You could give him some gold... `0`n`n'
+            no: "`7You don't have any gold to give him...`0`n`n"
+        do:
+            - 'You could risk letting him play a trick on you... or just ignore it and walk away.'
+            - 'What will you do?'
+    treat.paragraph:
+        - "`7You're in the mood for being nice, so you hand over a piece of gold.`n`n"
+        - 'The child shrieks in excitement, and runs off to his friends to show them the gold.`n`n'
+        - 'You feel really good about his reaction.`0`n'
+    trick:
+        paragraph:
+            - "`7You're really not in the mood to let some bratty kid demand gold from you, so you agree to let him play a trick.`n`n"
+            - 'After all, how bad can some little kid be?`0`n`n'
+        bad1:
+            paragraph:
+                - '`7He stands very still, and his eyes lock on yours from the holes in the sheet.`n`n'
+                - 'It is more than a little spooky.'
+                - "You're starting to feel seriously unnerved, but you wonder if he's actually going to `bdo`b anything.`n`n"
+                - "When you've almost given up waiting, you begin to feel a warm sensation in your hair.`n`n"
+                - 'As it dawns on you that he has a helper, you catch wind of the concoction being poured over you.'
+                - 'Its foul odor is breathtaking.`n`n'
+                - 'You really got tricked by this little ghost.`0`n'
+            charm: '`7You `$lose`0 charm!`0'
+        bad2:
+            paragraph:
+                - '`7A low and gutteral moan eminates from beneath the sheet.'
+                - 'Chuckling at the child, you turn and walk away.`n`n'
+                - "You don't get very far before it begins to chant in a strange language.`n`n"
+                - 'The hairs on your neck stand on end, and you begin to feel very strange.'
+                - 'Within seconds you find your legs stiffening, and then your arms.`n`n'
+                - "`$You're paralyzed!`0`n`n"
+                - 'You are frozen helplessly on the spot as the creature rifles through your purse.`0'
+            no.money: 'It grunts in disgust at finding it empty.'
+            gold: '`7It helps itself to `^{takeGold,number} gold`0.`0`n'
+            gems: '`7It also takes `5{takeGems,plural, =1{1 gem} other{# gems}}`0 before wandering away.`0`n'
+            end: '`n`7After a few minutes you are able to begin painfully shifting your aching muscles again.`0`n'
+        bad:
+            - '`7A low and gutteral moan eminates from beneath the sheet.'
+            - 'Chuckling at the child, you reach out a hand to pat his shoulder.`n`n'
+            - 'Just as you do, he screams, "`@`bBOO!!!!!!`b`0" at the top of his lungs.`n`n'
+            - 'You almost jump out of your skin!'
+            - 'Visitors laugh at your reaction, and you feel very embarrassed.'
+            - 'If only {partner} could see you now.`n`n'
+            - 'You `$lose`0 charm!`0`n'
+    ignore.paragraph:
+        - "`7You're really not in the mood to let some bratty kid demand gold from you, so you turn your back on him and walk away.`n`n"
+        - 'Seconds later, you find yourself sprawled on the broken cobblestones, as the child trips you over.'
+        - 'You hear the high-pitched giggle of the ghost, and several nearby visitors smother their laughter behind their hands.`n`n'
+        - 'If only {partner} `7could see you now.'
+        - "You're rather banged up, and a face full of gravel is not very attractive!`n`n"
+        - 'You `$lose`0 some charm, and some of your hitpoints!`0`n'
+
+buff:
+    treat:
+        name: '`#Feelgood Vibes`0'
+        wearoff: 'You float back down to earth.'
+        roundmsg: 'Your good mood helps you hit harder.'
+    trick:
+        name: '`@Trickery Stench`0'
+        wearoff: 'The stench begins to fade.'
+        roundmsg: 'The stench of rotten eggs helps to repel your attacker.'
+
+navigation:
+    category:
+        action: 'Trick or Treat'
+    nav:
+        treat: 'Treat (give him 1 gold)'
+        trick: 'Trick (let him play a trick)'
+        ignore: 'Ignore the ghost'
+
