@@ -24,7 +24,7 @@ function unblockmodules_getmoduleinfo()
         'author' => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'description' => 'For use this module you need create a file "modules/idmarinas/unblockmodules/modules.php" with all modules you want unblock',
-        'download' => 'https://bitbucket.org/idmarinas/lotgd-modules'
+        'download' => 'https://github.com/idmarinas/lotgd-modules'
     ];
 }
 
