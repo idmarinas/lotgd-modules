@@ -87,7 +87,11 @@ switch ($op2)
             if ($item)
             {
                 $item = $repository->extractEntity($item);
-                $item['buff'] = $item['buff']->getId();
+                if ($item['buff'])
+                {
+                    $item['buff'] = $item['buff']->getId();
+                }
+
             }
 
             \LotgdNavigation::addNav('navigation.nav.item.properties', "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}");
