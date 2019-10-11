@@ -200,6 +200,7 @@ switch ($op2)
             ];
 
             $params['form'] = lotgd_showform($format, $item, true, false, false);
+            $params['itemId'] = $id;
         }
     break;
     case 'delitem':
