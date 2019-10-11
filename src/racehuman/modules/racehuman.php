@@ -216,7 +216,7 @@ function racehuman_dohook($hookname, $args)
             if ($session['user']['race'] == $race)
             {
                 rawoutput(\LotgdTheme::renderModuleTemplate('racehuman/dohook/setrace.twig', [
-                    'bonus' => get_module_setting('bonus')
+                    'bonus' => (int) get_module_setting('bonus')
                 ]));
 
                 if (is_module_active('cities'))
