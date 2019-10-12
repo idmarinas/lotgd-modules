@@ -6,14 +6,14 @@
  * @param int   $gold
  * @param array $item Data of item
  *
- * @return array|false Return false if nothing happend or an array of messages
+ * @return array An array of messages
  */
 function itemeffects_increased_gold($gold, $item)
 {
     //-- No gold to add/remove
     if (0 == $gold)
     {
-        return false;
+        return [];
     }
 
     global $session;
@@ -24,13 +24,20 @@ function itemeffects_increased_gold($gold, $item)
 
     $out = [];
 
-    $message = ['`^You `$lose`^ %s gold.`0`n', abs($gold)];
     if ($gold > 0)
     {
-        $message = ['`^You `@gain`^ %s gold.`0`n', $gold];
+        $out[] = ['item.effect.gold.gain',
+            [ 'gold' => $gold, 'itemName' => $item['name']],
+            'module-inventory'
+        ];
     }
-
-    $out[]= $message;
+    else
+    {
+        $out[] = ['item.effect.gold.lost',
+            [ 'gold' => abs($gold), 'itemName' => $item['name']],
+            'module-inventory'
+        ];
+    }
 
     return $out;
 }

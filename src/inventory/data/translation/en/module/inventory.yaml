@@ -84,6 +84,33 @@ item:
             nothing: '`&Nothing happens.`0`n'
             problem: '`4There was a problem with the item `b`i{itemName}´i´b, its effect has been lost.`0.`n'
             requisites: '`4You need `b{dragonkills,number}´b DragonKills and Level `b{level,number}´b for use `b`i{itemName}´i´b`0.`n'
+        deathpower:
+            gain: '`^You `@gain`0 {points,number} favor with {deathOverlord}.`0`n'
+            lost: '`^You `$lose`0 {points,number} favor with {deathOverlord}.`0`n'
+        donation:
+            gain: '`^You `@gain`0 {points,plural, =1{1 donation point} other{# donation points}}.`0`n'
+            lost: '`^You `$lose`0 {points,plural, =1{1 donation point} other{# donation points}}.`0`n'
+        gems:
+            gain: '`^You `@gain`0  {gems,plural, =1{1 gem} other{# gems}}.`0`n'
+            lost: '`^You `$lose`0 {gems,plural, =1{1 gem} other{# gems}}.`0`n'
+        gold:
+            gain: '`^You `@gain`0  {gold,number} gold.`0`n'
+            lost: '`^You `$lose`0 {gold,number} gold.`0`n'
+        health:
+            gain: '`^You have been `@healed`0 for {points,number} points.`0`n'
+            lost: '`^You `4loose`0 {points,number} hitpoints.`0`n'
+            full: '`^Your hitpoints have been `@fully`0 restored.`0`n'
+            almost: '`^You were `$almost`0 killed.`0`n'
+            die: '`$You die. What a pity!.`0`n'
+            noeffect: '`&You used "`i{itemName}´i" but it had no effect.`0`n'
+        stamina:
+            gain: '`@Restore `b{points,number}´b points of Stamina, about `b{percent,number}%´b of your total Stamina by using `i{itemName}´i.`0`n'
+            lost: '`$Lost `b{points,number}´b points of Stamina, about `b{percent,number}%´b of your total Stamina by using `i{itemName}´i.`0`n'
+        turns:
+            gain: '`^You `@gain`0 {turns,plural, =1{1 turn} other{# turns}}.`0`n'
+            lost: '`^You `$lose`0 {turns,plural, =1{1 turn} other{# turns}}.`0`n'
+            lost.all: '`^You `$lose`0 all your turns.`0`n'
+
     activate: 'You activate "`@{itemName}`0"!'
     unequip:
         success: 'You unequip {itemName}'

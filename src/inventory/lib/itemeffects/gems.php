@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Increased/Decreased gems of player.
+ * Alter gems of player.
  *
  * @param int   $gems
  * @param array $item Data of item
  *
- * @return array|false Return false if nothing happend or an array of messages
+ * @return array An array of messages
  */
-function itemeffects_increased_gems($gems, $item)
+function itemeffects_increased_gems($gems, $item): array
 {
     global $session;
 
@@ -20,30 +20,18 @@ function itemeffects_increased_gems($gems, $item)
 
     if ($gems > 0)
     {
-        $out[] = ['`^You `@gain`0  %s %s.`0`n', $gems, \LotgdFormat::pluralize($gems, 'gem', 'gems')];
-
-        return $out;
-        if (1 == $gems)
-        {
-            $out[] = '`^You `@gain`^ one gem.`0`n';
-        }
-        else
-        {
-        }
+        $out[] = ['item.effect.gems.gain',
+            [ 'gems' => $gems, 'itemName' => $item['name']],
+            'module-inventory'
+        ];
     }
     else
     {
-        if (-1 == $gems)
-        {
-            $out[] = '`^You `$lose`^ one gem.`0`n';
-        }
-        else
-        {
-            $out[] = ['`^You `$lose`^ %s gems.`0`n', abs($gems)];
-        }
-
-        return $out;
+        $out[] = ['item.effect.gems.lost',
+            [ 'gems' => abs($gems), 'itemName' => $item['name']],
+            'module-inventory'
+        ];
     }
 
-    return false;
+    return $out;
 }

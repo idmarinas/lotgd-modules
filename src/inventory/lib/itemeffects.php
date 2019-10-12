@@ -4,22 +4,24 @@
 
 //-- Your items can have this effects
 //------------------------------------
-//-- Restore hitpoints -> restore_hitpoints($hitpoints, $overrideMaxhitpoints = false, $canDie = true)
-//-- Restore stamina -> restore_stamina($stamina)
-//-- Restore turns -> restore_turns($turns)
-//-- Increased/Decreased gems -> itemeffects_increased_gems($gems)
-//-- Increased/Decreased gold -> itemeffects_increased_gold($gold)
-//-- Increased/Decreased donation points -> itemeffects_increased_donation($points)
+//-- Alter deathpower -> itemeffects_alter_deathpower($points, $item)
+//-- Alter donation points -> itemeffects_increased_donation($points, $item)
+//-- Alter gems -> itemeffects_increased_gems($gems, $item)
+//-- Alter gold -> itemeffects_increased_gold($gold, $item)
+//-- Alter hitpoints -> itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints = null, $canDie = true)
+//-- Alter stamina -> itemeffects_restore_stamina($stamina, $item)
+//-- Alter turns -> itemeffects_restore_turns($turns, $item)
 
+require_once 'lib/itemeffects/deathpower.php';
+require_once 'lib/itemeffects/donation.php';
+require_once 'lib/itemeffects/gems.php';
+require_once 'lib/itemeffects/gold.php';
 require_once 'lib/itemeffects/health.php';
 require_once 'lib/itemeffects/stamina.php';
 require_once 'lib/itemeffects/turns.php';
-require_once 'lib/itemeffects/gems.php';
-require_once 'lib/itemeffects/gold.php';
-require_once 'lib/itemeffects/donation.php';
 
 /**
- * Get effecto of item.
+ * Get effect of item.
  *
  * @param false|array $item
  * @param string      $noeffecttext

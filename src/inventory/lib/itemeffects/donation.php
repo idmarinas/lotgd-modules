@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Increased/Decreased donation points of player.
+ * Alter donation points of player.
  *
  * @param int   $donation
  * @param array $item     Data of item
  *
- * @return array|false Return false if nothing happend or an array of messages
+ * @return array An array of messages
  */
 function itemeffects_increased_donation($points, $item)
 {
@@ -20,16 +20,20 @@ function itemeffects_increased_donation($points, $item)
 
     if ($points > 0)
     {
-        $out[] = ['`^You `@gain`0 %s donation %s.`0`n', $points, \LotgdFormat::pluralize($points, 'point', 'points')];
-
-        return $out;
+        $out[] = [
+            'item.effect.donation.gain',
+            ['points' => $points, 'itemName' => $item['name']],
+            'module-inventory'
+        ];
     }
     elseif ($points < 0)
     {
-        $out[] = ['`^You `$lose`0 %s donation %s.`0`n', abs($points), \LotgdFormat::pluralize(abs($points), 'point', 'points')];
-
-        return $out;
+        $out[] = [
+            'item.effect.donation.lost',
+            ['points' => abs($points), 'itemName' => $item['name']],
+            'module-inventory'
+        ];
     }
 
-    return false;
+    return $out;
 }

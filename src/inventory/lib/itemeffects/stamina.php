@@ -25,9 +25,12 @@ function itemeffects_restore_stamina($stamina, $item)
 
         addstamina($stamina);
 
-        $staminaPercent = LotgdFormat::numeral(get_stamina(3) - $percent, 2);
+        $staminaPercent = get_stamina(3) - $percent;
 
-        $out[] = ['`@Restore `b%s`b points of Stamina, about `b%s%%`b of your total Stamina by using `i%s`i.`0`n', LotgdFormat::numeral($stamina), $staminaPercent, $item['name']];
+        $out[] = ['item.effect.stamina.gain',
+            ['points' => $stamina, 'percent' => $staminaPercent, 'itemName' => $item['name']],
+            'module-inventory'
+        ];
 
         debuglog("Restore $stamina points of Stamina by using {$item['itemid']}");
     }
@@ -37,9 +40,12 @@ function itemeffects_restore_stamina($stamina, $item)
 
         removestamina(abs($stamina));
 
-        $staminaPercent = LotgdFormat::numeral($percent - get_stamina(3), 2);
+        $staminaPercent = $percent - get_stamina(3);
 
-        $out[] = ['`$Lost `b%s`b points of Stamina, about `b%s%%`b of your total Stamina by using `i%s`i.`0`n', LotgdFormat::numeral(abs($stamina)), $staminaPercent, $item['name']];
+        $out[] = ['item.effect.stamina.gain',
+            ['points' => abs($stamina), 'percent' => $staminaPercent, 'itemName' => $item['name']],
+            'module-inventory'
+        ];
 
         debuglog("Lost $stamina points of Stamina by using {$item['itemid']}");
     }

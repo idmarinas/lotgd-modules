@@ -7,7 +7,7 @@
  * @param bool  $overrideMaxhitpoints Allow restore more than maxhitpoints of character
  * @param bool  $canDie               Can die for effect of item?
  *
- * @return array|false Return false if nothing happend or an array of messages
+ * @return array An array of messages
  */
 function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints = null, $canDie = true)
 {
@@ -23,7 +23,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
     //-- Not has health to restore
     if ($maxRestoreHP <= 0)
     {
-        return false;
+        return [];
     }
 
     //-- It is not allowed to exceed the maximum health
@@ -38,44 +38,58 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
     {
         $session['user']['hitpoints'] += $hitpoints;
 
-        $message = ['`^You have been `@healed`^ for %s points.`0`n', $hitpoints];
-        if ($hitpoints == $maxRestoreHP)
-        {
-            $message = '`^Your hitpoints have been `@fully`^ restored.`0`n';
-        }
-
-        $out[] = $message;
+        $out[] = ['item.effect.health.gain',
+            ['points' => $hitpoints, 'itemName' => $item['name']],
+            'module-inventory'
+        ];
         debuglog("Restored $hitpoints health points using the item {$item['itemid']}");
     }
     elseif ($hitpoints < 0)
     {
         $session['user']['hitpoints'] += $hitpoints;
 
-        $message = '`$You die. ¡What a pity!.`0`n';
-        if ($session['user']['hitpoints'] > 0)
-        {
-            $message = ['`^You `4loose`^ %s hitpoints.`0`n', abs($hitpoints)];
-            $debuglog = "Loss $hitpoints hitpoints using item {$item['itemid']}";
-        }
-        elseif ($session['user']['hitpoints'] <= 0 && false == $canDie)
-        {
-            $session['user']['hitpoints'] = 1;
-            $message = '`^You were `$almost`^ killed.`0`n';
-            $debuglog = "Were almost killed when using item {$item['itemid']}";
-        }
-        else
-        {
-            $session['user']['alive'] = 0;
-            $session['user']['hitpoints'] = 0;
-            $debuglog = "Died when I used the item {$item['itemid']}";
-        }
+        $out[] = ['item.effect.health.lost',
+            ['points' => abs($hitpoints), 'itemName' => $item['name']],
+            'module-inventory'
+        ];
 
-        $out[] = $message;
-        debuglog($debuglog);
+        debuglog("Loss $hitpoints hitpoints using item {$item['itemid']}");
     }
     else
     {
-        $out[] = ['`&You used "`i%s`i" but it had no effect.`0`n', $item['name']];
+        $out[] = ['item.effect.health.noeffect', ['itemName' => $item['name']], 'module-inventory'];
+    }
+
+    //-- Other messages
+    if ($hitpoints && $hitpoints == $maxRestoreHP)
+    {
+        $out[] = ['item.effect.health.full',
+            ['points' => abs($hitpoints), 'itemName' => $item['name']],
+            'module-inventory'
+        ];
+    }
+    elseif ($session['user']['hitpoints'] <= 0 && ! $canDie)
+    {
+        $session['user']['hitpoints'] = 1;
+
+        $out[] = ['item.effect.health.almost',
+            ['points' => abs($hitpoints), 'itemName' => $item['name']],
+            'module-inventory'
+        ];
+
+        debuglog("Were almost killed when using item {$item['itemid']}");
+    }
+    elseif ($session['user']['hitpoints'] <= 0 && $canDie)
+    {
+        $session['user']['alive'] = false;
+        $session['user']['hitpoints'] = 0;
+
+        $out[] = ['item.effect.health.die',
+            ['points' => abs($hitpoints), 'itemName' => $item['name']],
+            'module-inventory'
+        ];
+
+        debuglog("Died when used the item {$item['itemid']}");
     }
 
     return $out;
