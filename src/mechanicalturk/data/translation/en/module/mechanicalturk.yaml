@@ -1,0 +1,60 @@
+title: 'Report a Monster Sighting'
+
+section:
+    default:
+        paragraph:
+            - 'You head into a little hut on the outskirts of the Outpost, close to where the clearing turns to jungle.`n`n'
+            - 'An excitable-looking man sits behind a desk, a pair of binoculars slung around his neck.`n`n'
+            - '"Hello!" he calls to you, practically bouncing with geeky excitement. "Have you come to report a sighting of a new monster? I do so enjoy writing them up!" He opens a little ledger and whips out a pen, ready for your report.`n`n'
+            - "You've heard rumours about this guy."
+            - 'Billing himself as a monster expert, he listens to the reports of new monsters that players find, and writes them down in his book. Sauntering into his hut and providing deadly serious reports of completely made-up monsters is a game that many contestants enjoy playing.'
+            - 'However, given the aura of Improbability surrounding his innocent-looking ledger, the rumours contain a dark side as well; sometimes, if a made-up monster is deemed to be Improbable enough by the standards of whatever strange powers control the Island, it takes on a physical form in the Jungle...`n`n'
+            - "As you're thinking this, a splintering CRUNCH from your left causes you to jump three feet into the air. `%Admin `4Caveman`$Joe`0 is standing in the remains of the fourth wall of the hut, holding a large axe."
+            - "He strikes an attractive pose and says &quot;`4This is Improbable Island's monster submission hut. Think of a new monster, and submit it here."
+            - "If your idea is accepted, you'll get {points,number} Donator Points!`0&quot;`n`n"
+            - "He turns to the little man sat behind the desk, who at this moment is picking bits of wood out of his tea, hair and person in general."
+            - " `%Admin `4Caveman`$Joe`0 shows him a smile. &quot;`4I'd say 'Sorry about your wall,' mate, but I'm not."
+            - "All part of the job, you see.`0&quot;`n`n"
+            - 'With that, he walks back out of the hole in the fourth wall, attaches his Admin Goggles, leaps into the sky and flies away.`n`n'
+            - '"What a very, very strange man," says the little man behind the desk. Quietly.`n`n'
+            - "When writing descriptions, please use &#96;n to go down one line, and &#96;n&#96;n to leave a blank line. That's &#96;n, not 'n. The &#96; key is usually in the top left corner of your keyboard - it's the same key you use for colour codes."
+    save:
+        paragraph:
+            - '`4The monster "`^{creatureName}`0" has been submitted.`n`n'
+            - 'Due to the high volume of monster submissions, it may take several days or even weeks before you hear back from us. Please be patient!`0`n`n'
+            - 'The little man behind the desk looks around, confused. "Who said that?!"'
+            - "`n`nYou decide it'd be best to get out of here."
+    showsubmitted:
+        item:
+            header: 'Monster submission by {name}'
+            encounter: 'You have encountered "{name}" which lunges at you with "{weapon}"!'
+            not.found: 'No one has seen any creature'
+            message.header: 'Observation notes'
+            button:
+                reject: Reject this monster
+                accept: Accept this monster
+    accept:
+        paragraph: 'Sending this to creatures.php.'
+    reject:
+        paragraph: 'The monster has been deleted, and the author notified.'
+
+navigation:
+    category.return: "I honestly don't have any ideas."
+    nav:
+        superuser: 'Show list of submitted monsters'
+        return.superuser: 'Back to the Superuser grotto'
+        report: 'Report a monster sighting'
+        back: 'Back to the Jungle'
+        update: Update
+
+mail:
+    accept:
+        subject: 'Your monster idea has been accepted!'
+        message: 'Congratulations! Your monster idea (the one named {name}) has been accepted! Your Donator Points have also been applied to your account. Enjoy them!'
+    reject:
+        subject: 'Your monster has been rejected!'
+        message: "It's not good news to hear, but I'm afraid your monster idea (the one named {name}) just wasn't what we were looking for. Please feel free to try again, though!"
+
+flash.message.save:
+    success: 'The creature wass succesfull register.'
+    error: 'The creature could not be saved'

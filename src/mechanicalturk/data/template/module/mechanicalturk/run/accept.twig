@@ -1,0 +1,8 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.accept.paragraph'|t(_context)|colorize }}
+<br>
+
+<form action="{{ 'creatures.php?op=save'|lotgd_url }}" method="post">
+    {{ form }}
+</form>

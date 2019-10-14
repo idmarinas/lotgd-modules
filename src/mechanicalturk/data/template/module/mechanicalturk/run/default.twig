@@ -1,0 +1,9 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.default.paragraph'|t(_context)|colorize }}
+
+<br>
+
+<form action="{{ 'runmodule.php?module=mechanicalturk&creatureaction=save'|lotgd_url }}" method="post">
+    {{ form }}
+</form>
