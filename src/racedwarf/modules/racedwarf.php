@@ -373,8 +373,8 @@ function racedwarf_dohook($hookname, $args)
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
 
-                \LotgdNavigation::addHeader('headers.tavern');
-                \LotgdNavigation::addNav('navs.inndwarf', 'runmodule.php?module=racedwarf&op=ale');
+                \LotgdNavigation::addHeader('headers.tavern', [ 'textDomain' => 'racedwarf-village-navigation' ]);
+                \LotgdNavigation::addNav('navs.inndwarf', 'runmodule.php?module=racedwarf&op=ale', [ 'textDomain' => 'racedwarf-village-navigation']);
             }
         break;
         case 'drinks-text':
