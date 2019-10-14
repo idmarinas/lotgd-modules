@@ -1,0 +1,41 @@
+title: 'A Bestiarium'
+
+section:
+    default:
+        description:
+            - '`5You are making your way to the Bestiarium deep in the bowels of the dwarven mountain stronghold.'
+            - 'The sounds of a massive struggle echo off the hewn rock walls of the cavernous passageway.'
+            - 'Scuffling is punctuated with the sounds of snarling and the impact of a heavy body slamming into another.`n`n'
+            - 'As you round the corner you find yourself at the edge of an arena.'
+            - 'Around the walls are carved out stalls which contain beasts of various shapes, sizes and abilities.`n`n'
+            - 'In the arena, a `&white wolf`0 whose size equals that of a mountain pony is lunging towards a massive `~black bear`0.'
+            - '`~The bear`0 on his hind legs stands as tall as an oak.'
+            - 'It raises a paw as `&the wolf`0 leaps towards him, then with a movement so quick you nearly miss it, `&the wolf `5is batted away to fall on its side.'
+            - 'Apparently enraged, `&the wolf`0 leaps snarling to its feet to prepare to lunge again.`n`n'
+            - 'At that moment a stocky dwarf standing at the edge of the arena raises his finger and thumb to his mouth.'
+            - 'A piercing whistle cuts through the air.'
+            - '`~The black bear`0 lowers himself to all fours and shakes his body, then yawns.'
+            - '`&The white wolf`0 pauses, then lays down with his tongue hanging in a pant.'
+            - 'Its yellow eyes never leaving you as you walk towards the dwarf.`n`n'
+            - '"`tGreetings, Dwalin!`0" you call out as you approach.'
+            - '"`tI am in need of a beast to accompany me on my adventures.'
+            - 'What do you have available this day?`0"`0`n`n'
+        mercenary:
+            join: '`Q{count,plural, =1{One mercenary offers} =0{No mercenaries off} other{Several mercenaries offer}} to join you.`0`n`n'
+            wounds:
+                - '`QA surgeon takes a careful look at the many wounds of your companion.'
+                - 'After murmuring to himself as he makes the evaluation, he turns to you to name the price to care for the wounds.`0'
+    buy:
+        success: '`QYou hand over `^{goldCost,number} gold`0 and `%{costGems,number} {costGems,plural, =1{gem} other{gems}}`0.`0`n`n'
+        error: '`$The companion you requested is not in our camp.`0'
+        too.many:
+            - 'It seems no one is willing to follow you.'
+            - 'You simply lead too many companions at the moment.'
+    heal:
+        paid:
+            - '`QA surgeon is caring for the wounds of {companionName} and bandages them with learned skill.'
+            - 'You gladly hand him the money owed for healing your companion and start heading back to the village.`0'
+        not.enough:
+            - '`QThe surgeon shakes his head then shrugs before turning away.'
+            - 'You are left standing with your empty purse.'
+            - 'No healing for someone who cannot pay.`0'

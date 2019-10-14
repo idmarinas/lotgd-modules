@@ -114,7 +114,8 @@ function racedwarf_install()
     module_addhook('raceminedeath');
     module_addhook('racenames');
     module_addhook('camplocs');
-    module_addhook('mercenarycamptext');
+    module_addhook('mercenarycamp-text-domain');
+    module_addhook('page-mercenarycamp-tpl-params');
 
     return true;
 }
@@ -346,8 +347,6 @@ function racedwarf_dohook($hookname, $args)
             {
                 $args['textDomain'] = 'racedwarf-village-village';
                 $args['textDomainNavigation'] = 'racedwarf-village-navigation';
-
-                \LotgdNavigation::unBlockLink('mercenarycamp.php');
             }
         break;
         case 'page-village-tpl-params':
@@ -373,6 +372,7 @@ function racedwarf_dohook($hookname, $args)
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
 
+                \LotgdNavigation::unBlockLink('mercenarycamp.php');
                 \LotgdNavigation::addHeader('headers.tavern', [ 'textDomain' => 'racedwarf-village-navigation' ]);
                 \LotgdNavigation::addNav('navs.inndwarf', 'runmodule.php?module=racedwarf&op=ale', [ 'textDomain' => 'racedwarf-village-navigation']);
             }
@@ -402,55 +402,16 @@ function racedwarf_dohook($hookname, $args)
                 'app-default'
             ];
         break;
-        case 'mercenarycamptext':
+        case 'mercenarycamp-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['title'] = 'A Bestiarium';
-                $args['schemas']['title'] = 'module-racedwarf';
-
-                $args['desc'] = [
-                    '`5You are making your way to the Bestiarium deep in the bowels of the dwarven mountain stronghold.',
-                    'The sounds of a massive struggle echo off the hewn rock walls of the cavernous passageway.',
-                    'Scuffling is punctuated with the sounds of snarling and the impact of a heavy body slamming into another.`n`n',
-
-                    'As you round the corner you find yourself at the edge of an arena.',
-                    'Around the walls are carved out stalls which contain beasts of various shapes, sizes and abilities.`n`n',
-
-                    'In the arena, a `&white wolf `5whose size equals that of a mountain pony is lunging towards a massive `~black bear`5.',
-                    '`~The bear`5 on his hind legs stands as tall as an oak.',
-                    'It raises a paw as `&the wolf `5leaps towards him, then with a movement so quick you nearly miss it, `&the wolf `5is batted away to fall on its side.',
-                    'Apparently enraged, `&the wolf`5 leaps snarling to its feet to prepare to lunge again.`n`n',
-
-                    'At that moment a stocky dwarf standing at the edge of the arena raises his finger and thumb to his mouth.',
-                    'A piercing whistle cuts through the air.',
-                    '`~The black bear `5lowers himself to all fours and shakes his body, then yawns.',
-                    '`&The white wolf `5pauses, then lays down with his tongue hanging in a pant.',
-                    'Its yellow eyes never leaving you as you walk towards the dwarf.`n`n',
-
-                    '"`tGreetings, Dwalin!`5" you call out as you approach.',
-                    '"`tI am in need of a beast to accompany me on my adventures.',
-                    'What do you have available this day?`5"`n`n'
-                ];
-                $args['schemas']['desc'] = 'module-racedwarf';
-
-                $args['buynav'] = 'Buy a Beast';
-                $args['schemas']['buynav'] = 'module-racedwarf';
-
-                $args['healnav'] = '';
-                $args['schemas']['healnav'] = '';
-
-                $args['healtext'] = '';
-                $args['schemas']['healtext'] = '';
-
-                $args['healnotenough'] = '';
-                $args['schemas']['healnotenough'] = '';
-
-                $args['healpaid'] = '';
-                $args['schemas']['healpaid'] = '';
-
-                // We don not want the healer in this camp.
-                blocknav('mercenarycamp.php?op=heal', true);
+                $args['textDomain'] = 'racedwarf-mercenarycamp-mercenarycamp';
+                $args['textDomainNavigation'] = 'racedwarf-mercenarycamp-navigation';
             }
+        break;
+        case 'page-mercenarycamp-tpl-params':
+            // We don not want the healer in this camp.
+            \LotgdNavigation::blockLink('mercenarycamp.php?op=heal', true);
         break;
     }
 
