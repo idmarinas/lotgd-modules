@@ -1,0 +1,44 @@
+title: "Villager's Hut"
+
+subtitle: "`c`b`&The Villager's Hut`0´b´c"
+
+section:
+    full.paragraph: "`7You walk towards the hut again, but your stomach can't bear the thought of more of those sweets today!`0`n`n"
+    default.paragraph:
+        - '`7You walk towards the well-lit front porch of the house, with the idea of trying your luck in trick or treat.`n`n'
+        - "As you get to the door, there's a bowl filled with bags of sweets, and a note.`n`n"
+        - '"`%Hello Children!`0" it reads.`n`n'
+        - '"`%Please help yourselves to a bag!`0"`n`n'
+        - 'You stand there for a moment, wondering what to do.'
+        - "The residents obviously aren't home.`n`n"
+        - 'How many bags should you take?`0`n`n'
+    eat1.paragraph:
+        - '`7You help yourself to a bag and begin to eat as you walk away.`n`n'
+        - 'You feel `@healthy!`0`0`n`n'
+    eat2.paragraph:
+        - '`7You snatch two bags and greedily begin to eat as you walk away.`n`n'
+        - 'You feel `@healthy!`0`0`n`n'
+    eat3.paragraph:
+        - '`7A shout emerges from the shadows nearby.`n`n'
+        - '"`%You greedy pig!`0" it screams.`n`n'
+        - "The next thing you realize, you're sopping wet, and `QSaucy`0`$Wench`0 is standing there with an empty bucket in her hands.`n`n"
+        - 'You feel miserable, and `4lose`0 some hitpoints.`0`n`n'
+    eat4.paragraph:
+        - '`7A shout emerges from the shadows nearby.`n`n'
+        - '"`%You greedy pig!`0" it screams.`n`n'
+        - 'You flee in terror, jumping over some thorn bushes as you run, and your arms and legs are ripped painfully.`n`n'
+        - 'You finally make it to the old village square, only to trip onto your face in a most embarrassing manner.`n`n'
+        - 'You flush in shame, and `4lose`0 some hitpoints and some charm.`0`n`n'
+    turn:
+        - '`7Swallowing the last sweet, you realize there was something unusual mixed in with the mountain of sugar.`n`n'
+        - 'You feel `@energized!`0`0`n`n'
+
+navigation:
+    category.eat: Eat
+    nav:
+        hut: "H?Villager's Hut"
+        return: 'M?Return for More'
+        eat1: Eat 1
+        eat2: Eat 2
+        eat3: Eat 3
+        eat4: Eat 4
