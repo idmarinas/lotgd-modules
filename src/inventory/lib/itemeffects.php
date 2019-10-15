@@ -4,6 +4,7 @@
 
 //-- Your items can have this effects
 //------------------------------------
+//-- Alter charm -> itemeffects_alter_charm($points, $item)
 //-- Alter deathpower -> itemeffects_alter_deathpower($points, $item)
 //-- Alter donation points -> itemeffects_increased_donation($points, $item)
 //-- Alter gems -> itemeffects_increased_gems($gems, $item)
@@ -12,6 +13,7 @@
 //-- Alter stamina -> itemeffects_restore_stamina($stamina, $item)
 //-- Alter turns -> itemeffects_restore_turns($turns, $item)
 
+require_once 'lib/itemeffects/charm.php';
 require_once 'lib/itemeffects/deathpower.php';
 require_once 'lib/itemeffects/donation.php';
 require_once 'lib/itemeffects/gems.php';

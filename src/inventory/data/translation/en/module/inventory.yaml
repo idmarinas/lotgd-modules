@@ -110,6 +110,9 @@ item:
             gain: '`^You `@gain`0 {turns,plural, =1{1 turn} other{# turns}}.`0`n'
             lost: '`^You `$lose`0 {turns,plural, =1{1 turn} other{# turns}}.`0`n'
             lost.all: '`^You `$lose`0 all your turns.`0`n'
+        charm:
+            gain: '`^Your charm is `@increased`0 by {points,plural, =1{1 point} other{# points}}.`0`n'
+            lost: '`^Your charm is `$decreased`0 by {points,plural, =1{1 point} other{# points}}.`0`n'
 
     activate: 'You activate "`@{itemName}`0"!'
     unequip:
