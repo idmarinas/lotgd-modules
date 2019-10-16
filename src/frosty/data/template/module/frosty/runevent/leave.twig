@@ -1,0 +1,13 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.leave.paragraph'|t(_context)|colorize }}
+
+{% if rand == 1 %}
+    {{ 'section.leave.case.01'|t(_context)|colorize }}
+{% elseif rand == 2 %}
+    {{ 'section.leave.case.02'|t(_context)|colorize }}
+{% elseif rand == 3 %}
+    {{ 'section.leave.case.03'|t(_context)|colorize }}
+{% elseif rand == 4 %}
+    {{ 'section.leave.case.04'|t(_context)|colorize }}
+{% endif %}

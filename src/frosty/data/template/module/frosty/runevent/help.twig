@@ -1,0 +1,18 @@
+{% translate_default_domain textDomain %}
+
+{{ 'section.help.paragraph.start'|t(_context)|colorize }}
+
+{% if staminaSystem == 1 %}
+    {{ 'section.help.case.01.paragraph'|t(_context)|colorize }}
+    {% if staminaSystem %}
+        {{ 'section.help.case.01.stamina'|t(_context)|colorize }}
+    {% else %}
+        {{ 'section.help.case.01.turns'|t(_context)|colorize }}
+    {% endif %}
+{% elseif staminaSystem == 2 %}
+    {{ 'section.help.case.02.paragraph'|t(_context)|colorize }}
+{% elseif staminaSystem == 3 %}
+    {{ 'section.help.case.03.paragraph'|t(_context)|colorize }}
+{% endif %}
+
+{{ 'section.help.paragraph.end'|t(_context)|colorize }}
