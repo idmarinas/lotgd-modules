@@ -270,19 +270,18 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
     }
 
     $user = $user ?: $session['user']['acctid'];
-    $inventory = DB::prefix('inventory');
-    $item = DB::prefix('item');
 
     // Max qty that user can have
     $qty = inventory_get_max_add($itemid, $qty, $user);
+    $inventoryStat = inventory_get_info($user);
 
-    if (0 != $maxcount && $totalcount >= $maxcount)
+    if (0 != $inventoryStat['inventoryLimitItems'] && $inventoryStat['inventoryCount'] >= $inventoryStat['inventoryLimitItems'])
     {
         debug('Too many items, will not add this one!');
 
         return false;
     }
-    elseif ($maxweight && $totalweight >= $maxweight)
+    elseif ($inventoryStat['inventoryLimitWeight'] && $inventoryStat['inventoryWeight'] >= $inventoryStat['inventoryLimitWeight'])
     {
         debug("Items are too heavy. Item hasn't been added!");
 
@@ -296,27 +295,28 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
     }
     else
     {
+        $inventoryRepository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+
         if (false === $sellvaluegold)
         {
-            $sellvaluegold = round($item_raw['gold'] * (get_module_setting('sellgold', 'inventory') / 100));
+            $sellvaluegold = round($item_raw->getGold() * (get_module_setting('sellgold', 'inventory') / 100));
         }
 
         if (false === $sellvaluegems)
         {
-            $sellvaluegems = round($item_raw['gems'] * (get_module_setting('sellgems', 'inventory') / 100));
+            $sellvaluegems = round($item_raw->getGems() * (get_module_setting('sellgems', 'inventory') / 100));
         }
 
         if (false === $charges)
         {
-            $charges = $item_raw['charges'];
+            $charges = $item_raw->getCharges();
         }
 
-        if ($item_raw['uniqueforserver'])
+        if ($item_raw->getUniqueForServer())
         {
-            $sql = "SELECT * FROM $inventory WHERE itemid = $itemid LIMIT 2";
-            $result = DB::query($sql);
+            $count = $inventoryRepository->count(['item' => $itemid]);
 
-            if (DB::num_rows($result) > 0)
+            if ($count)
             {
                 debug('UNIQUE item has not been added because already someone else owns this!');
 
@@ -324,31 +324,36 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
             }
         }
 
-        if ($item_raw['uniqueforplayer'])
+        if ($item_raw->getUniqueForPlayer())
         {
-            $sql = "SELECT * FROM $inventory WHERE itemid = $itemid AND userid = $user LIMIT 2";
-            $result = DB::query($sql);
+            $count = $inventoryRepository->count(['item' => $itemid, 'userId' => $user]);
 
-            if (DB::num_rows($result) > 0)
+            if ($count)
             {
                 debug('UNIQUEFORPLAYER item has not been added because this player already owns this item!');
 
                 return false;
             }
         }
-        $totalcount += $qty;
-        $totalweight += $qty * $item_raw['weight'];
-        $sql = "INSERT INTO $inventory (`userid`, `itemid`, `sellvaluegold`, `sellvaluegems`, `specialvalue`, `charges`) VALUES ";
+
+        $inventoryStat['inventoryCount'] += $qty;
+        $inventoryStat['inventoryWeight'] += $qty * $item_raw->getWeight();
 
         for ($i = 0; $i < $qty; $i++)
         {
-            if ($i)
-            {
-                $sql .= ',';
-            }
-            $sql .= "($user, $itemid, $sellvaluegold, $sellvaluegems, '$specialvalue', '$charges')";
+            $entity = $inventoryRepository->hydrateEntity([
+                'userId' => $user,
+                'item' => $item_raw,
+                'sellValueGold' => $sellvaluegold,
+                'sellValueGems' => $sellvaluegems,
+                'specialValue' => $specialvalue,
+                'charges' => $charges
+            ]);
+            \Doctrine::persist($entity);
         }
-        DB::query($sql);
+
+        \Doctrine::flush();
+
         debuglog("has gained $qty item (ID: $itemid).", false, false, 'inventory');
         invalidatedatacache("inventory/user-$user");
 
