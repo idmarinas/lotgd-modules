@@ -194,7 +194,7 @@ function get_item($item)
 {
     if (! is_int($item))
     {
-        return get_item_by_name($item);
+        $item = get_item_id_from_name($item);
     }
 
     return get_item_by_id($item);
@@ -255,9 +255,9 @@ function get_item_full_info(int $item)
 
 function add_item_by_name($itemname, $qty = 1, $user = 0, $specialvalue = '', $sellvaluegold = false, $sellvaluegems = false, $charges = false)
 {
-    $item = get_item_by_name($itemname);
+    $item = get_item_id_from_name($itemname);
 
-    return add_item_by_id((int) $item['itemid'], $qty, $user, $specialvalue, $sellvaluegold, $sellvaluegems, $charges);
+    return add_item_by_id((int) $item, $qty, $user, $specialvalue, $sellvaluegold, $sellvaluegems, $charges);
 }
 
 function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellvaluegold = false, $sellvaluegems = false, $charges = false)
@@ -269,10 +269,7 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
         return false;
     }
 
-    if (0 === $user)
-    {
-        $user = $session['user']['acctid'];
-    }
+    $user = $user ?: $session['user']['acctid'];
     $inventory = DB::prefix('inventory');
     $item = DB::prefix('item');
 
@@ -480,10 +477,8 @@ function add_item($item, $qty = 1, $user = 0, $specialvalue = '', $sellvaluegold
     {
         return add_item_by_name($item, $qty, $user, $specialvalue, $sellvaluegold, $sellvaluegems, $charges);
     }
-    else
-    {
-        return add_item_by_id($item, $qty, $user, $specialvalue, $sellvaluegold, $sellvaluegems, $charges);
-    }
+
+    return add_item_by_id($item, $qty, $user, $specialvalue, $sellvaluegold, $sellvaluegems, $charges);
 }
 
 function get_itemids_by_class($class)
@@ -516,8 +511,7 @@ function uncharge_item($itemid, $user = false, $invid = false)
 
     if (! is_int($itemid))
     {
-        $itemid = get_item_by_name($itemid);
-        $itemid = $itemid['itemid'];
+        $itemid = get_item_id_from_name($itemid);
     }
     $itemid = (int) $itemid;
 
@@ -563,8 +557,7 @@ function recharge_item($itemid, $user = false, $invid = false)
 
     if (! is_int($itemid))
     {
-        $itemid = get_item_by_name($itemid);
-        $itemid = $itemid['itemid'];
+        $itemid = get_item_id_from_name($itemid);
     }
     $itemid = (int) $itemid;
 
@@ -600,10 +593,7 @@ function check_qty_by_id($itemid, $user = 0)
 {
     global $session;
 
-    if (0 === $user)
-    {
-        $user = $session['user']['acctid'];
-    }
+    $user = $user ?: $session['user']['acctid'];
 
     $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
 
@@ -696,18 +686,11 @@ function remove_item_by_id($item, $qty = 1, $user = false, $invid = false)
     return $affected;
 }
 
-function remove_item_by_name($itemname, $qty = 1, $user = false, $invid = false)
-{
-    $row = get_item_id_from_name($itemname);
-
-    return remove_item_by_id($row, $qty, $user, $invid);
-}
-
 function remove_item($item, $qty = 1, $user = false, $invid = false)
 {
     if (! is_int($item))
     {
-        return remove_item_by_name($item, $qty, $user, $invid);
+        $item = get_item_id_from_name($item);
     }
 
     return remove_item_by_id($item, $qty, $user, $invid);
