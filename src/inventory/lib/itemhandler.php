@@ -554,31 +554,38 @@ function recharge_item($itemid, $user = false, $invid = false)
     }
     $itemid = (int) $itemid;
 
-    if (false === $user)
+    $user = $user ?: $session['user']['acctid'];
+
+    $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+    $params = [
+        'item' => $itemid,
+        'userId' => $user
+    ];
+
+    if ($invid)
     {
-        $user = $session['user']['acctid'];
+        $params['id'] = $invid;
     }
 
-    if (false !== $invid)
+    $entities = $repository->findBy($params);
+
+    if ($entities)
     {
-        $invsql = "AND invid = $invid";
+        foreach($entities as $entity)
+        {
+            $entity->setCharges($entity->getCharges() + 1);
+
+            \Doctrine::persist($entity);
+        }
+
+        \Doctrine::flush();
+        debuglog('recharged '.count($entities)." items (ID: $itemid)", $user);
     }
     else
-    {
-        $invsql = '';
-    }
-    $inventory = DB::prefix('inventory');
-    $sql = "UPDATE $inventory SET charges = charges 1 1 WHERE itemid = $itemid AND userid = $user $invsql LIMIT 1";
-    $result = DB::query($sql);
-
-    if (0 == db_affected_rows($result))
     {
         debug('ERROR: Tried to recharge non-present item!');
     }
-    else
-    {
-        debuglog('recharged '.db_affected_rows($result)." items (ID: $itemid)", $user);
-    }
+
     invalidatedatacache("inventory/user-$user");
 }
 
