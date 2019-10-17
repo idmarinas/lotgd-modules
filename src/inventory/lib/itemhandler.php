@@ -508,39 +508,63 @@ function uncharge_item($itemid, $user = false, $invid = false)
     }
     $itemid = (int) $itemid;
 
-    if (false === $user)
+    $user = $user ?: $session['user']['acctid'];
+
+    $query = \Doctrine::createQueryBuilder();
+    $query->where('u.item = :item AND u.userId = :user AND u.charges >= 1')
+
+        ->setParameter('item', $itemid)
+        ->setParameter('user', $user)
+
+        ->setMaxResults(1)
+    ;
+
+    if ($invid)
     {
-        $user = $session['user']['acctid'];
+        $query->andWhere('u.id = :inv')
+            ->setParameter('inv', $invid)
+        ;
     }
 
-    if (false !== $invid)
+    $entity = $query->getQuery()->getResult();
+
+    if (count($entity))
     {
-        $invsql = "AND invid = $invid";
+        $entity->setCharges($entity->getCharges() - 1);
+
+        \Doctrine::persist($entity);
+
+        \Doctrine::flush();
+
+        debuglog('uncharged '.count($entity)." items (ID: $itemid)", $user);
     }
     else
-    {
-        $invsql = '';
-    }
-    $inventory = DB::prefix('inventory');
-    $sql = "UPDATE $inventory SET charges = charges - 1 WHERE itemid = $itemid AND userid = $user AND charges >= 1 $invsql LIMIT 1";
-    $result = DB::query($sql);
-
-    if (0 == db_affected_rows($result))
     {
         debug('ERROR: Tried to uncharge item although no charges or no item present!');
     }
-    else
-    {
-        debuglog('uncharged '.db_affected_rows($result)." items (ID: $itemid)", $user);
-    }
-    $sql = "DELETE FROM $inventory WHERE itemid = $itemid AND userid = $user AND charges = 0";
-    $result = DB::query($sql);
-    $count = db_affected_rows($result);
 
-    if ($count)
+    $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+    $params = [
+        'item' => $itemid,
+        'userId' => $user,
+        'charges' => 0
+    ];
+
+    $entities = $repository->findBy($params);
+
+    foreach($entities as $entity)
     {
-        debuglog("uncharged and deleted $count items (ID: $itemid)", $user);
+        \Doctrine::remove($entity);
     }
+
+    \Doctrine::flush();
+
+    if (count($entities))
+    {
+        $count = count($entities);
+        debuglog("deleted $count items (ID: $itemid)", $user);
+    }
+
     invalidatedatacache("inventory/user-$user");
 }
 
@@ -567,19 +591,16 @@ function recharge_item($itemid, $user = false, $invid = false)
         $params['id'] = $invid;
     }
 
-    $entities = $repository->findBy($params);
+    $entity = $repository->findOneBy($params);
 
-    if ($entities)
+    if ($entity)
     {
-        foreach($entities as $entity)
-        {
-            $entity->setCharges($entity->getCharges() + 1);
+        $entity->setCharges($entity->getCharges() + 1);
 
-            \Doctrine::persist($entity);
-        }
+        \Doctrine::persist($entity);
 
         \Doctrine::flush();
-        debuglog('recharged '.count($entities)." items (ID: $itemid)", $user);
+        debuglog("recharged 1 items (ID: $itemid)", $user);
     }
     else
     {
