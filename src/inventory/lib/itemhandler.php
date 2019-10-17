@@ -274,7 +274,7 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
     $item = DB::prefix('item');
 
     // Max qty that user can have
-    $qty = inventory_get_max_add($itemid, $qty, $user, $specialvalue, $sellvaluegold, $sellvaluegems, $charges);
+    $qty = inventory_get_max_add($itemid, $qty, $user);
 
     if (0 != $maxcount && $totalcount >= $maxcount)
     {
@@ -356,41 +356,33 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
     }
 }
 
-function inventory_get_max_add($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellvaluegold = false, $sellvaluegems = false, $charges = false)
+function inventory_get_max_add($itemid, $qty = 1, $user = 0)
 {
-    global $session, $totalcount, $totalweight, $item_raw, $maxweight, $maxcount;
+    global $session, $item_raw;
 
     if (1 > $qty)
     {
         return false;
     }
 
-    if (0 === $user)
-    {
-        $user = $session['user']['acctid'];
-    }
+    $user = $user ?: $session['user']['acctid'];
 
-    $item = DB::prefix('item');
-    inventory_get_info($user);
+    $inventoryStat = inventory_get_info($user);
+    $repository = \Doctrine::getRepository('LotgdLocal:ModinventoryItem');
 
     // We must not add more items than the player actually may carry!
-    $sql = "SELECT name, gold, gems, charges, uniqueforserver, weight, uniqueforplayer FROM $item WHERE itemid = $itemid";
-    $result = DB::query($sql);
-    $item_raw = DB::fetch_assoc($result);
-    $maxitems_count = max(0, $maxcount - $totalcount);
+    $item_raw = $repository->find($itemid);
+    $maxitems_count = max(0, $inventoryStat['inventoryLimitItems'] - $inventoryStat['inventoryCount']);
 
-    if ($item_raw['weight'] > 0)
+    $maxitems_weight = $qty;
+    if ($item_raw->getWeight() > 0)
     {
-        $maxitems_weight = max(0, floor(($maxweight - $totalweight) / $item_raw['weight']));
-    }
-    else
-    {
-        $maxitems_weight = $qty;
+        $maxitems_weight = max(0, floor(($inventoryStat['inventoryLimitWeight'] - $inventoryStat['inventoryWeight']) / $item_raw->getWeight()));
     }
 
-    debug("Trying to add $qty items. Item's weight is {$item_raw['weight']}");
+    debug("Trying to add $qty items. Item's weight is {$item_raw->getWeight()}");
 
-    if ($maxcount > 0)
+    if ($inventoryStat['inventoryLimitItems'] > 0)
     {
         debug("In theory only $maxitems_count should be added (totalcount)");
     }
@@ -399,7 +391,7 @@ function inventory_get_max_add($itemid, $qty = 1, $user = 0, $specialvalue = '',
         debug('There is no restriction on quantity active.');
     }
 
-    if ($maxweight > 0)
+    if ($inventoryStat['inventoryLimitWeight'] > 0)
     {
         debug("In theory only $maxitems_weight should be added (totalweight)");
     }
@@ -408,29 +400,30 @@ function inventory_get_max_add($itemid, $qty = 1, $user = 0, $specialvalue = '',
         debug('There is no restriction on weight active.');
     }
 
-    if ($maxcount > 0 && $maxweight > 0 && $item_raw['weight'])
+    if ($inventoryStat['inventoryLimitItems'] > 0 && $inventoryStat['inventoryLimitWeight'] > 0 && $item_raw->getWeight())
     {
         // limitation on total qty AND weight AND item is not weightless
         $qty = min($qty, $maxitems_count, $maxitems_weight);
         debug("Reducing real quantity to $qty. (count/weight-restriction)");
     }
 
-    if ($maxweight > 0 && 0 == $maxcount && $item_raw['weight'] > 0)
+    if ($inventoryStat['inventoryLimitWeight'] > 0 && 0 == $inventoryStat['inventoryLimitItems'] && $item_raw->getWeight() > 0)
     {
         // no limitation on total qty AND item is not weightless
         $qty = min($qty, $maxitems_weight);
         debug("Reducing real quantity to $qty. (weight-restriction)");
     }
 
-    if ($maxcount > 0 && 0 == $maxweight)
+    if ($inventoryStat['inventoryLimitItems'] > 0 && 0 == $inventoryStat['inventoryLimitWeight'])
     {
         // no limitation on weight.
         $qty = min($qty, $maxitems_count);
         debug("Reducing real quantity to $qty. (count-restriction)");
     }
-    debug("Totalcount / MaxCount is: $totalcount / $maxcount");
-    debug("MaxWeight is: $totalweight / $maxweight");
-    debug('Item weight: '.$item_raw['weight']);
+
+    debug("Totalcount / MaxCount is: {$inventoryStat['inventoryCount']} / {$inventoryStat['inventoryLimitItems']}");
+    debug("MaxWeight is: {$inventoryStat['inventoryLimitWeight']} / {$inventoryStat['inventoryLimitWeight']}");
+    debug('Item weight: '.$item_raw->getWeight());
     debug("Quantity to add was: $qty");
 
     return $qty;
