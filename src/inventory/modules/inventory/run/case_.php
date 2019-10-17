@@ -14,8 +14,6 @@ page_header('title.inventory', ['name' => \LotgdSanitize::fullSanitize($session[
 \LotgdNavigation::villageNav();
 \LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=inventory', ['textDomain' => $textDomain]);
 
-$repository->getItemOfInventoryOfCharacter(183, $session['user']['acctid']);
-
 if ('dropitem' == $op2)
 {
     remove_item($id, 1, $session['user']['acctid'], $invId);
