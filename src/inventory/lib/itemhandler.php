@@ -482,17 +482,29 @@ function get_itemids_by_class($class)
         {
             $class = func_get_args();
         }
-        $result = DB::query("SELECT itemid FROM item WHERE class IN('".join("','", $class)."')");
     }
-    else
+
+    $query = \Doctrine::createQueryBuilder();
+    $query->select()
+        ->from('LotgdLocal:ModInventoryItem', 'u')
+
+        ->where('u.class = :class')
+
+        ->setParameter('class', $class)
+    ;
+
+    if (is_array($class))
     {
-        $result = DB::query("SELECT itemid FROM item WHERE class='$class'");
+        $query->where('u.class in (:class)');
     }
+
+    $result = $query->getQuery()->getResult();
+
     $ids = [];
 
-    while ($id = DB::fetch_assoc($result))
+    foreach($result as $row)
     {
-        $ids[] = $id;
+        $ids[] = $row->getId();
     }
 
     return $ids;
