@@ -72,7 +72,7 @@ class ModInventory
     /**
      * @var int
      *
-     * @ORM\Column(type="smallint", nullable=false)
+     * @ORM\Column(type="smallint", nullable=false, options={"unsigned": true})
      */
     private $charges = 0;
 
