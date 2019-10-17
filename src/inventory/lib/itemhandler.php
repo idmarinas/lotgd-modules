@@ -439,36 +439,39 @@ function inventory_get_max_add($itemid, $qty = 1, $user = 0, $specialvalue = '',
     return $qty;
 }
 
-function inventory_get_info($user = 0)
+function inventory_get_info($user = 0): array
 {
     global $session, $totalcount, $totalweight, $maxweight, $maxcount;
 
-    if (0 === $user)
-    {
-        $user = $session['user']['acctid'];
-    }
+    $user = $user ?: $session['user']['acctid'];
 
-    $inventory = DB::prefix('inventory');
-    $item = DB::prefix('item');
+    $query = \Doctrine::createQueryBuilder();
+    $result = $query->select('count(u.item) AS totalcount', 'sum(i.weight) AS totalweight')
+        ->from('LotgdLocal:ModInventory', 'u')
+        ->leftJoin('LotgdLocal:ModInventoryItem', 'i', 'with', $query->expr()->eq('i.id', 'u.item'))
 
-    $sql = "SELECT COUNT($inventory.itemid) AS totalcount, SUM($item.weight) AS totalweight
-			FROM $inventory
-			INNER JOIN $item ON $item.itemid = $inventory.itemid
-			WHERE $inventory.userid = $user
-			GROUP BY $inventory.itemid";
+        ->where('u.userId = :user')
 
-    $result = DB::query($sql);
-    $totalcount = 0;
-    $totalweight = 0;
+        ->groupBy('u.userId')
 
-    while ($row = DB::fetch_assoc($result))
-    {
-        $totalcount += $row['totalcount'];
-        $totalweight += $row['totalweight'];
-    }
+        ->setParameter('user', $user)
+        ->setMaxResults(1)
 
-    $maxcount = get_module_setting('limit', 'inventory');
-    $maxweight = get_module_setting('weight', 'inventory');
+        ->getQuery()
+        ->getSingleResult()
+    ;
+
+    $totalcount = (int) $result['totalcount'];
+    $totalweight = (int) $result['totalweight'];
+    $maxcount = (int) get_module_setting('limit', 'inventory');
+    $maxweight = (int) get_module_setting('weight', 'inventory');
+
+    return [
+        'inventoryCount' => $totalcount,
+        'inventoryWeight' => $totalweight,
+        'inventoryLimitItems' => $maxcount,
+        'inventoryLimitWeight' => $maxweight
+    ];
 }
 
 function add_item($item, $qty = 1, $user = 0, $specialvalue = '', $sellvaluegold = false, $sellvaluegems = false, $charges = false)
