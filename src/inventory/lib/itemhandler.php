@@ -441,20 +441,33 @@ function inventory_get_info($user = 0): array
     $user = $user ?: $session['user']['acctid'];
 
     $query = \Doctrine::createQueryBuilder();
-    $result = $query->select('count(u.item) AS totalcount', 'sum(i.weight) AS totalweight')
-        ->from('LotgdLocal:ModInventory', 'u')
-        ->leftJoin('LotgdLocal:ModInventoryItem', 'i', 'with', $query->expr()->eq('i.id', 'u.item'))
 
-        ->where('u.userId = :user')
+    try
+    {
+        $result = $query->select('count(u.item) AS totalcount', 'sum(i.weight) AS totalweight')
+            ->from('LotgdLocal:ModInventory', 'u')
+            ->leftJoin('LotgdLocal:ModInventoryItem', 'i', 'with', $query->expr()->eq('i.id', 'u.item'))
 
-        ->groupBy('u.userId')
+            ->where('u.userId = :user')
 
-        ->setParameter('user', $user)
-        ->setMaxResults(1)
+            ->groupBy('u.userId')
 
-        ->getQuery()
-        ->getSingleResult()
-    ;
+            ->setParameter('user', $user)
+            ->setMaxResults(1)
+
+            ->getQuery()
+            ->getSingleResult()
+        ;
+    }
+    catch (\Throwable $th)
+    {
+        \Tracy\Debugger::log($th);
+
+        $result = [
+            'totalcount' => 0,
+            'totalweight' => 0
+        ];
+    }
 
     $totalcount = (int) $result['totalcount'];
     $totalweight = (int) $result['totalweight'];
