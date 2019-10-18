@@ -42,7 +42,7 @@ function itemeffects_restore_stamina($stamina, $item)
 
         $staminaPercent = $percent - get_stamina(3);
 
-        $out[] = ['item.effect.stamina.gain',
+        $out[] = ['item.effect.stamina.lost',
             ['points' => abs($stamina), 'percent' => $staminaPercent, 'itemName' => $item['name']],
             'module-inventory'
         ];
