@@ -32,7 +32,7 @@ function itemeffects_restore_stamina($stamina, $item)
             'module-inventory'
         ];
 
-        debuglog("Restore $stamina points of Stamina by using {$item['itemid']}");
+        debuglog("Restore $stamina points of Stamina by using {$item['id']}");
     }
     else
     {
@@ -47,7 +47,7 @@ function itemeffects_restore_stamina($stamina, $item)
             'module-inventory'
         ];
 
-        debuglog("Lost $stamina points of Stamina by using {$item['itemid']}");
+        debuglog("Lost $stamina points of Stamina by using {$item['id']}");
     }
 
     return $out;
