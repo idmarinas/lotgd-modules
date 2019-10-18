@@ -729,7 +729,10 @@ function remove_item_by_id($item, $qty = 1, $user = false, $invid = false)
 
     \Doctrine::flush();
 
-    debuglog("removed item {$result[0]->getItem()->getName()} from inventory, qty $qty and real delete $affected", $user);
+    if ($affected)
+    {
+        debuglog("removed item {$result[0]->getItem()->getName()} from inventory, qty $qty and real delete $affected", $user);
+    }
 
     invalidatedatacache("inventory/user-$user");
     invalidatedatacache("inventory/item-$item-$user");
