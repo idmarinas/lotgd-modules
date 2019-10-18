@@ -78,21 +78,22 @@ class ModInventoryRepository extends DoctrineRepository
     }
 
     /**
-     * Undocumented function
+     * Get a full info of item in inventory.
      *
      * @param int $itemId
      * @param int $acctId
+     * @param int $invid
      *
      * @return array
      */
-    public function getItemOfInventoryOfCharacter(int $itemId, int $acctId): array
+    public function getItemOfInventoryOfCharacter(int $itemId, int $acctId, int $invid = 0): array
     {
         $query = $this->createQueryBuilder('u');
         $expr = $query->expr();
 
         try
         {
-            $result = $query->select('u', 'count(u.item) AS quantity', 'sum(u.charges) AS charges')
+            $query->select('u', 'count(u.item) AS quantity', 'sum(u.charges) AS charges')
                 ->leftJoin('LotgdLocal:ModInventoryItem', 'i', 'with', $expr->eq('i.id', 'u.item'))
 
                 ->where('u.userId = :user AND u.item = :item')
@@ -101,10 +102,16 @@ class ModInventoryRepository extends DoctrineRepository
                 ->setParameter('item', $itemId)
 
                 ->setMaxResults(1)
-
-                ->getQuery()
-                ->getSingleResult()
             ;
+
+            if ($invid)
+            {
+                $query->andWhere('u.id = :inv')
+                    ->setParameter('inv', $invid)
+                ;
+            }
+
+            $result = $query->getQuery()->getSingleResult();
 
             $data = array_merge($this->extractEntity($result[0]), $result);
             $data['item'] = $this->extractEntity($data['item']);
