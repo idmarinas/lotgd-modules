@@ -94,7 +94,6 @@ class ModInventoryRepository extends DoctrineRepository
         try
         {
             $query->select('u', 'count(u.item) AS quantity', 'sum(u.charges) AS charges')
-                ->leftJoin('LotgdLocal:ModInventoryItem', 'i', 'with', $expr->eq('i.id', 'u.item'))
 
                 ->where('u.userId = :user AND u.item = :item')
 
@@ -113,10 +112,15 @@ class ModInventoryRepository extends DoctrineRepository
 
             $result = $query->getQuery()->getSingleResult();
 
-            $data = array_merge($this->extractEntity($result[0]), $result);
-            $data['item'] = $this->extractEntity($data['item']);
-            $data['item']['buff'] = $this->extractEntity($data['item']['buff']);
-            unset($data[0]);
+            $data = [];
+
+            if ($result[0] ?? false)
+            {
+                $data = array_merge($this->extractEntity($result[0]), $result);
+                $data['item'] = $this->extractEntity($data['item']);
+                $data['item']['buff'] = $this->extractEntity($data['item']['buff']);
+                unset($data[0]);
+            }
 
             return $data;
         }
