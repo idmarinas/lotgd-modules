@@ -10,7 +10,7 @@ if ('ITEM' == $skill)
     $invId = (int) \LotgdHttp::getQuery('invid');
 
     $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
-    $item = $repository->extractEntity($repository->findBy([ 'id' =>$invId, 'item' => $itemId ]));
+    $item = $repository->extractEntity($repository->findOneBy([ 'id' =>$invId, 'item' => $itemId ]));
     $item['item'] = $repository->extractEntity($item['item']);
 
     if ($item['buff'] ?? false)
@@ -40,7 +40,7 @@ if ('ITEM' == $skill)
             $lotgdBattleContent['battlerounds'][$countround]['allied'][] = ['item.activate', [ 'itemName' => $item['item']['name'] ], $textDomain];
         }
 
-        $result = get_effect($item);
+        $result = get_effect($item['item']);
 
         foreach ($result as $key => $message)
         {
