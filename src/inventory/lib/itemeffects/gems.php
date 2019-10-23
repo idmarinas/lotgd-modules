@@ -14,7 +14,7 @@ function itemeffects_increased_gems($gems, $item): array
 
     $session['user']['gems'] += $gems;
 
-    debuglog("'s gems were altered by $gems by item {$item['itemid']}.");
+    debuglog("'s gems were altered by $gems by item {$item['id']}.");
 
     $out = [];
 

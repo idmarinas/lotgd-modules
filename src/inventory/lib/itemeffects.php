@@ -91,8 +91,8 @@ function get_effect($item = false, $noeffecttext = '')
 
     if (0 == count($out))
     {
-        $args = modulehook('item-noeffect', ['msg' => $noeffecttext, 'item' => $item]);
-        $out[] = $args['msg'];
+        $args = modulehook('item-noeffect', ['msg' => $noeffecttext, 'params' => [], 'textDomain' => $textDomain, 'item' => $item]);
+        $out[] = [$args['msg'], $args['params'], $args['textDomain']];
     }
 
     if (! is_array($out))

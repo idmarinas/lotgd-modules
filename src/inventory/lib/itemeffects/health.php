@@ -42,7 +42,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
             ['points' => $hitpoints, 'itemName' => $item['name']],
             'module-inventory'
         ];
-        debuglog("Restored $hitpoints health points using the item {$item['itemid']}");
+        debuglog("Restored $hitpoints health points using the item {$item['id']}");
     }
     elseif ($hitpoints < 0)
     {
@@ -53,7 +53,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
             'module-inventory'
         ];
 
-        debuglog("Loss $hitpoints hitpoints using item {$item['itemid']}");
+        debuglog("Loss $hitpoints hitpoints using item {$item['id']}");
     }
     else
     {
@@ -77,7 +77,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
             'module-inventory'
         ];
 
-        debuglog("Were almost killed when using item {$item['itemid']}");
+        debuglog("Were almost killed when using item {$item['id']}");
     }
     elseif ($session['user']['hitpoints'] <= 0 && $canDie)
     {
@@ -89,7 +89,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
             'module-inventory'
         ];
 
-        debuglog("Died when used the item {$item['itemid']}");
+        debuglog("Died when used the item {$item['id']}");
     }
 
     return $out;

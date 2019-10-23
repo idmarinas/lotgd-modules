@@ -19,7 +19,7 @@ function itemeffects_restore_turns($turns, $item)
 
     $session['user']['turns'] += $turns;
 
-    debuglog("'s turns were altered by $turns by item {$item['itemid']}.");
+    debuglog("'s turns were altered by $turns by item {$item['id']}.");
 
     $out = [];
 
