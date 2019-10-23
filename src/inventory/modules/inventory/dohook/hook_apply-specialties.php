@@ -13,14 +13,14 @@ if ('ITEM' == $skill)
     $item = $repository->extractEntity($repository->findOneBy([ 'id' =>$invId, 'item' => $itemId ]));
     $item['item'] = $repository->extractEntity($item['item']);
 
-    if ($item['buff'] ?? false)
+    if ($item['item']['buff'] ?? false)
     {
-        $item['buff'] = $repository->extractEntity($item['buff']);
+        $item['item']['buff'] = $repository->extractEntity($item['item']['buff']);
 
-        apply_buff($item['buff']['key'], array_merge([], ...array_map(
+        apply_buff($item['item']['buff']['key'], array_merge([], ...array_map(
             function ($key, $value) { return [ strtolower($key) => $value ]; },
-            array_keys($item['buff']),
-            $item['buff']
+            array_keys($item['item']['buff']),
+            $item['item']['buff']
         )));
     }
 
