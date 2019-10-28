@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  * Inventory of characters.
  *
  * @ORM\Table(indexes={
- *     @ORM\Index(name="item_id", columns={"id"}),
  *     @ORM\Index(name="user_id", columns={"user_id"})
  * })
  * @ORM\Entity(repositoryClass="Lotgd\Local\EntityRepository\ModInventoryRepository")
