@@ -10,6 +10,9 @@ function cityprefs_getmoduleinfo()
         'description' => 'Gives the ability to use prefs based on cities',
         'vertxtloc' => 'http://www.legendofsix.com/',
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1155',
+        'settings' => [
+            'data_imported' => 'Imported old data,viewonly',
+        ],
         'requires' => [
             'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
             'cities' => '>=2.0.0|Multiple Cities - Core module'
@@ -26,6 +29,48 @@ function cityprefs_install()
         if ($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO)
         {
             debug('Installing cityprefs Module.');
+        }
+
+        if (! get_module_setting('data_imported', 1, 'cityprefs'))
+        {
+            $page = 1;
+            $select = \DB::select('cityprefs');
+            $paginator = \DB::paginator($select, $page, 100);
+            $hydrator = new \Zend\Hydrator\ClassMethods();
+
+            $pageCount = $paginator->count();
+            $importCount = $paginator->getTotalItemCount();
+
+            //-- Overrides the automatic generation of IDs
+            $metaData = \Doctrine::getClassMetadata('LotgdLocal:ModuleCityprefs');
+            $metaData->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+            $metaData->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+
+            do
+            {
+                foreach ($paginator as $row)
+                {
+                    $row = (array) $row;
+                    $row['id'] = $row['cityid'];
+
+                    $entity = $hydrator->hydrate($row, new \Lotgd\Local\Entity\ModuleCityprefs());
+
+                    \Doctrine::persist($entity);
+                }
+
+                \Doctrine::flush();
+
+                $page++;
+                $paginator = \DB::paginator($select, $page, 100);
+            } while ($paginator->getCurrentItemCount() && $page <= $pageCount);
+
+            //-- Restore the automatic generation of IDs
+            $metaData->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
+            $metaData->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_IDENTITY);
+
+            \LotgdFlashMessages::addInfoMessage(sprintf('Import %s rows from "cityprefs" to "module_cityprefs" table', $importCount));
+
+            set_module_setting('data_imported', 1, 'cityprefs');
         }
 
         $repository = \Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
@@ -61,7 +106,7 @@ function cityprefs_install()
             $entity = $repository->findOneBy([ 'module' => $value->getModulename() ]);
             $entity = $repository->hydrateEntity([
                 'module' => $value->getModulename(),
-                'cityname' => $value->getValue()
+                'cityName' => $value->getValue()
             ], $entity);
 
             \Doctrine::persist($entity);
