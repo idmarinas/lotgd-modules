@@ -1,30 +1,20 @@
 <?php
 
-namespace Lotgd\Local\Twig\Extension\Pattern;
+namespace Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen;
 
-trait Map
+trait MapEditTerrain
 {
     /**
-     * Show full map.
-     *
-     * @param array $params
+     * Show map for edit.
      *
      * @return string
      */
-    public function showMap(array $params): string
+    public function showMapEditTerrain(): string
     {
-        if (! get_module_pref('worldmapbuy', 'worldmapen'))
-        {
-            return '';
-        }
-
         $vloc = [];
         $vname = getsetting('villagename', LOCATION_FIELDS);
         $vloc[$vname] = 'village';
         $vloc = modulehook('validlocation', $vloc);
-
-        $loc = get_module_pref('worldXYZ', 'worldmapen');
-        list($worldmapX, $worldmapY, $worldmapZ) = explode(',', $loc);
 
         $cityMap = [];
         foreach ($vloc as $city => $val)
@@ -37,19 +27,15 @@ trait Map
 
         $params = [
             'textDomain' => 'module-worldmapen',
-            'mapLinks' => $params,
             'colorUserLoc' => get_module_setting('colorUserLoc', 'worldmapen'),
             'sizeX' => get_module_setting('worldmapsizeX', 'worldmapen'),
             'sizeY' => get_module_setting('worldmapsizeY', 'worldmapen'),
-            'showCompass' => (bool) get_module_setting('showcompass', 'worldmapen'),
-            'worldMapX' => $worldmapX,
-            'worldMapY' => $worldmapY,
-            'worldMapZ' => $worldmapZ,
             'cityMap' => $cityMap,
             'worldMap' => worldmapen_loadMap(),
-            'terrainColor' => worldmapen_getColorDefinitions()
+            'terrainColor' => worldmapen_getColorDefinitions(),
+            'terrainDefs' => worldmapen_loadTerrainDefs()
         ];
 
-        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/map.twig', $params);
+        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/map-edit.twig', $params);
     }
 }

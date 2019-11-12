@@ -10,13 +10,13 @@ class ModuleWorldmapen extends AbstractExtension
 {
     use PatternCore\Theme;
     use PatternCore\Translator;
-    use Pattern\Campers;
-    use Pattern\Compass;
-    use Pattern\Legend;
-    use Pattern\MapEditor;
-    use Pattern\MapEditTerrain;
-    use Pattern\Map;
-    use Pattern\MiniMap;
+    use Pattern\ModuleWorldmapen\Campers;
+    use Pattern\ModuleWorldmapen\Compass;
+    use Pattern\ModuleWorldmapen\Legend;
+    use Pattern\ModuleWorldmapen\MapEditor;
+    use Pattern\ModuleWorldmapen\MapEditTerrain;
+    use Pattern\ModuleWorldmapen\Map;
+    use Pattern\ModuleWorldmapen\MiniMap;
 
     /**
      * {@inheritdoc}

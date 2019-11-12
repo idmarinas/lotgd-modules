@@ -1,6 +1,6 @@
 <?php
 
-namespace Lotgd\Local\Twig\Extension\Pattern;
+namespace Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen;
 
 trait Campers
 {

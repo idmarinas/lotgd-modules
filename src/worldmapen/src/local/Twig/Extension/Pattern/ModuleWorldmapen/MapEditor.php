@@ -1,15 +1,15 @@
 <?php
 
-namespace Lotgd\Local\Twig\Extension\Pattern;
+namespace Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen;
 
-trait MapEditTerrain
+trait MapEditor
 {
     /**
      * Show map for edit.
      *
      * @return string
      */
-    public function showMapEditTerrain(): string
+    public function showMapEditor(): string
     {
         $vloc = [];
         $vname = getsetting('villagename', LOCATION_FIELDS);
@@ -32,10 +32,9 @@ trait MapEditTerrain
             'sizeY' => get_module_setting('worldmapsizeY', 'worldmapen'),
             'cityMap' => $cityMap,
             'worldMap' => worldmapen_loadMap(),
-            'terrainColor' => worldmapen_getColorDefinitions(),
-            'terrainDefs' => worldmapen_loadTerrainDefs()
+            'terrainColor' => worldmapen_getColorDefinitions()
         ];
 
-        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/map-edit.twig', $params);
+        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/map-editor.twig', $params);
     }
 }

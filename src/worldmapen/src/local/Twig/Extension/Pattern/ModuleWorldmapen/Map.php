@@ -1,24 +1,28 @@
 <?php
 
-namespace Lotgd\Local\Twig\Extension\Pattern;
+namespace Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen;
 
-trait MiniMap
+trait Map
 {
     /**
-     * Show small map.
+     * Show full map.
      *
      * @param array $params
      *
      * @return string
      */
-    public function showMiniMap(array $params): string
+    public function showMap(array $params): string
     {
+        if (! get_module_pref('worldmapbuy', 'worldmapen'))
+        {
+            return '';
+        }
+
         $vloc = [];
         $vname = getsetting('villagename', LOCATION_FIELDS);
         $vloc[$vname] = 'village';
         $vloc = modulehook('validlocation', $vloc);
 
-        $viewRadius = get_module_setting('viewRadius', 'worldmapen');
         $loc = get_module_pref('worldXYZ', 'worldmapen');
         list($worldmapX, $worldmapY, $worldmapZ) = explode(',', $loc);
 
@@ -38,7 +42,6 @@ trait MiniMap
             'sizeX' => get_module_setting('worldmapsizeX', 'worldmapen'),
             'sizeY' => get_module_setting('worldmapsizeY', 'worldmapen'),
             'showCompass' => (bool) get_module_setting('showcompass', 'worldmapen'),
-            'smallMapSize' => (2 * $viewRadius) + 1,
             'worldMapX' => $worldmapX,
             'worldMapY' => $worldmapY,
             'worldMapZ' => $worldmapZ,
@@ -47,8 +50,6 @@ trait MiniMap
             'terrainColor' => worldmapen_getColorDefinitions()
         ];
 
-        $params['rowSpanY'] = $params['sizeY'] + 1;
-
-        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/mini-map.twig', $params);
+        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/map.twig', $params);
     }
 }
