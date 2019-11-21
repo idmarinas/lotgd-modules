@@ -94,7 +94,7 @@ if ($red < 100)
 
 function stamina_notification($message, $title, $status = 'warning')
 {
-    $message = "$message<br><br><em>".translate_inline('The greater the tiring the greater the penalty to attack and defense.').'</em>';
+    $message = "$message<br><br><em>".\LotgdTranslator::t('notify.note', [], 'module-staminasystem').'</em>';
 
     return "<script type='text/javascript'>
 		Lotgd.notify({

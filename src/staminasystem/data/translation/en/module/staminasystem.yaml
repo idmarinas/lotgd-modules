@@ -73,6 +73,7 @@ notify:
     red:
         message: 'You are in danger, if you continue with your actions you run the risk of visiting {deathOverlord}.'
         title: "It's too late for you"
+    note: 'The greater the tiring the greater the penalty to attack and defense.'
 
 flash.message.death:
     0: "Vision blurring, you succumb to the effects of exhaustion. You take a step forward to strike your enemy, but instead trip over your own feet."
