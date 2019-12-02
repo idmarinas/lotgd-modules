@@ -93,3 +93,7 @@ src
     >   Core include a Sanitize for remove non color codes.
 -   `deputymoderator.php` Deputy Moderator
     >   These function may be included in a future version of the core.
+-   `pvpnocheat.php` PvP NoCheat
+    > The core now includes this feature.
+-   `warnlvl.php` Warning Level and Bans
+    > These function will be included in a future version of the core.
