@@ -147,7 +147,10 @@ function statue_dohook($hookname, $args)
 
                     $args[] = [ $text, $params, 'module-statue', ];
 
-                    addnews('news.broke.statue', [], 'module-statue');
+                    addnews('news.broke.statue', [
+                        'playerName' => $session['user']['name'],
+                        'location' => $session['user']['location']
+                    ], 'module-statue');
 
                     $debuglog = 'Lost ';
                     if (get_module_setting('gold'))
