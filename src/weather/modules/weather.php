@@ -44,7 +44,7 @@ function weather_getmoduleinfo()
 function weather_install()
 {
     module_addhook('newday-runonce');
-    module_addhook('newday');
+    module_addhook_priority('newday', 1000);
     module_addhook('village-desc');
     module_addhook('page-gardens-tpl-params');
     module_addhook('page-shades-tpl-params');

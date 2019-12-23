@@ -29,7 +29,7 @@ function specialtydarkarts_install()
     module_addhook('set-specialty');
     module_addhook('fightnav-specialties');
     module_addhook('apply-specialties');
-    module_addhook('newday');
+    module_addhook_priority('newday', 900);
     module_addhook('incrementspecialty');
     module_addhook('specialtynames');
     module_addhook('specialtymodules');
