@@ -83,7 +83,7 @@ function moons_phase($cur, $max): string
 function moons_install()
 {
     module_addhook('newday-runonce');
-    module_addhook('newday');
+    module_addhook_priority('newday', 1100);
     module_addhook('village-desc');
     module_addhook('forest-desc');
     module_addhook('landsky-moons');
