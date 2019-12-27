@@ -7,7 +7,70 @@
 
 {{ 'section.show.paragraph'|t(_context)|colorize }}
 
-{{ tabs }}
+{% set action = 'section.show.table.thead.action'|t %}
+{% set experience = 'section.show.table.thead.experience'|t %}
+{% set cost = 'section.show.table.thead.cost'|t %}
+{% set buff = 'section.show.table.thead.buff'|t %}
+{% set total = 'section.show.table.thead.total'|t %}
+
+{% set tableHead = '<thead><tr><th scope="col">%s</th><th scope="col">%s</th><th scope="col">%s</th><th scope="col">%s</th><th scope="col">%s</th></tr></thead>'|format(action, experience, cost, buff, total) %}
+
+{% set menu = '' %}
+{% set segment = '' %}
+{% for class, acts in actions %}
+    {% set menu = menu ~ '<a class="%s item" data-tab="%s">%s</a>'|format(
+        loop.index == 1 ? 'active' : '',
+        class,
+        class|t
+    ) %}
+
+    {% set segment = segment ~ '<div class="ui bottom attached %s tab segment" data-tab="%s">'|format(
+        loop.index == 1 ? 'active' : '',
+        class
+    ) %}
+    {% set segment = segment ~ '<table class="ui very basic very compact unstackable striped table stamina">' ~ tableHead %}
+
+    {% for name, act in acts %}
+        {% set modifier = act.costwithbuff - act.naturalcost %}
+
+        {% set segment = segment ~ '<tr>' %}
+        <!-- Name/Level -->
+        {% set segment = segment ~ '<td class="collapsing">%s</td>'|format('section.show.table.tbody.level'|t({'level': act.lvl, 'name': name})) %}
+
+        <!-- Exp progress -->
+        {% if act.lvl < 100 %}
+            {% set expForLvl = act.levelinfo.nextlvlexp - act.levelinfo.currentlvlexp %}
+            {% set expOfLvl = act.exp - act.levelinfo.currentlvlexp %}
+
+            {% set segment = segment ~ '<td><div class="ui lotgd tiny indicating progress" data-value="%s" data-total="%s"><div class="bar"></div><div class="label">%s / %s</div></div></td>'|format(expOfLvl, expForLvl, (act.exp ?? 0)|numeral, act.levelinfo.nextlvlexp|numeral) %}
+        {% else %}
+            {% set segment = segment ~ '<td>%s</td>'|format('section.show.table.tbody.maximized'|t) %}
+        {% endif %}
+
+        <!-- Natural cost -->
+        {% set segment = segment ~ '<td>%s</td>'|format(act.naturalcost|numeral) %}
+
+        <!-- Bonus -->
+        {% set bonus = 'section.show.table.tbody.none'|t %}
+        {% if modifier < 0 %}
+            {% set bonus = '`@%s`0'|format(modifier|numeral) %}
+        {% elseif modifier > 0 %}
+            {% set bonus = '`$%s`0'|format(modifier|numeral) %}
+        {% endif %}
+        {% set segment = segment ~ '<td>%s</td>'|format(bonus) %}
+
+        <!-- Cost with buffs -->
+        {% set segment = segment ~ '<td>`Q`b%s´b`0</td>'|format(act.costwithbuff|numeral) %}
+
+        {% set segment = segment ~ '</tr>' %}
+    {% endfor %}
+    {% set segment = segment ~ '</table></div>' %}
+{% endfor %}
+
+<div class="ui top attached lotgd tabular menu">
+    {{ menu }}
+</div>
+{{ segment|colorize }}
 
 {{ 'section.show.buffs.title'|t(_context)|colorize }}
 

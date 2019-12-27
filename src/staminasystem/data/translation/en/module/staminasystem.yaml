@@ -28,6 +28,17 @@ section:
             title: '`n`n`bAction Buffs´b:`n'
             item: '%s {rounds,plural, =0{} =1{1 round left} other{# rounds left}}`n'
             none: None.
+        table:
+            thead:
+                action: Action
+                experience: Experience
+                cost: Natural Cost
+                buff: Buff
+                total: Total
+            tbody:
+                level: '`^{name}`0 Lv {level}'
+                maximized: 'Top Level!'
+                none: None
         footer:
             - "`n`nRemember, using the Stamina system is easy - just keep in mind that the more you do something, the better you get at it."
             - "So if you do a lot of the things you enjoy doing the most, the game will let you do more of those things each day."

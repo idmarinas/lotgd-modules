@@ -34,92 +34,26 @@ $params = [
 
 $act = get_player_action_list();
 
-$layout = [];
 $row = [];
 
 foreach ($act as $key => $value)
 {
-    $class = ('' != $value['class'] ? $value['class'] : 'Other');
-    $layout[] = $class;
-    $row[$class][$key] = $value;
+    $keyT = translate($key, 'module-staminasystem');
+    $class = translate('' != $value['class'] ? $value['class'] : 'Other', 'module-staminasystem');
+    $row[$class][$keyT] = $value;
+    $row[$class][$keyT]['levelinfo'] = stamina_level_up($key);
+    $row[$class][$keyT]['costwithbuff'] = stamina_calculate_buffed_cost($key);
 }
 
-$params['tabs'] = lotgd_showtabs($row, false, 'show_actions');
+ksort($row);
+foreach($row as &$value)
+{
+    ksort($value);
+}
+
+$params['actions'] = $row;
 $params['buffList'] = unserialize(get_module_pref('buffs', 'staminasystem'));
 
 rawoutput(LotgdTheme::renderModuleTemplate('staminasystem/run/show.twig', $params));
 
 popup_footer();
-
-/**
- * Show one item.
- *
- * @param array $act
- *
- * @return void
- */
-function show_actions($act)
-{
-    $action = translate_inline('Action');
-    $experience = translate_inline('Experience');
-    $cost = translate_inline('Natural Cost');
-    $buff = translate_inline('Buff');
-    $total = translate_inline('Total');
-    $html = "<table class='ui very basic very compact unstackable striped table stamina'><thead><tr><th>$action</th><th>$experience</th><th>$cost</th><th>$buff</th><th>$total</th></tr></thead>";
-
-    ksort($act);
-
-    foreach ($act as $key => $values)
-    {
-        $lvlinfo = stamina_level_up($key);
-        $nextlvlexp = round($lvlinfo['nextlvlexp']);
-        $nextlvlexpdisplay = number_format($nextlvlexp);
-        $currentlvlexp = round($lvlinfo['currentlvlexp']);
-        $cost = $values['naturalcost'];
-        $level = $values['lvl'];
-        $exp = ($values['exp'] ?? 0);
-        $costwithbuff = stamina_calculate_buffed_cost($key);
-        $modifier = $costwithbuff - $cost;
-        $bonus = 'None';
-
-        if ($modifier < 0)
-        {
-            $bonus = '`@'.number_format($modifier).'`0';
-        }
-        elseif ($modifier > 0)
-        {
-            $bonus = '`$'.number_format($modifier).'`0';
-        }
-
-        //current exp - current lvl exp / current exp - nextlvlexp
-
-        $html .= "<tr><td class='collapsing'>".sprintf(translate_inline('`^%s`0 Lv %s'), translate_inline($key), $level).'</td><td>';
-
-        if ($values['lvl'] < 100)
-        {
-            $expforlvl = $nextlvlexp - $currentlvlexp;
-            $expoflvl = $exp - $currentlvlexp;
-            $exp = number_format($exp);
-
-            $html .= "<div class='ui tiny indicating progress' data-value='$expoflvl' data-total='$expforlvl'>
-				<div class='bar'></div>
-				<div class='label'>$exp / $nextlvlexpdisplay</div>
-			</div>";
-        }
-        else
-        {
-            $html .= '`4`b'.translate_inline('Top Level!').'`b`0';
-        }
-
-        $html .= '</td><td>';
-        $html .= number_format($cost);
-        $html .= '</td><td>';
-        $html .= $bonus;
-        $html .= '</td><td>';
-        $html .= '`Q`b'.number_format($costwithbuff).'`b`0';
-        $html .= '</td></tr>';
-    }
-    $html .= '</table>';
-
-    return appoencode($html, true);
-}
