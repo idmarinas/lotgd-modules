@@ -29,10 +29,3 @@ clock: '`n`7The rusted iron clock on the old church reads `&{clock}`0.`0`n'
 # Text for new player
 newestOther: ''
 newestPlayer: ''
-
-
-                if (is_module_active('calendar'))
-                {
-                    $args['calendar'] = '`n`7A ghostly voice whispers from nowhere that it is `&%s`7, `&%s %s %s`7.`n';
-                    $args['schemas']['calendar'] = 'module-ghosttown';
-                }
