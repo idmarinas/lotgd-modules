@@ -33,11 +33,11 @@ section:
                     paragraph: "`@The child's joy warms your heart and rejuvenates your soul.`0"
                     stamina: '`^You gain some stamina!`0'
                     turns: '`^You gain 2 turns!`0'
-                '02'.paragraph:
+                '02.paragraph':
                     - '`@The child holds out a solitary gem.`0`n'
                     - '`7"`3I was going to use this for an eye, but only had the one.  You can have it!`0"`0`n`n'
                     - '`^You gain a `%gem`0!`0'
-                '03'.paragraph:
+                '03.paragraph':
                     - '`@As you turn to depart, you notice the gleam of gold poking out from some snow.`n`n'
                     - '`^You find {gold,number} gold.`0'
     ignore:
