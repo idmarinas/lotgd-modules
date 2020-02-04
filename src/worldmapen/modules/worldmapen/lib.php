@@ -735,7 +735,7 @@ function worldmapen_saveMap(array $map)
         $map = worldmapen_generateNewMap();
     }
 
-    set_module_setting('TerrainDefinition', serialize($map));
+    set_module_setting('TerrainDefinition', serialize($map), 'worldmapen');
 
     invalidatedatacache('module-worldmapen-terrain-map', true);
     invalidatedatacache('module-worldmapen-terrain-defs', true);
