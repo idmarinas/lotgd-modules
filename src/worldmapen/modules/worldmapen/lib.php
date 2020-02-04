@@ -669,11 +669,11 @@ function worldmapen_loadTerrainDefs(): array
 /**
  * Load map.
  *
- * @param int|null $z
+ * @param int $z
  *
  * @return array
  */
-function worldmapen_loadMap(?int $z = 1)
+function worldmapen_loadMap(int $z = 1)
 {
     $terrains = datacache('module-worldmapen-terrain-map', 86400, true);
 
@@ -711,7 +711,7 @@ function worldmapen_upgrade_map()
             {
                 foreach($valueX as $y => $terrain)
                 {
-                    $terrains[$z][$y][$x] = strtolower($terrain);
+                    $terrains[$z][$x][$y] = strtolower($terrain);
                 }
             }
         }
