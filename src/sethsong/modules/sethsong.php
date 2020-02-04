@@ -90,8 +90,6 @@ function sethsong_run()
     $iname = getsetting('innname', LOCATION_INN);
     $textDomain = 'module-sethsong';
 
-    tlschema('inn');
-
     page_header($iname, [], $textDomain);
 
     $params = [

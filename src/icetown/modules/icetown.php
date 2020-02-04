@@ -126,8 +126,6 @@ function icetown_dohook($hookname, $args)
             $hotkey = substr($city, 0, 1);
             $ccity = urlencode($city);
 
-            tlschema('module-cities');
-
             //-- Change text domain for navigation
             \LotgdNavigation::setTextDomain('cities-navigation');
 
@@ -147,8 +145,6 @@ function icetown_dohook($hookname, $args)
                     'params' => [ 'key' => $hotkey, 'city' => $city]
                 ]);
             }
-
-            tlschema();
 
             //-- Restore text domain for navigation
             \LotgdNavigation::setTextDomain();
