@@ -365,7 +365,7 @@ function inventory_get_max_add($itemid, $qty = 1, $user = 0)
 {
     global $session, $item_raw;
 
-    if (1 > $qty)
+    if (1 > $qty || ! $itemid)
     {
         return false;
     }
@@ -373,7 +373,7 @@ function inventory_get_max_add($itemid, $qty = 1, $user = 0)
     $user = $user ?: $session['user']['acctid'];
 
     $inventoryStat = inventory_get_info($user);
-    $repository = \Doctrine::getRepository('LotgdLocal:ModinventoryItem');
+    $repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
 
     // We must not add more items than the player actually may carry!
     $item_raw = $repository->find($itemid);
