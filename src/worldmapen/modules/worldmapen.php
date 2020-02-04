@@ -212,7 +212,7 @@ function worldmapen_install()
     }
 
     //-- Upgraded map to new version
-    if (get_module_setting('mapUpgraded', 'worldmapen'))
+    if (! get_module_setting('mapUpgraded', 'worldmapen'))
     {
         require_once 'modules/worldmapen/lib.php';
 
