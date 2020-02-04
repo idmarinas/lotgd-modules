@@ -4,7 +4,6 @@
 // mail ready
 // addnews ready
 require_once 'lib/buffs.php';
-require_once 'lib/commentary.php';
 
 /**
  * Version History:

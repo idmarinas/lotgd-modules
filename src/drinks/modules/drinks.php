@@ -5,8 +5,14 @@
 // mail ready
 require_once 'lib/e_rand.php';
 require_once 'lib/showform.php';
-require_once 'lib/http.php';
 require_once 'lib/buffs.php';
+
+/**
+ *
+ * REGISTRARLO DESPUES DE ACTIVAR LA VERSIÓN 4.0.0 EN DRACONIA
+ *
+ *
+ */
 
 /**
  * Date:    Mar 07, 2004

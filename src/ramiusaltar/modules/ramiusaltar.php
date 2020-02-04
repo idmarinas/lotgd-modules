@@ -4,8 +4,6 @@
 /* Thanks to Shannon Brown's code to guide in LoGD API */
 /* 1 October 2005 */
 
-require_once 'lib/villagenav.php';
-
 function ramiusaltar_getmoduleinfo()
 {
     return [
