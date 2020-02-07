@@ -256,9 +256,7 @@ function racehuman_dohook($hookname, $args)
                     $session['user']['turns'] += $bonus;
                 }
 
-                $args['includeTemplatesPost']['module/specialtydarkarts/dohook/newday.twig'] = [
-                    'colorCode' => $ccode,
-                    'spec' => $spec,
+                $args['includeTemplatesPost']['module/racehuman/dohook/newday.twig'] = [
                     'bonus' => $bonus,
                     'staminaSystem' => is_module_active('staminasystem')
                 ];
