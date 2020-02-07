@@ -7,7 +7,7 @@ section:
         - '`^You gain {bonus,plural, =1{one extra forest fight} =2{two extra forest fights} =3{three extra forest fights} other{# extra forest fights}} each day!`0'
     newday:
         stamina: '`n`&Because you are human, you gain `^some stamina`0 for today!`n`0'
-        turns: '`n`&Because you are human, you gain `^{bonus,plural, =1{one extra forest fight}} =2{two extra forest fights} =3{three extra forest fights} other{# extra forest fights}}`0 for today!`n`0'
+        turns: '`n`&Because you are human, you gain `^{bonus,plural, =1{one extra forest fight} =2{two extra forest fights} =3{three extra forest fights} other{# extra forest fights}}`0 for today!`n`0'
 
 locs:
     moderate: 'City of {city}'
