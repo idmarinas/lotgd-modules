@@ -93,7 +93,7 @@ function extlinks_dohook($hookname, $args)
             {
                 $value = 0;
 
-                while (list($k, $v) = each($val))
+                foreach ($val as $k => $v)
                 {
                     if ($v)
                     {
@@ -108,7 +108,7 @@ function extlinks_dohook($hookname, $args)
             {
                 $value = 0;
 
-                while (list($k, $v) = each($val))
+                foreach ($val as $k => $v)
                 {
                     if ($v)
                     {
@@ -123,7 +123,7 @@ function extlinks_dohook($hookname, $args)
             {
                 $value = 0;
 
-                while (list($k, $v) = each($val))
+                foreach ($val as $k => $v)
                 {
                     if ($v)
                     {
@@ -138,7 +138,7 @@ function extlinks_dohook($hookname, $args)
             {
                 $value = 0;
 
-                while (list($k, $v) = each($val))
+                foreach ($val as $k => $v)
                 {
                     if ($v)
                     {
@@ -153,7 +153,7 @@ function extlinks_dohook($hookname, $args)
             {
                 $value = 0;
 
-                while (list($k, $v) = each($val))
+                foreach ($val as $k => $v)
                 {
                     if ($v)
                     {

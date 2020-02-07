@@ -335,7 +335,7 @@ function cityprefs_run()
                 // Save module prefs
                 $post = \LotgdHttp::getPostAll();
 
-                while (list($key, $val) = each($post))
+                foreach ($post as $key => $val)
                 {
                     set_module_objpref('city', $cityId, $key, stripslashes($val), $mdule);
                 }
