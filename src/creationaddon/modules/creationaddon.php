@@ -97,7 +97,7 @@ function creationaddon_dohook($hookname, $args)
             if (get_module_setting('filter_badnames'))
             {
                 $name = (string) \LotgdHttp::getPost('name');
-                $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModuleCreationAddon::class);
+                $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModCreationAddon::class);
                 $result = $repository->findAll();
 
                 foreach ($result as $row)
@@ -308,7 +308,7 @@ function creationaddon_list()
     \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
 
-    $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModuleCreationAddon::class);
+    $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModCreationAddon::class);
     $qb = $repository->createQueryBuilder('u');
     $qb->orderBy('u.badName');
 
@@ -335,7 +335,7 @@ function creationaddon_delete()
     \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
 
-    $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModuleCreationAddon::class);
+    $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModCreationAddon::class);
 
     $badname = $repository->findOneBy(['id' => $bad_id]);
 
@@ -370,7 +370,7 @@ function creationaddon_add()
     {
         try
         {
-            $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModuleCreationAddon::class);
+            $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModCreationAddon::class);
             $result = $repository->findOneBy(['badName' => $banname]);
 
             if ($result)
@@ -380,7 +380,7 @@ function creationaddon_add()
                 return redirect('runmodule.php?module=creationaddon&op=add');
             }
 
-            $default = new \Lotgd\Local\Entity\ModuleCreationAddon();
+            $default = new \Lotgd\Local\Entity\ModCreationAddon();
             $default->setBadName($banname);
 
             \Doctrine::persist($default);
