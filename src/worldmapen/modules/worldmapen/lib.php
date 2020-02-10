@@ -603,7 +603,7 @@ function worldmapen_loadTerrainDefs(): array
         $useStamina = true;
     }
 
-    $terrains = datacache('module-worldmapen-terrain-defs', 86400, true);
+    $terrains = \LotgdCache::getItem('module-worldmapen-terrain-defs');
 
     if (! is_array($terrains) || ! $terrains)
     {
@@ -660,7 +660,7 @@ function worldmapen_loadTerrainDefs(): array
                 'encounter' => get_module_setting('encounterAir')],
         ];
 
-        updatedatacache('module-worldmapen-terrain-defs', $terrains, true);
+        \LotgdCache::setItem('module-worldmapen-terrain-defs', $terrains);
     }
 
     return $terrains;
@@ -675,7 +675,7 @@ function worldmapen_loadTerrainDefs(): array
  */
 function worldmapen_loadMap(int $z = 1)
 {
-    $terrains = datacache('module-worldmapen-terrain-map', 86400, true);
+    $terrains = \LotgdCache::getItem('module-worldmapen-terrain-map');
 
     if (! is_array($terrains) || ! $terrains)
     {
@@ -691,7 +691,7 @@ function worldmapen_loadMap(int $z = 1)
             worldmapen_saveMap($terrains);
         }
 
-        updatedatacache('module-worldmapen-terrain-map', $terrains, true);
+        \LotgdCache::setItem('module-worldmapen-terrain-map', $terrains);
     }
 
     return $terrains[$z] ?? $terrains;

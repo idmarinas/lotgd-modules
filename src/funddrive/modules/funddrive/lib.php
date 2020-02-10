@@ -2,7 +2,7 @@
 
 function funddrive_getpercent()
 {
-    $fundDrive = datacache('mod_funddrive', 86400);
+    $fundDrive = \LotgdCache::getItem('mod_funddrive');
 
     //-- Use cache to save queries
     if (! $fundDrive || is_array($fundDrive) || empty($fundDrive))
@@ -45,7 +45,7 @@ function funddrive_getpercent()
             'current' => $current
         ];
 
-        updatedatacache('mod_funddrive', $fundDrive, true);
+        \LotgdCache::setItem('mod_funddrive', $fundDrive);
     }
 
     return $fundDrive;

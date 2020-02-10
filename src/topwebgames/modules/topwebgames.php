@@ -59,7 +59,7 @@ function topwebgames_dohook($hookname, $args)
     {
         require_once 'lib/pullurl.php';
 
-        $counts = datacache('topwebcounts', 900, true);
+        $counts = \LotgdCache::getItem('topwebcounts');
 
         if (! is_array($counts) || empty($counts))
         {
@@ -93,10 +93,10 @@ function topwebgames_dohook($hookname, $args)
                 'rank' => $rank
             ];
 
-            updatedatacache('topwebcounts', $counts, true);
+            \LotgdCache::setItem('topwebcounts', $counts);
         }
 
-        $prev = datacache('topwebprev', 900, true);
+        $prev = \LotgdCache::getItem('topwebprev');
 
         if (! $prev)
         {
@@ -122,7 +122,7 @@ function topwebgames_dohook($hookname, $args)
                 $prev = get_module_setting('topwebprev');
             }
 
-            updatedatacache('topwebprev', $prev, true);
+            \LotgdCache::setItem('topwebprev', $prev);
         }
 
         $l = get_module_pref('lastvote');

@@ -211,7 +211,7 @@ function get_item($item)
  */
 function get_item_full_info(int $item)
 {
-    $info = datacache("item-full-info-{$item}", 86400, true);
+    $info = \LotgdCache::getItem("item-full-info-{$item}");
 
     if (! $info)
     {
@@ -246,7 +246,7 @@ function get_item_full_info(int $item)
             unset($info[0]);
             $info['buff'] = $info['buff'] ? $repository->extractEntity($info['buff']) : null;
 
-            updatedatacache("item-full-info-{$item}", $info, true);
+            \LotgdCache::setItem("item-full-info-{$item}");
         }
     }
 
