@@ -352,7 +352,7 @@ function newbieisland_dohook($hookname, $args)
                 \LotgdNavigation::blockHideLink('mercenarycamp.php');
                 \LotgdNavigation::blockHideLink('hof.php');
                 // Make sure that Blusprings can show up on newbie island.
-                unblocknav('train.php');
+                \LotgdNavigation::unBlockLink('train.php');
                 //if you want your module to appear in the newbie village, you'll have to hook on village
                 //and unblocknav() it.  I warn you, very very few modules will ever be allowed in the newbie
                 //village and get support for appearing in the core distribution; one of the major reasons
@@ -391,7 +391,7 @@ function newbieisland_dohook($hookname, $args)
                 ]);
 
                 \LotgdNavigation::setTextDomain();
-                unblocknav('runmodule.php?module=newbieisland&op=leave');
+                \LotgdNavigation::unBlockLink('runmodule.php?module=newbieisland&op=leave');
             }
         break;
     }
