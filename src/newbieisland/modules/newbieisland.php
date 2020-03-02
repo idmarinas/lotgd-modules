@@ -316,9 +316,9 @@ function newbieisland_dohook($hookname, $args)
         case 'forest-desc':
             if ($session['user']['location'] == $city)
             {
-                blocknav('forest.php?op=search&type=suicide');
-                blocknav('forest.php?op=search&type=thrill');
-                blocknav('runmodule.php?module=outhouse');
+                \LotgdNavigation::blockHideLink('forest.php?op=search&type=suicide');
+                \LotgdNavigation::blockHideLink('forest.php?op=search&type=thrill');
+                \LotgdNavigation::blockHideLink('runmodule.php?module=outhouse');
 
                 if ($session['user']['level'] >= 5)
                 {
@@ -328,7 +328,7 @@ function newbieisland_dohook($hookname, $args)
                         $textDomain
                     ];
 
-                    blocknav('forest.php?op=search', true);
+                    \LotgdNavigation::blockHideLink('forest.php?op=search', true);
                 }
             }
         break;
