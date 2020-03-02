@@ -4,13 +4,13 @@
     {% if weak %}
         {{ 'section.give.blood.no'|t(_context)|colorize }}
     {% else %}
-        {{ 'section.give.blood.yes'|t(_context|merge({'part': ('section.give.part.0' ~ random(0, 8)})|t))|colorize }}
+        {{ 'section.give.blood.yes'|t(_context|merge({'part': ('section.give.part.0' ~ random(0, 8))})|t))|colorize }}
     {% endif %}
 {% elseif 'flesh' == givetype %}
     {% if weak %}
         {{ 'section.give.flesh.no'|t(_context)|colorize }}
     {% else %}
-        {{ 'section.give.flesh.yes'|t(_context|merge({'part': ('section.give.part.0' ~ random(0, 8)})|t))|colorize }}
+        {{ 'section.give.flesh.yes'|t(_context|merge({'part': ('section.give.part.0' ~ random(0, 8))})|t))|colorize }}
     {% endif %}
 {% elseif 'spirit' == givetype %}
     {% if weak %}
