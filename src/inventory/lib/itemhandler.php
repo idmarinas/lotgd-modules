@@ -246,7 +246,7 @@ function get_item_full_info(int $item)
             unset($info[0]);
             $info['buff'] = $info['buff'] ? $repository->extractEntity($info['buff']) : null;
 
-            \LotgdCache::setItem("item-full-info-{$item}");
+            \LotgdCache::setItem("item-full-info-{$item}", $info);
         }
     }
 
