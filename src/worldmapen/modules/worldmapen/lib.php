@@ -737,8 +737,8 @@ function worldmapen_saveMap(array $map)
 
     set_module_setting('TerrainDefinition', serialize($map), 'worldmapen');
 
-    invalidatedatacache('module-worldmapen-terrain-map', true);
-    invalidatedatacache('module-worldmapen-terrain-defs', true);
+    \LotgdCache::removeItem('module-worldmapen-terrain-map');
+    \LotgdCache::removeItem('module-worldmapen-terrain-defs');
 }
 
 function worldmapen_generateNewMap($defaultTerrain = 'forest')

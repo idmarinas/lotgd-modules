@@ -219,11 +219,11 @@ switch ($op2)
             ->execute()
         ;
 
-        invalidatedatacache('item-activation-fightnav-specialties');
-        invalidatedatacache('item-activation-forest');
-        invalidatedatacache('item-activation-train');
-        invalidatedatacache('item-activation-shades');
-        invalidatedatacache('item-activation-village');
+        \LotgdCache::removeItem('item-activation-fightnav-specialties');
+        \LotgdCache::removeItem('item-activation-forest');
+        \LotgdCache::removeItem('item-activation-train');
+        \LotgdCache::removeItem('item-activation-shades');
+        \LotgdCache::removeItem('item-activation-village');
 
         modulehook('inventory-delete-item', ['id' => $id]);
 

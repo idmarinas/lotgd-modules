@@ -318,8 +318,8 @@ function worldmapen_run_real()
 
             \LotgdSession::sessionLogOut();
 
-            invalidatedatacache('charlisthomepage');
-            invalidatedatacache('list.php-warsonline');
+            \LotgdCache::removeItem('charlisthomepage');
+            \LotgdCache::removeItem('list.php-warsonline');
 
             \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('logout.success', [], 'page-login'));
         }

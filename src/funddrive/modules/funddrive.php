@@ -69,7 +69,7 @@ function funddrive_dohook($hookname, $args)
     elseif ('donation' == $hookname)
     {
         //-- Invalidate data cache when make a donation (ONLY)
-        invalidatedatacache('mod_funddrive', true);
+        \LotgdCache::removeItem('mod_funddrive');
     }
 
     return $args;
