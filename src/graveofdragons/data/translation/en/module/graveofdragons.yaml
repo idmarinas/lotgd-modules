@@ -50,7 +50,7 @@ section:
             - '`7While looking around at the half-buried skeleton of a long-dead dragon, the skull seems to shift in the earth.'
             - 'A little spooked, you edge closer to the head, before running in fear at the light still flickering from its eyes!`n`n'
             - '{deathOverlord} curses you for your cowardice.`0`n`n'
-            - '{favor,select, 0{} other{`)You have `$LOST`0 `^%s`0 favor with {deathOverlord}.`0}}'
+            - '{favor,select, 0{} other{`)You have `$LOST`0 `^{favor,number}`0 favor with {deathOverlord}.`0}}'
         '07':
             - '`7While examining the huge skeleton of a dragon, you notice the flickering of something deep within the eye-sockets... something... sinister.'
             - 'Of course, you immediately climb in as far as you can into the eye-sockets to find that someone has inset gems to the skull.'
