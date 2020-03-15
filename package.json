@@ -8,7 +8,7 @@
     "main": "Gruntfile.js",
     "homepage": "http://lotgd.infommo.es",
     "devDependencies": {
-        "babel-eslint": "^10.0.3",
+        "babel-eslint": "^10.1.0",
         "better-console": "^1.0.1",
         "del": "^5.1.0",
         "eslint": "^6.8.0",
@@ -29,7 +29,7 @@
         "gulp-remove-code": "^3.0.4",
         "gulp-revert-path": "^2.0.0",
         "merge-stream": "^2.0.0",
-        "minimist": "^1.2.0",
+        "minimist": "^1.2.5",
         "require-dir": "^1.2.0",
         "vinyl-paths": "^3.0.1"
     },
