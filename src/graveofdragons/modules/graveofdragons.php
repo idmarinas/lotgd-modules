@@ -62,6 +62,8 @@ function graveofdragons_runevent($type, $from)
         'deathOverlord' => getsetting('deathoverlord', '`$Ramius`0')
     ];
 
+    \LotgdNavigation::setTextDomain($textDomain);
+
     if ('' == $op)
     {
         $params['tpl'] = 'default';
@@ -202,6 +204,8 @@ function graveofdragons_runevent($type, $from)
         $session['user']['deathpower'] = 0;
         $session['user']['specialinc'] = '';
     }
+
+    \LotgdNavigation::setTextDomain();
 
     rawoutput(\LotgdTheme::renderModuleTemplate('graveofdragons/run.twig', $params));
 }
