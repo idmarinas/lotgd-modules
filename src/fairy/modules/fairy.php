@@ -101,7 +101,7 @@ function fairy_runevent($type)
             $session['user']['gems']--;
             debuglog('gave 1 gem to a fairy');
 
-            switch (e_rand(1, 7))
+            switch (mt_rand(1, 7))
             {
                 case 1:
                     //## Added Stamina system support
@@ -134,11 +134,13 @@ function fairy_runevent($type)
                 case 4:
                 case 5:
                     $params['case'] = 4;
+                    $params['permanent'] = 0;
                     $params['extra'] = get_module_setting('hptoaward');
 
                     //-- Added IDMarinas version support >= 0.7.0
                     if (get_module_setting('carrydk') && (! is_module_active('globalhp') || get_module_setting('carrydk', 'globalhp')))
                     {
+                        $params['permanent'] = 1;
                         $session['user']['permahitpoints'] += $extra;
                     }
 
@@ -148,6 +150,7 @@ function fairy_runevent($type)
                 break;
                 case 6:
                 case 7:
+                    $params['case'] = 5;
                     increment_specialty('`^');
                 break;
             }

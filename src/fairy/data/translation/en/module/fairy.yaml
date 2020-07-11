@@ -26,6 +26,7 @@ section:
             '02': 'You receive {turns,plural, =1{an} other{#}} extra forest fights!'
             '03': 'You feel perceptive and notice `%TWO gems`^ nearby!'
             '04': 'Your maximum hitpoints are `b{permanent,select, 1{permanently} other{temporarily}}´b increased by {extra,number}!'
+            '05': 'The Fairy increased your specialty!'
 
 navigation:
     nav:
