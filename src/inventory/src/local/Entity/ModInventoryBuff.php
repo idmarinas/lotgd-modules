@@ -222,9 +222,9 @@ class ModInventoryBuff
     private $invulnerable = false;
 
     /**
-     * Get the value of id
+     * Get the value of id.
      *
-     * @return  int
+     * @return int
      */
     public function getId()
     {
@@ -232,11 +232,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of id
+     * Set the value of id.
      *
-     * @param  int  $id
-     *
-     * @return  self
+     * @return self
      */
     public function setId(int $id)
     {
@@ -246,9 +244,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of key
+     * Get the value of key.
      *
-     * @return  string
+     * @return string
      */
     public function getKey()
     {
@@ -256,11 +254,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of key
+     * Set the value of key.
      *
-     * @param  string  $key
-     *
-     * @return  self
+     * @return self
      */
     public function setKey(string $key)
     {
@@ -270,9 +266,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of name
+     * Get the value of name.
      *
-     * @return  string
+     * @return string
      */
     public function getName()
     {
@@ -280,11 +276,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of name
+     * Set the value of name.
      *
-     * @param  string  $name
-     *
-     * @return  self
+     * @return self
      */
     public function setName(string $name)
     {
@@ -294,9 +288,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of rounds
+     * Get the value of rounds.
      *
-     * @return  int
+     * @return int
      */
     public function getRounds()
     {
@@ -304,11 +298,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of rounds
+     * Set the value of rounds.
      *
-     * @param  int  $rounds
-     *
-     * @return  self
+     * @return self
      */
     public function setRounds(int $rounds)
     {
@@ -318,9 +310,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of dmgMod
+     * Get the value of dmgMod.
      *
-     * @return  float|null
+     * @return float|null
      */
     public function getDmgMod()
     {
@@ -328,11 +320,11 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of dmgMod
+     * Set the value of dmgMod.
      *
-     * @param  float|null  $dmgMod
+     * @param float|null $dmgMod
      *
-     * @return  self
+     * @return self
      */
     public function setDmgMod($dmgMod)
     {
@@ -342,9 +334,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of atkMod
+     * Get the value of atkMod.
      *
-     * @return  float|null
+     * @return float|null
      */
     public function getAtkMod()
     {
@@ -352,11 +344,11 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of atkMod
+     * Set the value of atkMod.
      *
-     * @param  float|null  $atkMod
+     * @param float|null $atkMod
      *
-     * @return  self
+     * @return self
      */
     public function setAtkMod($atkMod)
     {
@@ -366,9 +358,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of defMod
+     * Get the value of defMod.
      *
-     * @return  float|null
+     * @return float|null
      */
     public function getDefMod()
     {
@@ -376,11 +368,11 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of defMod
+     * Set the value of defMod.
      *
-     * @param  float|null  $defMod
+     * @param float|null $defMod
      *
-     * @return  self
+     * @return self
      */
     public function setDefMod($defMod)
     {
@@ -390,9 +382,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of badGuyDmgMod
+     * Get the value of badGuyDmgMod.
      *
-     * @return  float|null
+     * @return float|null
      */
     public function getBadGuyDmgMod()
     {
@@ -400,11 +392,11 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of badGuyDmgMod
+     * Set the value of badGuyDmgMod.
      *
-     * @param  float|null  $badGuyDmgMod
+     * @param float|null $badGuyDmgMod
      *
-     * @return  self
+     * @return self
      */
     public function setBadGuyDmgMod($badGuyDmgMod)
     {
@@ -414,9 +406,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of badGuyAtkMod
+     * Get the value of badGuyAtkMod.
      *
-     * @return  float|null
+     * @return float|null
      */
     public function getBadGuyAtkMod()
     {
@@ -424,11 +416,11 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of badGuyAtkMod
+     * Set the value of badGuyAtkMod.
      *
-     * @param  float|null  $badGuyAtkMod
+     * @param float|null $badGuyAtkMod
      *
-     * @return  self
+     * @return self
      */
     public function setBadGuyAtkMod($badGuyAtkMod)
     {
@@ -438,9 +430,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of badGuyDefMod
+     * Get the value of badGuyDefMod.
      *
-     * @return  float|null
+     * @return float|null
      */
     public function getBadGuyDefMod()
     {
@@ -448,11 +440,11 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of badGuyDefMod
+     * Set the value of badGuyDefMod.
      *
-     * @param  float|null  $badGuyDefMod
+     * @param float|null $badGuyDefMod
      *
-     * @return  self
+     * @return self
      */
     public function setBadGuyDefMod($badGuyDefMod)
     {
@@ -462,9 +454,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of lifeTap
+     * Get the value of lifeTap.
      *
-     * @return  int
+     * @return int
      */
     public function getLifeTap()
     {
@@ -472,11 +464,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of lifeTap
+     * Set the value of lifeTap.
      *
-     * @param  int  $lifeTap
-     *
-     * @return  self
+     * @return self
      */
     public function setLifeTap(int $lifeTap)
     {
@@ -486,9 +476,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of damageShield
+     * Get the value of damageShield.
      *
-     * @return  int
+     * @return int
      */
     public function getDamageShield()
     {
@@ -496,11 +486,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of damageShield
+     * Set the value of damageShield.
      *
-     * @param  int  $damageShield
-     *
-     * @return  self
+     * @return self
      */
     public function setDamageShield(int $damageShield)
     {
@@ -510,9 +498,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of regen
+     * Get the value of regen.
      *
-     * @return  int
+     * @return int
      */
     public function getRegen()
     {
@@ -520,11 +508,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of regen
+     * Set the value of regen.
      *
-     * @param  int  $regen
-     *
-     * @return  self
+     * @return self
      */
     public function setRegen(int $regen)
     {
@@ -534,9 +520,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of minionCount
+     * Get the value of minionCount.
      *
-     * @return  int
+     * @return int
      */
     public function getMinionCount()
     {
@@ -544,11 +530,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of minionCount
+     * Set the value of minionCount.
      *
-     * @param  int  $minionCount
-     *
-     * @return  self
+     * @return self
      */
     public function setMinionCount(int $minionCount)
     {
@@ -558,9 +542,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of maxBadGuyDamage
+     * Get the value of maxBadGuyDamage.
      *
-     * @return  int
+     * @return int
      */
     public function getMaxBadGuyDamage()
     {
@@ -568,11 +552,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of maxBadGuyDamage
+     * Set the value of maxBadGuyDamage.
      *
-     * @param  int  $maxBadGuyDamage
-     *
-     * @return  self
+     * @return self
      */
     public function setMaxBadGuyDamage(int $maxBadGuyDamage)
     {
@@ -582,9 +564,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of minBadGuyDamage
+     * Get the value of minBadGuyDamage.
      *
-     * @return  int
+     * @return int
      */
     public function getMinBadGuyDamage()
     {
@@ -592,11 +574,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of minBadGuyDamage
+     * Set the value of minBadGuyDamage.
      *
-     * @param  int  $minBadGuyDamage
-     *
-     * @return  self
+     * @return self
      */
     public function setMinBadGuyDamage(int $minBadGuyDamage)
     {
@@ -606,9 +586,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of maxGoodGuyDamage
+     * Get the value of maxGoodGuyDamage.
      *
-     * @return  int
+     * @return int
      */
     public function getMaxGoodGuyDamage()
     {
@@ -616,11 +596,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of maxGoodGuyDamage
+     * Set the value of maxGoodGuyDamage.
      *
-     * @param  int  $maxGoodGuyDamage
-     *
-     * @return  self
+     * @return self
      */
     public function setMaxGoodGuyDamage(int $maxGoodGuyDamage)
     {
@@ -630,9 +608,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of minGoodGuyDamage
+     * Get the value of minGoodGuyDamage.
      *
-     * @return  int
+     * @return int
      */
     public function getMinGoodGuyDamage()
     {
@@ -640,11 +618,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of minGoodGuyDamage
+     * Set the value of minGoodGuyDamage.
      *
-     * @param  int  $minGoodGuyDamage
-     *
-     * @return  self
+     * @return self
      */
     public function setMinGoodGuyDamage(int $minGoodGuyDamage)
     {
@@ -654,9 +630,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of startMsg
+     * Get the value of startMsg.
      *
-     * @return  string
+     * @return string
      */
     public function getStartMsg()
     {
@@ -664,11 +640,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of startMsg
+     * Set the value of startMsg.
      *
-     * @param  string  $startMsg
-     *
-     * @return  self
+     * @return self
      */
     public function setStartMsg(string $startMsg)
     {
@@ -678,9 +652,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of roundMsg
+     * Get the value of roundMsg.
      *
-     * @return  string
+     * @return string
      */
     public function getRoundMsg()
     {
@@ -688,11 +662,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of roundMsg
+     * Set the value of roundMsg.
      *
-     * @param  string  $roundMsg
-     *
-     * @return  self
+     * @return self
      */
     public function setRoundMsg(string $roundMsg)
     {
@@ -702,9 +674,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of wearOff
+     * Get the value of wearOff.
      *
-     * @return  string
+     * @return string
      */
     public function getWearOff()
     {
@@ -712,11 +684,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of wearOff
+     * Set the value of wearOff.
      *
-     * @param  string  $wearOff
-     *
-     * @return  self
+     * @return self
      */
     public function setWearOff(string $wearOff)
     {
@@ -726,9 +696,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of effectFailMsg
+     * Get the value of effectFailMsg.
      *
-     * @return  string
+     * @return string
      */
     public function getEffectFailMsg()
     {
@@ -736,11 +706,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of effectFailMsg
+     * Set the value of effectFailMsg.
      *
-     * @param  string  $effectFailMsg
-     *
-     * @return  self
+     * @return self
      */
     public function setEffectFailMsg(string $effectFailMsg)
     {
@@ -750,9 +718,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of effectNoDmgMsg
+     * Get the value of effectNoDmgMsg.
      *
-     * @return  string
+     * @return string
      */
     public function getEffectNoDmgMsg()
     {
@@ -760,11 +728,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of effectNoDmgMsg
+     * Set the value of effectNoDmgMsg.
      *
-     * @param  string  $effectNoDmgMsg
-     *
-     * @return  self
+     * @return self
      */
     public function setEffectNoDmgMsg(string $effectNoDmgMsg)
     {
@@ -774,9 +740,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of effectMsg
+     * Get the value of effectMsg.
      *
-     * @return  string
+     * @return string
      */
     public function getEffectMsg()
     {
@@ -784,11 +750,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of effectMsg
+     * Set the value of effectMsg.
      *
-     * @param  string  $effectMsg
-     *
-     * @return  self
+     * @return self
      */
     public function setEffectMsg(string $effectMsg)
     {
@@ -798,9 +762,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of allowInPvp
+     * Get the value of allowInPvp.
      *
-     * @return  bool
+     * @return bool
      */
     public function getAllowInPvp()
     {
@@ -808,11 +772,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of allowInPvp
+     * Set the value of allowInPvp.
      *
-     * @param  bool  $allowInPvp
-     *
-     * @return  self
+     * @return self
      */
     public function setAllowInPvp(bool $allowInPvp)
     {
@@ -822,9 +784,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of allowInTrain
+     * Get the value of allowInTrain.
      *
-     * @return  bool
+     * @return bool
      */
     public function getAllowInTrain()
     {
@@ -832,11 +794,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of allowInTrain
+     * Set the value of allowInTrain.
      *
-     * @param  bool  $allowInTrain
-     *
-     * @return  self
+     * @return self
      */
     public function setAllowInTrain(bool $allowInTrain)
     {
@@ -846,9 +806,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of surviveNewDay
+     * Get the value of surviveNewDay.
      *
-     * @return  bool
+     * @return bool
      */
     public function getSurviveNewDay()
     {
@@ -856,11 +816,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of surviveNewDay
+     * Set the value of surviveNewDay.
      *
-     * @param  bool  $surviveNewDay
-     *
-     * @return  self
+     * @return self
      */
     public function setSurviveNewDay(bool $surviveNewDay)
     {
@@ -870,9 +828,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of expireAfterFight
+     * Get the value of expireAfterFight.
      *
-     * @return  bool
+     * @return bool
      */
     public function getExpireAfterFight()
     {
@@ -880,11 +838,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of expireAfterFight
+     * Set the value of expireAfterFight.
      *
-     * @param  bool  $expireAfterFight
-     *
-     * @return  self
+     * @return self
      */
     public function setExpireAfterFight(bool $expireAfterFight)
     {
@@ -894,9 +850,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Get the value of invulnerable
+     * Get the value of invulnerable.
      *
-     * @return  bool
+     * @return bool
      */
     public function getInvulnerable()
     {
@@ -904,11 +860,9 @@ class ModInventoryBuff
     }
 
     /**
-     * Set the value of invulnerable
+     * Set the value of invulnerable.
      *
-     * @param  bool  $invulnerable
-     *
-     * @return  self
+     * @return self
      */
     public function setInvulnerable(bool $invulnerable)
     {

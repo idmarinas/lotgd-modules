@@ -40,9 +40,9 @@ function itemeffects_restore_turns($turns, $item)
         if ($session['user']['turns'] <= 0)
         {
             $out[] = ['item.effect.turns.lost.all',
-            ['turns' => abs($turns), 'itemName' => $item['name']],
-            'module-inventory'
-        ];
+                ['turns' => abs($turns), 'itemName' => $item['name']],
+                'module-inventory'
+            ];
             $session['user']['turns'] = 0;
         }
     }

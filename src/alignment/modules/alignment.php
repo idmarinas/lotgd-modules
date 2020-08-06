@@ -138,7 +138,7 @@ function alignment_dohook($hookname, $args)
 
             $args['messages'][] = [
                 'alignment.biostat',
-                [ 'align' => ${$align} ],
+                ['align' => ${$align}],
                 'alignment-module'
             ];
         break;
@@ -205,7 +205,7 @@ function alignment_dohook($hookname, $args)
 
                         $args['messages'][] = [
                             'battle.victory.pve.good',
-                            [ 'creatureName' => $badguy['creaturename'] ],
+                            ['creatureName' => $badguy['creaturename']],
                             'alignment-module'
                         ];
                     }
@@ -215,7 +215,7 @@ function alignment_dohook($hookname, $args)
 
                         $args['messages'][] = [
                             'battle.victory.pve.evil',
-                            [ 'creatureName' => $badguy['creaturename'] ],
+                            ['creatureName' => $badguy['creaturename']],
                             'alignment-module'
                         ];
                     }

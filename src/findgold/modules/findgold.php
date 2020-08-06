@@ -51,8 +51,7 @@ function findgold_runevent($type, $link)
 
     debuglog("found $gold gold in the dirt");
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('findgold/runevent.twig', [ 'textDomain' => 'module-findgold', 'gold' => $gold ]));
-
+    rawoutput(\LotgdTheme::renderModuleTemplate('findgold/runevent.twig', ['textDomain' => 'module-findgold', 'gold' => $gold]));
 }
 
 function findgold_run()

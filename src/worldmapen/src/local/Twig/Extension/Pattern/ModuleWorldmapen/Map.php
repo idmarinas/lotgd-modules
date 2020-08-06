@@ -6,10 +6,6 @@ trait Map
 {
     /**
      * Show full map.
-     *
-     * @param array $params
-     *
-     * @return string
      */
     public function showMap(array $params): string
     {
@@ -27,6 +23,7 @@ trait Map
         list($worldmapX, $worldmapY, $worldmapZ) = explode(',', $loc);
 
         $cityMap = [];
+
         foreach ($vloc as $city => $val)
         {
             $cityX = get_module_setting($city.'X', 'worldmapen');

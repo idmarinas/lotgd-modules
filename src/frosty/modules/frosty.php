@@ -152,7 +152,7 @@ function frosty_runevent($type)
 
             switch ($params['rand'])
             {
-                default;
+                default:
                 case 1:
                     if ($params['staminaSystem'])
                     {
@@ -179,8 +179,8 @@ function frosty_runevent($type)
         case 'talk':
             $params['tpl'] = 'talk';
 
-            \LotgdNavigation::addNav('navigation.nav.help', 'village.php?op=help', [ 'textDomain' => $textDomain ]);
-            \LotgdNavigation::addNav('navigation.nav.leave', 'village.php?op=leave', [ 'textDomain' => $textDomain ]);
+            \LotgdNavigation::addNav('navigation.nav.help', 'village.php?op=help', ['textDomain' => $textDomain]);
+            \LotgdNavigation::addNav('navigation.nav.leave', 'village.php?op=leave', ['textDomain' => $textDomain]);
         break;
 
         default:
@@ -193,9 +193,9 @@ function frosty_runevent($type)
             }
             else
             {
-                \LotgdNavigation::addHeader('navigation.category.do', [ 'textDomain' => $textDomain ]);
-                \LotgdNavigation::addNav('navigation.nav.talk', 'village.php?op=talk', [ 'textDomain' => $textDomain ]);
-                \LotgdNavigation::addNav('navigation.nav.ignore', 'village.php?op=ignore', [ 'textDomain' => $textDomain ]);
+                \LotgdNavigation::addHeader('navigation.category.do', ['textDomain' => $textDomain]);
+                \LotgdNavigation::addNav('navigation.nav.talk', 'village.php?op=talk', ['textDomain' => $textDomain]);
+                \LotgdNavigation::addNav('navigation.nav.ignore', 'village.php?op=ignore', ['textDomain' => $textDomain]);
             }
         break;
     }

@@ -59,6 +59,7 @@ if (! $params['seenLover'])
                 if (e_rand($c, 2) >= 2)
                 {
                     $params['flirtCase'] = 1;
+
                     if ($c < 4)
                     {
                         $c++;
@@ -93,6 +94,7 @@ if (! $params['seenLover'])
             break;
             case 4:
                 $params['flirtCase'] = 2;
+
                 if (e_rand($c, 11) >= 11)
                 {
                     $params['flirtCase'] = 1;
@@ -112,6 +114,7 @@ if (! $params['seenLover'])
             break;
             case 5:
                 $params['flirtCase'] = 2;
+
                 if (e_rand($c, 14) >= 14)
                 {
                     $params['flirtCase'] = 1;
@@ -181,8 +184,7 @@ if (! $params['seenLover'])
                 }
                 else
                 {
-
-                    if ($params['staminaSystem'] )
+                    if ($params['staminaSystem'])
                     {
                         removestamina(500000);
                         debuglog('lost 500000 stamina after being rejected for marriage.');

@@ -11,8 +11,8 @@ function ppad_getmoduleinfo()
         'vertxtloc' => 'http://dragonprime.net/usres/Sichae/',
         'settings' => [
             'Paypal Area Ad Settings,title',
-                'Text to be displayed to inform players why donations are allowed and/or why the game is advertised.,note',
-                'This text can be translated; so it is in a .yaml file. By default text is empty,note'
+            'Text to be displayed to inform players why donations are allowed and/or why the game is advertised.,note',
+            'This text can be translated; so it is in a .yaml file. By default text is empty,note'
         ],
         'requires' => [
             'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'

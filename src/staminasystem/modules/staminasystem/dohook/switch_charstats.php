@@ -87,6 +87,7 @@ if (! $redpct)
 $pctoftotal = round($stamina / $daystamina * 100, 5);
 
 $color = 'red';
+
 if ($greenpct > 0)
 {
     $color = 'green';

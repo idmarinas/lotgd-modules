@@ -20,15 +20,15 @@ function gardenparty_getmoduleinfo()
         'download' => 'core_module',
         'settings' => [
             'Garden Party Settings,title',
-                'Note: party duration is 24 hours always,note',
-                'partystart' => 'When does the part start|2015-01-20 00:00:00',
-                'partyrepeat' => 'How long does the party repeat|P1Y',
-                'Note: http://php.net/manual/es/dateinterval.construct.php,note',
-                'cakecost' => 'Cost per level for cake,int|20',
-                'maxcake' => 'How many slices of cake can a player buy in one day?,int|3',
-                'drinkcost' => 'Cost per level for drink,int|50',
-                'drinkemote' => 'What will display in the conversation when you order drink?|takes a big swig of Grape Soda.',
-                'maxdrink' => 'How many party drinks can a player buy in one day?,int|3',
+            'Note: party duration is 24 hours always,note',
+            'partystart' => 'When does the part start|2015-01-20 00:00:00',
+            'partyrepeat' => 'How long does the party repeat|P1Y',
+            'Note: http://php.net/manual/es/dateinterval.construct.php,note',
+            'cakecost' => 'Cost per level for cake,int|20',
+            'maxcake' => 'How many slices of cake can a player buy in one day?,int|3',
+            'drinkcost' => 'Cost per level for drink,int|50',
+            'drinkemote' => 'What will display in the conversation when you order drink?|takes a big swig of Grape Soda.',
+            'maxdrink' => 'How many party drinks can a player buy in one day?,int|3',
         ],
         'prefs' => [
             'Garden Party User Preferences,title',
@@ -116,7 +116,7 @@ function gardenparty_dohook($hookname, $args)
             {
                 $cake = \LotgdTranslator::t('consumption.cake', [], $textDomain);
                 \LotgdNavigation::addNav('navigation.nav.consumption', 'runmodule.php?module=gardenparty&buy=cake', [
-                    'params' => [ 'name' => $cake, 'cost' => $cakecost ]
+                    'params' => ['name' => $cake, 'cost' => $cakecost]
                 ]);
             }
 
@@ -124,7 +124,7 @@ function gardenparty_dohook($hookname, $args)
             {
                 $drink = \LotgdTranslator::t('consumption.drink', [], $textDomain);
                 \LotgdNavigation::addNav('navigation.nav.consumption', 'runmodule.php?module=gardenparty&buy=drink', [
-                    'params' => [ 'name' => $drink, 'cost' => $drinkcost ]
+                    'params' => ['name' => $drink, 'cost' => $drinkcost]
                 ]);
             }
         break;
@@ -159,11 +159,12 @@ function gardenparty_run()
             $cost = get_module_setting('cakecost') * $session['user']['level'];
 
             $cake = \LotgdTranslator::t('consumption.cake', [], $textDomain);
+
             if ($session['user']['gold'] >= $cost)
             {
                 $session['user']['gold'] -= $cost;
                 $comment = \LotgdTranslator::t('consumption.mote', [], $textDomain);
-                $msg = \LotgdTranslator::t('buff.msg.cake', [ 'name' => $cake ], $textDomain);
+                $msg = \LotgdTranslator::t('buff.msg.cake', ['name' => $cake], $textDomain);
                 $buff = [
                     'name' => $cake,
                     'defmod' => 1.05,
@@ -187,10 +188,11 @@ function gardenparty_run()
             $drinkstoday = get_module_pref('drinkstoday');
 
             $drink = \LotgdTranslator::t('consumption.drink', [], $textDomain);
+
             if ($session['user']['gold'] >= $cost)
             {
                 $session['user']['gold'] -= $cost;
-                $msg = \LotgdTranslator::t('buff.msg.drink', [ 'name' => $drink ], $textDomain);
+                $msg = \LotgdTranslator::t('buff.msg.drink', ['name' => $drink], $textDomain);
                 $buff = [
                     'name' => $drink,
                     'atkmod' => 1.05,

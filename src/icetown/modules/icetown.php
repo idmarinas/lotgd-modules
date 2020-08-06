@@ -109,7 +109,7 @@ function icetown_dohook($hookname, $args)
 
                 addnews('deathmessage', [
                     'deathmessage' => [
-                        'deathmessage' => "news.pvp.defeated",
+                        'deathmessage' => 'news.pvp.defeated',
                         'params' => [
                             'playerName' => $session['user']['name'],
                             'creatureName' => $args['badguy']['creaturename'],
@@ -134,7 +134,7 @@ function icetown_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.travel.dangerous');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -142,7 +142,7 @@ function icetown_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -200,7 +200,7 @@ function icetown_dohook($hookname, $args)
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args['village-icetown'] = \LotgdTranslator::t('moderate', [ 'city' => $city ], 'icetown-module');
+                $args['village-icetown'] = \LotgdTranslator::t('moderate', ['city' => $city], 'icetown-module');
             }
         break;
         case 'village-text-domain':
@@ -220,6 +220,7 @@ function icetown_dohook($hookname, $args)
                 \LotgdNavigation::blockHideLink('bank.php');
 
                 $allow = get_module_pref('allow') || get_module_setting('allowtravel');
+
                 if (! $allow)
                 {
                     blockmodule('cities');

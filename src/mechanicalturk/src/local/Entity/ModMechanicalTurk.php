@@ -114,8 +114,6 @@ class ModMechanicalTurk
 
     /**
      * Get the value of Id.
-     *
-     * @return int
      */
     public function getId(): int
     {
@@ -138,8 +136,6 @@ class ModMechanicalTurk
 
     /**
      * Get the value of Creaturename.
-     *
-     * @return string
      */
     public function getCreaturename(): string
     {
@@ -162,8 +158,6 @@ class ModMechanicalTurk
 
     /**
      * Get the value of Creaturecategory.
-     *
-     * @return string
      */
     public function getCreaturecategory(): string
     {
@@ -186,8 +180,6 @@ class ModMechanicalTurk
 
     /**
      * Get the value of Creaturedescription.
-     *
-     * @return string
      */
     public function getCreaturedescription(): string
     {
@@ -210,8 +202,6 @@ class ModMechanicalTurk
 
     /**
      * Get the value of Creatureweapon.
-     *
-     * @return string
      */
     public function getCreatureweapon(): string
     {
@@ -234,8 +224,6 @@ class ModMechanicalTurk
 
     /**
      * Get the value of Creaturelose.
-     *
-     * @return string
      */
     public function getCreaturelose(): string
     {
@@ -258,8 +246,6 @@ class ModMechanicalTurk
 
     /**
      * Get the value of Creaturewin.
-     *
-     * @return string
      */
     public function getCreaturewin(): string
     {
@@ -282,8 +268,6 @@ class ModMechanicalTurk
 
     /**
      * Get the value of Submittedby.
-     *
-     * @return string
      */
     public function getSubmittedby(): string
     {
@@ -306,8 +290,6 @@ class ModMechanicalTurk
 
     /**
      * Get the value of Forest.
-     *
-     * @return bool
      */
     public function getForest(): bool
     {
@@ -330,8 +312,6 @@ class ModMechanicalTurk
 
     /**
      * Get the value of Graveyard.
-     *
-     * @return bool
      */
     public function getGraveyard(): bool
     {
@@ -339,9 +319,9 @@ class ModMechanicalTurk
     }
 
     /**
-     * Get the value of submittedbyid
+     * Get the value of submittedbyid.
      *
-     * @return  int
+     * @return int
      */
     public function getSubmittedbyid()
     {
@@ -349,11 +329,9 @@ class ModMechanicalTurk
     }
 
     /**
-     * Set the value of submittedbyid
+     * Set the value of submittedbyid.
      *
-     * @param  int  $submittedbyid
-     *
-     * @return  self
+     * @return self
      */
     public function setSubmittedbyid(int $submittedbyid)
     {
@@ -363,9 +341,9 @@ class ModMechanicalTurk
     }
 
     /**
-     * Get the value of notes
+     * Get the value of notes.
      *
-     * @return  string
+     * @return string
      */
     public function getNotes()
     {
@@ -373,11 +351,9 @@ class ModMechanicalTurk
     }
 
     /**
-     * Set the value of notes
+     * Set the value of notes.
      *
-     * @param  string  $notes
-     *
-     * @return  self
+     * @return self
      */
     public function setNotes(string $notes)
     {

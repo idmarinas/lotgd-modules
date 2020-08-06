@@ -47,20 +47,20 @@ function createfiltertitle_dohook($hookname, $args)
 
             $name = str_replace(' ', '', $args['name']);
 
-            foreach($titles as $title)
+            foreach ($titles as $title)
             {
                 if (hasCoreTitle($name, $title['female']))
                 {
                     $args['blockaccount'] = 1;
 
-                    \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.error', [ 'title' => $title['female'] ], $textDomain));
+                    \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.error', ['title' => $title['female']], $textDomain));
                 }
 
                 if (hasCoreTitle($name, $title['male']))
                 {
                     $args['blockaccount'] = 1;
 
-                    \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.error', [ 'title' => $title['male'] ], $textDomain));
+                    \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.error', ['title' => $title['male']], $textDomain));
                 }
             }
         break;
@@ -70,7 +70,7 @@ function createfiltertitle_dohook($hookname, $args)
 }
 
 /**
- * Check if name have any title
+ * Check if name have any title.
  *
  * @param string $name
  * @param string $title

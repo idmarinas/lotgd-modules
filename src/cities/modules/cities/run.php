@@ -251,7 +251,7 @@ if ($battle)
 
     if ($victory)
     {
-        \LotgdNavigation::addHeader('common.category.navigation', [ 'textDomain' => 'navigation-app' ]);
+        \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
         \LotgdNavigation::addNav('navs.journey', "runmodule.php?module=cities&op=travel&city={$ccity}&continue=1&d={$danger}");
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");

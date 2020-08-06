@@ -34,10 +34,10 @@ function worldmapen_run_real()
 
         \LotgdNavigation::addNav('navigation.nav.enter', 'village.php', [
             'textDomain' => $textDomain,
-            'params' => [ 'name' => $cname ]
+            'params' => ['name' => $cname]
         ]);
 
-        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.destination', [ 'name' => $cname ], $textDomain));
+        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.destination', ['name' => $cname], $textDomain));
     }
 
     if ('' != $session['user']['specialinc'] || \LotgdHttp::getQuery('eventhandler'))
@@ -47,7 +47,7 @@ function worldmapen_run_real()
         if ($in_event)
         {
             page_header('title.special', [], 'partial-event');
-            \LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue', [ 'textDomain' => $textDomain ]);
+            \LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue', ['textDomain' => $textDomain]);
             module_display_events('travel', 'runmodule.php?module=worldmapen&op=continue');
             page_footer();
         }
@@ -253,7 +253,7 @@ function worldmapen_run_real()
             $badguy['type'] = 'world';
 
             $attackstack = [
-                'enemies' => [ $badguy ],
+                'enemies' => [$badguy],
                 'options' => [
                     'type' => 'forest'
                 ]
@@ -278,7 +278,7 @@ function worldmapen_run_real()
         if ('' == $buymap)
         {
             \LotgdNavigation::addNav('navigation.nav.gypsy.buy', 'runmodule.php?module=worldmapen&op=gypsy&buymap=yes', [
-                'params' => [ 'cost' => $worldmapCostGold]
+                'params' => ['cost' => $worldmapCostGold]
             ]);
             \LotgdNavigation::addNav('navigation.nav.gypsy.forget', 'village.php');
         }
@@ -325,7 +325,6 @@ function worldmapen_run_real()
         }
 
         $session = [];
-
 
         return redirect('index.php', 'Redirected to Index from World Map');
     }
@@ -383,6 +382,7 @@ function worldmapen_run_real()
         }
 
         $free = 100;
+
         if ('run' == $op && ! $pvp)
         {
             if (mt_rand(1, 5) < 3 && $free)
@@ -473,7 +473,7 @@ function worldmapen_run_real()
                 ], '');
             }
 
-            \LotgdFlashMessages::addErrorMessage('flash.message.battle.defeated', [ 'location' => $session['user']['location'] ], $textDomain);
+            \LotgdFlashMessages::addErrorMessage('flash.message.battle.defeated', ['location' => $session['user']['location']], $textDomain);
         }
         else
         {

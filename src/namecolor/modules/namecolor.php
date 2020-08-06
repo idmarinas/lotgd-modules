@@ -63,7 +63,7 @@ function namecolor_dohook($hookname, $args)
 
             \LotgdNavigation::addNav('navigation.nav.change', 'runmodule.php?module=namecolor&op=namechange', [
                 'textDomain' => $textDomain,
-                'params' => [ 'cost' => $cost ]
+                'params' => ['cost' => $cost]
             ]);
         break;
         default: break;
@@ -97,7 +97,7 @@ function namecolor_run()
         'regName' => get_player_basename()
     ];
 
-    switch($op)
+    switch ($op)
     {
         case 'changename':
             $params['tpl'] = 'changename';
@@ -118,7 +118,7 @@ function namecolor_run()
 
             modulehook('namechange', []);
 
-            \LotgdNavigation::addNav('navigation.nav.return', 'lodge.php', [ 'textDomain' => $textDomain ]);
+            \LotgdNavigation::addNav('navigation.nav.return', 'lodge.php', ['textDomain' => $textDomain]);
         break;
         case 'namepreview':
             $params['tpl'] = 'namepreview';
@@ -145,7 +145,7 @@ function namecolor_run()
             if ($comp1 != $comp2)
             {
                 $err = 1;
-                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('flash.message.error.not.equal', [ 'name' => $newname ], $textDomain));
+                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('flash.message.error.not.equal', ['name' => $newname], $textDomain));
             }
 
             if (strlen($newname) > 30)
@@ -160,19 +160,20 @@ function namecolor_run()
             if ($colorCount > $max)
             {
                 $err = 1;
-                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('flash.message.error.count', [ 'colorCount' => $colorCount, 'max' => $max ], $textDomain));
+                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('flash.message.error.count', ['colorCount' => $colorCount, 'max' => $max], $textDomain));
             }
 
             $params['newName'] = $newname;
+
             if (! $err)
             {
-                \LotgdNavigation::addHeader('navigation.category.confirm', [ 'textDomain' => $textDomain ]);
-                \LotgdNavigation::addNav('navigation.nav.yes', 'runmodule.php?module=namecolor&op=changename&name='.rawurlencode($newname), [ 'textDomain' => $textDomain ]);
-                \LotgdNavigation::addNav('navigation.nav.no', 'runmodule.php?module=namecolor&op=namechange', [ 'textDomain' => $textDomain ]);
+                \LotgdNavigation::addHeader('navigation.category.confirm', ['textDomain' => $textDomain]);
+                \LotgdNavigation::addNav('navigation.nav.yes', 'runmodule.php?module=namecolor&op=changename&name='.rawurlencode($newname), ['textDomain' => $textDomain]);
+                \LotgdNavigation::addNav('navigation.nav.no', 'runmodule.php?module=namecolor&op=namechange', ['textDomain' => $textDomain]);
             }
             else
             {
-                \LotgdNavigation::addNav('navigation.nav.return', 'lodge.php', [ 'textDomain' => $textDomain ]);
+                \LotgdNavigation::addNav('navigation.nav.return', 'lodge.php', ['textDomain' => $textDomain]);
             }
 
             $params['error'] = $err;
@@ -181,7 +182,7 @@ function namecolor_run()
         default:
             $params['tpl'] = 'default';
 
-            \LotgdNavigation::addNav('navigation.nav.return', 'lodge.php', [ 'textDomain' => $textDomain ]);
+            \LotgdNavigation::addNav('navigation.nav.return', 'lodge.php', ['textDomain' => $textDomain]);
         break;
     }
 

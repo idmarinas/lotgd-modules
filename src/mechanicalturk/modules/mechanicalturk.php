@@ -46,12 +46,12 @@ function mechanicalturk_dohook($hookname, $args)
     switch ($hookname)
     {
         case 'forest':
-            \LotgdNavigation::addHeader('category.action', [ 'textDomain' => 'navigation-forest' ]);
-            \LotgdNavigation::addNav('navigation.nav.report', 'runmodule.php?module=mechanicalturk&creatureaction=report', [ 'textDomain' => 'module-mechanicalturk' ]);
+            \LotgdNavigation::addHeader('category.action', ['textDomain' => 'navigation-forest']);
+            \LotgdNavigation::addNav('navigation.nav.report', 'runmodule.php?module=mechanicalturk&creatureaction=report', ['textDomain' => 'module-mechanicalturk']);
         break;
         case 'superuser':
-            \LotgdNavigation::addHeader('superuser.category.module', [ 'textDomain' => 'navigation-app' ]);
-            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', [ 'textDomain' => 'module-mechanicalturk' ]);
+            \LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation-app']);
+            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module-mechanicalturk']);
         break;
         default: break;
     }
@@ -90,8 +90,8 @@ function mechanicalturk_run()
 
             require_once 'lib/systemmail.php';
 
-            $subject = [ 'mail.reject.subject', [], $textDomain ];
-            $body = [ 'mail.reject.message', [ 'name' => $creature->getCreaturename() ], $textDomain ];
+            $subject = ['mail.reject.subject', [], $textDomain];
+            $body = ['mail.reject.message', ['name' => $creature->getCreaturename()], $textDomain];
 
             systemmail($creature->getSubmittedbyid(), $subject, $body);
 
@@ -99,7 +99,7 @@ function mechanicalturk_run()
 
             \Doctrine::flush();
 
-            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', [ 'textDomain' => 'module-mechanicalturk' ]);
+            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module-mechanicalturk']);
         break;
         case 'accept':
             $params['tpl'] = 'accept';
@@ -129,8 +129,8 @@ function mechanicalturk_run()
 
             require_once 'lib/systemmail.php';
 
-            $subject = [ 'mail.accept.subject', [], $textDomain ];
-            $body = [ 'mail.accept.message', [ 'name' => $row['creaturename'] ], $textDomain ];
+            $subject = ['mail.accept.subject', [], $textDomain];
+            $body = ['mail.accept.message', ['name' => $row['creaturename']], $textDomain];
 
             systemmail($row['submittedbyid'], $subject, $body);
 
@@ -144,7 +144,7 @@ function mechanicalturk_run()
                 \Doctrine::persist($entity);
             }
 
-            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', [ 'textDomain' => 'module-mechanicalturk' ]);
+            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module-mechanicalturk']);
 
             debuglog("Add $points donation points as rewards for creature submit.", false, $row['submittedbyid'], 'mechanicalturk');
 
@@ -157,8 +157,8 @@ function mechanicalturk_run()
 
             $params['paginator'] = $repository->getPaginator($repository->createQueryBuilder('u'), $page);
 
-            \LotgdNavigation::addNav('navigation.nav.return.superuser', 'superuser.php', [ 'textDomain' => $textDomain ]);
-            \LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', [ 'textDomain' => 'module-mechanicalturk' ]);
+            \LotgdNavigation::addNav('navigation.nav.return.superuser', 'superuser.php', ['textDomain' => $textDomain]);
+            \LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module-mechanicalturk']);
         break;
         case 'save':
             $params['tpl'] = 'save';
@@ -186,7 +186,7 @@ function mechanicalturk_run()
                 \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.save.error', [], $textDomain));
             }
 
-            \LotgdNavigation::addNav('navigation.nav.back', 'forest.php', [ 'textDomain' => $textDomain ]);
+            \LotgdNavigation::addNav('navigation.nav.back', 'forest.php', ['textDomain' => $textDomain]);
         break;
         case 'report':
         default:
@@ -209,7 +209,8 @@ function mechanicalturk_run()
             ;
 
             $enum = ',??';
-            foreach($result as $row)
+
+            foreach ($result as $row)
             {
                 $enum .= ','.$row['creaturecategory'].','.$row['creaturecategory'];
             }
@@ -227,8 +228,8 @@ function mechanicalturk_run()
                 'notes' => 'Notes on creature analysis,textarea'
             ];
 
-            \LotgdNavigation::addHeader('navigation.category.return', [ 'textDomain' => $textDomain ]);
-            \LotgdNavigation::addNav('navigation.nav.back', 'forest.php', [ 'textDomain' => $textDomain ]);
+            \LotgdNavigation::addHeader('navigation.category.return', ['textDomain' => $textDomain]);
+            \LotgdNavigation::addNav('navigation.nav.back', 'forest.php', ['textDomain' => $textDomain]);
 
             $params['form'] = lotgd_showform($form, $row, false, false, false);
         break;

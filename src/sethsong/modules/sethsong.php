@@ -69,8 +69,8 @@ function sethsong_dohook($hookname, $args)
             if ('' == $op || 'strolldown' == $op || 'fleedragon' == $op)
             {
                 \LotgdNavigation::addHeader('category.do', ['textDomain' => 'navigation-inn']);
-                \LotgdNavigation::addNav('navigation.nav.listen', 'runmodule.php?module=sethsong', [ 'textDomain' => 'module-sethsong',
-                    'params' => [ 'bard' => $bard ]
+                \LotgdNavigation::addNav('navigation.nav.listen', 'runmodule.php?module=sethsong', ['textDomain' => 'module-sethsong',
+                    'params' => ['bard' => $bard]
                 ]);
             }
         break;
@@ -111,8 +111,8 @@ function sethsong_run()
         sethsong_sing($params);
     }
 
-    \LotgdNavigation::addHeader('navigation.category.to', [ 'textDomain' => $textDomain ]);
-    \LotgdNavigation::addNav('navigation.nav.return', 'inn.php', [ 'textDomain' => $textDomain ]);
+    \LotgdNavigation::addHeader('navigation.category.to', ['textDomain' => $textDomain]);
+    \LotgdNavigation::addNav('navigation.nav.return', 'inn.php', ['textDomain' => $textDomain]);
     \LotgdNavigation::villageNav();
 
     rawoutput(\LotgdTheme::renderModuleTemplate('sethsong/run.twig', $params));
@@ -184,7 +184,7 @@ function sethsong_sing(&$params)
             }
             else
             {
-                $session['user']['turns'] += 1;
+                $session['user']['turns']++;
                 $session['user']['turns'] = max(0, $session['user']['turns']);
             }
         break;
@@ -198,7 +198,7 @@ function sethsong_sing(&$params)
             }
             else
             {
-                $session['user']['turns'] += 1;
+                $session['user']['turns']++;
                 $session['user']['turns'] = max(0, $session['user']['turns']);
             }
         break;
@@ -223,7 +223,7 @@ function sethsong_sing(&$params)
             }
             else
             {
-                $session['user']['turns'] -= 1;
+                $session['user']['turns']--;
                 $session['user']['turns'] = max(0, $session['user']['turns']);
             }
         break;
@@ -236,7 +236,7 @@ function sethsong_sing(&$params)
             }
             else
             {
-                $session['user']['turns'] += 1;
+                $session['user']['turns']++;
                 $session['user']['turns'] = max(0, $session['user']['turns']);
             }
 
@@ -283,7 +283,7 @@ function sethsong_sing(&$params)
             }
             else
             {
-                $session['uset']['turns'] --;
+                $session['uset']['turns']--;
                 $session['user']['turns'] = max(0, $session['user']['turns']);
             }
         break;
@@ -301,7 +301,7 @@ function sethsong_sing(&$params)
             }
             else
             {
-                $session['uset']['turns'] ++;
+                $session['uset']['turns']++;
                 $session['user']['turns'] = max(0, $session['user']['turns']);
             }
         break;

@@ -10,14 +10,13 @@ use Doctrine\ORM\Mapping as ORM;
  * This table store the cities in game.
  *
  * @ORM\Table(
- *      indexes={
+ *     indexes={
  *         @ORM\Index(name="module", columns={"module"}),
  *         @ORM\Index(name="city_name", columns={"city_name"})
- *      }
+ *     }
  * )
  * @ORM\Entity(repositoryClass="Lotgd\Local\EntityRepository\ModuleCityprefsRepository")
  */
-
 class ModuleCityprefs
 {
     /**
@@ -43,11 +42,10 @@ class ModuleCityprefs
      */
     private $cityName;
 
-
     /**
-     * Get the value of id
+     * Get the value of id.
      *
-     * @return  int
+     * @return int
      */
     public function getId()
     {
@@ -55,11 +53,9 @@ class ModuleCityprefs
     }
 
     /**
-     * Set the value of id
+     * Set the value of id.
      *
-     * @param  int  $id
-     *
-     * @return  self
+     * @return self
      */
     public function setId(int $id)
     {
@@ -69,9 +65,9 @@ class ModuleCityprefs
     }
 
     /**
-     * Get the value of module
+     * Get the value of module.
      *
-     * @return  string
+     * @return string
      */
     public function getModule()
     {
@@ -79,11 +75,9 @@ class ModuleCityprefs
     }
 
     /**
-     * Set the value of module
+     * Set the value of module.
      *
-     * @param  string  $module
-     *
-     * @return  self
+     * @return self
      */
     public function setModule(string $module)
     {
@@ -93,9 +87,9 @@ class ModuleCityprefs
     }
 
     /**
-     * Get the value of cityName
+     * Get the value of cityName.
      *
-     * @return  string
+     * @return string
      */
     public function getCityName()
     {
@@ -103,11 +97,9 @@ class ModuleCityprefs
     }
 
     /**
-     * Set the value of cityName
+     * Set the value of cityName.
      *
-     * @param  string  $cityName
-     *
-     * @return  self
+     * @return self
      */
     public function setCityName(string $cityName)
     {

@@ -137,7 +137,7 @@ function staminacorecombat_dohook($hookname, $args)
             //-- Change text domain for navigation
             \LotgdNavigation::setTextDomain('module-staminacorecombat');
 
-            \LotgdNavigation::addHeader('category.fight', [ 'textDomain' => 'navigation-forest' ]);
+            \LotgdNavigation::addHeader('category.fight', ['textDomain' => 'navigation-forest']);
             \LotgdNavigation::addNav('navigation.nav.trouble.normal', 'forest.php?op=search&stam=search', [
                 'params' => [
                     'cost' => $normalcost
@@ -189,20 +189,20 @@ function staminacorecombat_dohook($hookname, $args)
             $fight = $session['user']['alive'] ? 'navigation.nav.fight.live' : 'navigation.nav.fight.death';
             $run = $session['user']['alive'] ? 'navigation.nav.run.live' : 'navigation.nav.run.death';
 
-            \LotgdNavigation::addHeader('category.standard', [ 'textDomain' => 'navigation-fightnav' ]);
+            \LotgdNavigation::addHeader('category.standard', ['textDomain' => 'navigation-fightnav']);
             \LotgdNavigation::addNav($fight, "{$script}op=fight&stam=fight", [
-                'params' => [ 'cost' => $fightcost ]
+                'params' => ['cost' => $fightcost]
             ]);
             \LotgdNavigation::addNav($run, "{$script}op=run&stam=run", [
-                'params' => [ 'cost' => $runcost ]
+                'params' => ['cost' => $runcost]
             ]);
 
-            \LotgdNavigation::addHeader('category.automatic', [ 'textDomain' => 'navigation-fightnav' ]);
+            \LotgdNavigation::addHeader('category.automatic', ['textDomain' => 'navigation-fightnav']);
             \LotgdNavigation::addNav('navigation.nav.auto.05', "{$script}op=fight&auto=five&stam=fight", [
-                'params' => [ 'cost' => $fightcost * 5 ]
+                'params' => ['cost' => $fightcost * 5]
             ]);
             \LotgdNavigation::addNav('navigation.nav.auto.010', "{$script}op=fight&auto=ten&stam=fight", [
-                'params' => [ 'cost' => $fightcost * 10 ]
+                'params' => ['cost' => $fightcost * 10]
             ]);
 
             //-- Restore text domain for navigation
@@ -220,7 +220,7 @@ function staminacorecombat_dohook($hookname, $args)
 
                     if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup'])
                     {
-                        $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [ 'action.hunting.normal', [], $textDomain ];
+                        $lotgdBattleContent['battlerounds'][$countround]['allied'][] = ['action.hunting.normal', [], $textDomain];
                     }
                 break;
                 case 'slum':
@@ -228,7 +228,7 @@ function staminacorecombat_dohook($hookname, $args)
 
                     if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup'])
                     {
-                        $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [ 'action.hunting.easy', [], $textDomain ];
+                        $lotgdBattleContent['battlerounds'][$countround]['allied'][] = ['action.hunting.easy', [], $textDomain];
                     }
                 break;
                 case 'thrill':
@@ -236,7 +236,7 @@ function staminacorecombat_dohook($hookname, $args)
 
                     if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup'])
                     {
-                        $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [ 'action.hunting.thrill', [], $textDomain ];
+                        $lotgdBattleContent['battlerounds'][$countround]['allied'][] = ['action.hunting.thrill', [], $textDomain];
                     }
                 break;
                 case 'suicide':
@@ -244,7 +244,7 @@ function staminacorecombat_dohook($hookname, $args)
 
                     if (isset($return['lvlinfo']['levelledup']) && $return['lvlinfo']['levelledup'])
                     {
-                        $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [ 'action.hunting.suicide', [], $textDomain ];
+                        $lotgdBattleContent['battlerounds'][$countround]['allied'][] = ['action.hunting.suicide', [], $textDomain];
                     }
                 break;
             }
@@ -268,7 +268,7 @@ function staminacorecombat_dohook($hookname, $args)
                 {
                     $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [
                         'action.fighting.standard',
-                        [ 'level' => $return['lvlinfo']['newlvl'] ],
+                        ['level' => $return['lvlinfo']['newlvl']],
                         $textDomain
                     ];
                 }
@@ -282,7 +282,7 @@ function staminacorecombat_dohook($hookname, $args)
                 {
                     $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [
                         'action.fighting.running',
-                        [ 'level' => $return['lvlinfo']['newlvl'] ],
+                        ['level' => $return['lvlinfo']['newlvl']],
                         $textDomain
                     ];
                 }
@@ -302,7 +302,7 @@ function staminacorecombat_dohook($hookname, $args)
                     {
                         $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [
                             'action.fighting.chin',
-                            [ 'level' => $return['lvlinfo']['newlvl'] ],
+                            ['level' => $return['lvlinfo']['newlvl']],
                             $textDomain
                         ];
                     }
@@ -310,7 +310,7 @@ function staminacorecombat_dohook($hookname, $args)
 
                 $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [
                     'action.fighting.blow',
-                    [ 'stamina' => $staminalost ],
+                    ['stamina' => $staminalost],
                     $textDomain
                 ];
             }

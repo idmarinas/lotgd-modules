@@ -161,7 +161,7 @@ function run_newday_buffs($args): array
 function get_item_by_name($itemname)
 {
     $repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
-    $item = $repository->findOneBy([ 'name' => $itemname ]);
+    $item = $repository->findOneBy(['name' => $itemname]);
 
     if (! $item)
     {
@@ -204,8 +204,6 @@ function get_item($item)
  * Get a full info of an item
  * Include Buff info
  * Include info of inv_statvalues if have.
- *
- * @param int $item
  *
  * @return array
  */
@@ -380,6 +378,7 @@ function inventory_get_max_add($itemid, $qty = 1, $user = 0)
     $maxitems_count = max(0, $inventoryStat['inventoryLimitItems'] - $inventoryStat['inventoryCount']);
 
     $maxitems_weight = $qty;
+
     if ($item_raw->getWeight() > 0)
     {
         $maxitems_weight = max(0, floor(($inventoryStat['inventoryLimitWeight'] - $inventoryStat['inventoryWeight']) / $item_raw->getWeight()));
@@ -520,7 +519,7 @@ function get_itemids_by_class($class)
 
     $ids = [];
 
-    foreach($result as $row)
+    foreach ($result as $row)
     {
         $ids[] = $row->getId();
     }
@@ -582,7 +581,7 @@ function uncharge_item($itemid, $user = false, $invid = false)
 
     $entities = $repository->findBy($params);
 
-    foreach($entities as $entity)
+    foreach ($entities as $entity)
     {
         \Doctrine::remove($entity);
     }
@@ -648,7 +647,7 @@ function check_qty_by_id($itemid, $user = 0)
 
     $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
 
-    return $repository->count([ 'userId' => $user, 'item' => $itemid ]);
+    return $repository->count(['userId' => $user, 'item' => $itemid]);
 }
 
 function get_item_id_from_name($itemname)

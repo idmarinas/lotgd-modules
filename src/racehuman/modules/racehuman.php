@@ -272,7 +272,7 @@ function racehuman_dohook($hookname, $args)
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args["village-$race"] = \LotgdTranslator::t('locs.moderate', [ 'city' => $city ], $race);
+                $args["village-$race"] = \LotgdTranslator::t('locs.moderate', ['city' => $city], $race);
             }
         break;
         case 'travel':
@@ -287,14 +287,14 @@ function racehuman_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.travel.safer');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
             elseif ($session['user']['location'] != $city)
             {
                 \LotgdNavigation::addHeader('headers.travel.dangerous');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -302,7 +302,7 @@ function racehuman_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -331,6 +331,7 @@ function racehuman_dohook($hookname, $args)
                 $args['newestname'] = (string) get_module_setting("newest-{$city}-name", 'cities');
 
                 $args['newtext'] = 'newestOther';
+
                 if ($args['newestplayer'] == $session['user']['acctid'])
                 {
                     $args['newtext'] = 'newestPlayer';
@@ -354,7 +355,7 @@ function racehuman_dohook($hookname, $args)
             }
         break;
         case 'stablelocs':
-            $args[$city] = \LotgdTranslator::t('locs.stables', [ 'city' => $city ], $race);
+            $args[$city] = \LotgdTranslator::t('locs.stables', ['city' => $city], $race);
         break;
     }
 

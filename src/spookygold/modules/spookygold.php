@@ -99,7 +99,7 @@ function spookygold_runevent($type)
     switch ($op)
     {
         case 'alley':
-            $params['award'] = mt_rand(0, 1);//-- 0 = gem, 1 = gold
+            $params['award'] = mt_rand(0, 1); //-- 0 = gem, 1 = gold
 
             if (! $params['award'])
             {
@@ -258,6 +258,7 @@ function spookygold_fight()
         if ($victory)
         {
             $battle = false;
+
             if ($session['user']['hitpoints'] <= 0)
             {
                 $lotgdBattleContent['battleend'][] = [
@@ -308,23 +309,23 @@ function spookygold_fight()
 
                 removestamina(5 * 25000);
 
-                $lotgdBattleContent['battleend'][] = [ 'battle.end.defeated.stamina', [], $textDomain ];
+                $lotgdBattleContent['battleend'][] = ['battle.end.defeated.stamina', [], $textDomain];
             }
             else
             {
                 $session['user']['turns'] -= 5;
                 $session['user']['turns'] = max($session['user']['turns'], 0);
-                $lotgdBattleContent['battleend'][] = [ 'battle.end.defeated.turns', [], $textDomain ];
+                $lotgdBattleContent['battleend'][] = ['battle.end.defeated.turns', [], $textDomain];
             }
 
             if ($session['user']['charm'] > 0)
             {
                 $session['user']['charm']--;
-                $lotgdBattleContent['battleend'][] = [ 'battle.end.defeated.charm.lost', [], $textDomain ];
+                $lotgdBattleContent['battleend'][] = ['battle.end.defeated.charm.lost', [], $textDomain];
             }
             else
             {
-                $lotgdBattleContent['battleend'][] = [ 'battle.end.defeated.charm.equal', [], $textDomain ];
+                $lotgdBattleContent['battleend'][] = ['battle.end.defeated.charm.equal', [], $textDomain];
             }
             $session['user']['specialinc'] = '';
             $session['user']['specialmisc'] = '';

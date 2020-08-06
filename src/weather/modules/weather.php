@@ -18,18 +18,18 @@ function weather_getmoduleinfo()
         'download' => 'core_module',
         'settings' => [
             'Normal Weather Settings,title',
-                'wxreport' => "Village weather message|`n`&Today's weather is expected to be `^%s`&.`n",
-                'weather' => 'Current Weather,int|6',
+            'wxreport' => "Village weather message|`n`&Today's weather is expected to be `^%s`&.`n",
+            'weather' => 'Current Weather,int|6',
             'Micro Climate Settings, title',
-                'enablemicro' => 'Enable Unique Climate Location,bool|0',
-                'microloc' => 'Unique Climate Location,location|'.getsetting('villagename', LOCATION_FIELDS),
-                'microwxreport' => 'Unique Climate weather message|`n`&The weather elf is predicting `^%s`& today.`n',
-                'microwx' => 'Current Weather,int|1',
+            'enablemicro' => 'Enable Unique Climate Location,bool|0',
+            'microloc' => 'Unique Climate Location,location|'.getsetting('villagename', LOCATION_FIELDS),
+            'microwxreport' => 'Unique Climate weather message|`n`&The weather elf is predicting `^%s`& today.`n',
+            'microwx' => 'Current Weather,int|1',
             'Shades Weather Settings,title',
-                'enableshades' => 'Enable Shades Climate Conditions,bool|1',
-                'shadeswxreport' => 'Shades weather message|`n`7The atmosphere in Shades is currently `^%s`&.`n`n',
-                'shadeswx' => 'Current Weather,int|2',
-                'counter' => 'Hell Has Frozen over counter,int|0'
+            'enableshades' => 'Enable Shades Climate Conditions,bool|1',
+            'shadeswxreport' => 'Shades weather message|`n`7The atmosphere in Shades is currently `^%s`&.`n`n',
+            'shadeswx' => 'Current Weather,int|2',
+            'counter' => 'Hell Has Frozen over counter,int|0'
         ],
         'prefs' => [
             'Weather in Shades User Setting, title',

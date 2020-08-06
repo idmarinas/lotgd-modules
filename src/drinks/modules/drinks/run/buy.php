@@ -14,7 +14,7 @@ $maxDrunk = get_module_setting('maxdrunk');
 
 $params = [
     'textDomain' => $textDomain,
-    'innName' => getsetting("innname", LOCATION_INN),
+    'innName' => getsetting('innname', LOCATION_INN),
     'drunk' => $drunk,
     'maxDrunk' => $maxDrunk,
     'drunkeness' => (int) ($drunk > $maxDrunk),
@@ -22,7 +22,7 @@ $params = [
     'barkeep' => getsetting('barkeep', '`tCedrik`0')
 ];
 
-page_header('section.ale.drink.title', [ 'innName' => \LotgdSanitize::fullSanitize($params['innName']) ], $textDomain);
+page_header('section.ale.drink.title', ['innName' => \LotgdSanitize::fullSanitize($params['innName'])], $textDomain);
 
 if (! $params['drunkeness'])
 {
@@ -35,6 +35,7 @@ if (! $params['drunkeness'])
     $params['cost'] = $drinkCost;
 
     $params['buyed'] = false;
+
     if ($session['user']['gold'] >= $drinkCost)
     {
         $params['buyed'] = true;
@@ -61,6 +62,7 @@ if (! $params['drunkeness'])
             $c = mt_rand(1, max(1, $tot));
 
             $giveturn = 1;
+
             if ($c <= $row['hpchance'] && $row['hpchance'] > 0)
             {
                 $givehp = 1;
@@ -145,10 +147,10 @@ if (! $params['drunkeness'])
     $params['drink'] = $row;
 }
 
-\LotgdNavigation::addNav('navigation.nav.return.inn', 'inn.php', [ 'textDomain' => $textDomain ]);
+\LotgdNavigation::addNav('navigation.nav.return.inn', 'inn.php', ['textDomain' => $textDomain]);
 \LotgdNavigation::addNav('navigation.nav.return.talk', 'inn.php?op=bartender', [
     'textDomain' => $textDomain,
-    'params' => [ 'barkeep' => $params['barkeep'] ]
+    'params' => ['barkeep' => $params['barkeep']]
 ]);
 
 \LotgdNavigation::villageNav();

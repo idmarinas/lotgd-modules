@@ -295,7 +295,7 @@ function racedwarf_dohook($hookname, $args)
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args["village-$race"] = \LotgdTranslator::t('locs.moderate', [ 'city' => $city ], $race);
+                $args["village-$race"] = \LotgdTranslator::t('locs.moderate', ['city' => $city], $race);
             }
         break;
         case 'creatureencounter':
@@ -318,14 +318,14 @@ function racedwarf_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.travel.safer');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
             elseif ($session['user']['location'] != $city)
             {
                 \LotgdNavigation::addHeader('headers.travel.dangerous');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -333,7 +333,7 @@ function racedwarf_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -360,6 +360,7 @@ function racedwarf_dohook($hookname, $args)
                 $args['newestname'] = (string) get_module_setting("newest-{$city}-name", 'cities');
 
                 $args['newtext'] = 'newestOther';
+
                 if ($args['newestplayer'] == $session['user']['acctid'])
                 {
                     $args['newtext'] = 'newestPlayer';
@@ -373,8 +374,8 @@ function racedwarf_dohook($hookname, $args)
                 }
 
                 \LotgdNavigation::unBlockLink('mercenarycamp.php');
-                \LotgdNavigation::addHeader('headers.tavern', [ 'textDomain' => 'racedwarf-village-navigation' ]);
-                \LotgdNavigation::addNav('navs.inndwarf', 'runmodule.php?module=racedwarf&op=ale', [ 'textDomain' => 'racedwarf-village-navigation']);
+                \LotgdNavigation::addHeader('headers.tavern', ['textDomain' => 'racedwarf-village-navigation']);
+                \LotgdNavigation::addNav('navs.inndwarf', 'runmodule.php?module=racedwarf&op=ale', ['textDomain' => 'racedwarf-village-navigation']);
             }
         break;
         case 'drinks-text':
@@ -388,7 +389,7 @@ function racedwarf_dohook($hookname, $args)
         case 'drinks-check':
             if ($session['user']['location'] == $city)
             {
-                foreach($args as $key => $drink)
+                foreach ($args as $key => $drink)
                 {
                     $val = get_module_objpref('drinks', $drink['id'], 'servedkeg');
                     $args[$key]['allowdrink'] = $val;
@@ -446,9 +447,9 @@ function racedwarf_run()
     {
         page_header('title', [], $textDomain);
 
-        \LotgdNavigation::addHeader('navigation.category.drinks', [ 'textDomain' => $textDomain ]);
+        \LotgdNavigation::addHeader('navigation.category.drinks', ['textDomain' => $textDomain]);
         modulehook('ale');
-        \LotgdNavigation::addHeader('navigation.category.other', [ 'textDomain' => $textDomain ]);
+        \LotgdNavigation::addHeader('navigation.category.other', ['textDomain' => $textDomain]);
         \LotgdNavigation::villageNav();
 
         rawoutput(LotgdTheme::renderModuleTemplate('racedwarf/run.twig', $params));

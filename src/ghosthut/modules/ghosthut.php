@@ -64,7 +64,7 @@ function ghosthut_dohook($hookname, $args)
             if ($session['user']['location'] == get_module_setting('ghosthutloc'))
             {
                 \LotgdNavigation::addHeader('headers.tavern');
-                \LotgdNavigation::addNav('navigation.nav.hut', 'runmodule.php?module=ghosthut', [ 'textDomain' => 'module-ghosthut']);
+                \LotgdNavigation::addNav('navigation.nav.hut', 'runmodule.php?module=ghosthut', ['textDomain' => 'module-ghosthut']);
             }
         break;
         default: break;
@@ -103,11 +103,11 @@ function ghosthut_run()
         $params['tpl'] = 'default';
         $turn = 2;
 
-        \LotgdNavigation::addHeader('navigation.category.eat', [ 'textDomain' => $textDomain]);
-        \LotgdNavigation::addNav('navigation.nav.eat1', 'runmodule.php?module=ghosthut&op=1', [ 'textDomain' => $textDomain]);
-        \LotgdNavigation::addNav('navigation.nav.eat2', 'runmodule.php?module=ghosthut&op=2', [ 'textDomain' => $textDomain]);
-        \LotgdNavigation::addNav('navigation.nav.eat3', 'runmodule.php?module=ghosthut&op=3', [ 'textDomain' => $textDomain]);
-        \LotgdNavigation::addNav('navigation.nav.eat4', 'runmodule.php?module=ghosthut&op=4', [ 'textDomain' => $textDomain]);
+        \LotgdNavigation::addHeader('navigation.category.eat', ['textDomain' => $textDomain]);
+        \LotgdNavigation::addNav('navigation.nav.eat1', 'runmodule.php?module=ghosthut&op=1', ['textDomain' => $textDomain]);
+        \LotgdNavigation::addNav('navigation.nav.eat2', 'runmodule.php?module=ghosthut&op=2', ['textDomain' => $textDomain]);
+        \LotgdNavigation::addNav('navigation.nav.eat3', 'runmodule.php?module=ghosthut&op=3', ['textDomain' => $textDomain]);
+        \LotgdNavigation::addNav('navigation.nav.eat4', 'runmodule.php?module=ghosthut&op=4', ['textDomain' => $textDomain]);
     }
     elseif ('3' == $op)
     {
@@ -145,7 +145,7 @@ function ghosthut_run()
 
         if ($eattoday > 0 && $eattoday < 3)
         {
-            \LotgdNavigation::addNav('navigation.nav.return', 'runmodule.php?module=ghosthut', [ 'textDomain' => $textDomain]);
+            \LotgdNavigation::addNav('navigation.nav.return', 'runmodule.php?module=ghosthut', ['textDomain' => $textDomain]);
         }
     }
     elseif ('2' == $op)
@@ -157,7 +157,7 @@ function ghosthut_run()
 
         if ($eattoday > 0 && $eattoday < 3)
         {
-            \LotgdNavigation::addNav('navigation.nav.return', 'runmodule.php?module=ghosthut', [ 'textDomain' => $textDomain]);
+            \LotgdNavigation::addNav('navigation.nav.return', 'runmodule.php?module=ghosthut', ['textDomain' => $textDomain]);
         }
     }
 

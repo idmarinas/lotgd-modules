@@ -88,8 +88,6 @@ class ModInventory
     /**
      * Set the value of id.
      *
-     * @param int $id
-     *
      * @return self
      */
     public function setId(int $id)
@@ -111,8 +109,6 @@ class ModInventory
 
     /**
      * Set the value of userId.
-     *
-     * @param int $userId
      *
      * @return self
      */
@@ -160,8 +156,6 @@ class ModInventory
     /**
      * Set the value of sellValueGold.
      *
-     * @param int $sellValueGold
-     *
      * @return self
      */
     public function setSellValueGold(int $sellValueGold)
@@ -183,8 +177,6 @@ class ModInventory
 
     /**
      * Set the value of sellValueGems.
-     *
-     * @param int $sellValueGems
      *
      * @return self
      */
@@ -208,8 +200,6 @@ class ModInventory
     /**
      * Set the value of specialValue.
      *
-     * @param string $specialValue
-     *
      * @return self
      */
     public function setSpecialValue(string $specialValue)
@@ -232,8 +222,6 @@ class ModInventory
     /**
      * Set the value of equipped.
      *
-     * @param bool $equipped
-     *
      * @return self
      */
     public function setEquipped(bool $equipped)
@@ -255,8 +243,6 @@ class ModInventory
 
     /**
      * Set the value of charges.
-     *
-     * @param int $charges
      *
      * @return self
      */

@@ -38,7 +38,7 @@ else
 if (($item['item']['buff'] ?? false) && ! empty($item['item']['buff']))
 {
     apply_buff($item['item']['buff']['key'], array_merge([], ...array_map(
-        function ($key, $value) { return [ strtolower($key) => $value ]; },
+        function ($key, $value) { return [strtolower($key) => $value]; },
         array_keys($item['item']['buff']),
         $item['item']['buff']
     )));
@@ -77,6 +77,7 @@ if ($item['item']['execvalue'] > '')
     $params['messages'] = get_effect($item['item'], $item['item']['noeffecttext']);
 
     \LotgdNavigation::addHeader('navigation.category.return');
+
     if ($session['user']['hitpoints'] <= 0 || ! $session['user']['alive'])
     {
         \LotgdNavigation::addNav('navigation.nav.news', 'news.php');

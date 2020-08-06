@@ -18,18 +18,18 @@ function goldmine_getmoduleinfo()
         'download' => 'core_module',
         'settings' => [
             'Goldmine Event Settings,title',
-                'alwaystether' => 'Chance the player will tether their mount automatically,range,0,100,1|10',
-                'percentgemloss' => 'Percentage of gems lost on death in mine,range,0,100,1|0',
-                'percentgoldloss' => 'Percentage of gold lost on death in mine,range,0,100,1|0',
+            'alwaystether' => 'Chance the player will tether their mount automatically,range,0,100,1|10',
+            'percentgemloss' => 'Percentage of gems lost on death in mine,range,0,100,1|0',
+            'percentgoldloss' => 'Percentage of gold lost on death in mine,range,0,100,1|0',
         ],
         'prefs-mounts' => [
             'Goldmine Mount Preferences,title',
-                'entermine' => 'Chance of entering mine,range,0,100,1|0',
-                'dieinmine' => 'Chance of dying in the mine,range,0,100,1|0',
-                'saveplayer' => 'Chance of saving player in mine,range,0,100,1|0',
-                'tethermsg' => 'Message when mount is tethered|',
-                'deathmsg' => 'Message when mount dies|',
-                'savemsg' => 'Message when mount saves player|',
+            'entermine' => 'Chance of entering mine,range,0,100,1|0',
+            'dieinmine' => 'Chance of dying in the mine,range,0,100,1|0',
+            'saveplayer' => 'Chance of saving player in mine,range,0,100,1|0',
+            'tethermsg' => 'Message when mount is tethered|',
+            'deathmsg' => 'Message when mount dies|',
+            'savemsg' => 'Message when mount saves player|',
         ],
         'requires' => [
             'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
@@ -117,6 +117,7 @@ function goldmine_runevent($type)
         // tether it.  Set enter percent to 0 (the default), to always
         // tether.
         $params['tether'] = false;
+
         if (mt_rand(1, 100) > $params['horseCanEnter'] && $params['hasHorse'])
         {
             $params['tether'] = true;
@@ -134,6 +135,7 @@ function goldmine_runevent($type)
         {
             case 1: case 2: case 3: case 4: case 5:
                 $params['mineResult'] = 1;
+
                 if ($params['staminaSystem'])
                 {
                     removestamina(25000);
@@ -261,7 +263,7 @@ function goldmine_runevent($type)
                     $session['user']['hitpoints'] = 0;
 
                     \LotgdNavigation::addNav('navigation.nav.news', 'news.php');
-                    addnews('news.dead', [ 'playerName' => $session['user']['name'] ], $params['textDomain']);
+                    addnews('news.dead', ['playerName' => $session['user']['name']], $params['textDomain']);
                 }
                 else
                 {

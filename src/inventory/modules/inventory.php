@@ -18,17 +18,17 @@ function inventory_getmoduleinfo()
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1033',
         'settings' => [
             'Inventory,title',
-                'inventorylink' => 'Show inventory link for players?,bool|0',
-                'Note: show inventory link in village,note',
-                'data_imported' => 'Old data of inventory imported to new,viewonly',
+            'inventorylink' => 'Show inventory link for players?,bool|0',
+            'Note: show inventory link in village,note',
+            'data_imported' => 'Old data of inventory imported to new,viewonly',
             'Inventory - Selling items, title',
-                'sellgold' => 'how much gold does selling an item return? (percent), int|66',
-                'sellgems' => 'how much gems does selling an item return? (percent), int|66',
+            'sellgold' => 'how much gold does selling an item return? (percent), int|66',
+            'sellgems' => 'how much gems does selling an item return? (percent), int|66',
             'Inventory - Carrying items, title',
-                'limit' => 'How many items canbe carried by user?, int|0',
-                'Note: Setting this to 0 will allow the user to carry a limitless amount of items, note',
-                'weight' => 'Maximum weiht users can carry?, int|0',
-                'Note: Setting this to 0 will allow the user to carry a limitless weight of items, note',
+            'limit' => 'How many items canbe carried by user?, int|0',
+            'Note: Setting this to 0 will allow the user to carry a limitless amount of items, note',
+            'weight' => 'Maximum weiht users can carry?, int|0',
+            'Note: Setting this to 0 will allow the user to carry a limitless weight of items, note',
         ],
         'requires' => [
             'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
@@ -83,7 +83,7 @@ function inventory_install()
 
     do
     {
-        foreach($paginator as $row)
+        foreach ($paginator as $row)
         {
             $row = (array) $row;
             $row['id'] = $row['buffid'];
@@ -122,7 +122,7 @@ function inventory_install()
 
     do
     {
-        foreach($paginator as $row)
+        foreach ($paginator as $row)
         {
             $row = (array) $row;
             $row['id'] = $row['itemid'];
@@ -161,9 +161,10 @@ function inventory_install()
 
     do
     {
-        foreach($paginator as $row)
+        foreach ($paginator as $row)
         {
             $row = (array) $row;
+
             if ($row['itemid'])
             {
                 $row['item'] = $repositoryItem->find($row['itemid']);
@@ -235,6 +236,6 @@ function inventory_run()
     }
     else
     {
-        require_once "modules/inventory/run/case_.php";
+        require_once 'modules/inventory/run/case_.php';
     }
 }

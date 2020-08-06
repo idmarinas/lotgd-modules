@@ -6,8 +6,6 @@ trait MapEditTerrain
 {
     /**
      * Show map for edit.
-     *
-     * @return string
      */
     public function showMapEditTerrain(): string
     {
@@ -17,6 +15,7 @@ trait MapEditTerrain
         $vloc = modulehook('validlocation', $vloc);
 
         $cityMap = [];
+
         foreach ($vloc as $city => $val)
         {
             $cityX = get_module_setting($city.'X', 'worldmapen');

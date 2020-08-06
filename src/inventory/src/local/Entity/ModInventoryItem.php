@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * Items available in game.
  *
  * @ORM\Table(indexes={
- *      @ORM\Index(name="find_rarity", columns={"find_rarity"}),
- *      @ORM\Index(name="find_chance", columns={"find_chance"})
+ *     @ORM\Index(name="find_rarity", columns={"find_rarity"}),
+ *     @ORM\Index(name="find_chance", columns={"find_chance"})
  * })
  * @ORM\Entity
  */
@@ -250,8 +250,6 @@ class ModInventoryItem
     /**
      * Set the value of id.
      *
-     * @param int $id
-     *
      * @return self
      */
     public function setId(int $id)
@@ -298,8 +296,6 @@ class ModInventoryItem
     /**
      * Set the value of name.
      *
-     * @param string $name
-     *
      * @return self
      */
     public function setName(string $name)
@@ -321,8 +317,6 @@ class ModInventoryItem
 
     /**
      * Set the value of image.
-     *
-     * @param string $image
      *
      * @return self
      */
@@ -346,8 +340,6 @@ class ModInventoryItem
     /**
      * Set the value of description.
      *
-     * @param string $description
-     *
      * @return self
      */
     public function setDescription(string $description)
@@ -369,8 +361,6 @@ class ModInventoryItem
 
     /**
      * Set the value of gold.
-     *
-     * @param int $gold
      *
      * @return self
      */
@@ -394,8 +384,6 @@ class ModInventoryItem
     /**
      * Set the value of gems.
      *
-     * @param int $gems
-     *
      * @return self
      */
     public function setGems(int $gems)
@@ -418,8 +406,6 @@ class ModInventoryItem
     /**
      * Set the value of weight.
      *
-     * @param int $weight
-     *
      * @return self
      */
     public function setWeight(int $weight)
@@ -441,8 +427,6 @@ class ModInventoryItem
 
     /**
      * Set the value of droppable.
-     *
-     * @param bool $droppable
      *
      * @return self
      */
@@ -490,8 +474,6 @@ class ModInventoryItem
     /**
      * Set the value of dragonkills.
      *
-     * @param int $dragonkills
-     *
      * @return self
      */
     public function setDragonkills(int $dragonkills)
@@ -538,8 +520,6 @@ class ModInventoryItem
     /**
      * Set the value of charges.
      *
-     * @param int $charges
-     *
      * @return self
      */
     public function setCharges(int $charges)
@@ -561,8 +541,6 @@ class ModInventoryItem
 
     /**
      * Set the value of hide.
-     *
-     * @param bool $hide
      *
      * @return self
      */
@@ -586,8 +564,6 @@ class ModInventoryItem
     /**
      * Set the value of customValue.
      *
-     * @param string $customValue
-     *
      * @return self
      */
     public function setCustomValue(string $customValue)
@@ -609,8 +585,6 @@ class ModInventoryItem
 
     /**
      * Set the value of execValue.
-     *
-     * @param string $execValue
      *
      * @return self
      */
@@ -634,8 +608,6 @@ class ModInventoryItem
     /**
      * Set the value of execText.
      *
-     * @param string $execText
-     *
      * @return self
      */
     public function setExecText(string $execText)
@@ -657,8 +629,6 @@ class ModInventoryItem
 
     /**
      * Set the value of execRequisites.
-     *
-     * @param string $execRequisites
      *
      * @return self
      */
@@ -682,8 +652,6 @@ class ModInventoryItem
     /**
      * Set the value of execCustomValue.
      *
-     * @param string $execCustomValue
-     *
      * @return self
      */
     public function setExecCustomValue(string $execCustomValue)
@@ -705,8 +673,6 @@ class ModInventoryItem
 
     /**
      * Set the value of noEffectText.
-     *
-     * @param string $noEffectText
      *
      * @return self
      */
@@ -730,8 +696,6 @@ class ModInventoryItem
     /**
      * Set the value of activationHook.
      *
-     * @param int $activationHook
-     *
      * @return self
      */
     public function setActivationHook(int $activationHook)
@@ -753,8 +717,6 @@ class ModInventoryItem
 
     /**
      * Set the value of findChance.
-     *
-     * @param int $findChance
      *
      * @return self
      */
@@ -778,8 +740,6 @@ class ModInventoryItem
     /**
      * Set the value of findRarity.
      *
-     * @param string $findRarity
-     *
      * @return self
      */
     public function setFindRarity(string $findRarity)
@@ -801,8 +761,6 @@ class ModInventoryItem
 
     /**
      * Set the value of looseChance.
-     *
-     * @param int $looseChance
      *
      * @return self
      */
@@ -826,8 +784,6 @@ class ModInventoryItem
     /**
      * Set the value of dkLooseChance.
      *
-     * @param int $dkLooseChance
-     *
      * @return self
      */
     public function setDkLooseChance(int $dkLooseChance)
@@ -849,8 +805,6 @@ class ModInventoryItem
 
     /**
      * Set the value of sellable.
-     *
-     * @param bool $sellable
      *
      * @return self
      */
@@ -874,8 +828,6 @@ class ModInventoryItem
     /**
      * Set the value of buyable.
      *
-     * @param bool $buyable
-     *
      * @return self
      */
     public function setBuyable(bool $buyable)
@@ -897,8 +849,6 @@ class ModInventoryItem
 
     /**
      * Set the value of uniqueForServer.
-     *
-     * @param bool $uniqueForServer
      *
      * @return self
      */
@@ -922,8 +872,6 @@ class ModInventoryItem
     /**
      * Set the value of uniqueForPlayer.
      *
-     * @param bool $uniqueForPlayer
-     *
      * @return self
      */
     public function setUniqueForPlayer(bool $uniqueForPlayer)
@@ -946,8 +894,6 @@ class ModInventoryItem
     /**
      * Set the value of equippable.
      *
-     * @param bool $equippable
-     *
      * @return self
      */
     public function setEquippable(bool $equippable)
@@ -969,8 +915,6 @@ class ModInventoryItem
 
     /**
      * Set the value of equipWhere.
-     *
-     * @param string $equipWhere
      *
      * @return self
      */

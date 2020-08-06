@@ -11,11 +11,6 @@ trait Navs
 {
     /**
      * Get items for a nav.
-     *
-     * @param int $constant
-     * @param int $acctId
-     *
-     * @return array
      */
     public function getItemsForNav(int $constant, int $acctId): array
     {
@@ -41,7 +36,8 @@ trait Navs
             ;
 
             $inventory = [];
-            foreach($result as $key => $item)
+
+            foreach ($result as $key => $item)
             {
                 $inventory[$key] = array_merge($this->extractEntity($item[0]), $item);
                 unset($inventory[$key][0]);

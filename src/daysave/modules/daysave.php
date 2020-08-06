@@ -167,7 +167,7 @@ function daysave_run()
     {
         case 'useday':
             $params['tpl'] = 'useday';
-            --$params['days'];
+            $params['days']--;
 
             $params['days'] = max(0, $params['days']);
 
@@ -197,6 +197,7 @@ function daysave_run()
             $empty = $params['slots'] - $params['days'];
 
             $params['canFillSpheres'] = false;
+
             if ($empty && $params['donationPointsUnused'] >= $params['fillSlotCost'])
             {
                 $params['canFillSpheres'] = true;
@@ -209,7 +210,7 @@ function daysave_run()
                     if ($params['donationPointsUnused'] >= $cost)
                     {
                         \LotgdNavigation::addNav('navigation.nav.fill', "runmodule.php?module=daysave&op=fillup&fill={$i}&return={$return}", [
-                            'params' => [ 'n' => $i, 'cost' => $cost ]
+                            'params' => ['n' => $i, 'cost' => $cost]
                         ]);
                     }
                 }
@@ -244,6 +245,7 @@ function daysave_run()
 
             //-- Buy Day
             $nav = 'navigation.nav.donator.day.limit';
+
             if ($params['donationPointsUnused'] >= $params['buyDayCost'] && $params['boughtToday'] < $params['maxBuyDay'])
             {
                 $nav = 'navigation.nav.donator.day.buy';
@@ -257,12 +259,12 @@ function daysave_run()
                 ? 'runmodule.php?module=daysave&op=buyday'
                 : ''
             ;
-            \LotgdNavigation::addNav($nav, $link, ['params' => [ 'buyDayCost' => $params['buyDayCost']] ]);
+            \LotgdNavigation::addNav($nav, $link, ['params' => ['buyDayCost' => $params['buyDayCost']]]);
 
             //-- Buy slot
             $nav = ($params['donationPointsUnused'] >= $params['buySlotCost']) ? 'navigation.nav.donator.slot.buy' : 'navigation.nav.donator.slot.not.have';
-            $link = ($params['donationPointsUnused'] >= $params['buySlotCost']) ? "runmodule.php?module=daysave&op=buyslot&return={$return}" : '' ;
-            \LotgdNavigation::addNav($nav, $link, ['params' => [ 'buySlotCost' => $params['buySlotCost']] ]);
+            $link = ($params['donationPointsUnused'] >= $params['buySlotCost']) ? "runmodule.php?module=daysave&op=buyslot&return={$return}" : '';
+            \LotgdNavigation::addNav($nav, $link, ['params' => ['buySlotCost' => $params['buySlotCost']]]);
 
             \LotgdNavigation::addHeader('navigation.category.exit');
 

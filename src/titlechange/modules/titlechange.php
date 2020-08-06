@@ -66,6 +66,7 @@ function titlechange_dohook($hookname, $args)
             }
 
             $cost = get_module_setting('initialpoints');
+
             if (get_module_pref('timespurchased'))
             {
                 $cost = get_module_setting('extrapoints');
@@ -73,7 +74,7 @@ function titlechange_dohook($hookname, $args)
 
             \LotgdNavigation::addNav('navigation.nav.change', 'runmodule.php?module=titlechange&op=titlechange', [
                 'textDomain' => $textDomain,
-                'params' => [ 'cost' => $cost ]
+                'params' => ['cost' => $cost]
             ]);
         break;
         default: break;
@@ -98,7 +99,7 @@ function titlechange_run()
         'textDomain' => $textDomain
     ];
 
-    \LotgdNavigation::addNav('navigation.nav.return', 'lodge.php', [ 'textDomain' => $textDomain ]);
+    \LotgdNavigation::addNav('navigation.nav.return', 'lodge.php', ['textDomain' => $textDomain]);
 
     switch ($op)
     {
@@ -160,9 +161,9 @@ function titlechange_run()
             $params['nname'] = get_player_basename();
             $params['ntitle'] = $ntitle;
 
-            \LotgdNavigation::addHeader('navigation.category.confirm', [ 'textDomain' => $textDomain ]);
-            \LotgdNavigation::addNav('navigation.nav.yes', 'runmodule.php?module=titlechange&op=changetitle&newname='.rawurlencode($ntitle), [ 'textDomain' => $textDomain ]);
-            \LotgdNavigation::addNav('navigation.nav.no', 'runmodule.php?module=titlechange&op=titlechange', [ 'textDomain' => $textDomain ]);
+            \LotgdNavigation::addHeader('navigation.category.confirm', ['textDomain' => $textDomain]);
+            \LotgdNavigation::addNav('navigation.nav.yes', 'runmodule.php?module=titlechange&op=changetitle&newname='.rawurlencode($ntitle), ['textDomain' => $textDomain]);
+            \LotgdNavigation::addNav('navigation.nav.no', 'runmodule.php?module=titlechange&op=titlechange', ['textDomain' => $textDomain]);
         break;
         case 'titlechange':
         default:

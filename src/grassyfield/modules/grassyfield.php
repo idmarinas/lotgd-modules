@@ -88,7 +88,7 @@ function grassyfield_runevent($type)
         'staminaSystem' => is_module_active('staminasystem')
     ];
 
-    \LotgdNavigation::addNav('navigation.nav.return', "{$from}?op=return", [ 'textDomain' => $params['textDomain'] ]);
+    \LotgdNavigation::addNav('navigation.nav.return', "{$from}?op=return", ['textDomain' => $params['textDomain']]);
 
     if ($params['special'])
     {

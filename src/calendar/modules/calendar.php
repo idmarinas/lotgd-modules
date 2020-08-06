@@ -98,7 +98,7 @@ function calendar_uninstall()
 
 function calendar_dohook($hookname, $args)
 {
-    $result = modulehook('calendar-text-domain', [ 'textDomain' => 'module-calendar' ]);
+    $result = modulehook('calendar-text-domain', ['textDomain' => 'module-calendar']);
     $textDomain = $result['textDomain'];
     unset($result);
 
@@ -158,7 +158,7 @@ function calendar_dohook($hookname, $args)
                 'wkDayName' => get_module_setting('curWkdayName'),
                 'day' => get_module_setting('curDay'),
                 'monthName' => get_module_setting('curMonthName'),
-                'year' =>  get_module_setting('curYear')
+                'year' => get_module_setting('curYear')
             ];
         break;
         case 'village-desc':
@@ -168,7 +168,7 @@ function calendar_dohook($hookname, $args)
                     'wkDayName' => get_module_setting('curWkdayName'),
                     'day' => get_module_setting('curDay'),
                     'monthName' => get_module_setting('curMonthName'),
-                    'year' =>  get_module_setting('curYear')
+                    'year' => get_module_setting('curYear')
                 ],
                 $textDomain
             ];

@@ -190,7 +190,7 @@ function newbieisland_dohook($hookname, $args)
             {
                 $lotgdBattleContent['battleend'][] = [
                     'battle.defeated',
-                    [ 'creatureName' => $args['creaturename'] ],
+                    ['creatureName' => $args['creaturename']],
                     $textDomain
                 ];
 
@@ -306,7 +306,7 @@ function newbieisland_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -364,13 +364,14 @@ function newbieisland_dohook($hookname, $args)
             if ($session['user']['location'] == $city && $session['user']['level'] > 1)
             {
                 $args['village'] = $city;
-                $args['commentarySection'] = "village-newbie"; //-- Commentary section
+                $args['commentarySection'] = 'village-newbie'; //-- Commentary section
 
                 //-- Newest player in realm
                 $args['newestplayer'] = (int) get_module_setting("newest-{$city}", 'cities');
                 $args['newestname'] = (string) get_module_setting("newest-{$city}-name", 'cities');
 
                 $args['newtext'] = 'newestOther';
+
                 if ($args['newestplayer'] == $session['user']['acctid'])
                 {
                     $args['newtext'] = 'newestPlayer';
@@ -387,7 +388,7 @@ function newbieisland_dohook($hookname, $args)
 
                 \LotgdNavigation::addHeader('headers.gate');
                 \LotgdNavigation::addNav('navs.leave', 'runmodule.php?module=newbieisland&op=leave', [
-                    'params' => [ 'city' => $city ]
+                    'params' => ['city' => $city]
                 ]);
 
                 \LotgdNavigation::setTextDomain();
@@ -435,6 +436,7 @@ function newbieisland_run()
                 'canLeave' => false,
                 'city' => $city
             ];
+
             if ($session['user']['dragonkills'] >= 0 || $session['user']['level'] > 4)
             {
                 $params['canLeave'] = true;

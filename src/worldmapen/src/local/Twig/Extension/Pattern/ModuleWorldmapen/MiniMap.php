@@ -6,10 +6,6 @@ trait MiniMap
 {
     /**
      * Show small map.
-     *
-     * @param array $params
-     *
-     * @return string
      */
     public function showMiniMap(array $params): string
     {
@@ -23,6 +19,7 @@ trait MiniMap
         list($worldmapX, $worldmapY, $worldmapZ) = explode(',', $loc);
 
         $cityMap = [];
+
         foreach ($vloc as $city => $val)
         {
             $cityX = get_module_setting($city.'X', 'worldmapen');

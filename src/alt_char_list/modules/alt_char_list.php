@@ -41,8 +41,8 @@ function alt_char_list_dohook($hookname, $args)
 
             if ($allowed)
             {
-                \LotgdNavigation::addHeader('superuser.category.actions', [ 'textDomain' => 'navigation-app' ]);
-                \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=alt_char_list', [ 'textDomain' => 'module-alt_char_list' ]);
+                \LotgdNavigation::addHeader('superuser.category.actions', ['textDomain' => 'navigation-app']);
+                \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=alt_char_list', ['textDomain' => 'module-alt_char_list']);
             }
         break;
         case 'bioend':
@@ -50,8 +50,8 @@ function alt_char_list_dohook($hookname, $args)
 
             if ($allowed)
             {
-                \LotgdNavigation::addHeader('common.superuser.category', [ 'textDomain' => 'navigation-app' ]);
-                \LotgdNavigation::addNav('navigation.nav.view', "runmodule.php?module=alt_char_list&id={{$args['acctid']}&ret=".urlencode($args['return_link']), [ 'textDomain' => 'module-alt_char_list' ]);
+                \LotgdNavigation::addHeader('common.superuser.category', ['textDomain' => 'navigation-app']);
+                \LotgdNavigation::addNav('navigation.nav.view', "runmodule.php?module=alt_char_list&id={{$args['acctid']}&ret=".urlencode($args['return_link']), ['textDomain' => 'module-alt_char_list']);
             }
         break;
         default: break;
@@ -135,7 +135,8 @@ function alt_char_list_run()
             $params['paginator'] = $paginator;
 
             $accounts = [];
-            foreach($paginator as $acct)
+
+            foreach ($paginator as $acct)
             {
                 $dataIp = clone $subquery;
                 $dataId = clone $subquery;

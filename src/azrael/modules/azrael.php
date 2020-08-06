@@ -166,7 +166,7 @@ function azrael_runevent($type)
             {
                 $params['ghosttown'] = true;
             }
-            \LotgdNavigation::addHeader('navigation.category.action', [ 'textDomain' => $textDomain ]);
+            \LotgdNavigation::addHeader('navigation.category.action', ['textDomain' => $textDomain]);
 
             if ($session['user']['gold'] > 0)
             {

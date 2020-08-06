@@ -67,6 +67,7 @@ function topwebgames_dohook($hookname, $args)
             $r = @pullurl("http://www.topwebgames.com/games/placement.js?id={$id}");
 
             $votes = 'error';
+
             if (false !== $c)
             {
                 $c = join($c, '');
@@ -78,6 +79,7 @@ function topwebgames_dohook($hookname, $args)
             }
 
             $rank = 'error';
+
             if (false !== $r)
             {
                 $r = join($r, '');
@@ -131,6 +133,7 @@ function topwebgames_dohook($hookname, $args)
         $last = strtotime($l);
 
         $canVote = false;
+
         if ($prev && $last < $prev)
         {
             $canVote = true;

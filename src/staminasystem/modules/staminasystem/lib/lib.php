@@ -1202,6 +1202,7 @@ function stamina_minihof_makesmallboard($boardinfo, $userid = false)
     //now, check the player's rank is where it should be.  If not, re-work the ranks.  If the player is off the page, run assignranks and start again.
 
     $playerposition = $myrank;
+
     if ($myrank >= 10)
     {
         $playerposition = 10;

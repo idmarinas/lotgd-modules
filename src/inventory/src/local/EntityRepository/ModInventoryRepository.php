@@ -12,10 +12,6 @@ class ModInventoryRepository extends DoctrineRepository
 
     /**
      * Get item list of inventory for character.
-     *
-     * @param int $acctId
-     *
-     * @return array
      */
     public function getInventoryOfCharacter(int $acctId): array
     {
@@ -40,7 +36,7 @@ class ModInventoryRepository extends DoctrineRepository
                 ->getResult()
             ;
 
-            foreach($result as $item)
+            foreach ($result as $item)
             {
                 $data = $this->extractEntity($item);
                 $data['quantity'] = 1;
@@ -59,7 +55,7 @@ class ModInventoryRepository extends DoctrineRepository
                 ->getResult()
             ;
 
-            foreach($result as $item)
+            foreach ($result as $item)
             {
                 $data = array_merge($this->extractEntity($item[0]), $item);
                 $data['item'] = $this->extractEntity($data['item']);
@@ -79,12 +75,6 @@ class ModInventoryRepository extends DoctrineRepository
 
     /**
      * Get a full info of item in inventory.
-     *
-     * @param int $itemId
-     * @param int $acctId
-     * @param int $invid
-     *
-     * @return array
      */
     public function getItemOfInventoryOfCharacter(int $itemId, int $acctId, int $invid = 0): array
     {

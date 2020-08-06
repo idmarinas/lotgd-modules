@@ -38,7 +38,6 @@ function funddrive_getpercent()
 
         $pct = round(($current / $goal) * 100, 0);
 
-
         $fundDrive = [
             'percent' => $pct,
             'goal' => $goal,

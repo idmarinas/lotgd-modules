@@ -10,7 +10,7 @@ $accountRep = \Doctrine::getRepository('LotgdCore:Accounts');
 
 $name = $accountRep->getCharacterNameFromAcctId($acctId);
 
-page_header('title.superuser', [ 'name' => \LotgdSanitize::fullSanitize($name) ], $textDomain);
+page_header('title.superuser', ['name' => \LotgdSanitize::fullSanitize($name)], $textDomain);
 
 if ('dropitem' == $op2)
 {
@@ -20,10 +20,10 @@ if ('dropitem' == $op2)
     remove_item($id, 1, $acctId, $invId);
 }
 
-\LotgdNavigation::addHeader('common.category.navigation', [ 'textDomain' => 'navigation-app']);
+\LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
 \LotgdNavigation::superuserGrottoNav();
-\LotgdNavigation::addNav('navigation.nav.return.whence', $return, [ 'textDomain' => $textDomain]);
-\LotgdNavigation::addNav('navigation.nav.update', "runmodule.php?module=inventory&op=superuser&acctid={$acctId}&return={$creturn}", [ 'textDomain' => $textDomain ]);
+\LotgdNavigation::addNav('navigation.nav.return.whence', $return, ['textDomain' => $textDomain]);
+\LotgdNavigation::addNav('navigation.nav.update', "runmodule.php?module=inventory&op=superuser&acctid={$acctId}&return={$creturn}", ['textDomain' => $textDomain]);
 
 $params = [
     'textDomain' => $textDomain,

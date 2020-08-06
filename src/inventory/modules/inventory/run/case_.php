@@ -1,6 +1,5 @@
 <?php
 
-
 $id = (int) \LotgdHttp::getQuery('id');
 $invId = (int) \LotgdHttp::getQuery('invid');
 $op2 = \LotgdHttp::getQuery('op2');
@@ -26,16 +25,17 @@ elseif ('equip' == $op2)
 {
     require_once 'lib/itemeffects.php';
 
-    $entity = $repository->findOneBy([ 'id' => $invId, 'item' => $id ]);
+    $entity = $repository->findOneBy(['id' => $invId, 'item' => $id]);
 
     $flashType = 'addErrorMessage';
     $flashMessage = 'item.equip.error';
     $flashParams = [];
+
     if ($entity)
     {
         $flashType = 'addErrorMessage';
         $flashMessage = 'item.equip.requisites';
-        $flashParams = [ 'itemName' => $entity->getItem()->getName() ];
+        $flashParams = ['itemName' => $entity->getItem()->getName()];
 
         if (inventory_can_use_item($repository->extractEntity($entity->getItem())))
         {
@@ -88,7 +88,7 @@ elseif ('equip' == $op2)
 }
 elseif ('unequip' == $op2)
 {
-    $entity = $repository->findOneBy([ 'id' => $invId, 'item' => $id ]);
+    $entity = $repository->findOneBy(['id' => $invId, 'item' => $id]);
 
     $flashType = 'addErrorMessage';
     $flashMessage = 'item.unequip.error';
@@ -109,7 +109,7 @@ elseif ('unequip' == $op2)
 
             $flashType = 'addSuccessMessage';
             $flashMessage = 'item.unequip.success';
-            $flashParams = [ 'itemName' => $entity->getItem()->getName() ];
+            $flashParams = ['itemName' => $entity->getItem()->getName()];
         }
     }
 

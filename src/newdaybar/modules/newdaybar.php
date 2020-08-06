@@ -78,12 +78,14 @@ function newdaybar_dohook($hookname, $args)
 
         $newdaytxt = date('G:i:s', $secstonewday);
         $newdaytxt = '<div class="newdaybar timer label">`@'.$newdaytxt.'`0</div>';
+
         if (! $showtime)
         {
             $newdaytxt = '';
         }
 
         $bar = $newdaytxt;
+
         if ($showbar)
         {
             $bar = "<div class='ui tiny indicating lotgd progress ".($newdaytxt ? '' : 'remove margin')." newdaybar' data-total='{$details['secsperday']}' data-value='{$details['realsecstotomorrow']}'><div class='bar'></div>";

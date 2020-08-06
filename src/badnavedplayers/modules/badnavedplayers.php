@@ -5,7 +5,7 @@ defined('SU_FIX_BADNAVS') || define('SU_FIX_BADNAVS', SU_MEGAUSER | SU_EDIT_PETI
 /**
     01/10/09 - v0.0.2
     + Made count number bold, red and blink when more than zero.
-*/
+ */
 function badnavedplayers_getmoduleinfo()
 {
     return [
@@ -50,7 +50,7 @@ function badnavedplayers_dohook($hookname, $args)
             ->getSingleScalarResult()
         ;
 
-        \LotgdNavigation::addHeader('superuser.category.actions', [ 'textDomain' => 'navigation-app' ]);
+        \LotgdNavigation::addHeader('superuser.category.actions', ['textDomain' => 'navigation-app']);
         \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=badnavedplayers', [
             'textDomain' => 'module-badnavedplayers',
             'params' => [
@@ -110,14 +110,15 @@ function badnavedplayers_run()
             $query->delete('LotgdCore:AccountsOutput', 'u')
                 ->where('u.acctid IN (:acct)')
 
-                ->setParameter('acct', array_map(function ($n) {
+                ->setParameter('acct', array_map(function ($n)
+                {
                     return $n['acct'];
                 }, $result))
 
                 ->getQuery()
                 ->execute()
             ;
-            \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('flash.message.fixed', [ 'n' => count($playerIds) ], $textDomain));
+            \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('flash.message.fixed', ['n' => count($playerIds)], $textDomain));
         }
     }
 
@@ -133,7 +134,7 @@ function badnavedplayers_run()
 
     \LotgdNavigation::superuserGrottoNav();
 
-    $params =  [
+    $params = [
         'textDomain' => $textDomain,
         'result' => $result
     ];

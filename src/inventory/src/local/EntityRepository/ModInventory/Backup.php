@@ -11,10 +11,6 @@ trait Backup
 {
     /**
      * Get all mail to account.
-     *
-     * @param int $accountId
-     *
-     * @return array
      */
     public function backupGetDataFromAccount(int $accountId): array
     {
@@ -40,10 +36,6 @@ trait Backup
 
     /**
      * Delete comments of account.
-     *
-     * @param int $accountId
-     *
-     * @return int
      */
     public function backupDeleteDataFromAccount(int $accountId): int
     {

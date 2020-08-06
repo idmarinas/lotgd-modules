@@ -18,13 +18,13 @@ function ghosttown_getmoduleinfo()
         'download' => 'core_module',
         'settings' => [
             'Ghost Town Settings,title',
-                'villagename' => 'Name for the ghost town|Esoterra',
-                'defacedname' => 'Defaced name for the ghost town|Eso`^Terron`0',
-                'allowtravel' => "Allow 'standard' travel to town?,bool|0",
+            'villagename' => 'Name for the ghost town|Esoterra',
+            'defacedname' => 'Defaced name for the ghost town|Eso`^Terron`0',
+            'allowtravel' => "Allow 'standard' travel to town?,bool|0",
         ],
         'prefs' => [
             'Ghost Town User Preferences,title',
-                'allow' => 'Is player allowed in?,bool|0',
+            'allow' => 'Is player allowed in?,bool|0',
         ],
         'requires' => [
             'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
@@ -112,7 +112,7 @@ function ghosttown_dohook($hookname, $args)
 
                 addnews('deathmessage', [
                     'deathmessage' => [
-                        'deathmessage' => "news.pvp.defeated",
+                        'deathmessage' => 'news.pvp.defeated',
                         'params' => [
                             'playerName' => $session['user']['name'],
                             'creatureName' => $args['badguy']['creaturename'],
@@ -137,7 +137,7 @@ function ghosttown_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.travel.dangerous');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -145,7 +145,7 @@ function ghosttown_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -202,7 +202,7 @@ function ghosttown_dohook($hookname, $args)
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args['village-ghosttown'] = \LotgdTranslator::t('moderate', [ 'city' => $city ], 'ghosttown-module');
+                $args['village-ghosttown'] = \LotgdTranslator::t('moderate', ['city' => $city], 'ghosttown-module');
             }
         break;
         case 'village-text-domain':

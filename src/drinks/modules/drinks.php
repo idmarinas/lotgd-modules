@@ -8,10 +8,7 @@ require_once 'lib/showform.php';
 require_once 'lib/buffs.php';
 
 /**
- *
- * REGISTRARLO DESPUES DE ACTIVAR LA VERSIÓN 4.0.0 EN DRACONIA
- *
- *
+ * REGISTRARLO DESPUES DE ACTIVAR LA VERSIÓN 4.0.0 EN DRACONIA.
  */
 
 /**
@@ -140,7 +137,7 @@ function drinks_dohook($hookname, $args)
 
             $hardDrink = (get_module_pref('harddrinks') >= get_module_setting('hardlimit'));
 
-            $where = [ 'active' => 1 ];
+            $where = ['active' => 1];
 
             if ($hardDrink)
             {
@@ -148,7 +145,7 @@ function drinks_dohook($hookname, $args)
             }
 
             $drinksRepository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
-            $result = $drinksRepository->findBy($where, [ 'costperlevel' => 'ASC' ]);
+            $result = $drinksRepository->findBy($where, ['costperlevel' => 'ASC']);
             $result = $drinksRepository->extractEntity($result);
 
             //-- Check all drinks in one hook
@@ -270,7 +267,7 @@ function drinks_run()
 
     if (! file_exists("modules/drinks/run/{$act}.php"))
     {
-        \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.', [ 'file' => $act, 'module' => 'drinks' ], 'drinks-module'));
+        \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.', ['file' => $act, 'module' => 'drinks'], 'drinks-module'));
 
         if ($session['user']['superuser'])
         {

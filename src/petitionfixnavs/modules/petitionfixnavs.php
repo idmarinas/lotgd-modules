@@ -32,9 +32,9 @@ function petitionfixnavs_dohook($hookname, $args)
     {
         $id = \LotgdHttp::getQuery('id');
 
-        \LotgdNavigation::addHeader('common.category.navigation', [ 'textDomain' => 'navigation-app']);
+        \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
 
-        \LotgdNavigation::addNav('navigation.nav.fix', "runmodule.php?module=petitionfixnavs&id={$id}", [ 'textDomain' => 'module-petitionfixnavs' ]);
+        \LotgdNavigation::addNav('navigation.nav.fix', "runmodule.php?module=petitionfixnavs&id={$id}", ['textDomain' => 'module-petitionfixnavs']);
     }
 
     return $args;
@@ -66,7 +66,8 @@ function petitionfixnavs_run()
             ->getSingleScalarResult()
         ;
 
-        $character = $repository->findBy([ 'acct' => $accountId ]);
+        $character = $repository->findBy(['acct' => $accountId]);
+
         if ($character)
         {
             require_once 'lib/systemmail.php';
@@ -86,7 +87,7 @@ function petitionfixnavs_run()
 
             systemmail($accountId,
                 ['mail.subject', [], $textDomain],
-                ['mail.message', [ 'moderator' => $session['user']['name'] ], $textDomain ]
+                ['mail.message', ['moderator' => $session['user']['name']], $textDomain]
             );
         }
 
@@ -94,5 +95,4 @@ function petitionfixnavs_run()
     }
 
     return redirect('viewpetition.php');
-
 }

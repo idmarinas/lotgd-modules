@@ -63,7 +63,7 @@ function snowbank_dohook($hookname, $args)
             if ($session['user']['location'] == get_module_setting('bankloc'))
             {
                 \LotgdNavigation::addHeader('headers.market');
-                \LotgdNavigation::addNav('navs.bank', 'bank.php', [ 'remplace' => true, 'textDomain' => 'snowbank-bank-navigation' ]);
+                \LotgdNavigation::addNav('navs.bank', 'bank.php', ['remplace' => true, 'textDomain' => 'snowbank-bank-navigation']);
             }
         break;
         case 'bank-text-domain':

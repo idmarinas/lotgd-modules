@@ -7,7 +7,7 @@ if (! $act)
 {
     \LotgdNavigation::addNav('navigation.nav.chat.barmaid.gossip', 'runmodule.php?module=lovers&op=chat&act=gossip');
     \LotgdNavigation::addNav('navigation.nav.chat.barmaid.fat', 'runmodule.php?module=lovers&op=chat&act=fat', [
-        'params' => [ 'armor' => $session['user']['armor'] ]
+        'params' => ['armor' => $session['user']['armor']]
     ]);
 }
 elseif ('fat' == $act)

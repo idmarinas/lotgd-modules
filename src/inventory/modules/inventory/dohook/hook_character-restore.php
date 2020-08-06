@@ -13,6 +13,7 @@ if (
         foreach ($args['data']['rows'] as $row)
         {
             $row = (array) $row;
+
             if ($row['item'])
             {
                 $row['item'] = $repositoryItem->find($row['item']);

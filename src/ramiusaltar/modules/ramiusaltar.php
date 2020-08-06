@@ -67,7 +67,7 @@ function ramiusaltar_dohook($hookname, $args)
             if ($session['user']['location'] == get_module_setting('ramiusaltarloc'))
             {
                 \LotgdNavigation::addHeader('headers.fight');
-                \LotgdNavigation::addNav('navigation.nav.altar', 'runmodule.php?module=ramiusaltar', [ 'textDomain' => 'module-ramiusaltar' ]);
+                \LotgdNavigation::addNav('navigation.nav.altar', 'runmodule.php?module=ramiusaltar', ['textDomain' => 'module-ramiusaltar']);
             }
         break;
 
@@ -77,7 +77,7 @@ function ramiusaltar_dohook($hookname, $args)
 
         case 'footer-hof':
             \LotgdNavigation::addHeader('category.ranking');
-            \LotgdNavigation::addNav('navigation.nav.rank', 'runmodule.php?module=ramiusaltar&op=HOF', [ 'textDomain' => 'module-ramiusaltar' ]);
+            \LotgdNavigation::addNav('navigation.nav.rank', 'runmodule.php?module=ramiusaltar&op=HOF', ['textDomain' => 'module-ramiusaltar']);
         break;
         default: break;
     }
@@ -104,12 +104,13 @@ function ramiusaltar_run()
 
     \LotgdNavigation::setTextDomain($textDomain);
 
-    \LotgdNavigation::addHeader('common.category.navigation', [ 'textDomain' => 'navigation-app']);
+    \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
 
     if ('' == $op)
     {
         $params['tpl'] = 'default';
         $params['sacrificed'] = false;
+
         if (get_module_pref('sacrificedtoday') >= get_module_setting('sacrificesperday'))
         {
             $params['sacrificed'] = true;
@@ -135,6 +136,7 @@ function ramiusaltar_run()
             case 'blood':
                 $params['giveType'] = 'blood';
                 $params['weak'] = false;
+
                 if ($session['user']['hitpoints'] <= $session['user']['maxhitpoints'] * 0.75)
                 {
                     $params['weak'] = true;
@@ -166,7 +168,7 @@ function ramiusaltar_run()
                 if ($session['user']['turns'] <= 4 || ($useStamina && $amber < 100))
                 {
                     $params['weak'] = true;
-                    debuglog('lost 5 favor trying to give flesh with '.($useStamina ? get_stamina(3) . 'stamina' : $session['user']['turns'] .'turns' ).' left');
+                    debuglog('lost 5 favor trying to give flesh with '.($useStamina ? get_stamina(3).'stamina' : $session['user']['turns'].'turns').' left');
                     $ramius_is_pleased = 0;
 
                     break;
@@ -174,7 +176,8 @@ function ramiusaltar_run()
 
                 $gain_favor += get_module_setting('reward2');
 
-                $turn_loss = mt_rand(2,4);
+                $turn_loss = mt_rand(2, 4);
+
                 if ($useStamina)
                 {
                     $stamina = $turn_loss * 25000;
@@ -185,8 +188,8 @@ function ramiusaltar_run()
                 else
                 {
                     $session['user']['turns'] -= $turn_loss;
-                    set_module_pref("totalturnloss", get_module_pref("totalturnloss") + $turn_loss);
-                    debuglog("lost `@" . $turn_loss . " turns `7 giving spirit at Altar of Ramius");
+                    set_module_pref('totalturnloss', get_module_pref('totalturnloss') + $turn_loss);
+                    debuglog('lost `@'.$turn_loss.' turns `7 giving spirit at Altar of Ramius');
                 }
 
                 $param['turnsLost'] = $turn_loss;
@@ -264,7 +267,7 @@ function ramiusaltar_run()
             $params['defiled'] = true;
             $params['favorLost'] = $favor_loss;
 
-            $session['user']['deathpower'] -=$favor_loss;
+            $session['user']['deathpower'] -= $favor_loss;
 
             if (is_module_active('alignment'))
             {
@@ -342,7 +345,7 @@ function ramiusaltar_run()
     $params['weapon'] = $session['user']['weapon'];
     $params['name'] = $session['user']['name'];
 
-    \LotgdNavigation::addHeader('common.category.return', [ 'textDomain' => 'navigation-app']);
+    \LotgdNavigation::addHeader('common.category.return', ['textDomain' => 'navigation-app']);
     \LotgdNavigation::villageNav();
 
     \LotgdNavigation::setTextDomain();

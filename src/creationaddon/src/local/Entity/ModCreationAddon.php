@@ -31,9 +31,9 @@ class ModCreationAddon
     private $badName;
 
     /**
-     * Get the value of id
+     * Get the value of id.
      *
-     * @return  int
+     * @return int
      */
     public function getId()
     {
@@ -41,11 +41,9 @@ class ModCreationAddon
     }
 
     /**
-     * Set the value of id
+     * Set the value of id.
      *
-     * @param  int  $id
-     *
-     * @return  self
+     * @return self
      */
     public function setId(int $id)
     {
@@ -55,9 +53,9 @@ class ModCreationAddon
     }
 
     /**
-     * Get the value of badName
+     * Get the value of badName.
      *
-     * @return  string
+     * @return string
      */
     public function getBadName()
     {
@@ -65,11 +63,9 @@ class ModCreationAddon
     }
 
     /**
-     * Set the value of badName
+     * Set the value of badName.
      *
-     * @param  string  $badName
-     *
-     * @return  self
+     * @return self
      */
     public function setBadName(string $badName)
     {

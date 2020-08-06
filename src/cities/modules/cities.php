@@ -130,7 +130,7 @@ function cities_dohook($hookname, $args)
         case 'drinks-check':
             if ($session['user']['location'] == $city)
             {
-                foreach($args as $key => $drink)
+                foreach ($args as $key => $drink)
                 {
                     $val = get_module_objpref('drinks', $drink['id'], 'servedcapital');
                     $args[$key]['allowdrink'] = $val;
@@ -299,7 +299,7 @@ function cities_dohook($hookname, $args)
             if (! is_module_active('worldmapen'))
             {
                 \LotgdNavigation::addHeader('headers.gate');
-                \LotgdNavigation::addNav('navs.travel', 'runmodule.php?module=cities&op=travel', [ 'textDomain' => 'cities-navigation']);
+                \LotgdNavigation::addNav('navs.travel', 'runmodule.php?module=cities&op=travel', ['textDomain' => 'cities-navigation']);
             }
 
             if (get_module_pref('paidcost') > 0)
@@ -315,16 +315,16 @@ function cities_dohook($hookname, $args)
             //-- Change text domain for navigation
             \LotgdNavigation::setTextDomain('cities-navigation');
 
-            \LotgdNavigation::addHeader('headers.travelpoints', [ 'hideEmpty' => false ]);
-            \LotgdNavigation::addHeader('navs.travels', [ 'hideEmpty' => false, 'params' => [ 'n' => $free ] ]);
-            \LotgdNavigation::addHeader('navs.turns', [ 'hideEmpty' => false, 'params' => [ 'n' => $session['user']['turns'] ] ]);
+            \LotgdNavigation::addHeader('headers.travelpoints', ['hideEmpty' => false]);
+            \LotgdNavigation::addHeader('navs.travels', ['hideEmpty' => false, 'params' => ['n' => $free]]);
+            \LotgdNavigation::addHeader('navs.turns', ['hideEmpty' => false, 'params' => ['n' => $session['user']['turns']]]);
 
             \LotgdNavigation::addHeader('headers.travel.safer');
 
             if ($session['user']['location'] != $city)
             {
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -334,7 +334,7 @@ function cities_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => [ 'key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city]
                 ]);
             }
 
@@ -343,7 +343,7 @@ function cities_dohook($hookname, $args)
         break;
         case 'stablelocs':
         case 'camplocs':
-            $args[$city] = \LotgdTranslator::t('locs', [ 'village' => $city ], 'cities-module');
+            $args[$city] = \LotgdTranslator::t('locs', ['village' => $city], 'cities-module');
         break;
     }
 

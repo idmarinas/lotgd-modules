@@ -1,4 +1,5 @@
 <?php
+
 //-- Change text domain
 \LotgdNavigation::setTextDomain($textDomain);
 \LotgdNavigation::addHeader('navigation.category.inventory');

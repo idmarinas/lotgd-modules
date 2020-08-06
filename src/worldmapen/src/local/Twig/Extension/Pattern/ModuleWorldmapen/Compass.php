@@ -6,10 +6,6 @@ trait Compass
 {
     /**
      * World map key (Compass).
-     *
-     * @param array $params
-     *
-     * @return string
      */
     public function showCompass(array $params): string
     {

@@ -48,6 +48,7 @@ if (! $params['seenLover'])
         {
             case 1:
                     $params['flirtCase'] = 2;
+
                     if (e_rand($c, 2) >= 2)
                     {
                         $params['flirtCase'] = 1;
@@ -126,6 +127,7 @@ if (! $params['seenLover'])
             break;
             case 6:
                     $params['flirtCase'] = 2;
+
                     if (e_rand($c, 18) >= 18)
                     {
                         $params['flirtCase'] = 1;

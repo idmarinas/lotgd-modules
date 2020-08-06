@@ -107,9 +107,10 @@ elseif ('save' == $op)
 
     $message = '';
     $paramsFlashMessage = [];
+
     if ('module' == $subop)
     {
-        $module =  \LotgdHttp::getQuery('editmodule');
+        $module = \LotgdHttp::getQuery('editmodule');
 
         $message = 'flash.message.editor.save.module';
         $paramsFlashMessage = ['name' => $module];

@@ -67,7 +67,7 @@ function landsky_dohook($hookname, $args)
         }
     }
 
-    if(! file_exists('public/images/landsky/sky.png'))
+    if (! file_exists('public/images/landsky/sky.png'))
     {
         return $args;
     }
@@ -86,7 +86,7 @@ function landsky_dohook($hookname, $args)
         'moonsCount' => count($moons)
     ];
 
-    switch($hookname)
+    switch ($hookname)
     {
         case 'page-home-tpl-params':
             if (! $showhome)
@@ -120,6 +120,7 @@ function landsky_calc()
 
     $width = 800;
     $height = 50;
+
     if (function_exists('getimagesize') && file_exists('public/images/landsky/sky.png'))
     {
         $size = getimagesize('public/images/landsky/sky.png');
@@ -172,6 +173,7 @@ function landsky_image()
     global $session;
 
     $key = 'deadsky';
+
     if (landsky_c())
     {
         $key = 'sky';

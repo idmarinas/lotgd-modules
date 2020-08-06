@@ -41,10 +41,11 @@ function get_effect($item = false, $noeffecttext = '')
     if (false === $item)
     {
         $effectText = $noeffecttext;
+
         if ('' == $noeffecttext)
         {
             $args = modulehook('item-noeffect', ['msg' => 'item.effect.text.nothing', 'params' => [], 'textDomain' => $textDomain, 'item' => $item]);
-            $effectText = [ $args['msg'], $args['params'], $args['textDomain'] ];
+            $effectText = [$args['msg'], $args['params'], $args['textDomain']];
         }
 
         $out[] = $effectText;
@@ -69,8 +70,8 @@ function get_effect($item = false, $noeffecttext = '')
             else
             {
                 $args = modulehook('item-noeffect', ['msg' => $noeffecttext, 'params' => [], 'textDomain' => $noeffecttextDomain, 'item' => $item]);
-                $out[] = [ $args['msg'], $args['params'], $args['textDomain'] ];
-                $out[] = [ 'item.effect.text.problem', [ 'itemName' => $item['name'], $textDomain]];
+                $out[] = [$args['msg'], $args['params'], $args['textDomain']];
+                $out[] = ['item.effect.text.problem', ['itemName' => $item['name'], $textDomain]];
 
                 debug("Cant load script of item {$item['itemid']}, file '{$execfile}' does not exists.");
             }
@@ -78,12 +79,12 @@ function get_effect($item = false, $noeffecttext = '')
         else
         {
             $args = modulehook('item-noeffect', ['msg' => $noeffecttext, 'params' => [], 'textDomain' => $noeffecttextDomain, 'item' => $item]);
-            $out[] = [ $args['msg'], $args['params'], $args['textDomain'] ];
+            $out[] = [$args['msg'], $args['params'], $args['textDomain']];
             $out[] = ['item.effect.text.requisites', [
-                    'dragonkills' => $item['dragonkills'],
-                    'level' => $item['level'],
-                    'itemName' => $item['name']
-                ],
+                'dragonkills' => $item['dragonkills'],
+                'level' => $item['level'],
+                'itemName' => $item['name']
+            ],
                 $textDomain
             ];
         }

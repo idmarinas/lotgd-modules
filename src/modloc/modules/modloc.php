@@ -54,10 +54,11 @@ function modloc_dohook($hookname, $args)
     {
         case 'footer-modules':
             $nav = 'common.category.navigation';
+            // no break
         case 'superuser':
             $nav = $nav ?? 'superuser.category.mechanics';
-            \LotgdNavigation::addHeader($nav, [ 'textDomain' => 'navigation-app' ]);
-            \LotgdNavigation::addNav('navigation.nav.locations', 'runmodule.php?module=modloc&admin=true', [ 'textDomain' => 'module-modloc' ]);
+            \LotgdNavigation::addHeader($nav, ['textDomain' => 'navigation-app']);
+            \LotgdNavigation::addNav('navigation.nav.locations', 'runmodule.php?module=modloc&admin=true', ['textDomain' => 'module-modloc']);
         break;
         default: break;
     }
@@ -78,11 +79,11 @@ function modloc_run()
 
     \LotgdNavigation::superuserGrottoNav();
 
-    \LotgdNavigation::addHeader('navigation.category.locations', [ 'textDomain' => $textDomain ]);
-    \LotgdNavigation::addNav('navigation.nav.all', 'runmodule.php?module=modloc&admin=true', [ 'textDomain' => $textDomain ]);
-    \LotgdNavigation::addNav('navigation.nav.error', 'runmodule.php?module=modloc&op=error&admin=true', [ 'textDomain' => $textDomain ]);
+    \LotgdNavigation::addHeader('navigation.category.locations', ['textDomain' => $textDomain]);
+    \LotgdNavigation::addNav('navigation.nav.all', 'runmodule.php?module=modloc&admin=true', ['textDomain' => $textDomain]);
+    \LotgdNavigation::addNav('navigation.nav.error', 'runmodule.php?module=modloc&op=error&admin=true', ['textDomain' => $textDomain]);
 
-    \LotgdNavigation::addHeader('navigation.category.filter', [ 'textDomain' => $textDomain ]);
+    \LotgdNavigation::addHeader('navigation.category.filter', ['textDomain' => $textDomain]);
 
     $params = [
         'textDomain' => $textDomain,
@@ -105,13 +106,14 @@ function modloc_run()
         ->from('LotgdCore:Modules', 'u')
 
         ->where('u.infokeys LIKE :key')
-        ->setParameter('key','%|settings|%')
+        ->setParameter('key', '%|settings|%')
 
         ->getQuery()
         ->getResult()
     ;
 
     $params['section'] = 'section.run.section.filter';
+
     if ('' == $loc && '' == $op)
     {
         $params['section'] = 'section.run.section.all';
@@ -123,7 +125,8 @@ function modloc_run()
 
     $params['modules'] = [];
     $params['errors'] = 0;
-    foreach($result as $module)
+
+    foreach ($result as $module)
     {
         $info = get_module_info($module['modulename']);
 

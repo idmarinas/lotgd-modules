@@ -33,7 +33,7 @@ function staminahof_dohook($hookname, $args)
     if ('footer-hof' == $hookname)
     {
         \LotgdNavigation::addHeader('category.ranking');
-        \LotgdNavigation::addNav('navigation.nav.ranking', 'runmodule.php?module=staminahof', [ 'textDomain' => 'module-staminahof' ]);
+        \LotgdNavigation::addNav('navigation.nav.ranking', 'runmodule.php?module=staminahof', ['textDomain' => 'module-staminahof']);
     }
 
     return $args;
@@ -71,6 +71,7 @@ function staminahof_run()
     $chof = urlencode($hof);
 
     $params['tpl'] = 'default';
+
     if ($hof)
     {
         $params['tpl'] = 'hof';
@@ -87,7 +88,8 @@ function staminahof_run()
         ;
 
         $hofPages = [];
-        foreach($userActionsArray as $acctionsArray)
+
+        foreach ($userActionsArray as $acctionsArray)
         {
             $acctionsArray['value'] = @unserialize($acctionsArray['value']);
 
@@ -102,11 +104,12 @@ function staminahof_run()
         $pages = ceil(count($userActionsArray) / $actionsPerPage);
 
         \LotgdNavigation::addHeader('navigation.category.pages');
+
         for ($i = 0; $i < $pages; $i++)
         {
             $page = $i * $actionsPerPage;
             \LotgdNavigation::addNav('navigation.nav.page', "runmodule.php?module=staminahof&action={$chof}&skip={$page}", [
-                'params' => [ 'page' => $i + 1 ]
+                'params' => ['page' => $i + 1]
             ]);
         }
 

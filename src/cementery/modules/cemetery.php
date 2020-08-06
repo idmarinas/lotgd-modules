@@ -50,16 +50,16 @@ function cemetery_dohook($hookname, $args)
         break;
         case 'footer-shades':
             \LotgdNavigation::addHeader('category.places');
-            \LotgdNavigation::addNav('nav.haunt', "runmodule.php?module=cemetery&op=deadspeak", [
-                    'textDomain' => 'cemetery-navigation',
-                    'params' => [ 'location' => $cemeteryloc ]
+            \LotgdNavigation::addNav('nav.haunt', 'runmodule.php?module=cemetery&op=deadspeak', [
+                'textDomain' => 'cemetery-navigation',
+                'params' => ['location' => $cemeteryloc]
             ]);
         break;
         case 'village':
             if ($session['user']['location'] == $cemeteryloc)
             {
                 \LotgdNavigation::addHeader('headers.gate');
-                \LotgdNavigation::addNav('nav.cemetery', 'runmodule.php?module=cemetery&op=cemetery', [ 'textDomain' => 'cemetery-navigation' ]);
+                \LotgdNavigation::addNav('nav.cemetery', 'runmodule.php?module=cemetery&op=cemetery', ['textDomain' => 'cemetery-navigation']);
             }
         break;
     }
@@ -89,7 +89,7 @@ function cemetery_run()
         $params['tpl'] = 'village';
         $params['textDomain'] = 'cemetery-village';
 
-        page_header('title', [ 'village' => $village ], $params['textDomain']);
+        page_header('title', ['village' => $village], $params['textDomain']);
     }
 
     rawoutput(\LotgdTheme::renderModuleTemplate('cemetery/commentary.twig', $params));

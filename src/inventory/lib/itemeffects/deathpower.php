@@ -3,7 +3,7 @@
 /**
  * Alter deathpower of character.
  *
- * @param int $points
+ * @param int   $points
  * @param array $item
  *
  * @return array An array of messages
@@ -19,7 +19,7 @@ function itemeffects_alter_deathpower($points, $item): array
     {
         $out[] = [
             'item.effect.deathpower.gain',
-            [ 'points' => $points, 'deathOverlord' => $deathoverlord, 'itemName' => $item['name'] ],
+            ['points' => $points, 'deathOverlord' => $deathoverlord, 'itemName' => $item['name']],
             'module-inventory'
         ];
     }
@@ -27,7 +27,7 @@ function itemeffects_alter_deathpower($points, $item): array
     {
         $out[] = [
             'item.effect.deathpower.lost',
-            [ 'points' => abs($points), 'deathOverlord' => $deathoverlord, 'itemName' => $item['name'] ],
+            ['points' => abs($points), 'deathOverlord' => $deathoverlord, 'itemName' => $item['name']],
             'module-inventory'
         ];
     }

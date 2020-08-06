@@ -74,9 +74,9 @@ function inv_statvalues_dohook($hookname, $args)
 
             foreach ($args['ids'] as $id)
             {
-                $attack = - get_module_objpref('items', $id, 'attack', 'inv_statvalues');
-                $defense = - get_module_objpref('items', $id, 'defense', 'inv_statvalues');
-                $maxhitpoints = - get_module_objpref('items', $id, 'maxhitpoints', 'inv_statvalues');
+                $attack = -get_module_objpref('items', $id, 'attack', 'inv_statvalues');
+                $defense = -get_module_objpref('items', $id, 'defense', 'inv_statvalues');
+                $maxhitpoints = -get_module_objpref('items', $id, 'maxhitpoints', 'inv_statvalues');
                 $session['user']['attack'] += $attack;
                 $session['user']['defense'] += $defense;
                 $session['user']['maxhitpoints'] += $maxhitpoints;
@@ -94,15 +94,15 @@ function inv_statvalues_dohook($hookname, $args)
         break;
         case 'dk-preserve':
             $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
-            $result = $repository->findBy([ 'equipped' => 1, 'userId' => $session['user']['acctid'] ]);
+            $result = $repository->findBy(['equipped' => 1, 'userId' => $session['user']['acctid']]);
 
-            foreach($result as $item)
+            foreach ($result as $item)
             {
                 $id = $item->getItem()->getId();
 
-                $attack = - get_module_objpref('items', $id, 'attack', 'inv_statvalues');
-                $defense = - get_module_objpref('items', $id, 'defense', 'inv_statvalues');
-                $maxhitpoints = - get_module_objpref('items', $id, 'maxhitpoints', 'inv_statvalues');
+                $attack = -get_module_objpref('items', $id, 'attack', 'inv_statvalues');
+                $defense = -get_module_objpref('items', $id, 'defense', 'inv_statvalues');
+                $maxhitpoints = -get_module_objpref('items', $id, 'maxhitpoints', 'inv_statvalues');
                 $session['user']['attack'] += $attack;
                 $session['user']['defense'] += $defense;
                 $session['user']['maxhitpoints'] += $maxhitpoints;

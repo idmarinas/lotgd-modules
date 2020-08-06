@@ -87,7 +87,7 @@ function worldmapen_determinenav()
 
     if ($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO)
     {
-        \LotgdNavigation::addNav('common.superuser.superuser', 'superuser.php', [ 'textDomain' => 'navigation-app' ]);
+        \LotgdNavigation::addNav('common.superuser.superuser', 'superuser.php', ['textDomain' => 'navigation-app']);
     }
 
     $params = [
@@ -114,7 +114,7 @@ function worldmapen_determinenav()
             $session['user']['location'] = $loc;
             set_module_pref('lastCity', '');
             \LotgdNavigation::addHeader('navigation.category.area');
-            \LotgdNavigation::addNav('navigation.nav.enter', 'village.php', [ 'params' => [ 'name' => $loc ]]);
+            \LotgdNavigation::addNav('navigation.nav.enter', 'village.php', ['params' => ['name' => $loc]]);
             $params['campingAllowed'] = 0;
 
             break;
@@ -122,6 +122,7 @@ function worldmapen_determinenav()
     }
 
     $free = 100;
+
     if (! get_module_setting('usestamina'))
     {
         $args = modulehook('count-travels', ['available' => 0, 'used' => 0]);
@@ -159,11 +160,12 @@ function worldmapen_determinenav()
 
         $params['nBoundary'] = true;
         $nlink = '#';
+
         if ($y + 1 <= $maxY && $NterrainCost <= $free)
         {
             $params['nBoundary'] = null;
             $nlink = "{$baseLink}&dir=north";
-            \LotgdNavigation::addNav('navigation.nav.move.north', $nlink, [ 'params' => [ 'cost' => $NterrainCost ] ]);
+            \LotgdNavigation::addNav('navigation.nav.move.north', $nlink, ['params' => ['cost' => $NterrainCost]]);
         }
         elseif ($NterrainCost > $free)
         {
@@ -172,11 +174,12 @@ function worldmapen_determinenav()
 
         $params['eBoundary'] = true;
         $elink = '#';
+
         if ($x + 1 <= $maxX && $EterrainCost <= $free)
         {
             $params['eBoundary'] = null;
             $elink = "{$baseLink}&dir=east";
-            \LotgdNavigation::addNav('navigation.nav.move.east', $elink, [ 'params' => [ 'cost' => $EterrainCost ] ]);
+            \LotgdNavigation::addNav('navigation.nav.move.east', $elink, ['params' => ['cost' => $EterrainCost]]);
         }
         elseif ($EterrainCost > $free)
         {
@@ -185,11 +188,12 @@ function worldmapen_determinenav()
 
         $params['sBoundary'] = true;
         $slink = '#';
+
         if ($y - 1 >= $minY && $SterrainCost <= $free)
         {
             $params['sBoundary'] = null;
             $slink = "{$baseLink}&dir=south";
-            \LotgdNavigation::addNav('navigation.nav.move.south', $slink, [ 'params' => [ 'cost' => $SterrainCost ] ]);
+            \LotgdNavigation::addNav('navigation.nav.move.south', $slink, ['params' => ['cost' => $SterrainCost]]);
         }
         elseif ($SterrainCost > $free)
         {
@@ -198,11 +202,12 @@ function worldmapen_determinenav()
 
         $params['wBoundary'] = true;
         $wlink = '#';
+
         if ($x - 1 >= $minX && $WterrainCost <= $free)
         {
             $params['wBoundary'] = null;
             $wlink = "{$baseLink}&dir=west";
-            \LotgdNavigation::addNav('navigation.nav.move.west', $wlink, [ 'params' => [ 'cost' => $WterrainCost ] ]);
+            \LotgdNavigation::addNav('navigation.nav.move.west', $wlink, ['params' => ['cost' => $WterrainCost]]);
         }
         elseif ($WterrainCost > $free)
         {
@@ -212,10 +217,11 @@ function worldmapen_determinenav()
         if ('1' == get_module_setting('compasspoints'))
         {
             $nelink = '#';
+
             if ($y + 1 <= $maxY && $x + 1 <= $maxX && $NEterrainCost <= $free)
             {
                 $nelink = "{$baseLink}&dir=northeast";
-                \LotgdNavigation::addNav('navigation.nav.move.neast', $nelink, [ 'params' => [ 'cost' => $NEterrainCost ] ]);
+                \LotgdNavigation::addNav('navigation.nav.move.neast', $nelink, ['params' => ['cost' => $NEterrainCost]]);
             }
             elseif ($NEterrainCost > $free)
             {
@@ -223,10 +229,11 @@ function worldmapen_determinenav()
             }
 
             $nwlink = '#';
+
             if ($y + 1 <= $maxY && $x - 1 >= $minX && $NWterrainCost <= $free)
             {
                 $nwlink = "{$baseLink}&dir=northwest";
-                \LotgdNavigation::addNav('navigation.nav.move.nwest', $nwlink, [ 'params' => [ 'cost' => $NWterrainCost ] ]);
+                \LotgdNavigation::addNav('navigation.nav.move.nwest', $nwlink, ['params' => ['cost' => $NWterrainCost]]);
             }
             elseif ($NWterrainCost > $free)
             {
@@ -234,10 +241,11 @@ function worldmapen_determinenav()
             }
 
             $selink = '#';
+
             if ($y - 1 >= $minY && $x + 1 <= $maxX && $SEterrainCost <= $free)
             {
                 $selink = "{$baseLink}&dir=southeast";
-                \LotgdNavigation::addNav('navigation.nav.move.seast', $selink, [ 'params' => [ 'cost' => $SEterrainCost] ]);
+                \LotgdNavigation::addNav('navigation.nav.move.seast', $selink, ['params' => ['cost' => $SEterrainCost]]);
             }
             elseif ($SEterrainCost > $free)
             {
@@ -245,10 +253,11 @@ function worldmapen_determinenav()
             }
 
             $swlink = '#';
+
             if ($y - 1 >= $minY && $x - 1 >= $minX && $SWterrainCost <= $free)
             {
                 $swlink = "{$baseLink}&dir=southwest";
-                \LotgdNavigation::addNav('navigation.nav.move.swest', $swlink, [ 'params' => [ 'cost' => $SWterrainCost] ]);
+                \LotgdNavigation::addNav('navigation.nav.move.swest', $swlink, ['params' => ['cost' => $SWterrainCost]]);
             }
             elseif ($SWterrainCost > $free)
             {
@@ -279,7 +288,7 @@ function worldmapen_determinenav()
             }
 
             \LotgdNavigation::addNav('navigation.nav.go', 'runmodule.php?module=worldmapen&op=destination&cname='.urlencode($loc), [
-                'params' => [ 'location' => $loc ]
+                'params' => ['location' => $loc]
             ]);
         }
 
@@ -312,7 +321,7 @@ function worldmapen_determinenav()
     if ($session['user']['superuser'] & SU_INFINITE_DAYS)
     {
         \LotgdNavigation::addHeader('navigation.category.superuser');
-        \LotgdNavigation::addNav('common.superuser.newday', 'newday.php', [ 'textDomain' => 'navigation-app' ]);
+        \LotgdNavigation::addNav('common.superuser.newday', 'newday.php', ['textDomain' => 'navigation-app']);
     }
 
     if (get_module_pref('worldmapbuy') || ($session['user']['superuser'] & SU_EDIT_USERS))
@@ -596,6 +605,7 @@ function worldmapen_setTerrain($map, $x, $y, $z = 1, $type = 'forest')
 function worldmapen_loadTerrainDefs(): array
 {
     $useStamina = false;
+
     if (get_module_setting('usestamina'))
     {
         require_once 'modules/staminasystem/lib/lib.php';
@@ -669,8 +679,6 @@ function worldmapen_loadTerrainDefs(): array
 /**
  * Load map.
  *
- * @param int $z
- *
  * @return array
  */
 function worldmapen_loadMap(int $z = 1)
@@ -705,11 +713,11 @@ function worldmapen_upgrade_map()
     {
         $terrains = unserialize($map);
 
-        foreach($terrains as $z => $valueZ)
+        foreach ($terrains as $z => $valueZ)
         {
             foreach ($valueZ as $x => $valueX)
             {
-                foreach($valueX as $y => $terrain)
+                foreach ($valueX as $y => $terrain)
                 {
                     $terrains[$z][$x][$y] = strtolower($terrain);
                 }
@@ -719,7 +727,6 @@ function worldmapen_upgrade_map()
         set_module_setting('TerrainDefinition', serialize($terrains), 'worldmapen');
     }
 }
-
 
 /**
  * Saved map.

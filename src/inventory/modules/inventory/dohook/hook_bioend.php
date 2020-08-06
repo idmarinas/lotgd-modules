@@ -1,4 +1,5 @@
 <?php
+
 if ($session['user']['superuser'] & SU_EDIT_USERS)
 {
     //-- Change text domain

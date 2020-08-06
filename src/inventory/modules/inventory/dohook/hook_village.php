@@ -6,7 +6,7 @@
 
 if (get_module_setting('inventorylink'))
 {
-    \LotgdNavigation::addNav('navigation.nav.inventory', "runmodule.php?module=inventory");
+    \LotgdNavigation::addNav('navigation.nav.inventory', 'runmodule.php?module=inventory');
 }
 
 display_item_nav('village', 'village.php');

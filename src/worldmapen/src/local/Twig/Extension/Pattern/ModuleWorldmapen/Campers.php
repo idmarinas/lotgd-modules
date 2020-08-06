@@ -5,9 +5,7 @@ namespace Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen;
 trait Campers
 {
     /**
-     * World Map camping routine
-     *
-     * @return string
+     * World Map camping routine.
      */
     public function showCampers(): string
     {

@@ -12,9 +12,10 @@ $inventory = $repository->getInventoryOfCharacter($session['user']['acctid']);
 $count = 0;
 $ids = [];
 
-foreach($inventory as $item)
+foreach ($inventory as $item)
 {
     $loosechance = $item['item']['looseChance'];
+
     if ($item['equipped'])
     {
         $loosechance = round($item['item']['looseChance'] * .9, 0);
@@ -53,7 +54,7 @@ if ($count)
 {
     $args['messages'][] = [
         'battle.defeated.end',
-        [ 'n' => $count ],
+        ['n' => $count],
         $textDomain
     ];
 }

@@ -10,16 +10,16 @@ function funddriverewards_getmoduleinfo()
         'download' => 'core_module',
         'settings' => [
             'Extra Forest Fights,title',
-                'giveff' => 'Give extra forest fights?,bool|1',
-                'ffstartat' => 'Starting at what percent of objective?,int|100',
-                'ffperpct' => 'Give 1 fight per how many percent over start point?,int|10',
-                'maxff' => 'Give no more than how many forest fights?,int|10',
+            'giveff' => 'Give extra forest fights?,bool|1',
+            'ffstartat' => 'Starting at what percent of objective?,int|100',
+            'ffperpct' => 'Give 1 fight per how many percent over start point?,int|10',
+            'maxff' => 'Give no more than how many forest fights?,int|10',
 
             'Reduced Healing Cost,title',
-                'giveheal' => 'Give reduced healing cost?,bool|1',
-                'healstartat' => 'Starting at what percent of objective?,int|100',
-                'healperpct' => 'Percent to reduce cost per percent over start point?,int|1',
-                'maxheal' => 'Max percent to reduce healing cost?,int|10',
+            'giveheal' => 'Give reduced healing cost?,bool|1',
+            'healstartat' => 'Starting at what percent of objective?,int|100',
+            'healperpct' => 'Percent to reduce cost per percent over start point?,int|1',
+            'maxheal' => 'Max percent to reduce healing cost?,int|10',
         ],
         'requires' => [
             'funddrive' => '2.0.0|Fund Drive Indicator.'
@@ -124,7 +124,7 @@ function funddriverewards_dohook($hookname, $args)
 
                 $params['pctOff'] = $pctoff;
 
-                $message .= '<br>' . \LotgdTranslator::t('flash.message.heal.result', $params, $textDomain);
+                $message .= '<br>'.\LotgdTranslator::t('flash.message.heal.result', $params, $textDomain);
 
                 \LotgdFlashMessages::addInfoMessage($message);
 

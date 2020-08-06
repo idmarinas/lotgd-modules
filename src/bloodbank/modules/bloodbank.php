@@ -58,7 +58,7 @@ function bloodbank_dohook($hookname, $args)
             if ($session['user']['location'] == get_module_setting('bankloc'))
             {
                 \LotgdNavigation::addHeader('headers.market');
-                \LotgdNavigation::addNav('navs.bank', 'bank.php', [ 'remplace' => true, 'textDomain' => 'blookbank-bank-navigation' ]);
+                \LotgdNavigation::addNav('navs.bank', 'bank.php', ['remplace' => true, 'textDomain' => 'blookbank-bank-navigation']);
             }
         break;
         case 'bank-text-domain':

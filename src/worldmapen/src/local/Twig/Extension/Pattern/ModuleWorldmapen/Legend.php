@@ -8,8 +8,6 @@ trait Legend
      * World map key (Legend).
      *
      * @param bool $showloc
-     *
-     * @return string
      */
     public function showLegend($showloc): string
     {

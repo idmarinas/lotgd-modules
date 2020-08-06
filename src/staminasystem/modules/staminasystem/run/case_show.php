@@ -14,6 +14,7 @@ $amberPct = get_stamina(1);
 $greenPct = get_stamina(2);
 
 $color = 'red';
+
 if ($greenPct > 0)
 {
     $color = 'green';
@@ -46,7 +47,8 @@ foreach ($act as $key => $value)
 }
 
 ksort($row);
-foreach($row as &$value)
+
+foreach ($row as &$value)
 {
     ksort($value);
 }

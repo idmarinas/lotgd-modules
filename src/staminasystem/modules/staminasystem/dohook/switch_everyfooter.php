@@ -27,14 +27,14 @@ if ($amber < 100 && $red >= 100)
     {
         $buffmsg = 'buff.0.3';
         $message = \LotgdTranslator::t('notify.0.3.message', [], 'module-staminasystem');
-        $title = \LotgdTranslator::t('notify.0.3.title', [ 'deathOverlord' => $deathOverlord ], 'module-staminasystem');
+        $title = \LotgdTranslator::t('notify.0.3.title', ['deathOverlord' => $deathOverlord], 'module-staminasystem');
         $script = stamina_notification($message, $title);
     }
     elseif ($buffvalue < 0.6)
     {
         $buffmsg = 'buff.0.6';
         $message = \LotgdTranslator::t('notify.0.6.message', [], 'module-staminasystem');
-        $title = \LotgdTranslator::t('notify.0.6.title', [ 'deathOverlord' => $deathOverlord ], 'module-staminasystem');
+        $title = \LotgdTranslator::t('notify.0.6.title', ['deathOverlord' => $deathOverlord], 'module-staminasystem');
         $script = stamina_notification($message, $title);
     }
     elseif ($buffvalue < 0.8)
@@ -85,7 +85,7 @@ if ($red < 100)
         return redirect('shades.php');
     }
 
-    $message = \LotgdTranslator::t('notify.red.message', [ 'deathOverlord' => $deathOverlord ], 'module-staminasystem');
+    $message = \LotgdTranslator::t('notify.red.message', ['deathOverlord' => $deathOverlord], 'module-staminasystem');
     $title = \LotgdTranslator::t('notify.red.title', [], 'module-staminasystem');
     $script = stamina_notification($message, $title, 'danger');
 

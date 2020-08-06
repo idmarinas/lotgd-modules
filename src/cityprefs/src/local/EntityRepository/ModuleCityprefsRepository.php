@@ -9,10 +9,6 @@ class ModuleCityprefsRepository extends DoctrineRepository
 {
     /**
      * Get city name from city ID.
-     *
-     * @param int $cityId
-     *
-     * @return string|null
      */
     public function getCityNameById(int $cityId): ?string
     {
@@ -39,10 +35,6 @@ class ModuleCityprefsRepository extends DoctrineRepository
 
     /**
      * Get module name from city ID.
-     *
-     * @param int $cityId
-     *
-     * @return string|null
      */
     public function getModuleNameByCityId(int $cityId): ?string
     {

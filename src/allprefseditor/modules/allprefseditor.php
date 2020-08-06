@@ -5,7 +5,7 @@
 
     05/02/2009 - v1.0b
     Added the 'editid' setting to store the id of the last edited user.
-*/
+ */
 function allprefseditor_getmoduleinfo()
 {
     return [
@@ -110,5 +110,4 @@ function allprefseditor_run()
 
 function allprefseditor_search()
 {
-
 }

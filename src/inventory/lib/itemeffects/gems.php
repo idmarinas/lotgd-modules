@@ -21,14 +21,14 @@ function itemeffects_increased_gems($gems, $item): array
     if ($gems > 0)
     {
         $out[] = ['item.effect.gems.gain',
-            [ 'gems' => $gems, 'itemName' => $item['name']],
+            ['gems' => $gems, 'itemName' => $item['name']],
             'module-inventory'
         ];
     }
     else
     {
         $out[] = ['item.effect.gems.lost',
-            [ 'gems' => abs($gems), 'itemName' => $item['name']],
+            ['gems' => abs($gems), 'itemName' => $item['name']],
             'module-inventory'
         ];
     }

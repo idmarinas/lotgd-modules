@@ -10,17 +10,17 @@ function moons_getmoduleinfo()
         'download' => 'core_module',
         'settings' => [
             'First Moon,title',
-                'moon1' => 'Is the first moon active?,bool|1',
-                'moon1cycle' => 'Days in the first moons lunar cycle,range,10,60,1|23',
-                'moon1place' => 'Place in cycle?,range,1,60,1|',
+            'moon1' => 'Is the first moon active?,bool|1',
+            'moon1cycle' => 'Days in the first moons lunar cycle,range,10,60,1|23',
+            'moon1place' => 'Place in cycle?,range,1,60,1|',
             'Second Moon,title',
-                'moon2' => 'Is the second moon active?,bool|0',
-                'moon2cycle' => 'Days in the second moons lunar cycle,range,10,60,1|43',
-                'moon2place' => 'Place in cycle?,range,1,60,1|',
+            'moon2' => 'Is the second moon active?,bool|0',
+            'moon2cycle' => 'Days in the second moons lunar cycle,range,10,60,1|43',
+            'moon2place' => 'Place in cycle?,range,1,60,1|',
             'Third Moon,title',
-                'moon3' => 'Is the third moon active?,bool|0',
-                'moon3cycle' => 'Days in the third moons lunar cycle,range,10,60,1|37',
-                'moon3place' => 'Place in cycle?,range,1,60,1|',
+            'moon3' => 'Is the third moon active?,bool|0',
+            'moon3cycle' => 'Days in the third moons lunar cycle,range,10,60,1|37',
+            'moon3place' => 'Place in cycle?,range,1,60,1|',
         ],
         'requires' => [
             'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
@@ -33,8 +33,6 @@ function moons_getmoduleinfo()
  *
  * @param int $cur
  * @param int $max
- *
- * @return string
  */
 function moons_phase($cur, $max): string
 {
@@ -174,7 +172,8 @@ function moons_dohook($hookname, $args)
             // then, if this user is in the dwarf town, show no moons.
             if (is_module_active('landsky') || ('village-desc' == $hookname && is_module_active('racedwarf')
                 && get_module_setting('villagename', 'racedwarf') == $session['user']['location']
-            )) {
+            ))
+            {
                 break;
             }
 
@@ -192,6 +191,7 @@ function moons_dohook($hookname, $args)
             $moonsCount += $moon3 ? 1 : 0;
 
             $prefix = 'prefix.forest';
+
             if ('village-desc' == $hookname)
             {
                 $prefix = 'prefix.village';

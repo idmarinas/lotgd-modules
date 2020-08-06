@@ -82,7 +82,7 @@ function offering_runevent($type)
         $seen++;
         set_module_pref('seen', $seen);
 
-        \LotgdNavigation::addNav('navigation.nav.default.shop', 'village.php?op=shop', [ 'params' => ['amount' => $amt]]);
+        \LotgdNavigation::addNav('navigation.nav.default.shop', 'village.php?op=shop', ['params' => ['amount' => $amt]]);
         \LotgdNavigation::addNav('navigation.nav.default.nope', 'village.php?op=nope');
     }
     elseif ('nope' == $op)

@@ -150,28 +150,28 @@ class ModuleDrinks
     /**
      * @var string
      *
-     * @ORM\Column(name="buffatkmod",type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
+     * @ORM\Column(name="buffatkmod", type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
     private $buffatkmod = null;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="buffdefmod",type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
+     * @ORM\Column(name="buffdefmod", type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
     private $buffdefmod = null;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="buffdmgmod",type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
+     * @ORM\Column(name="buffdmgmod", type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
     private $buffdmgmod = null;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="buffdmgshield",type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
+     * @ORM\Column(name="buffdmgshield", type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
     private $buffdmgshield = null;
 
@@ -212,8 +212,6 @@ class ModuleDrinks
 
     /**
      * Get the value of id.
-     *
-     * @return int
      */
     public function getId(): int
     {
@@ -236,8 +234,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -260,8 +256,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Active.
-     *
-     * @return bool
      */
     public function getActive(): bool
     {
@@ -284,8 +278,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Costperlevel.
-     *
-     * @return int
      */
     public function getCostperlevel(): int
     {
@@ -308,8 +300,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Hpchance.
-     *
-     * @return bool
      */
     public function getHpchance(): bool
     {
@@ -332,8 +322,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Turnchance.
-     *
-     * @return bool
      */
     public function getTurnchance(): bool
     {
@@ -356,8 +344,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Alwayshp.
-     *
-     * @return bool
      */
     public function getAlwayshp(): bool
     {
@@ -380,8 +366,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Alwaysturn.
-     *
-     * @return bool
      */
     public function getAlwaysturn(): bool
     {
@@ -404,8 +388,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Drunkeness.
-     *
-     * @return bool
      */
     public function getDrunkeness(): bool
     {
@@ -428,8 +410,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Harddrink.
-     *
-     * @return bool
      */
     public function getHarddrink(): bool
     {
@@ -452,8 +432,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Hpmin.
-     *
-     * @return int
      */
     public function getHpmin(): int
     {
@@ -476,8 +454,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Hpmax.
-     *
-     * @return int
      */
     public function getHpmax(): int
     {
@@ -500,8 +476,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Hppercent.
-     *
-     * @return int
      */
     public function getHppercent(): int
     {
@@ -524,8 +498,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Turnmin.
-     *
-     * @return int
      */
     public function getTurnmin(): int
     {
@@ -548,8 +520,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Turnmax.
-     *
-     * @return int
      */
     public function getTurnmax(): int
     {
@@ -572,8 +542,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Buffname.
-     *
-     * @return string
      */
     public function getBuffname(): string
     {
@@ -596,8 +564,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Buffrounds.
-     *
-     * @return int
      */
     public function getBuffrounds(): int
     {
@@ -620,8 +586,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Buffroundmsg.
-     *
-     * @return string
      */
     public function getBuffroundmsg(): string
     {
@@ -644,8 +608,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Buffwearoff.
-     *
-     * @return string
      */
     public function getBuffwearoff(): string
     {
@@ -764,8 +726,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Buffeffectfailmsg.
-     *
-     * @return string
      */
     public function getBuffeffectfailmsg(): string
     {
@@ -788,8 +748,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Buffeffectnodmgmsg.
-     *
-     * @return string
      */
     public function getBuffeffectnodmgmsg(): string
     {
@@ -812,8 +770,6 @@ class ModuleDrinks
 
     /**
      * Get the value of Buffeffectmsg.
-     *
-     * @return string
      */
     public function getBuffeffectmsg(): string
     {

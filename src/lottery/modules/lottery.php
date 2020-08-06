@@ -111,7 +111,7 @@ function lottery_dohook($hookname, $args)
             set_module_setting('todaysnumbers', $numbers);
 
             $repository = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
-            $winners = $repository->count([ 'modulename' => 'lottery', 'setting' => 'pick', 'value' => $numbers]);
+            $winners = $repository->count(['modulename' => 'lottery', 'setting' => 'pick', 'value' => $numbers]);
 
             if ($winners)
             {
@@ -134,7 +134,7 @@ function lottery_dohook($hookname, $args)
             \LotgdNavigation::addHeader('category.do');
             \LotgdNavigation::addNav('navigation.nav.lottery', 'runmodule.php?module=lottery&op=store', [
                 'textDomain' => 'module-lottery',
-                'params' => [ 'barman' => getsetting('barkeep', '`tCedrik`0') ]
+                'params' => ['barman' => getsetting('barkeep', '`tCedrik`0')]
             ]);
         break;
         default: break;
@@ -164,11 +164,13 @@ function lottery_run()
         \LotgdHttp::setQuery('op', $op);
 
         $message = 'flash.message.error.gold';
+
         if ($session['user']['gold'] >= $cost)
         {
             $lotto = \LotgdHttp::getPost('lotto');
 
             $message = 'flash.message.error.lotto';
+
             if ($lotto)
             {
                 $message = null;
@@ -199,7 +201,7 @@ function lottery_run()
         'cost' => $cost
     ];
 
-    page_header('title', [ 'barman' => $params['barman'] ], $textDomain);
+    page_header('title', ['barman' => $params['barman']], $textDomain);
 
     $params['jackpot'] = $jackpot;
     $params['winners'] = $winners;
@@ -209,8 +211,8 @@ function lottery_run()
     $params['pn2'] = $params['pick'][2];
     $params['pn3'] = $params['pick'][3];
 
-    \LotgdNavigation::addHeader('navigation.category.return', [ 'textDomain' => $textDomain]);
-    \LotgdNavigation::addNav('navigation.nav.inn', 'inn.php', [ 'textDomain' => $textDomain]);
+    \LotgdNavigation::addHeader('navigation.category.return', ['textDomain' => $textDomain]);
+    \LotgdNavigation::addNav('navigation.nav.inn', 'inn.php', ['textDomain' => $textDomain]);
 
     \LotgdNavigation::villageNav();
 

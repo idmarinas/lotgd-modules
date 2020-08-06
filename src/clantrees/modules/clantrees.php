@@ -105,7 +105,7 @@ function clantrees_dohook($hookname, $args)
                     'salesman' => get_module_setting('salesman')
                 ];
 
-                $args[] = [ 'section.hook.village.salesman', $params, 'module-clantrees', ];
+                $args[] = ['section.hook.village.salesman', $params, 'module-clantrees'];
 
                 if ($besttree)
                 {
@@ -124,7 +124,7 @@ function clantrees_dohook($hookname, $args)
                                 ->getSingleScalarResult()
                             ;
 
-                            $args[] = [ 'section.hook.village.besttree', $params, 'module-clantrees', ];
+                            $args[] = ['section.hook.village.besttree', $params, 'module-clantrees'];
                         }
                         catch (\Throwable $th)
                         {
@@ -135,7 +135,7 @@ function clantrees_dohook($hookname, $args)
                     }
                     else
                     {
-                        $args[] = [ 'section.hook.village.decoration', $params, 'module-clantrees', ];
+                        $args[] = ['section.hook.village.decoration', $params, 'module-clantrees'];
                     }
                 }
             }
@@ -372,7 +372,7 @@ function clantrees_run()
         {
             \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.zero.'.$what, [], $textDomain));
         }
-        elseif (($field == 'turns' && $params['staminaSystem'] && $block < $howmuch) || $session['user'][$field] < $howmuch)
+        elseif (('turns' == $field && $params['staminaSystem'] && $block < $howmuch) || $session['user'][$field] < $howmuch)
         {
             \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.none.'.$what, [], $textDomain));
         }
