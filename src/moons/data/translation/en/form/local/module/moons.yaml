@@ -1,0 +1,19 @@
+form.label: Moons Settings
+
+moon1:
+    title: First Moon
+    moon1: Is the first moon active?
+    moon1cycle: Days in the first moons lunar cycle
+    moon1place: Place in cycle?
+
+moon2:
+    title: Second Moon
+    moon2: Is the second moon active?
+    moon2cycle: Days in the second moons lunar cycle
+    moon2place: Place in cycle?
+
+moon3:
+    title: Third Moon
+    moon3: Is the third moon active?
+    moon3cycle: Days in the third moons lunar cycle
+    moon3place: Place in cycle?

@@ -5,25 +5,12 @@ function moons_getmoduleinfo()
     return [
         'name' => 'Moons',
         'author' => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '2.0.0',
+        'version' => '3.0.0',
         'category' => 'General',
         'download' => 'core_module',
-        'settings' => [
-            'First Moon,title',
-            'moon1' => 'Is the first moon active?,bool|1',
-            'moon1cycle' => 'Days in the first moons lunar cycle,range,10,60,1|23',
-            'moon1place' => 'Place in cycle?,range,1,60,1|',
-            'Second Moon,title',
-            'moon2' => 'Is the second moon active?,bool|0',
-            'moon2cycle' => 'Days in the second moons lunar cycle,range,10,60,1|43',
-            'moon2place' => 'Place in cycle?,range,1,60,1|',
-            'Third Moon,title',
-            'moon3' => 'Is the third moon active?,bool|0',
-            'moon3cycle' => 'Days in the third moons lunar cycle,range,10,60,1|37',
-            'moon3place' => 'Place in cycle?,range,1,60,1|',
-        ],
+        'settings' => 'Lotgd\Local\Form\Module\MoonsSettings',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
+            'lotgd' => '>=4.3.0|Need a version equal or greater than 4.3.0 IDMarinas Edition'
         ]
     ];
 }
@@ -89,11 +76,11 @@ function moons_install()
 
     if (! get_module_setting('moon1place', 'moons'))
     {
-        $place = e_rand(1, get_module_setting('moon1cycle', 'moons'));
+        $place = e_rand(1, (int) get_module_setting('moon1cycle', 'moons'));
         set_module_setting('moon1place', $place);
-        $place = e_rand(1, get_module_setting('moon2cycle', 'moons'));
+        $place = e_rand(1, (int) get_module_setting('moon2cycle', 'moons'));
         set_module_setting('moon2place', $place);
-        $place = e_rand(1, get_module_setting('moon3cycle', 'moons'));
+        $place = e_rand(1, (int) get_module_setting('moon3cycle', 'moons'));
         set_module_setting('moon3place', $place);
     }
 
