@@ -1,0 +1,13 @@
+{% translate_default_domain textDomain %}
+
+{% if isLaminas %}
+    {% if formTypeTab %}
+        {{ laminas_form_tab(form) }}
+    {% else %}
+        {{ laminas_form(form) }}
+    {% endif %}
+{% else %}
+    <form action="{{ 'runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id=' ~ id ~ '&submodule=' ~ module }}" method="POST" autocomplete="off">
+        {{ form }}
+    </form>
+{% endif %}
