@@ -4,7 +4,7 @@ function cityprefs_getmoduleinfo()
 {
     return [
         'name' => 'City Preferences Addon',
-        'version' => '2.0.0',
+        'version' => '3.0.0',
         'author' => 'Sixf00t4, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'General',
         'description' => 'Gives the ability to use prefs based on cities',
@@ -14,7 +14,7 @@ function cityprefs_getmoduleinfo()
             'data_imported' => 'Imported old data,viewonly',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.3.0|Need a version equal or greater than 4.3.0 IDMarinas Edition',
             'cities' => '>=2.0.0|Multiple Cities - Core module'
         ]
     ];
@@ -333,33 +333,52 @@ function cityprefs_run()
                 ]
             ]);
 
-            $message = 'flash.message.module.select';
-
-            if ('editmodulesave' == $op)
-            {
-                // Save module prefs
-                $post = \LotgdHttp::getPostAll();
-
-                foreach ($post as $key => $val)
-                {
-                    set_module_objpref('city', $cityId, $key, stripslashes($val), $mdule);
-                }
-                $message = 'flash.message.module.saved';
-            }
-
             if ($mdule)
             {
-                $message = null;
+                $form = module_objpref_edit('drinks', $mdule, $cityId);
 
-                rawoutput("<form action='runmodule.php?module=cityprefs&op=editmodulesave&cityid={$cityId}&mdule={$mdule}' method='POST'>");
-                module_objpref_edit('city', $mdule, $cityId);
-                rawoutput('</form>');
+                $params['isLaminas'] = $form instanceof Laminas\Form\Form;
+                $params['module'] = $mdule;
+                $params['cityId'] = $cityId;
+
+                if ($params['isLaminas'])
+                {
+                    $form->setAttribute('action', "runmodule.php?module=cityprefs&op=editmodulesave&cityid={$cityId}&mdule={$mdule}&isLaminas=true");
+                    $params['formTypeTab'] = $form->getOption('form_type_tab');
+                }
+
+                if (\LotgdHttp::isPost())
+                {
+                    $post = \LotgdHttp::getPostAll();
+
+                    if ($params['isLaminas'])
+                    {
+                        $form->setData($post);
+
+                        if ($form->isValid())
+                        {
+                            $data = $form->getData();
+
+                            process_post_save_data($data, $cityId, $mdule);
+
+                            \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.module.saved', [], $textDomain));
+                        }
+                    }
+                    else
+                    {
+                        reset($post);
+
+                        process_post_save_data($post, $cityId, $mdule);
+
+                        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.module.saved', [], $textDomain));
+                    }
+                }
+
+                $params['form'] = $form;
+
+                rawoutput(\LotgdTheme::renderModuleTemplate('cityprefs/run/module.twig', $params));
+
                 \LotgdNavigation::addNavAllow("runmodule.php?module=cityprefs&op=editmodulesave&cityid={$cityId}&mdule={$mdule}");
-            }
-
-            if ($message)
-            {
-                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t($message, [], $textDomain));
             }
 
             \LotgdNavigation::addHeader('navigation.category.prefs');
@@ -414,4 +433,19 @@ function cityprefs_run()
     rawoutput(LotgdTheme::renderModuleTemplate('cityprefs/run.twig', $params));
 
     page_footer();
+}
+
+function process_post_save_data($data, $id, $module)
+{
+    foreach ($data as $key => $val)
+    {
+        if (is_array($val))
+        {
+            process_post_save_data($val, $id, $module);
+
+            continue;
+        }
+
+        set_module_objpref('city', $id, $key, $val, $module);
+    }
 }

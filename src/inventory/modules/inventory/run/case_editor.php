@@ -5,6 +5,7 @@ require_once 'lib/showform.php';
 
 $op2 = (string) \LotgdHttp::getQuery('op2');
 $id = (int) \LotgdHttp::getQuery('id');
+$isLaminas = (string) \LotgdHttp::getQuery('isLaminas');
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
 $buffRepo = \Doctrine::getRepository('LotgdLocal:ModInventoryBuff');
@@ -38,46 +39,26 @@ switch ($op2)
         $subop = (string) \LotgdHttp::getQuery('subop');
         $module = (string) \LotgdHttp::getQuery('submodule');
 
-        if (\LotgdHttp::isPost())
+        if (\LotgdHttp::isPost() && 'true' != $isLaminas)
         {
             $post = \LotgdHttp::getPostAll();
             reset($post);
 
-            $message = '';
             $paramsFlashMessage = [];
+            $message = 'flash.message.save.saved';
 
-            if ('module' == $subop)
-            {
-                $message = 'flash.message.save.module';
-                $paramsFlashMessages = ['name' => $module];
+            $post['activationHook'] = array_sum(array_keys($post['activationHook']));
+            $post['buff'] = $buffRepo->find($post['buff']);
 
-                // Save modules settings
-                foreach ($post as $key => $val)
-                {
-                    set_module_objpref('items', $id, $key, $val, $module);
-                }
-            }
-            else
-            {
-                $message = 'flash.message.save.saved';
+            $item = $repository->find($id);
+            $item = $repository->hydrateEntity($post, $item);
 
-                $post['activationHook'] = array_sum(array_keys($post['activationHook']));
-                $post['buff'] = $buffRepo->find($post['buff']);
+            \Doctrine::persist($item);
+            \Doctrine::flush();
 
-                $item = $repository->find($id);
-                $item = $repository->hydrateEntity($post, $item);
+            $id = $item->getId();
 
-                \Doctrine::persist($item);
-                \Doctrine::flush();
-
-                $id = $item->getId();
-            }
-
-            if ($message)
-            {
-                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t($message, $paramsFlashMessage, $params['textDomain']));
-            }
-
+            \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t($message, $paramsFlashMessage, $params['textDomain']));
             unset($post);
         }
 
@@ -103,9 +84,49 @@ switch ($op2)
 
         if ('module' == $subop)
         {
-            rawoutput("<form action='runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule={$module}' method='POST'>");
-            module_objpref_edit('items', $module, $id);
-            rawoutput('</form>');
+            $form = module_objpref_edit('items', $module, $id);
+
+            $params['isLaminas'] = $form instanceof Laminas\Form\Form;
+            $params['module'] = $module;
+            $params['id'] = $id;
+
+            if ($params['isLaminas'])
+            {
+                $form->setAttribute('action', "runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule={$module}&isLaminas=true");
+                $params['formTypeTab'] = $form->getOption('form_type_tab');
+            }
+
+            if (\LotgdHttp::isPost())
+            {
+                $post = \LotgdHttp::getPostAll();
+
+                if ($params['isLaminas'])
+                {
+                    $form->setData($post);
+
+                    if ($form->isValid())
+                    {
+                        $data = $form->getData();
+
+                        process_post_save_data($data, $id, $module);
+
+                        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
+                    }
+                }
+                else
+                {
+                    reset($post);
+
+                    process_post_save_data($post, $id, $module);
+
+                    \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
+                }
+            }
+
+            $params['form'] = $form;
+
+            rawoutput(\LotgdTheme::renderModuleTemplate('inventory/run/editor/module.twig', $params));
+
             \LotgdNavigation::addNavAllow("runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule={$module}");
         }
         else
@@ -345,5 +366,20 @@ switch ($op2)
 \LotgdNavigation::setTextDomain();
 
 rawoutput(\LotgdTheme::renderModuleTemplate('inventory/editor.twig', $params));
+
+function process_post_save_data($data, $id, $module)
+{
+    foreach ($data as $key => $val)
+    {
+        if (is_array($val))
+        {
+            process_post_save_data($val, $id, $module);
+
+            continue;
+        }
+
+        set_module_objpref('items', $id, $key, $val, $module);
+    }
+}
 
 page_footer();

@@ -24,7 +24,7 @@ function drinks_getmoduleinfo()
 {
     return [
         'name' => 'Exotic Drinks',
-        'version' => '2.0.0',
+        'version' => '3.0.0',
         'author' => 'John J. Collins<br>Heavily modified by JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Inn',
         'download' => 'core_module',
@@ -41,7 +41,7 @@ function drinks_getmoduleinfo()
             'noslur' => "Don't slur speach when drunk,bool|0",
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
+            'lotgd' => '>=4.3.0|Need a version equal or greater than 4.3.0 IDMarinas Edition'
         ]
     ];
 }

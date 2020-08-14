@@ -197,12 +197,51 @@ elseif ('edit' == $op || 'add' == $op)
     if ('module' == $subop)
     {
         $module = \LotgdHttp::getQuery('editmodule');
-        $oldmodule = $mostrecentmodule;
-        rawoutput("<form action='runmodule.php?module=drinks&act=editor&op=save&subop=module&editmodule={$module}&drinkid={$drinkid}&admin=true' method='POST'>");
-        module_objpref_edit('drinks', $module, $drinkid);
-        $mostrecentmodule = $oldmodule;
-        rawoutput('</form>');
-        \LotgdNavigation::addNavAllow("runmodule.php?module=drinks&act=editor&op=save&subop=module&editmodule={$module}&drinkid={$drinkid}&admin=true");
+
+        $form = module_objpref_edit('drinks', $module, $drinkid);
+
+        $params['isLaminas'] = $form instanceof Laminas\Form\Form;
+        $params['module'] = $module;
+        $params['drinkid'] = $drinkid;
+
+        if ($params['isLaminas'])
+        {
+            $form->setAttribute('action', "runmodule.php?module=drinks&act=editor&op=edit&subop=module&editmodule={$module}&drinkid={$drinkid}&admin=true&isLaminas=true");
+            $params['formTypeTab'] = $form->getOption('form_type_tab');
+        }
+
+        if (\LotgdHttp::isPost())
+        {
+            $post = \LotgdHttp::getPostAll();
+
+            if ($params['isLaminas'])
+            {
+                $form->setData($post);
+
+                if ($form->isValid())
+                {
+                    $data = $form->getData();
+
+                    process_post_save_data($data, $drinkid, $module);
+
+                    \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
+                }
+            }
+            else
+            {
+                reset($post);
+
+                process_post_save_data($post, $drinkid, $module);
+
+                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
+            }
+        }
+
+        $params['form'] = $form;
+
+        rawoutput(\LotgdTheme::renderModuleTemplate('drinks/run/edit/module.twig', $params));
+
+        \LotgdNavigation::addNavAllow("runmodule.php?module=drinks&act=editor&op=edit&subop=module&editmodule={$module}&drinkid={$drinkid}&admin=true");
     }
     elseif ('' == $subop)
     {
@@ -215,3 +254,18 @@ elseif ('edit' == $op || 'add' == $op)
 }
 
 rawoutput(\LotgdTheme::renderModuleTemplate('drinks/run/superuser.twig', $params));
+
+function process_post_save_data($data, $id, $module)
+{
+    foreach ($data as $key => $val)
+    {
+        if (is_array($val))
+        {
+            process_post_save_data($val, $id, $module);
+
+            continue;
+        }
+
+        set_module_objpref('drinks', $id, $key, $val, $module);
+    }
+}
