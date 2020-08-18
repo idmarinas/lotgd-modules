@@ -335,7 +335,7 @@ function cityprefs_run()
 
             if ($mdule)
             {
-                $form = module_objpref_edit('drinks', $mdule, $cityId);
+                $form = module_objpref_edit('city', $mdule, $cityId);
 
                 $params['isLaminas'] = $form instanceof Laminas\Form\Form;
                 $params['module'] = $mdule;
