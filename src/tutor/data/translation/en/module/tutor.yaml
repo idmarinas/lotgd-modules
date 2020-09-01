@@ -51,7 +51,7 @@ navigation.help: "*?`$Help Me, I'm Lost!`0"
 run:
     title: Help!
     paragraph: >
-        `%`c`bHelp Me, I'm Lost!`b`c`n
+        `%`c`bHelp Me, I'm Lost!´b´c`n
         `@Feeling lost?`n`n
         `#Legend of the Green Dragon started out small, but with time it has collected many new things to explore.`n`n
         To a newcomer, it can be a little bit daunting.`n`n
