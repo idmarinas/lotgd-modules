@@ -312,6 +312,9 @@ function worldmapen_dohook($hookname, $args)
         return $args;
     }
 
+    //-- Change text domain for navigation
+    \LotgdNavigation::setTextDomain('module-worldmapen');
+
     if (file_exists("modules/worldmapen/dohook/{$hookname}.php"))
     {
         require "modules/worldmapen/dohook/{$hookname}.php";
@@ -320,6 +323,9 @@ function worldmapen_dohook($hookname, $args)
     {
         debug("Sorry, I don't have the hook '{$hookname}' programmed.");
     }
+
+    //-- Restore text domain for navigation
+    \LotgdNavigation::setTextDomain();
 
     return $args;
 }

@@ -76,7 +76,7 @@ function ramiusaltar_dohook($hookname, $args)
         break;
 
         case 'footer-hof':
-            \LotgdNavigation::addHeader('category.ranking');
+            \LotgdNavigation::addHeader('category.ranking', ['textDomain' => 'navigation-hof']);
             \LotgdNavigation::addNav('navigation.nav.rank', 'runmodule.php?module=ramiusaltar&op=HOF', ['textDomain' => 'module-ramiusaltar']);
         break;
         default: break;

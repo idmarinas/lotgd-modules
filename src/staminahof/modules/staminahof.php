@@ -32,7 +32,7 @@ function staminahof_dohook($hookname, $args)
 
     if ('footer-hof' == $hookname)
     {
-        \LotgdNavigation::addHeader('category.ranking');
+        \LotgdNavigation::addHeader('category.ranking', ['textDomain' => 'navigation-hof']);
         \LotgdNavigation::addNav('navigation.nav.ranking', 'runmodule.php?module=staminahof', ['textDomain' => 'module-staminahof']);
     }
 
