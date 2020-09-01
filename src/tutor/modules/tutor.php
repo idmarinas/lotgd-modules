@@ -25,7 +25,7 @@ function tutor_getmoduleinfo()
 
 function tutor_install()
 {
-    module_addhook('everyheader');
+    module_addhook('everyheader-loggedin');
     module_addhook('newday');
     module_addhook('village');
     module_addhook('battle');
@@ -81,12 +81,7 @@ function tutor_dohook($hookname, $args)
                 tutor_talk('message.battle');
             }
         // no break
-        case 'everyheader':
-            if ( ! $session['user']['loggedin'])
-            {
-                break;
-            }
-
+        case 'everyheader-loggedin':
             $adef       = $session['user']['armordef'];
             $wdam       = $session['user']['weapondmg'];
             $gold       = $session['user']['gold'];
