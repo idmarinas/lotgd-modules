@@ -1,76 +1,76 @@
 section:
     default:
-        paragraph:
-            - '`7In the distance in the vast fields of the dead, you see an object like a vast monolith through the fog.'
-            - 'As you approach through the swirling mists you start to notice a dark spot at the base of the obelisk.'
-            - 'A quick glance at the stone shows it to be unreadable. You think that you might be able to enter this crevice.`0`n`n'
+        paragraph: >
+            `7In the distance in the vast fields of the dead, you see an object like a vast monolith through the fog.
+            As you approach through the swirling mists you start to notice a dark spot at the base of the obelisk.
+            A quick glance at the stone shows it to be unreadable. You think that you might be able to enter this crevice.`0`n`n
         enter:
             yes: 'Enter the darkness?'
             no: '`7Although you drift over to the entrance to the cavern, you feel too tired to make it down that far.`0'
     depart:
-        paragraph:
-            - '`7You turn away from the ominous looking dark pit at the base of the obelisk, put it to your back, and walk back into the fields of the dead.'
-            - 'As the mists close in around it, a strange bestial roar seems to echo back at you.'
-            - 'Indeed, tis better safe, than sorry, even for the dead.`0'
+        paragraph: >
+            `7You turn away from the ominous looking dark pit at the base of the obelisk, put it to your back, and walk back into the fields of the dead.
+            As the mists close in around it, a strange bestial roar seems to echo back at you.
+            Indeed, tis better safe, than sorry, even for the dead.`0
     surface:
-        paragraph:
-            - "`7Upon realizing the bones are those of dragons, you've seen too much."
-            - 'Bolting for the surface before you have done more then realize the need to be out of there, you recognize the sounds of the screams behind you now.'
-            - 'Reaching the surface, without a pause you run from the stone obelisk, and into the mists.`0'
+        paragraph: >
+            `7Upon realizing the bones are those of dragons, you've seen too much.
+            Bolting for the surface before you have done more then realize the need to be out of there, you recognize the sounds of the screams behind you now.
+            Reaching the surface, without a pause you run from the stone obelisk, and into the mists.`0
     entercavern:
-        paragraph:
-            - '`7As you wander into the huge cavern, you can see bones everywhere, of all sizes, but the majority huge beyond any frame.'
-            - 'The shape of the first skull you see confirms it to you - the draconic features are unmistakable.'
-            - 'You wonder how the skeletons all got down here, but are more immediately struck by the thought of exploration.`0`n`n'
+        paragraph: >
+            `7As you wander into the huge cavern, you can see bones everywhere, of all sizes, but the majority huge beyond any frame.
+            The shape of the first skull you see confirms it to you - the draconic features are unmistakable.
+            You wonder how the skeletons all got down here, but are more immediately struck by the thought of exploration.`0`n`n
         search:
             yes: '`7There are most probably hidden dangers in this vast place, what do you wish to do?'
             no: "When you see the size of the dimly lit cavern you realize you can't stand the torment of the search.`0"
     searchcavern:
-        '01':
-            - '`7As you make your way to the furthest, darkest part of the cavern, you almost imagine that you can sense sounds coming from a shaft in the ground.'
-            - 'You peer down, to be blinded by a shining white light.'
-            - 'Though you fall back and rub your eyes to clear them, you only manage to see two huge glowing red eyes emerge from the pit before being horribly attacked.`0'
-            - "{soulpoints,select, 0{`7You drift back to the shades, destroyed.`0} other{`7You're barely able to drag your battered form back to the surface, haunted by the image of those terrible eyes.`0} }"
-        '02':
-            - '`7As you wander amongst the piles of bones, you catch sight of a curious arrangement, hidden betwixt huge skulls of dragons past.'
-            - 'In front of you lies an altar made of bones, covered by a blood-red cloth with a small pile of gold lying on a bone plate in the center.`n'
-            - 'While there are candles burning, they shed no light.`n`n'
-            - 'What do you wish to do?`0'
-        '03':
-            - '`7While you were looking under a pile of smaller bones, you find a skeletal hand clutching a small bag and journal.'
-            - 'You flick through the journal and it tells of some boring exploration as a guide, leading someone to `i"The First"´i. Dull, dull, dull.'
-            - 'However, the bag is far more worthwhile, filled as it is with gold - score one for grave robbing!`0'
-            - '`n`n`&You gain `^{randGold,number} gold`0!`0'
+        '01': >
+            `7As you make your way to the furthest, darkest part of the cavern, you almost imagine that you can sense sounds coming from a shaft in the ground.
+            You peer down, to be blinded by a shining white light.
+            Though you fall back and rub your eyes to clear them, you only manage to see two huge glowing red eyes emerge from the pit before being horribly attacked.`0
+            {soulpoints,select, 0{`7You drift back to the shades, destroyed.`0} other{`7You're barely able to drag your battered form back to the surface, haunted by the image of those terrible eyes.`0} }
+        '02': >
+            `7As you wander amongst the piles of bones, you catch sight of a curious arrangement, hidden betwixt huge skulls of dragons past.
+            In front of you lies an altar made of bones, covered by a blood-red cloth with a small pile of gold lying on a bone plate in the center.`n
+            While there are candles burning, they shed no light.`n`n
+            What do you wish to do?`0
+        '03': >
+            `7While you were looking under a pile of smaller bones, you find a skeletal hand clutching a small bag and journal.
+            You flick through the journal and it tells of some boring exploration as a guide, leading someone to `i"The First"´i. Dull, dull, dull.
+            However, the bag is far more worthwhile, filled as it is with gold - score one for grave robbing!`0
+            `n`n`&You gain `^{randGold,number} gold`0!`0
         '04': '`7As you drift through the cavern, poking at interesting piles of bones, nothing of interest happens.`0'
-        '05':
-            - '`7While looking around at the half-buried skeleton of a long-dead dragon, you sigh at the thought of all the gold and gems which have already been stolen from these corpses.'
-            - 'Then while kicking aimlessly at the dirt, you note a gleam of gold.... the skeletons have been here so long their treasure has been buried!`n`n'
-            - '`7After some serious excavations, you walk away with `^{randGold,number} gold`7 and `%{randGems,plural, =1{1 gem} other{# gems}}`0.`0'
-        '06':
-            - '`7While looking around at the half-buried skeleton of a long-dead dragon, the skull seems to shift in the earth.'
-            - 'A little spooked, you edge closer to the head, before running in fear at the light still flickering from its eyes!`n`n'
-            - '{deathOverlord} curses you for your cowardice.`0`n`n'
-            - '{favor,select, 0{} other{`)You have `$LOST`0 `^{favor,number}`0 favor with {deathOverlord}.`0}}'
-        '07':
-            - '`7While examining the huge skeleton of a dragon, you notice the flickering of something deep within the eye-sockets... something... sinister.'
-            - 'Of course, you immediately climb in as far as you can into the eye-sockets to find that someone has inset gems to the skull.'
-            - 'How very strange.`n`n'
-            - "Well, they can't have valued them that highly - yoink!"
-            - "They're yours now.`0"
+        '05': >
+            `7While looking around at the half-buried skeleton of a long-dead dragon, you sigh at the thought of all the gold and gems which have already been stolen from these corpses.
+            Then while kicking aimlessly at the dirt, you note a gleam of gold.... the skeletons have been here so long their treasure has been buried!`n`n
+            `7After some serious excavations, you walk away with `^{randGold,number} gold`7 and `%{randGems,plural, =1{1 gem} other{# gems}}`0.`0
+        '06': >
+            `7While looking around at the half-buried skeleton of a long-dead dragon, the skull seems to shift in the earth.
+            A little spooked, you edge closer to the head, before running in fear at the light still flickering from its eyes!`n`n
+            {deathOverlord} curses you for your cowardice.`0`n`n
+            {favor,select, 0{} other{`)You have `$LOST`0 `^{favor,number}`0 favor with {deathOverlord}.`0}}
+        '07': >
+            `7While examining the huge skeleton of a dragon, you notice the flickering of something deep within the eye-sockets... something... sinister.
+            Of course, you immediately climb in as far as you can into the eye-sockets to find that someone has inset gems to the skull.
+            How very strange.`n`n
+            Well, they can't have valued them that highly - yoink!
+            They're yours now.`0
     turn:
         paragraph: '`7You turn from this disturbing place of darkness, and before your will breaks, run for the surface.`0'
     darkaltar:
-        paragraph:
-            - '`7You kneel down to pray before the dark altar...`n`n'
-            - 'Your mind is filled with disturbing images!`n'
-            - 'You quickly stumble away from this unholy place, barely sane.`n'
-            - '{deathOverlord} thanks you for the sacrifice. You gain `^{favor,number}`0 favor.`0'
+        paragraph: >
+            `7You kneel down to pray before the dark altar...`n`n
+            Your mind is filled with disturbing images!`n
+            You quickly stumble away from this unholy place, barely sane.`n
+            {deathOverlord} thanks you for the sacrifice. You gain `^{favor,number}`0 favor.`0
     takegold:
-        paragraph:
-            - '`7As you sneak forwards you can feel dark eyes all around you.'
-            - 'As you grab the gold and go to flee, a cry of anger rings out and you are frozen to the spot.'
-            - "Whilst an impression of great fury fills your head, you realize that it was from {deathOverlord}'s altar which you stole!"
-            - "Eventually, you drop the gold, are freed and return to the shades, shaken and not in {deathOverlord}'s best books.`0"
+        paragraph: >
+            `7As you sneak forwards you can feel dark eyes all around you.
+            As you grab the gold and go to flee, a cry of anger rings out and you are frozen to the spot.
+            Whilst an impression of great fury fills your head, you realize that it was from {deathOverlord}'s altar which you stole!
+            Eventually, you drop the gold, are freed and return to the shades, shaken and not in {deathOverlord}'s best books.`0
 
 navigation:
     category: ''

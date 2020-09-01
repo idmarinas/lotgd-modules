@@ -4,31 +4,31 @@ subtitle: '`c`b`&The Gardener`0´b´c'
 
 section:
     seen:
-        paragraph:
-            - '`n`7You walk towards the gardener again.'
-            - 'He smiles and then turns back to his work.`0`n`n'
+        paragraph: >
+            `n`7You walk towards the gardener again.
+            He smiles and then turns back to his work.`0`n`n
     enter:
-        paragraph:
-            - '`7In one corner of the {gardens,select, 0{square} other{Gardens}}, a path leads away through the trees.'
-            - 'Beyond a white gazebo, a small man is tending a small patch of flowers.'
-            - 'As you approach, he straightens, and greets you with a smile.`n`n'
-            - '"`%Welcome to my gardens!`0" he exclaims.'
-            - "&quot;`%I know they're a little rough now, but I've a reward for you, if you know how to look after them!`0&quot; he exclaims.`n`n"
-            - 'Seeing as how the rest of the Gardens are meticulously well kept, you wonder what the small man is so concerned about.'
-            - 'The offer of a reward, however, is intriguing.`0`n`n'
+        paragraph: >
+            `7In one corner of the {gardens,select, 0{square} other{Gardens}}, a path leads away through the trees.
+            Beyond a white gazebo, a small man is tending a small patch of flowers.
+            As you approach, he straightens, and greets you with a smile.`n`n
+            "`%Welcome to my gardens!`0" he exclaims.
+            &quot;`%I know they're a little rough now, but I've a reward for you, if you know how to look after them!`0&quot; he exclaims.`n`n
+            Seeing as how the rest of the Gardens are meticulously well kept, you wonder what the small man is so concerned about.
+            The offer of a reward, however, is intriguing.`0`n`n
     ask:
         paragraph: '`7The old man asks you his question:`0`n`n'
     answer:
-        correct:
-            - '`7"`%Hey, you know what the Gardens are all about!`0" he exclaims.'
-            - "&quot;`%You're right, of course, and I have something for you.`0&quot;`0`n`n"
+        correct: >
+            `7"`%Hey, you know what the Gardens are all about!`0" he exclaims.
+            &quot;`%You're right, of course, and I have something for you.`0&quot;`0`n`n
         reward:
             gem: '`^He hands you a `%gem`0!`0'
             gold: '`^He hands you a bag containing {reward,number} gold!'
-        uncorrect:
-            - "`7&quot;`%Oh dear, I hope you're new around here!`0&quot; he exclaims."
-            - "&quot;`%I'm afraid that answer is wrong.`0&quot;`n`n"
-            - 'You wander away sadly, determined to try harder next time.`0'
+        uncorrect: >
+            `7&quot;`%Oh dear, I hope you're new around here!`0&quot; he exclaims.
+            &quot;`%I'm afraid that answer is wrong.`0&quot;`n`n
+            You wander away sadly, determined to try harder next time.`0
 
 question:
     '00': 'It is ok to get romantic in an adult manner in the Gardens.'

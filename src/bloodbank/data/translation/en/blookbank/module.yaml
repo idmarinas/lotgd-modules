@@ -1,17 +1,17 @@
 title: "Vladimir's Blood Bank"
 
 section.donation:
-    yes:
-        - "`7You inform Vladimir that you'd like to give blood."
-        - "If it were possible for a vampire to give a warm smile, it would be the expression on Vladimir's face as you make the offer.`n`n"
-        - 'He calls his assistant, who takes you into a side room and asks you to get comfortable on the bed.'
-        - "Your apprehension eases as you realize it isn't nearly as bad as you expected."
-        - 'Once the collection is complete, you are given an orange juice and a cookie, and asked to stay in the waiting area for half an hour.`n`n'
-        - 'You feel really good about yourself!`0'
-    no:
-        - "`7You inform Vladimir that you'd like to give blood again."
-        - "Vladimir smiles, but says he'd rather not have you faint in his bank.`n`n"
-        - "Perhaps you'll give blood another time.`0"
+    yes: >
+        `7You inform Vladimir that you'd like to give blood.
+        If it were possible for a vampire to give a warm smile, it would be the expression on Vladimir's face as you make the offer.`n`n
+        He calls his assistant, who takes you into a side room and asks you to get comfortable on the bed.
+        Your apprehension eases as you realize it isn't nearly as bad as you expected.
+        Once the collection is complete, you are given an orange juice and a cookie, and asked to stay in the waiting area for half an hour.`n`n
+        You feel really good about yourself!`0
+    no: >
+        `7You inform Vladimir that you'd like to give blood again.
+        Vladimir smiles, but says he'd rather not have you faint in his bank.`n`n
+        Perhaps you'll give blood another time.`0
 
 donation.buff.name: 'Generosity'
 

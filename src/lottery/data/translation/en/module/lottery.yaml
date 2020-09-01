@@ -14,16 +14,16 @@ section:
             no: '`7There were no recent jackpot winners!`0`n`n'
         buyed: "`7You bought a lottery ticket for tomorrow's drawing; the numbers you chose are: `^{pn0}-{pn1}-{pn2}-{pn3}`0`0`n`n"
         buy:
-            paragraph:
-                - '`7Lottery tickets cost `^{cost,number}`0 gold.'
-                - "If you would like to buy one for tomorrow's drawing, please choose your numbers below and click &quot;Buy&quot;.`0"
+            paragraph: >
+                `7Lottery tickets cost `^{cost,number}`0 gold.
+                If you would like to buy one for tomorrow's drawing, please choose your numbers below and click &quot;Buy&quot;.`0
         form:
             button.submit: Buy
-        paragraph:
-            - 'A drawing is held at the start of each game day.'
-            - 'If the numbers you chose match, in any order, you win the jackpot for the day!'
-            - 'If no one matches the jackpot on a particular day, the sum will roll over for the following game day.'
-            - 'A portion of the proceeds of the lottery go to help injured forest creatures.'
+        paragraph: >
+            A drawing is held at the start of each game day.
+            If the numbers you chose match, in any order, you win the jackpot for the day!
+            If no one matches the jackpot on a particular day, the sum will roll over for the following game day.
+            A portion of the proceeds of the lottery go to help injured forest creatures.
 
 navigation:
     category.return: Return

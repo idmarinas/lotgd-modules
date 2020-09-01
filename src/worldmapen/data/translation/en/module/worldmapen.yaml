@@ -4,11 +4,11 @@ title:
     editor: World Editor
 
 section:
-    not.installed:
-        - "`^The admins of this game haven't yet finished installing the worldmapen module."
-        - 'You should send them a petition and tell them that they forgot to generate the initial locations of the cities.'
-        - 'Until then, you are kind of stuck here, so I hope you like where you are.`n`n'
-        - 'After all, remember:`nWherever you go, there you are.`0'
+    not.installed: >
+        `^The admins of this game haven't yet finished installing the worldmapen module.
+        You should send them a petition and tell them that they forgot to generate the initial locations of the cities.
+        Until then, you are kind of stuck here, so I hope you like where you are.`n`n
+        After all, remember:`nWherever you go, there you are.`0
     beginjourney:
         paragraph: '`b`&The gates of {location} stand closed behind you.`0´b`n`n'
     tradeturn:
@@ -16,27 +16,27 @@ section:
     tradeturnconfirm:
         paragraph: 'By conserving energy that you would have otherwise used for fighting creatures, you have gained {pointsTrade,number} Travel Points.'
     gypsy:
-        enter:
-            - '`5"`!Ah, yes.  An adventurer.  I could tell by looking into your eyes,`0" the gypsy says.`n'
-            - '"`!Many people have lost their way while journeying without a guide such as this.'
-            - 'It will let you see all the world.`0"`n "`!Yes, yes.'
-            - "Let's see... What sort of price should we put on this?"
-            - 'Hmm. How about `^{worldmapCostGold,number}`0 gold?`0"`0'
+        enter: >
+            `5"`!Ah, yes.  An adventurer.  I could tell by looking into your eyes,`0" the gypsy says.`n
+            "`!Many people have lost their way while journeying without a guide such as this.
+            It will let you see all the world.`0"`n "`!Yes, yes.
+            Let's see... What sort of price should we put on this?
+            Hmm. How about `^{worldmapCostGold,number}`0 gold?`0"`0
         buy:
             no: '`5"`!What do you take me for? A blind hag? Come back when you have the money`0"`0'
             yes: '`5"`!Enjoy your newfound sight,`0" the gypsy says as she walks away to greet some patrons that have just strolled in.'
     wake:
-        paragraph:
-            - 'You yawn and stretch and look around your campsite.`n`n'
-            - 'Ah, how wonderful it is to sleep in the open air!`n'
-            - 'The world seems full of possibilities today.`n`n'
+        paragraph: >
+            You yawn and stretch and look around your campsite.`n`n
+            Ah, how wonderful it is to sleep in the open air!`n
+            The world seems full of possibilities today.`n`n
     combat:
         paragraph: '`n`nYou survey the area again.`n'
     fight:
-        paragraph:
-            - 'You set off running at a breakneck pace!`n`n'
-            - 'A short time later, you have managed to avoid your opponent, so you stop to catch your breath.'
-            - 'As you look around, you realize that all you really managed was to run in circles.'
+        paragraph: >
+            You set off running at a breakneck pace!`n`n
+            A short time later, you have managed to avoid your opponent, so you stop to catch your breath.
+            As you look around, you realize that all you really managed was to run in circles.
     lib:
         determinenav:
             tired: 'You are too tired to go anywhere.`n'
@@ -45,9 +45,9 @@ section:
             button:
                 submit: Save Terrain
         manual:
-            paragraph:
-                - '`^Maximum X value is `b{maxX,number}´b`0`n'
-                - '`^Maximum Y value is `b{maxY,number}´b`0`n'
+            paragraph: >
+                `^Maximum X value is `b{maxX,number}´b`0`n
+                `^Maximum Y value is `b{maxY,number}´b`0`n
 
 map:
     current: 'Your position'
@@ -78,9 +78,9 @@ map:
         current:
             location: Current Location
             terrain: 'Current Terrain: {terrainName}'
-        terrains:
-            - 'Terrains<br>'
-            - 'Terrain Color, Terrain Type, Terrain Movement Cost'
+        terrains: >
+            Terrains<br>
+            Terrain Color, Terrain Type, Terrain Movement Cost
     move:
         tired:
             n: "Can't move North`n"
@@ -170,17 +170,17 @@ commentary:
         online: 'Online'
 
 flash.message:
-    destination:
-        - "<strong>You've Arrived in {name}.</strong>"
-        - '<br>You have reached the outer gates of the city.'
+    destination: >
+        <strong>You've Arrived in {name}.</strong>
+        <br>You have reached the outer gates of the city.
     figth.run:
         pvp: 'Your pride prevents you from running'
         pve: "You try to run, but you don't manage to get away!"
     battle.defeated: 'You are sure that someone, sooner or later, will stumble over your corpse and return it to {location} for you.`0'
-    encounter.tired:
-        - 'You are getting tired.'
-        - "Monsters have a tendency to swarm towards contestants who look like they're half-asleep."
-        - 'You might want to consider setting up camp, or doing something to raise your Stamina.'
+    encounter.tired: >
+        You are getting tired.
+        Monsters have a tendency to swarm towards contestants who look like they're half-asleep.
+        You might want to consider setting up camp, or doing something to raise your Stamina.
     saved:
         map: 'Worldmap saved!'
         settings: 'Settings saved successfully.'

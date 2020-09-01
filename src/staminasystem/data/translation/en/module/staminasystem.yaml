@@ -18,11 +18,11 @@ section:
                     level: EXP for level
                 dk: 'DK carryover %%'
     show:
-        paragraph:
-            - "`n`nHere is the nitty-gritty of your Stamina statistics."
-            - "The most important value is the total cost, over there on the right."
-            - "If there's anything in the Buff column, something's temporarily affecting the cost of performing that action (negative numbers are good!)."
-            - "More details follow after the stats.`n`n"
+        paragraph: >
+            `n`nHere is the nitty-gritty of your Stamina statistics.
+            The most important value is the total cost, over there on the right.
+            If there's anything in the Buff column, something's temporarily affecting the cost of performing that action (negative numbers are good!).
+            More details follow after the stats.`n`n
         bar.label: 'Total Stamina: {currentStamina,number} / {totalStamina,number} | Amber point: {amberPoint,number} | Red point: {redPoint,number}'
         buffs:
             title: '`n`n`bAction Buffs´b:`n'
@@ -39,11 +39,11 @@ section:
                 level: '`^{name}`0 Lv {level}'
                 maximized: 'Top Level!'
                 none: None
-        footer:
-            - "`n`nRemember, using the Stamina system is easy - just keep in mind that the more you do something, the better you get at it."
-            - "So if you do a lot of the things you enjoy doing the most, the game will let you do more of those things each day."
-            - "All of the statistics you see above can help you fine-tune your character, but honestly, 99%% of the time you needn't worry about the statistics and mechanics - they're only there for when you're curious!`n`n"
-            - "All Bonuses and Penalties are cleared at the start of each game day.`n`n"
+        footer: >
+            `n`nRemember, using the Stamina system is easy - just keep in mind that the more you do something, the better you get at it.
+            So if you do a lot of the things you enjoy doing the most, the game will let you do more of those things each day.
+            All of the statistics you see above can help you fine-tune your character, but honestly, 99%% of the time you needn't worry about the statistics and mechanics - they're only there for when you're curious!`n`n
+            All Bonuses and Penalties are cleared at the start of each game day.`n`n
     charstats:
         alert: 'When you run low on Stamina, you become weaker in combat. Recover Stamina by eating, drinking or using a New Day.'
 

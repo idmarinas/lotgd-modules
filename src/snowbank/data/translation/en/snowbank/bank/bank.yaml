@@ -6,34 +6,23 @@ subtitle: '`^`c`bThe Snow Bank´b´c'
 
 # Enter in bank (default option)
 default:
-    paragraph:
-        - '`6As you approach the pair of impressive carved rock crystal doors, they part to allow you entrance into the bank.'
-        - 'You find yourself standing in a room of exquisitely vaulted ceilings of carved stone.'
-        - 'Light filters through tall windows in shafts of soft radiance.'
-        - 'About you, clerks are bustling back and forth.'
-        - 'The sounds of gold being counted can be heard, though the treasure is nowhere to be seen.`n`n'
-        - 'You walk up to a counter of jet black marble.`n`n'
-        - '`@Elessa`0, a petite woman in an immaculately tailored business dress, greets you from behind reading spectacles with polished silver frames.`n`n'
-        - '"`5Greetings, my good lady,`0" you greet her, "`5Might I inquire as to my balance this fine day?`0"`n`n'
-        - "`@Elessa`0 blinks for a moment and then smiles, \"`@Hmm, `&{name}`0, let's see.....`0\" she mutters as she scans down a page in her ledger.`0"
-
-        - "`7You step through the darkened doorway, to find a one of Santa's Elves standing behind a counter.`n`n"
-        - '`7"`&Hello {sex,select, 1{Madam} other {Sir}},`7" he says with a smile.'
-        -
+    paragraph: >
+        `7You step through the darkened doorway, to find a one of Santa's Elves standing behind a counter.`n`n
+        `7"`&Hello {sex,select, 1{Madam} other {Sir}},`7" he says with a smile.
     balance:
-        positive:
-            - '`7"`&You have {balance,number} gold invested with us at the moment.'
-            - 'How may I help you today?`0"`0'
-        negative:
-            - '`7"`&You have a `4debt`0 of `^{balance,number} gold`0 to us at moment.'
-            - 'How may I help you today?`70"`0'
+        positive: >
+            `7"`&You have {balance,number} gold invested with us at the moment.
+            How may I help you today?`0"`0
+        negative: >
+            `7"`&You have a `4debt`0 of `^{balance,number} gold`0 to us at moment.
+            How may I help you today?`70"`0
 
 # Tranfer money (Step 1)
 transfer:
     subtitle: '`6`bTransfer Money´b:`0`n'
-    paragraph:
-        - '`7The elf tells you, "`&You understand of course, you may only transfer `^{transferPerLevel,number}`0 gold for each level that the recipient has achieved.'
-        - 'And we ask that you transfer no more than `^{maxTransfer,number}`0 gold each day.`0"`0`n'
+    paragraph: >
+        `7The elf tells you, "`&You understand of course, you may only transfer `^{transferPerLevel,number}`0 gold for each level that the recipient has achieved.
+        And we ask that you transfer no more than `^{maxTransfer,number}`0 gold each day.`0"`0`n
     transferred: "`7He checks the book in front of him for a moment, &quot;`&It looks as though you've already transferred `^{transferred,number}`& gold today.`7&quot;`n"
     refused: "`7&quot;I'm sorry, I can't allow you to transfer to someone who is already in our debt, you understand.&quot;`0"
     form:
@@ -89,19 +78,19 @@ deposit:
             submit: 'Deposit'
     # Finish a deposit
     finish:
-        fail:
-            - '`$ERROR: Not enough gold in hand to deposit.`0`n`n'
-            - '`^You plunk your `&{gold,number}`0 gold on the counter and declare that you would like to deposit all `&{amount,number}`0 gold of it.`0`n`n'
-            - '`7The elf smiles at you and suggests you recount your money.`0'
+        fail: >
+            `$ERROR: Not enough gold in hand to deposit.`0`n`n
+            `^You plunk your `&{gold,number}`0 gold on the counter and declare that you would like to deposit all `&{amount,number}`0 gold of it.`0`n`n
+            `7The elf smiles at you and suggests you recount your money.`0
         balance:
-            positive:
-                - '`7The elf records your deposit of `^{amount,number}`0 gold in the book before him.'
-                - '"`&Thank you, `&{name}`0.'
-                - 'You now have a balance of `^{bank,number}`0 gold in the bank and `^{gold,number}`0 gold in hand.`0"`0'
-            negative:
-                - '`7The elf records your deposit of `^{amount,number}`0 gold in the book before him.'
-                - '"`&Thank you, `&{name}`0.'
-                - 'You now have a debt of `${bank,number}`0 gold to the bank and `^{gold,number}`0 gold in hand.`0"`0'
+            positive: >
+                `7The elf records your deposit of `^{amount,number}`0 gold in the book before him.
+                "`&Thank you, `&{name}`0.
+                You now have a balance of `^{bank,number}`0 gold in the bank and `^{gold,number}`0 gold in hand.`0"`0
+            negative: >
+                `7The elf records your deposit of `^{amount,number}`0 gold in the book before him.
+                "`&Thank you, `&{name}`0.
+                You now have a debt of `${bank,number}`0 gold to the bank and `^{gold,number}`0 gold in hand.`0"`0
 
 # Take out a Loan
 borrow:
@@ -130,10 +119,10 @@ withdraw:
             submit: 'Withdraw'
     # Finish a withdraw
     finish:
-        fail:
-            - '`$ERROR: Not enough gold in the bank to withdraw.`0`n`n'
-            - '`7Having been informed that you have `^{bank,number}`0 gold in your account, you declare that you would like to withdraw all `^{amount,number}`0 of it.`n`n'
-            - 'The elf smiles at you and suggests you rethink your request. You realize your mistake and think you should try again.`0'
+        fail: >
+            `$ERROR: Not enough gold in the bank to withdraw.`0`n`n
+            `7Having been informed that you have `^{bank,number}`0 gold in your account, you declare that you would like to withdraw all `^{amount,number}`0 of it.`n`n
+            The elf smiles at you and suggests you rethink your request. You realize your mistake and think you should try again.`0
         withdraw:
             success: '`7The elf records your withdrawal of `^{amount,number}`0 gold in the book before him. "`&Thank you, `&{name}`0.  You now have a balance of `^{bank,number}`0 gold in the bank and `^{gold,number}`0 gold in hand.`0"`0'
         borrow:

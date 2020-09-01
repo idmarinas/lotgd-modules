@@ -1,38 +1,37 @@
 
 section:
-    default.paragraph:
-        - '`n`7Walking along through the village, your keen skills as a {raceName} pick up an alley between the shops that you have never noticed before.`n'
-        - '`nDo you want to go down this dark alley?`0`n'
+    default.paragraph: >
+        `n`7Walking along through the village, your keen skills as a {raceName} pick up an alley between the shops that you have never noticed before.`n
+        `nDo you want to go down this dark alley?`0`n
     walkaway.paragraph: '`nYou decide that going down that alley is just not worth it, and continue on with your way.`n'
-    alley.paragraph:
-        - '`n`7Walking down the alley, you notice that there are many dark spots, capable of hiding thieves, or evil creatures whose only desire is to eat the `4marrow`7 from your `&bones`7.'
-        - 'You get a bad feeling about this place.`n`n'
-        - 'At the end of the alley, next to some seemingly empty crates, you spot a {award,plural, =1{gold piece} other{gem}} lying on the ground, in plain sight.`n'
-        - '`nWould you like to step forward and pick up the {award,plural, =1{gold piece} other{gem}}?`n'
+    alley.paragraph: >
+        `n`7Walking down the alley, you notice that there are many dark spots, capable of hiding thieves, or evil creatures whose only desire is to eat the `4marrow`7 from your `&bones`7.
+        You get a bad feeling about this place.`n`n
+        At the end of the alley, next to some seemingly empty crates, you spot a {award,plural, =1{gold piece} other{gem}} lying on the ground, in plain sight.`n
+        `nWould you like to step forward and pick up the {award,plural, =1{gold piece} other{gem}}?`n
     dontpickup:
         paragraph: '`nKnowing that no reward is worth your life, you quickly turn tail and run out of the alley as fast as you can.`n'
-        coward:
-            - '`nWaiting at the end of the alley is {partner}, watching you run comically away from a small glittering thing on the ground.`n'
-            - '`n`^You feel less charming.`0`n'
+        coward: >
+            `nWaiting at the end of the alley is {partner}, watching you run comically away from a small glittering thing on the ground.`n
+            `n`^You feel less charming.`0`n
     pickupgold:
-        gold:
-            - '`nYou quickly pick up the gold piece, turn tail and run out of the alley as fast as you can.`n'
-            - "`n`^You've gained 1 gold.`0`n"
-        cache:
-            - '`nYou reach down to pick up the gold piece, and realize that next to it, there is another gold piece, and next to that, another gold piece, and so on.'
-            - 'After a few moments of hoarding, you realize that a pair of red eyes are watching you.'
-            - 'You quickly turn tail and run out of the alley as fast as you can.`n'
-            - "`n`^You've gained {gold,number} gold.`0`n"
+        gold: >
+            `nYou quickly pick up the gold piece, turn tail and run out of the alley as fast as you can.`n
+            `n`^You've gained 1 gold.`0`n
+        cache: >
+            `nYou reach down to pick up the gold piece, and realize that next to it, there is another gold piece, and next to that, another gold piece, and soon.
+            After a few moments of hoarding, you realize that a pair of red eyes are watching you.
+            You quickly turn tail and run out of the alley as fast as you can.`n
+            `n`^You've gained {gold,number} gold.`0`n
     pickupgem:
-        gold:
-            - '`nYou quickly pick up the gem, turn tail and run out of the alley as fast as you can.`n'
-            - "`n`^You've gained `%1 gem`0.`0`n"
-        cache:
-            - '`nYou reach down to pick up the gem, and realize that next to it, there is another gem, and next to that, another gem, and so on.'
-            - 'After a few moments of hoarding, you realize that a pair of red eyes are watching you.'
-            - 'You quickly turn tail and run out of the alley as fast as you can.`n'
-            - "`n`^You've gained `%5 gems`0.`0`n"
-
+        gold: >
+            `nYou quickly pick up the gem, turn tail and run out of the alley as fast as you can.`n
+            `n`^You've gained `%1 gem`0.`0`n
+        cache: >
+            `nYou reach down to pick up the gem, and realize that next to it, there is another gem, and next to that, another gem, and so on.
+            After a few moments of hoarding, you realize that a pair of red eyes are watching you.
+            You quickly turn tail and run out of the alley as fast as you can.`n
+            `n`^You've gained `%5 gems`0.`0`n
 
 navigation:
     nav:
@@ -54,14 +53,14 @@ badguy:
 battle.end:
     victory:
         hitpoints: '`n`n`^With the last of your energy, you press a piece of cloth to your wounds, stopping your bloodloss before you are completely dead.`n'
-        paragraph:
-            - "Having won this tremendous battle, the Bonemarrow Beast laying at your feet, you step forward to retrieve your prize, but you can't help but wonder if there are any more beasts lurking in the shadows."
-            - '`nDo you want to step forward and pick up the gem, or turn tail and run away?'
+        paragraph: >
+            Having won this tremendous battle, the Bonemarrow Beast laying at your feet, you step forward to retrieve your prize, but you can't help but wonder if there are any more beasts lurking in the shadows.
+            `nDo you want to step forward and pick up the gem, or turn tail and run away?
     defeated:
-        paragraph:
-            - 'The beast stops short of killing you, but instead starts ripping your arms and legs open, crunching the bones and eating the marrow. All the while it is careful to keep you from dying, as it prefers to eat its meals from living prey.'
-            - "The pain is unbearable, and you pass out, with the image of the beast's drooling jaws still before your eyes.`n"
-            - '`nSome time later that day, you awaken, and drag your near-lifeless body out of the alley.'
+        paragraph: >
+            The beast stops short of killing you, but instead starts ripping your arms and legs open, crunching the bones and eating the marrow. All the while it is careful to keep you from dying, as it prefers to eat its meals from living prey.
+            The pain is unbearable, and you pass out, with the image of the beast's drooling jaws still before your eyes.`n
+            `nSome time later that day, you awaken, and drag your near-lifeless body out of the alley.
         stamina: '`^You lost some stamina for violence of battle.`0'
         turns: '`^You lost 5 turns for violence of battle.`0'
         charm:

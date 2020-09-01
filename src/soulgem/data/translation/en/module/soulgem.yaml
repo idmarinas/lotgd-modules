@@ -1,6 +1,6 @@
-paragraph:
-    - '`^As you wander through the eerie graveyard, you see a `$red glimmer`0 from the ground ahead.`n'
-    - 'Bending down, you pick up a small eerily glowing gem.`0`n'
-    - '`&Your soul feels as if its capacity for torment has been increased.`n'
-    - 'You feel that {deathOverlord} is pleased.`0`n'
+paragraph: >
+    `^As you wander through the eerie graveyard, you see a `$red glimmer`0 from the ground ahead.`n
+    Bending down, you pick up a small eerily glowing gem.`0`n
+    `&Your soul feels as if its capacity for torment has been increased.`n
+    You feel that {deathOverlord} is pleased.`0`n
 

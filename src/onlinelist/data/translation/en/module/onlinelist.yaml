@@ -1,17 +1,17 @@
 
 section.onlinecharlist:
     title:
-        staff:
-            - '`bOnline Staff`n'
-            - '({n,plural, =1{1 Staff member} other{# Staff members}}):´b`n'
-        players:
-            - '`bCharacters Online`n'
-            - '({n,plural, =1{1 Player} other{# Players}}):´b`n'
+        staff: >
+            `bOnline Staff`n
+            ({n,plural, =1{1 Staff member} other{# Staff members}}):´b`n
+        players: >
+            `bCharacters Online`n
+            ({n,plural, =1{1 Player} other{# Players}}):´b`n
     none: '`iNone´i'
     and.more:
-        players:
-            - '`$...`n'
-            - 'and {n,plural, =1{1 Player} other{# Players}} more`0`n'
-        staff:
-            - '`4...`n'
-            - 'and {n,plural, =1{1 Staff member} other{# Staff members}} more`0`n'
+        players: >
+            `$...`n
+            and {n,plural, =1{1 Player} other{# Players}} more`0`n
+        staff: >
+            `4...`n
+            and {n,plural, =1{1 Staff member} other{# Staff members}} more`0`n

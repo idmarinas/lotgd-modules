@@ -2,12 +2,12 @@
 title: 'Human City'
 
 # Description of village
-description:
-    - "`c`b`&{village}, City of Men`0´b´c`n"
-    - "`7You are standing in the heart of {village}."
-    - "Though called a city, this stronghold of humans is little more than a fortified village."
-    - "The city's low defensive walls are surrounded by rolling plains which gradually turn into thick forest in the distance."
-    - "Some residents are engaged in conversation around the well in the village square.`0`n"
+description: >
+    `c`b`&{village}, City of Men`0´b´c`n
+    `7You are standing in the heart of {village}.
+    Though called a city, this stronghold of humans is little more than a fortified village.
+    The city's low defensive walls are surrounded by rolling plains which gradually turn into thick forest in the distance.
+    Some residents are engaged in conversation around the well in the village square.`0`n
 
 # Commentary
 commentary:

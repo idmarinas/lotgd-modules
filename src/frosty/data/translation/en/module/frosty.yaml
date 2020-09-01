@@ -2,68 +2,68 @@
 section:
     default:
         seen:
-            yes:
-                - '`7You notice a young girl dancing around...with a `&Snowman`0!'
-                - 'You recognize them as the ones you helped earlier, and shake your head as the `&Snowman`0 winks at you once again.`0`n`n'
-            no:
-                - '`n`7While walking through the square, you take note of a young girl standing beside a pile of `&snow`0.'
-                - 'Looking closer, you see several objects in the snow...a `Qcarrot`0, a couple chunks of `)coal`0 and a tophat.'
-                - 'The child seems to be sobbing quietly.`0`n`n'
-                - '`@Do you carry on your way, or enquire as to the cause of her upset?`0`n`n'
-    talk.paragraph:
-        - '`n`n`7You ask the girl why she is so sad.'
-        - "She replies, &quot;`3My snowman melted.  He was my best friend, and now he's melted and gone and I don't know if I can put him back together again...and he's all melted.`0&quot;`n`n"
-        - "She looks up at you, tears welling in her eyes.  &quot;`3Please...could you help me put him back together?  He's my best friend.`0&quot;`0"
-        - '`n`n`@Will you use a turn to help her?`0'
+            yes: >
+                `7You notice a young girl dancing around...with a `&Snowman`0!
+                You recognize them as the ones you helped earlier, and shake your head as the `&Snowman`0 winks at you once again.`0`n`n
+            no: >
+                `n`7While walking through the square, you take note of a young girl standing beside a pile of `&snow`0.
+                Looking closer, you see several objects in the snow...a `Qcarrot`0, a couple chunks of `)coal`0 and a tophat.
+                The child seems to be sobbing quietly.`0`n`n
+                `@Do you carry on your way, or enquire as to the cause of her upset?`0`n`n
+    talk.paragraph: >
+        `n`n`7You ask the girl why she is so sad.
+        She replies, &quot;`3My snowman melted.  He was my best friend, and now he's melted and gone and I don't know if I can put him back together again...and he's all melted.`0&quot;`n`n
+        She looks up at you, tears welling in her eyes.  &quot;`3Please...could you help me put him back together?  He's my best friend.`0&quot;`0
+        `n`n`@Will you use a turn to help her?`0
     help:
         paragraph:
-            start:
-                - '`n`n`7You put aside your weapons and start rolling a new snowball.'
-                - 'The girl pitches in, and soon three snowballs are stacked up.'
-                - 'You find the `Qcarrot`0 for the nose, two lumps of `)coal`0 for eyes and some buttons which form the mouth.'
-                - 'Two sticks laying nearby quickly serve to become arms, and you donate your own scarf to decorate the snowman.`n`n'
-                - "The child finally places the tophat on it's head."
-                - '"`3Oh thank you so much! Now I can play with Frosty again!`0"`0`n`n'
-            end:
-                - '`n`n`7As you walk away, you glance over your shoulder.'
-                - "You could almost swear the snowman winked at you...but no, that's not possible."
-                - 'Is it?`0'
+            start: >
+                `n`n`7You put aside your weapons and start rolling a new snowball.
+                The girl pitches in, and soon three snowballs are stacked up.
+                You find the `Qcarrot`0 for the nose, two lumps of `)coal`0 for eyes and some buttons which form the mouth.
+                Two sticks laying nearby quickly serve to become arms, and you donate your own scarf to decorate the snowman.`n`n
+                The child finally places the tophat on it's head.
+                "`3Oh thank you so much! Now I can play with Frosty again!`0"`0`n`n
+            end: >
+                `n`n`7As you walk away, you glance over your shoulder.
+                You could almost swear the snowman winked at you...but no, that's not possible.
+                Is it?`0
             case:
                 '01':
                     paragraph: "`@The child's joy warms your heart and rejuvenates your soul.`0"
                     stamina: '`^You gain some stamina!`0'
                     turns: '`^You gain 2 turns!`0'
-                '02.paragraph':
-                    - '`@The child holds out a solitary gem.`0`n'
-                    - '`7"`3I was going to use this for an eye, but only had the one.  You can have it!`0"`0`n`n'
-                    - '`^You gain a `%gem`0!`0'
-                '03.paragraph':
-                    - '`@As you turn to depart, you notice the gleam of gold poking out from some snow.`n`n'
-                    - '`^You find {gold,number} gold.`0'
+                '02.paragraph': >
+                    `@The child holds out a solitary gem.`0`n
+                    `7"`3I was going to use this for an eye, but only had the one.  You can have it!`0"`0`n`n
+                    `^You gain a `%gem`0!`0
+                '03.paragraph': >
+                    `@As you turn to depart, you notice the gleam of gold poking out from some snow.`n`n
+                    `^You find {gold,number} gold.`0
     ignore:
-        paragraph:
-            - '`n`n`7You choose not to find out why the child is so sad, and continue on your way.`0`n`n'
-            - '`@What a Scrooge you are!`0`n`n'
-        lose.hp:
-            - "`7You're so busy minding your own business that you didn't notice the black ice on the sidewalk."
-            - 'You slip, falling flat on your back!'
-            - 'You `$lose {loseHp,number}`0 hitpoints.`0'
+        paragraph: >
+            `n`n`7You choose not to find out why the child is so sad, and continue on your way.`0`n`n
+            `@What a Scrooge you are!`0`n`n
+        lose.hp: >
+            `7You're so busy minding your own business that you didn't notice the black ice on the sidewalk.
+            You slip, falling flat on your back!
+            You `$lose {loseHp,number}`0 hitpoints.`0
     leave:
         paragraph: "`n`n`6&quot;I'm sorry, kid, I'm too busy to play with you&quot;`0, you say, then turn to walk away as the girl sobs loudly.`0"
         case:
-            '01':
-                - '`n`nYou avert your gaze so as to not look at the poor girl and her pile of snow.'
-                - "Too bad you also don't see that runaway bobsled careening towards you.`n`n"
-                - '`^The bobsled hits you!`0`n'
-                - 'You `$lose {loseHp,number}`0 hitpoints.'
-            '02':
-                - '`n`@Your attempts to ignore the cries fail, and your spirit flags.`0`n`n'
-                - '`^You `$lose`0 some charm.`0'
-            '03':
-                - '`n`n`@You walk away, oblivious to many things.'
-                - "If she wasn't so busy crying, the girl could have told you about the hole in your gold purse."
-                - "`n`^You've lost some of your gold!`0`n"
-                - 'Counting your gold later, you discover that you lost {gold,number} gold.'
+            '01': >
+                `n`nYou avert your gaze so as to not look at the poor girl and her pile of snow.
+                Too bad you also don't see that runaway bobsled careening towards you.`n`n
+                `^The bobsled hits you!`0`n
+                You `$lose {loseHp,number}`0 hitpoints.
+            '02': >
+                `n`@Your attempts to ignore the cries fail, and your spirit flags.`0`n`n
+                `^You `$lose`0 some charm.`0
+            '03': >
+                `n`n`@You walk away, oblivious to many things.
+                If she wasn't so busy crying, the girl could have told you about the hole in your gold purse.
+                `n`^You've lost some of your gold!`0`n
+                Counting your gold later, you discover that you lost {gold,number} gold.
             '04': "`n`nThe girl's crying fades quickly as you stride away."
 navigation:
     category:

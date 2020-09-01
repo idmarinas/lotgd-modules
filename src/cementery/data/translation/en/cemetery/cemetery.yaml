@@ -1,9 +1,9 @@
 title: 'Cemetery'
 
-description:
-    - '`c`b`&The Old Cemetery`0´b´c'
-    - '`n`)At the edge of the old town is a long-abandoned cemetery of broken headstones and sickly weeds.'
-    - 'In this place you can hear the whispers and moans of the dead.`0`n`n'
+description: >
+    `c`b`&The Old Cemetery`0´b´c
+    `n`)At the edge of the old town is a long-abandoned cemetery of broken headstones and sickly weeds.
+    In this place you can hear the whispers and moans of the dead.`0`n`n
 
 commentary:
     talk: '`nWhisper to the dead:`n' # Talk

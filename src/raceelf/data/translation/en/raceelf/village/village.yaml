@@ -2,12 +2,12 @@
 title: 'Elves City'
 
 # Description of village
-description:
-    - '`c`b`^{village}, Ancestral Home of the Elves`0´b´c`n'
-    - '`6You stand on the forest floor. {village} rises about you, appearing to be one with the forest.'
-    - 'Ancient, frail-looking buildings appear to grow from the forest floor, the tree limbs, and on the very treetops.'
-    - 'The magnificent trees clutch delicately to these homes of elves.'
-    - 'Bright motes of light swirl around you as you move about.`0`n'
+description: >
+    `c`b`^{village}, Ancestral Home of the Elves`0´b´c`n
+    `6You stand on the forest floor. {village} rises about you, appearing to be one with the forest.
+    Ancient, frail-looking buildings appear to grow from the forest floor, the tree limbs, and on the very treetops.
+    The magnificent trees clutch delicately to these homes of elves.
+    Bright motes of light swirl around you as you move about.`0`n
 
 # Commentary
 commentary:
@@ -25,9 +25,9 @@ commentary:
         online: 'Online'
 
 # Clock of the elf village
-clock:
-    - '`n`6Capturing one of the tiny lights, you peer delicately into your hands.`n'
-    - 'The fairy within tells you that it is `^{clock}`6 before disappearing in a tiny sparkle.`n'
+clock: >
+    `n`6Capturing one of the tiny lights, you peer delicately into your hands.`n
+    The fairy within tells you that it is `^{clock}`6 before disappearing in a tiny sparkle.`n
 
 
 # Text for new player

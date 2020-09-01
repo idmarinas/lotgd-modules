@@ -5,9 +5,9 @@ section:
         time: "There's a party going on! It's a {name}!"
         inn: '{barman} is here, wearing (of all things) {clothes}, serving food and drinks.`n`n'
     run:
-        paragraph:
-            - "You wander over to where {barman} is standing in the gardens, and ask to buy {missed}, but he tells you that you don't have enough gold to buy it."
-            - "You think it's a little odd that you're being charged for food and drinks at {partyType}, but ignore this, eager to get back to the revelry."
+        paragraph: >
+            You wander over to where {barman} is standing in the gardens, and ask to buy {missed}, but he tells you that you don't have enough gold to buy it.
+            You think it's a little odd that you're being charged for food and drinks at {partyType}, but ignore this, eager to get back to the revelry.
 
 party:
     type: birthday party for MightyE

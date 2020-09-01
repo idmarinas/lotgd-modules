@@ -1,92 +1,92 @@
 section:
     default:
         event:
-            '01':
-                - '`n`@Walking around in the forest you rest in a convenient tree... waking up a bit later, you notice a clingy substance clinging to your face... feeling it, you realize it to be spider silk.`n`n '
-                - "An enchanted spider approaches you, and explains that it didn't mean to scare you, but it and it's friends are trying to learn to spin thread, and it is `%not`0 going well.`n"
-                - 'What are you going to do?`0'
-            '02':
-                - '`n`^You stumble upon a frothing, raging, running river, and see a stranded fishing boat sinking slowly,'
-                - 'yet held up slightly by a pile of rocks!`n`nThe boat is full of a worried looking crew, and they seem to notice you!`n`n'
-                - '`3 "`&Help! Help!`3"`^ they yell.`n'
-                - 'What are you going to do?'
-            '03':
-                - '`n`#You wander across a group of children playing in a tree.  They cry out in fear as a branch begins to break.'
-                - 'It looks like one of them will fall!`n'
-                - 'What are you going to do?'
-            '04':
-                - "`n`QA huge lion comes crashing through the forest. You notice he's limping! Since you've never seen a limping lion before,"
-                - 'you find this quite amazing.  He comes to within a couple of feet and raises his front foot and you see a large thorn sticking out of it.`n'
-                - 'What are you going to do?'
-            '05':
-                - '`n`%You come up to an open patch in the forest and see a young explorer yelling for help.'
-                - "He's caught in quicksand and he's going down fast.`n"
-                - 'What are you going to do?'
-            '06':
-                - '`n`!You are wandering through the forest when you happen upon a group of young children.'
-                - "They are sitting huddled up against a tree, their clothes ragged and torn. They look as if they haven't eaten in days.`n"
-                - 'What are you going todo?'
-            '07':
-                - '`&While you are wandering through the forest, you stumble upon an enormous herd of elephants!`n'
-                - 'You notice that they are `%pink `&with `5purple `&dots all over them and are only the size of a small dog!!`n'
-                - 'Are you going to help them by painting them the color of normal elephants?`n'
-                - 'Or are you going to ignore them and be on your way?`n'
-                - 'Or perhaps you will market their weirdness and make a profit?!`n'
-                - 'What are you going to do?'
-            '08':
-                - '`&As you are wandering through the forest, you trip and fall flat on your face!`n'
-                - 'Grumbling, you pick yourself up, only to find yourself looking right into the eyes of a `4Red Fox`&!'
-                - 'Your heart begins to beat faster as the fox sniffs your face, teeth bared.'
-                - 'Suddenly, the fox whimpers, and you see that it has been caught in a trap!'
-                - '`#What are you going to do?'
-                - '`&You could `@help `&the fox and get it out of the trap, or you could simply `6ignore `&it and be on your way.'
-                - 'Then again, you could be `4absolutely evil `&and pick on the fox and tease it.'
-            '09':
-                - '`VThe forest seems especially quite today, you realize. You have been wandering through the woods for a good while,'
-                - 'searching for creatures to release from this realm of existence. Suddenly, you hear the snap of a twig. Whirling around,'
-                - 'you draw your weapon, eyes searching the foliage for the source of the intrusion upon your journey.`n`n'
-                - 'Your fingers tighten around the weapon as a creature emerges from the shadows of the forest.`n`n`n'
-                - 'It is a wounded deer! She has an arrow sticking out of her side and she is bleeding profusely.'
-                - 'Her eyes plead with you, yet at the same time are full of fear, frightened at the weapon in your hand, but too injured to run.'
-                - 'What are you going to do?`n`n`n'
-                - 'You could `2help`0 the poor creature and heal its wounds.'
-                - '`n`nOR you could `6ignore`0 it and go on your way.'
-                - '`n`nOR, being the vile, cruel person you are, you could hurt the deer even more by torturing it.'
-            '010':
-                - '`jIt has been a long, difficult day, and you are walking around in the forest, wondering if you should kill any more of these creatures.'
-                - "You know that it'll be....wait...what's that up ahead?"
-                - '`n`nBlocking the path is a wagon, and something is wrong about it...'
-                - '`n`nYou notice that the wagon is uneven and the occupants are standing on the side of the road.'
-                - 'Thinking you might benefit from this somehow, you go to find out what is going on.'
-                - 'When you arrive, the people look at you, distress apparent in their eyes.'
-                - 'They beg with you to help them with their wagon, which has broken off a wheel on its way to the market.'
-                - 'Will you help them?'
-            '011':
-                - '`$As you are trudging wearily through the forest, you come across a little girl in a red cape.'
-                - 'She is holding a basket and you can smell the food coming out of it, delictable, delicious, intoxicating...`n`n'
-                - "The little red caped girl is singing about going to her Granma's house."
-                - 'It clicks in your mind that there are several evil creatures in the forest...'
-                - 'This is a chance to help out a small, weak being.`n`n'
-                - 'What are you going to do?'
-            '012':
-                - '`QYou are wandering through the forest, enjoying the scenery, searching for the `@Green Dragon`0 when you look down and notice a trail of `tcrumbs.'
-                - '`QThinking it might lead you to a bakery, you bend down and taste the `tcrumbs`0 before grinning happily.'
-                - 'You continue to follow the trail, gobbling down the `tcrumbs`0. After a little while, the crumbs stop, and frowning, look up.'
-                - "The sight before you is astounding! It's a house made entirely out of candy!`n"
-                - 'Drooling, you rush up to the house, reaching out to take a piece of the window...`n'
-                - 'When suddenly you hear a scream! You peek inside the window to see two local village children locked in a cage!`n'
-                - 'A woman stands over them, grinning hideously. The children are in trouble! What are you going to do?!'
-                - 'Are you going to `2help`0 the children or `$hinder`0 them and help the witch?!'
+            '01': >
+                `n`@Walking around in the forest you rest in a convenient tree... waking up a bit later, you notice a clingy substance clinging to your face... feeling it, you realize it to be spider silk.`n`n
+                An enchanted spider approaches you, and explains that it didn't mean to scare you, but it and it's friends are trying to learn to spin thread, and it is `%not`0 going well.`n
+                What are you going to do?`0
+            '02': >
+                `n`^You stumble upon a frothing, raging, running river, and see a stranded fishing boat sinking slowly,
+                yet held up slightly by a pile of rocks!`n`nThe boat is full of a worried looking crew, and they seem to notice you!`n`n
+                `3 "`&Help! Help!`3"`^ they yell.`n
+                What are you going to do?
+            '03': >
+                `n`#You wander across a group of children playing in a tree.  They cry out in fear as a branch begins to break.
+                It looks like one of them will fall!`n
+                What are you going to do?
+            '04': >
+                `n`QA huge lion comes crashing through the forest. You notice he's limping! Since you've never seen a limping lion before,
+                you find this quite amazing.  He comes to within a couple of feet and raises his front foot and you see a large thorn sticking out of it.`n
+                What are you going to do?
+            '05': >
+                `n`%You come up to an open patch in the forest and see a young explorer yelling for help.
+                He's caught in quicksand and he's going down fast.`n
+                What are you going to do?
+            '06': >
+                `n`!You are wandering through the forest when you happen upon a group of young children.
+                They are sitting huddled up against a tree, their clothes ragged and torn. They look as if they haven't eaten in days.`n
+                What are you going todo?
+            '07': >
+                `&While you are wandering through the forest, you stumble upon an enormous herd of elephants!`n
+                You notice that they are `%pink `&with `5purple `&dots all over them and are only the size of a small dog!!`n
+                Are you going to help them by painting them the color of normal elephants?`n
+                Or are you going to ignore them and be on your way?`n
+                Or perhaps you will market their weirdness and make a profit?!`n
+                What are you going to do?
+            '08': >
+                `&As you are wandering through the forest, you trip and fall flat on your face!`n
+                Grumbling, you pick yourself up, only to find yourself looking right into the eyes of a `4Red Fox`&!
+                Your heart begins to beat faster as the fox sniffs your face, teeth bared.
+                Suddenly, the fox whimpers, and you see that it has been caught in a trap!
+                `#What are you going to do?
+                `&You could `@help `&the fox and get it out of the trap, or you could simply `6ignore `&it and be on your way.
+                Then again, you could be `4absolutely evil `&and pick on the fox and tease it.
+            '09': >
+                `VThe forest seems especially quite today, you realize. You have been wandering through the woods for a good while,
+                searching for creatures to release from this realm of existence. Suddenly, you hear the snap of a twig. Whirling around,
+                you draw your weapon, eyes searching the foliage for the source of the intrusion upon your journey.`n`n
+                Your fingers tighten around the weapon as a creature emerges from the shadows of the forest.`n`n`n
+                It is a wounded deer! She has an arrow sticking out of her side and she is bleeding profusely.
+                Her eyes plead with you, yet at the same time are full of fear, frightened at the weapon in your hand, but too injured to run.
+                What are you going to do?`n`n`n
+                You could `2help`0 the poor creature and heal its wounds.
+                `n`nOR you could `6ignore`0 it and go on your way.
+                `n`nOR, being the vile, cruel person you are, you could hurt the deer even more by torturing it.
+            '010': >
+                `jIt has been a long, difficult day, and you are walking around in the forest, wondering if you should kill any more of these creatures.
+                You know that it'll be....wait...what's that up ahead?
+                `n`nBlocking the path is a wagon, and something is wrong about it...
+                `n`nYou notice that the wagon is uneven and the occupants are standing on the side of the road.
+                Thinking you might benefit from this somehow, you go to find out what is going on.
+                When you arrive, the people look at you, distress apparent in their eyes.
+                They beg with you to help them with their wagon, which has broken off a wheel on its way to the market.
+                Will you help them?
+            '011': >
+                `$As you are trudging wearily through the forest, you come across a little girl in a red cape.
+                She is holding a basket and you can smell the food coming out of it, delictable, delicious, intoxicating...`n`n
+                The little red caped girl is singing about going to her Granma's house.
+                It clicks in your mind that there are several evil creatures in the forest...
+                This is a chance to help out a small, weak being.`n`n
+                What are you going to do?
+            '012': >
+                `QYou are wandering through the forest, enjoying the scenery, searching for the `@Green Dragon`0 when you look down and notice a trail of`tcrumbs.'
+                `QThinking it might lead you to a bakery, you bend down and taste the `tcrumbs`0 before grinning happily.
+                You continue to follow the trail, gobbling down the `tcrumbs`0. After a little while, the crumbs stop, and frowning, look up.
+                The sight before you is astounding! It's a house made entirely out of candy!`n
+                Drooling, you rush up to the house, reaching out to take a piece of the window...`n
+                When suddenly you hear a scream! You peek inside the window to see two local village children locked in a cage!`n
+                A woman stands over them, grinning hideously. The children are in trouble! What are you going to do?!
+                Are you going to `2help`0 the children or `$hinder`0 them and help the witch?!
     help:
         title: '`n`c`^You feel `@`bGOOD´b`0!`0´c`n'
         event:
             '01': '`@You walk around a bit more, seeking help for your spidery chums.`nEventually, you walk to the village, and buy them a knitting magazine!`0`n'
-            '02':
-                - '`^You paddle across the raging river, with a rope- one end tied around you, the other upon the shore. When you land on the boat, '
-                - 'you tie your rope to it, and help the crew pull the boat to shore, by using their weight to stay in the boat, and pull the boat over.`0`n'
-            '03':
-                - '`#With amazing agility, you run to capture the child as he falls from the tree and lands in your arms.  He runs off without saying '
-                - 'anything, but you know you saved him from a nasty injury!`0`n'
+            '02': >
+                `^You paddle across the raging river, with a rope- one end tied around you, the other upon the shore. When you land on the boat,
+                you tie your rope to it, and help the crew pull the boat to shore, by using their weight to stay in the boat, and pull the boat over.`0`n
+            '03': >
+                `#With amazing agility, you run to capture the child as he falls from the tree and lands in your arms.  He runs off without saying
+                anything, but you know you saved him from a nasty injury!`0`n
             '04': '`QFor some reason you feel a little mousy when you do this, but you pull out the thorn without any problems!  The lion smiles and walks away.`0`n'
             '05': '`%Using a long branch you safely pull the explorer to shore.  He shakes your hand gratefully and walks off into the forest.`0`n'
             '06': '`!You show the children how to hunt for food and use the skins and some leaves to make clothes. They cheer your name as you leave.`0`n'
@@ -100,22 +100,22 @@ section:
         title: '`n`c`^You feel more `4`bEVIL´b`0!`0´c`n'
         event:
             '01': '`@You `%`ihate`i`@ spiders, and squash them!`0`n'
-            '02':
-                - '`^You find it funny, and decide to sink the boat yourself!'
-                - 'Finding a convenient rock, you lob it over the river, hitting one of the rocks beneath the boat, lowering it imperceptibly.`0'
+            '02': >
+                `^You find it funny, and decide to sink the boat yourself!
+                Finding a convenient rock, you lob it over the river, hitting one of the rocks beneath the boat, lowering it imperceptibly.`0
             '03': '`#You start throwing rocks at the child. You laugh as he falls and think about how sticks AND stones can break bones!`n'
-            '04':
-                - '`QYou look at the poor lion and get an evil glint in your eyes.  You quickly jam the thorn deeper into his paw and run off '
-                - 'to the forest looking for even MORE fun!`0`n'
+            '04': >
+                `QYou look at the poor lion and get an evil glint in your eyes.  You quickly jam the thorn deeper into his paw and run off
+                to the forest looking for even MORE fun!`0`n
             '05': '`%You tell him he can survive if he tries to swim really fast to you.  He sinks because of your bad advice and you smirk and wander off.`n'
             '06': '`!You smirk and begin to make fun of the children, sending your pet to attack the children and take anything of value they might have, which is nothing.`0`n'
             '07': '`4Being the evil person you are, you decide to market the freaks and become famous!`0`n'
             '08': '`4Since you are so evil, you poke and prod the poor creature with a stick!`0`n'
             '09': '`tYour evil nature causes you to be cruel to the poor creature! How could you be so mean?!?!`0`n'
             '010': '`jGrinning evilly, you pull out your weapon and take all of their valuables!`0`n'
-            '011':
-                - "`$You grin deviously and run to where you know the old lady's house is. Donning a wolf suit,"
-                - 'you eat the granma and, when the little girl gets to the house, you eat all the food and the little girl, too!`0`n'
+            '011': >
+                `$You grin deviously and run to where you know the old lady's house is. Donning a wolf suit,
+                you eat the granma and, when the little girl gets to the house, you eat all the food and the little girl, too!`0`n
             '012': '`QYou decide to be evil so you run in and help the witch make little children stew!`0'
     ignore:
         title: '`n`c`^You feel kinda `&`bNeutral´b`0 about the world.`0´c`n`n'

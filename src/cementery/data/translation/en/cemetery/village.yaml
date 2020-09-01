@@ -1,11 +1,11 @@
 title: 'Village of {village}'
 
-description:
-    - '`c`b`&The Town of {village}`0´b´c'
-    - '`n`)You are standing once again in the deserted ghost town, {village}.'
-    - 'The strange silence no longer worries you.`n`n'
-    - 'Several tourists clutch each other in frightened silence, sensing rather than seeing you.`n`n'
-    - 'You move among them, almost invisible.`0`n`n'
+description: >
+    `c`b`&The Town of {village}`0´b´c
+    `n`)You are standing once again in the deserted ghost town, {village}.
+    The strange silence no longer worries you.`n`n
+    Several tourists clutch each other in frightened silence, sensing rather than seeing you.`n`n
+    You move among them, almost invisible.`0`n`n
 
 commentary:
     talk: '`nSpeak from the afterworld:`n' # Talk

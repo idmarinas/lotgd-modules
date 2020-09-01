@@ -36,8 +36,8 @@ navigation:
             '05': '5?For 5 Rounds (`Q{cost}%`0)'
             '010': '1?For 10 Rounds (`Q{cost}%`0)'
 
-flash.message.stamina.death:
-    - "`$Vision blurring, you succumb to the effects of exhaustion."
-    - "You take a step forward to strike your enemy, but instead trip over your own feet.`n"
-    - "As the carpet of leaves and twigs drifts lazily up to meet your face, you close your eyes and halfheartedly reach out your hands to cushion the blow - but they sail through the ground as if it were made out of clouds.`n"
-    - "You fall.`nUnconsciousness. How you'd missed it.`0"
+flash.message.stamina.death: >
+    `$Vision blurring, you succumb to the effects of exhaustion.
+    You take a step forward to strike your enemy, but instead trip over your own feet.`n
+    As the carpet of leaves and twigs drifts lazily up to meet your face, you close your eyes and halfheartedly reach out your hands to cushion the blow - but they sail through the ground as if it were made out of clouds.`n
+    You fall.`nUnconsciousness. How you'd missed it.`0

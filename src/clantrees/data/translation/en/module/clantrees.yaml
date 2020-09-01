@@ -4,9 +4,9 @@ section:
     hook:
         village:
             salesman: '`n`&Outside the Clan Halls you can see {salesman} selling Christmas trees to clans!`0`n'
-            besttree:
-                - '`nThe biggest, sparkliest, twinkliest tree belongs to the {clanName} clan!`n'
-                - 'Many of the other halls, also sport beautifully decorated trees in their windows.`n'
+            besttree: >
+                `nThe biggest, sparkliest, twinkliest tree belongs to the {clanName} clan!`n
+                Many of the other halls, also sport beautifully decorated trees in their windows.`n
             decoration: '`nMany of the clan hall windows sport beautifully decorated trees!`n'
         notree:
             paragraph: '`@Your clan hall seems somewhat bare this holiday - a christmas tree would cheer things up no end!`0`n`n'
@@ -15,47 +15,47 @@ section:
             best: '`@Your tree is the best tree in the Clan Halls!`0`n'
             bonus:
                 paragraph: 'Your tree is very pretty, and as you look at it your spirit lifts.`n`n'
-                best:
-                    - 'However, it could still do with some brightening...'
-                    - 'Maybe you should spend some time, money or gems in livening it up.`0`n`n'
-                nobest:
-                    - 'However, there is always room to brighten it further.'
-                    - 'Maybe you should spend some time, money or gems in livening it up.`0`n`n'
+                best: >
+                    However, it could still do with some brightening...
+                    Maybe you should spend some time, money or gems in livening it up.`0`n`n
+                nobest: >
+                    However, there is always room to brighten it further.
+                    Maybe you should spend some time, money or gems in livening it up.`0`n`n
     run:
         buytree:
-            paragraph:
-                - '`@You decide that your clan does indeed need cheering up this winter, and go outside to talk to {salesman} about getting a tree for your clan.'
-                - 'Since he is busy talking to another customer, you take a quick look over his stock to see what is available.`n`n'
-                - 'There seem to be three varieties of tree here - a rather small scraggly group near the entrance look cheap, but nasty.`n'
-                - 'Near {salesman} himself are some very reasonably sized, and priced, trees which look quite pretty and would look great by the entrance to your hall.`n'
-                - 'However, at the back of the enclosure, guarded by a brutish looking troll, are a couple of grand trees - one of these would be incredible, but they have a price tag to match.`n`n'
-                - 'As you browse over the selection and decide which ones would be good to have, {salesman} finishes up with the customer and turns to you. Which tree will you have?`0`n`n'
-                - '`&Small, Scraggly Tree - `^5,000 Gold `0and`% 5 Gems`0.`0`n'
-                - '`@Medium, Pretty Tree - `^10,000 Gold `0and`% 10 Gems`0.`0`n'
-                - '`2Large, Grand Tree - `^25,000 Gold `0and`% 25 Gems`0.`0`n`n'
+            paragraph: >
+                `@You decide that your clan does indeed need cheering up this winter, and go outside to talk to {salesman} about getting a tree for your clan.
+                Since he is busy talking to another customer, you take a quick look over his stock to see what is available.`n`n
+                There seem to be three varieties of tree here - a rather small scraggly group near the entrance look cheap, but nasty.`n
+                Near {salesman} himself are some very reasonably sized, and priced, trees which look quite pretty and would look great by the entrance to your hall.`n
+                However, at the back of the enclosure, guarded by a brutish looking troll, are a couple of grand trees - one of these would be incredible, but they have a price tag to match.`n`n
+                As you browse over the selection and decide which ones would be good to have, {salesman} finishes up with the customer and turns to you. Which tree will you have?`0`n`n
+                `&Small, Scraggly Tree - `^5,000 Gold `0and`% 5 Gems`0.`0`n
+                `@Medium, Pretty Tree - `^10,000 Gold `0and`% 10 Gems`0.`0`n
+                `2Large, Grand Tree - `^25,000 Gold `0and`% 25 Gems`0.`0`n`n
             no.gold: "`@You realize you don't have enough money on you to purchase any of the trees, even the smallest, and vow to return later with more money.`0"
         tree:
-            small:
-                - '`@{salesman} nods at your request, and motions to his assistant `$Sktim`0 to take the little thing into your clan hall.'
-                - 'He carries it one-handed and places it in a pot near your entrance.'
-                - 'It looks very plain at the moment, and although even the Dwarves of your clan are taller than it, a sense of holiday spirit spreads through the Hall because of its presence.'
-                - 'Now the members of your clan will have something to decorate - it needs tinsel and baubles to liven it up, as well as goodly time arranging it.`0'
-            normal:
-                - '`@{salesman} nods at your request, and motions to his assistant `$Sktim`0 to take the tree into your clan hall.'
-                - 'Though he struggles a bit with the awkwardness of it, he eventually makes it through the entrance and places it in a goodly-sized pot to one side of the entrance.'
-                - "It looks very plain at the moment, but it's a decent size and a sense of holiday spirit spreads through the Hall because of its presence."
-                - 'Now the members of your clan will have something to decorate - it needs tinsel and baubles to liven it up, as well as goodly time arranging it.`0'
-            grand:
-                - '`@{salesman} nods at your request, and motions to his assistant `$Sktim`0 to take the tree into your clan hall.'
-                - 'He takes one look at the leviathan which you ordered and goes to get backup. Within five minutes the trolls he gathered to help give up - it is too heavy.'
-                - 'While you are wondering how to get the tree into the hall, a mage wanders by, lecturing his apprentices on the basics of levitation as they scurry after him.'
-                - '`$Sktim`0 quickly takes advantage of this, and within minutes the wizards are all helping move the tree into your hall for levitation practice.'
-                - 'It looks very plain at the moment, but with the topmost branch scraping the ceiling a sense of holiday spirit spreads through the Hall because of its presence.'
-                - 'Now the members of your clan will have something to decorate - it needs tinsel and baubles to liven it up, as well as goodly time arranging it.`0'
+            small: >
+                `@{salesman} nods at your request, and motions to his assistant `$Sktim`0 to take the little thing into your clan hall.
+                He carries it one-handed and places it in a pot near your entrance.
+                It looks very plain at the moment, and although even the Dwarves of your clan are taller than it, a sense of holiday spirit spreads through the Hall because of its presence.
+                Now the members of your clan will have something to decorate - it needs tinsel and baubles to liven it up, as well as goodly time arranging it.`0
+            normal: >
+                `@{salesman} nods at your request, and motions to his assistant `$Sktim`0 to take the tree into your clan hall.
+                Though he struggles a bit with the awkwardness of it, he eventually makes it through the entrance and places it in a goodly-sized pot to one side of the entrance.
+                It looks very plain at the moment, but it's a decent size and a sense of holiday spirit spreads through the Hall because of its presence.
+                Now the members of your clan will have something to decorate - it needs tinsel and baubles to liven it up, as well as goodly time arranging it.`0
+            grand: >
+                `@{salesman} nods at your request, and motions to his assistant `$Sktim`0 to take the tree into your clan hall.
+                He takes one look at the leviathan which you ordered and goes to get backup. Within five minutes the trolls he gathered to help give up - it is too heavy.
+                While you are wondering how to get the tree into the hall, a mage wanders by, lecturing his apprentices on the basics of levitation as they scurry after him.
+                `$Sktim`0 quickly takes advantage of this, and within minutes the wizards are all helping move the tree into your hall for levitation practice.
+                It looks very plain at the moment, but with the topmost branch scraping the ceiling a sense of holiday spirit spreads through the Hall because of its presence.
+                Now the members of your clan will have something to decorate - it needs tinsel and baubles to liven it up, as well as goodly time arranging it.`0
         treetime:
-            paragraph:
-                - '`&Though your tree looks very pretty, you reckon that if you spent a while working on it, rearranging the ornaments, it could look a lot better.'
-                - 'However, you only have so much time in a day.... and other things to do with your time...`n`n'
+            paragraph: >
+                `&Though your tree looks very pretty, you reckon that if you spent a while working on it, rearranging the ornaments, it could look a lot better.
+                However, you only have so much time in a day.... and other things to do with your time...`n`n
             form:
                 stamina: Time to spend (each time is 1.25% of stamina)
                 turn: Turns to spend
@@ -64,25 +64,25 @@ section:
                         stamina: 'Spend stamina'
                         turn: 'Spend Turns'
         treetinsel:
-            paragraph:
-                - '`^Though your tree looks very pretty, you reckon that it could do with some more tinsel wrapped around it.'
-                - 'However, it is expensive... and `7Abigail`0 charges through the nose for it due to the difficulty of supply.`n`n'
-                - 'How much gold can you spare to give to her?`0'
+            paragraph: >
+                `^Though your tree looks very pretty, you reckon that it could do with some more tinsel wrapped around it.
+                However, it is expensive... and `7Abigail`0 charges through the nose for it due to the difficulty of supply.`n`n
+                How much gold can you spare to give to her?`0
             form:
                 gold: Gold to spend
                 button.submit: Spend Gold
         treebaubles:
-            paragraph:
-                - '`%Though your tree looks very pretty, you reckon that it could do with some more baubles and ornaments livening it up.'
-                - 'However, although the baubles are startlingly beautiful, being hand-crafted by a remote tribe of elves (or so `7Abigail`0 says), they are also incredibly hard to get, as she only accepts gems in payment for them.`n`n'
-                - 'How many can you spare to buy the baubles?`0'
+            paragraph: >
+                `%Though your tree looks very pretty, you reckon that it could do with some more baubles and ornaments livening it up.
+                However, although the baubles are startlingly beautiful, being hand-crafted by a remote tribe of elves (or so `7Abigail`0 says), they are also incredibly hard to get, as she only accepts gems in payment for them.`n`n
+                How many can you spare to buy the baubles?`0
             form:
                 gems: Gems to invest
                 button.submit: Invest Gems
         alter:
-            time:
-                - "`&Though you don't have as much materials, time or space to do as much as you would like to, when you finish you feel a definite improvement has taken place.`0`n`n"
-                - '`@You return to your main Hall, your spirits lifted.`0'
+            time: >
+                `&Though you don't have as much materials, time or space to do as much as you would like to, when you finish you feel a definite improvement has taken place.`0`n`n
+                `@You return to your main Hall, your spirits lifted.`0
             gold: '`7Abigail`0 `^takes the gold you offer and within the hour a nice, albeit smaller than you would like, pile of tinsel has arrived in your clan hall. You hope that someone else has the time to arrange it properly.`0'
             gems: '`7Abigail`0 `%takes the gems you offer and hands you a couple of beautiful ornaments to hang on your tree. You go back to the clan and hang them up on a few of the branches - maybe someone else will have time to hang them so they look good.`0'
             contribution: '`n`n`@Your contribution has made your tree so much better it is now the best one in the Halls! The twinkliness is nearly blinding!`0'

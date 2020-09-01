@@ -2,10 +2,10 @@ specialty.name: 'Dark Arts'
 
 section:
     choose.select: 'Killing a lot of woodland creatures'
-    set.paragraph:
-        - '`5Growing up, you recall killing many small woodland creatures, insisting that they were plotting against you.'
-        - 'Your parents, concerned that you had taken to killing the creatures barehanded, bought you your very first pointy twig.'
-        - "It wasn't until your teenage years that you began performing dark rituals with the creatures, disappearing into the forest for days on end, no one quite knowing where those sounds came from.`0"
+    set.paragraph: >
+        `5Growing up, you recall killing many small woodland creatures, insisting that they were plotting against you.
+        Your parents, concerned that you had taken to killing the creatures barehanded, bought you your very first pointy twig.
+        It wasn't until your teenage years that you began performing dark rituals with the creatures, disappearing into the forest for days on end, no one quite knowing where those sounds came from.`0
     newday.paragraph: '`n`2For being interested in {color}{name}`0, you receive `^{bonus,plural, =1{1 extra use} other{# extra uses}}`0 of {color}{name}`0 for today.`0`n'
 
 battle:

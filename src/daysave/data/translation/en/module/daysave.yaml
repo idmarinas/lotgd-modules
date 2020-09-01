@@ -4,23 +4,23 @@ section:
     default:
         spheres: 'Here are your Chronospheres. Each coloured sphere represents one saved-up game day.`n`n'
         dragonkills: 'New players start the game with some days already saved up, so that they can get a feel for how this works.`n`n'
-        explain:
-            - '`n`nChronospheres essentially allow you to save up game days for later play, simply by not logging in.'
-            - 'As you can see, you have {days,plural, =1{1 Game Day saved} other{# Game Days saved}} up, out of a maximum of {slots,number}.`n`n'
-        donators:
-            - 'Site supporters have several extra options.'
-            - 'As a site supporter, you can instantly start a new Game Day for your character at any time in exchange for {buyDayCost,number} Donator Points.'
-            - 'You can also add more Chronospheres, allowing you to save up more days to play later.'
-            - 'Each additional Chronosphere costs {buySlotCost,number} Donator Points, and come pre-filled.'
-            - 'When adding Chronospheres, you have the option of refilling your empty Spheres for a discount cost of {fillSlotCost,number} Donator Points per empty Sphere.`n`n'
-            - 'For game balance reasons, donators can only buy {maxBuyDay,plural, =1{1 Instant Game Day} other{# Instant Game Days}} per real game day.`n`n'
-            - 'You currently have {donationPointsUnused,plural, =1{1 Donator Point} other{# Donator Points}} available.'
-            - "See the Hunter's Lodge in any Village for a more detailed explanation of how to get Donator Points, and other cool things you can do with them."
+        explain: >
+            `n`nChronospheres essentially allow you to save up game days for later play, simply by not logging in.
+            As you can see, you have {days,plural, =1{1 Game Day saved} other{# Game Days saved}} up, out of a maximum of {slots,number}.`n`n
+        donators: >
+            Site supporters have several extra options.
+            As a site supporter, you can instantly start a new Game Day for your character at any time in exchange for {buyDayCost,number} Donator Points.
+            You can also add more Chronospheres, allowing you to save up more days to play later.
+            Each additional Chronosphere costs {buySlotCost,number} Donator Points, and come pre-filled.
+            When adding Chronospheres, you have the option of refilling your empty Spheres for a discount cost of {fillSlotCost,number} Donator Points per empty Sphere.`n`n
+            For game balance reasons, donators can only buy {maxBuyDay,plural, =1{1 Instant Game Day} other{# Instant Game Days}} per real game day.`n`n'
+            You currently have {donationPointsUnused,plural, =1{1 Donator Point} other{# Donator Points}} available.
+            See the Hunter's Lodge in any Village for a more detailed explanation of how to get Donator Points, and other cool things you can do with them.
     useday.paragraph: 'You have used one of your Chronospheres. Now go forth and have fun!`n`n'
-    buyday.paragraph:
-        - 'You have bought one new Game Day in exchange for {buyDayCost,plural, =1{1 Donator Point} other{# Donator Points}}, leaving you with {donationPointsUnused,plural, =1{1 point} other{# points}} left to spend.'
-        - 'Your Chronospheres are unaffected.'
-        - 'Now go forth and have fun!`n`n'
+    buyday.paragraph: >
+        You have bought one new Game Day in exchange for {buyDayCost,plural, =1{1 Donator Point} other{# Donator Points}}, leaving you with {donationPointsUnused,plural, =1{1 point} other{# points}} left to spend.
+        Your Chronospheres are unaffected.
+        Now go forth and have fun!`n`n
     buyslot:
         paragraph: 'You have bought one additional Chronosphere in exchange for {buySlotCost,plural, =1{1 Donator Point} other{# Donator Points}}, leaving you with {donationPointsUnused,plural, =1{1 point} other{# points}} left to spend.`n`n'
         fill: '`n`nYou now have the option of refilling your empty Chronospheres for {fillSlotCost,plural, =1{1 Donator Point} other{# Donator Points}} each.`n`n'

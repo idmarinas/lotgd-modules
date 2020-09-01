@@ -11,9 +11,9 @@ section:
                 module: Module
                 edit: Edit
     edit:
-        paragraph:
-            - 'Changing these values will not affect the city itself, just what city is associated with the preferences.'
-            - 'This is useful if you want to preserve prefs after removing a city.'
+        paragraph: >
+            Changing these values will not affect the city itself, just what city is associated with the preferences.
+            This is useful if you want to preserve prefs after removing a city.
         form:
             input:
                 name:

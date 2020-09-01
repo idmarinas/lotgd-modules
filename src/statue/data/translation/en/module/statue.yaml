@@ -7,14 +7,14 @@ section:
         hero:
             no:
                 erected: '`n`@The people wandering past periodically stop to admire a statue of the ancient hero, `&MightyE`0.`0`n'
-                erecting:
-                    - '`n`@The inhabitants of {location} are busy re-erecting a statue for their ancient hero, `&MightyE`0 on the only statue pedestal around.'
-                    - 'The remains of the statue that had stood there before lie in such ruins around the pedestal that it is no longer recognizable.`0`n'
+                erecting: >
+                    `n`@The inhabitants of {location} are busy re-erecting a statue for their ancient hero, `&MightyE`0 on the only statue pedestal around.
+                    The remains of the statue that had stood there before lie in such ruins around the pedestal that it is no longer recognizable.`0`n
             yes:
                 erected: '`n`@The inhabitants of {location} have erected a statue for their newest hero, `&{heroName}`0 on the only statue pedestal around.  The remains of the statue that had stood there before have been removed.`0`n'
-                erecting:
-                    - '`n`@The inhabitants of {location} are busy erecting a statue for their newest hero, `&{heroName}`0 on the only statue pedestal around.'
-                    - 'The remains of the statue that had stood there before lie in such ruins around the pedestal that it is no longer recognizable.`0`n'
+                erecting: >
+                    `n`@The inhabitants of {location} are busy erecting a statue for their newest hero, `&{heroName}`0 on the only statue pedestal around.
+                    The remains of the statue that had stood there before lie in such ruins around the pedestal that it is no longer recognizable.`0`n
             examine: '<a href="village.php?op=astatue">Examine Statue</a>'
         examine:
             break:

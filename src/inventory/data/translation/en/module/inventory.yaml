@@ -161,9 +161,9 @@ navigation:
             properties: 'Item properties'
 
 flash.message:
-    dragonkill:
-        - "Shattered around you lie the remains of {n,plural, =1{a once mighty item} other{once mighty items}} destroyed by the power of the dragon's flames.<br>"
-        - 'It seems `^{n,plural, =1{1 item} other{# items}}`0 have been destroyed.'
+    dragonkill: >
+        Shattered around you lie the remains of {n,plural, =1{a once mighty item} other{once mighty items}} destroyed by the power of the dragon's flames.<br>
+        It seems `^{n,plural, =1{1 item} other{# items}}`0 have been destroyed.
     save:
         module: 'Item settings for module "{name}" saved!'
         saved: 'Item saved!'

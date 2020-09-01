@@ -1,14 +1,13 @@
 title: 'The Snow Bank'
 
 section.donation:
-    yes:
-        - "`7You inform the elf that you'd like to donate a gift to the poor."
-        - "`7The expression on the elf's face is pure gratitude as you make the offer.`n`n"
-        - '`7He takes a small folder of cards from his drawer, and you select one to attach to your gift.`n`n'
-        - "`7Placing it under the bank's small tree, you step back with a smile.`n`n"
-        - '`7You feel really good about yourself!'
-    no:
-        - 'The elf smiles, as you place another gift under the tree.`n`n'
+    yes: >
+        `7You inform the elf that you'd like to donate a gift to the poor.
+        `7The expression on the elf's face is pure gratitude as you make the offer.`n`n
+        `7He takes a small folder of cards from his drawer, and you select one to attach to your gift.`n`n
+        `7Placing it under the bank's small tree, you step back with a smile.`n`n
+        `7You feel really good about yourself!
+    no: 'The elf smiles, as you place another gift under the tree.`n`n'
 
 donation.buff.name: 'Generosity'
 

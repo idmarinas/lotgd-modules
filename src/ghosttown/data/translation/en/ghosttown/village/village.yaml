@@ -2,11 +2,11 @@
 title: 'Ghost Town'
 
 # Description of village
-description:
-    - '`c`b`&{village}`0´b´c`n'
-    - '`6You are standing in a deserted ghost town.'
-    - 'Swinging on rusty hooks, a sign proclaiming "{village}" has been vandalized to read "{defaced}".'
-    - 'Eerie silence greets you from the shadows, and the nearby cemetery echoes the sounds of departed unrestful souls.`0`n'
+description: >
+    `c`b`&{village}`0´b´c`n
+    `6You are standing in a deserted ghost town.
+    Swinging on rusty hooks, a sign proclaiming "{village}" has been vandalized to read "{defaced}".
+    Eerie silence greets you from the shadows, and the nearby cemetery echoes the sounds of departed unrestful souls.`0`n
 
 # Commentary
 commentary:

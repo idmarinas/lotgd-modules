@@ -2,13 +2,13 @@
 title: 'The Swamps of Trolls'
 
 # Description of village
-description:
-    - "`b`c`@{village}, Home of the Trolls`0´c´b`n"
-    - "`2You are standing in a pile of mud, in the heart of a vast swamp."
-    - "Around you are the fetid skin-covered hovels that trolls call home."
-    - "Well actually, they call them 'ughrrnk', but that's a bit hard on the throats of non-trolls."
-    - "Nearby some local peasants squabble over the rapidly decaying remains of the morning's hunt."
-    - "Perched atop one of the huts, a badly scarred troll smears indescribable filth over his home's surface in an ill fated attempt to water proof it.`0`n"
+description: >
+    `b`c`@{village}, Home of the Trolls`0´c´b`n
+    `2You are standing in a pile of mud, in the heart of a vast swamp.
+    Around you are the fetid skin-covered hovels that trolls call home.
+    Well actually, they call them 'ughrrnk', but that's a bit hard on the throats of non-trolls.
+    Nearby some local peasants squabble over the rapidly decaying remains of the morning's hunt.
+    Perched atop one of the huts, a badly scarred troll smears indescribable filth over his home's surface in an ill fated attempt to water proof it.`0`n
 
 # Commentary
 commentary:
@@ -30,6 +30,6 @@ clock: "`n`2Based on what's left of the morning's kill, you can tell that it is 
 
 # Text for new player
 newestOther: '`n`2Picking their teeth with a sliver of bone is `@{name}`0, still covered with bits of shell from the hatchery.`0'
-newestPlayer:
-    - '`n`2You wander the village, picking your teeth with the tiny rib of one of your siblings.'
-    - 'Flicking off a bit of shell that was still stuck to your skin, you watch as it skips several times across the muddy surface of the swamp before a small lizard jumps on it and begins to consume its nutrients.`0'
+newestPlayer: >
+    `n`2You wander the village, picking your teeth with the tiny rib of one of your siblings.
+    Flicking off a bit of shell that was still stuck to your skin, you watch as it skips several times across the muddy surface of the swamp before a small lizard jumps on it and begins to consume its nutrients.`0

@@ -2,11 +2,11 @@ specialty.name: 'Mystical Powers'
 
 section:
     choose.select: 'Dabbling in mystical forces'
-    set.paragraph:
-        - '`3Growing up, you remember knowing there was more to the world than the physical, and what you could place your hands on.'
-        - 'You realized that your mind itself, with training, could be turned into a weapon.'
-        - 'Over time, you began to control the thoughts of small creatures, commanding them to do your bidding, and also to begin to tap into the mystical force known as mana, which could be shaped into the elemental forms of fire, water, ice, earth, and wind.'
-        - 'To your delight, it could also be used as a weapon against your foes.'
+    set.paragraph: >
+        `3Growing up, you remember knowing there was more to the world than the physical, and what you could place your hands on.
+        You realized that your mind itself, with training, could be turned into a weapon.
+        Over time, you began to control the thoughts of small creatures, commanding them to do your bidding, and also to begin to tap into the mystical force known as mana, which could be shaped into the elemental forms of fire, water, ice, earth, and wind.
+        To your delight, it could also be used as a weapon against your foes.
     newday.paragraph: '`n`2For being interested in {color}{name}`0, you receive `^{bonus,plural, =1{1 extra use} other{# extra uses}}`0 of {color}{name}`0 for today.`0`n'
 
 battle:

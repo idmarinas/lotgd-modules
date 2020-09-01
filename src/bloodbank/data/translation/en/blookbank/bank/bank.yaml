@@ -6,23 +6,23 @@ subtitle: '`^`c`bThe Blood Bank`b`c'
 
 # Enter in bank (default option)
 default:
-    paragraph:
-        - '`7You cautiously enter the darkened doorway, to find a vampire standing behind a counter.`n`n'
-        - '"`&Greetings, {sex,select, 1{Madam} other{Sir}},`0" Vladimir says with a bloody smile.`0'
+    paragraph: >
+        `7You cautiously enter the darkened doorway, to find a vampire standing behind a counter.`n`n
+        "`&Greetings, {sex,select, 1{Madam} other{Sir}},`0" Vladimir says with a bloody smile.`0
     balance:
-        positive:
-            - '`7"`&You have {balance,number} gold invested with us at present.`0'
-            - 'How may I assist you today?`0"`0'
-        negative:
-            - '`7"`&You have a `4debt`0 of `^{balance,number} gold`0 to us at present.`0'
-            - 'How may I assist you today?`0"`0'
+        positive: >
+            `7"`&You have {balance,number} gold invested with us at present.`0
+            How may I assist you today?`0"`0
+        negative: >
+            `7"`&You have a `4debt`0 of `^{balance,number} gold`0 to us at present.`0
+            How may I assist you today?`0"`0
 
 # Tranfer money (Step 1)
 transfer:
     subtitle: '`6`bTransfer Money´b:`0`n'
-    paragraph:
-        - '`7Vladimir tells you, "`&You understand of course, you may only transfer `^{transferPerLevel,number}`0 gold for each level that the recipient has achieved.'
-        - 'And we ask that you transfer no more than `^{maxTransfer,number}`0 gold each day.`0"`0`n'
+    paragraph: >
+        `7Vladimir tells you, "`&You understand of course, you may only transfer `^{transferPerLevel,number}`0 gold for each level that the recipient has achieved.
+        And we ask that you transfer no more than `^{maxTransfer,number}`0 gold each day.`0"`0`n
     transferred: "`7He checks the book in front of him for a moment, &quot;`&It looks as though you've already transferred `^{transferred,number}`& gold today.`7&quot;`n"
     refused: "`7&quot;I'm sorry, I can't allow you to transfer to someone who is already in our debt, you understand.&quot;`0"
     form:
@@ -78,20 +78,20 @@ deposit:
             submit: 'Deposit'
     # Finish a deposit
     finish:
-        fail:
-            - '`$ERROR: Not enough gold in hand to deposit.`0`n`n'
-            - '`^You plunk your `&{gold,number}`0 gold on the counter and declare that you would like to deposit all `&{amount,number}`0 gold of it.`0`n`n'
-            - '`7Vladimir smiles at you and suggests you recount your money.`0'
+        fail: >
+            `$ERROR: Not enough gold in hand to deposit.`0`n`n
+            `^You plunk your `&{gold,number}`0 gold on the counter and declare that you would like to deposit all `&{amount,number}`0 gold of it.`0`n`n
+            `7Vladimir smiles at you and suggests you recount your money.`0
         balance:
-            positive:
-                - '`@Elessa`0 `6records your deposit of `^{amount,number}`0 gold in her ledger.`0'
-                - '"`@Thank you, `&{name}`0. You now have a balance of `^{bank,number}`0 gold in the bank and `^{gold,number}`0 gold in hand.`0"'
+            positive: >
+                `@Elessa`0 `6records your deposit of `^{amount,number}`0 gold in her ledger.`0
+                "`@Thank you, `&{name}`0. You now have a balance of `^{bank,number}`0 gold in the bank and `^{gold,number}`0 gold in hand.`0"
 
-                - '`7Vladimir records your deposit of `^{amount,number}`0 gold in the book before him.'
-                - '"`&Thank you, `&%s`0.  You now have a balance of `^{bank,number}`0 gold in the bank and `^{gold,number}`0 gold in hand.`0"`0'
-            negative:
-                - '`7Vladimir records your deposit of `^{amount,number}`0 gold in the book before him.'
-                - '"`&Thank you, `&%s`0.  You now have a debt of `${bank,number}`0 gold to the bank and `^{gold,number}`0 gold in hand.`0"`0'
+                `7Vladimir records your deposit of `^{amount,number}`0 gold in the book before him.
+                "`&Thank you, `&%s`0.  You now have a balance of `^{bank,number}`0 gold in the bank and `^{gold,number}`0 gold in hand.`0"`0
+            negative: >
+                `7Vladimir records your deposit of `^{amount,number}`0 gold in the book before him.
+                "`&Thank you, `&%s`0.  You now have a debt of `${bank,number}`0 gold to the bank and `^{gold,number}`0 gold in hand.`0"`0
 
 # Take out a Loan
 borrow:
@@ -120,10 +120,10 @@ withdraw:
             submit: 'Withdraw'
     # Finish a withdraw
     finish:
-        fail:
-            - '`$ERROR: Not enough gold in the bank to withdraw.`0`n`n'
-            - '`7Having been informed that you have `^{bank,number}`0 gold in your account, you declare that you would like to withdraw all `^{amount,number}`0 of it.`n`n'
-            - 'Vladimir smiles at you and suggests you rethink your request. You realize your mistake and think you should try again.`0'
+        fail: >
+            `$ERROR: Not enough gold in the bank to withdraw.`0`n`n
+            `7Having been informed that you have `^{bank,number}`0 gold in your account, you declare that you would like to withdraw all `^{amount,number}`0 of it.`n`n
+            Vladimir smiles at you and suggests you rethink your request. You realize your mistake and think you should try again.`0
         withdraw:
             success: '`7Vladimir records your withdrawal of `^{amount,number}`0 gold in the book before him. "`&Thank you, `&{name}`0. You now have a balance of `^%s`0 gold in the bank and `^{gold,number}`0 gold in hand.`0"`0'
         borrow:

@@ -13,63 +13,63 @@ section:
         title: 'Multi-Village Questions'
         paragraph: '`n`c`bQuestions about the multiple village system´b´c`n'
         content:
-            one:
-                - '`^1. Why, oh why did you activate such a (choose one [wondrous, horrible]) feature?`0`n'
-                - '`@For kicks, of course. We like to mess with your head.`n'
-                - "But seriously, have you looked at the user list?  On lotgd.net, we've got over 6,000 people cramming themselves into the Village Square and tryinto get their voices heard! Too much! Too much!`n"
-                - "In the interests of sanity, we've made more chat boards. And in the interests of game continuity, we've put them into separate villages with mancool new features.`n`n"
-                - 'If you are a smaller server, this might not be right for you, but we think it works okay there too.`0`n`n'
-            two:
-                - '`^2. How do I go to other villages?`0`n'
-                - '`@Walk, skate, take the bus...`n'
-                - 'Or press the Travel link (in the City Gates or Village Gates category) in the navigation bar.`0`n`n'
-            three:
-                - '`^3. How does travelling work?`0`n'
-                - '`@Pretty well, actually. Thanks for asking.`n'
-                - 'You get some number of  free travels per day ({travels,number} on this server) in which you can travel to any other village you want.'
-                - 'Also, it is possible for the admin to give additional free travels with some mounts.'
-                - 'After that, you use up one forest fight per travel.'
-                - 'After that...well, we hope you like where you end up.'
-                - 'Since all major economic transactions come through {capital} (the capital of the region), the roads to and from there have been fortified to protecagainst monsters from wandering onto them.'
-                - 'That was a while back though, and the precautions are no longer perfect.`n'
-                - 'Travel between the other villages have no such precautions.`n'
-                - 'In either case, you might want to heal yourself before travelling.'
-                - 'You have been warned.`0`n`n'
-            four:
-                - "`^4. Where's (the Inn, the forest, my training master, etc.)?`0`n"
-                - "`@Look around. Do you see it? No? Then it's not here.`n"
-                - "The problem's usually:`n"
-                - "a) It's actually there, you just missed it the first time around.`n"
-                - "b) It's in another village, try travelling.`n"
-                - "c) It's not on this server, check out the LoGD Net link on the login page.`n"
-                - "d) Are you sure you didn't just see that feature in a dream?`0`n`n"
-            five:
-                - "`^5. I've used up my free travels and forest fights. How do I travel now?`0`n"
-                - "`@We hope you like where you've ended up, because you're stuck there until the next new day.`0`n`n"
-            six:
-                - '`^6. Can I pay for more travels?`0`n'
-                - '`@No, but you can just plain pay us.`0'
-                - "{lodge,select,
+            one: >
+                `^1. Why, oh why did you activate such a (choose one [wondrous, horrible]) feature?`0`n
+                `@For kicks, of course. We like to mess with your head.`n
+                But seriously, have you looked at the user list?  On lotgd.net, we've got over 6,000 people cramming themselves into the Village Square and tryinto get their voices heard! Too much! Too much!`n
+                In the interests of sanity, we've made more chat boards. And in the interests of game continuity, we've put them into separate villages with mancool new features.`n`n
+                If you are a smaller server, this might not be right for you, but we think it works okay there too.`0`n`n
+            two: >
+                `^2. How do I go to other villages?`0`n
+                `@Walk, skate, take the bus...`n
+                Or press the Travel link (in the City Gates or Village Gates category) in the navigation bar.`0`n`n
+            three: >
+                `^3. How does travelling work?`0`n
+                `@Pretty well, actually. Thanks for asking.`n
+                You get some number of  free travels per day ({travels,number} on this server) in which you can travel to any other village you want.
+                Also, it is possible for the admin to give additional free travels with some mounts.
+                After that, you use up one forest fight per travel.
+                After that...well, we hope you like where you end up.
+                Since all major economic transactions come through {capital} (the capital of the region), the roads to and from there have been fortified to protecagainst monsters from wandering onto them.
+                That was a while back though, and the precautions are no longer perfect.`n
+                Travel between the other villages have no such precautions.`n
+                In either case, you might want to heal yourself before travelling.
+                You have been warned.`0`n`n
+            four: >
+                `^4. Where's (the Inn, the forest, my training master, etc.)?`0`n
+                `@Look around. Do you see it? No? Then it's not here.`n
+                The problem's usually:`n
+                a) It's actually there, you just missed it the first time around.`n
+                b) It's in another village, try travelling.`n
+                c) It's not on this server, check out the LoGD Net link on the login page.`n
+                d) Are you sure you didn't just see that feature in a dream?`0`n`n
+            five: >
+                `^5. I've used up my free travels and forest fights. How do I travel now?`0`n
+                `@We hope you like where you've ended up, because you're stuck there until the next new day.`0`n`n
+            six: >
+                `^6. Can I pay for more travels?`0`n
+                `@No, but you can just plain pay us.`0
+                {lodge,select,
                     1{Check out the Hunter's Lodge.}
                     other{Speak to an admin about donating money.}
-                }"
-                - 'Actually, we are considering it.`n'
-            seven:
-                - "`^7. I'm on {newbieIslandName}.`0"
-                - "Why can't I see the Travel link or any of the other stuff this section talks about?`n"
-                - '`@You need at least 5 levels in search, or a Ring of Finding +2 to see any of this stuff.`n'
-                - "If you haven't figured it out by now, this second answer is always the real one."
-                - "You'll only be able to see Travel once you leave {newbieIslandName}."
-                - 'Feel free to skip the rest of this section and come back to it later.`0`n`n'
+                }
+                Actually, we are considering it.`n
+            seven: >
+                `^7. I'm on {newbieIslandName}.`0
+                Why can't I see the Travel link or any of the other stuff this section talks about?`n
+                `@You need at least 5 levels in search, or a Ring of Finding +2 to see any of this stuff.`n
+                If you haven't figured it out by now, this second answer is always the real one.
+                You'll only be able to see Travel once you leave {newbieIslandName}.
+                Feel free to skip the rest of this section and come back to it later.`0`n`n
     autochallenge:
         forest: 'Startled to find your master in {location}, your heart skips a beat, costing a forest fight from shock.'
         travel: 'Surprised at finding your master in {location}, you feel a little less inclined to be gallivanting around the countryside today.'
     travel:
-        paragraph:
-            - '`%Travelling the world can be a dangerous occupation.'
-            - 'Although other villages might offer things not found in your current one, getting from village to village is no easy task, and might subject you to various dangerous creatures or brigands.'
-            - "Be sure you're willing to take on the adventure before you set out, as not everyone arrives at their destination intact."
-            - 'Also, pay attention to the signs, some roads are safer than others.`n'
+        paragraph: >
+            `%Travelling the world can be a dangerous occupation.
+            Although other villages might offer things not found in your current one, getting from village to village is no easy task, and might subject you to various dangerous creatures or brigands.
+            Be sure you're willing to take on the adventure before you set out, as not everyone arrives at their destination intact.
+            Also, pay attention to the signs, some roads are safer than others.`n
         travel: "`nYou don't feel as if you could face the prospect of walking to another city today, it's far too exhausting.`n"
         sobermsg: '`&Facing your bloodthirsty opponent, the adrenaline rush helps to sober you up slightly.'
         empty: 'A divine light ends the fight and you return to the road.'
@@ -77,9 +77,9 @@ section:
         coward:
             forest: 'In your terror, you lose your way and become lost, losing time for a forest fight.`n`n'
             travel: 'In your terror, you lose your way and become lost, losing precious travel time.`n`n'
-        paragraph:
-            - 'You set off running through the forest at a breakneck pace heading back the way you came.`n`n'
-            - 'After running for what seems like hours, you finally arrive back at {location}.'
+        paragraph: >
+            You set off running through the forest at a breakneck pace heading back the way you came.`n`n
+            After running for what seems like hours, you finally arrive back at {location}.
 
 statistic.stat:
     home: 'Home City'

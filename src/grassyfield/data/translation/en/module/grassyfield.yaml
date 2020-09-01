@@ -3,9 +3,9 @@ paragraph: '`n`c`#You Stumble Upon a Grassy Field`0´c`n`n'
 nothing: '`&You relax a while in the fields enjoying the sun and the shade.`0'
 
 horse:
-    no:
-        - '`&Deciding to take a moment and a load off your poor weary feet you take a quick break from your ventures to take in the beautiful surroundings.`0'
-        - '`n`n`^Your break leaves you completely healed!`0'
+    no: >
+        `&Deciding to take a moment and a load off your poor weary feet you take a quick break from your ventures to take in the beautiful surroundings.`0
+        `n`n`^Your break leaves you completely healed!`0
     recharge:
         partial: '`&You allow {mountName} to frolic and gambol in the field.`0'
         full: '`&You allow {mountName} to hunt and rest in the field.`0'

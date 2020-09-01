@@ -2,11 +2,11 @@
 title: 'Ice Town'
 
 # Description of village
-description:
-    - '`c`b`&{village}`0´b´c`n'
-    - '`7You are standing in a wonderland of white.'
-    - 'Crystal icicles wink at you from the eaves of the buildings and huts nearby.'
-    - 'Villagers are chatting, their words emerging in frosty fog.`0`n'
+description: >
+    `c`b`&{village}`0´b´c`n
+    `7You are standing in a wonderland of white.
+    Crystal icicles wink at you from the eaves of the buildings and huts nearby.
+    Villagers are chatting, their words emerging in frosty fog.`0`n
 
 # Commentary
 commentary:

@@ -6,9 +6,9 @@ raceminedeath.save: 'Fortunately your dwarven skill let you escape unscathed.`n'
 
 section:
     choose.select: "{openLink}Deep in the subterranean strongholds of {city}{closeLink}, home to the noble and fierce `#Dwarven`0 people whose desire for privacy and treasure bears no resemblance to their tiny stature.`n`n"
-    set.paragraph:
-        - '`#As a dwarf, you are more easily able to identify the value of certain goods.`0`n'
-        - '`^You gain extra gold from forest fights!`0'
+    set.paragraph: >
+        `#As a dwarf, you are more easily able to identify the value of certain goods.`0`n
+        `^You gain extra gold from forest fights!`0
     ale:
         drink:
             title: 'Great Kegs of Ale'
@@ -17,9 +17,9 @@ section:
                 many: "{barkeep} eyes you critically. &quot;`%Ya've had enough of the hard stuff, my friend. No more of that for you today.`0&quot;"
                 drunk: " but {barkeep} continues to clean the glass he was working on. &quot;`%You've had enough {userSex,select, 1{lass} other{lad}},`0&quot; he declares."
             buy:
-                buyed:
-                    - "{barkeep} pulls out a glass, and pours a foamy ale from a tapped barrel behind him. He slides it down the bar, and you catch it with your warrior-like reflexes.`n`n"
-                    - "Turning around, you take a big chug of the hearty draught, and give {partner} an ale-foam mustache smile.`n`n"
+                buyed: >
+                    {barkeep} pulls out a glass, and pours a foamy ale from a tapped barrel behind him. He slides it down the bar, and you catch it with your warrior-like reflexes.`n`n
+                    Turning around, you take a big chug of the hearty draught, and give {partner} an ale-foam mustache smile.`n`n
                 turn:
                     vigorous: "`&You feel vigorous!`n"
                     lethargic: "`&You feel lethargic!`n"
@@ -27,9 +27,9 @@ section:
                     healthy: '`&You feel healthy!`n'
                     sick: '`&You feel sick!`n'
                 not.money: "You don't have enough money. How can you buy {drinkName} if you don't have any money!?!"
-    run.paragraph:
-        - '`3You make your way over to the great kegs of ale lined up near by, looking to score a hearty draught from their mighty reserves.'
-        - 'A mighty dwarven barkeep named `$G`0`4argoyle`0 stands at least 4 feet tall, and is serving out the drinks to the boisterous crowd.`0'
+    run.paragraph: >
+        `3You make your way over to the great kegs of ale lined up near by, looking to score a hearty draught from their mighty reserves.
+        A mighty dwarven barkeep named `$G`0`4argoyle`0 stands at least 4 feet tall, and is serving out the drinks to the boisterous crowd.`0
 
 locs.moderate: 'City of {city}'
 
