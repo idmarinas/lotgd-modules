@@ -83,7 +83,9 @@ function newbieisland_dohook($hookname, $args)
     global $session, $resline;
 
     $textDomain = 'newbieisland-module';
-    $city = get_module_setting('villagename');
+    $city = get_module_setting('villagename', 'newbieisland');
+
+    newbieisland_checkcity();
 
     switch ($hookname)
     {
@@ -360,8 +362,7 @@ function newbieisland_dohook($hookname, $args)
             }
         break;
         case 'page-village-tpl-params':
-            //-- Only can leave de island when player is level 2 or above
-            if ($session['user']['location'] == $city && $session['user']['level'] > 1)
+            if ($session['user']['location'] == $city)
             {
                 $args['village'] = $city;
                 $args['commentarySection'] = 'village-newbie'; //-- Commentary section
@@ -384,15 +385,19 @@ function newbieisland_dohook($hookname, $args)
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
 
-                \LotgdNavigation::setTextDomain('newbieisland-village-navigation');
+                //-- Only can leave de island when player is level 2 or above
+                if ($session['user']['level'] > 1)
+                {
+                    \LotgdNavigation::setTextDomain('newbieisland-village-navigation');
 
-                \LotgdNavigation::addHeader('headers.gate');
-                \LotgdNavigation::addNav('navs.leave', 'runmodule.php?module=newbieisland&op=leave', [
-                    'params' => ['city' => $city]
-                ]);
+                    \LotgdNavigation::addHeader('headers.gate');
+                    \LotgdNavigation::addNav('navs.leave', 'runmodule.php?module=newbieisland&op=leave', [
+                        'params' => ['city' => $city]
+                    ]);
 
-                \LotgdNavigation::setTextDomain();
-                \LotgdNavigation::unBlockLink('runmodule.php?module=newbieisland&op=leave');
+                    \LotgdNavigation::setTextDomain();
+                    \LotgdNavigation::unBlockLink('runmodule.php?module=newbieisland&op=leave');
+                }
             }
         break;
     }
