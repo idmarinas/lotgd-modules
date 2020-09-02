@@ -8,7 +8,7 @@ function alignment_getmoduleinfo()
         'version' => '2.0.0',
         'category' => 'Stat Display',
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=64',
-        'vertxtloc' > 'http://dragonprime.net/users/Sichae/',
+        'vertxtloc' => 'http://dragonprime.net/users/Sichae/',
         'description' => 'This module will display the alignment of a character (Evil, Neutral, Good). Certain events in the LotGD universe will affect this alignment.',
         'settings' => [
             'Alignment Settings,title',
