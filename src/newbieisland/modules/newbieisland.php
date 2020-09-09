@@ -278,7 +278,8 @@ function newbieisland_dohook($hookname, $args)
                     'mingoodguydamage' => 0,
                     'maxgoodguydamage' => '(<hitpoints><<maxhitpoints>?-1:0)',
                     'effectfailmsg' => LotgdTranslator::t('buff.effectfailmsg', [], $textDomain),
-                    'effectnodmgmsg' => ''
+                    'effectnodmgmsg' => '',
+                    'schema' => 'newbiecoddle'
                 ]);
 
                 $args['includeTemplatesPost']['module/newbieisland/dohook/newday.twig'] = [
