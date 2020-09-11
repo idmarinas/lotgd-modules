@@ -317,7 +317,7 @@ function racehuman_dohook($hookname, $args)
                 $args['textDomain'] = 'racehuman-village-village';
                 $args['textDomainNavigation'] = 'racehuman-village-navigation';
 
-                unblocknav('stables.php');
+                \LotgdNavigation::unBlockLink('stables.php');
             }
         break;
         case 'page-village-tpl-params':
@@ -351,7 +351,7 @@ function racehuman_dohook($hookname, $args)
                 $args['textDomain'] = 'racehuman-stables-stables';
                 $args['textDomainNavigation'] = 'racehuman-stables-navigation';
 
-                unblocknav('stables.php');
+                \LotgdNavigation::unBlockLink('stables.php');
             }
         break;
         case 'stablelocs':
