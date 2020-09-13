@@ -1098,7 +1098,7 @@ function stamina_minihof($action, $userid = false)
         $userid = $session['user']['acctid'];
     }
     $st = microtime(true);
-    $boardfilename = str_replace(' ', '', $action);
+    $boardfilename = \LotgdSanitize::slugify($action);
     $boardinfo = \LotgdCache::getItem('modules/stamina/boardinfo_'.$boardfilename);
     $en = microtime(true);
     $to = $en - $st;
