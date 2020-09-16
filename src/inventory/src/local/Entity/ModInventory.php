@@ -5,7 +5,7 @@ namespace Lotgd\Local\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Structure of table "module_inventory" in data base.
+ * Structure of table "mod_inventory" in data base.
  *
  * Inventory of characters.
  *

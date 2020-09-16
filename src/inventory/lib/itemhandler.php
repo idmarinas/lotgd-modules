@@ -342,8 +342,8 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
             $entity = $inventoryRepository->hydrateEntity([
                 'userId' => $user,
                 'item' => $item_raw,
-                'sellValueGold' => $sellvaluegold,
-                'sellValueGems' => $sellvaluegems,
+                'sellValueGold' => (int) $sellvaluegold,
+                'sellValueGems' => (int) $sellvaluegems,
                 'specialValue' => $specialvalue,
                 'charges' => $charges
             ]);
