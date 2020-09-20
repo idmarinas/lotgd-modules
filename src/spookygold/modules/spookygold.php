@@ -253,7 +253,7 @@ function spookygold_fight()
         $battleProcessVictoryDefeat = false;
 
         require_once 'lib/fightnav.php';
-        require_once 'battle.php';
+        require_once 'public/battle.php';
 
         if ($victory)
         {
