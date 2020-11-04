@@ -10,7 +10,7 @@ function topwebgames_getmoduleinfo()
         'name' => 'Top Web Games',
         'author' => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
-        'version' => '2.0.0',
+        'version' => '2.0.1',
         'download' => 'core_module',
         'allowanonymous' => true,
         'override_forced_nav' => true,

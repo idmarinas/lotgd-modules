@@ -5,7 +5,7 @@ function onlinelist_getmoduleinfo()
     return [
         'name' => 'Alternative Sorting',
         'author' => 'Christian Rutsch, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '2.0.0',
+        'version' => '2.0.1',
         'category' => 'Administrative',
         'download' => 'http://dragonprime.net/users/XChrisX/onlinelist.zip',
         'allowanonymous' => true,
