@@ -70,7 +70,7 @@ function mechanicalturk_run()
     $points = get_module_setting('addpoints');
     $textDomain = 'module-mechanicalturk';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
@@ -235,7 +235,7 @@ function mechanicalturk_run()
         break;
     }
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('mechanicalturk/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('mechanicalturk/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

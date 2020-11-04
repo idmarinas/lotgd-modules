@@ -207,7 +207,7 @@ function graveofdragons_runevent($type, $from)
 
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('graveofdragons/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('graveofdragons/run.twig', $params));
 }
 
 function graveofdragons_run()

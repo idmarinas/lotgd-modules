@@ -275,15 +275,15 @@ function worldmapen_run()
 
     if (! get_module_setting('worldmapenInstalled'))
     {
-        page_header('title.not.installed', [], $textDomain);
+        \LotgdResponse::pageStart('title.not.installed', [], $textDomain);
 
         \LotgdNavigation::villageNav();
 
-        rawoutput(\LotgdTheme::renderModuleTemplate('worldmapen/run/not-installed.twig', [
+        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('worldmapen/run/not-installed.twig', [
             'textDomain' => $textDomain
         ]));
 
-        page_footer();
+        \LotgdResponse::pageEnd();
     }
 
     worldmapen_run_real();

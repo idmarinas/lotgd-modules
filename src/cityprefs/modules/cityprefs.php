@@ -191,7 +191,7 @@ function cityprefs_run()
 
     $textDomain = 'module-cityprefs';
 
-    page_header('title.default', [], $textDomain);
+    \LotgdResponse::pageStart('title.default', [], $textDomain);
 
     $repository = \Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
 
@@ -206,7 +206,7 @@ function cityprefs_run()
     {
         $cityName = $repository->getCityNameById($cityId);
 
-        page_header('title.properties', ['city' => $cityName], $textDomain);
+        \LotgdResponse::pageStart('title.properties', ['city' => $cityName], $textDomain);
 
         $modu = $repository->getModuleNameByCityId($cityId);
 
@@ -376,7 +376,7 @@ function cityprefs_run()
 
                 $params['form'] = $form;
 
-                rawoutput(\LotgdTheme::renderModuleTemplate('cityprefs/run/module.twig', $params));
+                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('cityprefs/run/module.twig', $params));
 
                 \LotgdNavigation::addNavAllow("runmodule.php?module=cityprefs&op=editmodulesave&cityid={$cityId}&mdule={$mdule}");
             }
@@ -384,7 +384,7 @@ function cityprefs_run()
             \LotgdNavigation::addHeader('navigation.category.prefs');
             module_editor_navs('prefs-city', "runmodule.php?module=cityprefs&op=editmodule&cityid={$cityId}&mdule=");
 
-            page_footer();
+            \LotgdResponse::pageEnd();
         break;
 
         case 'editcity':
@@ -430,9 +430,9 @@ function cityprefs_run()
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(LotgdTheme::renderModuleTemplate('cityprefs/run.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('cityprefs/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }
 
 function process_post_save_data($data, $id, $module)

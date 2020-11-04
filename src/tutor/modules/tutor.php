@@ -192,7 +192,7 @@ function tutor_talk()
         ],
     ];
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('tutor/talk.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('tutor/talk.twig', $params));
 }
 
 function tutor_run()
@@ -206,7 +206,7 @@ function tutor_run()
 
     if ('helpfiles' == $op)
     {
-        page_header('run.title', [], 'module-tutor');
+        \LotgdResponse::pageStart('run.title', [], 'module-tutor');
 
         $params = [
             'textDomain' => 'module-tutor',
@@ -215,10 +215,10 @@ function tutor_run()
             'age'        => $age,
         ];
 
-        rawoutput(\LotgdTheme::renderModuleTemplate('tutor/run.twig', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('tutor/run.twig', $params));
 
         \LotgdNavigation::villageNav();
 
-        page_footer();
+        \LotgdResponse::pageEnd();
     }
 }

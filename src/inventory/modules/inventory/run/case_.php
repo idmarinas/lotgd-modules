@@ -7,7 +7,7 @@ $op2 = \LotgdHttp::getQuery('op2');
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
 $accountRep = \Doctrine::getRepository('LotgdCore:Accounts');
 
-page_header('title.inventory', ['name' => \LotgdSanitize::fullSanitize($session['user']['name'])], $textDomain);
+\LotgdResponse::pageStart('title.inventory', ['name' => \LotgdSanitize::fullSanitize($session['user']['name'])], $textDomain);
 
 \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
 \LotgdNavigation::villageNav();
@@ -180,6 +180,6 @@ $params = [
     'weightTotal' => get_module_setting('weight', 'inventory')
 ];
 
-rawoutput(\LotgdTheme::renderModuleTemplate('inventory/run/inventory.twig', $params));
+\LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/run/inventory.twig', $params));
 
-page_footer();
+\LotgdResponse::pageEnd();

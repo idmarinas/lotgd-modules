@@ -93,15 +93,15 @@ function specialtythiefskills_dohook($hookname, $args)
                     'resLine' => $resline
                 ];
 
-                rawoutput(\LotgdTheme::renderModuleTemplate('specialtythiefskills/dohook/choose-specialty.twig', $params));
+                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('specialtythiefskills/dohook/choose-specialty.twig', $params));
             }
         break;
         case 'set-specialty':
             if ($session['user']['specialty'] == $spec)
             {
-                page_header($name);
+                \LotgdResponse::pageStart($name);
 
-                rawoutput(\LotgdTheme::renderModuleTemplate('specialtythiefskills/dohook/set-specialty.twig', []));
+                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('specialtythiefskills/dohook/set-specialty.twig', []));
             }
         break;
         case 'specialtycolor':

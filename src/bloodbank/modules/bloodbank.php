@@ -91,7 +91,7 @@ function bloodbank_run()
     $giventoday = get_module_pref('giventoday');
     $textDomain = 'blookbank-module';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     \LotgdNavigation::addNav('nav.return.bank', 'bank.php');
 
@@ -109,7 +109,7 @@ function bloodbank_run()
             'textDomain' => $textDomain
         ];
 
-        rawoutput(\LotgdTheme::renderModuleTemplate('bloodbank/run/donate.twig', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('bloodbank/run/donate.twig', $params));
     }
     elseif ('give' == $op && 1 == $giventoday)
     {
@@ -117,8 +117,8 @@ function bloodbank_run()
             'textDomain' => $textDomain
         ];
 
-        rawoutput(\LotgdTheme::renderModuleTemplate('bloodbank/run/donated.twig', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('bloodbank/run/donated.twig', $params));
     }
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

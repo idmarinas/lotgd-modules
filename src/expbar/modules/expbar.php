@@ -68,7 +68,7 @@ function expbar_dohook($hookname, $args)
             $params['canLevelUp'] = ($params['experienceCurrent'] >= $params['experienceRequire']);
             $params['showLabel'] = ($params['showNum'] && $params['showNext']);
 
-            rawoutput(\LotgdTheme::renderModuleTemplate('expbar/dohook/charstats/script.twig', $params));
+            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('expbar/dohook/charstats/script.twig', $params));
             $bar = \LotgdTheme::renderModuleTemplate('expbar/dohook/charstats/bar.twig', $params);
 
             setcharstat(

@@ -1,6 +1,6 @@
 <?php
 
-page_header('title.superuser', [], $textDomain);
+\LotgdResponse::pageStart('title.superuser', [], $textDomain);
 
 $actions = get_default_action_list();
 
@@ -11,6 +11,6 @@ $params = [
     'actions' => $actions
 ];
 
-rawoutput(LotgdTheme::renderModuleTemplate('staminasystem/run/superuser.twig', $params));
+\LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('staminasystem/run/superuser.twig', $params));
 
-page_footer();
+\LotgdResponse::pageEnd();

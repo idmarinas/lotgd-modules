@@ -49,7 +49,7 @@ function staminahof_run()
         'textDomain' => 'module-staminahof'
     ];
 
-    page_header('title', [], $params['textDomain']);
+    \LotgdResponse::pageStart('title', [], $params['textDomain']);
 
     //-- Change text domain for navigation
     \LotgdNavigation::setTextDomain($params['textDomain']);
@@ -124,9 +124,9 @@ function staminahof_run()
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('staminahof/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('staminahof/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }
 
 function staminahof_sort($x, $y)

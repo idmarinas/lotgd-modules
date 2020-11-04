@@ -95,7 +95,7 @@ function ramiusaltar_run()
     $textDomain = 'module-ramiusaltar';
     $useStamina = is_module_active('staminasystem');
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
@@ -350,7 +350,7 @@ function ramiusaltar_run()
 
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('ramiusaltar/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('ramiusaltar/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

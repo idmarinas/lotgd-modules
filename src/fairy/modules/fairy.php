@@ -169,7 +169,7 @@ function fairy_runevent($type)
 
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(LotgdTheme::renderModuleTemplate('fairy/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('fairy/runevent.twig', $params));
 }
 
 function fairy_run()

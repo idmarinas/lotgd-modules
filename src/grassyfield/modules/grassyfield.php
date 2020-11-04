@@ -140,7 +140,7 @@ function grassyfield_runevent($type)
         $session['user']['specialmisc'] = 'Nothing to see here, move along.';
     }
 
-    rawoutput(LotgdTheme::renderModuleTemplate('grassyfield/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('grassyfield/runevent.twig', $params));
 }
 
 function grassyfield_run()

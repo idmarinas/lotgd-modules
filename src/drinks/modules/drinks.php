@@ -282,5 +282,5 @@ function drinks_run()
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

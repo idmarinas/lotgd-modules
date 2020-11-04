@@ -47,7 +47,7 @@ function soulgem_runevent($type)
         'deathOverlord' => getsetting('deathoverlord', '`$Ramius`0')
     ];
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('soulgem/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('soulgem/runevent.twig', $params));
 }
 
 function soulgem_run()

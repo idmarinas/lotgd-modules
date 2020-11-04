@@ -68,7 +68,7 @@ function badnavedplayers_run()
 
     $textDomain = 'module-badnavedplayers';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $op = \LotgdHttp::getQuery('op');
 
@@ -139,7 +139,7 @@ function badnavedplayers_run()
         'result' => $result
     ];
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('badnavedplayers/run/superuser.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('badnavedplayers/run/superuser.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

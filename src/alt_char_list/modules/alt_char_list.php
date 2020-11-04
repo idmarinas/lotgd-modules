@@ -66,7 +66,7 @@ function alt_char_list_run()
 
     $textDomain = 'module-alt_char_list';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain
@@ -182,7 +182,7 @@ function alt_char_list_run()
 
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('alt_char_list/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('alt_char_list/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

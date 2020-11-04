@@ -46,7 +46,7 @@ function petitionfixnavs_run()
 
     $textDomain = 'module-petitionfixnavs';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $id = (int) \LotgdHttp::getQuery('id');
 

@@ -95,7 +95,7 @@ function newdaybar_dohook($hookname, $args)
             $bar .= '</div>';
         }
 
-        rawoutput(\LotgdTheme::renderModuleTemplate('newdaybar/dohook/charstats.twig', [
+        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('newdaybar/dohook/charstats.twig', [
             'realSecsToTomorrow' => $details['realsecstotomorrow'],
             'secsPerDay' => $details['secsperday'],
             'secsToNewDay' => $secstonewday,

@@ -35,7 +35,7 @@ if (! isset($session['user']['specialinc']) || '' != $session['user']['specialin
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
 
-        page_footer();
+        \LotgdResponse::pageEnd();
     }
 }
 
@@ -46,7 +46,7 @@ if ('travel' == $op)
 
     if ('' == $city)
     {
-        page_header('title.travel', [], 'cities-module');
+        \LotgdResponse::pageStart('title.travel', [], 'cities-module');
 
         \LotgdNavigation::addHeader('headers.forget', ['textDomain' => 'cities-navigation']);
         \LotgdNavigation::villageNav();
@@ -62,11 +62,11 @@ if ('travel' == $op)
             // this line rewritten so as not to clash with the hitch module.
         }
 
-        rawoutput(LotgdTheme::renderModuleTemplate('cities/run/travel.twig', $params));
+        \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('cities/run/travel.twig', $params));
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
 
-        page_footer();
+        \LotgdResponse::pageEnd();
     }
     else
     {
@@ -111,11 +111,11 @@ if ('travel' == $op)
 
             if (0 != module_events('travel', get_module_setting('travelspecialchance'), "runmodule.php?module=cities&city={$ccity}&d=$dangecontinue=1&"))
             {
-                page_header('section.title.event', [], 'cities-module');
+                \LotgdResponse::pageStart('section.title.event', [], 'cities-module');
 
                 if (\LotgdNavigation::checkNavs())
                 {
-                    page_footer();
+                    \LotgdResponse::pageEnd();
                 }
                 else
                 {
@@ -132,7 +132,7 @@ if ('travel' == $op)
 
                     module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
 
-                    page_footer();
+                    \LotgdResponse::pageEnd();
                 }
             }
 
@@ -179,7 +179,7 @@ elseif ('fight' == $op || 'run' == $op)
     if ('run' == $op && mt_rand(1, 5) < 3)
     {
         // They managed to get away.
-        page_header('title.escape', [], 'cities-module');
+        \LotgdResponse::pageStart('title.escape', [], 'cities-module');
 
         $coward = get_module_setting('coward');
 
@@ -199,9 +199,9 @@ elseif ('fight' == $op || 'run' == $op)
 
         \LotgdNavigation::addNav('navs.enter', ['location' => $session['user']['location']], 'village.php');
 
-        rawoutput(LotgdTheme::renderModuleTemplate('cities/run/escape.twig', $params));
+        \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('cities/run/escape.twig', $params));
 
-        page_footer();
+        \LotgdResponse::pageEnd();
     }
 
     $battle = true;
@@ -221,13 +221,13 @@ elseif ('faq' == $op)
         'location' => (isset($session['user']['location']) && $session['user']['location'] == $newbieisland)
     ];
 
-    rawoutput(LotgdTheme::renderModuleTemplate('cities/run/faq.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('cities/run/faq.twig', $params));
 
     popup_footer();
 }
 elseif ('' == $op)
 {
-    page_header('title.travel', [], 'cities-module');
+    \LotgdResponse::pageStart('title.travel', [], 'cities-module');
 
     \LotgdFlashMessages::addInfoMessage([
         'message' => \LotgdTranslator::t('section.travel.empty', [], 'citites-module'),
@@ -238,12 +238,12 @@ elseif ('' == $op)
 
     module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }
 
 if ($battle)
 {
-    page_header('title.battle', [], 'cities-module');
+    \LotgdResponse::pageStart('title.battle', [], 'cities-module');
 
     $battleDefeatWhere = false;
 
@@ -270,7 +270,7 @@ if ($battle)
         fightnav(true, true, "runmodule.php?module=cities&city={$ccity}&d={$danger}");
     }
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }
 
 //-- Restore text domain for navigation

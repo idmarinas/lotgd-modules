@@ -1148,7 +1148,7 @@ function stamina_minihof($action, $userid = false)
 
     //display the board!
 
-    rawoutput(LotgdTheme::renderModuleTemplate('staminasystem/lib/minihof.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('staminasystem/lib/minihof.twig', $params));
 }
 
 function stamina_minihof_makesmallboard($boardinfo, $userid = false)

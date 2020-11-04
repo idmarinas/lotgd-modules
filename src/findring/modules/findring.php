@@ -94,7 +94,7 @@ function findring_runevent($type, $link)
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('findring/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('findring/run.twig', $params));
 }
 
 function findring_run()

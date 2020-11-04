@@ -210,12 +210,12 @@ function racehuman_dohook($hookname, $args)
                 'resLine' => $resline
             ];
 
-            rawoutput(\LotgdTheme::renderModuleTemplate('racehuman/dohook/chooserace.twig', $params));
+            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racehuman/dohook/chooserace.twig', $params));
         break;
         case 'setrace':
             if ($session['user']['race'] == $race)
             {
-                rawoutput(\LotgdTheme::renderModuleTemplate('racehuman/dohook/setrace.twig', [
+                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racehuman/dohook/setrace.twig', [
                     'bonus' => (int) get_module_setting('bonus')
                 ]));
 

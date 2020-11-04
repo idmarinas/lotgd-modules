@@ -90,7 +90,7 @@ function sethsong_run()
     $iname = getsetting('innname', LOCATION_INN);
     $textDomain = 'module-sethsong';
 
-    page_header($iname, [], $textDomain);
+    \LotgdResponse::pageStart($iname, [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
@@ -115,9 +115,9 @@ function sethsong_run()
     \LotgdNavigation::addNav('navigation.nav.return', 'inn.php', ['textDomain' => $textDomain]);
     \LotgdNavigation::villageNav();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('sethsong/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('sethsong/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }
 
 function sethsong_sing(&$params)

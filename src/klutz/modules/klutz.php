@@ -61,7 +61,7 @@ function klutz_runevent($type)
         set_module_pref('gotgem', 1);
     }
 
-    rawoutput(LotgdTheme::renderModuleTemplate('klutz/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('klutz/runevent.twig', $params));
 }
 
 function klutz_run()

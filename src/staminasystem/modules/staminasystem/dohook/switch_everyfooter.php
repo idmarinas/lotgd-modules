@@ -63,7 +63,7 @@ if ($amber < 100 && $red >= 100)
             'schema' => 'module-staminacorecombat'
         ]);
 
-        rawoutput($script);
+        \LotgdResponse::pageAddContent($script);
     }
 }
 else
@@ -89,7 +89,7 @@ if ($red < 100)
     $title = \LotgdTranslator::t('notify.red.title', [], 'module-staminasystem');
     $script = stamina_notification($message, $title, 'danger');
 
-    rawoutput($script);
+    \LotgdResponse::pageAddContent($script);
 }
 
 function stamina_notification($message, $title, $status = 'warning')

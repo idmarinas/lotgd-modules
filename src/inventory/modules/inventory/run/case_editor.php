@@ -15,7 +15,7 @@ $params = [
     'itemId' => $id
 ];
 
-page_header('title.editor', [], $params['textDomain']);
+\LotgdResponse::pageStart('title.editor', [], $params['textDomain']);
 
 \LotgdNavigation::superuserGrottoNav();
 
@@ -125,7 +125,7 @@ switch ($op2)
 
             $params['form'] = $form;
 
-            rawoutput(\LotgdTheme::renderModuleTemplate('inventory/run/editor/module.twig', $params));
+            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/run/editor/module.twig', $params));
 
             \LotgdNavigation::addNavAllow("runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule={$module}");
         }
@@ -365,7 +365,7 @@ switch ($op2)
 
 \LotgdNavigation::setTextDomain();
 
-rawoutput(\LotgdTheme::renderModuleTemplate('inventory/editor.twig', $params));
+\LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/editor.twig', $params));
 
 function process_post_save_data($data, $id, $module)
 {
@@ -382,4 +382,4 @@ function process_post_save_data($data, $id, $module)
     }
 }
 
-page_footer();
+\LotgdResponse::pageEnd();

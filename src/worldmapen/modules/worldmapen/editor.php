@@ -21,7 +21,7 @@ function worldmapen_editor_real()
         'textDomain' => $textDomain
     ];
 
-    page_header('title.editor', [], $params['textDomain']);
+    \LotgdResponse::pageStart('title.editor', [], $params['textDomain']);
 
     \LotgdNavigation::superuserGrottoNav();
 
@@ -119,7 +119,7 @@ function worldmapen_editor_real()
     \LotgdNavigation::addNav('navigation.nav.editor.manual', 'runmodule.php?module=worldmapen&op=edit&subop=manual');
     \LotgdNavigation::addNav('navigation.nav.editor.terrain', 'runmodule.php?module=worldmapen&op=edit&subop=terrain');
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('worldmapen/editor.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('worldmapen/editor.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

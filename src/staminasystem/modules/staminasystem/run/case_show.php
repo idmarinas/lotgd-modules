@@ -56,6 +56,6 @@ foreach ($row as &$value)
 $params['actions'] = $row;
 $params['buffList'] = unserialize(get_module_pref('buffs', 'staminasystem'));
 
-rawoutput(LotgdTheme::renderModuleTemplate('staminasystem/run/show.twig', $params));
+\LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('staminasystem/run/show.twig', $params));
 
 popup_footer();

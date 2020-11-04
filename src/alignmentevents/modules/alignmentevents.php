@@ -125,7 +125,7 @@ function alignmentevents_runevent($type)
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('alignmentevents/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('alignmentevents/runevent.twig', $params));
 }
 function alignmentevents_run()
 {

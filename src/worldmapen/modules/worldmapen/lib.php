@@ -344,7 +344,7 @@ function worldmapen_determinenav()
     ];
     $hook = modulehook('worldnav', $hook);
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('worldmapen/lib/determinenav.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('worldmapen/lib/determinenav.twig', $params));
 
     return [
         'nLink' => $nlink,

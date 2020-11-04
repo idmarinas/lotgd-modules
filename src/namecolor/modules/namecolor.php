@@ -86,7 +86,7 @@ function namecolor_run()
 
     $textDomain = 'module-namecolor';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
@@ -186,7 +186,7 @@ function namecolor_run()
         break;
     }
 
-    rawoutput(LotgdTheme::renderModuleTemplate('namecolor/run.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('namecolor/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

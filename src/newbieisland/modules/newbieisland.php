@@ -202,7 +202,7 @@ function newbieisland_dohook($hookname, $args)
                     'textDomain' => 'navigation-app'
                 ]);
 
-                page_footer();
+                \LotgdResponse::pageEnd();
             }
         break;
         case 'changesetting':
@@ -435,7 +435,7 @@ function newbieisland_run()
             \LotgdNavigation::addHeader('headers.stay');
             \LotgdNavigation::villageNav();
 
-            page_header('section.leave.title', [], $textDomain);
+            \LotgdResponse::pageStart('section.leave.title', [], $textDomain);
 
             $params = [
                 'textDomain' => $textDomain,
@@ -450,12 +450,12 @@ function newbieisland_run()
                 \LotgdNavigation::addNav('navs.raft', 'runmodule.php?module=newbieisland&op=raft');
             }
 
-            rawoutput(LotgdTheme::renderModuleTemplate('newbieisland/run/leave.twig', $params));
+            \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('newbieisland/run/leave.twig', $params));
 
-            page_footer();
+            \LotgdResponse::pageEnd();
         break;
         case 'raft':
-            page_header('section.raft.title', [], $textDomain);
+            \LotgdResponse::pageStart('section.raft.title', [], $textDomain);
 
             set_module_pref('leftisland', true);
 
@@ -477,12 +477,12 @@ function newbieisland_run()
                 'city' => $city
             ];
 
-            rawoutput(LotgdTheme::renderModuleTemplate('newbieisland/run/raft.twig', $params));
+            \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('newbieisland/run/raft.twig', $params));
 
-            page_footer();
+            \LotgdResponse::pageEnd();
         break;
         case 'resurrect':
-            page_header('section.resurrect.title', [], $textDomain);
+            \LotgdResponse::pageStart('section.resurrect.title', [], $textDomain);
 
             $params = [
                 'textDomain' => $textDomain,
@@ -495,9 +495,9 @@ function newbieisland_run()
 
             \LotgdNavigation::villageNav();
 
-            rawoutput(LotgdTheme::renderModuleTemplate('newbieisland/run/resurrect.twig', $params));
+            \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('newbieisland/run/resurrect.twig', $params));
 
-            page_footer();
+            \LotgdResponse::pageEnd();
         break;
     }
 

@@ -41,7 +41,7 @@ function findgem_runevent($type, $link)
 
     $session['user']['gems']++;
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('findgem/runevent.twig', ['textDomain' => 'module-findgem']));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('findgem/runevent.twig', ['textDomain' => 'module-findgem']));
 
     debuglog('found a gem in the dirt');
 }

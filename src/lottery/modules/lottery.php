@@ -201,7 +201,7 @@ function lottery_run()
         'cost' => $cost
     ];
 
-    page_header('title', ['barman' => $params['barman']], $textDomain);
+    \LotgdResponse::pageStart('title', ['barman' => $params['barman']], $textDomain);
 
     $params['jackpot'] = $jackpot;
     $params['winners'] = $winners;
@@ -216,7 +216,7 @@ function lottery_run()
 
     \LotgdNavigation::villageNav();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('lottery/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('lottery/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

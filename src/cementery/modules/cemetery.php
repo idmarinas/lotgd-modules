@@ -80,7 +80,7 @@ function cemetery_run()
         'textDomain' => 'cemetery-cemetery'
     ];
 
-    page_header('title', [], $params['textDomain']);
+    \LotgdResponse::pageStart('title', [], $params['textDomain']);
 
     \LotgdNavigation::villageNav();
 
@@ -89,10 +89,10 @@ function cemetery_run()
         $params['tpl'] = 'village';
         $params['textDomain'] = 'cemetery-village';
 
-        page_header('title', ['village' => $village], $params['textDomain']);
+        \LotgdResponse::pageStart('title', ['village' => $village], $params['textDomain']);
     }
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('cemetery/commentary.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('cemetery/commentary.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

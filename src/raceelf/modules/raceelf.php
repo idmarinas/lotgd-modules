@@ -225,12 +225,12 @@ function raceelf_dohook($hookname, $args)
                 'resLine' => $resline
             ];
 
-            rawoutput(\LotgdTheme::renderModuleTemplate('raceelf/dohook/chooserace.twig', $params));
+            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('raceelf/dohook/chooserace.twig', $params));
         break;
         case 'setrace':
             if ($session['user']['race'] == $race)
             {
-                rawoutput(\LotgdTheme::renderModuleTemplate('raceelf/dohook/setrace.twig', []));
+                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('raceelf/dohook/setrace.twig', []));
 
                 if (is_module_active('cities'))
                 {

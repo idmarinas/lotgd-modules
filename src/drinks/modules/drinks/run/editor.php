@@ -7,7 +7,7 @@ if (! get_module_pref('canedit'))
 
 $textDomain = 'drinks-module';
 
-page_header('editor.title', [], $textDomain);
+\LotgdResponse::pageStart('editor.title', [], $textDomain);
 
 \LotgdNavigation::superuserGrottoNav();
 
@@ -239,7 +239,7 @@ elseif ('edit' == $op || 'add' == $op)
 
         $params['form'] = $form;
 
-        rawoutput(\LotgdTheme::renderModuleTemplate('drinks/run/edit/module.twig', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('drinks/run/edit/module.twig', $params));
 
         \LotgdNavigation::addNavAllow("runmodule.php?module=drinks&act=editor&op=edit&subop=module&editmodule={$module}&drinkid={$drinkid}&admin=true");
     }
@@ -253,7 +253,7 @@ elseif ('edit' == $op || 'add' == $op)
     }
 }
 
-rawoutput(\LotgdTheme::renderModuleTemplate('drinks/run/superuser.twig', $params));
+\LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('drinks/run/superuser.twig', $params));
 
 function process_post_save_data($data, $id, $module)
 {

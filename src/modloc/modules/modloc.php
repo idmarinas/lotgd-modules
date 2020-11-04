@@ -72,7 +72,7 @@ function modloc_run()
 
     $textDomain = 'module-modloc';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $op = \LotgdHttp::getQuery('op');
     $loc = \LotgdHttp::getQuery('loc');
@@ -207,7 +207,7 @@ function modloc_run()
     $params['modulesCount'] = count($params['modules']);
     $params['locations'] = $locations;
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('modloc/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('modloc/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

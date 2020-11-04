@@ -226,7 +226,7 @@ function clantrees_run()
         'salesman' => get_module_setting('salesman')
     ];
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     if ('buytree' == $op)
     {
@@ -410,7 +410,7 @@ function clantrees_run()
         }
     }
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('clantrees/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('clantrees/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

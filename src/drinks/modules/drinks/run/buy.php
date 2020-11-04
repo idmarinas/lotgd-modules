@@ -22,7 +22,7 @@ $params = [
     'barkeep' => getsetting('barkeep', '`tCedrik`0')
 ];
 
-page_header('section.ale.drink.title', ['innName' => \LotgdSanitize::fullSanitize($params['innName'])], $textDomain);
+\LotgdResponse::pageStart('section.ale.drink.title', ['innName' => \LotgdSanitize::fullSanitize($params['innName'])], $textDomain);
 
 if (! $params['drunkeness'])
 {
@@ -155,4 +155,4 @@ if (! $params['drunkeness'])
 
 \LotgdNavigation::villageNav();
 
-rawoutput(\LotgdTheme::renderModuleTemplate('drinks/run/buy.twig', $params));
+\LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('drinks/run/buy.twig', $params));

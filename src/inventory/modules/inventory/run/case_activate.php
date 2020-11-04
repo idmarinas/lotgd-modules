@@ -46,7 +46,7 @@ if (($item['item']['buff'] ?? false) && ! empty($item['item']['buff']))
 
 if ($item['item']['execvalue'] > '')
 {
-    page_header($item['item']['name']);
+    \LotgdResponse::pageStart($item['item']['name']);
 
     $params = [];
 
@@ -88,9 +88,9 @@ if ($item['item']['execvalue'] > '')
         \LotgdNavigation::addNav('navigation.nav.return.whence', $return);
     }
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('inventory/run/activate.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/run/activate.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }
 
 return redirect($return);

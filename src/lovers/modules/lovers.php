@@ -123,7 +123,7 @@ function lovers_run()
         'partner' => get_partner()
     ];
 
-    page_header($params['innName'], [], $textDomain);
+    \LotgdResponse::pageStart($params['innName'], [], $textDomain);
 
     \LotgdNavigation::setTextDomain($textDomain);
 
@@ -166,9 +166,9 @@ function lovers_run()
 
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('lovers/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('lovers/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }
 
 function lovers_getbuff()

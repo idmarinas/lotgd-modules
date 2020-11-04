@@ -78,7 +78,7 @@ function allprefseditor_run()
 
     $textDomain = 'module-allprefseditor';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     \LotgdNavigation::superuserGrottoNav();
 
@@ -103,9 +103,9 @@ function allprefseditor_run()
         $params['paginator'] = $repository->findLikeName($name, 100);
     }
 
-    rawoutput(LotgdTheme::renderModuleTemplate('allprefseditor/run.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('allprefseditor/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }
 
 function allprefseditor_search()

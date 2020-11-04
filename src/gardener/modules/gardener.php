@@ -109,7 +109,7 @@ function gardener_run()
 
     $textDomain = 'module-gardener';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
@@ -232,7 +232,7 @@ function gardener_run()
 
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('gardener/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('gardener/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

@@ -63,7 +63,7 @@ function forestturn_runevent($type)
         }
     }
 
-    rawoutput(LotgdTheme::renderModuleTemplate('forestturn/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('forestturn/runevent.twig', $params));
 }
 
 function forestturn_run()

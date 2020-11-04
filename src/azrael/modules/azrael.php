@@ -179,5 +179,5 @@ function azrael_runevent($type)
         break;
     }
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('azrael/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('azrael/runevent.twig', $params));
 }

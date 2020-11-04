@@ -84,7 +84,7 @@ function ghosthut_run()
 
     $textDomain = 'module-ghosthut';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain
@@ -168,7 +168,7 @@ function ghosthut_run()
         $session['user']['turns'] += 2;
     }
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('ghosthut/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('ghosthut/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

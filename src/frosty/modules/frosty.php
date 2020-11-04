@@ -200,7 +200,7 @@ function frosty_runevent($type)
         break;
     }
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('frosty/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('frosty/runevent.twig', $params));
 }
 
 function frosty_run()

@@ -262,12 +262,12 @@ function racedwarf_dohook($hookname, $args)
                 'resLine' => $resline
             ];
 
-            rawoutput(\LotgdTheme::renderModuleTemplate('racedwarf/dohook/chooserace.twig', $params));
+            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racedwarf/dohook/chooserace.twig', $params));
         break;
         case 'setrace':
             if ($session['user']['race'] == $race)
             {
-                rawoutput(\LotgdTheme::renderModuleTemplate('racedwarf/dohook/setrace.twig', []));
+                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racedwarf/dohook/setrace.twig', []));
 
                 if (is_module_active('cities'))
                 {
@@ -445,15 +445,15 @@ function racedwarf_run()
 
     if ('ale' == $op)
     {
-        page_header('title', [], $textDomain);
+        \LotgdResponse::pageStart('title', [], $textDomain);
 
         \LotgdNavigation::addHeader('navigation.category.drinks', ['textDomain' => $textDomain]);
         modulehook('ale');
         \LotgdNavigation::addHeader('navigation.category.other', ['textDomain' => $textDomain]);
         \LotgdNavigation::villageNav();
 
-        rawoutput(LotgdTheme::renderModuleTemplate('racedwarf/run.twig', $params));
+        \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('racedwarf/run.twig', $params));
 
-        page_footer();
+        \LotgdResponse::pageEnd();
     }
 }

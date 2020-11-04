@@ -46,10 +46,10 @@ function worldmapen_run_real()
 
         if ($in_event)
         {
-            page_header('title.special', [], 'partial-event');
+            \LotgdResponse::pageStart('title.special', [], 'partial-event');
             \LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue', ['textDomain' => $textDomain]);
             module_display_events('travel', 'runmodule.php?module=worldmapen&op=continue');
-            page_footer();
+            \LotgdResponse::pageEnd();
         }
     }
 
@@ -64,7 +64,7 @@ function worldmapen_run_real()
     $worldmapCostGold = get_module_setting('worldmapCostGold', 'worldmapen');
     $pvp = \LotgdHttp::getQuery('pvp');
 
-    page_header('title.journey', [], $textDomain);
+    \LotgdResponse::pageStart('title.journey', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
@@ -208,7 +208,7 @@ function worldmapen_run_real()
             {
                 if (\LotgdNavigation::checkNavs())
                 {
-                    page_footer();
+                    \LotgdResponse::pageEnd();
                 }
 
                 // Reset the special for good.
@@ -221,7 +221,7 @@ function worldmapen_run_real()
 
                 module_display_events('travel', 'runmodule.php?module=worldmapen&op=continue');
 
-                page_footer();
+                \LotgdResponse::pageEnd();
             }
 
             //-- Check if we're removing a turn when the player encounters a monster, and if so, do it
@@ -497,12 +497,12 @@ function worldmapen_run_real()
     $params['battle'] = $battle;
     $params['location'] = $session['user']['location'];
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('worldmapen/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('worldmapen/run.twig', $params));
 
     if ($displayEvents)
     {
         module_display_events('travel', 'runmodule.php?module=worldmapen&op=continue');
     }
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

@@ -115,5 +115,5 @@ function offering_runevent($type)
 
     $params['seen'] = $seen;
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('offering/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('offering/runevent.twig', $params));
 }

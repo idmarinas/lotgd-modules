@@ -93,7 +93,7 @@ function titlechange_run()
 
     $textDomain = 'module-titlechange';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain
@@ -180,7 +180,7 @@ function titlechange_run()
         break;
     }
 
-    rawoutput(LotgdTheme::renderModuleTemplate('titlechange/run.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('titlechange/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

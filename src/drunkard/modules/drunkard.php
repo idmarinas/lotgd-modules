@@ -92,7 +92,7 @@ function drunkard_runevent($type)
         $session['user']['charm']++;
     }
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('drunkard/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('drunkard/runevent.twig', $params));
 }
 
 function drunkard_run()

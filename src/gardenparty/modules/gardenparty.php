@@ -216,7 +216,7 @@ function gardenparty_run()
 
     if ($cantafford)
     {
-        page_header('title', [
+        \LotgdResponse::pageStart('title', [
             'barman' => getsetting('barkeep', '`tCedrik`0'),
             'clothes' => \LotgdTranslator::t('section.hook.gardens.party.barman.clothes', [], $textDomain)
         ], $textDomain);
@@ -230,9 +230,9 @@ function gardenparty_run()
             'partyType' => \LotgdTranslator::t('party.type', [], $textDomain)
         ];
 
-        rawoutput(\LotgdTheme::renderModuleTemplate('gardenparty/run.twig', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('gardenparty/run.twig', $params));
 
-        page_footer();
+        \LotgdResponse::pageEnd();
     }
     else
     {

@@ -106,7 +106,7 @@ function stafflist_run()
 
     $textDomain = 'module-stafflist';
 
-    page_header('title', [], $textDomain);
+    \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
@@ -153,7 +153,7 @@ function stafflist_run()
     $params['blurb'] = get_module_setting('blurb');
     $params['returnLink'] = \LotgdHttp::getServer('REQUEST_URI');
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('stafflist/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('stafflist/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

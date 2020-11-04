@@ -10,7 +10,7 @@ $accountRep = \Doctrine::getRepository('LotgdCore:Accounts');
 
 $name = $accountRep->getCharacterNameFromAcctId($acctId);
 
-page_header('title.superuser', ['name' => \LotgdSanitize::fullSanitize($name)], $textDomain);
+\LotgdResponse::pageStart('title.superuser', ['name' => \LotgdSanitize::fullSanitize($name)], $textDomain);
 
 if ('dropitem' == $op2)
 {
@@ -34,6 +34,6 @@ $params = [
     'ownerId' => $acctId
 ];
 
-rawoutput(\LotgdTheme::renderModuleTemplate('inventory/run/superuser.twig', $params));
+\LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/run/superuser.twig', $params));
 
-page_footer();
+\LotgdResponse::pageEnd();

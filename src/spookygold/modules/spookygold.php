@@ -207,7 +207,7 @@ function spookygold_runevent($type)
 
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('spookygold/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('spookygold/run.twig', $params));
 }
 
 function spookygold_fight()

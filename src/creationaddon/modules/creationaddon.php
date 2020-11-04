@@ -270,7 +270,7 @@ function creationaddon_run()
             $params = [
                 'terms' => get_module_setting('terms')
             ];
-            rawoutput(LotgdTheme::renderModuleTemplate('creationaddon/run/terms.twig', $params));
+            \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('creationaddon/run/terms.twig', $params));
         break;
 
         case 'privacy':
@@ -279,7 +279,7 @@ function creationaddon_run()
             $params = [
                 'privacy' => get_module_setting('privacy')
             ];
-            rawoutput(LotgdTheme::renderModuleTemplate('creationaddon/run/privacy.twig', $params));
+            \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('creationaddon/run/privacy.twig', $params));
         break;
 
         case 'list':
@@ -302,7 +302,7 @@ function creationaddon_list()
 {
     global $session;
 
-    page_header('superuser.editor', [], 'module-creationaddon');
+    \LotgdResponse::pageStart('superuser.editor', [], 'module-creationaddon');
 
     $page = (int) \LotgdHttp::getQuery('page', 1);
     \LotgdNavigation::superuserGrottoNav();
@@ -319,9 +319,9 @@ function creationaddon_list()
     $params = [
         'paginator' => $paginator
     ];
-    rawoutput(LotgdTheme::renderModuleTemplate('creationaddon/run/list.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('creationaddon/run/list.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }
 
 function creationaddon_delete()
@@ -330,7 +330,7 @@ function creationaddon_delete()
 
     $bad_id = (int) \LotgdHttp::getQuery('bad_id', 0);
 
-    page_header('superuser.editor', [], 'module-creationaddon');
+    \LotgdResponse::pageStart('superuser.editor', [], 'module-creationaddon');
 
     \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
@@ -359,7 +359,7 @@ function creationaddon_add()
 {
     global $session;
 
-    page_header('superuser.editor', [], 'module-creationaddon');
+    \LotgdResponse::pageStart('superuser.editor', [], 'module-creationaddon');
 
     \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
@@ -406,9 +406,9 @@ function creationaddon_add()
     ];
     $params['form'] = lotgd_showform($badnamesarray, [], true, false, false);
 
-    rawoutput(LotgdTheme::renderModuleTemplate('creationaddon/run/add.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('creationaddon/run/add.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }
 
 /**

@@ -156,7 +156,7 @@ function daysave_run()
         'donationPointsUnused' => $session['user']['donation'] - $session['user']['donationspent']
     ];
 
-    page_header('title', [], $params['textDomain']);
+    \LotgdResponse::pageStart('title', [], $params['textDomain']);
 
     //-- Change text domain for navigation
     \LotgdNavigation::setTextDomain($params['textDomain']);
@@ -284,7 +284,7 @@ function daysave_run()
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('daysave/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('daysave/run.twig', $params));
 
-    page_footer();
+    \LotgdResponse::pageEnd();
 }

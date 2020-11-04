@@ -287,7 +287,7 @@ function goldmine_runevent($type)
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    rawoutput(\LotgdTheme::renderModuleTemplate('goldmine/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('goldmine/run.twig', $params));
 }
 
 function goldmine_run()
