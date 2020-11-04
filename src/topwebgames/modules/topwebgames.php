@@ -46,7 +46,7 @@ function topwebgames_uninstall()
 
 function topwebgames_dohook($hookname, $args)
 {
-    global $session, $html;
+    global $session;
 
     $id = (int) get_module_setting('id');
 
@@ -150,8 +150,8 @@ function topwebgames_dohook($hookname, $args)
             'id' => $id
         ];
 
-        $html['paypal'] = $html['paypal'] ?? '';
-        $html['paypal'] .= \LotgdTheme::renderModuleTemplate('topwebgames/dohook/everyfooter.twig', $params);
+        $args['paypal'] = $args['paypal'] ?? '';
+        $args['paypal'] .= \LotgdTheme::renderModuleTemplate('topwebgames/dohook/everyfooter.twig', $params);
     }
 
     return $args;
