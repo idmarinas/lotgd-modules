@@ -162,7 +162,7 @@ function tutor_dohook($hookname, $args)
                     }
                     elseif ( ! $session['user']['experience'] && ! get_module_pref('seenforest'))
                     {
-                        $tutormsg = 'message.forest.armor.seen.forest';
+                        $tutormsg = 'message.forest.seen.forest';
                         set_module_pref('seenforest', 1);
                     }
 
