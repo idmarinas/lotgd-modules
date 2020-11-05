@@ -152,6 +152,8 @@ function newbieisland_dohook($hookname, $args)
             unblockmodule('deputymoderator');
             unblockmodule('unclean');
             unblockmodule('stattracker');
+            unblockmodule('topwebgames');
+            unblockmodule('newdaybar');
             unblockmodule('unblockmodules');
 
             //-- Hook used for module unblockmodules
