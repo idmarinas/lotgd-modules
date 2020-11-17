@@ -21,7 +21,7 @@
         <div class="field">
             <div class="ui checkbox field">
                 <input type="checkbox" name="terms">
-                {% set terms = '<a href="' ~ 'runmodule.php?module=creationaddon&op=terms'|lotgd_url ~ '" target="_blank" onClick="Lotgd.embed(this)">' ~ 'terms'|t|uncolorize ~ '</a>' %}
+                {% set terms = '<a href="" target="_blank" onClick="JaxonLotgd.Ajax.Local.ModCreationAddon.terms(); return false;">' ~ 'terms'|t|uncolorize ~ '</a>' %}
                 <label>{{ 'input.label.terms'|t({'terms': terms})|colorize }}</label>
             </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="field">
             <div class="ui checkbox field">
                 <input type="checkbox" name="privacy">
-                {% set privacy = '<a href="' ~ 'runmodule.php?module=creationaddon&op=privacy'|lotgd_url ~ '" target="_blank" onClick="Lotgd.embed(this)">' ~ 'privacy'|t|uncolorize ~ '</a>' %}
+                {% set privacy = '<a href="" target="_blank" onclick="JaxonLotgd.Ajax.Local.ModCreationAddon.privacy(); return false;">' ~ 'privacy'|t|uncolorize ~ '</a>' %}
                 <label>{{ 'input.label.privacy'|t({'privacy': privacy})|colorize }}</label>
             </div>
         </div>

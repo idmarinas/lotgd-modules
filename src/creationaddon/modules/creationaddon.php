@@ -15,7 +15,7 @@ function creationaddon_getmoduleinfo()
 {
     return [
         'name' => 'Creation Addon',
-        'version' => '4.0.0',
+        'version' => '5.0.0',
         'author' => 'Billie Kennedy, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'download' => '//orpgs.com/modules.php?name=Downloads&d_op=viewdownload&cid=6',
@@ -48,7 +48,7 @@ function creationaddon_getmoduleinfo()
             'year' => 'Birth Year,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
+            'lotgd' => '>=4.5.0|Need a version equal or greater than 4.5.0 IDMarinas Edition'
         ]
     ];
 }
@@ -172,7 +172,7 @@ function creationaddon_dohook($hookname, $args)
         break;
 
         case 'create-form':
-            $args['templates']['module/creationaddon/dohook/create-form.twig'] = [
+            $args['templates']['@module/creationaddon/dohook/create-form.twig'] = [
                 'creationMessage' => get_module_setting('creationmsg'),
                 'requireage' => (bool) get_module_setting('requireage'),
                 'age' => (int) get_module_setting('age'),
@@ -264,24 +264,6 @@ function creationaddon_run()
 
     switch ($op)
     {
-        case 'terms':
-            popup_header('terms', [], 'module-creationaddon');
-
-            $params = [
-                'terms' => get_module_setting('terms')
-            ];
-            \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('creationaddon/run/terms.twig', $params));
-        break;
-
-        case 'privacy':
-            popup_header('privacy', [], 'module-creationaddon');
-
-            $params = [
-                'privacy' => get_module_setting('privacy')
-            ];
-            \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('creationaddon/run/privacy.twig', $params));
-        break;
-
         case 'list':
             creationaddon_list();
         break;
@@ -319,7 +301,7 @@ function creationaddon_list()
     $params = [
         'paginator' => $paginator
     ];
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('creationaddon/run/list.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/creationaddon/run/list.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
@@ -406,7 +388,7 @@ function creationaddon_add()
     ];
     $params['form'] = lotgd_showform($badnamesarray, [], true, false, false);
 
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('creationaddon/run/add.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/creationaddon/run/add.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
