@@ -28,9 +28,9 @@ function petitionfixnavs_uninstall()
 
 function petitionfixnavs_dohook($hookname, $args)
 {
-    if ('footer-viewpetition' == $hookname && 'view' == \LotgdHttp::getQuery('op'))
+    if ('footer-viewpetition' == $hookname && 'view' == \LotgdRequest::getQuery('op'))
     {
-        $id = \LotgdHttp::getQuery('id');
+        $id = \LotgdRequest::getQuery('id');
 
         \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
 
@@ -48,7 +48,7 @@ function petitionfixnavs_run()
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
-    $id = (int) \LotgdHttp::getQuery('id');
+    $id = (int) \LotgdRequest::getQuery('id');
 
     if ($id)
     {

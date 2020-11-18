@@ -127,7 +127,7 @@ function lovers_run()
 
     \LotgdNavigation::setTextDomain($textDomain);
 
-    switch (\LotgdHttp::getQuery('op'))
+    switch (\LotgdRequest::getQuery('op'))
     {
         case 'flirt':
             if (SEX_MALE != $session['user']['prefs']['sexuality'])

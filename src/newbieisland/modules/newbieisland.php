@@ -425,7 +425,7 @@ function newbieisland_run()
     global $session;
 
     $city = get_module_setting('villagename');
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $textDomain = 'newbieisland-module';
 

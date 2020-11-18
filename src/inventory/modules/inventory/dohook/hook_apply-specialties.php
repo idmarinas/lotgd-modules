@@ -1,13 +1,13 @@
 <?php
 
-$skill = \LotgdHttp::getQuery('skill');
+$skill = \LotgdRequest::getQuery('skill');
 
 if ('ITEM' == $skill)
 {
     require_once 'lib/buffs.php';
 
-    $itemId = (int) \LotgdHttp::getQuery('l');
-    $invId = (int) \LotgdHttp::getQuery('invid');
+    $itemId = (int) \LotgdRequest::getQuery('l');
+    $invId = (int) \LotgdRequest::getQuery('invid');
 
     $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
     $item = $repository->extractEntity($repository->findOneBy(['id' => $invId, 'item' => $itemId]));

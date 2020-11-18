@@ -3,9 +3,9 @@
 require_once 'lib/listfiles.php';
 require_once 'lib/showform.php';
 
-$op2 = (string) \LotgdHttp::getQuery('op2');
-$id = (int) \LotgdHttp::getQuery('id');
-$isLaminas = (string) \LotgdHttp::getQuery('isLaminas');
+$op2 = (string) \LotgdRequest::getQuery('op2');
+$id = (int) \LotgdRequest::getQuery('id');
+$isLaminas = (string) \LotgdRequest::getQuery('isLaminas');
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
 $buffRepo = \Doctrine::getRepository('LotgdLocal:ModInventoryBuff');
@@ -36,12 +36,12 @@ switch ($op2)
     case 'newitem':
         $params['tpl'] = 'edititem';
 
-        $subop = (string) \LotgdHttp::getQuery('subop');
-        $module = (string) \LotgdHttp::getQuery('submodule');
+        $subop = (string) \LotgdRequest::getQuery('subop');
+        $module = (string) \LotgdRequest::getQuery('submodule');
 
-        if (\LotgdHttp::isPost() && 'true' != $isLaminas)
+        if (\LotgdRequest::isPost() && 'true' != $isLaminas)
         {
-            $post = \LotgdHttp::getPostAll();
+            $post = \LotgdRequest::getPostAll();
             reset($post);
 
             $paramsFlashMessage = [];
@@ -96,9 +96,9 @@ switch ($op2)
                 $params['formTypeTab'] = $form->getOption('form_type_tab');
             }
 
-            if (\LotgdHttp::isPost())
+            if (\LotgdRequest::isPost())
             {
-                $post = \LotgdHttp::getPostAll();
+                $post = \LotgdRequest::getPostAll();
 
                 if ($params['isLaminas'])
                 {
@@ -256,9 +256,9 @@ switch ($op2)
     case 'newbuff':
         $params['tpl'] = 'editbuff';
 
-        if (\LotgdHttp::isPost())
+        if (\LotgdRequest::isPost())
         {
-            $post = \LotgdHttp::getPostAll();
+            $post = \LotgdRequest::getPostAll();
             reset($post);
 
             $message = 'flash.message.save.saved';
@@ -349,7 +349,7 @@ switch ($op2)
         $params['results'] = $buffRepo->findAll();
     break;
     case 'takeitem':
-        $id = (int) \LotgdHttp::getQuery('id');
+        $id = (int) \LotgdRequest::getQuery('id');
 
         add_item($id);
 

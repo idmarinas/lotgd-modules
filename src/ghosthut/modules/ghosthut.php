@@ -77,7 +77,7 @@ function ghosthut_run()
 {
     global $session;
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
     $eattoday = get_module_pref('eattoday');
 
     $turn = mt_rand(1, 8);

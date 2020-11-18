@@ -42,7 +42,7 @@ function allprefseditor_dohook($hookname, $args)
 
     $textDomain = 'module-allprefseditor';
 
-    $id = \LotgdHttp::getQuery('userid');
+    $id = \LotgdRequest::getQuery('userid');
 
     if (! $id)
     {
@@ -67,7 +67,7 @@ function allprefseditor_dohook($hookname, $args)
 
 function allprefseditor_run()
 {
-    $id = \LotgdHttp::getQuery('userid');
+    $id = \LotgdRequest::getQuery('userid');
 
     if (! $id)
     {
@@ -93,12 +93,12 @@ function allprefseditor_run()
         'textDomain' => $textDomain,
         'name' => $repository->getCharacterNameFromAcctId($id),
         'formSearch' => "runmodule.php?module=allprefseditor&subop1=search&userid={$id}",
-        'isSearch' => ('search' == \LotgdHttp::getQuery('subop1'))
+        'isSearch' => ('search' == \LotgdRequest::getQuery('subop1'))
     ];
 
     if ($params['isSearch'])
     {
-        $name = \LotgdHttp::getPost('name');
+        $name = \LotgdRequest::getPost('name');
 
         $params['paginator'] = $repository->findLikeName($name, 100);
     }

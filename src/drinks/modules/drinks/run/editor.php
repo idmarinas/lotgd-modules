@@ -17,10 +17,10 @@ $textDomain = 'drinks-module';
 \LotgdNavigation::addHeader('navigation.category.editor');
 \LotgdNavigation::addNav('navigation.nav.add', 'runmodule.php?module=drinks&act=editor&op=add&admin=true');
 
-$op = (string) \LotgdHttp::getQuery('op');
-$drinkid = (int) \LotgdHttp::getQuery('drinkid');
-$subop = (string) \LotgdHttp::getQuery('subop');
-$page = (int) \LotgdHttp::getQuery('page');
+$op = (string) \LotgdRequest::getQuery('op');
+$drinkid = (int) \LotgdRequest::getQuery('drinkid');
+$subop = (string) \LotgdRequest::getQuery('subop');
+$page = (int) \LotgdRequest::getQuery('page');
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
 
@@ -98,19 +98,19 @@ if ('del' == $op)
     module_delete_objprefs('drinks', $drinkid);
 
     $op = '';
-    \LotgdHttp::setQuery('op', '');
+    \LotgdRequest::setQuery('op', '');
 }
 elseif ('save' == $op)
 {
-    $subop = \LotgdHttp::getQuery('subop');
-    $post = \LotgdHttp::getPostAll();
+    $subop = \LotgdRequest::getQuery('subop');
+    $post = \LotgdRequest::getPostAll();
 
     $message = '';
     $paramsFlashMessage = [];
 
     if ('module' == $subop)
     {
-        $module = \LotgdHttp::getQuery('editmodule');
+        $module = \LotgdRequest::getQuery('editmodule');
 
         $message = 'flash.message.editor.save.module';
         $paramsFlashMessage = ['name' => $module];
@@ -141,7 +141,7 @@ elseif ('save' == $op)
     }
 
     $op = 'edit';
-    \LotgdHttp::setQuery('op', $op);
+    \LotgdRequest::setQuery('op', $op);
     unset($message, $drinkEntity, $post);
 }
 elseif ('activate' == $op)
@@ -157,7 +157,7 @@ elseif ('activate' == $op)
     }
 
     $op = '';
-    \LotgdHttp::setQuery('op', '');
+    \LotgdRequest::setQuery('op', '');
 }
 elseif ('deactivate' == $op)
 {
@@ -172,7 +172,7 @@ elseif ('deactivate' == $op)
     }
 
     $op = '';
-    \LotgdHttp::setQuery('op', '');
+    \LotgdRequest::setQuery('op', '');
 }
 
 if ('' == $op)
@@ -196,7 +196,7 @@ elseif ('edit' == $op || 'add' == $op)
 
     if ('module' == $subop)
     {
-        $module = \LotgdHttp::getQuery('editmodule');
+        $module = \LotgdRequest::getQuery('editmodule');
 
         $form = module_objpref_edit('drinks', $module, $drinkid);
 
@@ -210,9 +210,9 @@ elseif ('edit' == $op || 'add' == $op)
             $params['formTypeTab'] = $form->getOption('form_type_tab');
         }
 
-        if (\LotgdHttp::isPost())
+        if (\LotgdRequest::isPost())
         {
-            $post = \LotgdHttp::getPostAll();
+            $post = \LotgdRequest::getPostAll();
 
             if ($params['isLaminas'])
             {

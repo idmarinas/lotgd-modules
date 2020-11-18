@@ -69,7 +69,7 @@ function grassyfield_runevent($type)
     $from = 'forest.php';
     $session['user']['specialinc'] = 'module:grassyfield';
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     if ('return' == $op)
     {

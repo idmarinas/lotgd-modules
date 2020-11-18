@@ -82,7 +82,7 @@ function namecolor_run()
     $cost = get_module_setting($rebuy ? 'extrapoints' : 'initialpoints');
     $pointsavailable = $session['user']['donation'] - $session['user']['donationspent'];
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $textDomain = 'module-namecolor';
 
@@ -106,7 +106,7 @@ function namecolor_run()
             set_module_pref('boughtbefore', 1);
 
             $fromname = $session['user']['name'];
-            $newname = change_player_name(rawurldecode(\LotgdHttp::getQuery('name')));
+            $newname = change_player_name(rawurldecode(\LotgdRequest::getQuery('name')));
             $session['user']['name'] = $newname;
 
             addnews('news.changed', [
@@ -123,7 +123,7 @@ function namecolor_run()
         case 'namepreview':
             $params['tpl'] = 'namepreview';
 
-            $newname = (string) \LotgdHttp::getPost('newname');
+            $newname = (string) \LotgdRequest::getPost('newname');
 
             if (! get_module_setting('bold'))
             {

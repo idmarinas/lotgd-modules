@@ -72,9 +72,9 @@ function alt_char_list_run()
         'textDomain' => $textDomain
     ];
 
-    $op = (string) \LotgdHttp::getQuery('op');
-    $id = (int) \LotgdHttp::getQuery('id');
-    $page = (int) \LotgdHttp::getQuery('page');
+    $op = (string) \LotgdRequest::getQuery('op');
+    $id = (int) \LotgdRequest::getQuery('id');
+    $page = (int) \LotgdRequest::getQuery('page');
 
     $char = $id;
 
@@ -85,9 +85,9 @@ function alt_char_list_run()
         case 'search':
             $params['tpl'] = 'search';
 
-            if (\LotgdHttp::isPost())
+            if (\LotgdRequest::isPost())
             {
-                $name = (string) \LotgdHttp::getPost('char_name');
+                $name = (string) \LotgdRequest::getPost('char_name');
 
                 $params['search'] = $name;
 
@@ -171,7 +171,7 @@ function alt_char_list_run()
     \LotgdNavigation::addNav('navigation.nav.search', 'runmodule.php?module=alt_char_list&op=search');
     \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=alt_char_list');
 
-    $ret = urlencode(\LotgdHttp::getQuery('ret'));
+    $ret = urlencode(\LotgdRequest::getQuery('ret'));
 
     if ('' != $ret)
     {

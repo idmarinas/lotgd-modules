@@ -101,14 +101,14 @@ function tutor_dohook($hookname, $args)
                         break;
                     }
 
-                    if (( ! $session['user']['race'] || RACE_UNKNOWN == $session['user']['race']) && '' == \LotgdHttp::getQuery('setrace'))
+                    if (( ! $session['user']['race'] || RACE_UNKNOWN == $session['user']['race']) && '' == \LotgdRequest::getQuery('setrace'))
                     {
                         if (is_module_active('racetroll') || is_module_active('racedwarf') || is_module_active('racehuman') || is_module_active('raceelf'))
                         {
                             tutor_talk('message.newday.race');
                         }
                     }
-                    elseif ('' == $session['user']['specialty'] && ! \LotgdHttp::getQuery('setrace'))
+                    elseif ('' == $session['user']['specialty'] && ! \LotgdRequest::getQuery('setrace'))
                     {
                         if (is_module_active('specialtylaser') || is_module_active('specialtytelepathy') || is_module_active('specialtytelekinesis') || is_module_active('specialtyspacialawareness'))
                         {
@@ -199,7 +199,7 @@ function tutor_run()
 {
     global $session;
 
-    $op    = \LotgdHttp::getQuery('op');
+    $op    = \LotgdRequest::getQuery('op');
     $city  = getsetting('villagename', LOCATION_FIELDS); // name of capital city
     $iname = getsetting('innname', LOCATION_INN); // name of capital's inn
     $age   = $session['user']['age'];

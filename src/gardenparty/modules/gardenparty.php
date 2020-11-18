@@ -146,7 +146,7 @@ function gardenparty_run()
         return redirect('gardens.php');
     }
 
-    $buy = \LotgdHttp::getQuery('buy');
+    $buy = \LotgdRequest::getQuery('buy');
     $textDomain = 'module-gardenparty';
     $missed = \LotgdTranslator::t('party.miss.item', [], $textDomain);
     $comment = \LotgdTranslator::t('party.miss.comment', [], $textDomain);

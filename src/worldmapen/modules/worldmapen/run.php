@@ -16,20 +16,20 @@ function worldmapen_run_real()
 
     $textDomain = 'module-worldmapen';
     $displayEvents = false;
-    $op = (string) \LotgdHttp::getQuery('op');
+    $op = (string) \LotgdRequest::getQuery('op');
 
     $battle = false;
 
-    if ('move' == $op && rawurldecode(\LotgdHttp::getQuery('oloc')) != get_module_pref('worldXYZ'))
+    if ('move' == $op && rawurldecode(\LotgdRequest::getQuery('oloc')) != get_module_pref('worldXYZ'))
     {
         debug(get_module_pref('worldXYZ'));
         $op = 'continue';
-        \LotgdHttp::setQuery('op', $op);
+        \LotgdRequest::setQuery('op', $op);
     }
 
     if ('destination' == $op)
     {
-        $cname = (string) \LotgdHttp::getQuery('cname');
+        $cname = (string) \LotgdRequest::getQuery('cname');
         $session['user']['location'] = $cname;
 
         \LotgdNavigation::addNav('navigation.nav.enter', 'village.php', [
@@ -40,7 +40,7 @@ function worldmapen_run_real()
         \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.destination', ['name' => $cname], $textDomain));
     }
 
-    if ('' != $session['user']['specialinc'] || \LotgdHttp::getQuery('eventhandler'))
+    if ('' != $session['user']['specialinc'] || \LotgdRequest::getQuery('eventhandler'))
     {
         $in_event = handle_event('travel', 'runmodule.php?module=worldmapen&op=continue&', 'Travel');
 
@@ -53,16 +53,16 @@ function worldmapen_run_real()
         }
     }
 
-    $op = (string) \LotgdHttp::getQuery('op');
-    $subop = \LotgdHttp::getQuery('subop');
-    $act = \LotgdHttp::getQuery('act');
-    $type = \LotgdHttp::getQuery('type');
-    $characterId = \LotgdHttp::getQuery('character_id');
-    $direction = \LotgdHttp::getQuery('dir');
-    $su = \LotgdHttp::getQuery('su');
-    $buymap = \LotgdHttp::getQuery('buymap');
+    $op = (string) \LotgdRequest::getQuery('op');
+    $subop = \LotgdRequest::getQuery('subop');
+    $act = \LotgdRequest::getQuery('act');
+    $type = \LotgdRequest::getQuery('type');
+    $characterId = \LotgdRequest::getQuery('character_id');
+    $direction = \LotgdRequest::getQuery('dir');
+    $su = \LotgdRequest::getQuery('su');
+    $buymap = \LotgdRequest::getQuery('buymap');
     $worldmapCostGold = get_module_setting('worldmapCostGold', 'worldmapen');
-    $pvp = \LotgdHttp::getQuery('pvp');
+    $pvp = \LotgdRequest::getQuery('pvp');
 
     \LotgdResponse::pageStart('title.journey', [], $textDomain);
 
@@ -216,7 +216,7 @@ function worldmapen_run_real()
                 $session['user']['specialmisc'] = '';
 
                 $op = '';
-                \LotgdHttp::setQuery('op', '');
+                \LotgdRequest::setQuery('op', '');
                 \LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue');
 
                 module_display_events('travel', 'runmodule.php?module=worldmapen&op=continue');
@@ -370,7 +370,7 @@ function worldmapen_run_real()
     {
         $params['tpl'] = 'fight';
 
-        if (! \LotgdHttp::getQuery('frombio'))
+        if (! \LotgdRequest::getQuery('frombio'))
         {
             $battle = true;
         }
@@ -401,7 +401,7 @@ function worldmapen_run_real()
                 \LotgdFlashMessages::addErrorMessage('flash.message.figth.run.pve', [], $textDomain);
 
                 $op = 'fight';
-                \LotgdHttp::setQuery('op', $op);
+                \LotgdRequest::setQuery('op', $op);
             }
         }
         elseif ('run' == $op && $pvp)
@@ -409,7 +409,7 @@ function worldmapen_run_real()
             $battle = true;
             \LotgdFlashMessages::addErrorMessage('flash.message.figth.run.pvp', [], $textDomain);
             $op = 'fight';
-            \LotgdHttp::setQuery('op', $op);
+            \LotgdRequest::setQuery('op', $op);
         }
     }
 

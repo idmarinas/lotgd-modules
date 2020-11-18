@@ -1,6 +1,6 @@
 <?php
 
-$flirt = (int) \LotgdHttp::getQuery('flirt');
+$flirt = (int) \LotgdRequest::getQuery('flirt');
 
 $params['flirt'] = $flirt;
 $params['seenLover'] = get_module_pref('seenlover');

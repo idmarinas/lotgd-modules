@@ -227,7 +227,7 @@ function inventory_run()
 
     require_once 'lib/itemhandler.php';
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
     $textDomain = 'module-inventory';
 
     if (\file_exists("modules/inventory/run/case_{$op}.php"))

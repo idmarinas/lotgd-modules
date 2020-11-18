@@ -4,9 +4,9 @@ require_once 'lib/buffs.php';
 
 global $session;
 
-$id = (int) \LotgdHttp::getQuery('id');
-$invId = (int) \LotgdHttp::getQuery('invid');
-$return = (string) \LotgdHttp::getQuery('return');
+$id = (int) \LotgdRequest::getQuery('id');
+$invId = (int) \LotgdRequest::getQuery('invid');
+$return = (string) \LotgdRequest::getQuery('return');
 $return = \LotgdSanitize::cmdSanitize($return);
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
@@ -84,7 +84,7 @@ if ($item['item']['execvalue'] > '')
     }
     else
     {
-        display_item_nav(LotgdHttp::getQuery('hookname'), $return);
+        display_item_nav(LotgdRequest::getQuery('hookname'), $return);
         \LotgdNavigation::addNav('navigation.nav.return.whence', $return);
     }
 

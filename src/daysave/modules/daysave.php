@@ -132,8 +132,8 @@ function daysave_run()
 {
     global $session;
 
-    $op = (string) \LotgdHttp::getQuery('op');
-    $return = (string) \LotgdHttp::getQuery('return');
+    $op = (string) \LotgdRequest::getQuery('op');
+    $return = (string) \LotgdRequest::getQuery('return');
 
     //handle new players
     if (! get_module_pref('initsetup'))
@@ -220,7 +220,7 @@ function daysave_run()
         break;
         case 'fillup':
             $params['tpl'] = 'fillup';
-            $fill = (int) \LotgdHttp::getQuery('fill');
+            $fill = (int) \LotgdRequest::getQuery('fill');
 
             increment_module_pref('days', $fill);
 

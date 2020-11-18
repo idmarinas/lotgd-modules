@@ -85,7 +85,7 @@ function spookygold_runevent($type)
     $from = 'village.php?';
     $session['user']['specialinc'] = 'module:spookygold';
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $textDomain = 'module-spookygold';
 
@@ -214,7 +214,7 @@ function spookygold_fight()
 {
     global $session;
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $textDomain = 'module-spookygold';
 
@@ -233,14 +233,14 @@ function spookygold_fight()
 
         $session['user']['badguy'] = $badguy;
         $op = 'fight';
-        \LotgdHttp::setQuery('op', 'fight');
+        \LotgdRequest::setQuery('op', 'fight');
     }
 
     if ('run' == $op)
     {
         \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('flash.message.battle.run', [], 'module-spookygold'));
         $op = 'fight';
-        \LotgdHttp::setQuery('op', 'fight');
+        \LotgdRequest::setQuery('op', 'fight');
     }
 
     if ('fight' == $op)

@@ -35,7 +35,7 @@ trait Campers
 
         $params['paginator'] = $pvp->getPvpList($session['user']['location']);
         $params['sleepers'] = $pvp->getLocationSleepersCount($session['user']['location']);
-        $params['returnLink'] = preg_replace('/op=[a-z]*/', 'op=continue', \LotgdHttp::getServer('REQUEST_URI'));
+        $params['returnLink'] = preg_replace('/op=[a-z]*/', 'op=continue', \LotgdRequest::getServer('REQUEST_URI'));
         $params['pvpTimeOut'] = new \DateTime(date('Y-m-d H:i:s', strtotime("-$pvptime seconds")));
 
         $params['linkBase'] = 'runmodule.php?module=worldmapen';

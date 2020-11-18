@@ -92,7 +92,7 @@ function goldmine_runevent($type)
     }
 
     $session['user']['specialinc'] = 'module:goldmine';
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     //-- Change text domain for navigation
     \LotgdNavigation::setTextDomain($params['textDomain']);

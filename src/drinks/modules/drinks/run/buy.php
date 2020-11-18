@@ -26,7 +26,7 @@ $params = [
 
 if (! $params['drunkeness'])
 {
-    $drinkId = (int) \LotgdHttp::getQuery('id');
+    $drinkId = (int) \LotgdRequest::getQuery('id');
     $entity = $repository->find($drinkId);
     $row = $repository->extractEntity($entity);
     $drinkCost = $session['user']['level'] * $row['costperlevel'];

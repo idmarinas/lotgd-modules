@@ -89,7 +89,7 @@ function titlechange_run()
 
     global $session;
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $textDomain = 'module-titlechange';
 
@@ -106,7 +106,7 @@ function titlechange_run()
         case 'changetitle':
             $params['tpl'] = 'changetitle';
 
-            $ntitle = rawurldecode(LotgdHttp::getQuery('newname'));
+            $ntitle = rawurldecode(LotgdRequest::getQuery('newname'));
             $fromname = $session['user']['name'];
             $newname = change_player_ctitle($ntitle);
             $session['user']['ctitle'] = $ntitle;
@@ -136,7 +136,7 @@ function titlechange_run()
         case 'titlepreview':
             $params['tpl'] = 'titlepreview';
 
-            $ntitle = rawurldecode(\LotgdHttp::getPost('newname'));
+            $ntitle = rawurldecode(\LotgdRequest::getPost('newname'));
 
             if ('' == $ntitle && ! get_module_setting('blank'))
             {

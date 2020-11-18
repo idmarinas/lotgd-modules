@@ -1,6 +1,6 @@
 <?php
 
-$act = (string) \LotgdHttp::getQuery('act');
+$act = (string) \LotgdRequest::getQuery('act');
 $params['act'] = $act;
 
 if (! $act)

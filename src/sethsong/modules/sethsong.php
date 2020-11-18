@@ -64,7 +64,7 @@ function sethsong_dohook($hookname, $args)
     {
         case 'inn':
             $bard = getsetting('bard', '`^Seth`0');
-            $op = \LotgdHttp::getQuery('op');
+            $op = \LotgdRequest::getQuery('op');
 
             if ('' == $op || 'strolldown' == $op || 'fleedragon' == $op)
             {

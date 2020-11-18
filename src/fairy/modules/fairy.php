@@ -71,7 +71,7 @@ function fairy_runevent($type)
     $session['user']['specialinc'] = 'module:fairy';
     $textDomain = 'module-fairy';
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $params = [
         'textDomain' => $textDomain

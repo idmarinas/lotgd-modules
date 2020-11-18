@@ -52,7 +52,7 @@ function graveofdragons_runevent($type, $from)
     global $session;
 
     $from = 'graveyard.php?';
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
     $session['user']['specialinc'] = 'module:graveofdragons';
 
     $textDomain = 'module-graveofdragons';

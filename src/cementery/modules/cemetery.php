@@ -72,7 +72,7 @@ function cemetery_run()
     global $session;
 
     $village = get_module_setting('cemeteryloc');
-    $op = (string) \LotgdHttp::getQuery('op');
+    $op = (string) \LotgdRequest::getQuery('op');
 
     $params = [
         'village' => $village,

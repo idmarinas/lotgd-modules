@@ -72,7 +72,7 @@ function gardener_dohook($hookname, $args)
             }
         break;
         case 'footer-runmodule':
-            if ('newbieisland' != \LotgdHttp::getQuery('module'))
+            if ('newbieisland' != \LotgdRequest::getQuery('module'))
             {
                 break;
             }
@@ -103,7 +103,7 @@ function gardener_run()
 {
     global $session;
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
     $seentoday = get_module_pref('seentoday');
     $gardens = get_module_setting('gardens');
 
@@ -190,7 +190,7 @@ function gardener_run()
     {
         $params['tpl'] = 'answer';
 
-        $val = (int) \LotgdHttp::getQuery('val');
+        $val = (int) \LotgdRequest::getQuery('val');
 
         // Did we get it wrong?
         if ($val != get_module_pref('expectanswer'))

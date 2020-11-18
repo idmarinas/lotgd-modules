@@ -67,7 +67,7 @@ function staminahof_run()
     }
 
     // Now show the HOF
-    $hof = \LotgdHttp::getQuery('action');
+    $hof = \LotgdRequest::getQuery('action');
     $chof = urlencode($hof);
 
     $params['tpl'] = 'default';
@@ -116,7 +116,7 @@ function staminahof_run()
         usort($hofPages, 'staminahof_sort');
 
         $params['paginator'] = $hofPages;
-        $params['skip'] = (int) \LotgdHttp::getQuery('skip');
+        $params['skip'] = (int) \LotgdRequest::getQuery('skip');
         $params['actionHof'] = $hof;
         $params['actionsPerPage'] = $actionsPerPage;
     }

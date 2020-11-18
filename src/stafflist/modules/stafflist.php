@@ -93,7 +93,7 @@ function stafflist_run()
 {
     global $session;
 
-    $from = \LotgdHttp::getQuery('from');
+    $from = \LotgdRequest::getQuery('from');
 
     if ('about' == $from)
     {
@@ -151,7 +151,7 @@ function stafflist_run()
     ;
 
     $params['blurb'] = get_module_setting('blurb');
-    $params['returnLink'] = \LotgdHttp::getServer('REQUEST_URI');
+    $params['returnLink'] = \LotgdRequest::getServer('REQUEST_URI');
 
     \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('stafflist/run.twig', $params));
 

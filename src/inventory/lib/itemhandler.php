@@ -42,7 +42,7 @@ function display_item_nav($hookname, $return = false)
 {
     global $session;
 
-    if ($hookname_override = \LotgdHttp::getQuery('hookname'))
+    if ($hookname_override = \LotgdRequest::getQuery('hookname'))
     {
         $hookname = $hookname_override;
     }
@@ -55,7 +55,7 @@ function display_item_nav($hookname, $return = false)
         return;
     }
 
-    $returnPre = urlencode(\LotgdHttp::getServer('REQUEST_URI'));
+    $returnPre = urlencode(\LotgdRequest::getServer('REQUEST_URI'));
 
     if ($return)
     {

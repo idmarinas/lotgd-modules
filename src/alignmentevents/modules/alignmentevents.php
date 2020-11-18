@@ -69,8 +69,8 @@ function alignmentevents_runevent($type)
 {
     global $session;
 
-    $op = LotgdHttp::getQuery('op');
-    $event = (int) LotgdHttp::getQuery('op2');
+    $op = LotgdRequest::getQuery('op');
+    $event = (int) LotgdRequest::getQuery('op2');
 
     $params = [
         'textDomain' => 'module-alignmentevents',

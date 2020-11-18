@@ -159,19 +159,19 @@ function topwebgames_dohook($hookname, $args)
 
 function topwebgames_run()
 {
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     if ('twgvote' != $op)
     {
         do_forced_nav(false, false);
     }
 
-    $id = \LotgdHttp::getPost('acctid');
-    $votecounted = \LotgdHttp::getPost('votecounted');
+    $id = \LotgdRequest::getPost('acctid');
+    $votecounted = \LotgdRequest::getPost('votecounted');
 
     if (! $id)
     {
-        $id = \LotgdHttp::getQuery('acctid');
+        $id = \LotgdRequest::getQuery('acctid');
     }
 
     $id = max(1, $id);

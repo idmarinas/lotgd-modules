@@ -213,8 +213,8 @@ function specialtythiefskills_dohook($hookname, $args)
             \LotgdNavigation::setTextDomain();
         break;
         case 'apply-specialties':
-            $skill = \LotgdHttp::getQuery('skill');
-            $l = \LotgdHttp::getQuery('l');
+            $skill = \LotgdRequest::getQuery('skill');
+            $l = \LotgdRequest::getQuery('l');
 
             if ($skill == $spec)
             {

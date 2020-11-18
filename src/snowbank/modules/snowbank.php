@@ -91,7 +91,7 @@ function snowbank_run()
 {
     global $session;
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $giventoday = get_module_pref('giventoday');
 

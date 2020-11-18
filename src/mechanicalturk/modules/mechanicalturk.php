@@ -63,8 +63,8 @@ function mechanicalturk_run()
 {
     global $session;
 
-    $op = \LotgdHttp::getQuery('creatureaction');
-    $page = (int) \LotgdHttp::getQuery('page');
+    $op = \LotgdRequest::getQuery('creatureaction');
+    $page = (int) \LotgdRequest::getQuery('page');
     $page = max(1, $page);
 
     $points = get_module_setting('addpoints');
@@ -84,7 +84,7 @@ function mechanicalturk_run()
         case 'reject':
             $params['tpl'] = 'reject';
 
-            $id = \LotgdHttp::getQuery('id');
+            $id = \LotgdRequest::getQuery('id');
 
             $creature = $repository->find($id);
 
@@ -106,7 +106,7 @@ function mechanicalturk_run()
 
             require_once 'lib/showform.php';
 
-            $id = \LotgdHttp::getQuery('id');
+            $id = \LotgdRequest::getQuery('id');
 
             $creature = $repository->find($id);
             $row = $repository->extractEntity($creature);
@@ -163,7 +163,7 @@ function mechanicalturk_run()
         case 'save':
             $params['tpl'] = 'save';
 
-            $post = \LotgdHttp::getPostAll();
+            $post = \LotgdRequest::getPostAll();
 
             $entity = $repository->hydrateEntity($post);
 

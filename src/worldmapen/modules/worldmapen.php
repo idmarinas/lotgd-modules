@@ -251,7 +251,7 @@ function worldmapen_run()
     require_once 'modules/worldmapen/run.php';
 
     $textDomain = 'module-worldmapen';
-    $op = (string) \LotgdHttp::getQuery('op');
+    $op = (string) \LotgdRequest::getQuery('op');
 
     //-- Change text domain for navigation
     \LotgdNavigation::setTextDomain('module-worldmapen');

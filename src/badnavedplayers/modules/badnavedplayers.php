@@ -70,13 +70,13 @@ function badnavedplayers_run()
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $repository = \Doctrine::getRepository('LotgdCore:Characters');
 
     if ('fix' == $op)
     {
-        $playerIds = \LotgdHttp::getPost('fixnav');
+        $playerIds = \LotgdRequest::getPost('fixnav');
 
         if (is_array($playerIds) && ! empty($playerIds))
         {

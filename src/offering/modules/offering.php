@@ -71,7 +71,7 @@ function offering_runevent($type)
         'deathOverlord' => getsetting('deathoverlord', '`$Ramius`0')
     ];
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     \LotgdNavigation::setTextDomain($textDomain);
 

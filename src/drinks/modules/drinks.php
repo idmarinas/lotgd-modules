@@ -263,7 +263,7 @@ function drinks_run()
 {
     global $session, $mostrecentmodule;
 
-    $act = (string) \LotgdHttp::getQuery('act');
+    $act = (string) \LotgdRequest::getQuery('act');
 
     if (! file_exists("modules/drinks/run/{$act}.php"))
     {

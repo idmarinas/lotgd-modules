@@ -1,8 +1,8 @@
 <?php
 
-$op2 = (string) \LotgdHttp::getQuery('op2');
-$acctId = (int) \LotgdHttp::getQuery('acctid');
-$return = (string) \LotgdHttp::getQuery('return');
+$op2 = (string) \LotgdRequest::getQuery('op2');
+$acctId = (int) \LotgdRequest::getQuery('acctid');
+$return = (string) \LotgdRequest::getQuery('return');
 $creturn = urlencode($return);
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
@@ -14,8 +14,8 @@ $name = $accountRep->getCharacterNameFromAcctId($acctId);
 
 if ('dropitem' == $op2)
 {
-    $id = (int) \LotgdHttp::getQuery('id');
-    $invId = (int) \LotgdHttp::getQuery('invid');
+    $id = (int) \LotgdRequest::getQuery('id');
+    $invId = (int) \LotgdRequest::getQuery('invid');
 
     remove_item($id, 1, $acctId, $invId);
 }

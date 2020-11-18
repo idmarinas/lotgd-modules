@@ -74,8 +74,8 @@ function modloc_run()
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
-    $op = \LotgdHttp::getQuery('op');
-    $loc = \LotgdHttp::getQuery('loc');
+    $op = \LotgdRequest::getQuery('op');
+    $loc = \LotgdRequest::getQuery('loc');
 
     \LotgdNavigation::superuserGrottoNav();
 

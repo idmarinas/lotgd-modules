@@ -118,10 +118,10 @@ function staminacorecombat_dohook($hookname, $args)
 
     $textDomain = 'module-staminacorecombat';
 
-    $stam = \LotgdHttp::getQuery('stam');
-    $op = \LotgdHttp::getQuery('op');
-    $skill = \LotgdHttp::getQuery('skill');
-    $auto = \LotgdHttp::getQuery('auto');
+    $stam = \LotgdRequest::getQuery('stam');
+    $op = \LotgdRequest::getQuery('op');
+    $skill = \LotgdRequest::getQuery('skill');
+    $auto = \LotgdRequest::getQuery('auto');
 
     switch ($hookname)
     {
@@ -211,7 +211,7 @@ function staminacorecombat_dohook($hookname, $args)
         case 'startofround-prebuffs':
             global $countround, $lotgdBattleContent;
 
-            $process = (string) \LotgdHttp::getQuery('stam');
+            $process = (string) \LotgdRequest::getQuery('stam');
 
             switch ($process)
             {

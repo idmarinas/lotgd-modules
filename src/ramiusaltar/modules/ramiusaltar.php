@@ -89,8 +89,8 @@ function ramiusaltar_run()
 {
     global $session;
 
-    $op = \LotgdHttp::getQuery('op');
-    $type = \LotgdHttp::getQuery('type');
+    $op = \LotgdRequest::getQuery('op');
+    $type = \LotgdRequest::getQuery('type');
 
     $textDomain = 'module-ramiusaltar';
     $useStamina = is_module_active('staminasystem');
@@ -292,7 +292,7 @@ function ramiusaltar_run()
 
         \LotgdNavigation::addNav('navigation.nav.hof.back', 'hof.php');
 
-        $page = (int) \LotgdHttp::getQuery('page');
+        $page = (int) \LotgdRequest::getQuery('page');
 
         $repository = \Doctrine::getRepository('LotgdCore:Accounts');
         $query = $repository->createQueryBuilder('u');

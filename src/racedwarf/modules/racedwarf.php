@@ -439,7 +439,7 @@ function racedwarf_checkcity()
 
 function racedwarf_run()
 {
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $textDomain = 'racedwarf-module';
 

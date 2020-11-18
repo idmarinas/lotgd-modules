@@ -120,7 +120,7 @@ function statue_dohook($hookname, $args)
                 }
             }
 
-            $op = (string) \LotgdHttp::getQuery('op');
+            $op = (string) \LotgdRequest::getQuery('op');
 
             //-- Process examine statue
             if ('astatue' == $op)

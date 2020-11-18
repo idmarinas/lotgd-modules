@@ -67,7 +67,7 @@ function frosty_runevent($type)
     global $session;
 
     $session['user']['specialinc'] = 'module:frosty';
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $textDomain = 'module-frosty';
 

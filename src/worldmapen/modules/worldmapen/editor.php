@@ -31,9 +31,9 @@ function worldmapen_editor_real()
 
     \LotgdNavigation::addHeader('navigation.category.editor');
 
-    $op = \LotgdHttp::getQuery('op');
-    $act = \LotgdHttp::getQuery('act');
-    $subop = \LotgdHttp::getQuery('subop');
+    $op = \LotgdRequest::getQuery('op');
+    $act = \LotgdRequest::getQuery('act');
+    $subop = \LotgdRequest::getQuery('subop');
 
     debug("op={$op}, act={$act}, subop={$subop}");
 
@@ -51,14 +51,14 @@ function worldmapen_editor_real()
             $vloc = modulehook('validlocation', $vloc);
             ksort($vloc);
 
-            if (\LotgdHttp::isPost())
+            if (\LotgdRequest::isPost())
             {
                 foreach ($vloc as $loc => $val)
                 {
                     $space_valx = preg_replace('/\s/', '_', $loc.'X');
                     $space_valy = preg_replace('/\s/', '_', $loc.'Y');
-                    set_module_setting($loc.'X', \LotgdHttp::getPost($space_valx));
-                    set_module_setting($loc.'Y', \LotgdHttp::getPost($space_valy));
+                    set_module_setting($loc.'X', \LotgdRequest::getPost($space_valx));
+                    set_module_setting($loc.'Y', \LotgdRequest::getPost($space_valy));
                     set_module_setting($loc.'Z', 1);
                 }
 
@@ -89,10 +89,10 @@ function worldmapen_editor_real()
         case 'terrain':
             $params['tpl'] = 'terrain';
 
-            if (\LotgdHttp::isPost())
+            if (\LotgdRequest::isPost())
             {
                 $map = worldmapen_loadMap(null);
-                $post = \LotgdHttp::getPostAll();
+                $post = \LotgdRequest::getPostAll();
 
                 reset($post);
 

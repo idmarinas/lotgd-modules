@@ -195,9 +195,9 @@ function cityprefs_run()
 
     $repository = \Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
 
-    $op = (string) \LotgdHttp::getQuery('op');
-    $cityId = (int) \LotgdHttp::getQuery('cityid');
-    $mdule = (string) \LotgdHttp::getQuery('mdule');
+    $op = (string) \LotgdRequest::getQuery('op');
+    $cityId = (int) \LotgdRequest::getQuery('cityid');
+    $mdule = (string) \LotgdRequest::getQuery('mdule');
 
     //-- Change text domain for navigation
     \LotgdNavigation::setTextDomain($textDomain);
@@ -347,9 +347,9 @@ function cityprefs_run()
                     $params['formTypeTab'] = $form->getOption('form_type_tab');
                 }
 
-                if (\LotgdHttp::isPost())
+                if (\LotgdRequest::isPost())
                 {
-                    $post = \LotgdHttp::getPostAll();
+                    $post = \LotgdRequest::getPostAll();
 
                     if ($params['isLaminas'])
                     {
@@ -390,9 +390,9 @@ function cityprefs_run()
         case 'editcity':
             $params['tpl'] = 'edit';
 
-            if (\LotgdHttp::isPost())
+            if (\LotgdRequest::isPost())
             {
-                $post = \LotgdHttp::getPostAll();
+                $post = \LotgdRequest::getPostAll();
 
                 $entity = $repository->find($cityId);
                 $entity = $repository->hydrateEntity($post, $entity);

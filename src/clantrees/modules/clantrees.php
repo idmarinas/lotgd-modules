@@ -145,9 +145,9 @@ function clantrees_dohook($hookname, $args)
             {
                 break;
             }
-            $op = \LotgdHttp::getQuery('op');
+            $op = \LotgdRequest::getQuery('op');
             $clanid = $session['user']['clanid'];
-            $detail = \LotgdHttp::getQuery('detail');
+            $detail = \LotgdRequest::getQuery('detail');
 
             if ('' == $op && (! $detail || ($detail == $clanid)) && ($clanid && $session['user']['clanrank'] > CLAN_APPLICANT))
             {
@@ -213,7 +213,7 @@ function clantrees_run()
 {
     global $session;
 
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $gems = $session['user']['gems'];
     $gold = $session['user']['gold'];
@@ -258,7 +258,7 @@ function clantrees_run()
     }
     elseif ('tree' == $op)
     {
-        $size = \LotgdHttp::getQuery('size');
+        $size = \LotgdRequest::getQuery('size');
 
         $params['tpl'] = 'tree';
         $params['size'] = $size;
@@ -349,8 +349,8 @@ function clantrees_run()
         $params['tpl'] = 'alter';
         $params['staminaSystem'] = is_module_active('staminasystem');
 
-        $what = \LotgdHttp::getQuery('what');
-        $howmuch = \LotgdHttp::getPost('replystuff');
+        $what = \LotgdRequest::getQuery('what');
+        $howmuch = \LotgdRequest::getPost('replystuff');
 
         $params['what'] = $what;
 

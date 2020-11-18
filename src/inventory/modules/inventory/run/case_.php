@@ -1,8 +1,8 @@
 <?php
 
-$id = (int) \LotgdHttp::getQuery('id');
-$invId = (int) \LotgdHttp::getQuery('invid');
-$op2 = \LotgdHttp::getQuery('op2');
+$id = (int) \LotgdRequest::getQuery('id');
+$invId = (int) \LotgdRequest::getQuery('invid');
+$op2 = \LotgdRequest::getQuery('op2');
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
 $accountRep = \Doctrine::getRepository('LotgdCore:Accounts');

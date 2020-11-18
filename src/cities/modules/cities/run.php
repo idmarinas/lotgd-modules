@@ -2,12 +2,12 @@
 
 require_once 'lib/forestoutcomes.php';
 
-$op = \LotgdHttp::getQuery('op');
-$city = (string) urldecode(\LotgdHttp::getQuery('city'));
+$op = \LotgdRequest::getQuery('op');
+$city = (string) urldecode(\LotgdRequest::getQuery('city'));
 $ccity = urlencode($city);
-$continue = \LotgdHttp::getQuery('continue');
-$danger = \LotgdHttp::getQuery('d');
-$su = \LotgdHttp::getQuery('su');
+$continue = \LotgdRequest::getQuery('continue');
+$danger = \LotgdRequest::getQuery('d');
+$su = \LotgdRequest::getQuery('su');
 
 if ('faq' != $op)
 {
@@ -23,7 +23,7 @@ if ('faq' != $op)
 // otherwise things break.
 require_once 'lib/events.php';
 
-if (! isset($session['user']['specialinc']) || '' != $session['user']['specialinc'] || \LotgdHttp::getQuery('eventhandler'))
+if (! isset($session['user']['specialinc']) || '' != $session['user']['specialinc'] || \LotgdRequest::getQuery('eventhandler'))
 {
     $in_event = handle_event('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1&", 'Travel');
 
@@ -73,7 +73,7 @@ if ('travel' == $op)
         if ('1' != $continue && '1' != $su && ! get_module_pref('paidcost'))
         {
             set_module_pref('paidcost', 1);
-            $httpcost = \LotgdHttp::getQuery('cost');
+            $httpcost = \LotgdRequest::getQuery('cost');
             $cost = modulehook('travel-cost', ['from' => $session['user']['location'], 'to' => $city, 'cost' => 0]);
             $cost = max(1, $cost['cost'], $httpcost);
             $reallyfree = $free - $cost;
@@ -124,7 +124,7 @@ if ('travel' == $op)
                     $session['user']['specialmisc'] = '';
                     $skipvillagedesc = true;
                     $op = '';
-                    \LotgdHttp::setQuery('op', '');
+                    \LotgdRequest::setQuery('op', '');
 
                     \LotgdNavigation::addNav('navs.continue', "runmodule.php?module=cities&op=travel&city={$ccity}&d={$danger}&continue=1", [
                         'textDomain' => 'cities-navigation'

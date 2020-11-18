@@ -72,7 +72,7 @@ function azrael_runevent($type)
     $session['user']['specialinc'] = '';
     $from = 'village.php?';
     $city = get_module_setting('azraelloc');
-    $op = \LotgdHttp::getQuery('op');
+    $op = \LotgdRequest::getQuery('op');
 
     $textDomain = 'module-azrael';
 

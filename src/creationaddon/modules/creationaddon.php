@@ -77,12 +77,12 @@ function creationaddon_dohook($hookname, $args)
 {
     global $session;
 
-    $age = \LotgdHttp::getPost('age');
-    $month = \LotgdHttp::getPost('month');
-    $day = \LotgdHttp::getPost('day');
-    $year = \LotgdHttp::getPost('year');
-    $terms = \LotgdHttp::getPost('terms');
-    $privacy = \LotgdHttp::getPost('privacy');
+    $age = \LotgdRequest::getPost('age');
+    $month = \LotgdRequest::getPost('month');
+    $day = \LotgdRequest::getPost('day');
+    $year = \LotgdRequest::getPost('year');
+    $terms = \LotgdRequest::getPost('terms');
+    $privacy = \LotgdRequest::getPost('privacy');
 
     switch ($hookname)
     {
@@ -96,7 +96,7 @@ function creationaddon_dohook($hookname, $args)
             // We are going to check the bad name list.
             if (get_module_setting('filter_badnames'))
             {
-                $name = (string) \LotgdHttp::getPost('name');
+                $name = (string) \LotgdRequest::getPost('name');
                 $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModCreationAddon::class);
                 $result = $repository->findAll();
 
@@ -260,7 +260,7 @@ function creationaddon_run()
 {
     global $session;
 
-    $op = (string) \LotgdHttp::getQuery('op');
+    $op = (string) \LotgdRequest::getQuery('op');
 
     switch ($op)
     {
@@ -286,7 +286,7 @@ function creationaddon_list()
 
     \LotgdResponse::pageStart('superuser.editor', [], 'module-creationaddon');
 
-    $page = (int) \LotgdHttp::getQuery('page', 1);
+    $page = (int) \LotgdRequest::getQuery('page', 1);
     \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
 
@@ -310,7 +310,7 @@ function creationaddon_delete()
 {
     global $session;
 
-    $bad_id = (int) \LotgdHttp::getQuery('bad_id', 0);
+    $bad_id = (int) \LotgdRequest::getQuery('bad_id', 0);
 
     \LotgdResponse::pageStart('superuser.editor', [], 'module-creationaddon');
 
@@ -346,7 +346,7 @@ function creationaddon_add()
     \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
 
-    $banname = (string) \LotgdHttp::getPost('bname', '');
+    $banname = (string) \LotgdRequest::getPost('bname', '');
 
     if ($banname)
     {

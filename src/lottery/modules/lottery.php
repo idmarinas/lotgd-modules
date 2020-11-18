@@ -147,7 +147,7 @@ function lottery_run()
 {
     global $session;
 
-    $op = (string) \LotgdHttp::getQuery('op');
+    $op = (string) \LotgdRequest::getQuery('op');
     $cost = get_module_setting('ticketcost');
     $numbers = get_module_setting('todaysnumbers');
     $prize = get_module_setting('prize');
@@ -161,13 +161,13 @@ function lottery_run()
     if ('buy' == $op)
     {
         $op = 'store';
-        \LotgdHttp::setQuery('op', $op);
+        \LotgdRequest::setQuery('op', $op);
 
         $message = 'flash.message.error.gold';
 
         if ($session['user']['gold'] >= $cost)
         {
-            $lotto = \LotgdHttp::getPost('lotto');
+            $lotto = \LotgdRequest::getPost('lotto');
 
             $message = 'flash.message.error.lotto';
 

@@ -40,7 +40,7 @@ function findring_runevent($type, $link)
     global $session;
 
     $from = $link;
-    $op = (string) \LotgdHttp::getQuery('op');
+    $op = (string) \LotgdRequest::getQuery('op');
     $session['user']['specialinc'] = 'module:findring';
 
     $params = [
