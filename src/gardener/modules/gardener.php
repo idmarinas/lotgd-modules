@@ -68,7 +68,7 @@ function gardener_dohook($hookname, $args)
                 \LotgdNavigation::addNavNotl('Gazebo', 'runmodule.php?module=gardener');
 
                 $customtext = get_module_setting('customtext');
-                output_notl('`n`%%s`0', $customtext);
+                \LotgdResponse::pageAddContent(appoencode(sprintf('`n`%%s`0', $customtext), true));
             }
         break;
         case 'footer-runmodule':
