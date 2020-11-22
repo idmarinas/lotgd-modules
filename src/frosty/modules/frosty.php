@@ -106,9 +106,7 @@ function frosty_runevent($type)
 
                     debuglog("lost $loss gold ignoring frosty");
                 break;
-                case 4:
                 default:
-                    output("`n`nThe girl's crying fades quickly as you stride away.");
                 break;
             }
             $session['user']['specialinc'] = '';
