@@ -61,7 +61,7 @@ function inv_statvalues_dohook($hookname, $args)
             if (0 != $attack || 0 != $defense || 0 != $maxhitpoints)
             {
                 debuglog("'s stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
-                debug("Your stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
+                \LotgdResponse::pageDebug("Your stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
 
                 $args['inv_statvalues_result'] = true;
             }
@@ -88,7 +88,7 @@ function inv_statvalues_dohook($hookname, $args)
                 {
                     $args['inv_statvalues_result'][$id] = true;
                     debuglog("'s stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
-                    debug("Your stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
+                    \LotgdResponse::pageDebug("Your stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
                 }
             }
         break;
@@ -113,7 +113,7 @@ function inv_statvalues_dohook($hookname, $args)
                 if (0 != $attack || 0 != $defense || 0 != $maxhitpoints)
                 {
                     debuglog("'s stats changed due to equipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
-                    debug("Your stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
+                    \LotgdResponse::pageDebug("Your stats changed due to unequipping item $id: attack: $attack, defense: $defense, maxhitpoints: $maxhitpoints");
                 }
 
                 $item->setEquipped(false);
@@ -131,4 +131,5 @@ function inv_statvalues_dohook($hookname, $args)
 
 function inv_statvalues_run()
 {
+    // not used
 }
