@@ -110,7 +110,7 @@ if (! $session['user']['dragonkills'] && $session['user']['age'] <= 1 && $greenp
     $alert = '- '.\LotgdTranslator::t('section.charstats.alert', [], 'module-staminasystem');
 }
 
-$new = "<a id='module-staminasystem-show' href='' onclick=\"JaxonLotgd.Ajax.Local.ModuleStaminaSystem.show(this); $(this).addClass('disabled'); return false;\"><div data-content='$pctoftotal% $alert' class='ui lotgd tooltip tiny progress remove margin $color staminasystem staminabar' data-value='$stamina' data-total='$daystamina'><div class='bar'></div></div></a>";
+$new = "<a id='module-staminasystem-show' href='' onclick=\"JaxonLotgd.Ajax.Local.ModuleStaminaSystem.show(this); $(this).addClass('loading disabled'); return false;\"><div data-content='$pctoftotal% $alert' class='ui lotgd tooltip tiny progress remove margin $color staminasystem staminabar' data-value='$stamina' data-total='$daystamina'><div class='bar'></div></div></a>";
 
 setcharstat(
     \LotgdTranslator::t('statistic.category.character.info', [], 'app-default'),

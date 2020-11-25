@@ -4,6 +4,7 @@ namespace Lotgd\Ajax\Local;
 
 use Jaxon\Response\Response;
 use Lotgd\Core\AjaxAbstract;
+use Tracy\Debugger;
 
 require_once 'modules/staminasystem/lib/lib.php';
 
@@ -76,7 +77,7 @@ class ModuleStaminaSystem extends AjaxAbstract
             $params['buffList'] = \unserialize(get_module_pref('buffs', 'staminasystem'));
 
             // Dialog content
-            $content = LotgdTheme::render('@module/staminasystem/run/show.twig', $params);
+            $content = \LotgdTheme::render('@module/staminasystem/run/show.twig', $params);
 
             // Dialog title
             $title = \LotgdTranslator::t('title.show', [], $this->getTextDomain());
@@ -92,16 +93,19 @@ class ModuleStaminaSystem extends AjaxAbstract
             //-- Options
             $options = [
                 'autofocus' => false,
+                'classModal' => 'overlay fullscreen'
             ];
 
             $response->dialog->show($title, ['content' => $content, 'isScrollable' => true], $buttons, $options);
-            $response->jQuery('#module-staminasystem-show')->removeClass('disabled');
+            $response->jQuery('#module-staminasystem-show')->removeClass('loading disabled');
+            $response->jQuery('.ui.lotgd.tabular.menu .item')->tab();
+            $response->jQuery('.ui.lotgd.progress')->progress([ 'precision' => 10 ]);
         }
         catch (\Throwable $th)
         {
             Debugger::log($th);
 
-            $response->dialog->error(\LotgdTranslator::t('jaxon.fail.inbox', [], $this->getTextDomain()));
+            $response->dialog->error(\LotgdTranslator::t('jaxon.fail.request', [], 'app-default'));
         }
 
         return $response;
