@@ -59,7 +59,9 @@ navigation:
     nav:
         editor: 'Stamina Actions management'
 
-charstats.stat: Stamina
+charstats:
+    stat: Stamina
+    action_used: 'Lv {lvl} (+`8 {exp}`0 xp)'
 
 buff:
     name: '`&Exhaustion`0'

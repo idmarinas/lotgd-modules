@@ -10,14 +10,14 @@ if (0 != get_module_setting('turns_emulation_base') && ! isset($badguy))
     while ($session['user']['turns'] < 10)
     {
         $session['user']['turns']++;
-        debug('Turns Removed');
+        \LotgdResponse::pageDebug('Turns Removed');
         removestamina($stamina);
     }
 
     while ($session['user']['turns'] > 10)
     {
         $session['user']['turns']--;
-        debug('Turns Added');
+        \LotgdResponse::pageDebug('Turns Added');
         addstamina($stamina);
     }
 }
@@ -52,7 +52,13 @@ if (isset($actions_used))
 
         $disp = "<div class='ui lotgd tiny indicating progress staminasystem action' data-percent='$pct'>
 			<div class='bar'></div>
-			<div class='label'>".translate_inline('Lv').$actions_used[$action]['lvlinfo']['lvl'].' (+`8'.$actions_used[$action]['exp_earned'].'`0 xp)</div>
+            <div class='label'>".\LotgdTranslator::t('charstats.action_used',
+                [
+                    'lvl' => $actions_used[$action]['lvlinfo']['lvl'],
+                    'exp' => $actions_used[$action]['exp_earned']
+                ],
+                'module-staminasystem'
+            ).'</div>
 		</div>';
         setcharstat($actionRecentTitle, $action, $disp);
 
@@ -62,7 +68,7 @@ if (isset($actions_used))
             stamina_minihof($action);
             $en = microtime(true);
             $to = $en - $st;
-            debug('Minihof: '.$to);
+            \LotgdResponse::pageDebug('Minihof: '.$to);
         }
     }
 }
@@ -104,7 +110,7 @@ if (! $session['user']['dragonkills'] && $session['user']['age'] <= 1 && $greenp
     $alert = '- '.\LotgdTranslator::t('section.charstats.alert', [], 'module-staminasystem');
 }
 
-$new = "<a id='staminasystem' data-size='fullscreen' data-force='true' href='runmodule.php?module=staminasystem&op=show' target='_blank' onclick=\"Lotgd.embed(this)\"><div data-content='$pctoftotal% $alert' class='ui lotgd tooltip tiny progress remove margin $color staminasystem staminabar' data-value='$stamina' data-total='$daystamina'><div class='bar'></div></div></a>";
+$new = "<a id='module-staminasystem-show' href='' onclick=\"JaxonLotgd.Ajax.Local.ModuleStaminaSystem.show(this); $(this).addClass('disabled')\"><div data-content='$pctoftotal% $alert' class='ui lotgd tooltip tiny progress remove margin $color staminasystem staminabar' data-value='$stamina' data-total='$daystamina'><div class='bar'></div></div></a>";
 
 setcharstat(
     \LotgdTranslator::t('statistic.category.character.info', [], 'app-default'),

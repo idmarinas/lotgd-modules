@@ -11,6 +11,6 @@ $params = [
     'actions' => $actions
 ];
 
-\LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('staminasystem/run/superuser.twig', $params));
+\LotgdResponse::pageAddContent(LotgdTheme::render('@module/staminasystem/run/superuser.twig', $params));
 
 \LotgdResponse::pageEnd();
