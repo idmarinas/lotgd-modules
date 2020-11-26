@@ -89,7 +89,7 @@ function racedwarf_install()
             \Doctrine::persist($entity);
             \Doctrine::flush();
 
-            debug('Inserted new companion: Grizzly Bear');
+            \LotgdResponse::pageDebug('Inserted new companion: Grizzly Bear');
         }
     }
     catch (\Throwable $th)

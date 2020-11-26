@@ -44,7 +44,7 @@ function statue_install()
 }
 function statue_uninstall()
 {
-    debug('Uninstalling module.');
+    \LotgdResponse::pageDebug('Uninstalling module.');
 
     return true;
 }
@@ -81,15 +81,15 @@ function statue_dohook($hookname, $args)
     switch ($hookname)
     {
         case 'newday-runonce':
-            debug('Adding time to main');
+            \LotgdResponse::pageDebug('Adding time to main');
             increment_module_setting('time');
-            debug("\$time = {$time}");
+            \LotgdResponse::pageDebug("\$time = {$time}");
 
             foreach ($heros as $what => $city)
             {
-                debug("Adding time to {$what}");
+                \LotgdResponse::pageDebug("Adding time to {$what}");
                 $heros[$what]['time']++;
-                debug("\$city['time'] = {$city['time']}");
+                \LotgdResponse::pageDebug("\$city['time'] = {$city['time']}");
             }
         break;
         case 'village-desc':

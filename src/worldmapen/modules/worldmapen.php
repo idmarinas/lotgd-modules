@@ -321,7 +321,7 @@ function worldmapen_dohook($hookname, $args)
     }
     else
     {
-        debug("Sorry, I don't have the hook '{$hookname}' programmed.");
+        \LotgdResponse::pageDebug("Sorry, I don't have the hook '{$hookname}' programmed.");
     }
 
     //-- Restore text domain for navigation

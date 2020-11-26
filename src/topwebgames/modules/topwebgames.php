@@ -39,7 +39,7 @@ function topwebgames_install()
 
 function topwebgames_uninstall()
 {
-    debug('Uninstalling module.');
+    \LotgdResponse::pageDebug('Uninstalling module.');
 
     return true;
 }

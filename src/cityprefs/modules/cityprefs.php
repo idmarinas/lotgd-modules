@@ -28,7 +28,7 @@ function cityprefs_install()
     {
         if ($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO)
         {
-            debug('Installing cityprefs Module.');
+            \LotgdResponse::pageDebug('Installing cityprefs Module.');
         }
 
         if (! get_module_setting('data_imported', 1, 'cityprefs'))
@@ -119,7 +119,7 @@ function cityprefs_install()
     {
         if ($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO)
         {
-            debug('Updating cityprefs Module.');
+            \LotgdResponse::pageDebug('Updating cityprefs Module.');
         }
     }
 
@@ -131,10 +131,10 @@ function cityprefs_install()
 
 function cityprefs_uninstall()
 {
-    debug('Un-Installing cityprefs Module.');
+    \LotgdResponse::pageDebug('Un-Installing cityprefs Module.');
     \Doctrine::dropSchema(['LotgdLocal:ModuleCityprefs']);
 
-    debug('Dropping objprefs related to cities');
+    \LotgdResponse::pageDebug('Dropping objprefs related to cities');
     $objRepository = \Doctrine::getRepository('LotgdCore:ModuleObjprefs');
     //-- Updated location
     $query = $objRepository->getQueryBuilder();

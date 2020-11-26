@@ -51,7 +51,7 @@ function gardenparty_install()
 
 function gardenparty_uninstall()
 {
-    debug('Uninstalling module.');
+    \LotgdResponse::pageDebug('Uninstalling module.');
 
     return true;
 }

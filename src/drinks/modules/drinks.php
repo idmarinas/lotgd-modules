@@ -101,10 +101,10 @@ function drinks_install()
 
 function drinks_uninstall()
 {
-    debug('Dropping table drinks');
+    \LotgdResponse::pageDebug('Dropping table drinks');
     \Doctrine::dropSchema(['LotgdLocal:ModuleDrinks']);
 
-    debug('Dropping objprefs related to drinks');
+    \LotgdResponse::pageDebug('Dropping objprefs related to drinks');
     $objRepository = \Doctrine::getRepository('LotgdCore:ModuleObjprefs');
     //-- Updated location
     $query = $objRepository->getQueryBuilder();

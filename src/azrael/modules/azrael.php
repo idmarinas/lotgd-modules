@@ -132,7 +132,7 @@ function azrael_runevent($type)
                 $session['user']['gems'] -= $takegems;
                 $session['user']['gold'] -= $takegold;
 
-                debug("Lost $takegold gold and $takegems gems to the trick or treat kid.");
+                \LotgdResponse::pageDebug("Lost $takegold gold and $takegems gems to the trick or treat kid.");
             }
             else
             {

@@ -568,7 +568,7 @@ function worldmapen_getTerrain($x, $y, $z)
 
 function worldmapen_setTerrain($map, $x, $y, $z = 1, $type = 'forest')
 {
-    //	debug("x={$x}, y={$y}, z={$z}, type={$type}");
+    //	\LotgdResponse::pageDebug("x={$x}, y={$y}, z={$z}, type={$type}");
 
     if (\is_numeric($type))
     {
@@ -586,7 +586,7 @@ function worldmapen_setTerrain($map, $x, $y, $z = 1, $type = 'forest')
             case 9: $type = 'air'; break;
 
             default:
-                debug("Invalid terrain type '{$type}'. Setting to 'forest'.");
+                \LotgdResponse::pageDebug("Invalid terrain type '{$type}'. Setting to 'forest'.");
                 $type = 'forest';
             break;
         }
@@ -594,7 +594,7 @@ function worldmapen_setTerrain($map, $x, $y, $z = 1, $type = 'forest')
 
     if ($map[$z][$x][$y] != $type)
     {
-        debug("Changing type of ({$x}, {$y}) from '{$map[$z][$x][$y]}' to '{$type}'.");
+        \LotgdResponse::pageDebug("Changing type of ({$x}, {$y}) from '{$map[$z][$x][$y]}' to '{$type}'.");
 
         $map[$z][$x][$y] = $type;
     }
@@ -735,7 +735,7 @@ function worldmapen_saveMap(array $map)
 {
     if (empty($map))
     {
-        debug("Sorry, no map defined until now. Can't save a nonexisting map. Will generate a new world.");
+        \LotgdResponse::pageDebug("Sorry, no map defined until now. Can't save a nonexisting map. Will generate a new world.");
 
         $map = worldmapen_generateNewMap();
     }
@@ -754,7 +754,7 @@ function worldmapen_generateNewMap($defaultTerrain = 'forest')
 
     if ( ! \array_key_exists($defaultTerrain, $terrains))
     {
-        debug("Invalid terrain type '{$defaultTerrain}'. Using 'forest' instead.");
+        \LotgdResponse::pageDebug("Invalid terrain type '{$defaultTerrain}'. Using 'forest' instead.");
         $defaultTerrain = 'forest';
     }
 
@@ -773,7 +773,7 @@ function worldmapen_generateNewMap($defaultTerrain = 'forest')
         }
     }
 
-    debug("Map with size {$maxX} x {$maxY} generated with default '{$defaultTerrain}'.");
+    \LotgdResponse::pageDebug("Map with size {$maxX} x {$maxY} generated with default '{$defaultTerrain}'.");
 
     return $retValue;
 }

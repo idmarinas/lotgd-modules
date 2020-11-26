@@ -35,7 +35,7 @@ function worldmapen_editor_real()
     $act = \LotgdRequest::getQuery('act');
     $subop = \LotgdRequest::getQuery('subop');
 
-    debug("op={$op}, act={$act}, subop={$subop}");
+    \LotgdResponse::pageDebug("op={$op}, act={$act}, subop={$subop}");
 
     switch ($subop)
     {

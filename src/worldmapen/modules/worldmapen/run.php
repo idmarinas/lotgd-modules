@@ -22,7 +22,7 @@ function worldmapen_run_real()
 
     if ('move' == $op && rawurldecode(\LotgdRequest::getQuery('oloc')) != get_module_pref('worldXYZ'))
     {
-        debug(get_module_pref('worldXYZ'));
+        \LotgdResponse::pageDebug(get_module_pref('worldXYZ'));
         $op = 'continue';
         \LotgdRequest::setQuery('op', $op);
     }
@@ -188,7 +188,7 @@ function worldmapen_run_real()
         $xyz = $x.','.$y.','.$z;
         set_module_pref('worldXYZ', $xyz, 'worldmapen');
 
-        debug("Encounter: {$encounterbase} * {$encounterchance} / 100 = {$encounter}");
+        \LotgdResponse::pageDebug("Encounter: {$encounterbase} * {$encounterchance} / 100 = {$encounter}");
 
         //Extra Gubbins pertaining to trading Turns for Travel, added by Caveman Joe
         $useturns = get_module_setting('useturns');

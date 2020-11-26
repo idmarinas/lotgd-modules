@@ -354,7 +354,7 @@ function restore_all_stamina_buffs($userid = false)
             $bufflist[$buff]['suspended'] = false;
         }
     }
-    //debug("restoring buffs");
+    //\LotgdResponse::pageDebug("restoring buffs");
     set_module_pref('buffs', serialize($bufflist), 'staminasystem', $userid);
 }
 
@@ -367,15 +367,15 @@ function mass_suspend_stamina_buffs($name, $userid = false)
         $userid = $session['user']['acctid'];
     }
     $bufflist = unserialize(get_module_pref('buffs', 'staminasystem', $userid));
-    // debug($bufflist);
+    // \LotgdResponse::pageDebug($bufflist);
     if (is_array($bufflist) && count($bufflist) > 0)
     {
-        // debug("Okay, it's an array");
+        // \LotgdResponse::pageDebug("Okay, it's an array");
         foreach ($bufflist as $buff => $values)
         {
             if (false !== strpos($buff, $name))
             {
-                //debug("Suspending buff ".$buff);
+                //\LotgdResponse::pageDebug("Suspending buff ".$buff);
                 $bufflist[$buff]['suspended'] = true;
                 $rtrue = true;
             }
@@ -1304,7 +1304,7 @@ function stamina_minihof_old($action, $userid = false)
 
     $en = microtime(true);
     $to = $en - $st;
-    debug('Cache: '.$to);
+    \LotgdResponse::pageDebug('Cache: '.$to);
 
     if (! is_array($boardinfo))
     {
@@ -1338,7 +1338,7 @@ function stamina_minihof_old($action, $userid = false)
 
     $smallboard = stamina_minihof_smallboard($boardinfo, $userid);
 
-    debug($smallboard);
+    \LotgdResponse::pageDebug($smallboard);
 }
 
 function stamina_minihof_sort($x, $y)
@@ -1378,7 +1378,7 @@ function stamina_minihof_smallboard_old($boardinfo, $userid = false)
 
     if ($smallboard[2]['xp'] > $smallboard[1]['xp'])
     {
-        debug('resorting...');
+        \LotgdResponse::pageDebug('resorting...');
         usort($smallboard, 'stamina_minihof_sort');
     }
 
@@ -1399,11 +1399,11 @@ function stamina_minihof_assignranks_old($board)
     }
     $en = microtime(true);
     $to = $en - $st;
-    debug("Rank assignment: $to");
+    \LotgdResponse::pageDebug("Rank assignment: $to");
     $boardinfo = [];
     $boardinfo['board'] = $board;
     $boardinfo['ranks'] = $ranks;
-    debug($ranks);
+    \LotgdResponse::pageDebug($ranks);
 
     return $boardinfo;
 }

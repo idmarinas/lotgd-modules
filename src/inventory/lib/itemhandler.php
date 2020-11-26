@@ -275,19 +275,19 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
 
     if (0 != $inventoryStat['inventoryLimitItems'] && $inventoryStat['inventoryCount'] >= $inventoryStat['inventoryLimitItems'])
     {
-        debug('Too many items, will not add this one!');
+        \LotgdResponse::pageDebug('Too many items, will not add this one!');
 
         return false;
     }
     elseif ($inventoryStat['inventoryLimitWeight'] && $inventoryStat['inventoryWeight'] >= $inventoryStat['inventoryLimitWeight'])
     {
-        debug("Items are too heavy. Item hasn't been added!");
+        \LotgdResponse::pageDebug("Items are too heavy. Item hasn't been added!");
 
         return false;
     }
     elseif ($qty <= 0)
     {
-        debug('Zero items added.');
+        \LotgdResponse::pageDebug('Zero items added.');
 
         return false;
     }
@@ -316,7 +316,7 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
 
             if ($count)
             {
-                debug('UNIQUE item has not been added because already someone else owns this!');
+                \LotgdResponse::pageDebug('UNIQUE item has not been added because already someone else owns this!');
 
                 return false;
             }
@@ -328,7 +328,7 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
 
             if ($count)
             {
-                debug('UNIQUEFORPLAYER item has not been added because this player already owns this item!');
+                \LotgdResponse::pageDebug('UNIQUEFORPLAYER item has not been added because this player already owns this item!');
 
                 return false;
             }
@@ -384,51 +384,51 @@ function inventory_get_max_add($itemid, $qty = 1, $user = 0)
         $maxitems_weight = max(0, floor(($inventoryStat['inventoryLimitWeight'] - $inventoryStat['inventoryWeight']) / $item_raw->getWeight()));
     }
 
-    debug("Trying to add $qty items. Item's weight is {$item_raw->getWeight()}");
+    \LotgdResponse::pageDebug("Trying to add $qty items. Item's weight is {$item_raw->getWeight()}");
 
     if ($inventoryStat['inventoryLimitItems'] > 0)
     {
-        debug("In theory only $maxitems_count should be added (totalcount)");
+        \LotgdResponse::pageDebug("In theory only $maxitems_count should be added (totalcount)");
     }
     else
     {
-        debug('There is no restriction on quantity active.');
+        \LotgdResponse::pageDebug('There is no restriction on quantity active.');
     }
 
     if ($inventoryStat['inventoryLimitWeight'] > 0)
     {
-        debug("In theory only $maxitems_weight should be added (totalweight)");
+        \LotgdResponse::pageDebug("In theory only $maxitems_weight should be added (totalweight)");
     }
     else
     {
-        debug('There is no restriction on weight active.');
+        \LotgdResponse::pageDebug('There is no restriction on weight active.');
     }
 
     if ($inventoryStat['inventoryLimitItems'] > 0 && $inventoryStat['inventoryLimitWeight'] > 0 && $item_raw->getWeight())
     {
         // limitation on total qty AND weight AND item is not weightless
         $qty = min($qty, $maxitems_count, $maxitems_weight);
-        debug("Reducing real quantity to $qty. (count/weight-restriction)");
+        \LotgdResponse::pageDebug("Reducing real quantity to $qty. (count/weight-restriction)");
     }
 
     if ($inventoryStat['inventoryLimitWeight'] > 0 && 0 == $inventoryStat['inventoryLimitItems'] && $item_raw->getWeight() > 0)
     {
         // no limitation on total qty AND item is not weightless
         $qty = min($qty, $maxitems_weight);
-        debug("Reducing real quantity to $qty. (weight-restriction)");
+        \LotgdResponse::pageDebug("Reducing real quantity to $qty. (weight-restriction)");
     }
 
     if ($inventoryStat['inventoryLimitItems'] > 0 && 0 == $inventoryStat['inventoryLimitWeight'])
     {
         // no limitation on weight.
         $qty = min($qty, $maxitems_count);
-        debug("Reducing real quantity to $qty. (count-restriction)");
+        \LotgdResponse::pageDebug("Reducing real quantity to $qty. (count-restriction)");
     }
 
-    debug("Totalcount / MaxCount is: {$inventoryStat['inventoryCount']} / {$inventoryStat['inventoryLimitItems']}");
-    debug("MaxWeight is: {$inventoryStat['inventoryLimitWeight']} / {$inventoryStat['inventoryLimitWeight']}");
-    debug('Item weight: '.$item_raw->getWeight());
-    debug("Quantity to add was: $qty");
+    \LotgdResponse::pageDebug("Totalcount / MaxCount is: {$inventoryStat['inventoryCount']} / {$inventoryStat['inventoryLimitItems']}");
+    \LotgdResponse::pageDebug("MaxWeight is: {$inventoryStat['inventoryLimitWeight']} / {$inventoryStat['inventoryLimitWeight']}");
+    \LotgdResponse::pageDebug('Item weight: '.$item_raw->getWeight());
+    \LotgdResponse::pageDebug("Quantity to add was: $qty");
 
     return $qty;
 }
@@ -569,7 +569,7 @@ function uncharge_item($itemid, $user = false, $invid = false)
     }
     else
     {
-        debug('ERROR: Tried to uncharge item although no charges or no item present!');
+        \LotgdResponse::pageDebug('ERROR: Tried to uncharge item although no charges or no item present!');
     }
 
     $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
@@ -633,7 +633,7 @@ function recharge_item($itemid, $user = false, $invid = false)
     }
     else
     {
-        debug('ERROR: Tried to recharge non-present item!');
+        \LotgdResponse::pageDebug('ERROR: Tried to recharge non-present item!');
     }
 
     \LotgdCache::removeItem("inventory/user-{$user}");

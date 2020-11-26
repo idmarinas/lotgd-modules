@@ -73,7 +73,7 @@ function get_effect($item = false, $noeffecttext = '')
                 $out[] = [$args['msg'], $args['params'], $args['textDomain']];
                 $out[] = ['item.effect.text.problem', ['itemName' => $item['name'], $textDomain]];
 
-                debug("Cant load script of item {$item['itemid']}, file '{$execfile}' does not exists.");
+                \LotgdResponse::pageDebug("Cant load script of item {$item['itemid']}, file '{$execfile}' does not exists.");
             }
         }
         else
