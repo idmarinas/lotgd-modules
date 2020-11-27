@@ -265,19 +265,19 @@ function creationaddon_run()
     switch ($op)
     {
         case 'list':
-            creationaddon_list();
+            return creationaddon_list();
         break;
 
         case 'delete':
-            creationaddon_delete();
+            return creationaddon_delete();
         break;
 
         case 'add':
-            creationaddon_add();
+            return creationaddon_add();
         break;
     }
 
-    popup_footer();
+    \LotgdResponse::pageEnd();
 }
 
 function creationaddon_list()
