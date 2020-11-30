@@ -88,9 +88,8 @@ notify:
         title: "It's too late for you"
     note: 'The greater the tiring the greater the penalty to attack and defense.'
 
-flash.message.death:
-    0: "Vision blurring, you succumb to the effects of exhaustion. You take a step forward to strike your enemy, but instead trip over your own feet."
-    1: "As the carpet of leaves and twigs drifts lazily up to meet your face, you close your eyes and halfheartedly reach out your hands to cushion the blow - but they sail through the ground as if it were made out of clouds."
-    2: "You fall."
-    3: "Unconsciousness. How you'd missed it."
-    union: '<br>'
+flash.message.death: |
+    Vision blurring, you succumb to the effects of exhaustion. You take a step forward to strike your enemy, but instead trip over your own feet.
+    As the carpet of leaves and twigs drifts lazily up to meet your face, you close your eyes and halfheartedly reach out your hands to cushion the blow - but they sail through the ground as if it were made out of clouds.
+    You fall.
+    Unconsciousness. How you'd missed it.
