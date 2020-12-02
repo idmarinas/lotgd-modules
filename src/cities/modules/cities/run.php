@@ -62,7 +62,7 @@ if ('travel' == $op)
             // this line rewritten so as not to clash with the hitch module.
         }
 
-        \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('cities/run/travel.twig', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/cities/run/travel.twig', $params));
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
 
@@ -199,31 +199,12 @@ elseif ('fight' == $op || 'run' == $op)
 
         \LotgdNavigation::addNav('navs.enter', ['location' => $session['user']['location']], 'village.php');
 
-        \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('cities/run/escape.twig', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/cities/run/escape.twig', $params));
 
         \LotgdResponse::pageEnd();
     }
 
     $battle = true;
-}
-elseif ('faq' == $op)
-{
-    popup_header('section.faq.title', [], 'cities-module');
-
-    $newbieisland = get_module_setting('villagename', 'newbieisland');
-
-    $params = [
-        'travels' => get_module_setting('allowance'),
-        'capital' => getsetting('villagename', LOCATION_FIELDS),
-        'lodge' => file_exists('public/lodge.php'),
-        'newbieIsland' => is_module_active('newbieisland'),
-        'newbieIslandName' => $newbieisland,
-        'location' => (isset($session['user']['location']) && $session['user']['location'] == $newbieisland)
-    ];
-
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('cities/run/faq.twig', $params));
-
-    popup_footer();
 }
 elseif ('' == $op)
 {
