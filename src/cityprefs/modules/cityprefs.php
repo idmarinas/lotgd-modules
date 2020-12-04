@@ -359,7 +359,7 @@ function cityprefs_run()
                         {
                             $data = $form->getData();
 
-                            process_post_save_data($data, $cityId, $mdule);
+                            process_post_save_data_cityprefs($data, $cityId, $mdule);
 
                             \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.module.saved', [], $textDomain));
                         }
@@ -368,7 +368,7 @@ function cityprefs_run()
                     {
                         reset($post);
 
-                        process_post_save_data($post, $cityId, $mdule);
+                        process_post_save_data_cityprefs($post, $cityId, $mdule);
 
                         \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.module.saved', [], $textDomain));
                     }
@@ -435,13 +435,13 @@ function cityprefs_run()
     \LotgdResponse::pageEnd();
 }
 
-function process_post_save_data($data, $id, $module)
+function process_post_save_data_cityprefs($data, $id, $module)
 {
     foreach ($data as $key => $val)
     {
         if (is_array($val))
         {
-            process_post_save_data($val, $id, $module);
+            process_post_save_data_cityprefs($val, $id, $module);
 
             continue;
         }

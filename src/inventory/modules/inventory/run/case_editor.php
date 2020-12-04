@@ -108,7 +108,7 @@ switch ($op2)
                     {
                         $data = $form->getData();
 
-                        process_post_save_data($data, $id, $module);
+                        process_post_save_data_inventory($data, $id, $module);
 
                         \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
                     }
@@ -117,7 +117,7 @@ switch ($op2)
                 {
                     reset($post);
 
-                    process_post_save_data($post, $id, $module);
+                    process_post_save_data_inventory($post, $id, $module);
 
                     \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
                 }
@@ -367,13 +367,13 @@ switch ($op2)
 
 \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/editor.twig', $params));
 
-function process_post_save_data($data, $id, $module)
+function process_post_save_data_inventory($data, $id, $module)
 {
     foreach ($data as $key => $val)
     {
         if (is_array($val))
         {
-            process_post_save_data($val, $id, $module);
+            process_post_save_data_inventory($val, $id, $module);
 
             continue;
         }

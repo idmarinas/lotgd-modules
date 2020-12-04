@@ -222,7 +222,7 @@ elseif ('edit' == $op || 'add' == $op)
                 {
                     $data = $form->getData();
 
-                    process_post_save_data($data, $drinkid, $module);
+                    process_post_save_data_drinks($data, $drinkid, $module);
 
                     \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
                 }
@@ -231,7 +231,7 @@ elseif ('edit' == $op || 'add' == $op)
             {
                 reset($post);
 
-                process_post_save_data($post, $drinkid, $module);
+                process_post_save_data_drinks($post, $drinkid, $module);
 
                 \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
             }
@@ -255,13 +255,13 @@ elseif ('edit' == $op || 'add' == $op)
 
 \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('drinks/run/superuser.twig', $params));
 
-function process_post_save_data($data, $id, $module)
+function process_post_save_data_drinks($data, $id, $module)
 {
     foreach ($data as $key => $val)
     {
         if (is_array($val))
         {
-            process_post_save_data($val, $id, $module);
+            process_post_save_data_drinks($val, $id, $module);
 
             continue;
         }
