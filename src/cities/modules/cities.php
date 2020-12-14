@@ -343,7 +343,7 @@ function cities_dohook($hookname, $args)
         break;
         case 'stablelocs':
         case 'camplocs':
-            $args[$city] = \LotgdTranslator::t('locs', ['village' => $city], 'cities-module');
+            $args[$city] = ['locs', ['village' => $city], 'cities-module'];
         break;
     }
 
