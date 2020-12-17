@@ -34,6 +34,6 @@ trait MapEditor
             'terrainColor' => worldmapen_getColorDefinitions()
         ];
 
-        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/map-editor.twig', $params);
+        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/map-editor.twig', $params);
     }
 }

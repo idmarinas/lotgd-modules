@@ -35,6 +35,6 @@ trait MapEditTerrain
             'terrainDefs' => worldmapen_loadTerrainDefs()
         ];
 
-        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/map-edit.twig', $params);
+        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/map-edit.twig', $params);
     }
 }

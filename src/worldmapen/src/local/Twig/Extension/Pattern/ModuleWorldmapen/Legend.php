@@ -28,6 +28,6 @@ trait Legend
             'terrainDef' => worldmapen_loadTerrainDefs()
         ];
 
-        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/legend.twig', $params);
+        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/legend.twig', $params);
     }
 }

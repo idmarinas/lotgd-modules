@@ -47,6 +47,6 @@ trait Map
             'terrainColor' => worldmapen_getColorDefinitions()
         ];
 
-        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/map.twig', $params);
+        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/map.twig', $params);
     }
 }

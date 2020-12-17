@@ -11,6 +11,6 @@ trait Compass
     {
         $params['textDomain'] = 'module-worldmapen';
 
-        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/compass.twig', $params);
+        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/compass.twig', $params);
     }
 }

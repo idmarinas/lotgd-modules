@@ -46,6 +46,6 @@ trait MiniMap
 
         $params['rowSpanY'] = $params['sizeY'] + 1;
 
-        return $this->getTheme()->renderModuleTemplate('worldmapen/twig/mini-map.twig', $params);
+        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/mini-map.twig', $params);
     }
 }
