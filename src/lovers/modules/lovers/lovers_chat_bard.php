@@ -1,16 +1,16 @@
 <?php
 
-$act = (string) \LotgdRequest::getQuery('act');
+$act           = (string) \LotgdRequest::getQuery('act');
 $params['act'] = $act;
 
-if (! $act)
+if ( ! $act)
 {
     \LotgdNavigation::addNav('navigation.nav.chat.bard.ask', 'runmodule.php?module=lovers&op=chat&act=armor');
     \LotgdNavigation::addNav('navigation.nav.chat.bard.sports', 'runmodule.php?module=lovers&op=chat&act=sports');
 }
 elseif ('sports' != $act)
 {
-    $charm = $session['user']['charm'] + mt_rand(-1, 1);
+    $charm = $session['user']['charm'] + \mt_rand(-1, 1);
 
     switch ($charm)
     {

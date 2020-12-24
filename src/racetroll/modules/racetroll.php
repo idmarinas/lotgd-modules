@@ -7,19 +7,19 @@
 function racetroll_getmoduleinfo()
 {
     return [
-        'name' => 'Race - Troll',
-        'version' => '2.0.0',
-        'author' => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Race - Troll',
+        'version'  => '2.0.0',
+        'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Races',
         'download' => 'core_module',
         'settings' => [
             'Trollish Race Settings,title',
-            'villagename' => 'Name for the troll village|Glukmoore',
+            'villagename'     => 'Name for the troll village|Glukmoore',
             'minedeathchance' => 'Chance for Trolls to die in the mine,range,0,100,1|90',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -157,13 +157,13 @@ function racetroll_dohook($hookname, $args)
         case 'pvpadjust':
             if ($args['race'] == $race)
             {
-                $args['creatureattack'] += (1 + floor($args['creaturelevel'] / 5));
+                $args['creatureattack'] += (1 + \floor($args['creaturelevel'] / 5));
             }
         break;
         case 'adjuststats':
             if ($args['race'] == $race)
             {
-                $args['attack'] += (1 + floor($args['level'] / 5));
+                $args['attack'] += (1 + \floor($args['level'] / 5));
             }
         break;
         case 'raceminedeath':
@@ -197,7 +197,7 @@ function racetroll_dohook($hookname, $args)
                 if (is_module_active('cities'))
                 {
                     $moduleUserPrefsRepository = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
-                    $query = $moduleUserPrefsRepository->getQueryBuilder();
+                    $query                     = $moduleUserPrefsRepository->getQueryBuilder();
                     $query->update('LotgdCore:ModuleUserprefs', 'u')
                         ->set('u.value', ':new')
                         ->where('u.modulename = :cities AND settings = :home AND u.value = :old')
@@ -217,9 +217,9 @@ function racetroll_dohook($hookname, $args)
             \LotgdNavigation::addNav('character.racename', "newday.php?setrace={$race}{$resline}");
 
             $params = [
-                'city' => $city,
-                'race' => $race,
-                'resLine' => $resline
+                'city'    => $city,
+                'race'    => $race,
+                'resLine' => $resline,
             ];
 
             \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racetroll/dohook/chooserace.twig', $params));
@@ -234,7 +234,7 @@ function racetroll_dohook($hookname, $args)
                     if (0 == $session['user']['dragonkills'] && 0 == $session['user']['age'])
                     {
                         //new farmthing, set them to wandering around this city.
-                        set_module_setting("newest-$city", $session['user']['acctid'], 'cities');
+                        set_module_setting("newest-{$city}", $session['user']['acctid'], 'cities');
                     }
                     set_module_pref('homecity', $city, 'cities');
 
@@ -249,13 +249,13 @@ function racetroll_dohook($hookname, $args)
         case 'validlocation':
             if (is_module_active('cities'))
             {
-                $args[$city] = "village-$race";
+                $args[$city] = "village-{$race}";
             }
         break;
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args["village-$race"] = \LotgdTranslator::t('locs.moderate', ['city' => $city], $race);
+                $args["village-{$race}"] = \LotgdTranslator::t('locs.moderate', ['city' => $city], $race);
             }
         break;
         case 'newday':
@@ -263,19 +263,19 @@ function racetroll_dohook($hookname, $args)
             {
                 racetroll_checkcity();
                 apply_buff('racialbenefit', [
-                    'name' => \LotgdTranslator::t('racial.buff.name', [], $race),
-                    'atkmod' => '(<attack>?(1+((1+floor(<level>/5))/<attack>)):1)',
-                    'allowinpvp' => 1,
+                    'name'         => \LotgdTranslator::t('racial.buff.name', [], $race),
+                    'atkmod'       => '(<attack>?(1+((1+floor(<level>/5))/<attack>)):1)',
+                    'allowinpvp'   => 1,
                     'allowintrain' => 1,
-                    'rounds' => -1,
-                    'schema' => 'raceelf-module',
+                    'rounds'       => -1,
+                    'schema'       => 'raceelf-module',
                 ]);
             }
         break;
         case 'travel':
             $capital = getsetting('villagename', LOCATION_FIELDS);
-            $hotkey = substr($city, 0, 1);
-            $ccity = urlencode($city);
+            $hotkey  = \substr($city, 0, 1);
+            $ccity   = \urlencode($city);
 
             //-- Change text domain for navigation
             \LotgdNavigation::setTextDomain('cities-navigation');
@@ -284,14 +284,14 @@ function racetroll_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.travel.safer');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
             elseif ($session['user']['location'] != $city)
             {
                 \LotgdNavigation::addHeader('headers.travel.dangerous');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -299,7 +299,7 @@ function racetroll_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -311,31 +311,31 @@ function racetroll_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain'] = 'racetroll-village-village';
+                $args['textDomain']           = 'racetroll-village-village';
                 $args['textDomainNavigation'] = 'racetroll-village-navigation';
             }
         break;
         case 'page-village-tpl-params':
             if ($session['user']['location'] == $city)
             {
-                $args['village'] = $city;
+                $args['village']           = $city;
                 $args['commentarySection'] = "village-{$race}"; //-- Commentary section
 
                 //-- Newest player in realm
                 $args['newestplayer'] = (int) get_module_setting("newest-{$city}", 'cities');
-                $args['newestname'] = (string) get_module_setting("newest-{$city}-name", 'cities');
+                $args['newestname']   = (string) get_module_setting("newest-{$city}-name", 'cities');
 
                 $args['newtext'] = 'newestOther';
 
                 if ($args['newestplayer'] == $session['user']['acctid'])
                 {
-                    $args['newtext'] = 'newestPlayer';
+                    $args['newtext']    = 'newestPlayer';
                     $args['newestname'] = $session['user']['name'];
                 }
-                elseif (! $args['newestname'] && $args['newestplayer'])
+                elseif ( ! $args['newestname'] && $args['newestplayer'])
                 {
                     $characterRepository = \Doctrine::getRepository('LotgdCore:Characters');
-                    $args['newestname'] = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
+                    $args['newestname']  = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
             }

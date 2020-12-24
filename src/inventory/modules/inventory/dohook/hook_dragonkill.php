@@ -1,20 +1,20 @@
 <?php
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
-$inventory = $repository->getInventoryOfCharacter($session['user']['acctid']);
+$inventory  = $repository->getInventoryOfCharacter($session['user']['acctid']);
 
-$ids = [];
+$ids   = [];
 $count = 0;
 
 foreach ($inventory as $item)
 {
     $destroyed = 0;
 
-    for ($i = 0; $i < $item['quantity']; $i++)
+    for ($i = 0; $i < $item['quantity']; ++$i)
     {
-        if ($item['item']['dkLooseChance'] >= mt_rand(1, 100))
+        if ($item['item']['dkLooseChance'] >= \mt_rand(1, 100))
         {
-            $destroyed++;
+            ++$destroyed;
         }
     }
 
@@ -32,7 +32,7 @@ foreach ($inventory as $item)
     $count += $destroyed;
 }
 
-if (count($ids))
+if (\count($ids))
 {
     modulehook('unequip-item', ['ids' => $ids]);
 }

@@ -8,13 +8,13 @@ Author:  CortalUX, modified by DaveS and Selenity Hyperion
 function alignmentevents_getmoduleinfo()
 {
     return [
-        'name' => 'Alignment Events',
-        'version' => '4.0.0',
-        'author' => '`@CortalUX`7, modified by DaveS and `0`b`&Se`0`)le`0`4nity`0 `&Hy`0`)pe`0`4rion`0`b, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Alignment Events',
+        'version'  => '4.0.0',
+        'author'   => '`@CortalUX`7, modified by DaveS and `0`b`&Se`0`)le`0`4nity`0 `&Hy`0`)pe`0`4rion`0`b, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=334',
         'settings' => [
-            'alignbad' => 'Alignment points lost being evil, int|1',
+            'alignbad'  => 'Alignment points lost being evil, int|1',
             'aligngood' => 'Alignment points gained for being good, int|1',
         ],
         'prefs' => [
@@ -23,7 +23,7 @@ function alignmentevents_getmoduleinfo()
         ],
         'requires' => [
             'alignment' => '>=2.0.0|Chris Vorndran, WebPixie',
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
+            'lotgd'     => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
         ],
     ];
 }
@@ -69,12 +69,12 @@ function alignmentevents_runevent($type)
 {
     global $session;
 
-    $op = LotgdRequest::getQuery('op');
+    $op    = LotgdRequest::getQuery('op');
     $event = (int) LotgdRequest::getQuery('op2');
 
     $params = [
         'textDomain' => 'module-alignmentevents',
-        'playerName' => $session['user']['name']
+        'playerName' => $session['user']['name'],
     ];
 
     //-- Change text domain for navigation
@@ -82,8 +82,8 @@ function alignmentevents_runevent($type)
 
     if ('' == $op)
     {
-        $params['tpl'] = 'default';
-        $params['event'] = mt_rand(1, 12);
+        $params['tpl']   = 'default';
+        $params['event'] = \mt_rand(1, 12);
 
         $session['user']['specialinc'] = 'module:alignmentevents';
         set_module_pref('aligntried', 1);

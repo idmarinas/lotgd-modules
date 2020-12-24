@@ -6,14 +6,14 @@
 function findgem_getmoduleinfo()
 {
     return [
-        'name' => 'Find Gems',
-        'version' => '2.0.0',
-        'author' => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Find Gems',
+        'version'  => '2.0.0',
+        'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -39,7 +39,7 @@ function findgem_runevent($type, $link)
 {
     global $session;
 
-    $session['user']['gems']++;
+    ++$session['user']['gems'];
 
     \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('findgem/runevent.twig', ['textDomain' => 'module-findgem']));
 

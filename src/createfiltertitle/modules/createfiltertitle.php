@@ -6,14 +6,14 @@
 function createfiltertitle_getmoduleinfo()
 {
     return [
-        'name' => 'Title Filter at Creation',
+        'name'     => 'Title Filter at Creation',
         'category' => 'Administrative',
-        'author' => 'dying, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '1.0.0',
+        'author'   => 'dying, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'version'  => '1.0.0',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -36,16 +36,16 @@ function createfiltertitle_dohook($hookname, $args)
     switch ($hookname)
     {
         case 'check-create':
-            if (! isset($args['name']))
+            if ( ! isset($args['name']))
             {
                 return $args;
             } //-- If not defined not check nothing
 
             $repository = \Doctrine::getRepository('LotgdCore:Titles');
-            $result = $repository->findAll();
-            $titles = $repository->extractEntity($result);
+            $result     = $repository->findAll();
+            $titles     = $repository->extractEntity($result);
 
-            $name = str_replace(' ', '', $args['name']);
+            $name = \str_replace(' ', '', $args['name']);
 
             foreach ($titles as $title)
             {
@@ -74,16 +74,14 @@ function createfiltertitle_dohook($hookname, $args)
  *
  * @param string $name
  * @param string $title
- *
- * @return void
  */
 function hasCoreTitle($name, $title): bool
 {
-    $tf = str_replace(' ', '', $title);
+    $tf = \str_replace(' ', '', $title);
     $f1 = '/^'.$tf.'/i';
     $f2 = '/'.$tf.'$/i';
 
-    if ((preg_match($f1, $name) > 0) || (preg_match($f2, $name) > 0))
+    if ((\preg_match($f1, $name) > 0) || (\preg_match($f2, $name) > 0))
     {
         return true;
     }

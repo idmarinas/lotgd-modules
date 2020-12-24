@@ -8,15 +8,15 @@ use Twig\TwigFunction;
 
 class ModuleWorldmapen extends AbstractExtension
 {
-    use PatternCore\Template;
-    use PatternCore\Translator;
     use Pattern\ModuleWorldmapen\Campers;
     use Pattern\ModuleWorldmapen\Compass;
     use Pattern\ModuleWorldmapen\Legend;
+    use Pattern\ModuleWorldmapen\Map;
     use Pattern\ModuleWorldmapen\MapEditor;
     use Pattern\ModuleWorldmapen\MapEditTerrain;
-    use Pattern\ModuleWorldmapen\Map;
     use Pattern\ModuleWorldmapen\MiniMap;
+    use PatternCore\Template;
+    use PatternCore\Translator;
 
     /**
      * {@inheritdoc}

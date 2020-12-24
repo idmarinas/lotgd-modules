@@ -22,32 +22,32 @@
 function spookygold_getmoduleinfo()
 {
     return [
-        'name' => 'Spooky Gold',
-        'version' => '1.0.0',
-        'author' => 'Dan Norton, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Spooky Gold',
+        'version'  => '1.0.0',
+        'author'   => 'Dan Norton, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village Specials',
         'download' => 'core_module',
         'settings' => [
             'Spooky Gold - Settings,title',
             'cowardicechance' => 'Percentage of times running away for something bad to happen,range,0,100,5|10',
-            'visitmax' => 'Number of times allowed to visit the alley per day,int|3',
-            'beastchance' => 'Percentage of times that the beast will attack,range,0,100,5|10',
-            'rawchance' => 'Raw chance of seeing the alley,range,5,50,5|25',
-            'cachechance' => 'Chance of finding a cache of gems or gold,range,0,100,5|10',
+            'visitmax'        => 'Number of times allowed to visit the alley per day,int|3',
+            'beastchance'     => 'Percentage of times that the beast will attack,range,0,100,5|10',
+            'rawchance'       => 'Raw chance of seeing the alley,range,5,50,5|25',
+            'cachechance'     => 'Chance of finding a cache of gems or gold,range,0,100,5|10',
         ],
         'prefs' => [
             'Spooky Gold - Preferences,title',
             'visits' => 'How many visits to the alley has the player made today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
 function spookygold_seentest()
 {
-    $visits = get_module_pref('visits', 'spookygold');
+    $visits   = get_module_pref('visits', 'spookygold');
     $visitmax = get_module_setting('visitmax', 'spookygold');
 
     return get_module_setting('rawchance', 'spookygold') * (($visits) < ($visitmax));
@@ -82,7 +82,7 @@ function spookygold_runevent($type)
 
     require_once 'lib/partner.php';
 
-    $from = 'village.php?';
+    $from                          = 'village.php?';
     $session['user']['specialinc'] = 'module:spookygold';
 
     $op = \LotgdRequest::getQuery('op');
@@ -91,7 +91,7 @@ function spookygold_runevent($type)
 
     $params = [
         'textDomain' => $textDomain,
-        'partner' => get_partner()
+        'partner'    => get_partner(),
     ];
 
     \LotgdNavigation::setTextDomain($textDomain);
@@ -99,9 +99,9 @@ function spookygold_runevent($type)
     switch ($op)
     {
         case 'alley':
-            $params['award'] = mt_rand(0, 1); //-- 0 = gem, 1 = gold
+            $params['award'] = \mt_rand(0, 1); //-- 0 = gem, 1 = gold
 
-            if (! $params['award'])
+            if ( ! $params['award'])
             {
                 \LotgdNavigation::addNav('navigation.nav.alley.gem', 'village.php?op=pickupgem');
             }
@@ -115,7 +115,7 @@ function spookygold_runevent($type)
         case 'pickupgem':
             $params['tpl'] = 'pickupgem';
 
-            $diceroll = mt_rand(1, 100);
+            $diceroll    = \mt_rand(1, 100);
             $beastchance = (int) get_module_setting('beastchance');
             $cachechance = (int) get_module_setting('cachechance');
 
@@ -124,7 +124,7 @@ function spookygold_runevent($type)
                 $params['cache'] = false;
 
                 debuglog('found a gem in the spooky alley');
-                $session['user']['gems']++;
+                ++$session['user']['gems'];
                 $session['user']['specialinc'] = '';
                 set_module_pref('visits', get_module_pref('visits') + 1);
             }
@@ -145,15 +145,15 @@ function spookygold_runevent($type)
         break;
         case 'pickupgold':
             $params['tpl'] = 'pickupgold';
-            $diceroll = mt_rand(1, 100);
-            $cachechance = get_module_setting('cachechance');
+            $diceroll      = \mt_rand(1, 100);
+            $cachechance   = get_module_setting('cachechance');
 
             $params['gold'] = 1;
 
             if ($diceroll > $cachechance)
             {
                 debuglog('found a gold piece in the spooky alley');
-                $session['user']['gold']++;
+                ++$session['user']['gold'];
                 $session['user']['specialinc'] = '';
                 set_module_pref('visits', get_module_pref('visits') + 1);
             }
@@ -161,7 +161,7 @@ function spookygold_runevent($type)
             {
                 $params['cache'] = true;
 
-                $params['gold'] = $session['user']['level'] * mt_rand(159, 211);
+                $params['gold'] = $session['user']['level'] * \mt_rand(159, 211);
 
                 debuglog("found a cache of {$params['gold']} in the spooky alley");
 
@@ -175,14 +175,14 @@ function spookygold_runevent($type)
             $params['tpl'] = 'dontpickup';
 
             $session['user']['specialinc'] = '';
-            $cowardicechance = get_module_setting('cowardicechance');
-            $wimpychance = mt_rand(1, 100);
+            $cowardicechance               = get_module_setting('cowardicechance');
+            $wimpychance                   = \mt_rand(1, 100);
 
             if ($wimpychance <= $cowardicechance)
             {
                 $params['coward'] = true;
                 $session['user']['charm'] -= 2;
-                $session['user']['charm'] = max($session['user']['charm'], 0);
+                $session['user']['charm'] = \max($session['user']['charm'], 0);
             }
 
             set_module_pref('visits', get_module_pref('visits') + 1);
@@ -221,18 +221,18 @@ function spookygold_fight()
     if ('pickupgem' == $op)
     {
         $badguy = [
-            'creaturename' => \LotgdTranslator::t('badguy.name', [], 'module-spookygold'),
-            'creaturelevel' => $session['user']['level'] + 2,
-            'creatureweapon' => \LotgdTranslator::t('badguy.weapon', [], 'module-spookygold'),
-            'creatureattack' => $session['user']['attack'],
+            'creaturename'    => \LotgdTranslator::t('badguy.name', [], 'module-spookygold'),
+            'creaturelevel'   => $session['user']['level'] + 2,
+            'creatureweapon'  => \LotgdTranslator::t('badguy.weapon', [], 'module-spookygold'),
+            'creatureattack'  => $session['user']['attack'],
             'creaturedefense' => $session['user']['defense'],
-            'creaturehealth' => round($session['user']['maxhitpoints'], 0),
-            'diddamage' => 0,
-            'type' => 'bonemarrow'
+            'creaturehealth'  => \round($session['user']['maxhitpoints'], 0),
+            'diddamage'       => 0,
+            'type'            => 'bonemarrow',
         ];
 
         $session['user']['badguy'] = $badguy;
-        $op = 'fight';
+        $op                        = 'fight';
         \LotgdRequest::setQuery('op', 'fight');
     }
 
@@ -264,9 +264,9 @@ function spookygold_fight()
                 $lotgdBattleContent['battleend'][] = [
                     'battle.end.victory.hitpoints',
                     [
-                        'creatureName' => $badguy['creaturename']
+                        'creatureName' => $badguy['creaturename'],
                     ],
-                    $textDomain
+                    $textDomain,
                 ];
 
                 $session['user']['hitpoints'] = 1;
@@ -275,9 +275,9 @@ function spookygold_fight()
             $lotgdBattleContent['battleend'][] = [
                 'battle.end.victory.paragraph',
                 [
-                    'creatureName' => $badguy['creaturename']
+                    'creatureName' => $badguy['creaturename'],
                 ],
-                $textDomain
+                $textDomain,
             ];
 
             \LotgdNavigation::addNav('navigation.nav.battle.pick', 'village.php?op=pickupgem');
@@ -288,7 +288,7 @@ function spookygold_fight()
             $battle = false;
 
             addnews('news.battle.defeated', [
-                'playerName' => $session['user']['name']
+                'playerName' => $session['user']['name'],
             ], $textDomain);
 
             debuglog('lost to Bonemarrow Beast');
@@ -298,9 +298,9 @@ function spookygold_fight()
             $lotgdBattleContent['battleend'][] = [
                 'battle.end.defeated.paragraph',
                 [
-                    'creatureName' => $badguy['creaturename']
+                    'creatureName' => $badguy['creaturename'],
                 ],
-                $textDomain
+                $textDomain,
             ];
 
             if (is_module_active('staminasystem'))
@@ -314,20 +314,20 @@ function spookygold_fight()
             else
             {
                 $session['user']['turns'] -= 5;
-                $session['user']['turns'] = max($session['user']['turns'], 0);
+                $session['user']['turns']          = \max($session['user']['turns'], 0);
                 $lotgdBattleContent['battleend'][] = ['battle.end.defeated.turns', [], $textDomain];
             }
 
             if ($session['user']['charm'] > 0)
             {
-                $session['user']['charm']--;
+                --$session['user']['charm'];
                 $lotgdBattleContent['battleend'][] = ['battle.end.defeated.charm.lost', [], $textDomain];
             }
             else
             {
                 $lotgdBattleContent['battleend'][] = ['battle.end.defeated.charm.equal', [], $textDomain];
             }
-            $session['user']['specialinc'] = '';
+            $session['user']['specialinc']  = '';
             $session['user']['specialmisc'] = '';
         }
         else

@@ -7,10 +7,10 @@ if ('train' == $args['options']['type'])
 }
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
-$inventory = $repository->getInventoryOfCharacter($session['user']['acctid']);
+$inventory  = $repository->getInventoryOfCharacter($session['user']['acctid']);
 
 $count = 0;
-$ids = [];
+$ids   = [];
 
 foreach ($inventory as $item)
 {
@@ -18,16 +18,16 @@ foreach ($inventory as $item)
 
     if ($item['equipped'])
     {
-        $loosechance = round($item['item']['looseChance'] * .9, 0);
+        $loosechance = \round($item['item']['looseChance'] * .9, 0);
     }
 
     $destroyed = 0;
 
-    for ($c = 0; $c < $item['quantity']; $c++)
+    for ($c = 0; $c < $item['quantity']; ++$c)
     {
-        if ($loosechance >= mt_rand(1, 100))
+        if ($loosechance >= \mt_rand(1, 100))
         {
-            $destroyed++;
+            ++$destroyed;
         }
     }
 
@@ -45,7 +45,7 @@ foreach ($inventory as $item)
     $count += $destroyed;
 }
 
-if (count($ids))
+if (\count($ids))
 {
     modulehook('unequip-item', ['ids' => $ids]);
 }
@@ -55,6 +55,6 @@ if ($count)
     $args['messages'][] = [
         'battle.defeated.end',
         ['n' => $count],
-        $textDomain
+        $textDomain,
     ];
 }

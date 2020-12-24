@@ -19,16 +19,16 @@
 function healthbar_getmoduleinfo()
 {
     return [
-        'name' => 'Health Bar',
-        'version' => '2.0.0',
-        'author' => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a> - based on idea of JT Traub (core_module)',
+        'name'     => 'Health Bar',
+        'version'  => '2.0.0',
+        'author'   => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a> - based on idea of JT Traub (core_module)',
         'category' => 'Stat Display',
         'download' => 'https://github.com/idmarinas/lotgd-modules',
-        'prefs' => [
+        'prefs'    => [
             'Health Bar,title',
             'user_showcurrent' => 'Show health level as a number,bool|0',
-            'user_showmax' => 'Show max health (only if current),bool|0'
-        ]
+            'user_showmax'     => 'Show max health (only if current),bool|0',
+        ],
     ];
 }
 
@@ -51,23 +51,23 @@ function healthbar_dohook($hookname, $args)
     if ('charstats' == $hookname)
     {
         $params = [
-            'textDomain' => 'module-healthbar',
+            'textDomain'    => 'module-healthbar',
             'healthCurrent' => $session['user']['hitpoints'],
             'healthRealMax' => $session['user']['maxhitpoints'],
-            'showCurrent' => get_module_pref('user_showcurrent'),
-            'showMax' => get_module_pref('user_showmax'),
+            'showCurrent'   => get_module_pref('user_showcurrent'),
+            'showMax'       => get_module_pref('user_showmax'),
         ];
 
-        if (! $session['user']['alive'])
+        if ( ! $session['user']['alive'])
         {
             $params['healthCurrent'] = $session['user']['soulpoints'];
             $params['healthRealMax'] = $session['user']['level'] * 10 + 50 + $session['user']['dragonkills'] * 2;
         }
 
-        $params['healthMax'] = max($params['healthCurrent'], $params['healthRealMax']);
+        $params['healthMax'] = \max($params['healthCurrent'], $params['healthRealMax']);
 
-        $pct = round($params['healthCurrent'] / $params['healthMax'] * 100, 0);
-        $params['healthPercent'] = max($pct, 0, min($pct, 100));
+        $pct                     = \round($params['healthCurrent'] / $params['healthMax'] * 100, 0);
+        $params['healthPercent'] = \max($pct, 0, \min($pct, 100));
 
         $params['showLabel'] = (bool) ($params['showCurrent'] && $params['showMax']) || (bool) ($params['showCurrent']);
 

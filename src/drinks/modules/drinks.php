@@ -23,26 +23,26 @@ require_once 'lib/buffs.php';
 function drinks_getmoduleinfo()
 {
     return [
-        'name' => 'Exotic Drinks',
-        'version' => '3.0.0',
-        'author' => 'John J. Collins<br>Heavily modified by JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Exotic Drinks',
+        'version'  => '3.0.0',
+        'author'   => 'John J. Collins<br>Heavily modified by JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Inn',
         'download' => 'core_module',
         'settings' => [
             'Drink Module Settings,title',
             'hardlimit' => 'How many hard drinks can a user buy in a day?,int|3',
-            'maxdrunk' => ["How drunk before %s`0 won't serve you?,range,0,100,1|66", getsetting('barkeep', '`)Cedrik')],
+            'maxdrunk'  => ["How drunk before %s`0 won't serve you?,range,0,100,1|66", getsetting('barkeep', '`)Cedrik')],
         ],
         'prefs' => [
             'Drink Module User Preferences,title',
             'drunkeness' => 'Drunkeness,range,0,100,1|0',
             'harddrinks' => 'How many hard drinks has the user bought today?,int|0',
-            'canedit' => 'Has access to the drinks editor,bool|0',
-            'noslur' => "Don't slur speach when drunk,bool|0",
+            'canedit'    => 'Has access to the drinks editor,bool|0',
+            'noslur'     => "Don't slur speach when drunk,bool|0",
         ],
         'requires' => [
-            'lotgd' => '>=4.3.0|Need a version equal or greater than 4.3.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.3.0|Need a version equal or greater than 4.3.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -52,12 +52,15 @@ function drinks_install()
     if (\Doctrine::createSchema(['LotgdLocal:ModuleDrinks'], true))
     {
         $filesystem = new \Lotgd\Core\Component\Filesystem();
-        $files = array_map(
-            function ($value) { return "modules/drinks/data/{$value}"; },
+        $files      = \array_map(
+            function ($value)
+            {
+                return "modules/drinks/data/{$value}";
+            },
             $filesystem->listDir('modules/drinks/data')
         );
 
-        if (count($files))
+        if (\count($files))
         {
             try
             {
@@ -145,8 +148,8 @@ function drinks_dohook($hookname, $args)
             }
 
             $drinksRepository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
-            $result = $drinksRepository->findBy($where, ['costperlevel' => 'ASC']);
-            $result = $drinksRepository->extractEntity($result);
+            $result           = $drinksRepository->findBy($where, ['costperlevel' => 'ASC']);
+            $result           = $drinksRepository->extractEntity($result);
 
             //-- Check all drinks in one hook
             $result = modulehook('drinks-check', $result);
@@ -160,23 +163,23 @@ function drinks_dohook($hookname, $args)
                     // with and modify stock navs randomly.
                     \LotgdNavigation::addNav('navigation.nav.ale', "runmodule.php?module=drinks&act=buy&id={$row['id']}", [
                         'textDomain' => 'drinks-module',
-                        'params' => ['name' => $row['name'], 'cost' => $drinkcost]
+                        'params'     => ['name' => $row['name'], 'cost' => $drinkcost],
                     ]);
                 }
             }
 
             $drunk = (int) get_module_pref('drunkeness');
-            $drunk = (int) min(10, round($drunk / 10 - .5, 0));
-            $drunk = $drunk >= 0 ? abs($drunk) : -1;
+            $drunk = (int) \min(10, \round($drunk / 10 - .5, 0));
+            $drunk = $drunk >= 0 ? \abs($drunk) : -1;
 
             $args['includeTemplatesPost']['module/drinks/dohook/ale.twig'] = [
                 'textDomain' => $textDomain,
-                'barkeep' => getsetting('barkeep', '`tCedrik`0'),
-                'innName' => getsetting('innname', LOCATION_INN),
-                'userSex' => $session['user']['sex'],
-                'drunk' => $drunk,
-                'hardDrink' => $hardDrink,
-                'partner' => get_partner()
+                'barkeep'    => getsetting('barkeep', '`tCedrik`0'),
+                'innName'    => getsetting('innname', LOCATION_INN),
+                'userSex'    => $session['user']['sex'],
+                'drunk'      => $drunk,
+                'hardDrink'  => $hardDrink,
+                'partner'    => get_partner(),
             ];
         break;
         case 'newday':
@@ -195,17 +198,17 @@ function drinks_dohook($hookname, $args)
                 }
                 else
                 {
-                    $session['user']['turns']--;
+                    --$session['user']['turns'];
 
                     // Sanity check
-                    $session['user']['turns'] = max(0, $session['user']['turns']);
+                    $session['user']['turns'] = \max(0, $session['user']['turns']);
                 }
 
                 $args['includeTemplatesPost']['module/drinks/dohook/newday.twig'] = [
-                    'colorCode' => $ccode,
-                    'spec' => $spec,
-                    'bonus' => $bonus,
-                    'staminaSystem' => is_module_active('staminasystem')
+                    'colorCode'     => $ccode,
+                    'spec'          => $spec,
+                    'bonus'         => $bonus,
+                    'staminaSystem' => is_module_active('staminasystem'),
                 ];
             }
 
@@ -217,11 +220,11 @@ function drinks_dohook($hookname, $args)
         case 'soberup':
             $soberval = $args['soberval'];
             $sobermsg = $args['sobermsg'];
-            $drunk = get_module_pref('drunkeness');
+            $drunk    = get_module_pref('drunkeness');
 
             if ($drunk > 0)
             {
-                $drunk = round($drunk * $soberval, 0);
+                $drunk = \round($drunk * $soberval, 0);
                 set_module_pref('drunkeness', $drunk);
 
                 if ($sobermsg)
@@ -240,7 +243,7 @@ function drinks_dohook($hookname, $args)
 
             $drunk = get_module_pref('drunkeness');
 
-            if (! ($args['data']['command'] ?? false) || '' == $args['data']['command'])
+            if ( ! ($args['data']['command'] ?? false) || '' == $args['data']['command'])
             {
                 $args['data']['comment'] = drinks_drunkenize($args['data']['comment'], $drunk);
             }
@@ -265,7 +268,7 @@ function drinks_run()
 
     $act = (string) \LotgdRequest::getQuery('act');
 
-    if (! file_exists("modules/drinks/run/{$act}.php"))
+    if ( ! \file_exists("modules/drinks/run/{$act}.php"))
     {
         \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.', ['file' => $act, 'module' => 'drinks'], 'drinks-module'));
 

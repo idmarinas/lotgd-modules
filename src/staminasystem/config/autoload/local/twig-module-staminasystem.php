@@ -2,6 +2,6 @@
 
 return [
     'twig_extensions' => [
-        \Lotgd\Local\Twig\Extension\ModuleStaminasystem::class
-    ]
+        \Lotgd\Local\Twig\Extension\ModuleStaminasystem::class,
+    ],
 ];

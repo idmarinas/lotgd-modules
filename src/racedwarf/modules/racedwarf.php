@@ -3,14 +3,14 @@
 function racedwarf_getmoduleinfo()
 {
     return [
-        'name' => 'Race - Dwarf',
-        'version' => '2.0.0',
-        'author' => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Race - Dwarf',
+        'version'  => '2.0.0',
+        'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Races',
         'download' => 'core_module',
         'settings' => [
             'Dwarven Race Settings,title',
-            'villagename' => 'Name for the dwarven village|Qexelcrag',
+            'villagename'     => 'Name for the dwarven village|Qexelcrag',
             'minedeathchance' => 'Chance for Dwarves to die in the mine,range,0,100,1|5',
         ],
         'prefs-drinks' => [
@@ -18,8 +18,8 @@ function racedwarf_getmoduleinfo()
             'servedkeg' => 'Is this drink served in the dwarven inn?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -57,33 +57,33 @@ function racedwarf_install()
         ;
 
         $companionRepositoy = \Doctrine::getRepository('LotgdCore:Companions');
-        $entity = $companionRepositoy->findOneBy(['name' => 'Grizzly Bear']);
+        $entity             = $companionRepositoy->findOneBy(['name' => 'Grizzly Bear']);
 
-        if (! $entity)
+        if ( ! $entity)
         { //-- Only if not find
             $entity = $companionRepositoy->hydrateEntity([
-                'name' => 'Grizzly Bear',
-                'category' => 'Wild Beasts',
-                'description' => 'You look at the beast knowing that this Grizzly Bear will provide an effective block against attack with its long curved claws and massive body of silver-tipped fur.',
-                'attack' => 1,
-                'attackperlevel' => 2,
-                'defense' => 5,
-                'defenseperlevel' => 2,
-                'maxhitpoints' => 25,
+                'name'                 => 'Grizzly Bear',
+                'category'             => 'Wild Beasts',
+                'description'          => 'You look at the beast knowing that this Grizzly Bear will provide an effective block against attack with its long curved claws and massive body of silver-tipped fur.',
+                'attack'               => 1,
+                'attackperlevel'       => 2,
+                'defense'              => 5,
+                'defenseperlevel'      => 2,
+                'maxhitpoints'         => 25,
                 'maxhitpointsperlevel' => 25,
-                'abilities' => ['fight' => 0, 'heal' => 0, 'magic' => 0, 'defend' => 1],
-                'cannotdie' => 0,
-                'cannotbehealed' => 0,
-                'companionlocation' => get_module_setting('villagename', 'racedwarf'),
-                'companionactive' => 1,
-                'companioncostdks' => 0,
-                'companioncostgems' => 4,
-                'companioncostgold' => 600,
-                'jointext' => 'You hear a low, deep belly growl coming from a shadowed corner of the Bestiarium.  Curious you walk over to investigate your purchase. As you approach a large form shuffles on all four legs towards the front of its hewn rock enclosure.`n`nThe hunched shoulders of the largest bear you have ever seen ripple as its front haunches push against the ground causing it to stand on its hind legs.  It makes another low growl before dropping back on all four legs to follow you on your adventure.',
-                'dyingtext' => 'The grizzly gets scared by the multitude of blows and hits he has to take and flees into the forest.',
-                'allowinshades' => 1,
-                'allowinpvp' => 0,
-                'allowintrain' => 0,
+                'abilities'            => ['fight' => 0, 'heal' => 0, 'magic' => 0, 'defend' => 1],
+                'cannotdie'            => 0,
+                'cannotbehealed'       => 0,
+                'companionlocation'    => get_module_setting('villagename', 'racedwarf'),
+                'companionactive'      => 1,
+                'companioncostdks'     => 0,
+                'companioncostgems'    => 4,
+                'companioncostgold'    => 600,
+                'jointext'             => 'You hear a low, deep belly growl coming from a shadowed corner of the Bestiarium.  Curious you walk over to investigate your purchase. As you approach a large form shuffles on all four legs towards the front of its hewn rock enclosure.`n`nThe hunched shoulders of the largest bear you have ever seen ripple as its front haunches push against the ground causing it to stand on its hind legs.  It makes another low growl before dropping back on all four legs to follow you on your adventure.',
+                'dyingtext'            => 'The grizzly gets scared by the multitude of blows and hits he has to take and flees into the forest.',
+                'allowinshades'        => 1,
+                'allowinpvp'           => 0,
+                'allowintrain'         => 0,
             ]);
 
             \Doctrine::persist($entity);
@@ -207,9 +207,9 @@ function racedwarf_dohook($hookname, $args)
         case 'raceminedeath':
             if ($session['user']['race'] == $race)
             {
-                $args['chance'] = get_module_setting('minedeathchance');
+                $args['chance']   = get_module_setting('minedeathchance');
                 $args['racesave'] = \LotgdTranslator::t('raceminedeath.save', [], 'racedwarf-module');
-                $args['schema'] = 'racedwarf-module';
+                $args['schema']   = 'racedwarf-module';
             }
         break;
         case 'changesetting':
@@ -237,7 +237,7 @@ function racedwarf_dohook($hookname, $args)
                 if (is_module_active('cities'))
                 {
                     $moduleUserPrefsRepository = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
-                    $query = $moduleUserPrefsRepository->getQueryBuilder();
+                    $query                     = $moduleUserPrefsRepository->getQueryBuilder();
                     $query->update('LotgdCore:ModuleUserprefs', 'u')
                         ->set('u.value', ':new')
                         ->where('u.modulename = :cities AND settings = :home AND u.value = :old')
@@ -257,9 +257,9 @@ function racedwarf_dohook($hookname, $args)
             \LotgdNavigation::addNav('character.racename', "newday.php?setrace={$race}{$resline}");
 
             $params = [
-                'city' => $city,
-                'race' => $race,
-                'resLine' => $resline
+                'city'    => $city,
+                'race'    => $race,
+                'resLine' => $resline,
             ];
 
             \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racedwarf/dohook/chooserace.twig', $params));
@@ -274,7 +274,7 @@ function racedwarf_dohook($hookname, $args)
                     if (0 == $session['user']['dragonkills'] && 0 == $session['user']['age'])
                     {
                         //new farmthing, set them to wandering around this city.
-                        set_module_setting("newest-$city", $session['user']['acctid'], 'cities');
+                        set_module_setting("newest-{$city}", $session['user']['acctid'], 'cities');
                     }
                     set_module_pref('homecity', $city, 'cities');
 
@@ -289,13 +289,13 @@ function racedwarf_dohook($hookname, $args)
         case 'validlocation':
             if (is_module_active('cities'))
             {
-                $args[$city] = "village-$race";
+                $args[$city] = "village-{$race}";
             }
         break;
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args["village-$race"] = \LotgdTranslator::t('locs.moderate', ['city' => $city], $race);
+                $args["village-{$race}"] = \LotgdTranslator::t('locs.moderate', ['city' => $city], $race);
             }
         break;
         case 'creatureencounter':
@@ -303,13 +303,13 @@ function racedwarf_dohook($hookname, $args)
             {
                 //get those folks who haven't manually chosen a race
                 racedwarf_checkcity();
-                $args['creaturegold'] = round($args['creaturegold'] * 1.2, 0);
+                $args['creaturegold'] = \round($args['creaturegold'] * 1.2, 0);
             }
         break;
         case 'travel':
             $capital = getsetting('villagename', LOCATION_FIELDS);
-            $hotkey = substr($city, 0, 1);
-            $ccity = urlencode($city);
+            $hotkey  = \substr($city, 0, 1);
+            $ccity   = \urlencode($city);
 
             //-- Change text domain for navigation
             \LotgdNavigation::setTextDomain('cities-navigation');
@@ -318,14 +318,14 @@ function racedwarf_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.travel.safer');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
             elseif ($session['user']['location'] != $city)
             {
                 \LotgdNavigation::addHeader('headers.travel.dangerous');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -333,7 +333,7 @@ function racedwarf_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -345,31 +345,31 @@ function racedwarf_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain'] = 'racedwarf-village-village';
+                $args['textDomain']           = 'racedwarf-village-village';
                 $args['textDomainNavigation'] = 'racedwarf-village-navigation';
             }
         break;
         case 'page-village-tpl-params':
             if ($session['user']['location'] == $city)
             {
-                $args['village'] = $city;
+                $args['village']           = $city;
                 $args['commentarySection'] = "village-{$race}"; //-- Commentary section
 
                 //-- Newest player in realm
                 $args['newestplayer'] = (int) get_module_setting("newest-{$city}", 'cities');
-                $args['newestname'] = (string) get_module_setting("newest-{$city}-name", 'cities');
+                $args['newestname']   = (string) get_module_setting("newest-{$city}-name", 'cities');
 
                 $args['newtext'] = 'newestOther';
 
                 if ($args['newestplayer'] == $session['user']['acctid'])
                 {
-                    $args['newtext'] = 'newestPlayer';
+                    $args['newtext']    = 'newestPlayer';
                     $args['newestname'] = $session['user']['name'];
                 }
-                elseif (! $args['newestname'] && $args['newestplayer'])
+                elseif ( ! $args['newestname'] && $args['newestplayer'])
                 {
                     $characterRepository = \Doctrine::getRepository('LotgdCore:Characters');
-                    $args['newestname'] = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
+                    $args['newestname']  = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
 
@@ -391,7 +391,7 @@ function racedwarf_dohook($hookname, $args)
             {
                 foreach ($args as $key => $drink)
                 {
-                    $val = get_module_objpref('drinks', $drink['id'], 'servedkeg');
+                    $val                      = get_module_objpref('drinks', $drink['id'], 'servedkeg');
                     $args[$key]['allowdrink'] = $val;
                 }
             }
@@ -400,13 +400,13 @@ function racedwarf_dohook($hookname, $args)
             $args[$city] = [
                 'location.village.of',
                 ['name' => $city],
-                'app-default'
+                'app-default',
             ];
         break;
         case 'mercenarycamp-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain'] = 'racedwarf-mercenarycamp-mercenarycamp';
+                $args['textDomain']           = 'racedwarf-mercenarycamp-mercenarycamp';
                 $args['textDomainNavigation'] = 'racedwarf-mercenarycamp-navigation';
             }
         break;

@@ -3,14 +3,14 @@
 function grassyfield_getmoduleinfo()
 {
     return [
-        'name' => 'Grassy Field',
-        'version' => '2.0.0',
-        'author' => 'Sean McKillion<br>modified by Eric Stevens & JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Grassy Field',
+        'version'  => '2.0.0',
+        'author'   => 'Sean McKillion<br>modified by Eric Stevens & JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -18,9 +18,9 @@ function grassyfield_getrounds()
 {
     global $playermount, $session;
 
-    $buff = $playermount['mountbuff'];
+    $buff      = $playermount['mountbuff'];
     $maxrounds = $buff['rounds'];
-    $cur = $session['bufflist']['mount']['rounds'] ?? 0;
+    $cur       = $session['bufflist']['mount']['rounds'] ?? 0;
 
     return [$maxrounds, $cur];
 }
@@ -66,7 +66,7 @@ function grassyfield_runevent($type)
     global $session, $playermount;
 
     // We assume this event only shows up in the forest currently.
-    $from = 'forest.php';
+    $from                          = 'forest.php';
     $session['user']['specialinc'] = 'module:grassyfield';
 
     $op = \LotgdRequest::getQuery('op');
@@ -74,7 +74,7 @@ function grassyfield_runevent($type)
     if ('return' == $op)
     {
         $session['user']['specialmisc'] = '';
-        $session['user']['specialinc'] = '';
+        $session['user']['specialinc']  = '';
 
         return redirect($from);
     }
@@ -82,10 +82,10 @@ function grassyfield_runevent($type)
     checkday();
 
     $params = [
-        'textDomain' => 'module-grassyfield',
-        'hasHorse' => (bool) $session['user']['hashorse'],
-        'special' => ('Nothing to see here, move along.' != $session['user']['specialmisc']),
-        'staminaSystem' => is_module_active('staminasystem')
+        'textDomain'    => 'module-grassyfield',
+        'hasHorse'      => (bool) $session['user']['hashorse'],
+        'special'       => ('Nothing to see here, move along.' != $session['user']['specialmisc']),
+        'staminaSystem' => is_module_active('staminasystem'),
     ];
 
     \LotgdNavigation::addNav('navigation.nav.return', "{$from}?op=return", ['textDomain' => $params['textDomain']]);
@@ -97,13 +97,13 @@ function grassyfield_runevent($type)
             $playermount = getmount($session['user']['hashorse']);
 
             $params['mountName'] = $playermount['mountname'] ?? '';
-            $params['mount'] = $playermount ?? [];
+            $params['mount']     = $playermount              ?? [];
 
             list($max, $cur) = grassyfield_getrounds();
 
             $params['isPartialRecharge'] = ($cur > $max * .5);
 
-            $buff = $playermount['mountbuff'];
+            $buff           = $playermount['mountbuff'];
             $buff['schema'] = $buff['schema'] ?? 'mounts';
             $buff['schema'] = $buff['schema'] ?: 'mounts';
 
@@ -111,14 +111,14 @@ function grassyfield_runevent($type)
 
             if ($session['user']['hitpoints'] < $session['user']['maxhitpoints'])
             {
-                $params['healed'] = true;
+                $params['healed']             = true;
                 $session['user']['hitpoints'] = $session['user']['maxhitpoints'];
             }
 
             $args = [
                 'soberval' => 0.8,
                 'sobermsg' => \LotgdTranslator::t('sober.msg', [], 'module-grassyfield'),
-                'schema' => 'module-grassyfield',
+                'schema'   => 'module-grassyfield',
             ];
             modulehook('soberup', $args);
 
@@ -129,12 +129,12 @@ function grassyfield_runevent($type)
             }
             else
             {
-                $session['user']['turns']--;
+                --$session['user']['turns'];
             }
         }
         else
         {
-            $session['user']['hitpoints'] = max($session['user']['hitpoints'], $session['user']['maxhitpoints']);
+            $session['user']['hitpoints'] = \max($session['user']['hitpoints'], $session['user']['maxhitpoints']);
         }
 
         $session['user']['specialmisc'] = 'Nothing to see here, move along.';

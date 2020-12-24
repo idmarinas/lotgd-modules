@@ -3,14 +3,14 @@
 function petitionfixnavs_getmoduleinfo()
 {
     return [
-        'name' => 'Fixnavs in petitions',
-        'version' => '2.0.0',
-        'author' => '`2Oliver Brendel, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Fixnavs in petitions',
+        'version'  => '2.0.0',
+        'author'   => '`2Oliver Brendel, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'download' => 'http://dragonprime.net/dls/petitionfixnavs.zip',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -53,7 +53,7 @@ function petitionfixnavs_run()
     if ($id)
     {
         $repository = \Doctrine::getRepository('LotgdCore:Characters');
-        $query = \Doctrine::createQueryBuilder();
+        $query      = \Doctrine::createQueryBuilder();
 
         $accountId = $query->select('u.author')
             ->from('LotgdCore:Petitions', 'u')
@@ -82,7 +82,7 @@ function petitionfixnavs_run()
             $commentary = \LotgdLocator::get(\Lotgd\Core\Output\Commentary::class);
             $commentary->saveComment([
                 'section' => "pet-{$id}",
-                'comment' => '/me '.\LotgdTranslator::t('commentary', [], $textDomain)
+                'comment' => '/me '.\LotgdTranslator::t('commentary', [], $textDomain),
             ]);
 
             systemmail($accountId,

@@ -3,9 +3,9 @@
 function mechanicalturk_getmoduleinfo()
 {
     return [
-        'name' => 'Mechanical Turk',
-        'author' => 'Dan Hall, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '2.0.0',
+        'name'     => 'Mechanical Turk',
+        'author'   => 'Dan Hall, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'version'  => '2.0.0',
         'category' => 'Administrative',
         'download' => '',
         'settings' => [
@@ -21,7 +21,7 @@ function mechanicalturk_getmoduleinfo()
 function mechanicalturk_install()
 {
     \Doctrine::createSchema([
-        'LotgdLocal:ModMechanicalTurk'
+        'LotgdLocal:ModMechanicalTurk',
     ], true);
 
     module_addhook('forest');
@@ -33,7 +33,7 @@ function mechanicalturk_install()
 function mechanicalturk_uninstall()
 {
     \Doctrine::dropSchema([
-        'LotgdLocal:ModMechanicalTurk'
+        'LotgdLocal:ModMechanicalTurk',
     ]);
 
     return true;
@@ -63,18 +63,18 @@ function mechanicalturk_run()
 {
     global $session;
 
-    $op = \LotgdRequest::getQuery('creatureaction');
+    $op   = \LotgdRequest::getQuery('creatureaction');
     $page = (int) \LotgdRequest::getQuery('page');
-    $page = max(1, $page);
+    $page = \max(1, $page);
 
-    $points = get_module_setting('addpoints');
+    $points     = get_module_setting('addpoints');
     $textDomain = 'module-mechanicalturk';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
-        'points' => $points
+        'points'     => $points,
     ];
 
     $repository = \Doctrine::getRepository('LotgdLocal:ModMechanicalTurk');
@@ -91,7 +91,7 @@ function mechanicalturk_run()
             require_once 'lib/systemmail.php';
 
             $subject = ['mail.reject.subject', [], $textDomain];
-            $body = ['mail.reject.message', ['name' => $creature->getCreaturename()], $textDomain];
+            $body    = ['mail.reject.message', ['name' => $creature->getCreaturename()], $textDomain];
 
             systemmail($creature->getSubmittedbyid(), $subject, $body);
 
@@ -109,20 +109,20 @@ function mechanicalturk_run()
             $id = \LotgdRequest::getQuery('id');
 
             $creature = $repository->find($id);
-            $row = $repository->extractEntity($creature);
+            $row      = $repository->extractEntity($creature);
             bdump($row, 'Creature ModMechanicalTurk');
 
             $form = [
                 'Creature Properties,title',
-                'creaturename' => 'Creature Name',
-                'creaturecategory' => 'Creature Category,',
-                'creatureweapon' => 'Weapon',
-                'creaturewin' => 'Win Message (Displayed when the creature kills the player)',
-                'creaturelose' => 'Death Message (Displayed when the creature is killed by the player)',
-                'forest' => 'Creature is in Jungle?,bool',
-                'graveyard' => 'Creature is on FailBoat?,bool',
+                'creaturename'        => 'Creature Name',
+                'creaturecategory'    => 'Creature Category,',
+                'creatureweapon'      => 'Weapon',
+                'creaturewin'         => 'Win Message (Displayed when the creature kills the player)',
+                'creaturelose'        => 'Death Message (Displayed when the creature is killed by the player)',
+                'forest'              => 'Creature is in Jungle?,bool',
+                'graveyard'           => 'Creature is on FailBoat?,bool',
                 'creaturedescription' => 'A long description of the creature,textarea',
-                'notes' => 'Notes on creature analysis,textarea'
+                'notes'               => 'Notes on creature analysis,textarea',
             ];
 
             $params['form'] = lotgd_showform($form, $row, false, false, false);
@@ -130,12 +130,12 @@ function mechanicalturk_run()
             require_once 'lib/systemmail.php';
 
             $subject = ['mail.accept.subject', [], $textDomain];
-            $body = ['mail.accept.message', ['name' => $row['creaturename']], $textDomain];
+            $body    = ['mail.accept.message', ['name' => $row['creaturename']], $textDomain];
 
             systemmail($row['submittedbyid'], $subject, $body);
 
             $accountRepo = \Doctrine::getRepository('LotgdCore:Accounts');
-            $entity = $accountRepo->find($row['submittedbyid']);
+            $entity      = $accountRepo->find($row['submittedbyid']);
 
             if ($entity)
             {
@@ -146,7 +146,7 @@ function mechanicalturk_run()
 
             \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module-mechanicalturk']);
 
-            debuglog("Add $points donation points as rewards for creature submit.", false, $row['submittedbyid'], 'mechanicalturk');
+            debuglog("Add {$points} donation points as rewards for creature submit.", false, $row['submittedbyid'], 'mechanicalturk');
 
             \Doctrine::remove($creature);
 
@@ -193,7 +193,7 @@ function mechanicalturk_run()
             $params['tpl'] = 'default';
             require_once 'lib/showform.php';
 
-            $query = \Doctrine::createQueryBuilder();
+            $query  = \Doctrine::createQueryBuilder();
             $result = $query->select('u.creaturecategory')
                 ->from('LotgdCore:Creatures', 'u')
 
@@ -217,15 +217,15 @@ function mechanicalturk_run()
 
             $form = [
                 'Creature Properties,title',
-                'creaturename' => 'Creature Name',
-                'creaturecategory' => 'Creature Category,enum,'.$enum,
-                'creatureweapon' => 'Weapon',
-                'creaturewin' => 'Win Message (Displayed when the creature kills the player)',
-                'creaturelose' => 'Death Message (Displayed when the creature is killed by the player)',
-                'forest' => 'Creature is in Jungle?,bool',
-                'graveyard' => 'Creature is on FailBoat?,bool',
+                'creaturename'        => 'Creature Name',
+                'creaturecategory'    => 'Creature Category,enum,'.$enum,
+                'creatureweapon'      => 'Weapon',
+                'creaturewin'         => 'Win Message (Displayed when the creature kills the player)',
+                'creaturelose'        => 'Death Message (Displayed when the creature is killed by the player)',
+                'forest'              => 'Creature is in Jungle?,bool',
+                'graveyard'           => 'Creature is on FailBoat?,bool',
                 'creaturedescription' => 'A long description of the creature,textarea',
-                'notes' => 'Notes on creature analysis,textarea'
+                'notes'               => 'Notes on creature analysis,textarea',
             ];
 
             \LotgdNavigation::addHeader('navigation.category.return', ['textDomain' => $textDomain]);

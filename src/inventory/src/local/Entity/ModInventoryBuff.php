@@ -51,42 +51,42 @@ class ModInventoryBuff
      *
      * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
      */
-    private $dmgMod = null;
+    private $dmgMod;
 
     /**
      * @var float|null
      *
      * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
      */
-    private $atkMod = null;
+    private $atkMod;
 
     /**
      * @var float|null
      *
      * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
      */
-    private $defMod = null;
+    private $defMod;
 
     /**
      * @var float|null
      *
      * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
      */
-    private $badGuyDmgMod = null;
+    private $badGuyDmgMod;
 
     /**
      * @var float|null
      *
      * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
      */
-    private $badGuyAtkMod = null;
+    private $badGuyAtkMod;
 
     /**
      * @var float|null
      *
      * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
      */
-    private $badGuyDefMod = null;
+    private $badGuyDefMod;
 
     /**
      * @var int

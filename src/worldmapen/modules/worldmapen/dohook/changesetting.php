@@ -16,6 +16,6 @@ if ('villagename' == $args['setting'])
     set_module_setting('worldmapen'.$old.'Y', '');
     set_module_setting('worldmapen'.$old.'Z', '');
     // Handle any players who last city was the old name.
-    $sql = 'UPDATE '.DB::prefix('module_userprefs')." SET value='".addslashes($new)."' WHERE value='".addslashes($old)."' AND modulename='worldmapen' AND setting = 'lastCity'";
+    $sql = 'UPDATE '.DB::prefix('module_userprefs')." SET value='".\addslashes($new)."' WHERE value='".\addslashes($old)."' AND modulename='worldmapen' AND setting = 'lastCity'";
     DB::query($sql);
 }

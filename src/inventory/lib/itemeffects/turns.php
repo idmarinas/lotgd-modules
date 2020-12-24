@@ -19,7 +19,7 @@ function itemeffects_restore_turns($turns, $item)
 
     $session['user']['turns'] += $turns;
 
-    debuglog("'s turns were altered by $turns by item {$item['id']}.");
+    debuglog("'s turns were altered by {$turns} by item {$item['id']}.");
 
     $out = [];
 
@@ -27,21 +27,21 @@ function itemeffects_restore_turns($turns, $item)
     {
         $out[] = ['item.effect.turns.gain',
             ['turns' => $turns, 'itemName' => $item['name']],
-            'module-inventory'
+            'module-inventory',
         ];
     }
     else
     {
         $out[] = ['item.effect.turns.lost',
-            ['turns' => abs($turns), 'itemName' => $item['name']],
-            'module-inventory'
+            ['turns' => \abs($turns), 'itemName' => $item['name']],
+            'module-inventory',
         ];
 
         if ($session['user']['turns'] <= 0)
         {
             $out[] = ['item.effect.turns.lost.all',
-                ['turns' => abs($turns), 'itemName' => $item['name']],
-                'module-inventory'
+                ['turns' => \abs($turns), 'itemName' => $item['name']],
+                'module-inventory',
             ];
             $session['user']['turns'] = 0;
         }

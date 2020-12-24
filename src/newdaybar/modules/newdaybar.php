@@ -26,19 +26,19 @@
 function newdaybar_getmoduleinfo()
 {
     return [
-        'name' => 'New Day Bar',
-        'version' => '2.0.0',
-        'author' => 'Joshua Ecklund, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'New Day Bar',
+        'version'  => '2.0.0',
+        'author'   => 'Joshua Ecklund, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'download' => 'http://dragonprime.net/users/mProwler/newdaybar.zip',
         'category' => 'Stat Display',
         'settings' => [
             'New Day Bar Module Settings,title',
             'showtime' => 'Show time to new day,bool|1',
-            'showbar' => 'Show time as a bar,bool|1',
+            'showbar'  => 'Show time as a bar,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -61,25 +61,25 @@ function newdaybar_dohook($hookname, $args)
     if ('charstats' == $hookname)
     {
         $showtime = get_module_setting('showtime');
-        $showbar = get_module_setting('showbar');
+        $showbar  = get_module_setting('showbar');
 
-        if (! $showtime && ! $showbar)
+        if ( ! $showtime && ! $showbar)
         {
             return $args;
         }
 
         require_once 'lib/datetime.php';
 
-        $details = gametimedetails();
+        $details      = gametimedetails();
         $secstonewday = secondstonextgameday($details);
 
-        $newdaypct = round($details['realsecstotomorrow'] / $details['secsperday'] * 100, 4);
-        $newdaypct = min(100, max(0, $newdaypct));
+        $newdaypct = \round($details['realsecstotomorrow'] / $details['secsperday'] * 100, 4);
+        $newdaypct = \min(100, \max(0, $newdaypct));
 
-        $newdaytxt = date('G:i:s', $secstonewday);
+        $newdaytxt = \date('G:i:s', $secstonewday);
         $newdaytxt = '<div class="newdaybar timer label">`@'.$newdaytxt.'`0</div>';
 
-        if (! $showtime)
+        if ( ! $showtime)
         {
             $newdaytxt = '';
         }
@@ -97,9 +97,9 @@ function newdaybar_dohook($hookname, $args)
 
         \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('newdaybar/dohook/charstats.twig', [
             'realSecsToTomorrow' => $details['realsecstotomorrow'],
-            'secsPerDay' => $details['secsperday'],
-            'secsToNewDay' => $secstonewday,
-            'showTime' => $showtime
+            'secsPerDay'         => $details['secsperday'],
+            'secsToNewDay'       => $secstonewday,
+            'showTime'           => $showtime,
         ]));
 
         setcharstat(

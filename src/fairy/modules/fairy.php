@@ -3,14 +3,14 @@
 function fairy_getmoduleinfo()
 {
     return [
-        'name' => 'Forest Fairy',
-        'version' => '2.0.0',
-        'author' => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Forest Fairy',
+        'version'  => '2.0.0',
+        'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
         'settings' => [
             'Fairy Forest Event Settings,title',
-            'carrydk' => 'Do max hitpoints gained carry across DKs?,bool|1',
+            'carrydk'   => 'Do max hitpoints gained carry across DKs?,bool|1',
             'hptoaward' => 'How many HP are given by the fairy?,range,1,5,1|1',
             'fftoaward' => 'How many FFs are given by the fairy?,range,1,5,1|1',
         ],
@@ -19,8 +19,8 @@ function fairy_getmoduleinfo()
             'extrahps' => 'How many extra hitpoints has the user gained?,int',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -46,12 +46,12 @@ function fairy_dohook($hookname, $args)
         case 'hprecalc':
             $args['total'] -= get_module_pref('extrahps');
 
-            if (! get_module_setting('carrydk'))
+            if ( ! get_module_setting('carrydk'))
             {
                 $extra = get_module_pref('extrahps');
 
                 $session['user']['permahitpoints'] -= $extra;
-                $args['extra'] -= $extra;
+                $args['extra']                     -= $extra;
                 set_module_pref('extrahps', 0);
             }
         break;
@@ -67,14 +67,14 @@ function fairy_runevent($type)
     require_once 'lib/increment_specialty.php';
 
     // We assume this event only shows up in the forest currently.
-    $from = 'forest.php?';
+    $from                          = 'forest.php?';
     $session['user']['specialinc'] = 'module:fairy';
-    $textDomain = 'module-fairy';
+    $textDomain                    = 'module-fairy';
 
     $op = \LotgdRequest::getQuery('op');
 
     $params = [
-        'textDomain' => $textDomain
+        'textDomain' => $textDomain,
     ];
 
     \LotgdNavigation::setTextDomain($textDomain);
@@ -90,22 +90,22 @@ function fairy_runevent($type)
     {
         $session['user']['specialinc'] = '';
 
-        $params['tpl'] = 'give';
-        $params['gived'] = false;
+        $params['tpl']           = 'give';
+        $params['gived']         = false;
         $params['staminaSystem'] = is_module_active('staminasystem');
 
         if ($session['user']['gems'] > 0)
         {
             $params['gived'] = true;
 
-            $session['user']['gems']--;
+            --$session['user']['gems'];
             debuglog('gave 1 gem to a fairy');
 
-            switch (mt_rand(1, 7))
+            switch (\mt_rand(1, 7))
             {
                 case 1:
                     //## Added Stamina system support
-                    $extra = get_module_setting('fftoaward');
+                    $extra           = get_module_setting('fftoaward');
                     $params['turns'] = $extra;
 
                     if (is_module_active('staminasystem'))
@@ -133,19 +133,19 @@ function fairy_runevent($type)
                 break;
                 case 4:
                 case 5:
-                    $params['case'] = 4;
+                    $params['case']      = 4;
                     $params['permanent'] = 0;
-                    $params['extra'] = get_module_setting('hptoaward');
+                    $params['extra']     = get_module_setting('hptoaward');
 
                     //-- Added IDMarinas version support >= 0.7.0
-                    if (get_module_setting('carrydk') && (! is_module_active('globalhp') || get_module_setting('carrydk', 'globalhp')))
+                    if (get_module_setting('carrydk') && ( ! is_module_active('globalhp') || get_module_setting('carrydk', 'globalhp')))
                     {
                         $params['permanent'] = 1;
                         $session['user']['permahitpoints'] += $extra;
                     }
 
                     $session['user']['maxhitpoints'] += $extra;
-                    $session['user']['hitpoints'] += $extra;
+                    $session['user']['hitpoints']    += $extra;
                     set_module_pref('extrahps', get_module_pref('extrahps') + $extra);
                 break;
                 case 6:
@@ -157,7 +157,7 @@ function fairy_runevent($type)
         }
         else
         {
-            $session['user']['turns']--;
+            --$session['user']['turns'];
         }
     }
     else

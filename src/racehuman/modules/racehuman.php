@@ -7,20 +7,20 @@
 function racehuman_getmoduleinfo()
 {
     return [
-        'name' => 'Race - Human',
-        'version' => '2.0.0',
-        'author' => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Race - Human',
+        'version'  => '2.0.0',
+        'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Races',
         'download' => 'core_module',
         'settings' => [
             'Human Race Settings,title',
-            'villagename' => 'Name for the human village|Romar',
+            'villagename'     => 'Name for the human village|Romar',
             'minedeathchance' => 'Chance for Humans to die in the mine,range,0,100,1|90',
-            'bonus' => 'How many extra forest fights for humans?,range,1,3,1|2',
+            'bonus'           => 'How many extra forest fights for humans?,range,1,3,1|2',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -185,7 +185,7 @@ function racehuman_dohook($hookname, $args)
                 if (is_module_active('cities'))
                 {
                     $moduleUserPrefsRepository = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
-                    $query = $moduleUserPrefsRepository->getQueryBuilder();
+                    $query                     = $moduleUserPrefsRepository->getQueryBuilder();
                     $query->update('LotgdCore:ModuleUserprefs', 'u')
                         ->set('u.value', ':new')
                         ->where('u.modulename = :cities AND settings = :home AND u.value = :old')
@@ -205,9 +205,9 @@ function racehuman_dohook($hookname, $args)
             \LotgdNavigation::addNav('character.racename', "newday.php?setrace={$race}{$resline}");
 
             $params = [
-                'city' => $city,
-                'race' => $race,
-                'resLine' => $resline
+                'city'    => $city,
+                'race'    => $race,
+                'resLine' => $resline,
             ];
 
             \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racehuman/dohook/chooserace.twig', $params));
@@ -216,7 +216,7 @@ function racehuman_dohook($hookname, $args)
             if ($session['user']['race'] == $race)
             {
                 \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racehuman/dohook/setrace.twig', [
-                    'bonus' => (int) get_module_setting('bonus')
+                    'bonus' => (int) get_module_setting('bonus'),
                 ]));
 
                 if (is_module_active('cities'))
@@ -224,7 +224,7 @@ function racehuman_dohook($hookname, $args)
                     if (0 == $session['user']['dragonkills'] && 0 == $session['user']['age'])
                     {
                         //new farmthing, set them to wandering around this city.
-                        set_module_setting("newest-$city", $session['user']['acctid'], 'cities');
+                        set_module_setting("newest-{$city}", $session['user']['acctid'], 'cities');
                     }
                     set_module_pref('homecity', $city, 'cities');
 
@@ -248,17 +248,17 @@ function racehuman_dohook($hookname, $args)
 
                     $stamina = $bonus * 25000;
                     addstamina($stamina);
-                    $args['turnstoday'] .= ", Race (human): $stamina stamina";
+                    $args['turnstoday'] .= ", Race (human): {$stamina} stamina";
                 }
                 else
                 {
-                    $args['turnstoday'] .= ", Race (human): $bonus";
+                    $args['turnstoday'] .= ", Race (human): {$bonus}";
                     $session['user']['turns'] += $bonus;
                 }
 
                 $args['includeTemplatesPost']['module/racehuman/dohook/newday.twig'] = [
-                    'bonus' => $bonus,
-                    'staminaSystem' => is_module_active('staminasystem')
+                    'bonus'         => $bonus,
+                    'staminaSystem' => is_module_active('staminasystem'),
                 ];
             }
         break;
@@ -266,19 +266,19 @@ function racehuman_dohook($hookname, $args)
         case 'validlocation':
             if (is_module_active('cities'))
             {
-                $args[$city] = "village-$race";
+                $args[$city] = "village-{$race}";
             }
         break;
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args["village-$race"] = \LotgdTranslator::t('locs.moderate', ['city' => $city], $race);
+                $args["village-{$race}"] = \LotgdTranslator::t('locs.moderate', ['city' => $city], $race);
             }
         break;
         case 'travel':
             $capital = getsetting('villagename', LOCATION_FIELDS);
-            $hotkey = substr($city, 0, 1);
-            $ccity = urlencode($city);
+            $hotkey  = \substr($city, 0, 1);
+            $ccity   = \urlencode($city);
 
             //-- Change text domain for navigation
             \LotgdNavigation::setTextDomain('cities-navigation');
@@ -287,14 +287,14 @@ function racehuman_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.travel.safer');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
             elseif ($session['user']['location'] != $city)
             {
                 \LotgdNavigation::addHeader('headers.travel.dangerous');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -302,7 +302,7 @@ function racehuman_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -314,7 +314,7 @@ function racehuman_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain'] = 'racehuman-village-village';
+                $args['textDomain']           = 'racehuman-village-village';
                 $args['textDomainNavigation'] = 'racehuman-village-navigation';
 
                 \LotgdNavigation::unBlockLink('stables.php');
@@ -323,24 +323,24 @@ function racehuman_dohook($hookname, $args)
         case 'page-village-tpl-params':
             if ($session['user']['location'] == $city)
             {
-                $args['village'] = $city;
+                $args['village']           = $city;
                 $args['commentarySection'] = "village-{$race}"; //-- Commentary section
 
                 //-- Newest player in realm
                 $args['newestplayer'] = (int) get_module_setting("newest-{$city}", 'cities');
-                $args['newestname'] = (string) get_module_setting("newest-{$city}-name", 'cities');
+                $args['newestname']   = (string) get_module_setting("newest-{$city}-name", 'cities');
 
                 $args['newtext'] = 'newestOther';
 
                 if ($args['newestplayer'] == $session['user']['acctid'])
                 {
-                    $args['newtext'] = 'newestPlayer';
+                    $args['newtext']    = 'newestPlayer';
                     $args['newestname'] = $session['user']['name'];
                 }
-                elseif (! $args['newestname'] && $args['newestplayer'])
+                elseif ( ! $args['newestname'] && $args['newestplayer'])
                 {
                     $characterRepository = \Doctrine::getRepository('LotgdCore:Characters');
-                    $args['newestname'] = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
+                    $args['newestname']  = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
             }
@@ -348,7 +348,7 @@ function racehuman_dohook($hookname, $args)
         case 'stables-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain'] = 'racehuman-stables-stables';
+                $args['textDomain']           = 'racehuman-stables-stables';
                 $args['textDomainNavigation'] = 'racehuman-stables-navigation';
 
                 \LotgdNavigation::unBlockLink('stables.php');

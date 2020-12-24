@@ -14,7 +14,7 @@ function itemeffects_increased_gems($gems, $item): array
 
     $session['user']['gems'] += $gems;
 
-    debuglog("'s gems were altered by $gems by item {$item['id']}.");
+    debuglog("'s gems were altered by {$gems} by item {$item['id']}.");
 
     $out = [];
 
@@ -22,14 +22,14 @@ function itemeffects_increased_gems($gems, $item): array
     {
         $out[] = ['item.effect.gems.gain',
             ['gems' => $gems, 'itemName' => $item['name']],
-            'module-inventory'
+            'module-inventory',
         ];
     }
     else
     {
         $out[] = ['item.effect.gems.lost',
-            ['gems' => abs($gems), 'itemName' => $item['name']],
-            'module-inventory'
+            ['gems' => \abs($gems), 'itemName' => $item['name']],
+            'module-inventory',
         ];
     }
 

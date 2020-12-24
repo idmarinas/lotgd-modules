@@ -10,28 +10,28 @@
 function daysave_getmoduleinfo()
 {
     return [
-        'name' => 'Game Day Accumulation',
-        'author' => 'CavemanJoe, based on daysave.php by Exxar with fixes by SexyCook, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '3.0.0',
+        'name'     => 'Game Day Accumulation',
+        'author'   => 'CavemanJoe, based on daysave.php by Exxar with fixes by SexyCook, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'version'  => '3.0.0',
         'category' => 'General',
         'settings' => [
-            'startdays' => 'Number of game days with which to start a new player,int|2',
-            'startslots' => 'Number of game day slots to start,int|2',
-            'buyslotcost' => 'Players can buy an extra day slot in return for this many Donator Points,int|250',
+            'startdays'    => 'Number of game days with which to start a new player,int|2',
+            'startslots'   => 'Number of game day slots to start,int|2',
+            'buyslotcost'  => 'Players can buy an extra day slot in return for this many Donator Points,int|250',
             'fillslotcost' => 'Players have the option to fill up their days when buying a new day slot in exchange for this many Donator Points per day to be filled,int|10',
-            'buydaycost' => 'Players have the option to buy an Instant New Day at any time for this many Donator Points,int|25',
-            'maxbuyday' => 'Players can buy only this many Instant New Days per real Game Day,int|1',
+            'buydaycost'   => 'Players have the option to buy an Instant New Day at any time for this many Donator Points,int|25',
+            'maxbuyday'    => 'Players can buy only this many Instant New Days per real Game Day,int|1',
         ],
         'prefs' => [
-            'days' => 'Current number of saved Game Days,int|0',
-            'slots' => 'Maximum number of saved Game Days,int|0',
-            'instantbuys' => 'Number of Instant New Days bought during this Game Day,int|0',
+            'days'          => 'Current number of saved Game Days,int|0',
+            'slots'         => 'Maximum number of saved Game Days,int|0',
+            'instantbuys'   => 'Number of Instant New Days bought during this Game Day,int|0',
             'lastlognewday' => 'Next newday after logout,int|5',
-            'initsetup' => 'Player has been initially granted their starting settings,bool|0',
+            'initsetup'     => 'Player has been initially granted their starting settings,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -59,15 +59,15 @@ function daysave_dohook($hookname, $args)
     switch ($hookname)
     {
         case 'newday':
-            $days = get_module_pref('days');
-            $slots = get_module_pref('slots');
+            $days          = get_module_pref('days');
+            $slots         = get_module_pref('slots');
             $lastonnextday = get_module_pref('lastlognewday');
-            $time = gametimedetails();
-            $timediff = $time['gametime'] - $lastonnextday;
+            $time          = gametimedetails();
+            $timediff      = $time['gametime'] - $lastonnextday;
 
             if ($timediff > 86400)
             {
-                $addition = floor($timediff / 86400);
+                $addition = \floor($timediff / 86400);
                 $days += $addition;
 
                 if ($days > $slots)
@@ -88,8 +88,8 @@ function daysave_dohook($hookname, $args)
         case 'newday-runonce':
             //reset all players' Instant Buys counter
             $repository = \Doctrine::getRepository('LotgdCore:Accounts');
-            $query = $repository->createQueryBuilder('u');
-            $result = $query->select('u.acctid')
+            $query      = $repository->createQueryBuilder('u');
+            $result     = $query->select('u.acctid')
                 ->getQuery()
                 ->getArrayResult()
             ;
@@ -101,7 +101,10 @@ function daysave_dohook($hookname, $args)
 
                 ->setParameter('module', 'daysave')
                 ->setParameter('setting', 'instantbuys')
-                ->setParameter('user', \array_map(function ($val) { return $val['acctid']; }, $result))
+                ->setParameter('user', \array_map(function ($val)
+                {
+                    return $val['acctid'];
+                }, $result))
 
                 ->getQuery()
                 ->execute()
@@ -132,11 +135,11 @@ function daysave_run()
 {
     global $session;
 
-    $op = (string) \LotgdRequest::getQuery('op');
+    $op     = (string) \LotgdRequest::getQuery('op');
     $return = (string) \LotgdRequest::getQuery('return');
 
     //handle new players
-    if (! get_module_pref('initsetup'))
+    if ( ! get_module_pref('initsetup'))
     {
         set_module_pref('slots', get_module_setting('startslots'));
         set_module_pref('days', get_module_setting('startdays'));
@@ -144,16 +147,16 @@ function daysave_run()
     }
 
     $params = [
-        'textDomain' => 'module-daysave',
-        'days' => get_module_pref('days'),
-        'slots' => get_module_pref('slots'),
-        'startDays' => get_module_setting('startdays'),
-        'buyDayCost' => get_module_setting('buydaycost'),
-        'buySlotCost' => get_module_setting('buyslotcost'),
-        'fillSlotCost' => get_module_setting('fillslotcost'),
-        'maxBuyDay' => get_module_setting('maxbuyday'),
-        'boughtToday' => get_module_pref('instantbuys'),
-        'donationPointsUnused' => $session['user']['donation'] - $session['user']['donationspent']
+        'textDomain'           => 'module-daysave',
+        'days'                 => get_module_pref('days'),
+        'slots'                => get_module_pref('slots'),
+        'startDays'            => get_module_setting('startdays'),
+        'buyDayCost'           => get_module_setting('buydaycost'),
+        'buySlotCost'          => get_module_setting('buyslotcost'),
+        'fillSlotCost'         => get_module_setting('fillslotcost'),
+        'maxBuyDay'            => get_module_setting('maxbuyday'),
+        'boughtToday'          => get_module_pref('instantbuys'),
+        'donationPointsUnused' => $session['user']['donation'] - $session['user']['donationspent'],
     ];
 
     \LotgdResponse::pageStart('title', [], $params['textDomain']);
@@ -167,9 +170,9 @@ function daysave_run()
     {
         case 'useday':
             $params['tpl'] = 'useday';
-            $params['days']--;
+            --$params['days'];
 
-            $params['days'] = max(0, $params['days']);
+            $params['days'] = \max(0, $params['days']);
 
             set_module_pref('days', $params['days']);
 
@@ -192,9 +195,9 @@ function daysave_run()
             increment_module_pref('days');
             increment_module_pref('slots');
 
-            $params['days'] = get_module_pref('days');
+            $params['days']  = get_module_pref('days');
             $params['slots'] = get_module_pref('slots');
-            $empty = $params['slots'] - $params['days'];
+            $empty           = $params['slots'] - $params['days'];
 
             $params['canFillSpheres'] = false;
 
@@ -203,14 +206,14 @@ function daysave_run()
                 $params['canFillSpheres'] = true;
                 \LotgdNavigation::addHeader('navigation.category.fill');
 
-                for ($i = 1; $i <= $empty; $i++)
+                for ($i = 1; $i <= $empty; ++$i)
                 {
                     $cost = $i * $params['fillSlotCost'];
 
                     if ($params['donationPointsUnused'] >= $cost)
                     {
                         \LotgdNavigation::addNav('navigation.nav.fill', "runmodule.php?module=daysave&op=fillup&fill={$i}&return={$return}", [
-                            'params' => ['n' => $i, 'cost' => $cost]
+                            'params' => ['n' => $i, 'cost' => $cost],
                         ]);
                     }
                 }
@@ -220,13 +223,13 @@ function daysave_run()
         break;
         case 'fillup':
             $params['tpl'] = 'fillup';
-            $fill = (int) \LotgdRequest::getQuery('fill');
+            $fill          = (int) \LotgdRequest::getQuery('fill');
 
             increment_module_pref('days', $fill);
 
             $params['fillTotalCost'] = ($fill * $params['fillSlotCost']);
-            $params['fill'] = $fill;
-            $params['days'] = get_module_pref('days');
+            $params['fill']          = $fill;
+            $params['days']          = get_module_pref('days');
             $params['donationPointsUnused'] -= $params['fillTotalCost'];
             $session['user']['donationspent'] += $params['fillTotalCost'];
 
@@ -237,7 +240,7 @@ function daysave_run()
         default:
             $params['tpl'] = 'default';
 
-            $nav = $params['days'] ? 'navigation.nav.day.use' : 'navigation.nav.day.not.have';
+            $nav  = $params['days'] ? 'navigation.nav.day.use' : 'navigation.nav.day.not.have';
             $link = $params['days'] ? 'runmodule.php?module=daysave&op=useday' : '';
             \LotgdNavigation::addNav($nav, $link);
 
@@ -262,7 +265,7 @@ function daysave_run()
             \LotgdNavigation::addNav($nav, $link, ['params' => ['buyDayCost' => $params['buyDayCost']]]);
 
             //-- Buy slot
-            $nav = ($params['donationPointsUnused'] >= $params['buySlotCost']) ? 'navigation.nav.donator.slot.buy' : 'navigation.nav.donator.slot.not.have';
+            $nav  = ($params['donationPointsUnused'] >= $params['buySlotCost']) ? 'navigation.nav.donator.slot.buy' : 'navigation.nav.donator.slot.not.have';
             $link = ($params['donationPointsUnused'] >= $params['buySlotCost']) ? "runmodule.php?module=daysave&op=buyslot&return={$return}" : '';
             \LotgdNavigation::addNav($nav, $link, ['params' => ['buySlotCost' => $params['buySlotCost']]]);
 

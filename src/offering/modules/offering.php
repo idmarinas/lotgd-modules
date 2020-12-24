@@ -13,12 +13,12 @@
 function offering_getmoduleinfo()
 {
     return [
-        'name' => 'Offering Special',
-        'version' => '2.0.0',
-        'author' => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Offering Special',
+        'version'  => '2.0.0',
+        'author'   => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village Specials',
         'download' => 'core_module',
-        'prefs' => [
+        'prefs'    => [
             'Offering Special User Preferences,title',
             'seen' => 'Seen special today?,bool|0',
         ],
@@ -60,15 +60,15 @@ function offering_runevent($type)
     $session['user']['specialinc'] = 'module:offering';
 
     $seen = get_module_pref('seen');
-    $amt = round(max(1, $session['user']['dragonkills'] * 10) * $session['user']['level'] * (max(1, 5000 - $session['user']['maxhitpoints'])) / 20000);
+    $amt  = \round(\max(1, $session['user']['dragonkills'] * 10) * $session['user']['level'] * (\max(1, 5000 - $session['user']['maxhitpoints'])) / 20000);
 
     $textDomain = 'module-offering';
 
     $params = [
-        'textDomain' => $textDomain,
-        'seen' => $seen,
-        'amount' => $amt,
-        'deathOverlord' => getsetting('deathoverlord', '`$Ramius`0')
+        'textDomain'    => $textDomain,
+        'seen'          => $seen,
+        'amount'        => $amt,
+        'deathOverlord' => getsetting('deathoverlord', '`$Ramius`0'),
     ];
 
     $op = \LotgdRequest::getQuery('op');
@@ -79,7 +79,7 @@ function offering_runevent($type)
     {
         $params['tpl'] = 'default';
 
-        $seen++;
+        ++$seen;
         set_module_pref('seen', $seen);
 
         \LotgdNavigation::addNav('navigation.nav.default.shop', 'village.php?op=shop', ['params' => ['amount' => $amt]]);

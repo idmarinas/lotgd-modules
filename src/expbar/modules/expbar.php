@@ -21,16 +21,16 @@
 function expbar_getmoduleinfo()
 {
     return [
-        'name' => 'Experience Bar',
-        'version' => '2.0.0',
-        'author' => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a> - based on idea of JT Traub (core_module)',
+        'name'     => 'Experience Bar',
+        'version'  => '2.0.0',
+        'author'   => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a> - based on idea of JT Traub (core_module)',
         'category' => 'Stat Display',
         'download' => 'https://github.com/idmarinas/lotgd-modules',
-        'prefs' => [
+        'prefs'    => [
             'Experience Bar,title',
             'user_showexpnumber' => 'Show current experience number,bool|0',
-            'user_shownextgoal' => 'Show the exp needed for next level (only if current exp is shown),bool|0'
-        ]
+            'user_shownextgoal'  => 'Show the exp needed for next level (only if current exp is shown),bool|0',
+        ],
     ];
 }
 
@@ -56,17 +56,17 @@ function expbar_dohook($hookname, $args)
             require_once 'lib/experience.php';
 
             $params = [
-                'textDomain' => 'module-expbar',
+                'textDomain'        => 'module-expbar',
                 'experienceRequire' => exp_for_next_level($session['user']['level'], $session['user']['dragonkills']),
                 'experienceCurrent' => $session['user']['experience'],
-                'level' => $session['user']['level'],
-                'dragonkills' => $session['user']['dragonkills'],
-                'showNum' => get_module_pref('user_showexpnumber'),
-                'showNext' => get_module_pref('user_shownextgoal')
+                'level'             => $session['user']['level'],
+                'dragonkills'       => $session['user']['dragonkills'],
+                'showNum'           => get_module_pref('user_showexpnumber'),
+                'showNext'          => get_module_pref('user_shownextgoal'),
             ];
 
             $params['canLevelUp'] = ($params['experienceCurrent'] >= $params['experienceRequire']);
-            $params['showLabel'] = ($params['showNum'] && $params['showNext']);
+            $params['showLabel']  = ($params['showNum'] && $params['showNext']);
 
             \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('expbar/dohook/charstats/script.twig', $params));
             $bar = \LotgdTheme::renderModuleTemplate('expbar/dohook/charstats/bar.twig', $params);

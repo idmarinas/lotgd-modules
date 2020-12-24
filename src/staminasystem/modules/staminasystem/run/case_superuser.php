@@ -8,7 +8,7 @@ $actions = get_default_action_list();
 
 $params = [
     'textDomain' => $textDomain,
-    'actions' => $actions
+    'actions'    => $actions,
 ];
 
 \LotgdResponse::pageAddContent(LotgdTheme::render('@module/staminasystem/run/superuser.twig', $params));

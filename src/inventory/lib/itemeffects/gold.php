@@ -20,7 +20,7 @@ function itemeffects_increased_gold($gold, $item)
 
     $session['user']['gold'] += $gold;
 
-    debuglog("'s gold were altered by $gold by item {$item['id']}.");
+    debuglog("'s gold were altered by {$gold} by item {$item['id']}.");
 
     $out = [];
 
@@ -28,14 +28,14 @@ function itemeffects_increased_gold($gold, $item)
     {
         $out[] = ['item.effect.gold.gain',
             ['gold' => $gold, 'itemName' => $item['name']],
-            'module-inventory'
+            'module-inventory',
         ];
     }
     else
     {
         $out[] = ['item.effect.gold.lost',
-            ['gold' => abs($gold), 'itemName' => $item['name']],
-            'module-inventory'
+            ['gold' => \abs($gold), 'itemName' => $item['name']],
+            'module-inventory',
         ];
     }
 

@@ -1,8 +1,8 @@
 <?php
 
-$id = (int) \LotgdRequest::getQuery('id');
+$id    = (int) \LotgdRequest::getQuery('id');
 $invId = (int) \LotgdRequest::getQuery('invid');
-$op2 = \LotgdRequest::getQuery('op2');
+$op2   = \LotgdRequest::getQuery('op2');
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
 $accountRep = \Doctrine::getRepository('LotgdCore:Accounts');
@@ -27,23 +27,23 @@ elseif ('equip' == $op2)
 
     $entity = $repository->findOneBy(['id' => $invId, 'item' => $id]);
 
-    $flashType = 'addErrorMessage';
+    $flashType    = 'addErrorMessage';
     $flashMessage = 'item.equip.error';
-    $flashParams = [];
+    $flashParams  = [];
 
     if ($entity)
     {
-        $flashType = 'addErrorMessage';
+        $flashType    = 'addErrorMessage';
         $flashMessage = 'item.equip.requisites';
-        $flashParams = ['itemName' => $entity->getItem()->getName()];
+        $flashParams  = ['itemName' => $entity->getItem()->getName()];
 
         if (inventory_can_use_item($repository->extractEntity($entity->getItem())))
         {
-            $flashType = 'addSuccessMessage';
+            $flashType    = 'addSuccessMessage';
             $flashMessage = 'item.equip.success';
 
             $query = $repository->createQueryBuilder('u');
-            $expr = $query->expr();
+            $expr  = $query->expr();
 
             $result = $query->select('u')
                 ->leftJoin('LotgdLocal:ModInventoryItem', 'i', 'with', $expr->eq('i.id', 'u.item'))
@@ -72,7 +72,7 @@ elseif ('equip' == $op2)
 
             if ($result['inv_statvalues_result'] ?? false)
             {
-                $flashType = 'addSuccessMessage';
+                $flashType    = 'addSuccessMessage';
                 $flashMessage = 'item.equip.success';
 
                 $entity->setEquipped(true);
@@ -90,9 +90,9 @@ elseif ('unequip' == $op2)
 {
     $entity = $repository->findOneBy(['id' => $invId, 'item' => $id]);
 
-    $flashType = 'addErrorMessage';
+    $flashType    = 'addErrorMessage';
     $flashMessage = 'item.unequip.error';
-    $flashParams = [];
+    $flashParams  = [];
 
     //-- If found item in inventory
     if ($entity)
@@ -107,9 +107,9 @@ elseif ('unequip' == $op2)
             \Doctrine::persist($entity);
             \Doctrine::flush();
 
-            $flashType = 'addSuccessMessage';
+            $flashType    = 'addSuccessMessage';
             $flashMessage = 'item.unequip.success';
-            $flashParams = ['itemName' => $entity->getItem()->getName()];
+            $flashParams  = ['itemName' => $entity->getItem()->getName()];
         }
     }
 
@@ -134,22 +134,25 @@ elseif ('activate' == $op2)
 
     if (($item['item']['buff'] ?? false) && ! empty($item['item']['buff']))
     {
-        apply_buff($item['item']['buff']['key'], array_merge([], ...array_map(
-            function ($key, $value) { return [strtolower($key) => $value]; },
-            array_keys($item['item']['buff']),
+        apply_buff($item['item']['buff']['key'], \array_merge([], ...\array_map(
+            function ($key, $value)
+            {
+                return [\strtolower($key) => $value];
+            },
+            \array_keys($item['item']['buff']),
             $item['item']['buff']
         )));
     }
 
     if ($item['item']['execvalue'] > '')
     {
-        $messageText = 'item.activate';
+        $messageText       = 'item.activate';
         $messageTextDomain = $textDomain;
 
         if ($item['item']['exectext'] > '')
         {
-            $text = explode('|', $item['item']['exectext']);
-            $messageText = $text[0];
+            $text              = \explode('|', $item['item']['exectext']);
+            $messageText       = $text[0];
             $messageTextDomain = $text[1] ?? $textDomain;
         }
 
@@ -174,10 +177,10 @@ elseif ('activate' == $op2)
 }
 
 $params = [
-    'textDomain' => $textDomain,
-    'inventory' => $repository->getInventoryOfCharacter($session['user']['acctid']),
-    'limitTotal' => get_module_setting('limit', 'inventory'),
-    'weightTotal' => get_module_setting('weight', 'inventory')
+    'textDomain'  => $textDomain,
+    'inventory'   => $repository->getInventoryOfCharacter($session['user']['acctid']),
+    'limitTotal'  => get_module_setting('limit', 'inventory'),
+    'weightTotal' => get_module_setting('weight', 'inventory'),
 ];
 
 \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/run/inventory.twig', $params));

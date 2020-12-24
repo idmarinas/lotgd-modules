@@ -1,26 +1,26 @@
 <?php
 
 /**
-    Modified by MarcTheSlayer
-
-    05/02/2009 - v1.0b
-    Added the 'editid' setting to store the id of the last edited user.
+ * Modified by MarcTheSlayer
+ *
+ * 05/02/2009 - v1.0b
+ * Added the 'editid' setting to store the id of the last edited user.
  */
 function allprefseditor_getmoduleinfo()
 {
     return [
-        'name' => 'Allprefs Editor',
-        'version' => '2.0.0',
-        'author' => 'DaveS, modified by `@MarcTheSlayer`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Allprefs Editor',
+        'version'  => '2.0.0',
+        'author'   => 'DaveS, modified by `@MarcTheSlayer`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'download' => '',
         'settings' => [
             'Allprefs Editor Prefs,title',
-            'editid' => 'ID of the last person to be edited.,int|1'
+            'editid' => 'ID of the last person to be edited.,int|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -44,7 +44,7 @@ function allprefseditor_dohook($hookname, $args)
 
     $id = \LotgdRequest::getQuery('userid');
 
-    if (! $id)
+    if ( ! $id)
     {
         $id = get_module_setting('editid', 'allprefseditor');
     }
@@ -56,7 +56,7 @@ function allprefseditor_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('superuser.category.editors', ['textDomain' => 'navigation-app']);
                 \LotgdNavigation::addNav('navigation.nav.editors', "runmodule.php?module=allprefseditor&userid={$id}", [
-                    'textDomain' => $textDomain
+                    'textDomain' => $textDomain,
                 ]);
             }
         break;
@@ -69,7 +69,7 @@ function allprefseditor_run()
 {
     $id = \LotgdRequest::getQuery('userid');
 
-    if (! $id)
+    if ( ! $id)
     {
         $id = get_module_setting('editid', 'allprefseditor');
     }
@@ -83,17 +83,17 @@ function allprefseditor_run()
     \LotgdNavigation::superuserGrottoNav();
 
     \LotgdNavigation::addNav('navigation.nav.edit', "user.php?op=edit&userid={$id}", [
-        'textDomain' => $textDomain
+        'textDomain' => $textDomain,
     ]);
 
     modulehook('allprefs');
 
     $repository = \Doctrine::getRepository('LotgdCore:Characters');
-    $params = [
+    $params     = [
         'textDomain' => $textDomain,
-        'name' => $repository->getCharacterNameFromAcctId($id),
+        'name'       => $repository->getCharacterNameFromAcctId($id),
         'formSearch' => "runmodule.php?module=allprefseditor&subop1=search&userid={$id}",
-        'isSearch' => ('search' == \LotgdRequest::getQuery('subop1'))
+        'isSearch'   => ('search' == \LotgdRequest::getQuery('subop1')),
     ];
 
     if ($params['isSearch'])

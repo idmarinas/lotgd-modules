@@ -9,18 +9,18 @@ trait Map
      */
     public function showMap(array $params): string
     {
-        if (! get_module_pref('worldmapbuy', 'worldmapen'))
+        if ( ! get_module_pref('worldmapbuy', 'worldmapen'))
         {
             return '';
         }
 
-        $vloc = [];
-        $vname = getsetting('villagename', LOCATION_FIELDS);
+        $vloc         = [];
+        $vname        = getsetting('villagename', LOCATION_FIELDS);
         $vloc[$vname] = 'village';
-        $vloc = modulehook('validlocation', $vloc);
+        $vloc         = modulehook('validlocation', $vloc);
 
-        $loc = get_module_pref('worldXYZ', 'worldmapen');
-        list($worldmapX, $worldmapY, $worldmapZ) = explode(',', $loc);
+        $loc                                     = get_module_pref('worldXYZ', 'worldmapen');
+        list($worldmapX, $worldmapY, $worldmapZ) = \explode(',', $loc);
 
         $cityMap = [];
 
@@ -33,18 +33,18 @@ trait Map
         }
 
         $params = [
-            'textDomain' => 'module-worldmapen',
-            'mapLinks' => $params,
+            'textDomain'   => 'module-worldmapen',
+            'mapLinks'     => $params,
             'colorUserLoc' => get_module_setting('colorUserLoc', 'worldmapen'),
-            'sizeX' => get_module_setting('worldmapsizeX', 'worldmapen'),
-            'sizeY' => get_module_setting('worldmapsizeY', 'worldmapen'),
-            'showCompass' => (bool) get_module_setting('showcompass', 'worldmapen'),
-            'worldMapX' => $worldmapX,
-            'worldMapY' => $worldmapY,
-            'worldMapZ' => $worldmapZ,
-            'cityMap' => $cityMap,
-            'worldMap' => worldmapen_loadMap(),
-            'terrainColor' => worldmapen_getColorDefinitions()
+            'sizeX'        => get_module_setting('worldmapsizeX', 'worldmapen'),
+            'sizeY'        => get_module_setting('worldmapsizeY', 'worldmapen'),
+            'showCompass'  => (bool) get_module_setting('showcompass', 'worldmapen'),
+            'worldMapX'    => $worldmapX,
+            'worldMapY'    => $worldmapY,
+            'worldMapZ'    => $worldmapZ,
+            'cityMap'      => $cityMap,
+            'worldMap'     => worldmapen_loadMap(),
+            'terrainColor' => worldmapen_getColorDefinitions(),
         ];
 
         return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/map.twig', $params);

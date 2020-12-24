@@ -3,12 +3,12 @@
 if (
     'LotgdLocal:ModInventory' == $args['entity'] //-- Hook return this format as base if you use this format
     || 'LotgdLocal_ModInventory' == $args['entity']
-    || 'Lotgd\Local\ModInventory' == trim($args['entity']) //-- Hook return this format as base if you use this format
+    || 'Lotgd\Local\ModInventory' == \trim($args['entity']) //-- Hook return this format as base if you use this format
 ) {
     try
     {
         $repositoryItem = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
-        $repository = \Doctrine::getRepository($args['data']['entity']);
+        $repository     = \Doctrine::getRepository($args['data']['entity']);
 
         foreach ($args['data']['rows'] as $row)
         {
@@ -19,7 +19,7 @@ if (
                 $row['item'] = $repositoryItem->find($row['item']);
 
                 //-- If not found item, not restore
-                if (! $row['item'])
+                if ( ! $row['item'])
                 {
                     continue;
                 }

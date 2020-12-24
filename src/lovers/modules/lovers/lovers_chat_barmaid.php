@@ -1,18 +1,18 @@
 <?php
 
-$act = (string) \LotgdRequest::getQuery('act');
+$act           = (string) \LotgdRequest::getQuery('act');
 $params['act'] = $act;
 
-if (! $act)
+if ( ! $act)
 {
     \LotgdNavigation::addNav('navigation.nav.chat.barmaid.gossip', 'runmodule.php?module=lovers&op=chat&act=gossip');
     \LotgdNavigation::addNav('navigation.nav.chat.barmaid.fat', 'runmodule.php?module=lovers&op=chat&act=fat', [
-        'params' => ['armor' => $session['user']['armor']]
+        'params' => ['armor' => $session['user']['armor']],
     ]);
 }
 elseif ('fat' == $act)
 {
-    $charm = $session['user']['charm'] + mt_rand(-1, 1);
+    $charm = $session['user']['charm'] + \mt_rand(-1, 1);
 
     switch ($charm)
     {

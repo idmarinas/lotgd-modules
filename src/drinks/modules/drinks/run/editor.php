@@ -1,6 +1,6 @@
 <?php
 
-if (! get_module_pref('canedit'))
+if ( ! get_module_pref('canedit'))
 {
     check_su_access(SU_EDIT_USERS);
 }
@@ -17,10 +17,10 @@ $textDomain = 'drinks-module';
 \LotgdNavigation::addHeader('navigation.category.editor');
 \LotgdNavigation::addNav('navigation.nav.add', 'runmodule.php?module=drinks&act=editor&op=add&admin=true');
 
-$op = (string) \LotgdRequest::getQuery('op');
+$op      = (string) \LotgdRequest::getQuery('op');
 $drinkid = (int) \LotgdRequest::getQuery('drinkid');
-$subop = (string) \LotgdRequest::getQuery('subop');
-$page = (int) \LotgdRequest::getQuery('page');
+$subop   = (string) \LotgdRequest::getQuery('subop');
+$page    = (int) \LotgdRequest::getQuery('page');
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
 
@@ -42,37 +42,37 @@ if ('' != $op)
 
 $params = [
     'textDomain' => $textDomain,
-    'subTitle' => $header
+    'subTitle'   => $header,
 ];
 
 $drinksForm = [
     'Drink,title',
-    'drinkid' => 'Drink ID,hidden',
-    'name' => 'Drink Name',
-    'costperlevel' => 'Cost per level,int',
-    'hpchance' => 'Chance of modifying HP (see below),range,0,10,1',
-    'turnchance' => 'Chance of modifying turns (see below),range,0,10,1',
-    'alwayshp' => 'Always modify hitpoints,bool',
-    'alwaysturn' => 'Always modify turns,bool',
-    'drunkeness' => 'Drunkeness,range,1,100,1',
-    'harddrink' => 'Is drink hard alchohol?,bool',
-    'hpmin' => 'Min HP to add (see below),range,-20,20,1',
-    'hpmax' => 'Max HP to add (see below),range,-20,20,1',
-    'hppercent' => 'Modify HP by some percent (see below),range,-25,25,5',
-    'turnmin' => 'Min turns to add (see below),range,-5,5,1',
-    'turnmax' => 'Max turns to add (see below),range,-5,5,1',
-    'remarks' => 'Remarks',
-    'buffname' => 'Name of the buff',
-    'buffrounds' => 'Rounds buff lasts,range,1,20,1',
-    'buffroundmsg' => 'Message each round of buff',
-    'buffwearoff' => 'Message when buff wears off',
-    'buffatkmod' => 'Attack modifier of buff',
-    'buffdefmod' => 'Defense modifier of buff',
-    'buffdmgmod' => 'Damage modifier of buff',
-    'buffdmgshield' => 'Damage shield modifier of buff',
-    'buffeffectfailmsg' => 'Effect failure message (see below)',
+    'drinkid'            => 'Drink ID,hidden',
+    'name'               => 'Drink Name',
+    'costperlevel'       => 'Cost per level,int',
+    'hpchance'           => 'Chance of modifying HP (see below),range,0,10,1',
+    'turnchance'         => 'Chance of modifying turns (see below),range,0,10,1',
+    'alwayshp'           => 'Always modify hitpoints,bool',
+    'alwaysturn'         => 'Always modify turns,bool',
+    'drunkeness'         => 'Drunkeness,range,1,100,1',
+    'harddrink'          => 'Is drink hard alchohol?,bool',
+    'hpmin'              => 'Min HP to add (see below),range,-20,20,1',
+    'hpmax'              => 'Max HP to add (see below),range,-20,20,1',
+    'hppercent'          => 'Modify HP by some percent (see below),range,-25,25,5',
+    'turnmin'            => 'Min turns to add (see below),range,-5,5,1',
+    'turnmax'            => 'Max turns to add (see below),range,-5,5,1',
+    'remarks'            => 'Remarks',
+    'buffname'           => 'Name of the buff',
+    'buffrounds'         => 'Rounds buff lasts,range,1,20,1',
+    'buffroundmsg'       => 'Message each round of buff',
+    'buffwearoff'        => 'Message when buff wears off',
+    'buffatkmod'         => 'Attack modifier of buff',
+    'buffdefmod'         => 'Defense modifier of buff',
+    'buffdmgmod'         => 'Damage modifier of buff',
+    'buffdmgshield'      => 'Damage shield modifier of buff',
+    'buffeffectfailmsg'  => 'Effect failure message (see below)',
     'buffeffectnodmgmsg' => 'No damage message (see below)',
-    'buffeffectmsg' => 'Effect message (see below)',
+    'buffeffectmsg'      => 'Effect message (see below)',
 ];
 
 //-- Change text domain for navigation
@@ -103,19 +103,19 @@ if ('del' == $op)
 elseif ('save' == $op)
 {
     $subop = \LotgdRequest::getQuery('subop');
-    $post = \LotgdRequest::getPostAll();
+    $post  = \LotgdRequest::getPostAll();
 
-    $message = '';
+    $message            = '';
     $paramsFlashMessage = [];
 
     if ('module' == $subop)
     {
         $module = \LotgdRequest::getQuery('editmodule');
 
-        $message = 'flash.message.editor.save.module';
+        $message            = 'flash.message.editor.save.module';
         $paramsFlashMessage = ['name' => $module];
         // Save module settings
-        reset($post);
+        \reset($post);
 
         foreach ($post as $key => $val)
         {
@@ -201,8 +201,8 @@ elseif ('edit' == $op || 'add' == $op)
         $form = module_objpref_edit('drinks', $module, $drinkid);
 
         $params['isLaminas'] = $form instanceof Laminas\Form\Form;
-        $params['module'] = $module;
-        $params['drinkid'] = $drinkid;
+        $params['module']    = $module;
+        $params['drinkid']   = $drinkid;
 
         if ($params['isLaminas'])
         {
@@ -229,7 +229,7 @@ elseif ('edit' == $op || 'add' == $op)
             }
             else
             {
-                reset($post);
+                \reset($post);
 
                 process_post_save_data_drinks($post, $drinkid, $module);
 
@@ -246,9 +246,9 @@ elseif ('edit' == $op || 'add' == $op)
     elseif ('' == $subop)
     {
         $drinkEntity = $repository->find($drinkid);
-        $drinkArray = $drinkEntity ? $repository->extractEntity($drinkEntity) : [];
+        $drinkArray  = $drinkEntity ? $repository->extractEntity($drinkEntity) : [];
 
-        $params['form'] = lotgd_showform($drinksForm, $drinkArray, false, false, false);
+        $params['form']  = lotgd_showform($drinksForm, $drinkArray, false, false, false);
         $params['drink'] = $drinkArray;
     }
 }
@@ -259,7 +259,7 @@ function process_post_save_data_drinks($data, $id, $module)
 {
     foreach ($data as $key => $val)
     {
-        if (is_array($val))
+        if (\is_array($val))
         {
             process_post_save_data_drinks($val, $id, $module);
 

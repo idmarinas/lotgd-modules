@@ -39,7 +39,7 @@ trait Navs
 
             foreach ($result as $key => $item)
             {
-                $inventory[$key] = array_merge($this->extractEntity($item[0]), $item);
+                $inventory[$key] = \array_merge($this->extractEntity($item[0]), $item);
                 unset($inventory[$key][0]);
             }
 

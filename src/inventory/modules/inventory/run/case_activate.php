@@ -4,20 +4,20 @@ require_once 'lib/buffs.php';
 
 global $session;
 
-$id = (int) \LotgdRequest::getQuery('id');
-$invId = (int) \LotgdRequest::getQuery('invid');
+$id     = (int) \LotgdRequest::getQuery('id');
+$invId  = (int) \LotgdRequest::getQuery('invid');
 $return = (string) \LotgdRequest::getQuery('return');
 $return = \LotgdSanitize::cmdSanitize($return);
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
-$item = $repository->getItemOfInventoryOfCharacter($id, $session['user']['acctid']);
+$item       = $repository->getItemOfInventoryOfCharacter($id, $session['user']['acctid']);
 
-if (false !== strpos($return, 'forest.php'))
+if (false !== \strpos($return, 'forest.php'))
 {
     $return = 'forest.php';
 }
 
-if (false !== strpos($return, 'village.php'))
+if (false !== \strpos($return, 'village.php'))
 {
     $return = 'village.php';
 }
@@ -37,9 +37,12 @@ else
 
 if (($item['item']['buff'] ?? false) && ! empty($item['item']['buff']))
 {
-    apply_buff($item['item']['buff']['key'], array_merge([], ...array_map(
-        function ($key, $value) { return [strtolower($key) => $value]; },
-        array_keys($item['item']['buff']),
+    apply_buff($item['item']['buff']['key'], \array_merge([], ...\array_map(
+        function ($key, $value)
+        {
+            return [\strtolower($key) => $value];
+        },
+        \array_keys($item['item']['buff']),
         $item['item']['buff']
     )));
 }
@@ -52,13 +55,13 @@ if ($item['item']['execvalue'] > '')
 
     if ($item['item']['exectext'] > '')
     {
-        $text = explode('|', $item['item']['exectext']);
+        $text               = \explode('|', $item['item']['exectext']);
         $params['activate'] = [
             $text[0],
             [
-                'itemName' => $item['item']['name']
+                'itemName' => $item['item']['name'],
             ],
-            $text[1] ?? $textDomain
+            $text[1] ?? $textDomain,
         ];
     }
     else
@@ -66,9 +69,9 @@ if ($item['item']['execvalue'] > '')
         $params['activate'] = [
             'item.activate',
             [
-                'itemName' => $item['item']['name']
+                'itemName' => $item['item']['name'],
             ],
-            $textDomain
+            $textDomain,
         ];
     }
 

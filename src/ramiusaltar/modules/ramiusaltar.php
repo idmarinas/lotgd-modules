@@ -7,31 +7,31 @@
 function ramiusaltar_getmoduleinfo()
 {
     return [
-        'name' => 'Alter to Ramius',
-        'version' => '2.0.0',
-        'author' => '`7ma`0`&tt`0`3@`0`7matt`0`&mullen`0`3.`0`7net`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Alter to Ramius',
+        'version'  => '2.0.0',
+        'author'   => '`7ma`0`&tt`0`3@`0`7matt`0`&mullen`0`3.`0`7net`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'http://www.mattmullen.net',
         'settings' => [
             'reward = minimumguaranteedreward + random(0;maximumrandombonus),note',
-            'ramiusaltarloc' => 'Where does the altar to Ramius appear,location|'.getsetting('villagename', LOCATION_FIELDS),
+            'ramiusaltarloc'   => 'Where does the altar to Ramius appear,location|'.getsetting('villagename', LOCATION_FIELDS),
             'sacrificesperday' => 'How many times can the user sacrifice each day,int|1',
-            'reward1' => 'What is the minimum guaranteed favor for blood sacrafice,int|10',
-            'reward2' => 'What is the minimum guaranteed favor for flesh sacrafice,int|35',
-            'reward3' => 'What is the minimum guaranteed favor for spirit sacrafice,int|65',
-            'rewardbonus' => 'What is the maximum random bonus for any sacrafice,int|35',
+            'reward1'          => 'What is the minimum guaranteed favor for blood sacrafice,int|10',
+            'reward2'          => 'What is the minimum guaranteed favor for flesh sacrafice,int|35',
+            'reward3'          => 'What is the minimum guaranteed favor for spirit sacrafice,int|65',
+            'rewardbonus'      => 'What is the maximum random bonus for any sacrafice,int|35',
         ],
         'prefs' => [
             'sacrificedtoday' => 'How many times has the user sacrificed today,int|0',
-            'totalgained' => 'How much total favor has the user gained,int|0',
+            'totalgained'     => 'How much total favor has the user gained,int|0',
             'totalsacrifices' => 'How many times has the user ever sacrificed,int|0',
-            'totalhploss' => 'How many total hitpoints has the user lost,int|0',
-            'totalturnloss' => 'How many total turns has the user lost,int|0',
-            'totalmaxhploss' => 'How many total max hitpoints has the user lost,int|0'
+            'totalhploss'     => 'How many total hitpoints has the user lost,int|0',
+            'totalturnloss'   => 'How many total turns has the user lost,int|0',
+            'totalmaxhploss'  => 'How many total max hitpoints has the user lost,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -89,7 +89,7 @@ function ramiusaltar_run()
 {
     global $session;
 
-    $op = \LotgdRequest::getQuery('op');
+    $op   = \LotgdRequest::getQuery('op');
     $type = \LotgdRequest::getQuery('type');
 
     $textDomain = 'module-ramiusaltar';
@@ -99,7 +99,7 @@ function ramiusaltar_run()
 
     $params = [
         'textDomain' => $textDomain,
-        'useStamina' => $useStamina
+        'useStamina' => $useStamina,
     ];
 
     \LotgdNavigation::setTextDomain($textDomain);
@@ -108,7 +108,7 @@ function ramiusaltar_run()
 
     if ('' == $op)
     {
-        $params['tpl'] = 'default';
+        $params['tpl']        = 'default';
         $params['sacrificed'] = false;
 
         if (get_module_pref('sacrificedtoday') >= get_module_setting('sacrificesperday'))
@@ -127,15 +127,15 @@ function ramiusaltar_run()
     }
     elseif ('give' == $op)
     {
-        $params['tpl'] = 'give';
-        $gain_favor = mt_rand(0, get_module_setting('rewardbonus'));
+        $params['tpl']     = 'give';
+        $gain_favor        = \mt_rand(0, get_module_setting('rewardbonus'));
         $ramius_is_pleased = 1;
 
         switch ($type)
         {
             case 'blood':
                 $params['giveType'] = 'blood';
-                $params['weak'] = false;
+                $params['weak']     = false;
 
                 if ($session['user']['hitpoints'] <= $session['user']['maxhitpoints'] * 0.75)
                 {
@@ -157,7 +157,7 @@ function ramiusaltar_run()
             break;
             case 'flesh':
                 $params['giveType'] = 'flesh';
-                $params['weak'] = false;
+                $params['weak']     = false;
 
                 if ($useStamina)
                 {
@@ -176,7 +176,7 @@ function ramiusaltar_run()
 
                 $gain_favor += get_module_setting('reward2');
 
-                $turn_loss = mt_rand(2, 4);
+                $turn_loss = \mt_rand(2, 4);
 
                 if ($useStamina)
                 {
@@ -198,7 +198,7 @@ function ramiusaltar_run()
             break;
             case 'spirit':
                 $params['giveType'] = 'spirit';
-                $params['weak'] = false;
+                $params['weak']     = false;
 
                 if ($session['user']['permahitpoints'] < 0)
                 {
@@ -211,9 +211,9 @@ function ramiusaltar_run()
 
                 $gain_favor += get_module_setting('reward3');
 
-                $hp_loss = mt_rand(1, 3);
+                $hp_loss = \mt_rand(1, 3);
                 $session['user']['maxhitpoints'] -= $hp_loss;
-                $session['user']['hitpoints'] -= $hp_loss;
+                $session['user']['hitpoints']    -= $hp_loss;
                 set_module_pref('totalmaxhploss', get_module_pref('totalmaxhploss') + $hp_loss);
 
                 $session['user']['permahitpoints'] -= $hp_loss;
@@ -253,18 +253,18 @@ function ramiusaltar_run()
 
             $session['user']['deathpower'] -= 5;
 
-            $session['user']['deathpower'] = max(0, $session['user']['deathpower']);
+            $session['user']['deathpower'] = \max(0, $session['user']['deathpower']);
         }
     }
     elseif ('defile' == $op)
     {
-        $params['tpl'] = 'defile';
+        $params['tpl']     = 'defile';
         $params['defiled'] = false;
 
         if ($session['user']['deathpower'] > 0)
         {
-            $favor_loss = min(50, $session['user']['deathpower']);
-            $params['defiled'] = true;
+            $favor_loss          = \min(50, $session['user']['deathpower']);
+            $params['defiled']   = true;
             $params['favorLost'] = $favor_loss;
 
             $session['user']['deathpower'] -= $favor_loss;
@@ -282,11 +282,11 @@ function ramiusaltar_run()
             }
             else
             {
-                $session['user']['turns']++;
+                ++$session['user']['turns'];
             }
         }
     }
-    elseif ('hof' == strtolower($op))
+    elseif ('hof' == \strtolower($op))
     {
         $params['tpl'] = 'hof';
 
@@ -295,8 +295,8 @@ function ramiusaltar_run()
         $page = (int) \LotgdRequest::getQuery('page');
 
         $repository = \Doctrine::getRepository('LotgdCore:Accounts');
-        $query = $repository->createQueryBuilder('u');
-        $expr = $query->expr();
+        $query      = $repository->createQueryBuilder('u');
+        $expr       = $query->expr();
 
         $query->select('c.name', 'g.value AS gained', 's.value AS sacrifices', 'h.value AS hpLost', 't.value AS turns', 'm.value AS maxHpLost')
             ->innerJoin('LotgdCore:Characters', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
@@ -343,7 +343,7 @@ function ramiusaltar_run()
     }
 
     $params['weapon'] = $session['user']['weapon'];
-    $params['name'] = $session['user']['name'];
+    $params['name']   = $session['user']['name'];
 
     \LotgdNavigation::addHeader('common.category.return', ['textDomain' => 'navigation-app']);
     \LotgdNavigation::villageNav();

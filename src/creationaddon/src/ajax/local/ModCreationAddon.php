@@ -12,7 +12,7 @@ class ModCreationAddon extends AjaxAbstract
         $response = new Response();
 
         $params = [
-            'privacy' => get_module_setting('privacy', 'creationaddon')
+            'privacy' => get_module_setting('privacy', 'creationaddon'),
         ];
         $content = \LotgdTheme::render('@module/creationaddon/run/privacy.twig', $params);
 
@@ -27,7 +27,7 @@ class ModCreationAddon extends AjaxAbstract
         $response = new Response();
 
         $params = [
-            'terms' => get_module_setting('terms', 'creationaddon')
+            'terms' => get_module_setting('terms', 'creationaddon'),
         ];
 
         $content = \LotgdTheme::render('@module/creationaddon/run/terms.twig', $params);

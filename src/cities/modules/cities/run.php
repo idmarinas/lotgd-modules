@@ -2,12 +2,12 @@
 
 require_once 'lib/forestoutcomes.php';
 
-$op = \LotgdRequest::getQuery('op');
-$city = (string) urldecode(\LotgdRequest::getQuery('city'));
-$ccity = urlencode($city);
+$op       = \LotgdRequest::getQuery('op');
+$city     = (string) \urldecode(\LotgdRequest::getQuery('city'));
+$ccity    = \urlencode($city);
 $continue = \LotgdRequest::getQuery('continue');
-$danger = \LotgdRequest::getQuery('d');
-$su = \LotgdRequest::getQuery('su');
+$danger   = \LotgdRequest::getQuery('d');
+$su       = \LotgdRequest::getQuery('su');
 
 if ('faq' != $op)
 {
@@ -23,14 +23,14 @@ if ('faq' != $op)
 // otherwise things break.
 require_once 'lib/events.php';
 
-if (! isset($session['user']['specialinc']) || '' != $session['user']['specialinc'] || \LotgdRequest::getQuery('eventhandler'))
+if ( ! isset($session['user']['specialinc']) || '' != $session['user']['specialinc'] || \LotgdRequest::getQuery('eventhandler'))
 {
     $in_event = handle_event('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1&", 'Travel');
 
     if ($in_event)
     {
         \LotgdNavigation::addNav('common.nav.continue', "runmodule.php?module=cities&op=travel&city={$ccity}&d={$danger}&continue=1", [
-            'textDomain' => 'navigation-app'
+            'textDomain' => 'navigation-app',
         ]);
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
@@ -42,7 +42,7 @@ if (! isset($session['user']['specialinc']) || '' != $session['user']['specialin
 if ('travel' == $op)
 {
     $args = modulehook('count-travels', ['available' => 0, 'used' => 0]);
-    $free = max(0, $args['available'] - $args['used']);
+    $free = \max(0, $args['available'] - $args['used']);
 
     if ('' == $city)
     {
@@ -53,7 +53,7 @@ if ('travel' == $op)
 
         modulehook('pre-travel');
 
-        $params['canTravel'] = ! (! ($session['user']['superuser'] & SU_EDIT_USERS) && ($session['user']['turns'] <= 0) && 0 == $free);
+        $params['canTravel'] = ! ( ! ($session['user']['superuser'] & SU_EDIT_USERS) && ($session['user']['turns'] <= 0) && 0 == $free);
 
         if ($params['canTravel'])
         {
@@ -73,9 +73,9 @@ if ('travel' == $op)
         if ('1' != $continue && '1' != $su && ! get_module_pref('paidcost'))
         {
             set_module_pref('paidcost', 1);
-            $httpcost = \LotgdRequest::getQuery('cost');
-            $cost = modulehook('travel-cost', ['from' => $session['user']['location'], 'to' => $city, 'cost' => 0]);
-            $cost = max(1, $cost['cost'], $httpcost);
+            $httpcost   = \LotgdRequest::getQuery('cost');
+            $cost       = modulehook('travel-cost', ['from' => $session['user']['location'], 'to' => $city, 'cost' => 0]);
+            $cost       = \max(1, $cost['cost'], $httpcost);
             $reallyfree = $free - $cost;
 
             if ($reallyfree > 0)
@@ -87,7 +87,7 @@ if ('travel' == $op)
             }
             elseif ($session['user']['turns'] + $free > 0)
             {
-                $over = abs($reallyfree);
+                $over = \abs($reallyfree);
                 increment_module_pref('traveltoday', $free);
                 $session['user']['turns'] -= $over;
             }
@@ -95,7 +95,7 @@ if ('travel' == $op)
             {
                 \LotgdFlashMessages::addInfoMessage([
                     'message' => \LotgdTranslator::t('flash.message.not.forest.fights', [], 'cities-module'),
-                    'close' => false
+                    'close'   => false,
                 ]);
 
                 debuglog("Travelled with out having any forest fights, how'd they swing that?");
@@ -105,11 +105,11 @@ if ('travel' == $op)
         // Let's give the lower DK people a slightly better chance.
         $dlevel = cities_dangerscale($danger);
 
-        if (mt_rand(0, 100) < $dlevel && '1' != $su)
+        if (\mt_rand(0, 100) < $dlevel && '1' != $su)
         {
             //they've been waylaid.
 
-            if (0 != module_events('travel', get_module_setting('travelspecialchance'), "runmodule.php?module=cities&city={$ccity}&d=$dangecontinue=1&"))
+            if (0 != module_events('travel', get_module_setting('travelspecialchance'), "runmodule.php?module=cities&city={$ccity}&d={$dangecontinue}=1&"))
             {
                 \LotgdResponse::pageStart('section.title.event', [], 'cities-module');
 
@@ -120,14 +120,14 @@ if ('travel' == $op)
                 else
                 {
                     // Reset the special for good.
-                    $session['user']['specialinc'] = '';
+                    $session['user']['specialinc']  = '';
                     $session['user']['specialmisc'] = '';
-                    $skipvillagedesc = true;
-                    $op = '';
+                    $skipvillagedesc                = true;
+                    $op                             = '';
                     \LotgdRequest::setQuery('op', '');
 
                     \LotgdNavigation::addNav('navs.continue', "runmodule.php?module=cities&op=travel&city={$ccity}&d={$danger}&continue=1", [
-                        'textDomain' => 'cities-navigation'
+                        'textDomain' => 'cities-navigation',
                     ]);
 
                     module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
@@ -139,13 +139,13 @@ if ('travel' == $op)
             $args = [
                 'soberval' => 0.9,
                 'sobermsg' => \LotgdTranslator::t('section.travel.sobermsg', [], 'cities-module'),
-                'schema' => 'module-cities'
+                'schema'   => 'module-cities',
             ];
             modulehook('soberup', $args);
 
             $result = lotgd_search_creature(1, $session['user']['level'], $session['user']['level']);
 
-            if (! count($result))
+            if ( ! \count($result))
             {
                 // There is nothing in the database to challenge you,
                 // let's give you a doppleganger.
@@ -158,11 +158,11 @@ if ('travel' == $op)
             }
 
             calculate_buff_fields();
-            $badguy['playerstarthp'] = $session['user']['hitpoints'];
-            $badguy['diddamage'] = 0;
-            $badguy['type'] = 'travel';
+            $badguy['playerstarthp']   = $session['user']['hitpoints'];
+            $badguy['diddamage']       = 0;
+            $badguy['type']            = 'travel';
             $session['user']['badguy'] = $badguy;
-            $battle = true;
+            $battle                    = true;
         }
         else
         {
@@ -176,7 +176,7 @@ if ('travel' == $op)
 }
 elseif ('fight' == $op || 'run' == $op)
 {
-    if ('run' == $op && mt_rand(1, 5) < 3)
+    if ('run' == $op && \mt_rand(1, 5) < 3)
     {
         // They managed to get away.
         \LotgdResponse::pageStart('title.escape', [], 'cities-module');
@@ -194,7 +194,7 @@ elseif ('fight' == $op || 'run' == $op)
         }
 
         $params = [
-            'location' => $session['user']['location']
+            'location' => $session['user']['location'],
         ];
 
         \LotgdNavigation::addNav('navs.enter', ['location' => $session['user']['location']], 'village.php');
@@ -212,7 +212,7 @@ elseif ('' == $op)
 
     \LotgdFlashMessages::addInfoMessage([
         'message' => \LotgdTranslator::t('section.travel.empty', [], 'citites-module'),
-        'close' => false
+        'close'   => false,
     ]);
 
     \LotgdNavigation::addNav('navs.journey', "runmodule.php?module=cities&op=travel&city={$ccity}&continue=1&d={$danger}");
@@ -241,8 +241,8 @@ if ($battle)
     {
         addnews('travel.deathmessage', [
             'location' => $city,
-            'player' => $session['user']['name'],
-            'creature' => $badbuy['creaturename']
+            'player'   => $session['user']['name'],
+            'creature' => $badbuy['creaturename'],
         ], 'cities-module');
     }
     else

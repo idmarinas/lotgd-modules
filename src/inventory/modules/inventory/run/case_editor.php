@@ -3,16 +3,16 @@
 require_once 'lib/listfiles.php';
 require_once 'lib/showform.php';
 
-$op2 = (string) \LotgdRequest::getQuery('op2');
-$id = (int) \LotgdRequest::getQuery('id');
+$op2       = (string) \LotgdRequest::getQuery('op2');
+$id        = (int) \LotgdRequest::getQuery('id');
 $isLaminas = (string) \LotgdRequest::getQuery('isLaminas');
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
-$buffRepo = \Doctrine::getRepository('LotgdLocal:ModInventoryBuff');
+$buffRepo   = \Doctrine::getRepository('LotgdLocal:ModInventoryBuff');
 
 $params = [
     'textDomain' => 'module-inventory',
-    'itemId' => $id
+    'itemId'     => $id,
 ];
 
 \LotgdResponse::pageStart('title.editor', [], $params['textDomain']);
@@ -36,19 +36,19 @@ switch ($op2)
     case 'newitem':
         $params['tpl'] = 'edititem';
 
-        $subop = (string) \LotgdRequest::getQuery('subop');
+        $subop  = (string) \LotgdRequest::getQuery('subop');
         $module = (string) \LotgdRequest::getQuery('submodule');
 
         if (\LotgdRequest::isPost() && 'true' != $isLaminas)
         {
             $post = \LotgdRequest::getPostAll();
-            reset($post);
+            \reset($post);
 
             $paramsFlashMessage = [];
-            $message = 'flash.message.save.saved';
+            $message            = 'flash.message.save.saved';
 
-            $post['activationHook'] = array_sum(array_keys($post['activationHook']));
-            $post['buff'] = $buffRepo->find($post['buff']);
+            $post['activationHook'] = \array_sum(\array_keys($post['activationHook']));
+            $post['buff']           = $buffRepo->find($post['buff']);
 
             $item = $repository->find($id);
             $item = $repository->hydrateEntity($post, $item);
@@ -80,15 +80,15 @@ switch ($op2)
             module_editor_navs('prefs-items', "runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule=");
         }
 
-        $item = is_array($item) ? $item : [];
+        $item = \is_array($item) ? $item : [];
 
         if ('module' == $subop)
         {
             $form = module_objpref_edit('items', $module, $id);
 
             $params['isLaminas'] = $form instanceof Laminas\Form\Form;
-            $params['module'] = $module;
-            $params['id'] = $id;
+            $params['module']    = $module;
+            $params['id']        = $id;
 
             if ($params['isLaminas'])
             {
@@ -115,7 +115,7 @@ switch ($op2)
                 }
                 else
                 {
-                    reset($post);
+                    \reset($post);
 
                     process_post_save_data_inventory($post, $id, $module);
 
@@ -137,8 +137,8 @@ switch ($op2)
 
             foreach ($result as $row)
             {
-                $key = str_replace(',', ' ', $row->getKey());
-                $name = str_replace(',', ' ', $row->getName());
+                $key  = \str_replace(',', ' ', $row->getKey());
+                $name = \str_replace(',', ' ', $row->getName());
 
                 $buffsjoin .= ",{$row->getId()},{$name} ({$key})";
             }
@@ -158,47 +158,47 @@ switch ($op2)
             ;
 
             $sort = list_files('items', []);
-            sort($sort);
-            $scriptenum = implode('', $sort);
+            \sort($sort);
+            $scriptenum = \implode('', $sort);
             $scriptenum = ',,none'.$scriptenum;
 
             $sort = list_files('items_requisites', []);
-            sort($sort);
-            $scriptenumrequisite = implode('', $sort);
+            \sort($sort);
+            $scriptenumrequisite = \implode('', $sort);
             $scriptenumrequisite = ',,none'.$scriptenumrequisite;
 
             $sort = list_files('items_customvalue', []);
-            sort($sort);
-            $scriptenumcustomvalue = implode('', $sort);
+            \sort($sort);
+            $scriptenumcustomvalue = \implode('', $sort);
             $scriptenumcustomvalue = ',,none'.$scriptenumcustomvalue;
 
             $format = [
                 'Basic information,title',
-                'id' => 'Item id,viewhiddenonly',
-                'class' => 'Item category, string|Loot',
-                'name' => 'Item name, string|',
-                'image' => 'Item image (class code for CSS image), string|',
+                'id'          => 'Item id,viewhiddenonly',
+                'class'       => 'Item category, string|Loot',
+                'name'        => 'Item name, string|',
+                'image'       => 'Item image (class code for CSS image), string|',
                 'description' => 'Description, textarea,60,5|Just a normal useless item.',
                 'Values,title',
-                'gold' => 'Gold value,int|0',
-                'gems' => 'Gem value,int|0',
-                'weight' => 'Weight,int|1',
-                'droppable' => 'Is this item droppable,bool',
-                'level' => 'Minimum level needed,range,1,15,1|1',
-                'dragonkills' => 'Dragonkills needed,int|0',
-                'customValue' => 'Custom detailed information (show in shop for example),textarea',
+                'gold'            => 'Gold value,int|0',
+                'gems'            => 'Gem value,int|0',
+                'weight'          => 'Weight,int|1',
+                'droppable'       => 'Is this item droppable,bool',
+                'level'           => 'Minimum level needed,range,1,15,1|1',
+                'dragonkills'     => 'Dragonkills needed,int|0',
+                'customValue'     => 'Custom detailed information (show in shop for example),textarea',
                 'execCustomValue' => 'Custom exec value for detailed information (this information need process),enumsearch'.$scriptenumcustomvalue,
-                'exectext' => 'Text to display upon activation of the item,string,100',
+                'exectext'        => 'Text to display upon activation of the item,string,100',
                 "Use %s to insert the item's name!,note",
-                'noEffectText' => 'Text to display if item has no effect,string,100',
-                'execValue' => 'Exec value file,enumsearch'.$scriptenum,
+                'noEffectText'   => 'Text to display if item has no effect,string,100',
+                'execValue'      => 'Exec value file,enumsearch'.$scriptenum,
                 'execrequisites' => 'Exec custom requisites,enumsearch'.$scriptenumrequisite,
                 "Please see the file 'lib/itemeffects.php' for possible values,note",
                 'hide' => 'Hide item from inventory?,bool',
                 'Buffs and activation,title',
-                'buff' => "Activate this buff on useage,enum,$buffsjoin",
-                'charges' => 'Amount of charges the item has,int|0',
-                'link' => "Link that's called upon activation,|",
+                'buff'           => "Activate this buff on useage,enum,{$buffsjoin}",
+                'charges'        => 'Amount of charges the item has,int|0',
+                'link'           => "Link that's called upon activation,|",
                 'activationHook' => 'Hooks which show the item,bitfield,127,'
                     .HOOK_NEWDAY.',Newday,'
                     .HOOK_FOREST.',Forest,'
@@ -208,31 +208,31 @@ switch ($op2)
                     .HOOK_TRAIN.',Train,'
                     .HOOK_INVENTORY.',Inventory',
                 'Chances,title',
-                'find_rarity' => 'Rarity of object, enum,common,Common,uncommon,Uncommon,rare,Rare,legend,Legend',
-                'findChance' => "Chance to get this item though 'get_random_item()',range,0,100,1|100",
-                'looseChance' => 'Chance that this item gets damaged when dying in battle,range,0,100,1|100',
+                'find_rarity'   => 'Rarity of object, enum,common,Common,uncommon,Uncommon,rare,Rare,legend,Legend',
+                'findChance'    => "Chance to get this item though 'get_random_item()',range,0,100,1|100",
+                'looseChance'   => 'Chance that this item gets damaged when dying in battle,range,0,100,1|100',
                 'dkLooseChance' => 'Chance to loose this item after killing the dragon,range,0,100,1|100',
                 'Shop Options,title',
                 'sellable' => 'Is this item sellable?,bool',
-                'buyable' => 'Is this item buyable?,bool',
+                'buyable'  => 'Is this item buyable?,bool',
                 'Special Settings,title',
                 'uniqueForServer' => 'Is this item unique (server)?,bool',
                 'uniqueForPlayer' => 'Is this item unique for the player?,bool',
-                'equippable' => 'Is this item equippable?,bool',
-                'equipWhere' => "Where can this item be equipped?,enum,$enum_equip",
+                'equippable'      => 'Is this item equippable?,bool',
+                'equipWhere'      => "Where can this item be equipped?,enum,{$enum_equip}",
             ];
 
-            $params['form'] = lotgd_showform($format, $item, true, false, false);
+            $params['form']   = lotgd_showform($format, $item, true, false, false);
             $params['itemId'] = $id;
         }
     break;
     case 'delitem':
         $params['tpl'] = 'delitem';
 
-        $item = $repository->find($id);
+        $item           = $repository->find($id);
         $params['item'] = clone $item;
 
-        $query = $repository->getCreateQuery();
+        $query               = $repository->getCreateQuery();
         $params['inventory'] = $query->delete('LotgdLocal:ModInventory', 'u')
             ->where('u.item = :id')
 
@@ -259,7 +259,7 @@ switch ($op2)
         if (\LotgdRequest::isPost())
         {
             $post = \LotgdRequest::getPostAll();
-            reset($post);
+            \reset($post);
 
             $message = 'flash.message.save.saved';
 
@@ -289,55 +289,55 @@ switch ($op2)
             }
         }
 
-        $buff = is_array($buff) ? $buff : [];
+        $buff = \is_array($buff) ? $buff : [];
 
         $format = [
             'General Settings,title',
-            'id' => 'Buff ID,viewonly',
-            'key' => 'Buff name (shown in editor),string,250',
+            'id'   => 'Buff ID,viewonly',
+            'key'  => 'Buff name (shown in editor),string,250',
             'name' => 'Buff name (shown in charstats),string,250',
             'The charstats name will automatically use the color of the skill that uses it,note',
             'rounds' => 'Rounds,int',
             'Combat Modifiers,title',
-            'dmgMod' => 'Damage Modifier (Goodguy)',
-            'atkMod' => 'Attack Modifier (Goodguy)',
-            'defMod' => 'Defense Modifier (Goodguy)',
+            'dmgMod'       => 'Damage Modifier (Goodguy)',
+            'atkMod'       => 'Attack Modifier (Goodguy)',
+            'defMod'       => 'Defense Modifier (Goodguy)',
             'badGuyDmgMod' => 'Damage Modifier (Badguy)',
             'badGuyAtkMod' => 'Attack Modifier (Badguy)',
             'badGuyDefMod' => 'Defense Modifier (Badguy)',
             'Misc Combat Modifiers,title',
-            'lifeTap' => 'Lifetap,float',
+            'lifeTap'      => 'Lifetap,float',
             'damageShield' => 'Damage Shield,float',
-            'regen' => 'Regeneration,float',
+            'regen'        => 'Regeneration,float',
             'Minion Count Settings,title',
-            'minionCount' => 'Minion count,int',
-            'minBadGuyDamage' => 'Min Badguy Damage,int',
-            'maxBadGuyDamage' => 'Max Badguy Damage,int',
+            'minionCount'      => 'Minion count,int',
+            'minBadGuyDamage'  => 'Min Badguy Damage,int',
+            'maxBadGuyDamage'  => 'Max Badguy Damage,int',
             'minGoodGuyDamage' => 'Max Goodguy Damage,int',
             'maxGoodGuyDamage' => 'Max Goodguy Damage,int',
             'Message Settings,title',
             'You can use %c in any message and it will be replaced with the color code of the skill that activates the buff,note',
-            'startMsg' => 'Start Message',
-            'roundMsg' => 'Round Message',
-            'wearOff' => 'Wear Off Message',
-            'effectMsg' => 'Effect Message',
-            'effectFailMsg' => 'Effect Fail Message',
+            'startMsg'       => 'Start Message',
+            'roundMsg'       => 'Round Message',
+            'wearOff'        => 'Wear Off Message',
+            'effectMsg'      => 'Effect Message',
+            'effectFailMsg'  => 'Effect Fail Message',
             'effectNoDmgMsg' => 'Effect No Damage Message',
             'Misc Settings,title',
-            'allowInPvp' => 'Allow in PvP?,bool',
-            'allowInTrain' => 'Allow in Training?,bool',
-            'surviveNewDay' => 'Survive New Day?,bool',
-            'invulnerable' => 'Invulnerable?,bool',
+            'allowInPvp'       => 'Allow in PvP?,bool',
+            'allowInTrain'     => 'Allow in Training?,bool',
+            'surviveNewDay'    => 'Survive New Day?,bool',
+            'invulnerable'     => 'Invulnerable?,bool',
             'expireAfterFight' => 'Expires after fight?,bool',
         ];
 
         $params['buffId'] = $id;
-        $params['form'] = lotgd_showform($format, $buff, true, false, false);
+        $params['form']   = lotgd_showform($format, $buff, true, false, false);
     break;
     case 'delbuff':
         $params['tpl'] = 'delbuff';
 
-        $buff = $buffRepo->find($id);
+        $buff           = $buffRepo->find($id);
         $params['buff'] = clone $buff;
 
         \Doctrine::remove($buff);
@@ -371,7 +371,7 @@ function process_post_save_data_inventory($data, $id, $module)
 {
     foreach ($data as $key => $val)
     {
-        if (is_array($val))
+        if (\is_array($val))
         {
             process_post_save_data_inventory($val, $id, $module);
 

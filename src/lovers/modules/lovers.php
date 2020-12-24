@@ -6,18 +6,18 @@
 function lovers_getmoduleinfo()
 {
     return [
-        'name' => 'Violet and Seth Lovers',
-        'author' => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '2.0.0',
+        'name'     => 'Violet and Seth Lovers',
+        'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'version'  => '2.0.0',
         'category' => 'Inn',
         'download' => 'core_module',
-        'prefs' => [
+        'prefs'    => [
             'Lover Module User Preferences,title',
-            'seenlover' => 'Visited Lover Today?,bool|0'
+            'seenlover' => 'Visited Lover Today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -55,7 +55,7 @@ function lovers_dohook($hookname, $args)
 
                 // 0.7 seemed to be a perfect balance of no loss of charm.
                 // 1.0 was too much.
-                $dk = max(1, round(.85 * sqrt($dk), 0));
+                $dk        = \max(1, \round(.85 * \sqrt($dk), 0));
                 $charmloss = e_rand(1, $dk);
                 $session['user']['charm'] -= $charmloss;
 
@@ -63,14 +63,14 @@ function lovers_dohook($hookname, $args)
                 {
                     addnews('news.note', ['partner' => $partner, 'playerName' => $session['user']['name']], $textDomain);
                     $session['user']['marriedto'] = 0;
-                    $session['user']['charm'] = 0;
+                    $session['user']['charm']     = 0;
                 }
 
                 $args['includeTemplatesPost']['module/lovers/dohook/newday.twig'] = [
                     'textDomain' => $textDomain,
-                    'charmLoss' => $charmloss,
-                    'partner' => $partner,
-                    'playerName' => $session['user']['name']
+                    'charmLoss'  => $charmloss,
+                    'partner'    => $partner,
+                    'playerName' => $session['user']['name'],
                 ];
             }
         break;
@@ -79,7 +79,7 @@ function lovers_dohook($hookname, $args)
 
             \LotgdNavigation::addNav('navigation.nav.flirt.with', 'runmodule.php?module=lovers&op=flirt', [
                 'textDomain' => $textDomain,
-                'params' => ['partner' => $partner]
+                'params'     => ['partner' => $partner],
             ]);
 
             $session['user']['prefs']['sexuality'] = $session['user']['prefs']['sexuality'] ?? ! $session['user']['sex'];
@@ -88,14 +88,14 @@ function lovers_dohook($hookname, $args)
             {
                 \LotgdNavigation::addNav('navigation.nav.chat.bard.chat', 'runmodule.php?module=lovers&op=chat', [
                     'textDomain' => $textDomain,
-                    'params' => ['name' => getsetting('bard', '`^Seth`0')]
+                    'params'     => ['name' => getsetting('bard', '`^Seth`0')],
                 ]);
             }
             else
             {
                 \LotgdNavigation::addNav('navigation.nav.chat.barmaid.chat', 'runmodule.php?module=lovers&op=chat', [
                     'textDomain' => $textDomain,
-                    'params' => ['name' => getsetting('barmaid', '`%Violet`0')]
+                    'params'     => ['name' => getsetting('barmaid', '`%Violet`0')],
                 ]);
             }
         break;
@@ -116,11 +116,11 @@ function lovers_run()
     $params = [
         'textDomain' => $textDomain,
         'playerName' => $session['user']['name'],
-        'innName' => getsetting('innname', LOCATION_INN),
-        'barkeep' => getsetting('barkeep', '`tCedrik`0'),
-        'bard' => getsetting('bard', '`^Seth`0'),
-        'barmaid' => getsetting('barmaid', '`%Violet`0'),
-        'partner' => get_partner()
+        'innName'    => getsetting('innname', LOCATION_INN),
+        'barkeep'    => getsetting('barkeep', '`tCedrik`0'),
+        'bard'       => getsetting('bard', '`^Seth`0'),
+        'barmaid'    => getsetting('barmaid', '`%Violet`0'),
+        'partner'    => get_partner(),
     ];
 
     \LotgdResponse::pageStart($params['innName'], [], $textDomain);
@@ -180,11 +180,11 @@ function lovers_getbuff()
     $partner = get_partner();
 
     return [
-        'name' => \LotgdTranslator::t('buff.name', [], $textDomain),
-        'rounds' => 60,
-        'wearoff' => \LotgdTranslator::t('buff.wearoff', ['partner' => $partner], $textDomain),
-        'defmod' => 1.2,
+        'name'     => \LotgdTranslator::t('buff.name', [], $textDomain),
+        'rounds'   => 60,
+        'wearoff'  => \LotgdTranslator::t('buff.wearoff', ['partner' => $partner], $textDomain),
+        'defmod'   => 1.2,
         'roundmsg' => \LotgdTranslator::t('buff.roundmsg', [], $textDomain),
-        'schema' => 'module-lovers',
+        'schema'   => 'module-lovers',
     ];
 }

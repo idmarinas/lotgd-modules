@@ -16,7 +16,7 @@ class ModInventoryRepository extends DoctrineRepository
     public function getInventoryOfCharacter(int $acctId): array
     {
         $query = $this->createQueryBuilder('u');
-        $expr = $query->expr();
+        $expr  = $query->expr();
 
         try
         {
@@ -38,10 +38,10 @@ class ModInventoryRepository extends DoctrineRepository
 
             foreach ($result as $item)
             {
-                $data = $this->extractEntity($item);
+                $data             = $this->extractEntity($item);
                 $data['quantity'] = 1;
-                $data['item'] = $this->extractEntity($data['item']);
-                $inventory[] = $data;
+                $data['item']     = $this->extractEntity($data['item']);
+                $inventory[]      = $data;
             }
 
             $queryNoEquip = clone $query;
@@ -57,7 +57,7 @@ class ModInventoryRepository extends DoctrineRepository
 
             foreach ($result as $item)
             {
-                $data = array_merge($this->extractEntity($item[0]), $item);
+                $data         = \array_merge($this->extractEntity($item[0]), $item);
                 $data['item'] = $this->extractEntity($data['item']);
                 unset($data[0]);
                 $inventory[] = $data;
@@ -79,7 +79,7 @@ class ModInventoryRepository extends DoctrineRepository
     public function getItemOfInventoryOfCharacter(int $itemId, int $acctId, int $invid = 0): array
     {
         $query = $this->createQueryBuilder('u');
-        $expr = $query->expr();
+        $expr  = $query->expr();
 
         try
         {
@@ -106,8 +106,8 @@ class ModInventoryRepository extends DoctrineRepository
 
             if ($result[0] ?? false)
             {
-                $data = array_merge($this->extractEntity($result[0]), $result);
-                $data['item'] = $this->extractEntity($data['item']);
+                $data                 = \array_merge($this->extractEntity($result[0]), $result);
+                $data['item']         = $this->extractEntity($data['item']);
                 $data['item']['buff'] = $this->extractEntity($data['item']['buff']);
                 unset($data[0]);
             }

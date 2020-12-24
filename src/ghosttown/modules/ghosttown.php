@@ -11,9 +11,9 @@
 function ghosttown_getmoduleinfo()
 {
     return [
-        'name' => 'Ghost Town',
-        'version' => '2.0.0',
-        'author' => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Ghost Town',
+        'version'  => '2.0.0',
+        'author'   => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'core_module',
         'settings' => [
@@ -27,8 +27,8 @@ function ghosttown_getmoduleinfo()
             'allow' => 'Is player allowed in?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -97,9 +97,9 @@ function ghosttown_dohook($hookname, $args)
                 $args['handled'] = true;
 
                 addnews('news.pvp.win', [
-                    'playerName' => $session['user']['name'],
+                    'playerName'   => $session['user']['name'],
                     'creatureName' => $args['badguy']['creaturename'],
-                    'location' => $args['badguy']['location']
+                    'location'     => $args['badguy']['location'],
                 ], 'ghosttown-module');
             }
         break;
@@ -113,21 +113,21 @@ function ghosttown_dohook($hookname, $args)
                 addnews('deathmessage', [
                     'deathmessage' => [
                         'deathmessage' => 'news.pvp.defeated',
-                        'params' => [
-                            'playerName' => $session['user']['name'],
+                        'params'       => [
+                            'playerName'   => $session['user']['name'],
                             'creatureName' => $args['badguy']['creaturename'],
-                            'location' => $args['badguy']['location']
+                            'location'     => $args['badguy']['location'],
                         ],
-                        'textDomain' => 'ghosttown-module'
+                        'textDomain' => 'ghosttown-module',
                     ],
-                    'taunt' => select_taunt()
+                    'taunt' => select_taunt(),
                 ], '');
             }
         break;
         case 'travel':
-            $allow = get_module_pref('allow') || get_module_setting('allowtravel');
-            $hotkey = substr($city, 0, 1);
-            $ccity = urlencode($city);
+            $allow  = get_module_pref('allow') || get_module_setting('allowtravel');
+            $hotkey = \substr($city, 0, 1);
+            $ccity  = \urlencode($city);
 
             //-- Change text domain for navigation
             \LotgdNavigation::setTextDomain('cities-navigation');
@@ -137,7 +137,7 @@ function ghosttown_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.travel.dangerous');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -145,7 +145,7 @@ function ghosttown_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -189,7 +189,7 @@ function ghosttown_dohook($hookname, $args)
                 $canvisit = 1;
             }
 
-            if (! $canvisit && (! isset($args['all']) || ! $args['all']))
+            if ( ! $canvisit && ( ! isset($args['all']) || ! $args['all']))
             {
                 break;
             }
@@ -208,7 +208,7 @@ function ghosttown_dohook($hookname, $args)
         case 'village-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain'] = 'ghosttown-village-village';
+                $args['textDomain']           = 'ghosttown-village-village';
                 $args['textDomainNavigation'] = 'ghosttown-village-navigation';
 
                 \LotgdNavigation::blockHideLink('lodge.php');
@@ -223,7 +223,7 @@ function ghosttown_dohook($hookname, $args)
 
                 $allow = get_module_pref('allow') || get_module_setting('allowtravel');
 
-                if (! $allow)
+                if ( ! $allow)
                 {
                     blockmodule('cities');
                 }
@@ -237,13 +237,13 @@ function ghosttown_dohook($hookname, $args)
         case 'page-village-tpl-params':
             if ($session['user']['location'] == $city)
             {
-                $args['village'] = $city;
+                $args['village']           = $city;
                 $args['commentarySection'] = 'village-ghosttown'; //-- Commentary section
-                $args['defaced'] = get_module_setting('defacedname');
+                $args['defaced']           = get_module_setting('defacedname');
 
                 //-- Newest player in realm
                 $args['newestplayer'] = 0;
-                $args['newestname'] = '';
+                $args['newestname']   = '';
 
                 \LotgdNavigation::addHeader('headers.gate');
                 \LotgdNavigation::addNav('navs.pvp', 'pvp.php?campsite=1');

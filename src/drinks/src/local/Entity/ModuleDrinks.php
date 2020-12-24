@@ -152,28 +152,28 @@ class ModuleDrinks
      *
      * @ORM\Column(name="buffatkmod", type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
-    private $buffatkmod = null;
+    private $buffatkmod;
 
     /**
      * @var string
      *
      * @ORM\Column(name="buffdefmod", type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
-    private $buffdefmod = null;
+    private $buffdefmod;
 
     /**
      * @var string
      *
      * @ORM\Column(name="buffdmgmod", type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
-    private $buffdmgmod = null;
+    private $buffdmgmod;
 
     /**
      * @var string
      *
      * @ORM\Column(name="buffdmgshield", type="decimal", precision=4, scale=2, nullable=true, options={"unsigned": true})
      */
-    private $buffdmgshield = null;
+    private $buffdmgshield;
 
     /**
      * @var string
@@ -200,6 +200,7 @@ class ModuleDrinks
      * Set the value of id.
      *
      * @param int id
+     * @param mixed $id
      *
      * @return self
      */
@@ -222,6 +223,7 @@ class ModuleDrinks
      * Set the value of Name.
      *
      * @param string name
+     * @param mixed $name
      *
      * @return self
      */
@@ -244,6 +246,7 @@ class ModuleDrinks
      * Set the value of Active.
      *
      * @param bool active
+     * @param mixed $active
      *
      * @return self
      */
@@ -266,6 +269,7 @@ class ModuleDrinks
      * Set the value of Costperlevel.
      *
      * @param int costperlevel
+     * @param mixed $costperlevel
      *
      * @return self
      */
@@ -288,6 +292,7 @@ class ModuleDrinks
      * Set the value of Hpchance.
      *
      * @param bool hpchance
+     * @param mixed $hpchance
      *
      * @return self
      */
@@ -310,6 +315,7 @@ class ModuleDrinks
      * Set the value of Turnchance.
      *
      * @param bool turnchance
+     * @param mixed $turnchance
      *
      * @return self
      */
@@ -332,6 +338,7 @@ class ModuleDrinks
      * Set the value of Alwayshp.
      *
      * @param bool alwayshp
+     * @param mixed $alwayshp
      *
      * @return self
      */
@@ -354,6 +361,7 @@ class ModuleDrinks
      * Set the value of Alwaysturn.
      *
      * @param bool alwaysturn
+     * @param mixed $alwaysturn
      *
      * @return self
      */
@@ -376,6 +384,7 @@ class ModuleDrinks
      * Set the value of Drunkeness.
      *
      * @param bool drunkeness
+     * @param mixed $drunkeness
      *
      * @return self
      */
@@ -398,6 +407,7 @@ class ModuleDrinks
      * Set the value of Harddrink.
      *
      * @param bool harddrink
+     * @param mixed $harddrink
      *
      * @return self
      */
@@ -420,6 +430,7 @@ class ModuleDrinks
      * Set the value of Hpmin.
      *
      * @param int hpmin
+     * @param mixed $hpmin
      *
      * @return self
      */
@@ -442,6 +453,7 @@ class ModuleDrinks
      * Set the value of Hpmax.
      *
      * @param int hpmax
+     * @param mixed $hpmax
      *
      * @return self
      */
@@ -464,6 +476,7 @@ class ModuleDrinks
      * Set the value of Hppercent.
      *
      * @param int hppercent
+     * @param mixed $hppercent
      *
      * @return self
      */
@@ -486,6 +499,7 @@ class ModuleDrinks
      * Set the value of Turnmin.
      *
      * @param int turnmin
+     * @param mixed $turnmin
      *
      * @return self
      */
@@ -508,6 +522,7 @@ class ModuleDrinks
      * Set the value of Turnmax.
      *
      * @param int turnmax
+     * @param mixed $turnmax
      *
      * @return self
      */
@@ -530,6 +545,7 @@ class ModuleDrinks
      * Set the value of Buffname.
      *
      * @param string buffname
+     * @param mixed $buffname
      *
      * @return self
      */
@@ -552,6 +568,7 @@ class ModuleDrinks
      * Set the value of Buffrounds.
      *
      * @param int buffrounds
+     * @param mixed $buffrounds
      *
      * @return self
      */
@@ -574,6 +591,7 @@ class ModuleDrinks
      * Set the value of Buffroundmsg.
      *
      * @param string buffroundmsg
+     * @param mixed $buffroundmsg
      *
      * @return self
      */
@@ -596,6 +614,7 @@ class ModuleDrinks
      * Set the value of Buffwearoff.
      *
      * @param string buffwearoff
+     * @param mixed $buffwearoff
      *
      * @return self
      */
@@ -618,6 +637,7 @@ class ModuleDrinks
      * Set the value of Buffatkmod.
      *
      * @param string buffatkmod
+     * @param mixed $buffatkmod
      *
      * @return self
      */
@@ -642,6 +662,7 @@ class ModuleDrinks
      * Set the value of Buffdefmod.
      *
      * @param string buffdefmod
+     * @param mixed $buffdefmod
      *
      * @return self
      */
@@ -666,6 +687,7 @@ class ModuleDrinks
      * Set the value of Buffdmgmod.
      *
      * @param string buffdmgmod
+     * @param mixed $buffdmgmod
      *
      * @return self
      */
@@ -690,6 +712,7 @@ class ModuleDrinks
      * Set the value of Buffdmgshield.
      *
      * @param string buffdmgshield
+     * @param mixed $buffdmgshield
      *
      * @return self
      */
@@ -714,6 +737,7 @@ class ModuleDrinks
      * Set the value of Buffeffectfailmsg.
      *
      * @param string buffeffectfailmsg
+     * @param mixed $buffeffectfailmsg
      *
      * @return self
      */
@@ -736,6 +760,7 @@ class ModuleDrinks
      * Set the value of Buffeffectnodmgmsg.
      *
      * @param string buffeffectnodmgmsg
+     * @param mixed $buffeffectnodmgmsg
      *
      * @return self
      */
@@ -758,6 +783,7 @@ class ModuleDrinks
      * Set the value of Buffeffectmsg.
      *
      * @param string buffeffectmsg
+     * @param mixed $buffeffectmsg
      *
      * @return self
      */

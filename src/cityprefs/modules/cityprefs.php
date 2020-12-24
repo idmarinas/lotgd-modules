@@ -3,20 +3,20 @@
 function cityprefs_getmoduleinfo()
 {
     return [
-        'name' => 'City Preferences Addon',
-        'version' => '3.0.0',
-        'author' => 'Sixf00t4, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'category' => 'General',
+        'name'        => 'City Preferences Addon',
+        'version'     => '3.0.0',
+        'author'      => 'Sixf00t4, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'category'    => 'General',
         'description' => 'Gives the ability to use prefs based on cities',
-        'vertxtloc' => 'http://www.legendofsix.com/',
-        'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1155',
-        'settings' => [
+        'vertxtloc'   => 'http://www.legendofsix.com/',
+        'download'    => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1155',
+        'settings'    => [
             'data_imported' => 'Imported old data,viewonly',
         ],
         'requires' => [
-            'lotgd' => '>=4.3.0|Need a version equal or greater than 4.3.0 IDMarinas Edition',
-            'cities' => '>=2.0.0|Multiple Cities - Core module'
-        ]
+            'lotgd'  => '>=4.3.0|Need a version equal or greater than 4.3.0 IDMarinas Edition',
+            'cities' => '>=2.0.0|Multiple Cities - Core module',
+        ],
     ];
 }
 
@@ -31,14 +31,14 @@ function cityprefs_install()
             \LotgdResponse::pageDebug('Installing cityprefs Module.');
         }
 
-        if (! get_module_setting('data_imported', 1, 'cityprefs'))
+        if ( ! get_module_setting('data_imported', 1, 'cityprefs'))
         {
-            $page = 1;
-            $select = \DB::select('cityprefs');
+            $page      = 1;
+            $select    = \DB::select('cityprefs');
             $paginator = \DB::paginator($select, $page, 100);
-            $hydrator = new \Zend\Hydrator\ClassMethods();
+            $hydrator  = new \Zend\Hydrator\ClassMethods();
 
-            $pageCount = $paginator->count();
+            $pageCount   = $paginator->count();
             $importCount = $paginator->getTotalItemCount();
 
             //-- Overrides the automatic generation of IDs
@@ -50,7 +50,7 @@ function cityprefs_install()
             {
                 foreach ($paginator as $row)
                 {
-                    $row = (array) $row;
+                    $row       = (array) $row;
                     $row['id'] = $row['cityid'];
 
                     $entity = $hydrator->hydrate($row, new \Lotgd\Local\Entity\ModuleCityprefs());
@@ -60,7 +60,7 @@ function cityprefs_install()
 
                 \Doctrine::flush();
 
-                $page++;
+                ++$page;
                 $paginator = \DB::paginator($select, $page, 100);
             } while ($paginator->getCurrentItemCount() && $page <= $pageCount);
 
@@ -68,7 +68,7 @@ function cityprefs_install()
             $metaData->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
             $metaData->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_IDENTITY);
 
-            \LotgdFlashMessages::addInfoMessage(sprintf('Import %s rows from "cityprefs" to "module_cityprefs" table', $importCount));
+            \LotgdFlashMessages::addInfoMessage(\sprintf('Import %s rows from "cityprefs" to "module_cityprefs" table', $importCount));
 
             set_module_setting('data_imported', 1, 'cityprefs');
         }
@@ -77,20 +77,20 @@ function cityprefs_install()
 
         $vloc = [];
         $vloc = modulehook('validlocation', $vloc);
-        ksort($vloc);
-        reset($vloc);
+        \ksort($vloc);
+        \reset($vloc);
 
         //-- Install/Update capital city
         $capital = $repository->findOneBy(['module' => 'none']);
         $capital = $repository->hydrateEntity([
-            'module' => 'none',
-            'cityName' => getsetting('villagename', LOCATION_FIELDS)
+            'module'   => 'none',
+            'cityName' => getsetting('villagename', LOCATION_FIELDS),
         ], $capital);
 
         \Doctrine::persist($capital);
 
         //-- Install/Update cities
-        $query = $repository->getQueryBuilder();
+        $query  = $repository->getQueryBuilder();
         $result = $query->select('u')
             ->from('LotgdCore:ModuleSettings', 'u')
             ->where('u.value IN (:loc) AND u.setting = :set')
@@ -106,8 +106,8 @@ function cityprefs_install()
         {
             $entity = $repository->findOneBy(['module' => $value->getModulename()]);
             $entity = $repository->hydrateEntity([
-                'module' => $value->getModulename(),
-                'cityName' => $value->getValue()
+                'module'   => $value->getModulename(),
+                'cityName' => $value->getValue(),
             ], $entity);
 
             \Doctrine::persist($entity);
@@ -160,12 +160,12 @@ function cityprefs_dohook($hookname, $args)
             if ('villagename' == $args['setting'])
             {
                 $repository = \Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
-                $entity = $repository->findOneBy(['cityName' => $args['old']]);
+                $entity     = $repository->findOneBy(['cityName' => $args['old']]);
 
                 if ($entity)
                 {
                     $entity = $repository->hydrateEntity([
-                        'cityName' => $args['new']
+                        'cityName' => $args['new'],
                     ], $entity);
 
                     \Doctrine::persist($entity);
@@ -195,9 +195,9 @@ function cityprefs_run()
 
     $repository = \Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
 
-    $op = (string) \LotgdRequest::getQuery('op');
+    $op     = (string) \LotgdRequest::getQuery('op');
     $cityId = (int) \LotgdRequest::getQuery('cityid');
-    $mdule = (string) \LotgdRequest::getQuery('mdule');
+    $mdule  = (string) \LotgdRequest::getQuery('mdule');
 
     //-- Change text domain for navigation
     \LotgdNavigation::setTextDomain($textDomain);
@@ -213,7 +213,7 @@ function cityprefs_run()
         if ('none' != $modu)
         {
             \LotgdNavigation::addHeader('navigation.category.operations');
-            \LotgdNavigation::addNav('navigation.nav.modsettings', "configuration.php?op=modulesettings&module=$modu");
+            \LotgdNavigation::addNav('navigation.nav.modsettings', "configuration.php?op=modulesettings&module={$modu}");
         }
 
         \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
@@ -222,11 +222,11 @@ function cityprefs_run()
 
         if (is_module_active('cities'))
         {
-            $link = 'runmodule.php?module=cities&op=travel&city='.urlencode($cityName).'&su=1';
+            $link = 'runmodule.php?module=cities&op=travel&city='.\urlencode($cityName).'&su=1';
         }
 
         \LotgdNavigation::addNav('navigation.nav.journey', $link, [
-            'params' => ['city' => $cityName]
+            'params' => ['city' => $cityName],
         ]);
     }
 
@@ -243,7 +243,7 @@ function cityprefs_run()
     }
 
     $params = [
-        'textDomain' => $textDomain
+        'textDomain' => $textDomain,
     ];
 
     switch ($op)
@@ -261,19 +261,19 @@ function cityprefs_run()
 
             $vloc = [];
             $vloc = modulehook('validlocation', $vloc);
-            ksort($vloc);
+            \ksort($vloc);
 
             //-- Install/Update capital city
             $capital = $repository->findOneBy(['module' => 'none']);
             $capital = $repository->hydrateEntity([
-                'module' => 'none',
-                'cityName' => getsetting('villagename', LOCATION_FIELDS)
+                'module'   => 'none',
+                'cityName' => getsetting('villagename', LOCATION_FIELDS),
             ], $capital);
 
             \Doctrine::persist($capital);
 
             //-- Install/Update cities
-            $query = $repository->getQueryBuilder();
+            $query  = $repository->getQueryBuilder();
             $result = $query->select('u')
                 ->from('LotgdCore:ModuleSettings', 'u')
                 ->where('u.value IN (:loc) AND u.setting = :set')
@@ -285,8 +285,8 @@ function cityprefs_run()
                 ->getResult()
             ;
 
-            $message = 'flash.message.update.not.found';
-            $messageType = 'addWarningMessage';
+            $message       = 'flash.message.update.not.found';
+            $messageType   = 'addWarningMessage';
             $messageParams = [];
 
             foreach ($result as $value)
@@ -295,23 +295,23 @@ function cityprefs_run()
 
                 if ($entity)
                 {
-                    $messageType = 'addInfoMessage';
-                    $message = 'flash.message.update.found';
+                    $messageType                 = 'addInfoMessage';
+                    $message                     = 'flash.message.update.found';
                     $messageParams['location'][] = $value->getValue();
                 }
 
                 $entity = $repository->hydrateEntity([
-                    'module' => $value->getModulename(),
-                    'cityname' => $value->getValue()
+                    'module'   => $value->getModulename(),
+                    'cityname' => $value->getValue(),
                 ], $entity);
 
                 \Doctrine::persist($entity);
             }
 
-            if (is_array($messageParams['location'] ?? false))
+            if (\is_array($messageParams['location'] ?? false))
             {
-                $messageParams['count'] = count($messageParams['location']);
-                $messageParams['location'] = implode(', ', $messageParams['location']);
+                $messageParams['count']    = \count($messageParams['location']);
+                $messageParams['location'] = \implode(', ', $messageParams['location']);
             }
 
             \LotgdFlashMessages::{$messageType}(\LotgdTranslator::t($message, $messageParams, $textDomain));
@@ -326,11 +326,11 @@ function cityprefs_run()
             \LotgdNavigation::addNav('navigation.nav.city.edit', "runmodule.php?module=cityprefs&op=editcity&cityid={$cityId}");
             \LotgdNavigation::addNav('navigation.nav.city.delete', "runmodule.php?module=cityprefs&op=delcity&cityid={$cityId}", [
                 'attributes' => [
-                    'onclick' => 'Lotgd.confirm(this, event)',
-                    'data-options' => json_encode([
-                        'text' => \LotgdTranslator::t('section.delete.confirm', [], $textDomain)
-                    ])
-                ]
+                    'onclick'      => 'Lotgd.confirm(this, event)',
+                    'data-options' => \json_encode([
+                        'text' => \LotgdTranslator::t('section.delete.confirm', [], $textDomain),
+                    ]),
+                ],
             ]);
 
             if ($mdule)
@@ -338,8 +338,8 @@ function cityprefs_run()
                 $form = module_objpref_edit('city', $mdule, $cityId);
 
                 $params['isLaminas'] = $form instanceof Laminas\Form\Form;
-                $params['module'] = $mdule;
-                $params['cityId'] = $cityId;
+                $params['module']    = $mdule;
+                $params['cityId']    = $cityId;
 
                 if ($params['isLaminas'])
                 {
@@ -366,7 +366,7 @@ function cityprefs_run()
                     }
                     else
                     {
-                        reset($post);
+                        \reset($post);
 
                         process_post_save_data_cityprefs($post, $cityId, $mdule);
 
@@ -401,13 +401,13 @@ function cityprefs_run()
                 \Doctrine::flush();
 
                 \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.edit.updated', [
-                    'city' => $entity->getCityName(),
-                    'module' => $entity->getModule()
+                    'city'   => $entity->getCityName(),
+                    'module' => $entity->getModule(),
                 ], $textDomain));
             }
 
             \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
-            \LotgdNavigation::addNav('navigation.nav.back.properties', "runmodule.php?module=cityprefs&op=editmodule&cityid=$cityId");
+            \LotgdNavigation::addNav('navigation.nav.back.properties', "runmodule.php?module=cityprefs&op=editmodule&cityid={$cityId}");
 
             $params['city'] = $repository->find($cityId);
         break;
@@ -439,7 +439,7 @@ function process_post_save_data_cityprefs($data, $id, $module)
 {
     foreach ($data as $key => $val)
     {
-        if (is_array($val))
+        if (\is_array($val))
         {
             process_post_save_data_cityprefs($val, $id, $module);
 

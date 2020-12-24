@@ -7,25 +7,25 @@
 function cities_getmoduleinfo()
 {
     return [
-        'name' => 'Multiple Cities',
-        'version' => '3.0.0',
-        'author' => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'category' => 'Village',
-        'download' => 'core_module',
-        'allowanonymous' => true,
+        'name'                => 'Multiple Cities',
+        'version'             => '3.0.0',
+        'author'              => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'category'            => 'Village',
+        'download'            => 'core_module',
+        'allowanonymous'      => true,
         'override_forced_nav' => true,
-        'settings' => [
+        'settings'            => [
             'Cities Settings,title',
-            'allowance' => 'Daily Travel Allowance,int|3',
-            'coward' => 'Penalise Cowardice for running away?,bool|1',
+            'allowance'           => 'Daily Travel Allowance,int|3',
+            'coward'              => 'Penalise Cowardice for running away?,bool|1',
             'travelspecialchance' => 'Chance for a special during travel,int|7',
-            'safechance' => 'Chance to be waylaid on a safe trip,range,1,100,1|50',
-            'dangerchance' => 'Chance to be waylaid on a dangerous trip,range,1,100,1|66',
+            'safechance'          => 'Chance to be waylaid on a safe trip,range,1,100,1|50',
+            'dangerchance'        => 'Chance to be waylaid on a dangerous trip,range,1,100,1|66',
         ],
         'prefs' => [
             'Cities User Preferences,title',
             'traveltoday' => 'How many times did they travel today?,int|0',
-            'homecity' => "User's current home city.|",
+            'homecity'    => "User's current home city.|",
         ],
         'prefs-mounts' => [
             'Cities Mount Preferences,title',
@@ -36,8 +36,8 @@ function cities_getmoduleinfo()
             'servedcapital' => 'Is this drink served in the capital?,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.6.0|Need a version equal or greater than 4.6.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.6.0|Need a version equal or greater than 4.6.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -68,7 +68,7 @@ function cities_uninstall()
     // save their location from their session back into the database
     // I think I have a patch however :)
     $city = getsetting('villagename', LOCATION_FIELDS);
-    $inn = getsetting('innname', LOCATION_INN);
+    $inn  = getsetting('innname', LOCATION_INN);
 
     try
     {
@@ -103,11 +103,11 @@ function cities_dohook($hookname, $args)
 {
     global $session;
 
-    $city = getsetting('villagename', LOCATION_FIELDS);
-    $ccity = urlencode($city);
+    $city                        = getsetting('villagename', LOCATION_FIELDS);
+    $ccity                       = \urlencode($city);
     $session['user']['location'] = $session['user']['location'] ?? '';
-    $home = $session['user']['location'] == get_module_pref('homecity');
-    $capital = $session['user']['location'] == $city;
+    $home                        = $session['user']['location'] == get_module_pref('homecity');
+    $capital                     = $session['user']['location'] == $city;
 
     switch ($hookname)
     {
@@ -118,13 +118,13 @@ function cities_dohook($hookname, $args)
             }
         break;
         case 'faq-toc':
-            array_push($args, [
+            \array_push($args, [
                 'onclick' => 'JaxonLotgd.Ajax.Local.ModCities.faq()',
-                'link' => [
+                'link'    => [
                     'section.faq.toc.cities',
                     [],
-                    'cities-module'
-                ]
+                    'cities-module',
+                ],
             ]);
         break;
         case 'drinks-check':
@@ -132,7 +132,7 @@ function cities_dohook($hookname, $args)
             {
                 foreach ($args as $key => $drink)
                 {
-                    $val = get_module_objpref('drinks', $drink['id'], 'servedcapital');
+                    $val                      = get_module_objpref('drinks', $drink['id'], 'servedcapital');
                     $args[$key]['allowdrink'] = $val;
                 }
             }
@@ -145,7 +145,7 @@ function cities_dohook($hookname, $args)
 
             if ($playermount && isset($playermount['mountid']) && $playermount['mountid'])
             {
-                $id = $playermount['mountid'];
+                $id    = $playermount['mountid'];
                 $extra = get_module_objpref('mounts', $id, 'extratravel');
                 $args['available'] += $extra;
             }
@@ -166,25 +166,25 @@ function cities_dohook($hookname, $args)
                 {
                     \LotgdFlashMessages::addErrorMessage([
                         'message' => $args['traveltext'],
-                        'close' => false
+                        'close'   => false,
                     ]);
                 }
                 $args['success'] = true;
-                $args['type'] = 'travel';
+                $args['type']    = 'travel';
             }
             elseif ($session['user']['turns'] > 0)
             {
-                $session['user']['turns']--;
+                --$session['user']['turns'];
 
                 if (isset($args['foresttext']))
                 {
                     \LotgdFlashMessages::addErrorMessage([
                         'message' => $args['foresttext'],
-                        'close' => false
+                        'close'   => false,
                     ]);
                 }
                 $args['success'] = true;
-                $args['type'] = 'forest';
+                $args['type']    = 'forest';
             }
             else
             {
@@ -192,11 +192,11 @@ function cities_dohook($hookname, $args)
                 {
                     \LotgdFlashMessages::addErrorMessage([
                         'message' => $args['nonetext'],
-                        'close' => false
+                        'close'   => false,
                     ]);
                 }
                 $args['success'] = false;
-                $args['type'] = 'none';
+                $args['type']    = 'none';
             }
 
             $args['nocollapse'] = 1;
@@ -231,7 +231,7 @@ function cities_dohook($hookname, $args)
             }
         break;
         case 'mountfeatures':
-            $extra = get_module_objpref('mounts', $args['id'], 'extratravel');
+            $extra                      = get_module_objpref('mounts', $args['id'], 'extratravel');
             $args['features']['Travel'] = $extra;
         break;
         case 'newday':
@@ -245,7 +245,7 @@ function cities_dohook($hookname, $args)
         case 'village-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain'] = 'cities-village';
+                $args['textDomain']           = 'cities-village';
                 $args['textDomainNavigation'] = 'cities-navigation';
             }
         break;
@@ -255,10 +255,10 @@ function cities_dohook($hookname, $args)
                 addcharstat(\LotgdTranslator::t('statistic.category.character.personal', [], 'app-default'));
                 addcharstat(\LotgdTranslator::t('statistic.stat.home', [], 'cities-module'), get_module_pref('homecity'));
 
-                if (! is_module_active('worldmapen'))
+                if ( ! is_module_active('worldmapen'))
                 {
                     $args = modulehook('count-travels', ['available' => 0, 'used' => 0]);
-                    $free = max(0, $args['available'] - $args['used']);
+                    $free = \max(0, $args['available'] - $args['used']);
                     addcharstat(\LotgdTranslator::t('statistic.stat.travels', [], 'cities-module'), $free);
                 }
             }
@@ -296,7 +296,7 @@ function cities_dohook($hookname, $args)
                 \LotgdNavigation::blockHideLink('mercenarycamp.php');
             }
 
-            if (! is_module_active('worldmapen'))
+            if ( ! is_module_active('worldmapen'))
             {
                 \LotgdNavigation::addHeader('headers.gate');
                 \LotgdNavigation::addNav('navs.travel', 'runmodule.php?module=cities&op=travel', ['textDomain' => 'cities-navigation']);
@@ -308,8 +308,8 @@ function cities_dohook($hookname, $args)
             }
         break;
         case 'travel':
-            $args = modulehook('count-travels', ['available' => 0, 'used' => 0]);
-            $free = max(0, $args['available'] - $args['used']);
+            $args   = modulehook('count-travels', ['available' => 0, 'used' => 0]);
+            $free   = \max(0, $args['available'] - $args['used']);
             $hotkey = 'C';
 
             //-- Change text domain for navigation
@@ -324,7 +324,7 @@ function cities_dohook($hookname, $args)
             if ($session['user']['location'] != $city)
             {
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -334,7 +334,7 @@ function cities_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -357,14 +357,15 @@ function cities_dangerscale($danger)
 
     if ($session['user']['dragonkills'] <= 1)
     {
-        $dlevel = round(.50 * $dlevel, 0);
+        $dlevel = \round(.50 * $dlevel, 0);
     }
     elseif ($session['user']['dragonkills'] <= 30)
     {
-        $scalef = 50 / 29;
-        $scale = (($session['user']['dragonkills'] - 1) * $scalef + 50) / 100;
-        $dlevel = round($scale * $dlevel, 0);
+        $scalef = 50                                                     / 29;
+        $scale  = (($session['user']['dragonkills'] - 1) * $scalef + 50) / 100;
+        $dlevel = \round($scale * $dlevel, 0);
     } // otherwise, dlevel is unscaled.
+
     return $dlevel;
 }
 

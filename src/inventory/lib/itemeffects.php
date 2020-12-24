@@ -44,7 +44,7 @@ function get_effect($item = false, $noeffecttext = '')
 
         if ('' == $noeffecttext)
         {
-            $args = modulehook('item-noeffect', ['msg' => 'item.effect.text.nothing', 'params' => [], 'textDomain' => $textDomain, 'item' => $item]);
+            $args       = modulehook('item-noeffect', ['msg' => 'item.effect.text.nothing', 'params' => [], 'textDomain' => $textDomain, 'item' => $item]);
             $effectText = [$args['msg'], $args['params'], $args['textDomain']];
         }
 
@@ -52,24 +52,24 @@ function get_effect($item = false, $noeffecttext = '')
     }
     else
     {
-        $noeffecttext = explode('|', $item['noEffectText'] ?: 'item.effect.text.nothing');
-        $noeffecttext = $noeffecttext[0];
+        $noeffecttext       = \explode('|', $item['noEffectText'] ?: 'item.effect.text.nothing');
+        $noeffecttext       = $noeffecttext[0];
         $noeffecttextDomain = $noeffecttext[1] ?? $textDomain;
 
         if (inventory_can_use_item($item))
         {
             $execfile = "{$item['execValue']}.php";
 
-            if (file_exists($execfile))
+            if (\file_exists($execfile))
             {
                 include_once $execfile;
 
                 $args = modulehook('itemeffect', ['out' => $out, 'item' => $item]);
-                $out = $args['out'];
+                $out  = $args['out'];
             }
             else
             {
-                $args = modulehook('item-noeffect', ['msg' => $noeffecttext, 'params' => [], 'textDomain' => $noeffecttextDomain, 'item' => $item]);
+                $args  = modulehook('item-noeffect', ['msg' => $noeffecttext, 'params' => [], 'textDomain' => $noeffecttextDomain, 'item' => $item]);
                 $out[] = [$args['msg'], $args['params'], $args['textDomain']];
                 $out[] = ['item.effect.text.problem', ['itemName' => $item['name'], $textDomain]];
 
@@ -78,25 +78,25 @@ function get_effect($item = false, $noeffecttext = '')
         }
         else
         {
-            $args = modulehook('item-noeffect', ['msg' => $noeffecttext, 'params' => [], 'textDomain' => $noeffecttextDomain, 'item' => $item]);
+            $args  = modulehook('item-noeffect', ['msg' => $noeffecttext, 'params' => [], 'textDomain' => $noeffecttextDomain, 'item' => $item]);
             $out[] = [$args['msg'], $args['params'], $args['textDomain']];
             $out[] = ['item.effect.text.requisites', [
                 'dragonkills' => $item['dragonkills'],
-                'level' => $item['level'],
-                'itemName' => $item['name']
+                'level'       => $item['level'],
+                'itemName'    => $item['name'],
             ],
-                $textDomain
+                $textDomain,
             ];
         }
     }
 
-    if (0 == count($out))
+    if (0 == \count($out))
     {
-        $args = modulehook('item-noeffect', ['msg' => $noeffecttext, 'params' => [], 'textDomain' => $textDomain, 'item' => $item]);
+        $args  = modulehook('item-noeffect', ['msg' => $noeffecttext, 'params' => [], 'textDomain' => $textDomain, 'item' => $item]);
         $out[] = [$args['msg'], $args['params'], $args['textDomain']];
     }
 
-    if (! is_array($out))
+    if ( ! \is_array($out))
     {
         $out = [$out];
     }
@@ -120,17 +120,17 @@ function inventory_can_use_item($item, $details = false)
     //-- Not have DragonKills for use it
     if ($session['user']['dragonkills'] < $item['dragonkills'])
     {
-        $results['dragonkills'] = 1;
+        $results['dragonkills']     = 1;
         $results['dragonkillsText'] = 'Need %s DragonKills for use this item.';
-        $results['canUse'] = false;
+        $results['canUse']          = false;
     }
 
     //-- Not have level for use it
     if ($session['user']['level'] < $item['level'])
     {
-        $results['level'] = 1;
+        $results['level']     = 1;
         $results['levelText'] = 'Need level %s for use this item.';
-        $results['canUse'] = false;
+        $results['canUse']    = false;
     }
 
     //-- If pass first check, now check if item have a custom checker requisites for use
@@ -138,10 +138,10 @@ function inventory_can_use_item($item, $details = false)
     {
         $requisitesFile = "{$item['execRequisites']}.php";
 
-        if (file_exists($requisitesFile))
+        if (\file_exists($requisitesFile))
         {
-            $result = include_once $requisitesFile;
-            $results = array_merge($results, $result);
+            $result  = include_once $requisitesFile;
+            $results = \array_merge($results, $result);
         }
     }
 

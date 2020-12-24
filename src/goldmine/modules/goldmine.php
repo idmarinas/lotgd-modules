@@ -11,25 +11,25 @@
 function goldmine_getmoduleinfo()
 {
     return [
-        'name' => 'Gold Mine',
-        'version' => '2.0.0',
-        'author' => 'Ville Valtokari, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Gold Mine',
+        'version'  => '2.0.0',
+        'author'   => 'Ville Valtokari, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
         'settings' => [
             'Goldmine Event Settings,title',
-            'alwaystether' => 'Chance the player will tether their mount automatically,range,0,100,1|10',
-            'percentgemloss' => 'Percentage of gems lost on death in mine,range,0,100,1|0',
+            'alwaystether'    => 'Chance the player will tether their mount automatically,range,0,100,1|10',
+            'percentgemloss'  => 'Percentage of gems lost on death in mine,range,0,100,1|0',
             'percentgoldloss' => 'Percentage of gold lost on death in mine,range,0,100,1|0',
         ],
         'prefs-mounts' => [
             'Goldmine Mount Preferences,title',
-            'entermine' => 'Chance of entering mine,range,0,100,1|0',
-            'dieinmine' => 'Chance of dying in the mine,range,0,100,1|0',
+            'entermine'  => 'Chance of entering mine,range,0,100,1|0',
+            'dieinmine'  => 'Chance of dying in the mine,range,0,100,1|0',
             'saveplayer' => 'Chance of saving player in mine,range,0,100,1|0',
-            'tethermsg' => 'Message when mount is tethered|',
-            'deathmsg' => 'Message when mount dies|',
-            'savemsg' => 'Message when mount saves player|',
+            'tethermsg'  => 'Message when mount is tethered|',
+            'deathmsg'   => 'Message when mount dies|',
+            'savemsg'    => 'Message when mount saves player|',
         ],
         'requires' => [
             'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
@@ -59,14 +59,14 @@ function goldmine_runevent($type)
     global $session, $playermount;
 
     $params = [
-        'textDomain' => 'module-goldmine',
-        'playerMount' => $playermount,
-        'hasHorse' => $session['user']['hashorse'],
+        'textDomain'    => 'module-goldmine',
+        'playerMount'   => $playermount,
+        'hasHorse'      => $session['user']['hashorse'],
         'horseCanEnter' => 0,
-        'horseCanDie' => 0,
-        'horseCanSave' => 0,
-        'mountName' => $playermount['mountname'],
-        'staminaSystem' => is_module_active('staminasystem')
+        'horseCanDie'   => 0,
+        'horseCanSave'  => 0,
+        'mountName'     => $playermount['mountname'],
+        'staminaSystem' => is_module_active('staminasystem'),
     ];
 
     if ($params['staminaSystem'])
@@ -78,7 +78,7 @@ function goldmine_runevent($type)
     {
         $params['horseCanEnter'] = get_module_objpref('mounts', $params['hasHorse'], 'entermine');
         //-- See if we automatically tether
-        if (mt_rand(1, 100) <= get_module_setting('alwaystether'))
+        if (\mt_rand(1, 100) <= get_module_setting('alwaystether'))
         {
             $params['horseCanEnter'] = 0;
         }
@@ -86,13 +86,13 @@ function goldmine_runevent($type)
         if ($params['horseCanEnter'])
         {
             // The mount cannot die or save you if it cannot enter
-            $params['horseCanDie'] = get_module_objpref('mounts', $params['hasHorse'], 'dieinmine');
+            $params['horseCanDie']  = get_module_objpref('mounts', $params['hasHorse'], 'dieinmine');
             $params['horseCanSave'] = get_module_objpref('mounts', $params['hasHorse'], 'saveplayer');
         }
     }
 
     $session['user']['specialinc'] = 'module:goldmine';
-    $op = \LotgdRequest::getQuery('op');
+    $op                            = \LotgdRequest::getQuery('op');
 
     //-- Change text domain for navigation
     \LotgdNavigation::setTextDomain($params['textDomain']);
@@ -118,18 +118,18 @@ function goldmine_runevent($type)
         // tether.
         $params['tether'] = false;
 
-        if (mt_rand(1, 100) > $params['horseCanEnter'] && $params['hasHorse'])
+        if (\mt_rand(1, 100) > $params['horseCanEnter'] && $params['hasHorse'])
         {
-            $params['tether'] = true;
+            $params['tether']    = true;
             $params['tetherMsg'] = get_module_objpref('mounts', $params['hasHorse'], 'tethermsg');
 
             // The mount it tethered, so it cannot die nor save the player
             $params['horseCanEnter'] = 0;
-            $params['horseCanDie'] = 0;
-            $params['horseCanSave'] = 0;
+            $params['horseCanDie']   = 0;
+            $params['horseCanSave']  = 0;
         }
 
-        $rand = mt_rand(1, 20);
+        $rand = \mt_rand(1, 20);
 
         switch ($rand)
         {
@@ -142,15 +142,15 @@ function goldmine_runevent($type)
                 }
                 else
                 {
-                    $session['user']['turns']--;
+                    --$session['user']['turns'];
                 }
 
                 $session['user']['specialinc'] = '';
             break;
             case 6: case 7: case 8:case 9: case 10:
-                $gold = e_rand($session['user']['level'] * 5, $session['user']['level'] * 20);
+                $gold                 = e_rand($session['user']['level'] * 5, $session['user']['level'] * 20);
                 $params['mineResult'] = 2;
-                $params['goldWin'] = $gold;
+                $params['goldWin']    = $gold;
 
                 if ($params['staminaSystem'])
                 {
@@ -158,17 +158,17 @@ function goldmine_runevent($type)
                 }
                 else
                 {
-                    $session['user']['turns']--;
+                    --$session['user']['turns'];
                 }
 
-                debuglog("found $gold gold in the goldmine");
+                debuglog("found {$gold} gold in the goldmine");
                 $session['user']['gold'] += $gold;
                 $session['user']['specialinc'] = '';
             break;
             case 11: case 12: case 13: case 14: case 15:
-                $gems = e_rand(1, round($session['user']['level'] / 7) + 1);
+                $gems                 = e_rand(1, \round($session['user']['level'] / 7) + 1);
                 $params['mineResult'] = 3;
-                $params['gemsWin'] = $gems;
+                $params['gemsWin']    = $gems;
 
                 if ($params['staminaSystem'])
                 {
@@ -176,19 +176,19 @@ function goldmine_runevent($type)
                 }
                 else
                 {
-                    $session['user']['turns']--;
+                    --$session['user']['turns'];
                 }
 
-                debuglog("found $gems gems in the goldmine");
+                debuglog("found {$gems} gems in the goldmine");
                 $session['user']['gems'] += $gems;
                 $session['user']['specialinc'] = '';
             break;
             case 16: case 17: case 18:
-                $gold = e_rand($session['user']['level'] * 10, $session['user']['level'] * 40);
-                $gems = e_rand(1, round($session['user']['level'] / 3) + 1);
+                $gold                 = e_rand($session['user']['level'] * 10, $session['user']['level'] * 40);
+                $gems                 = e_rand(1, \round($session['user']['level'] / 3) + 1);
                 $params['mineResult'] = 4;
-                $params['gemsWin'] = $gems;
-                $params['goldWin'] = $gold;
+                $params['gemsWin']    = $gems;
+                $params['goldWin']    = $gold;
 
                 if ($params['staminaSystem'])
                 {
@@ -196,10 +196,10 @@ function goldmine_runevent($type)
                 }
                 else
                 {
-                    $session['user']['turns']--;
+                    --$session['user']['turns'];
                 }
 
-                debuglog("found $gold gold and $gems gems in the goldmine");
+                debuglog("found {$gold} gold and {$gems} gems in the goldmine");
                 $session['user']['gems'] += $gems;
                 $session['user']['gold'] += $gold;
                 $session['user']['specialinc'] = '';
@@ -208,22 +208,22 @@ function goldmine_runevent($type)
                 $params['mineResult'] = 5;
 
                 // Find the chance of dying based on race
-                $vals = modulehook('raceminedeath');
-                $params['dead'] = 0;
+                $vals               = modulehook('raceminedeath');
+                $params['dead']     = 0;
                 $params['raceSave'] = 1;
-                $params['raceMsg'] = $vals['racesave'] ?? '';
+                $params['raceMsg']  = $vals['racesave'] ?? '';
 
-                if (isset($vals['chance']) && (mt_rand(1, 100) < $vals['chance']))
+                if (isset($vals['chance']) && (\mt_rand(1, 100) < $vals['chance']))
                 {
-                    $params['dead'] = 1;
+                    $params['dead']     = 1;
                     $params['raceSave'] = 0;
-                    $params['raceMsg'] = '';
+                    $params['raceMsg']  = '';
                 }
 
                 // The player has died, see if their horse saves them
-                if ($params['dead'] && isset($params['horseCanSave']) && (mt_rand(1, 100) <= $params['horseCanSave']))
+                if ($params['dead'] && isset($params['horseCanSave']) && (\mt_rand(1, 100) <= $params['horseCanSave']))
                 {
-                    $params['dead'] = 0;
+                    $params['dead']      = 0;
                     $params['horseSave'] = 1;
                 }
 
@@ -234,7 +234,7 @@ function goldmine_runevent($type)
                 {
                     $params['horseDead'] = 0;
 
-                    if (mt_rand(1, 100) <= $params['horseCanDie'])
+                    if (\mt_rand(1, 100) <= $params['horseCanDie'])
                     {
                         $params['horseDead'] = 1;
                     }
@@ -250,16 +250,16 @@ function goldmine_runevent($type)
                         }
                     }
 
-                    $params['expWin'] = round($session['user']['experience'] * 0.1, 0);
-                    $params['gemsLost'] = round(get_module_setting('percentgemloss') / 100 * $session['user']['gems'], 0);
-                    $params['goldLost'] = round(get_module_setting('percentgoldloss') / 100 * $session['user']['gold'], 0);
+                    $params['expWin']   = \round($session['user']['experience'] * 0.1, 0);
+                    $params['gemsLost'] = \round(get_module_setting('percentgemloss') / 100 * $session['user']['gems'], 0);
+                    $params['goldLost'] = \round(get_module_setting('percentgoldloss') / 100 * $session['user']['gold'], 0);
 
                     debuglog("lost {$params['goldLost']} gold and {$params['gemsLost']} gems by dying in the goldmine");
 
                     $session['user']['gold'] -= $params['goldLost'];
                     $session['user']['gems'] -= $params['gemsLost'];
                     $session['user']['experience'] += $params['expWin'];
-                    $session['user']['alive'] = false;
+                    $session['user']['alive']     = false;
                     $session['user']['hitpoints'] = 0;
 
                     \LotgdNavigation::addNav('navigation.nav.news', 'news.php');
@@ -281,7 +281,7 @@ function goldmine_runevent($type)
             break;
         }
 
-        $session['user']['turns'] = max(0, $session['user']['turns']);
+        $session['user']['turns'] = \max(0, $session['user']['turns']);
     }
 
     //-- Restore text domain for navigation

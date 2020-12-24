@@ -10,7 +10,7 @@ if ($spirits > 0)
 }
 elseif ($spirits < 0)
 {
-    $stamina = (abs($spirits) * 25000) * 2;
+    $stamina = (\abs($spirits) * 25000) * 2;
     removestamina($stamina);
     \LotgdResponse::pageDebug('Turns Removed');
 }

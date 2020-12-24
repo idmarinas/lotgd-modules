@@ -1,11 +1,11 @@
 <?php
 
-if (! $session['user']['loggedin'])
+if ( ! $session['user']['loggedin'])
 {
     return $args;
 }
 
-if (! $session['user']['alive'])
+if ( ! $session['user']['alive'])
 {
     return $args;
 }
@@ -13,54 +13,54 @@ if (! $session['user']['alive'])
 require_once 'modules/staminasystem/lib/lib.php';
 require_once 'lib/redirect.php';
 
-$amber = get_stamina();
-$red = get_stamina(0);
+$amber         = get_stamina();
+$red           = get_stamina(0);
 $deathOverlord = getsetting('deathoverlord', '`$Ramius`0');
 
 if ($amber < 100 && $red >= 100)
 {
     //Gives a proportionate debuff from 1 to 0.2, at 2 decimal places each time
-    $buffvalue = round(((($amber / 100) * 80) + 20) / 100, 2);
-    $script = '';
+    $buffvalue = \round(((($amber / 100) * 80) + 20) / 100, 2);
+    $script    = '';
 
     if ($buffvalue < 0.3)
     {
         $buffmsg = 'buff.0.3';
         $message = \LotgdTranslator::t('notify.0.3.message', [], 'module-staminasystem');
-        $title = \LotgdTranslator::t('notify.0.3.title', ['deathOverlord' => $deathOverlord], 'module-staminasystem');
-        $script = stamina_notification($message, $title);
+        $title   = \LotgdTranslator::t('notify.0.3.title', ['deathOverlord' => $deathOverlord], 'module-staminasystem');
+        $script  = stamina_notification($message, $title);
     }
     elseif ($buffvalue < 0.6)
     {
         $buffmsg = 'buff.0.6';
         $message = \LotgdTranslator::t('notify.0.6.message', [], 'module-staminasystem');
-        $title = \LotgdTranslator::t('notify.0.6.title', ['deathOverlord' => $deathOverlord], 'module-staminasystem');
-        $script = stamina_notification($message, $title);
+        $title   = \LotgdTranslator::t('notify.0.6.title', ['deathOverlord' => $deathOverlord], 'module-staminasystem');
+        $script  = stamina_notification($message, $title);
     }
     elseif ($buffvalue < 0.8)
     {
         $buffmsg = 'buff.0.8';
         $message = \LotgdTranslator::t('notify.0.8.message', [], 'module-staminasystem');
-        $title = \LotgdTranslator::t('notify.0.8.title', [], 'module-staminasystem');
-        $script = stamina_notification($message, $title);
+        $title   = \LotgdTranslator::t('notify.0.8.title', [], 'module-staminasystem');
+        $script  = stamina_notification($message, $title);
     }
     elseif ($buffvalue < 1)
     {
         $buffmsg = 'buff.01';
         $message = \LotgdTranslator::t('notify.01.message', [], 'module-staminasystem');
-        $title = \LotgdTranslator::t('notify.01.title', [], 'module-staminasystem');
-        $script = stamina_notification($message, $title);
+        $title   = \LotgdTranslator::t('notify.01.title', [], 'module-staminasystem');
+        $script  = stamina_notification($message, $title);
     }
 
     if ($script)
     {
         apply_buff('stamina-corecombat-exhaustion', [
-            'name' => \LotgdTranslator::t('buff.name', [], 'module-staminasystem'),
-            'atkmod' => $buffvalue,
-            'defmod' => $buffvalue,
-            'rounds' => -1,
+            'name'     => \LotgdTranslator::t('buff.name', [], 'module-staminasystem'),
+            'atkmod'   => $buffvalue,
+            'defmod'   => $buffvalue,
+            'rounds'   => -1,
             'roundmsg' => \LotgdTranslator::t($buffmsg, [], 'module-staminasystem'),
-            'schema' => 'module-staminacorecombat'
+            'schema'   => 'module-staminacorecombat',
         ]);
 
         \LotgdResponse::pageAddContent($script);
@@ -80,27 +80,27 @@ if ($red < 100)
         \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.death', [], 'module-staminasystem'));
 
         $session['user']['hitpoints'] = 0;
-        $session['user']['alive'] = 0;
+        $session['user']['alive']     = 0;
 
         return redirect('shades.php');
     }
 
     $message = \LotgdTranslator::t('notify.red.message', ['deathOverlord' => $deathOverlord], 'module-staminasystem');
-    $title = \LotgdTranslator::t('notify.red.title', [], 'module-staminasystem');
-    $script = stamina_notification($message, $title, 'danger');
+    $title   = \LotgdTranslator::t('notify.red.title', [], 'module-staminasystem');
+    $script  = stamina_notification($message, $title, 'danger');
 
     \LotgdResponse::pageAddContent($script);
 }
 
 function stamina_notification($message, $title, $status = 'warning')
 {
-    $message = "$message<br><br><em>".\LotgdTranslator::t('notify.note', [], 'module-staminasystem').'</em>';
+    $message = "{$message}<br><br><em>".\LotgdTranslator::t('notify.note', [], 'module-staminasystem').'</em>';
 
     return "<script type='text/javascript'>
 		Lotgd.notify({
-            message : '".addslashes(appoencode($message, true))."',
-            title : '".addslashes(appoencode($title, true))."',
-			type  : '$status',
+            message : '".\addslashes(appoencode($message, true))."',
+            title : '".\addslashes(appoencode($title, true))."',
+			type  : '{$status}',
 			timeOut : 40000,
 			escapeHtml : false
 		});

@@ -3,20 +3,20 @@
 function landsky_getmoduleinfo()
 {
     return [
-        'name' => 'The Sky',
-        'version' => '2.0.0',
-        'author' => '`@CortalUX`&, with modifications by `#Lonnyl`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>`0',
-        'category' => 'General',
+        'name'      => 'The Sky',
+        'version'   => '2.0.0',
+        'author'    => '`@CortalUX`&, with modifications by `#Lonnyl`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>`0',
+        'category'  => 'General',
         'vertxtloc' => 'http://dragonprime.net/users/CortalUX/',
-        'download' => 'http://dragonprime.net/users/CortalUX/landsky.zip',
-        'settings' => [
+        'download'  => 'http://dragonprime.net/users/CortalUX/landsky.zip',
+        'settings'  => [
             'The Sky - General,title',
             'moonBlock' => 'Should the Moons module be blocked during the day?,bool|1',
-            'showhome' => 'Show the Sky on Home Page,bool|1',
+            'showhome'  => 'Show the Sky on Home Page,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -67,29 +67,29 @@ function landsky_dohook($hookname, $args)
         }
     }
 
-    if (! file_exists('public/images/landsky/sky.png'))
+    if ( ! \file_exists('public/images/landsky/sky.png'))
     {
         return $args;
     }
 
     $showhome = get_module_setting('showhome');
 
-    $moons = modulehook('landsky-moons');
+    $moons  = modulehook('landsky-moons');
     $params = [
-        'textDomain' => 'module-landsky',
+        'textDomain'    => 'module-landsky',
         'landsky_image' => landsky_image(),
-        'dimensions' => landsky_calc(),
-        'landsky_c' => landsky_c(),
-        'landsky_word' => $phase,
-        'showMoons' => ! (1 == get_module_setting('moonBlock') && 0 != $phase && 1 != $phase && 4 != $phase && is_module_active('moons') && 'page-shades-tpl-params' != $hookname && 'graveyard-desc' != $hookname),
-        'moons' => $moons,
-        'moonsCount' => count($moons)
+        'dimensions'    => landsky_calc(),
+        'landsky_c'     => landsky_c(),
+        'landsky_word'  => $phase,
+        'showMoons'     => ! (1 == get_module_setting('moonBlock') && 0 != $phase && 1 != $phase && 4 != $phase && is_module_active('moons') && 'page-shades-tpl-params' != $hookname && 'graveyard-desc' != $hookname),
+        'moons'         => $moons,
+        'moonsCount'    => \count($moons),
     ];
 
     switch ($hookname)
     {
         case 'page-home-tpl-params':
-            if (! $showhome)
+            if ( ! $showhome)
             {
                 return $args;
             }
@@ -118,23 +118,23 @@ function landsky_calc()
 {
     require_once 'lib/datetime.php';
 
-    $width = 800;
+    $width  = 800;
     $height = 50;
 
-    if (function_exists('getimagesize') && file_exists('public/images/landsky/sky.png'))
+    if (\function_exists('getimagesize') && \file_exists('public/images/landsky/sky.png'))
     {
-        $size = getimagesize('public/images/landsky/sky.png');
-        $width = $size[0];
+        $size   = \getimagesize('public/images/landsky/sky.png');
+        $width  = $size[0];
         $height = $size[1];
     }
 
     $width += 50;
     $time = gametimedetails();
-    $bit = $width / 86400;
-    $pix = $bit * $time['secssofartoday'];
-    $pix = round($pix);
+    $bit  = $width / 86400;
+    $pix  = $bit * $time['secssofartoday'];
+    $pix  = \round($pix);
 
-    return  ['height' => $height, 'width' => $width, 'offset' => $pix];
+    return ['height' => $height, 'width' => $width, 'offset' => $pix];
 }
 
 function landsky_word()
@@ -142,7 +142,7 @@ function landsky_word()
     require_once 'lib/datetime.php';
 
     $num = 0;
-    $if = date('G', gametime());
+    $if  = \date('G', gametime());
 
     if ($if < 4 || $if >= 19)
     {

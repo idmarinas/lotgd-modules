@@ -9,10 +9,10 @@ trait MapEditor
      */
     public function showMapEditor(): string
     {
-        $vloc = [];
-        $vname = getsetting('villagename', LOCATION_FIELDS);
+        $vloc         = [];
+        $vname        = getsetting('villagename', LOCATION_FIELDS);
         $vloc[$vname] = 'village';
-        $vloc = modulehook('validlocation', $vloc);
+        $vloc         = modulehook('validlocation', $vloc);
 
         $cityMap = [];
 
@@ -25,13 +25,13 @@ trait MapEditor
         }
 
         $params = [
-            'textDomain' => 'module-worldmapen',
+            'textDomain'   => 'module-worldmapen',
             'colorUserLoc' => get_module_setting('colorUserLoc', 'worldmapen'),
-            'sizeX' => get_module_setting('worldmapsizeX', 'worldmapen'),
-            'sizeY' => get_module_setting('worldmapsizeY', 'worldmapen'),
-            'cityMap' => $cityMap,
-            'worldMap' => worldmapen_loadMap(),
-            'terrainColor' => worldmapen_getColorDefinitions()
+            'sizeX'        => get_module_setting('worldmapsizeX', 'worldmapen'),
+            'sizeY'        => get_module_setting('worldmapsizeY', 'worldmapen'),
+            'cityMap'      => $cityMap,
+            'worldMap'     => worldmapen_loadMap(),
+            'terrainColor' => worldmapen_getColorDefinitions(),
         ];
 
         return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/map-editor.twig', $params);

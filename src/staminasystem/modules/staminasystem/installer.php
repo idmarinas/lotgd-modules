@@ -1,8 +1,8 @@
 <?php
 
-if (! (is_array(unserialize(get_module_setting('actionsarray')))))
+if ( ! (\is_array(\unserialize(get_module_setting('actionsarray')))))
 {
-    set_module_setting('actionsarray', serialize([]), 'staminasystem');
+    set_module_setting('actionsarray', \serialize([]), 'staminasystem');
 }
 
 module_addhook_priority('everyfooter', 0);

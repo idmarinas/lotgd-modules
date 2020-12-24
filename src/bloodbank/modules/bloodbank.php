@@ -6,20 +6,20 @@
 function bloodbank_getmoduleinfo()
 {
     return [
-        'name' => 'Blood Bank',
-        'version' => '3.0.0',
-        'author' => 'E Stevens, JT Traub, S Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Blood Bank',
+        'version'  => '3.0.0',
+        'author'   => 'E Stevens, JT Traub, S Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'core_module',
         'settings' => [
-            'bankloc' => 'Where does the bank appear,location|'.getsetting('villagename', LOCATION_FIELDS)
+            'bankloc' => 'Where does the bank appear,location|'.getsetting('villagename', LOCATION_FIELDS),
         ],
         'prefs' => [
             'giventoday' => 'Has the user given blood today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -64,7 +64,7 @@ function bloodbank_dohook($hookname, $args)
         case 'bank-text-domain':
             if ($session['user']['location'] == get_module_setting('bankloc'))
             {
-                $args['textDomain'] = 'blookbank-bank-bank';
+                $args['textDomain']           = 'blookbank-bank-bank';
                 $args['textDomainNavigation'] = 'blookbank-bank-navigation';
             }
         break;
@@ -98,15 +98,15 @@ function bloodbank_run()
     if ('give' == $op && 0 == $giventoday)
     {
         apply_buff('bloodbank', [
-            'name' => \LotgdTranslation::t('donation.buff.name', [], $textDomain),
+            'name'   => \LotgdTranslation::t('donation.buff.name', [], $textDomain),
             'rounds' => 20,
-            'defmod' => 1.02
+            'defmod' => 1.02,
         ]);
 
         set_module_pref('giventoday', 1);
 
         $params = [
-            'textDomain' => $textDomain
+            'textDomain' => $textDomain,
         ];
 
         \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('bloodbank/run/donate.twig', $params));
@@ -114,7 +114,7 @@ function bloodbank_run()
     elseif ('give' == $op && 1 == $giventoday)
     {
         $params = [
-            'textDomain' => $textDomain
+            'textDomain' => $textDomain,
         ];
 
         \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('bloodbank/run/donated.twig', $params));

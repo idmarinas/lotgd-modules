@@ -102,6 +102,7 @@ class ModMechanicalTurk
      * Set the value of Id.
      *
      * @param int id
+     * @param mixed $id
      *
      * @return self
      */
@@ -124,6 +125,7 @@ class ModMechanicalTurk
      * Set the value of Creaturename.
      *
      * @param string creaturename
+     * @param mixed $creaturename
      *
      * @return self
      */
@@ -146,6 +148,7 @@ class ModMechanicalTurk
      * Set the value of Creaturecategory.
      *
      * @param string creaturecategory
+     * @param mixed $creaturecategory
      *
      * @return self
      */
@@ -168,6 +171,7 @@ class ModMechanicalTurk
      * Set the value of Creaturedescription.
      *
      * @param string creaturedescription
+     * @param mixed $creaturedescription
      *
      * @return self
      */
@@ -190,6 +194,7 @@ class ModMechanicalTurk
      * Set the value of Creatureweapon.
      *
      * @param string creatureweapon
+     * @param mixed $creatureweapon
      *
      * @return self
      */
@@ -212,6 +217,7 @@ class ModMechanicalTurk
      * Set the value of Creaturelose.
      *
      * @param string creaturelose
+     * @param mixed $creaturelose
      *
      * @return self
      */
@@ -234,6 +240,7 @@ class ModMechanicalTurk
      * Set the value of Creaturewin.
      *
      * @param string creaturewin
+     * @param mixed $creaturewin
      *
      * @return self
      */
@@ -256,6 +263,7 @@ class ModMechanicalTurk
      * Set the value of Submittedby.
      *
      * @param string submittedby
+     * @param mixed $submittedby
      *
      * @return self
      */
@@ -278,6 +286,7 @@ class ModMechanicalTurk
      * Set the value of Forest.
      *
      * @param bool forest
+     * @param mixed $forest
      *
      * @return self
      */
@@ -300,6 +309,7 @@ class ModMechanicalTurk
      * Set the value of Graveyard.
      *
      * @param bool graveyard
+     * @param mixed $graveyard
      *
      * @return self
      */

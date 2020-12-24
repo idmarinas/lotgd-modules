@@ -6,18 +6,18 @@
 function clannews_getmoduleinfo()
 {
     return [
-        'name' => 'Clan News',
+        'name'     => 'Clan News',
         'category' => 'Clan',
-        'author' => 'dying, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '1.0.0',
+        'author'   => 'dying, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'version'  => '1.0.0',
         'download' => 'core_module',
         'settings' => [
             'Clan News Settings, title',
-            'maxevents' => 'Maximum number of news events to display,range,0,25,1|5'
+            'maxevents' => 'Maximum number of news events to display,range,0,25,1|5',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -39,10 +39,10 @@ function clannews_dohook($hookname, $args)
     {
         global $session, $claninfo;
 
-        $maxEvents = (int) get_module_setting('maxevents');
+        $maxEvents      = (int) get_module_setting('maxevents');
         $newsRepository = \Doctrine::getRepository('LotgdCore:News');
-        $query = $newsRepository->createQueryBuilder('u');
-        $expr = $query->expr();
+        $query          = $newsRepository->createQueryBuilder('u');
+        $expr           = $query->expr();
 
         $query->select('u')
             ->innerJoin('LotgdCore:Accounts', 'a', 'with', $expr->eq('a.acctid', 'u.accountId'))
@@ -57,8 +57,8 @@ function clannews_dohook($hookname, $args)
 
         $args['templates']['module/clannews/dohook/clanhall.twig'] = [
             'textDomain' => 'module-clannews',
-            'name' => $claninfo['clanname'],
-            'result' => $query->getQuery()->getArrayResult()
+            'name'       => $claninfo['clanname'],
+            'result'     => $query->getQuery()->getArrayResult(),
         ];
     }
 

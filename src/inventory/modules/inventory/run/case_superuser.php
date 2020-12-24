@@ -1,9 +1,9 @@
 <?php
 
-$op2 = (string) \LotgdRequest::getQuery('op2');
-$acctId = (int) \LotgdRequest::getQuery('acctid');
-$return = (string) \LotgdRequest::getQuery('return');
-$creturn = urlencode($return);
+$op2     = (string) \LotgdRequest::getQuery('op2');
+$acctId  = (int) \LotgdRequest::getQuery('acctid');
+$return  = (string) \LotgdRequest::getQuery('return');
+$creturn = \urlencode($return);
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
 $accountRep = \Doctrine::getRepository('LotgdCore:Accounts');
@@ -14,7 +14,7 @@ $name = $accountRep->getCharacterNameFromAcctId($acctId);
 
 if ('dropitem' == $op2)
 {
-    $id = (int) \LotgdRequest::getQuery('id');
+    $id    = (int) \LotgdRequest::getQuery('id');
     $invId = (int) \LotgdRequest::getQuery('invid');
 
     remove_item($id, 1, $acctId, $invId);
@@ -26,12 +26,12 @@ if ('dropitem' == $op2)
 \LotgdNavigation::addNav('navigation.nav.update', "runmodule.php?module=inventory&op=superuser&acctid={$acctId}&return={$creturn}", ['textDomain' => $textDomain]);
 
 $params = [
-    'textDomain' => $textDomain,
-    'inventory' => $repository->getInventoryOfCharacter($acctId),
-    'limitTotal' => get_module_setting('limit', 'inventory'),
+    'textDomain'  => $textDomain,
+    'inventory'   => $repository->getInventoryOfCharacter($acctId),
+    'limitTotal'  => get_module_setting('limit', 'inventory'),
     'weightTotal' => get_module_setting('weight', 'inventory'),
-    'owner' => $name,
-    'ownerId' => $acctId
+    'owner'       => $name,
+    'ownerId'     => $acctId,
 ];
 
 \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/run/superuser.twig', $params));

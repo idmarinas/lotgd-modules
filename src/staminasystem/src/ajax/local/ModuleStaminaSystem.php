@@ -92,14 +92,14 @@ class ModuleStaminaSystem extends AjaxAbstract
 
             //-- Options
             $options = [
-                'autofocus' => false,
-                'classModal' => 'overlay fullscreen'
+                'autofocus'  => false,
+                'classModal' => 'overlay fullscreen',
             ];
 
             $response->dialog->show($title, ['content' => $content, 'isScrollable' => true], $buttons, $options);
             $response->jQuery('#module-staminasystem-show')->removeClass('loading disabled');
             $response->jQuery('.ui.lotgd.tabular.menu .item')->tab();
-            $response->jQuery('.ui.lotgd.progress')->progress([ 'precision' => 10 ]);
+            $response->jQuery('.ui.lotgd.progress')->progress(['precision' => 10]);
         }
         catch (\Throwable $th)
         {

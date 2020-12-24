@@ -11,24 +11,24 @@
 function gardener_getmoduleinfo()
 {
     return [
-        'name' => 'Gardener',
-        'version' => '2.0.0',
-        'author' => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Gardener',
+        'version'  => '2.0.0',
+        'author'   => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Gardens',
         'download' => 'core_module',
         'settings' => [
             'Gardener - Settings,title',
-            'customtext' => 'Custom message for server,textarea|',
-            'gardens' => 'Does the gazebo appear in the gardens? (setting yes nullifies city selector below),bool|0',
-            'gardenerloc' => 'In which city does the gazebo appear,location|'.getsetting('villagename', LOCATION_FIELDS)
+            'customtext'  => 'Custom message for server,textarea|',
+            'gardens'     => 'Does the gazebo appear in the gardens? (setting yes nullifies city selector below),bool|0',
+            'gardenerloc' => 'In which city does the gazebo appear,location|'.getsetting('villagename', LOCATION_FIELDS),
         ],
         'prefs' => [
             'Gardener - User Preferences,title',
             'seentoday' => 'Has the player visited today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -57,7 +57,7 @@ function gardener_dohook($hookname, $args)
     switch ($hookname)
     {
         case 'changesetting':
-            if (! $gardens && 'villagename' == $args['setting'] && $args['old'] == get_module_setting('gardenerloc'))
+            if ( ! $gardens && 'villagename' == $args['setting'] && $args['old'] == get_module_setting('gardenerloc'))
             {
                 set_module_setting('gardenerloc', $args['new']);
             }
@@ -68,7 +68,7 @@ function gardener_dohook($hookname, $args)
                 \LotgdNavigation::addNavNotl('Gazebo', 'runmodule.php?module=gardener');
 
                 $customtext = get_module_setting('customtext');
-                \LotgdResponse::pageAddContent(appoencode(sprintf('`n`%%s`0', $customtext), true));
+                \LotgdResponse::pageAddContent(appoencode(\sprintf('`n`%%s`0', $customtext), true));
             }
         break;
         case 'footer-runmodule':
@@ -78,7 +78,7 @@ function gardener_dohook($hookname, $args)
             }
         break;
         case 'village-desc':
-            if (! $gardens && $session['user']['location'] == get_module_setting('gardenerloc'))
+            if ( ! $gardens && $session['user']['location'] == get_module_setting('gardenerloc'))
             {
                 \LotgdNavigation::addHeader('headers.market');
                 \LotgdNavigation::addNavNotl('Gazebo', 'runmodule.php?module=gardener');
@@ -87,7 +87,7 @@ function gardener_dohook($hookname, $args)
 
                 if ($customtext)
                 {
-                    $args[] = sprintf('`n`n`c`@%s`0´c', $customtext);
+                    $args[] = \sprintf('`n`n`c`@%s`0´c', $customtext);
                 }
             }
         break;
@@ -103,9 +103,9 @@ function gardener_run()
 {
     global $session;
 
-    $op = \LotgdRequest::getQuery('op');
+    $op        = \LotgdRequest::getQuery('op');
     $seentoday = get_module_pref('seentoday');
-    $gardens = get_module_setting('gardens');
+    $gardens   = get_module_setting('gardens');
 
     $textDomain = 'module-gardener';
 
@@ -113,7 +113,7 @@ function gardener_run()
 
     $params = [
         'textDomain' => $textDomain,
-        'gardens' => $gardens
+        'gardens'    => $gardens,
     ];
 
     \LotgdNavigation::setTextDomain($textDomain);
@@ -173,12 +173,12 @@ function gardener_run()
             \LotgdTranslator::t('question.016', [], $textDomain).'|1',
             \LotgdTranslator::t('question.017', [], $textDomain).'|1',
             \LotgdTranslator::t('question.018', [], $textDomain).'|1',
-            \LotgdTranslator::t('question.019', [], $textDomain).'|1'
+            \LotgdTranslator::t('question.019', [], $textDomain).'|1',
         ];
 
-        $question = array_rand($phrases);
-        $myphrase = $phrases[$question];
-        list($q, $a) = explode('|', $myphrase);
+        $question    = \array_rand($phrases);
+        $myphrase    = $phrases[$question];
+        list($q, $a) = \explode('|', $myphrase);
         set_module_pref('expectanswer', $a);
 
         $params['question'] = $q;
@@ -203,17 +203,17 @@ function gardener_run()
             // answer is correct
             $params['correct'] = true;
 
-            $gift = mt_rand(1, 7);
+            $gift = \mt_rand(1, 7);
 
             if (7 == $gift)
             {
                 $params['reward'] = 0;
-                $session['user']['gems']++;
+                ++$session['user']['gems'];
             }
             else
             {
-                $vargold = mt_rand(0, 20);
-                $addgold = $vargold + (round(max(10, (200 - $session['user']['dragonkills'])) * 0.1) * $session['user']['level']);
+                $vargold = \mt_rand(0, 20);
+                $addgold = $vargold + (\round(\max(10, (200 - $session['user']['dragonkills'])) * 0.1) * $session['user']['level']);
                 $session['user']['gold'] += $addgold;
 
                 $params['reward'] = $addgold;

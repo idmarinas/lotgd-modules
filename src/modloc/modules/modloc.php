@@ -17,14 +17,14 @@ require_once 'lib/debuglog.php';
 function modloc_getmoduleinfo()
 {
     return [
-        'name' => 'Module Locations',
-        'version' => '2.0.0',
-        'author' => '`^CortalUX`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Module Locations',
+        'version'  => '2.0.0',
+        'author'   => '`^CortalUX`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -45,7 +45,7 @@ function modloc_dohook($hookname, $args)
 {
     global $session;
 
-    if (! ($session['user']['superuser'] & SU_MANAGE_MODULES))
+    if ( ! ($session['user']['superuser'] & SU_MANAGE_MODULES))
     {
         return $args;
     }
@@ -74,7 +74,7 @@ function modloc_run()
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
-    $op = \LotgdRequest::getQuery('op');
+    $op  = \LotgdRequest::getQuery('op');
     $loc = \LotgdRequest::getQuery('loc');
 
     \LotgdNavigation::superuserGrottoNav();
@@ -87,21 +87,21 @@ function modloc_run()
 
     $params = [
         'textDomain' => $textDomain,
-        'location' => $loc
+        'location'   => $loc,
     ];
 
-    $locations = [];
-    $t = getsetting('villagename', LOCATION_FIELDS);
-    $locations = modulehook('validlocation');
+    $locations     = [];
+    $t             = getsetting('villagename', LOCATION_FIELDS);
+    $locations     = modulehook('validlocation');
     $locations[$t] = 0;
 
     foreach ($locations as $name => $sname)
     {
-        \LotgdNavigation::addNavNotl($name, 'runmodule.php?module=modloc&admin=true&loc='.urlencode($name));
+        \LotgdNavigation::addNavNotl($name, 'runmodule.php?module=modloc&admin=true&loc='.\urlencode($name));
         $locations[$name] = 0;
     }
 
-    $query = \Doctrine::createQueryBuilder();
+    $query  = \Doctrine::createQueryBuilder();
     $result = $query->select('u.modulename')
         ->from('LotgdCore:Modules', 'u')
 
@@ -124,38 +124,38 @@ function modloc_run()
     }
 
     $params['modules'] = [];
-    $params['errors'] = 0;
+    $params['errors']  = 0;
 
     foreach ($result as $module)
     {
         $info = get_module_info($module['modulename']);
 
-        if (count($info['settings']))
+        if (\count($info['settings']))
         {
             foreach ($info['settings'] as $key => $val)
             {
                 if (isset($val) && ! empty($val) && isset($key) && ! empty($key))
                 {
-                    if (is_array($val))
+                    if (\is_array($val))
                     {
-                        $v = $val[0];
-                        $x = explode('|', $v);
+                        $v      = $val[0];
+                        $x      = \explode('|', $v);
                         $val[0] = $x[0];
-                        $x[0] = $val;
+                        $x[0]   = $val;
                     }
                     else
                     {
-                        $x = explode('|', $val);
+                        $x = \explode('|', $val);
                     }
 
-                    if (! is_array($x[0]))
+                    if ( ! \is_array($x[0]))
                     {
-                        $type = explode(',', $x[0]);
+                        $type = \explode(',', $x[0]);
                     }
 
                     if (isset($type[1]))
                     {
-                        $type = trim($type[1]);
+                        $type = \trim($type[1]);
                     }
                     else
                     {
@@ -176,26 +176,26 @@ function modloc_run()
                         if ($loc == $l && '' != $loc || '' == $loc && 'error' != $op)
                         {
                             $params['modules'][] = [
-                                'error' => false,
-                                'location' => $l,
-                                'module' => $info['name'],
+                                'error'      => false,
+                                'location'   => $l,
+                                'module'     => $info['name'],
                                 'modulename' => $module['modulename'],
-                                'question' => preg_replace('/,location/', '', $x[0])
+                                'question'   => \preg_replace('/,location/', '', $x[0]),
                             ];
                         }
                     }
                     else
                     {
-                        $params['errors']++;
+                        ++$params['errors'];
 
                         if ('' == $loc || 'error' == $op)
                         {
                             $params['modules'][] = [
-                                'error' => false,
-                                'location' => $l,
-                                'module' => $info['name'],
+                                'error'      => false,
+                                'location'   => $l,
+                                'module'     => $info['name'],
                                 'modulename' => $module['modulename'],
-                                'question' => preg_replace('/,location/', '', $x[0])
+                                'question'   => \preg_replace('/,location/', '', $x[0]),
                             ];
                         }
                     }
@@ -204,8 +204,8 @@ function modloc_run()
         }
     }
 
-    $params['modulesCount'] = count($params['modules']);
-    $params['locations'] = $locations;
+    $params['modulesCount'] = \count($params['modules']);
+    $params['locations']    = $locations;
 
     \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('modloc/run.twig', $params));
 

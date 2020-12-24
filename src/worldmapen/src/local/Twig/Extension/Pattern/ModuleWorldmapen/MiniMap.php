@@ -9,14 +9,14 @@ trait MiniMap
      */
     public function showMiniMap(array $params): string
     {
-        $vloc = [];
-        $vname = getsetting('villagename', LOCATION_FIELDS);
+        $vloc         = [];
+        $vname        = getsetting('villagename', LOCATION_FIELDS);
         $vloc[$vname] = 'village';
-        $vloc = modulehook('validlocation', $vloc);
+        $vloc         = modulehook('validlocation', $vloc);
 
-        $viewRadius = get_module_setting('viewRadius', 'worldmapen');
-        $loc = get_module_pref('worldXYZ', 'worldmapen');
-        list($worldmapX, $worldmapY, $worldmapZ) = explode(',', $loc);
+        $viewRadius                              = get_module_setting('viewRadius', 'worldmapen');
+        $loc                                     = get_module_pref('worldXYZ', 'worldmapen');
+        list($worldmapX, $worldmapY, $worldmapZ) = \explode(',', $loc);
 
         $cityMap = [];
 
@@ -29,19 +29,19 @@ trait MiniMap
         }
 
         $params = [
-            'textDomain' => 'module-worldmapen',
-            'mapLinks' => $params,
+            'textDomain'   => 'module-worldmapen',
+            'mapLinks'     => $params,
             'colorUserLoc' => get_module_setting('colorUserLoc', 'worldmapen'),
-            'sizeX' => get_module_setting('worldmapsizeX', 'worldmapen'),
-            'sizeY' => get_module_setting('worldmapsizeY', 'worldmapen'),
-            'showCompass' => (bool) get_module_setting('showcompass', 'worldmapen'),
+            'sizeX'        => get_module_setting('worldmapsizeX', 'worldmapen'),
+            'sizeY'        => get_module_setting('worldmapsizeY', 'worldmapen'),
+            'showCompass'  => (bool) get_module_setting('showcompass', 'worldmapen'),
             'smallMapSize' => (2 * $viewRadius) + 1,
-            'worldMapX' => $worldmapX,
-            'worldMapY' => $worldmapY,
-            'worldMapZ' => $worldmapZ,
-            'cityMap' => $cityMap,
-            'worldMap' => worldmapen_loadMap(),
-            'terrainColor' => worldmapen_getColorDefinitions()
+            'worldMapX'    => $worldmapX,
+            'worldMapY'    => $worldmapY,
+            'worldMapZ'    => $worldmapZ,
+            'cityMap'      => $cityMap,
+            'worldMap'     => worldmapen_loadMap(),
+            'terrainColor' => worldmapen_getColorDefinitions(),
         ];
 
         $params['rowSpanY'] = $params['sizeY'] + 1;

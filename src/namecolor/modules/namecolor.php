@@ -4,26 +4,26 @@
 function namecolor_getmoduleinfo()
 {
     return [
-        'name' => 'Name Colorization',
-        'author' => 'Eric Stevens, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '2.0.0',
+        'name'     => 'Name Colorization',
+        'author'   => 'Eric Stevens, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'version'  => '2.0.0',
         'download' => 'core_module',
         'category' => 'Lodge',
         'settings' => [
             'Name Colorization Module Settings,title',
             'initialpoints' => 'How many points will the first color change cost?,int|300',
-            'extrapoints' => 'How many points will subsequent color changes cost?,int|25',
-            'maxcolors' => 'How many color changes are allowed in names?,int|10',
-            'bold' => 'Allow bold?,bool|1',
-            'italics' => 'Allow italics?,bool|1',
+            'extrapoints'   => 'How many points will subsequent color changes cost?,int|25',
+            'maxcolors'     => 'How many color changes are allowed in names?,int|10',
+            'bold'          => 'Allow bold?,bool|1',
+            'italics'       => 'Allow italics?,bool|1',
         ],
         'prefs' => [
             'Name Colorization User Preferences,title',
             'boughtbefore' => 'Has user bought a color change before?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -50,7 +50,7 @@ function namecolor_dohook($hookname, $args)
         case 'pointsdesc':
             $args[] = ['points.description', [
                 'initial' => get_module_setting('initialpoints'),
-                'extra' => get_module_setting('extrapoints')
+                'extra'   => get_module_setting('extrapoints'),
             ], $textDomain];
         break;
         case 'lodge':
@@ -63,7 +63,7 @@ function namecolor_dohook($hookname, $args)
 
             \LotgdNavigation::addNav('navigation.nav.change', 'runmodule.php?module=namecolor&op=namechange', [
                 'textDomain' => $textDomain,
-                'params' => ['cost' => $cost]
+                'params'     => ['cost' => $cost],
             ]);
         break;
         default: break;
@@ -78,8 +78,8 @@ function namecolor_run()
 
     global $session;
 
-    $rebuy = get_module_pref('boughtbefore');
-    $cost = get_module_setting($rebuy ? 'extrapoints' : 'initialpoints');
+    $rebuy           = get_module_pref('boughtbefore');
+    $cost            = get_module_setting($rebuy ? 'extrapoints' : 'initialpoints');
     $pointsavailable = $session['user']['donation'] - $session['user']['donationspent'];
 
     $op = \LotgdRequest::getQuery('op');
@@ -89,12 +89,12 @@ function namecolor_run()
     \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
-        'textDomain' => $textDomain,
-        'reBuy' => $rebuy,
-        'cost' => $cost,
+        'textDomain'      => $textDomain,
+        'reBuy'           => $rebuy,
+        'cost'            => $cost,
         'pointsAvailable' => $pointsavailable,
-        'extraPoints' => get_module_setting('extrapoints'),
-        'regName' => get_player_basename()
+        'extraPoints'     => get_module_setting('extrapoints'),
+        'regName'         => get_player_basename(),
     ];
 
     switch ($op)
@@ -105,13 +105,13 @@ function namecolor_run()
             $session['user']['donationspent'] += $cost;
             set_module_pref('boughtbefore', 1);
 
-            $fromname = $session['user']['name'];
-            $newname = change_player_name(rawurldecode(\LotgdRequest::getQuery('name')));
+            $fromname                = $session['user']['name'];
+            $newname                 = change_player_name(\rawurldecode(\LotgdRequest::getQuery('name')));
             $session['user']['name'] = $newname;
 
             addnews('news.changed', [
                 'from' => $fromname,
-                'new' => $session['user']['name']
+                'new'  => $session['user']['name'],
             ], $textDomain);
 
             $params['name'] = $session['user']['name'];
@@ -125,20 +125,20 @@ function namecolor_run()
 
             $newname = (string) \LotgdRequest::getPost('newname');
 
-            if (! get_module_setting('bold'))
+            if ( ! get_module_setting('bold'))
             {
-                $newname = str_replace(['`b', '´b'], '', $newname);
+                $newname = \str_replace(['`b', '´b'], '', $newname);
             }
 
-            if (! get_module_setting('italics'))
+            if ( ! get_module_setting('italics'))
             {
-                $newname = str_replace(['`i', '´i'], '', $newname);
+                $newname = \str_replace(['`i', '´i'], '', $newname);
             }
             //-- Deleted center code and other
-            $newname = preg_replace('/[`´][ncHw]/', '', $newname);
+            $newname = \preg_replace('/[`´][ncHw]/', '', $newname);
 
-            $comp1 = strtolower(\LotgdSanitize::fullSanitize($params['regName']));
-            $comp2 = strtolower(\LotgdSanitize::fullSanitize($newname));
+            $comp1 = \strtolower(\LotgdSanitize::fullSanitize($params['regName']));
+            $comp2 = \strtolower(\LotgdSanitize::fullSanitize($newname));
 
             $err = 0;
 
@@ -148,14 +148,14 @@ function namecolor_run()
                 \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('flash.message.error.not.equal', ['name' => $newname], $textDomain));
             }
 
-            if (strlen($newname) > 30)
+            if (\strlen($newname) > 30)
             {
                 $err = 1;
                 \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('flash.message.error.long', [], $textDomain));
             }
 
-            $colorCount = substr_count($newname, '`');
-            $max = (int) get_module_setting('maxcolors');
+            $colorCount = \substr_count($newname, '`');
+            $max        = (int) get_module_setting('maxcolors');
 
             if ($colorCount > $max)
             {
@@ -165,10 +165,10 @@ function namecolor_run()
 
             $params['newName'] = $newname;
 
-            if (! $err)
+            if ( ! $err)
             {
                 \LotgdNavigation::addHeader('navigation.category.confirm', ['textDomain' => $textDomain]);
-                \LotgdNavigation::addNav('navigation.nav.yes', 'runmodule.php?module=namecolor&op=changename&name='.rawurlencode($newname), ['textDomain' => $textDomain]);
+                \LotgdNavigation::addNav('navigation.nav.yes', 'runmodule.php?module=namecolor&op=changename&name='.\rawurlencode($newname), ['textDomain' => $textDomain]);
                 \LotgdNavigation::addNav('navigation.nav.no', 'runmodule.php?module=namecolor&op=namechange', ['textDomain' => $textDomain]);
             }
             else

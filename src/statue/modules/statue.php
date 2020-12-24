@@ -3,27 +3,27 @@
 function statue_getmoduleinfo()
 {
     return [
-        'name' => 'Village Statue',
-        'author' => '`%Simon Welsh`0<br>`#Based on Village Statue by Eric Stevens`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '3.0.0',
-        'category' => 'Village',
-        'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=667',
+        'name'      => 'Village Statue',
+        'author'    => '`%Simon Welsh`0<br>`#Based on Village Statue by Eric Stevens`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'version'   => '3.0.0',
+        'category'  => 'Village',
+        'download'  => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=667',
         'vertxtloc' => 'http://simon.geek.nz/',
-        'settings' => [
+        'settings'  => [
             'Village Statue Settings,title',
-            'hero' => 'Who is the main statue of? (ID),int|',
-            'heroName' => 'Who is the statue of? (Name)|',
-            'villagehero' => 'Who is the statue of in every village?,viewonly|'.serialize([]),
-            'days' => 'How many days until a new statue is created?,range,1,10,1|5',
-            'time' => 'How many days has the statue been under construction for?,int|0',
+            'hero'        => 'Who is the main statue of? (ID),int|',
+            'heroName'    => 'Who is the statue of? (Name)|',
+            'villagehero' => 'Who is the statue of in every village?,viewonly|'.\serialize([]),
+            'days'        => 'How many days until a new statue is created?,range,1,10,1|5',
+            'time'        => 'How many days has the statue been under construction for?,int|0',
             'showonindex' => 'Should the last dragonkill be shown on the home page?,bool|1',
             'Destroy Statue Settings,title',
-            'adestroy' => 'Allow user to destroy statue?,bool|1',
-            'stocks' => 'If user breaks statue put them in the stocks?,bool|1',
-            'chance' => 'Chance of breaking the statue? (%),range,1,100,1|30',
-            'gold' => 'Lose gold when breaking statue?,bool|0',
-            'gems' => 'Lose gems when breaking statue?,bool|0',
-            'charm' => 'Amount of charm to loose,int|5',
+            'adestroy'  => 'Allow user to destroy statue?,bool|1',
+            'stocks'    => 'If user breaks statue put them in the stocks?,bool|1',
+            'chance'    => 'Chance of breaking the statue? (%),range,1,100,1|30',
+            'gold'      => 'Lose gold when breaking statue?,bool|0',
+            'gems'      => 'Lose gems when breaking statue?,bool|0',
+            'charm'     => 'Amount of charm to loose,int|5',
             'hitpoints' => '% of hitpoints to lose,range,1,100,1|30',
         ],
         'prefs' => [
@@ -52,19 +52,19 @@ function statue_dohook($hookname, $args)
 {
     global $session;
 
-    $capital = getsetting('villagename', LOCATION_FIELDS);
-    $hero = get_module_setting('hero');
+    $capital  = getsetting('villagename', LOCATION_FIELDS);
+    $hero     = get_module_setting('hero');
     $heroName = get_module_setting('heroName');
-    $heros = unserialize(get_module_setting('villagehero'));
-    $time = get_module_setting('time');
-    $day = get_module_setting('days');
-    $see = get_module_pref('see');
-    $chance = get_module_setting('chance');
+    $heros    = \unserialize(get_module_setting('villagehero'));
+    $time     = get_module_setting('time');
+    $day      = get_module_setting('days');
+    $see      = get_module_pref('see');
+    $chance   = get_module_setting('chance');
 
     if ($hero && ! $heroName)
     {
         $repository = \Doctrine::getRepository('LotgdCore:Characters');
-        $entity = $repository->find($hero);
+        $entity     = $repository->find($hero);
 
         if ($entity)
         {
@@ -88,35 +88,35 @@ function statue_dohook($hookname, $args)
             foreach ($heros as $what => $city)
             {
                 \LotgdResponse::pageDebug("Adding time to {$what}");
-                $heros[$what]['time']++;
+                ++$heros[$what]['time'];
                 \LotgdResponse::pageDebug("\$city['time'] = {$city['time']}");
             }
         break;
         case 'village-desc':
             //-- User can't see statue
-            if (! $see)
+            if ( ! $see)
             {
                 return $args;
             }
 
             $params = [
-                'location' => $session['user']['location'],
-                'time' => $time,
-                'hero' => $hero,
-                'heroName' => $heroName,
-                'playerName' => $session['user']['name']
+                'location'   => $session['user']['location'],
+                'time'       => $time,
+                'hero'       => $hero,
+                'heroName'   => $heroName,
+                'playerName' => $session['user']['name'],
             ];
 
             if ($session['user']['location'] != $capital)
             {
-                $params['time'] = 0;
+                $params['time']     = 0;
                 $params['heroName'] = 'MightyE';
 
                 if (isset($heros[$session['user']['location']]['hero']))
                 {
-                    $params['hero'] = $heros[$session['user']['location']]['hero'];
+                    $params['hero']     = $heros[$session['user']['location']]['hero'];
                     $params['heroName'] = $heros[$session['user']['location']]['heroName'];
-                    $params['time'] = $heros[$session['user']['location']]['time'];
+                    $params['time']     = $heros[$session['user']['location']]['time'];
                 }
             }
 
@@ -125,7 +125,7 @@ function statue_dohook($hookname, $args)
             //-- Process examine statue
             if ('astatue' == $op)
             {
-                if (mt_rand(1, 100) <= $chance)
+                if (\mt_rand(1, 100) <= $chance)
                 {
                     require_once 'lib/partner.php';
 
@@ -150,7 +150,7 @@ function statue_dohook($hookname, $args)
 
                     addnews('news.broke.statue', [
                         'playerName' => $session['user']['name'],
-                        'location' => $session['user']['location']
+                        'location'   => $session['user']['location'],
                     ], 'module-statue');
 
                     $debuglog = 'Lost ';
@@ -159,35 +159,35 @@ function statue_dohook($hookname, $args)
                     {
                         $debuglog .= "{$session['user']['gold']} gold, ";
                         $session['user']['gold'] = 0;
-                        $args[] = ['section.village.examine.break.lost.gold', $params, 'module-statue'];
+                        $args[]                  = ['section.village.examine.break.lost.gold', $params, 'module-statue'];
                     }
 
                     if (get_module_setting('gems'))
                     {
                         $debuglog .= "{$session['user']['gems']} gems, ";
                         $session['user']['gems'] = 0;
-                        $args[] = ['section.village.examine.break.lost.gems', $params, 'module-statue'];
+                        $args[]                  = ['section.village.examine.break.lost.gems', $params, 'module-statue'];
                     }
 
                     if (get_module_setting('charm'))
                     {
-                        $charm = min(get_module_setting('charm'), $session['user']['charm']);
-                        $debuglog .= "$charm charm, ";
+                        $charm = \min(get_module_setting('charm'), $session['user']['charm']);
+                        $debuglog .= "{$charm} charm, ";
                         $session['user']['charm'] -= $charm;
                         $args[] = ['section.village.examine.break.lost.charm', $params, 'module-statue'];
                     }
 
                     if (get_module_setting('hitpoints'))
                     {
-                        $hitpoints = floor((get_module_setting('hitpoints') / 100) * $session['user']['hitpoints']);
-                        $hitpoints = min($session['user']['hitpoints'] - 1, $hitpoints);
+                        $hitpoints = \floor((get_module_setting('hitpoints') / 100) * $session['user']['hitpoints']);
+                        $hitpoints = \min($session['user']['hitpoints'] - 1, $hitpoints);
 
-                        $debuglog .= "$hitpoints hitpoints, ";
+                        $debuglog .= "{$hitpoints} hitpoints, ";
                         $session['user']['hitpoints'] -= $hitpoints;
                         $args[] = ['section.village.examine.break.lost.hitpoints', $params, 'module-statue'];
                     }
 
-                    $array = modulehook('statue-broke', ['lost' => $debuglog]);
+                    $array    = modulehook('statue-broke', ['lost' => $debuglog]);
                     $debuglog = $array['lost'];
                     $debuglog .= "for breaking the statue in {$session['user']['location']}.";
                     debuglog($debuglog);
@@ -201,7 +201,7 @@ function statue_dohook($hookname, $args)
                         $heros[$session['user']['location']]['time'] = 0;
                     }
 
-                    set_module_setting('villagehero', serialize($heros));
+                    set_module_setting('villagehero', \serialize($heros));
 
                     return $args;
                 }
@@ -212,11 +212,11 @@ function statue_dohook($hookname, $args)
             //-- Show statue
             $text = 'section.village.hero.yes.erected';
 
-            if (! $hero && $params['time'] >= floor($day / 2))
+            if ( ! $hero && $params['time'] >= \floor($day / 2))
             {
                 $text = 'section.village.hero.no.erected';
             }
-            elseif (! $hero && $params['time'] < floor($day / 2))
+            elseif ( ! $hero && $params['time'] < \floor($day / 2))
             {
                 $text = 'section.village.hero.no.erecting';
             }
@@ -230,15 +230,15 @@ function statue_dohook($hookname, $args)
             \LotgdNavigation::addNavAllow('village.php?op=astatue');
         break;
         case 'page-home-tpl-params':
-            if (! get_module_setting('showonindex'))
+            if ( ! get_module_setting('showonindex'))
             {
                 break;
             }
 
             $args['includeTemplatesIndex']['module/statue/dohook/home.twig'] = [
                 'textDomain' => 'module-statue',
-                'heroName' => $heroName,
-                'hero' => $hero
+                'heroName'   => $heroName,
+                'hero'       => $hero,
             ];
         break;
         case 'dragonkill':
@@ -253,12 +253,12 @@ function statue_dohook($hookname, $args)
             {
                 $homecity = get_module_pref('homecity', 'cities');
 
-                if (! isset($heros[$homecity]) || $heros[$homecity]['hero'] != $session['user']['acctid'])
+                if ( ! isset($heros[$homecity]) || $heros[$homecity]['hero'] != $session['user']['acctid'])
                 {
                     $heros[$homecity] = [
-                        'hero' => $session['user']['acctid'],
+                        'hero'     => $session['user']['acctid'],
                         'heroName' => $session['user']['name'],
-                        'time' => 0
+                        'time'     => 0,
                     ];
                 }
             }
@@ -281,7 +281,7 @@ function statue_dohook($hookname, $args)
         break;
     }
 
-    set_module_setting('villagehero', serialize($heros));
+    set_module_setting('villagehero', \serialize($heros));
 
     return $args;
 }

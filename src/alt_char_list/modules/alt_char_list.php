@@ -3,17 +3,17 @@
 function alt_char_list_getmoduleinfo()
 {
     return [
-        'name' => 'Alternate Character Listing',
-        'author' => 'Chris Vorndran, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '2.0.0',
+        'name'     => 'Alternate Character Listing',
+        'author'   => 'Chris Vorndran, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'version'  => '2.0.0',
         'category' => 'Administrative',
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1343',
-        'prefs' => [
+        'prefs'    => [
             'allowed' => 'User allowed to view alts?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -51,7 +51,7 @@ function alt_char_list_dohook($hookname, $args)
             if ($allowed)
             {
                 \LotgdNavigation::addHeader('common.superuser.category', ['textDomain' => 'navigation-app']);
-                \LotgdNavigation::addNav('navigation.nav.view', "runmodule.php?module=alt_char_list&id={{$args['acctid']}&ret=".urlencode($args['return_link']), ['textDomain' => 'module-alt_char_list']);
+                \LotgdNavigation::addNav('navigation.nav.view', "runmodule.php?module=alt_char_list&id={{$args['acctid']}&ret=".\urlencode($args['return_link']), ['textDomain' => 'module-alt_char_list']);
             }
         break;
         default: break;
@@ -69,11 +69,11 @@ function alt_char_list_run()
     \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
-        'textDomain' => $textDomain
+        'textDomain' => $textDomain,
     ];
 
-    $op = (string) \LotgdRequest::getQuery('op');
-    $id = (int) \LotgdRequest::getQuery('id');
+    $op   = (string) \LotgdRequest::getQuery('op');
+    $id   = (int) \LotgdRequest::getQuery('id');
     $page = (int) \LotgdRequest::getQuery('page');
 
     $char = $id;
@@ -92,7 +92,7 @@ function alt_char_list_run()
                 $params['search'] = $name;
 
                 $repository = \Doctrine::getRepository('LotgdCore:Accounts');
-                $query = $repository->createQueryBuilder('u');
+                $query      = $repository->createQueryBuilder('u');
 
                 $query->select('u.acctid', 'u.login', 'u.lastip', 'u.uniqueid', 'u.emailaddress')
                     ->addSelect('c.name')
@@ -114,7 +114,7 @@ function alt_char_list_run()
             $params['tpl'] = 'default';
 
             $repository = \Doctrine::getRepository('LotgdCore:Accounts');
-            $query = $repository->createQueryBuilder('u');
+            $query      = $repository->createQueryBuilder('u');
 
             $query->select('u.acctid', 'u.login', 'u.lastip', 'u.uniqueid', 'u.emailaddress')
                 ->addSelect('c.name')
@@ -131,15 +131,15 @@ function alt_char_list_run()
                 ;
             }
 
-            $paginator = $repository->getPaginator($query, $page);
+            $paginator           = $repository->getPaginator($query, $page);
             $params['paginator'] = $paginator;
 
             $accounts = [];
 
             foreach ($paginator as $acct)
             {
-                $dataIp = clone $subquery;
-                $dataId = clone $subquery;
+                $dataIp    = clone $subquery;
+                $dataId    = clone $subquery;
                 $dataEmail = clone $subquery;
 
                 $dataIp->where('u.lastip = :ip AND u.acctid != :acct')
@@ -157,9 +157,9 @@ function alt_char_list_run()
                     ->setParameter('email', $acct['emailaddress'])
                 ;
 
-                $accounts[$acct['acctid']]['acct'] = $acct;
-                $accounts[$acct['acctid']]['ip'] = $dataIp->getQuery()->getResult();
-                $accounts[$acct['acctid']]['id'] = $dataId->getQuery()->getResult();
+                $accounts[$acct['acctid']]['acct']  = $acct;
+                $accounts[$acct['acctid']]['ip']    = $dataIp->getQuery()->getResult();
+                $accounts[$acct['acctid']]['id']    = $dataId->getQuery()->getResult();
                 $accounts[$acct['acctid']]['email'] = $dataEmail->getQuery()->getResult();
             }
 
@@ -171,7 +171,7 @@ function alt_char_list_run()
     \LotgdNavigation::addNav('navigation.nav.search', 'runmodule.php?module=alt_char_list&op=search');
     \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=alt_char_list');
 
-    $ret = urlencode(\LotgdRequest::getQuery('ret'));
+    $ret = \urlencode(\LotgdRequest::getQuery('ret'));
 
     if ('' != $ret)
     {

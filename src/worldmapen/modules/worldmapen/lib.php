@@ -584,7 +584,6 @@ function worldmapen_setTerrain($map, $x, $y, $z = 1, $type = 'forest')
             case 7: $type = 'snow'; break;
             case 8: $type = 'earth'; break;
             case 9: $type = 'air'; break;
-
             default:
                 \LotgdResponse::pageDebug("Invalid terrain type '{$type}'. Setting to 'forest'.");
                 $type = 'forest';
@@ -614,7 +613,7 @@ function worldmapen_loadTerrainDefs(): array
     }
 
     $cache = \LotgdKernel::get('cache.app');
-    $item = $cache->getItem('module-worldmapen-terrain-defs');
+    $item  = $cache->getItem('module-worldmapen-terrain-defs');
 
     if ( ! $item->isHit())
     {
@@ -686,7 +685,7 @@ function worldmapen_loadTerrainDefs(): array
 function worldmapen_loadMap(int $z = 1)
 {
     $cache = \LotgdKernel::get('cache.app');
-    $item = $cache->getItem('module-worldmapen-terrain-map');
+    $item  = $cache->getItem('module-worldmapen-terrain-map');
 
     if ( ! $item->isHit())
     {

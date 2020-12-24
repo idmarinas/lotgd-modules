@@ -7,26 +7,26 @@
 function calendar_getmoduleinfo()
 {
     return [
-        'name' => 'Calendar',
-        'author' => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version' => '2.0.0',
+        'name'     => 'Calendar',
+        'author'   => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'version'  => '2.0.0',
         'category' => 'General',
         'download' => 'core_module',
         'settings' => [
             'Calendar Settings,title',
             'monthsperyear' => 'How many months per year,range,1,15,1|13',
-            'dayspermonth' => 'How many days per month,range,20,50,1|30',
-            'daysperweek' => 'How many days in a week?,range,1,10,1|8',
-            'curMonth' => 'What month are we in?,range,1,15,1|',
-            'curMonthName' => 'What is the name of current month?,viewonly',
-            'curDay' => 'What is the current day of the month?,range,1,50,1|',
-            'curWkday' => 'What day of the week is it?|',
-            'curWkdayName' => 'What is the name of current weekday?,viewonly',
-            'curYear' => 'What is the current year?,int|',
+            'dayspermonth'  => 'How many days per month,range,20,50,1|30',
+            'daysperweek'   => 'How many days in a week?,range,1,10,1|8',
+            'curMonth'      => 'What month are we in?,range,1,15,1|',
+            'curMonthName'  => 'What is the name of current month?,viewonly',
+            'curDay'        => 'What is the current day of the month?,range,1,50,1|',
+            'curWkday'      => 'What day of the week is it?|',
+            'curWkdayName'  => 'What is the name of current weekday?,viewonly',
+            'curYear'       => 'What is the current year?,int|',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -76,14 +76,14 @@ function calendar_install()
     module_addhook('village-desc');
     module_addhook('changesetting');
 
-    if (! get_module_setting('curMonth', 'calendar'))
+    if ( ! get_module_setting('curMonth', 'calendar'))
     {
-        $month = mt_rand(1, 13);
+        $month = \mt_rand(1, 13);
         set_module_setting('curMonth', $month, 'calendar');
         set_module_setting('curMonthName', calendar_month($month), 'calendar');
-        set_module_setting('curDay', mt_rand(1, 30), 'calendar');
-        set_module_setting('curYear', mt_rand(1, 3000), 'calendar');
-        $wkday = mt_rand(1, 8);
+        set_module_setting('curDay', \mt_rand(1, 30), 'calendar');
+        set_module_setting('curYear', \mt_rand(1, 3000), 'calendar');
+        $wkday = \mt_rand(1, 8);
         set_module_setting('curWkday', $wkday, 'calendar');
         set_module_setting('curWkdayName', calendar_weekday($wkday), 'calendar');
     }
@@ -98,7 +98,7 @@ function calendar_uninstall()
 
 function calendar_dohook($hookname, $args)
 {
-    $result = modulehook('calendar-text-domain', ['textDomain' => 'module-calendar']);
+    $result     = modulehook('calendar-text-domain', ['textDomain' => 'module-calendar']);
     $textDomain = $result['textDomain'];
     unset($result);
 
@@ -120,20 +120,20 @@ function calendar_dohook($hookname, $args)
             }
         break;
         case 'newday-runonce':
-            $day = get_module_setting('curDay');
+            $day   = get_module_setting('curDay');
             $month = get_module_setting('curMonth');
-            $year = get_module_setting('curYear');
-            $day++;
+            $year  = get_module_setting('curYear');
+            ++$day;
 
             if ($day > get_module_setting('dayspermonth'))
             {
                 $day = 1;
-                $month++;
+                ++$month;
 
                 if ($month > get_module_setting('monthsperyear'))
                 {
                     $month = 1;
-                    $year++;
+                    ++$year;
                 }
             }
 
@@ -143,7 +143,7 @@ function calendar_dohook($hookname, $args)
             set_module_setting('curYear', $year);
 
             $wkday = get_module_setting('curWkday');
-            $wkday++;
+            ++$wkday;
 
             if ($wkday > get_module_setting('daysperweek'))
             {
@@ -155,10 +155,10 @@ function calendar_dohook($hookname, $args)
         case 'newday':
             $args['includeTemplatesPost']['module/calendar/dohook/newday.twig'] = [
                 'textDomain' => $textDomain,
-                'wkDayName' => get_module_setting('curWkdayName'),
-                'day' => get_module_setting('curDay'),
-                'monthName' => get_module_setting('curMonthName'),
-                'year' => get_module_setting('curYear')
+                'wkDayName'  => get_module_setting('curWkdayName'),
+                'day'        => get_module_setting('curDay'),
+                'monthName'  => get_module_setting('curMonthName'),
+                'year'       => get_module_setting('curYear'),
             ];
         break;
         case 'village-desc':
@@ -166,11 +166,11 @@ function calendar_dohook($hookname, $args)
                 'section.village',
                 [
                     'wkDayName' => get_module_setting('curWkdayName'),
-                    'day' => get_module_setting('curDay'),
+                    'day'       => get_module_setting('curDay'),
                     'monthName' => get_module_setting('curMonthName'),
-                    'year' => get_module_setting('curYear')
+                    'year'      => get_module_setting('curYear'),
                 ],
-                $textDomain
+                $textDomain,
             ];
         break;
     }

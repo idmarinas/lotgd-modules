@@ -19,12 +19,12 @@
 function unblockmodules_getmoduleinfo()
 {
     return [
-        'name' => 'Unblock Modules',
-        'version' => '1.0.1',
-        'author' => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'category' => 'Administrative',
+        'name'        => 'Unblock Modules',
+        'version'     => '1.0.1',
+        'author'      => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'category'    => 'Administrative',
         'description' => 'For use this module you need create a file "modules/idmarinas/unblockmodules/modules.php" with all modules you want unblock',
-        'download' => 'https://github.com/idmarinas/lotgd-modules'
+        'download'    => 'https://github.com/idmarinas/lotgd-modules',
     ];
 }
 
@@ -62,7 +62,7 @@ function unblockmodules_dohook($hookname, $args)
 {
     global $session;
 
-    if ('newbieisland-everyhit-loggedin' == $hookname && file_exists('modules/idmarinas/unblockmodules/modules.php'))
+    if ('newbieisland-everyhit-loggedin' == $hookname && \file_exists('modules/idmarinas/unblockmodules/modules.php'))
     {
         require_once 'modules/idmarinas/unblockmodules/modules.php';
     }

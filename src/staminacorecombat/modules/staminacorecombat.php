@@ -21,14 +21,14 @@ Used when searching suicidally.
 function staminacorecombat_getmoduleinfo()
 {
     return [
-        'name' => 'Stamina System - Core Combat',
-        'version' => '2.0.0',
-        'author' => 'Dan Hall, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Stamina System - Core Combat',
+        'version'  => '2.0.0',
+        'author'   => 'Dan Hall, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Stamina',
         'download' => '',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 function staminacorecombat_install()
@@ -40,61 +40,61 @@ function staminacorecombat_install()
     module_addhook('fightnav-graveyard');
 
     install_action('Hunting - Normal', [
-        'maxcost' => 25000,
-        'mincost' => 10000,
-        'firstlvlexp' => 1000,
-        'expincrement' => 1.08,
+        'maxcost'       => 25000,
+        'mincost'       => 10000,
+        'firstlvlexp'   => 1000,
+        'expincrement'  => 1.08,
         'costreduction' => 150,
-        'class' => 'Hunting'
+        'class'         => 'Hunting',
     ]);
     install_action('Hunting - Big Trouble', [
-        'maxcost' => 30000,
-        'mincost' => 10000,
-        'firstlvlexp' => 1000,
-        'expincrement' => 1.08,
+        'maxcost'       => 30000,
+        'mincost'       => 10000,
+        'firstlvlexp'   => 1000,
+        'expincrement'  => 1.08,
         'costreduction' => 200,
-        'class' => 'Hunting'
+        'class'         => 'Hunting',
     ]);
     install_action('Hunting - Easy Fights', [
-        'maxcost' => 20000,
-        'mincost' => 10000,
-        'firstlvlexp' => 1000,
-        'expincrement' => 1.08,
+        'maxcost'       => 20000,
+        'mincost'       => 10000,
+        'firstlvlexp'   => 1000,
+        'expincrement'  => 1.08,
         'costreduction' => 100,
-        'class' => 'Hunting'
+        'class'         => 'Hunting',
     ]);
     install_action('Hunting - Suicidal', [
-        'maxcost' => 35000,
-        'mincost' => 10000,
-        'firstlvlexp' => 1000,
-        'expincrement' => 1.08,
+        'maxcost'       => 35000,
+        'mincost'       => 10000,
+        'firstlvlexp'   => 1000,
+        'expincrement'  => 1.08,
         'costreduction' => 250,
-        'class' => 'Hunting'
+        'class'         => 'Hunting',
     ]);
     install_action('Fighting - Standard', [
-        'maxcost' => 2000,
-        'mincost' => 500,
-        'firstlvlexp' => 2000,
-        'expincrement' => 1.1,
+        'maxcost'       => 2000,
+        'mincost'       => 500,
+        'firstlvlexp'   => 2000,
+        'expincrement'  => 1.1,
         'costreduction' => 15,
-        'class' => 'Combat'
+        'class'         => 'Combat',
     ]);
     install_action('Running Away', [
-        'maxcost' => 1000,
-        'mincost' => 200,
-        'firstlvlexp' => 500,
-        'expincrement' => 1.05,
+        'maxcost'       => 1000,
+        'mincost'       => 200,
+        'firstlvlexp'   => 500,
+        'expincrement'  => 1.05,
         'costreduction' => 8,
-        'class' => 'Combat'
+        'class'         => 'Combat',
     ]);
     //triggers when a player loses more than 10% of his total hitpoints in a single round
     install_action('Taking It on the Chin', [
-        'maxcost' => 2000,
-        'mincost' => 200,
-        'firstlvlexp' => 5000,
-        'expincrement' => 1.1,
+        'maxcost'       => 2000,
+        'mincost'       => 200,
+        'firstlvlexp'   => 5000,
+        'expincrement'  => 1.1,
         'costreduction' => 15,
-        'class' => 'Combat'
+        'class'         => 'Combat',
     ]);
 
     return true;
@@ -118,10 +118,10 @@ function staminacorecombat_dohook($hookname, $args)
 
     $textDomain = 'module-staminacorecombat';
 
-    $stam = \LotgdRequest::getQuery('stam');
-    $op = \LotgdRequest::getQuery('op');
+    $stam  = \LotgdRequest::getQuery('stam');
+    $op    = \LotgdRequest::getQuery('op');
     $skill = \LotgdRequest::getQuery('skill');
-    $auto = \LotgdRequest::getQuery('auto');
+    $auto  = \LotgdRequest::getQuery('auto');
 
     switch ($hookname)
     {
@@ -140,8 +140,8 @@ function staminacorecombat_dohook($hookname, $args)
             \LotgdNavigation::addHeader('category.fight', ['textDomain' => 'navigation-forest']);
             \LotgdNavigation::addNav('navigation.nav.trouble.normal', 'forest.php?op=search&stam=search', [
                 'params' => [
-                    'cost' => $normalcost
-                ]
+                    'cost' => $normalcost,
+                ],
             ]);
 
             if ($session['user']['level'] > 1)
@@ -149,14 +149,14 @@ function staminacorecombat_dohook($hookname, $args)
                 $slumcost = stamina_getdisplaycost('Hunting - Easy Fights');
                 \LotgdNavigation::addNav('navigation.nav.easy', 'forest.php?op=search&type=slum&stam=slum', [
                     'params' => [
-                        'cost' => $slumcost
-                    ]
+                        'cost' => $slumcost,
+                    ],
                 ]);
             }
             \LotgdNavigation::addNav('navigation.nav.trouble.big', 'forest.php?op=search&type=thrill&stam=thrill', [
                 'params' => [
-                    'cost' => $thrillcost
-                ]
+                    'cost' => $thrillcost,
+                ],
             ]);
 
             if (getsetting('suicide', 0) && getsetting('suicidedk', 10) <= $session['user']['dragonkills'])
@@ -164,8 +164,8 @@ function staminacorecombat_dohook($hookname, $args)
                 $suicidecost = stamina_getdisplaycost('Hunting - Suicidal');
                 \LotgdNavigation::addNav('navigation.nav.suicidally', 'forest.php?op=search&type=suicide&stam=suicide', [
                     'params' => [
-                        'cost' => $suicidecost
-                    ]
+                        'cost' => $suicidecost,
+                    ],
                 ]);
             }
 
@@ -174,9 +174,9 @@ function staminacorecombat_dohook($hookname, $args)
         break;
         case 'fightnav-graveyard':
         case 'fightnav':
-            $script = $args['script'];
+            $script    = $args['script'];
             $fightcost = stamina_getdisplaycost('Fighting - Standard');
-            $runcost = stamina_getdisplaycost('Running Away');
+            $runcost   = stamina_getdisplaycost('Running Away');
 
             \LotgdNavigation::blockHideLink($script.'op=fight');
             \LotgdNavigation::blockHideLink($script.'op=run');
@@ -187,22 +187,22 @@ function staminacorecombat_dohook($hookname, $args)
             \LotgdNavigation::setTextDomain('module-staminacorecombat');
 
             $fight = $session['user']['alive'] ? 'navigation.nav.fight.live' : 'navigation.nav.fight.death';
-            $run = $session['user']['alive'] ? 'navigation.nav.run.live' : 'navigation.nav.run.death';
+            $run   = $session['user']['alive'] ? 'navigation.nav.run.live' : 'navigation.nav.run.death';
 
             \LotgdNavigation::addHeader('category.standard', ['textDomain' => 'navigation-fightnav']);
             \LotgdNavigation::addNav($fight, "{$script}op=fight&stam=fight", [
-                'params' => ['cost' => $fightcost]
+                'params' => ['cost' => $fightcost],
             ]);
             \LotgdNavigation::addNav($run, "{$script}op=run&stam=run", [
-                'params' => ['cost' => $runcost]
+                'params' => ['cost' => $runcost],
             ]);
 
             \LotgdNavigation::addHeader('category.automatic', ['textDomain' => 'navigation-fightnav']);
             \LotgdNavigation::addNav('navigation.nav.auto.05', "{$script}op=fight&auto=five&stam=fight", [
-                'params' => ['cost' => $fightcost * 5]
+                'params' => ['cost' => $fightcost * 5],
             ]);
             \LotgdNavigation::addNav('navigation.nav.auto.010', "{$script}op=fight&auto=ten&stam=fight", [
-                'params' => ['cost' => $fightcost * 10]
+                'params' => ['cost' => $fightcost * 10],
             ]);
 
             //-- Restore text domain for navigation
@@ -269,7 +269,7 @@ function staminacorecombat_dohook($hookname, $args)
                     $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [
                         'action.fighting.standard',
                         ['level' => $return['lvlinfo']['newlvl']],
-                        $textDomain
+                        $textDomain,
                     ];
                 }
             }
@@ -283,7 +283,7 @@ function staminacorecombat_dohook($hookname, $args)
                     $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [
                         'action.fighting.running',
                         ['level' => $return['lvlinfo']['newlvl']],
-                        $textDomain
+                        $textDomain,
                     ];
                 }
             }
@@ -293,7 +293,7 @@ function staminacorecombat_dohook($hookname, $args)
             {
                 $staminalost = 0;
 
-                for ($i = 0; $i < floor($reps); $i++)
+                for ($i = 0; $i < \floor($reps); ++$i)
                 {
                     $return = process_action('Taking It on the Chin');
                     $staminalost += $return['points_used'];
@@ -303,7 +303,7 @@ function staminacorecombat_dohook($hookname, $args)
                         $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [
                             'action.fighting.chin',
                             ['level' => $return['lvlinfo']['newlvl']],
-                            $textDomain
+                            $textDomain,
                         ];
                     }
                 }
@@ -311,7 +311,7 @@ function staminacorecombat_dohook($hookname, $args)
                 $lotgdBattleContent['battlerounds'][$countround]['allied'][] = [
                     'action.fighting.blow',
                     ['stamina' => $staminalost],
-                    $textDomain
+                    $textDomain,
                 ];
             }
         break;
@@ -326,12 +326,12 @@ function staminacorecombat_applystaminabuff()
     global $session;
 
     $textDomain = 'module-staminacorecombat';
-    $amber = get_stamina();
+    $amber      = get_stamina();
 
     if ($amber < 100)
     {
         //Gives a proportionate debuff from 1 to 0.2, at 2 decimal places each time
-        $buffvalue = round(((($amber / 100) * 80) + 20) / 100, 2);
+        $buffvalue = \round(((($amber / 100) * 80) + 20) / 100, 2);
 
         if ($buffvalue < 0.3)
         {
@@ -353,12 +353,12 @@ function staminacorecombat_applystaminabuff()
         if (isset($buffmsg))
         {
             apply_buff('stamina-corecombat-exhaustion', [
-                'name' => \LotgdTranslator::t('stamina.buff.name', [], $textDomain),
-                'atkmod' => $buffvalue,
-                'defmod' => $buffvalue,
-                'rounds' => -1,
+                'name'     => \LotgdTranslator::t('stamina.buff.name', [], $textDomain),
+                'atkmod'   => $buffvalue,
+                'defmod'   => $buffvalue,
+                'rounds'   => -1,
                 'roundmsg' => \LotgdTranslator::t($buffmsg, [], $textDomain),
-                'schema' => 'module-staminacorecombat'
+                'schema'   => 'module-staminacorecombat',
             ]);
         }
     }
@@ -378,7 +378,7 @@ function staminacorecombat_applystaminabuff()
             \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.stamina.death', [], $textDomain));
 
             $session['user']['hitpoints'] = 0;
-            $session['user']['alive'] = false;
+            $session['user']['alive']     = false;
 
             return redirect('shades.php');
         }

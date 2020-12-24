@@ -1,12 +1,12 @@
 <?php
-/***********************************************
+/*
     World Map
     Originally by: Aes
     Updates & Maintenance by: Kevin Hatfield - Arune (khatfield@ecsportal.com)
     Updates & Maintenance by: Roland Lichti - klenkes (klenkes@paladins-inn.de)
     http://www.dragonprime.net
     Updated: Feb 23, 2008
- ************************************************/
+ */
 
 function worldmapen_run_real()
 {
@@ -14,13 +14,13 @@ function worldmapen_run_real()
 
     require_once 'lib/events.php';
 
-    $textDomain = 'module-worldmapen';
+    $textDomain    = 'module-worldmapen';
     $displayEvents = false;
-    $op = (string) \LotgdRequest::getQuery('op');
+    $op            = (string) \LotgdRequest::getQuery('op');
 
     $battle = false;
 
-    if ('move' == $op && rawurldecode(\LotgdRequest::getQuery('oloc')) != get_module_pref('worldXYZ'))
+    if ('move' == $op && \rawurldecode(\LotgdRequest::getQuery('oloc')) != get_module_pref('worldXYZ'))
     {
         \LotgdResponse::pageDebug(get_module_pref('worldXYZ'));
         $op = 'continue';
@@ -29,12 +29,12 @@ function worldmapen_run_real()
 
     if ('destination' == $op)
     {
-        $cname = (string) \LotgdRequest::getQuery('cname');
+        $cname                       = (string) \LotgdRequest::getQuery('cname');
         $session['user']['location'] = $cname;
 
         \LotgdNavigation::addNav('navigation.nav.enter', 'village.php', [
             'textDomain' => $textDomain,
-            'params' => ['name' => $cname]
+            'params'     => ['name' => $cname],
         ]);
 
         \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.destination', ['name' => $cname], $textDomain));
@@ -53,16 +53,16 @@ function worldmapen_run_real()
         }
     }
 
-    $op = (string) \LotgdRequest::getQuery('op');
-    $subop = \LotgdRequest::getQuery('subop');
-    $act = \LotgdRequest::getQuery('act');
-    $type = \LotgdRequest::getQuery('type');
-    $characterId = \LotgdRequest::getQuery('character_id');
-    $direction = \LotgdRequest::getQuery('dir');
-    $su = \LotgdRequest::getQuery('su');
-    $buymap = \LotgdRequest::getQuery('buymap');
+    $op               = (string) \LotgdRequest::getQuery('op');
+    $subop            = \LotgdRequest::getQuery('subop');
+    $act              = \LotgdRequest::getQuery('act');
+    $type             = \LotgdRequest::getQuery('type');
+    $characterId      = \LotgdRequest::getQuery('character_id');
+    $direction        = \LotgdRequest::getQuery('dir');
+    $su               = \LotgdRequest::getQuery('su');
+    $buymap           = \LotgdRequest::getQuery('buymap');
     $worldmapCostGold = get_module_setting('worldmapCostGold', 'worldmapen');
-    $pvp = \LotgdRequest::getQuery('pvp');
+    $pvp              = \LotgdRequest::getQuery('pvp');
 
     \LotgdResponse::pageStart('title.journey', [], $textDomain);
 
@@ -72,15 +72,15 @@ function worldmapen_run_real()
 
     if ('beginjourney' == $op)
     {
-        $params['tpl'] = 'beginjourney';
-        $params['mapLoc'] = get_module_pref('worldXYZ', 'worldmapen');
+        $params['tpl']          = 'beginjourney';
+        $params['mapLoc']       = get_module_pref('worldXYZ', 'worldmapen');
         $params['showSmallMap'] = (bool) get_module_setting('smallmap', 'worldmapen');
-        $displayEvents = true;
+        $displayEvents          = true;
 
         $loc = $session['user']['location'];
-        $x = get_module_setting($loc.'X', 'worldmapen');
-        $y = get_module_setting($loc.'Y', 'worldmapen');
-        $z = get_module_setting($loc.'Z', 'worldmapen');
+        $x   = get_module_setting($loc.'X', 'worldmapen');
+        $y   = get_module_setting($loc.'Y', 'worldmapen');
+        $z   = get_module_setting($loc.'Z', 'worldmapen');
 
         set_module_pref('worldXYZ', "{$x},{$y},{$z}");
 
@@ -90,15 +90,15 @@ function worldmapen_run_real()
     {
         checkday();
 
-        $params['tpl'] = 'continue';
-        $params['mapLinks'] = worldmapen_determinenav();
-        $params['mapLoc'] = get_module_pref('worldXYZ', 'worldmapen');
+        $params['tpl']          = 'continue';
+        $params['mapLinks']     = worldmapen_determinenav();
+        $params['mapLoc']       = get_module_pref('worldXYZ', 'worldmapen');
         $params['showSmallMap'] = (bool) get_module_setting('smallmap', 'worldmapen');
     }
     elseif ('tradeturn' == $op)
     {
         checkday();
-        $params['tpl'] = 'tradeturn';
+        $params['tpl']         = 'tradeturn';
         $params['pointsTrade'] = get_module_setting('turntravel', 'worldmapen');
 
         \LotgdNavigation::addHeader('navigation.category.trade');
@@ -107,9 +107,9 @@ function worldmapen_run_real()
     }
     elseif ('tradeturnconfirm' == $op)
     {
-        $params['tpl'] = 'tradeturnconfirm';
+        $params['tpl']         = 'tradeturnconfirm';
         $params['pointsTrade'] = get_module_setting('turntravel', 'worldmapen');
-        $session['user']['turns']--;
+        --$session['user']['turns'];
 
         \LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue');
 
@@ -129,57 +129,57 @@ function worldmapen_run_real()
         }
 
         $session['user']['restorepage'] = 'runmodule.php?module=worldmapen&op=continue';
-        $loc = get_module_pref('worldXYZ', 'worldmapen');
-        list($x, $y, $z) = explode(',', $loc);
+        $loc                            = get_module_pref('worldXYZ', 'worldmapen');
+        list($x, $y, $z)                = \explode(',', $loc);
 
         if ('north' == $direction)
         {
-            $y++;
+            ++$y;
         }
 
         if (get_module_setting('compasspoints') && 'northeast' == $direction)
         {
-            $y++;
-            $x++;
+            ++$y;
+            ++$x;
         }
 
         if (get_module_setting('compasspoints') && 'northwest' == $direction)
         {
-            $y++;
-            $x--;
+            ++$y;
+            --$x;
         }
 
         if ('east' == $direction)
         {
-            $x++;
+            ++$x;
         }
 
         if ('south' == $direction)
         {
-            $y--;
+            --$y;
         }
 
         if (get_module_setting('compasspoints') && 'southeast' == $direction)
         {
-            $y--;
-            $x++;
+            --$y;
+            ++$x;
         }
 
         if (get_module_setting('compasspoints') && 'southwest' == $direction)
         {
-            $y--;
-            $x--;
+            --$y;
+            --$x;
         }
 
         if ('west' == $direction)
         {
-            $x--;
+            --$x;
         }
 
-        $terraincost = worldmapen_terrain_cost($x, $y, $z);
-        $encounterbase = worldmapen_encounter($x, $y, $z);
+        $terraincost     = worldmapen_terrain_cost($x, $y, $z);
+        $encounterbase   = worldmapen_encounter($x, $y, $z);
         $encounterchance = get_module_pref('encounterchance', 'worldmapen');
-        $encounter = ($encounterbase * $encounterchance) / 100;
+        $encounter       = ($encounterbase * $encounterchance) / 100;
 
         $ttoday = get_module_pref('traveltoday', 'cities');
         set_module_pref('traveltoday', $ttoday + $terraincost, 'cities');
@@ -191,17 +191,17 @@ function worldmapen_run_real()
         \LotgdResponse::pageDebug("Encounter: {$encounterbase} * {$encounterchance} / 100 = {$encounter}");
 
         //Extra Gubbins pertaining to trading Turns for Travel, added by Caveman Joe
-        $useturns = get_module_setting('useturns');
+        $useturns       = get_module_setting('useturns');
         $allowzeroturns = get_module_setting('allowzeroturns');
-        $playerturns = $session['user']['turns'];
-        $proceed = 1;
+        $playerturns    = $session['user']['turns'];
+        $proceed        = 1;
         //the Proceed value is used when the player has hit a monster, to make sure it's okay to actually run the event/monster.
         if (0 == $playerturns && 0 == $allowzeroturns)
         {
             $proceed = 0;
         }
 
-        if (mt_rand(0, 100) < $encounter && '1' != $su && 1 == $proceed)
+        if (\mt_rand(0, 100) < $encounter && '1' != $su && 1 == $proceed)
         {
             // They've hit a monster!
             if (0 != module_events('travel', get_module_setting('wmspecialchance'), 'runmodule.php?module=worldmapen&op=continue&'))
@@ -212,7 +212,7 @@ function worldmapen_run_real()
                 }
 
                 // Reset the special for good.
-                $session['user']['specialinc'] = '';
+                $session['user']['specialinc']  = '';
                 $session['user']['specialmisc'] = '';
 
                 $op = '';
@@ -227,7 +227,7 @@ function worldmapen_run_real()
             //-- Check if we're removing a turn when the player encounters a monster, and if so, do it
             if (1 == $useturns)
             {
-                $session['user']['turns']--;
+                --$session['user']['turns'];
             }
 
             require_once 'lib/forestoutcomes.php';
@@ -236,7 +236,7 @@ function worldmapen_run_real()
 
             restore_buff_fields();
 
-            if (0 == count($result))
+            if (0 == \count($result))
             {
                 // There is nothing in the database to challenge you,
                 // let's give you a doppleganger.
@@ -249,36 +249,36 @@ function worldmapen_run_real()
 
             calculate_buff_fields();
             $badguy['playerstarthp'] = $session['user']['hitpoints'];
-            $badguy['diddamage'] = 0;
-            $badguy['type'] = 'world';
+            $badguy['diddamage']     = 0;
+            $badguy['type']          = 'world';
 
             $attackstack = [
                 'enemies' => [$badguy],
                 'options' => [
-                    'type' => 'forest'
-                ]
+                    'type' => 'forest',
+                ],
             ];
 
             $session['user']['badguy'] = $attackstack;
-            $battle = true;
+            $battle                    = true;
         }
         else
         {
-            $params['mapLinks'] = worldmapen_determinenav();
-            $params['mapLoc'] = get_module_pref('worldXYZ', 'worldmapen');
+            $params['mapLinks']     = worldmapen_determinenav();
+            $params['mapLoc']       = get_module_pref('worldXYZ', 'worldmapen');
             $params['showSmallMap'] = (bool) get_module_setting('smallmap', 'worldmapen');
         }
     }
     elseif ('gypsy' == $op)
     {
-        $params['tpl'] = 'gypsy';
+        $params['tpl']              = 'gypsy';
         $params['worldmapCostGold'] = $worldmapCostGold;
-        $params['buyed'] = null;
+        $params['buyed']            = null;
 
         if ('' == $buymap)
         {
             \LotgdNavigation::addNav('navigation.nav.gypsy.buy', 'runmodule.php?module=worldmapen&op=gypsy&buymap=yes', [
-                'params' => ['cost' => $worldmapCostGold]
+                'params' => ['cost' => $worldmapCostGold],
             ]);
             \LotgdNavigation::addNav('navigation.nav.gypsy.forget', 'village.php');
         }
@@ -303,14 +303,14 @@ function worldmapen_run_real()
     }
     elseif ('viewmap' == $op)
     {
-        $params['tpl'] = 'viewmap';
+        $params['tpl']      = 'viewmap';
         $params['mapLinks'] = worldmapen_determinenav();
     }
     elseif ('camp' == $op)
     {
         if ($session['user']['loggedin'])
         {
-            $session['user']['loggedin'] = false;
+            $session['user']['loggedin']    = false;
             $session['user']['restorepage'] = 'runmodule.php?module=worldmapen&op=wake';
 
             modulehook('player-logout');
@@ -335,10 +335,10 @@ function worldmapen_run_real()
 
         checkday();
 
-        $params['tpl'] = 'wake';
-        $params['mapLoc'] = get_module_pref('worldXYZ', 'worldmapen');
+        $params['tpl']          = 'wake';
+        $params['mapLoc']       = get_module_pref('worldXYZ', 'worldmapen');
         $params['showSmallMap'] = (bool) get_module_setting('smallmap', 'worldmapen');
-        $params['mapLinks'] = worldmapen_determinenav();
+        $params['mapLinks']     = worldmapen_determinenav();
     }
     elseif ('combat' == $op)
     {
@@ -346,38 +346,38 @@ function worldmapen_run_real()
         require_once 'lib/pvpsupport.php';
         $badguy = setup_pvp_target($characterId);
 
-        if (is_string($badguy))
+        if (\is_string($badguy))
         {
             $battle = false;
             \LotgdFlashMessages::addErrorMessage(\LotgdTranslate::t($badguy, [], 'page-pvp'));
 
-            $params['mapLoc'] = get_module_pref('worldXYZ', 'worldmapen');
+            $params['mapLoc']       = get_module_pref('worldXYZ', 'worldmapen');
             $params['showSmallMap'] = (bool) get_module_setting('smallmap', 'worldmapen');
-            $params['mapLinks'] = worldmapen_determinenav();
+            $params['mapLinks']     = worldmapen_determinenav();
         }
-        elseif (is_array($badguy))
+        elseif (\is_array($badguy))
         {
-            $battle = true;
-            $badguy['type'] = 'pvp';
-            $options['type'] = 'pvp';
+            $battle                    = true;
+            $badguy['type']            = 'pvp';
+            $options['type']           = 'pvp';
             $attackstack['enemies'][0] = $badguy;
-            $attackstack['options'] = $options;
+            $attackstack['options']    = $options;
             $session['user']['badguy'] = $attackstack;
-            $session['user']['playerfights']--;
+            --$session['user']['playerfights'];
         }
     }
     elseif ('fight' == $op || 'run' == $op)
     {
         $params['tpl'] = 'fight';
 
-        if (! \LotgdRequest::getQuery('frombio'))
+        if ( ! \LotgdRequest::getQuery('frombio'))
         {
             $battle = true;
         }
         else
         {
-            $params['mapLinks'] = worldmapen_determinenav();
-            $params['mapLoc'] = get_module_pref('worldXYZ', 'worldmapen');
+            $params['mapLinks']     = worldmapen_determinenav();
+            $params['mapLoc']       = get_module_pref('worldXYZ', 'worldmapen');
             $params['showSmallMap'] = (bool) get_module_setting('smallmap', 'worldmapen');
         }
 
@@ -385,14 +385,14 @@ function worldmapen_run_real()
 
         if ('run' == $op && ! $pvp)
         {
-            if (mt_rand(1, 5) < 3 && $free)
+            if (\mt_rand(1, 5) < 3 && $free)
             {
                 $battle = false;
                 $ttoday = get_module_pref('traveltoday', 'cities');
                 set_module_pref('traveltoday', $ttoday + 1, 'cities');
 
-                $params['mapLinks'] = worldmapen_determinenav();
-                $params['mapLoc'] = get_module_pref('worldXYZ', 'worldmapen');
+                $params['mapLinks']     = worldmapen_determinenav();
+                $params['mapLoc']       = get_module_pref('worldXYZ', 'worldmapen');
                 $params['showSmallMap'] = (bool) get_module_setting('smallmap', 'worldmapen');
             }
             else
@@ -437,14 +437,14 @@ function worldmapen_run_real()
                 $aliveloc = $badguy['location'];
                 pvpvictory($badguy, $aliveloc, $options);
                 addnews('news.battle.victory', [
-                    'playerName' => $session['user']['name'],
-                    'creatureName' => $badguy['creaturename']
+                    'playerName'   => $session['user']['name'],
+                    'creatureName' => $badguy['creaturename'],
                 ], $textDomain);
             }
 
-            $params['mapLoc'] = get_module_pref('worldXYZ', 'worldmapen');
+            $params['mapLoc']       = get_module_pref('worldXYZ', 'worldmapen');
             $params['showSmallMap'] = (bool) get_module_setting('smallmap', 'worldmapen');
-            $params['mapLinks'] = worldmapen_determinenav();
+            $params['mapLinks']     = worldmapen_determinenav();
         }
         elseif ($defeat)
         {
@@ -462,14 +462,14 @@ function worldmapen_run_real()
                 addnews('deathmessage', [
                     'deathmessage' => [
                         'deathmessage' => 'news.pvp.defeated',
-                        'params' => [
-                            'playerName' => $session['user']['name'],
+                        'params'       => [
+                            'playerName'   => $session['user']['name'],
                             'creatureName' => $badguy['creaturename'],
-                            'location' => $badguy['location']
+                            'location'     => $badguy['location'],
                         ],
-                        'textDomain' => $textDomain
+                        'textDomain' => $textDomain,
                     ],
-                    'taunt' => select_taunt()
+                    'taunt' => select_taunt(),
                 ], '');
             }
 
@@ -488,13 +488,13 @@ function worldmapen_run_real()
                 $allow = false;
                 $extra = 'pvp=1&';
             }
-            fightnav($allow, $allow, "runmodule.php?module=worldmapen&$extra");
+            fightnav($allow, $allow, "runmodule.php?module=worldmapen&{$extra}");
         }
 
         battleshowresults($lotgdBattleContent);
     }
 
-    $params['battle'] = $battle;
+    $params['battle']   = $battle;
     $params['location'] = $session['user']['location'];
 
     \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('worldmapen/run.twig', $params));

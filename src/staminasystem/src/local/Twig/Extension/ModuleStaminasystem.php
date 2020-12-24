@@ -14,7 +14,7 @@ class ModuleStaminasystem extends AbstractExtension
     {
         return [
             new TwigFunction('module_staminasystem_get_player_action', [$this, 'moduleStaminasystemGetPlayerAction']),
-            new TwigFunction('module_staminasystem_display_cost', [$this, 'moduleStaminasystemDisplayCost'])
+            new TwigFunction('module_staminasystem_display_cost', [$this, 'moduleStaminasystemDisplayCost']),
         ];
     }
 

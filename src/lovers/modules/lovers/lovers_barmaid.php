@@ -2,33 +2,33 @@
 
 $flirt = (int) \LotgdRequest::getQuery('flirt');
 
-$params['flirt'] = $flirt;
-$params['seenLover'] = get_module_pref('seenlover');
+$params['flirt']         = $flirt;
+$params['seenLover']     = get_module_pref('seenlover');
 $params['staminaSystem'] = is_module_active('staminasystem');
-$params['married'] = (INT_MAX == $session['user']['marriedto']);
+$params['married']       = (INT_MAX == $session['user']['marriedto']);
 
 if ($params['staminaSystem'])
 {
     require_once 'modules/staminasystem/lib/lib.php';
 }
 
-if (! $params['seenLover'])
+if ( ! $params['seenLover'])
 {
     if ($params['married'])
     {
         if (1 == e_rand(1, 4))
         {
-            $session['user']['charm']--;
+            --$session['user']['charm'];
         }
         else
         {
             apply_buff('lover', lovers_getbuff());
-            $session['user']['charm']++;
+            ++$session['user']['charm'];
         }
 
         $params['seenLover'] = 1;
     }
-    elseif (! $flirt)
+    elseif ( ! $flirt)
     {
         \LotgdNavigation::addHeader('navigation.nav.flirt');
         \LotgdNavigation::addNav('navigation.nav.flirt.barmaid.wink', 'runmodule.php?module=lovers&op=flirt&flirt=1');
@@ -41,7 +41,7 @@ if (! $params['seenLover'])
     }
     else
     {
-        $c = $session['user']['charm'];
+        $c                   = $session['user']['charm'];
         $params['seenLover'] = 1;
 
         switch ($flirt)
@@ -55,7 +55,7 @@ if (! $params['seenLover'])
 
                         if ($c < 4)
                         {
-                            $c++;
+                            ++$c;
                         }
                     }
             break;
@@ -68,7 +68,7 @@ if (! $params['seenLover'])
 
                         if ($c < 7)
                         {
-                            $c++;
+                            ++$c;
                         }
                     }
             break;
@@ -81,7 +81,7 @@ if (! $params['seenLover'])
 
                         if ($c < 11)
                         {
-                            $c++;
+                            ++$c;
                         }
                     }
             break;
@@ -94,14 +94,14 @@ if (! $params['seenLover'])
 
                         if ($c < 14)
                         {
-                            $c++;
+                            ++$c;
                         }
                     }
                     else
                     {
                         if ($c > 0 && $c < 10)
                         {
-                            $c--;
+                            --$c;
                         }
                     }
             break;
@@ -114,14 +114,14 @@ if (! $params['seenLover'])
 
                         if ($c < 18)
                         {
-                            $c++;
+                            ++$c;
                         }
                     }
                     else
                     {
                         if ($c > 0 && $c < 13)
                         {
-                            $c--;
+                            --$c;
                         }
                     }
             break;
@@ -140,24 +140,24 @@ if (! $params['seenLover'])
                         {
                             $session['user']['turns'] -= 2;
 
-                            $session['user']['turns'] = max(0, $session['user']['turns']);
+                            $session['user']['turns'] = \max(0, $session['user']['turns']);
                         }
 
                         addnews('news.flirt.barmaid.inn', [
                             'playerName' => $session['user']['name'],
-                            'partner' => $partner
+                            'partner'    => $partner,
                         ], $textDomain);
 
                         if ($c < 25)
                         {
-                            $c++;
+                            ++$c;
                         }
                     }
                     else
                     {
                         if ($c > 0)
                         {
-                            $c--;
+                            --$c;
                         }
                     }
             break;
@@ -170,7 +170,7 @@ if (! $params['seenLover'])
 
                     addnews('news.flirt.barmaid.matrimony', [
                         'playerName' => $session['user']['name'],
-                        'partner' => $partner
+                        'partner'    => $partner,
                     ], $textDomain);
 
                     $session['user']['marriedto'] = INT_MAX;

@@ -11,22 +11,22 @@
 function ghosthut_getmoduleinfo()
 {
     return [
-        'name' => "Ghost Town Villager's Hut",
-        'version' => '2.0.0',
-        'author' => 'Shannon Brown, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => "Ghost Town Villager's Hut",
+        'version'  => '2.0.0',
+        'author'   => 'Shannon Brown, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'core_module',
         'settings' => [
             "Villager's Hut - Settings,title",
-            'ghosthutloc' => 'Where does the hut appear,location|'.getsetting('villagename', LOCATION_FIELDS)
+            'ghosthutloc' => 'Where does the hut appear,location|'.getsetting('villagename', LOCATION_FIELDS),
         ],
         'prefs' => [
             "Villager's Hut - User Preferences,title",
             'eattoday' => 'How much has the user eaten today?,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -77,17 +77,17 @@ function ghosthut_run()
 {
     global $session;
 
-    $op = \LotgdRequest::getQuery('op');
+    $op       = \LotgdRequest::getQuery('op');
     $eattoday = get_module_pref('eattoday');
 
-    $turn = mt_rand(1, 8);
+    $turn = \mt_rand(1, 8);
 
     $textDomain = 'module-ghosthut';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
-        'textDomain' => $textDomain
+        'textDomain' => $textDomain,
     ];
 
     \LotgdNavigation::villageNav();
@@ -101,7 +101,7 @@ function ghosthut_run()
     elseif ('' == $op)
     {
         $params['tpl'] = 'default';
-        $turn = 2;
+        $turn          = 2;
 
         \LotgdNavigation::addHeader('navigation.category.eat', ['textDomain' => $textDomain]);
         \LotgdNavigation::addNav('navigation.nav.eat1', 'runmodule.php?module=ghosthut&op=1', ['textDomain' => $textDomain]);
@@ -114,7 +114,7 @@ function ghosthut_run()
         $params['tpl'] = 'eat3';
 
         $session['user']['hitpoints'] = ($session['user']['hitpoints'] * 0.85);
-        $session['user']['hitpoints'] = max(1, $session['user']['hitpoints']);
+        $session['user']['hitpoints'] = \max(1, $session['user']['hitpoints']);
 
         $eattoday += 3;
         $turn = 2;
@@ -125,11 +125,11 @@ function ghosthut_run()
         $params['tpl'] = 'eat4';
 
         $session['user']['hitpoints'] = ($session['user']['hitpoints'] * 0.65);
-        $session['user']['hitpoints'] = max(1, $session['user']['hitpoints']);
+        $session['user']['hitpoints'] = \max(1, $session['user']['hitpoints']);
 
         if ($session['user']['charm'] > 0)
         {
-            $session['user']['charm']--;
+            --$session['user']['charm'];
         }
         $eattoday += 4;
         $turn = 2;
@@ -139,8 +139,8 @@ function ghosthut_run()
     {
         $params['tpl'] = 'eat1';
 
-        $session['user']['hitpoints'] = max($session['user']['hitpoints'] + 3, $session['user']['hitpoints'] * 1.02);
-        $eattoday++;
+        $session['user']['hitpoints'] = \max($session['user']['hitpoints'] + 3, $session['user']['hitpoints'] * 1.02);
+        ++$eattoday;
         set_module_pref('eattoday', $eattoday);
 
         if ($eattoday > 0 && $eattoday < 3)
@@ -150,8 +150,8 @@ function ghosthut_run()
     }
     elseif ('2' == $op)
     {
-        $params['tpl'] = 'eat2';
-        $session['user']['hitpoints'] = max($session['user']['hitpoints'] + 5, $session['user']['hitpoints'] * 1.03);
+        $params['tpl']                = 'eat2';
+        $session['user']['hitpoints'] = \max($session['user']['hitpoints'] + 5, $session['user']['hitpoints'] * 1.03);
         $eattoday += 2;
         set_module_pref('eattoday', $eattoday);
 

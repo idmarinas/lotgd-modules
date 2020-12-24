@@ -7,22 +7,22 @@
 function newbieisland_getmoduleinfo()
 {
     return [
-        'name' => 'Newbie Island',
-        'version' => '2.0.0',
-        'author' => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'name'     => 'Newbie Island',
+        'version'  => '2.0.0',
+        'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'General',
         'download' => 'core_module',
         'settings' => [
             'Newbie Island,title',
-            'villagename' => 'Name for the newbie island|Isle of Wen'
+            'villagename' => 'Name for the newbie island|Isle of Wen',
         ],
         'prefs' => [
             'Newbie Island,title',
             'leftisland' => 'Left the newbie island,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -54,7 +54,7 @@ function newbieisland_uninstall()
     $gname = get_module_setting('villagename');
 
     $repository = \Doctrine::getRepository('LotgdCore:Characters');
-    $query = $repository->getQueryBuilder();
+    $query      = $repository->getQueryBuilder();
 
     $query->update('LotgdCore:Characters', 'u')
         ->set('u.location', ':new')
@@ -83,7 +83,7 @@ function newbieisland_dohook($hookname, $args)
     global $session, $resline;
 
     $textDomain = 'newbieisland-module';
-    $city = get_module_setting('villagename', 'newbieisland');
+    $city       = get_module_setting('villagename', 'newbieisland');
 
     newbieisland_checkcity();
 
@@ -195,13 +195,13 @@ function newbieisland_dohook($hookname, $args)
                 $lotgdBattleContent['battleend'][] = [
                     'battle.defeated',
                     ['creatureName' => $args['creaturename']],
-                    $textDomain
+                    $textDomain,
                 ];
 
                 battleshowresults($lotgdBattleContent);
 
                 \LotgdNavigation::addNav('common.nav.continue', 'runmodule.php?module=newbieisland&op=resurrect', [
-                    'textDomain' => 'navigation-app'
+                    'textDomain' => 'navigation-app',
                 ]);
 
                 \LotgdResponse::pageEnd();
@@ -232,7 +232,7 @@ function newbieisland_dohook($hookname, $args)
                 if (is_module_active('cities'))
                 {
                     $moduleUserPrefsRepository = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
-                    $query = $moduleUserPrefsRepository->getQueryBuilder();
+                    $query                     = $moduleUserPrefsRepository->getQueryBuilder();
                     $query->update('LotgdCore:ModuleUserprefs', 'u')
                         ->set('u.value', ':new')
                         ->where('u.modulename = :cities AND settings = :home AND u.value = :old')
@@ -256,38 +256,38 @@ function newbieisland_dohook($hookname, $args)
             if ($session['user']['location'] == $city)
             {
                 $turns = getsetting('turns', 10);
-                $turns = round($turns / 2);
+                $turns = \round($turns / 2);
 
                 if (is_module_active('staminasystem'))
                 {
                     require_once 'modules/staminasystem/lib/lib.php';
 
                     $stamina = $turns * 25000;
-                    $args['turnstoday'] .= ", Newbie Island: Stamina $stamina";
+                    $args['turnstoday'] .= ", Newbie Island: Stamina {$stamina}";
 
                     addstamina($stamina);
                 }
                 else
                 {
-                    $args['turnstoday'] .= ", Newbie Island: $turns";
+                    $args['turnstoday'] .= ", Newbie Island: {$turns}";
                     $session['user']['turns'] += $turns;
                 }
 
                 apply_buff('newbiecoddle', [
-                    'name' => '',
-                    'rounds' => -1,
-                    'minioncount' => 1,
+                    'name'             => '',
+                    'rounds'           => -1,
+                    'minioncount'      => 1,
                     'mingoodguydamage' => 0,
                     'maxgoodguydamage' => '(<hitpoints><<maxhitpoints>?-1:0)',
-                    'effectfailmsg' => LotgdTranslator::t('buff.effectfailmsg', [], $textDomain),
-                    'effectnodmgmsg' => '',
-                    'schema' => 'newbiecoddle'
+                    'effectfailmsg'    => LotgdTranslator::t('buff.effectfailmsg', [], $textDomain),
+                    'effectnodmgmsg'   => '',
+                    'schema'           => 'newbiecoddle',
                 ]);
 
                 $args['includeTemplatesPost']['module/newbieisland/dohook/newday.twig'] = [
-                    'textDomain' => $textDomain,
+                    'textDomain'    => $textDomain,
                     'staminaSystem' => is_module_active('staminasystem'),
-                    'turns' => $turns
+                    'turns'         => $turns,
                 ];
             }
         break;
@@ -301,8 +301,8 @@ function newbieisland_dohook($hookname, $args)
             $args['village-newbie'] = $city;
         break;
         case 'travel':
-            $hotkey = substr($city, 0, 1);
-            $ccity = urlencode($city);
+            $hotkey = \substr($city, 0, 1);
+            $ccity  = \urlencode($city);
 
             //-- Change text domain for navigation
             \LotgdNavigation::setTextDomain('cities-navigation');
@@ -311,7 +311,7 @@ function newbieisland_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.superuser');
                 \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
-                    'params' => ['key' => $hotkey, 'city' => $city]
+                    'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
@@ -330,7 +330,7 @@ function newbieisland_dohook($hookname, $args)
                     $args[] = [
                         'section.forest',
                         [],
-                        $textDomain
+                        $textDomain,
                     ];
 
                     \LotgdNavigation::blockHideLink('forest.php?op=search', true);
@@ -342,7 +342,7 @@ function newbieisland_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain'] = 'newbieisland-village-village';
+                $args['textDomain']           = 'newbieisland-village-village';
                 $args['textDomainNavigation'] = 'newbieisland-village-navigation';
 
                 \LotgdNavigation::blockHideLink('pvp.php');
@@ -367,24 +367,24 @@ function newbieisland_dohook($hookname, $args)
         case 'page-village-tpl-params':
             if ($session['user']['location'] == $city)
             {
-                $args['village'] = $city;
+                $args['village']           = $city;
                 $args['commentarySection'] = 'village-newbie'; //-- Commentary section
 
                 //-- Newest player in realm
                 $args['newestplayer'] = (int) get_module_setting("newest-{$city}", 'cities');
-                $args['newestname'] = (string) get_module_setting("newest-{$city}-name", 'cities');
+                $args['newestname']   = (string) get_module_setting("newest-{$city}-name", 'cities');
 
                 $args['newtext'] = 'newestOther';
 
                 if ($args['newestplayer'] == $session['user']['acctid'])
                 {
-                    $args['newtext'] = 'newestPlayer';
+                    $args['newtext']    = 'newestPlayer';
                     $args['newestname'] = $session['user']['name'];
                 }
-                elseif (! $args['newestname'] && $args['newestplayer'])
+                elseif ( ! $args['newestname'] && $args['newestplayer'])
                 {
                     $characterRepository = \Doctrine::getRepository('LotgdCore:Characters');
-                    $args['newestname'] = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
+                    $args['newestname']  = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
 
@@ -395,7 +395,7 @@ function newbieisland_dohook($hookname, $args)
 
                     \LotgdNavigation::addHeader('headers.gate');
                     \LotgdNavigation::addNav('navs.leave', 'runmodule.php?module=newbieisland&op=leave', [
-                        'params' => ['city' => $city]
+                        'params' => ['city' => $city],
                     ]);
 
                     \LotgdNavigation::setTextDomain();
@@ -414,7 +414,7 @@ function newbieisland_checkcity()
 
     $city = get_module_setting('villagename');
 
-    if (! get_module_pref('leftisland') && 0 == $session['user']['dragonkills'] && $session['user']['level'] <= 5)
+    if ( ! get_module_pref('leftisland') && 0 == $session['user']['dragonkills'] && $session['user']['level'] <= 5)
     {
         $session['user']['location'] = $city;
     }
@@ -425,7 +425,7 @@ function newbieisland_run()
     global $session;
 
     $city = get_module_setting('villagename');
-    $op = \LotgdRequest::getQuery('op');
+    $op   = \LotgdRequest::getQuery('op');
 
     $textDomain = 'newbieisland-module';
 
@@ -441,8 +441,8 @@ function newbieisland_run()
 
             $params = [
                 'textDomain' => $textDomain,
-                'canLeave' => false,
-                'city' => $city
+                'canLeave'   => false,
+                'city'       => $city,
             ];
 
             if ($session['user']['dragonkills'] >= 0 || $session['user']['level'] > 4)
@@ -476,7 +476,7 @@ function newbieisland_run()
 
             $params = [
                 'textDomain' => $textDomain,
-                'city' => $city
+                'city'       => $city,
             ];
 
             \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('newbieisland/run/raft.twig', $params));
@@ -487,13 +487,13 @@ function newbieisland_run()
             \LotgdResponse::pageStart('section.resurrect.title', [], $textDomain);
 
             $params = [
-                'textDomain' => $textDomain,
-                'city' => $city,
-                'deathOverlord' => getsetting('deathoverlord', '`$Ramius`0')
+                'textDomain'    => $textDomain,
+                'city'          => $city,
+                'deathOverlord' => getsetting('deathoverlord', '`$Ramius`0'),
             ];
 
             $session['user']['hitpoints'] = 1;
-            $session['user']['alive'] = true;
+            $session['user']['alive']     = true;
 
             \LotgdNavigation::villageNav();
 

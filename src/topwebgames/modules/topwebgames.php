@@ -7,26 +7,26 @@
 function topwebgames_getmoduleinfo()
 {
     return [
-        'name' => 'Top Web Games',
-        'author' => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'category' => 'Administrative',
-        'version' => '2.0.1',
-        'download' => 'core_module',
-        'allowanonymous' => true,
+        'name'                => 'Top Web Games',
+        'author'              => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'category'            => 'Administrative',
+        'version'             => '2.0.1',
+        'download'            => 'core_module',
+        'allowanonymous'      => true,
         'override_forced_nav' => true,
-        'settings' => [
+        'settings'            => [
             'Top Web Games Settings,title',
-            'id' => 'Top Web Games ID,int|0',
+            'id'    => 'Top Web Games ID,int|0',
             'hours' => 'Offset to Top Web Games servers,int|3',
         ],
         'prefs' => [
             'Top Web Games User Preferences,title',
             'lastvote' => 'When did user last vote|0000-00-00 00:00:00',
-            'voted' => 'Did user vote this week?,bool|0',
+            'voted'    => 'Did user vote this week?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition'
-        ]
+            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+        ],
     ];
 }
 
@@ -50,7 +50,7 @@ function topwebgames_dohook($hookname, $args)
 
     $id = (int) get_module_setting('id');
 
-    if (! $id)
+    if ( ! $id)
     {
         return $args;
     }
@@ -60,9 +60,9 @@ function topwebgames_dohook($hookname, $args)
         require_once 'lib/pullurl.php';
 
         $cache = \LotgdKernel::get('cache.app');
-        $item = $cache->getItem('topwebcounts');
+        $item  = $cache->getItem('topwebcounts');
 
-        if (! $item->isHit())
+        if ( ! $item->isHit())
         {
             $c = @pullurl("http://www.topwebgames.com/games/votes.js?id={$id}");
             $r = @pullurl("http://www.topwebgames.com/games/placement.js?id={$id}");
@@ -71,9 +71,9 @@ function topwebgames_dohook($hookname, $args)
 
             if (false !== $c)
             {
-                $c = join($c, '');
+                $c = \implode($c, '');
 
-                if (preg_match("/\\.write\\('([0-9]+)'\\)/", $c, $matches))
+                if (\preg_match("/\\.write\\('([0-9]+)'\\)/", $c, $matches))
                 {
                     $votes = $matches[1];
                 }
@@ -83,9 +83,9 @@ function topwebgames_dohook($hookname, $args)
 
             if (false !== $r)
             {
-                $r = join($r, '');
+                $r = \implode($r, '');
 
-                if (preg_match("/\\.write\\('([0-9]+)'\\)/", $r, $matches))
+                if (\preg_match("/\\.write\\('([0-9]+)'\\)/", $r, $matches))
                 {
                     $rank = $matches[1];
                 }
@@ -93,26 +93,26 @@ function topwebgames_dohook($hookname, $args)
 
             $counts = [
                 'votes' => $votes,
-                'rank' => $rank
+                'rank'  => $rank,
             ];
 
             $item->set($counts);
             $cache->save($item);
         }
         $counts = $item->get();
-        $item = $cache->getItem('topwebprev');
+        $item   = $cache->getItem('topwebprev');
 
-        if (! $item->isHit())
+        if ( ! $item->isHit())
         {
             $when = @pullurl('http://www.topwebgames.com/games/countdown.js');
 
             if (false !== $when)
             {
-                $when = join($when, '');
+                $when = \implode($when, '');
 
-                if (preg_match('/Next reset: (.+ [AP]M)/', $when, $matches))
+                if (\preg_match('/Next reset: (.+ [AP]M)/', $when, $matches))
                 {
-                    $prev = strtotime($matches[1].' -7 days');
+                    $prev = \strtotime($matches[1].' -7 days');
                     //in case the web call fails this time around, we'll still cache the old value for 10 minutes.
                     //So we need to track what the old value was independant of the datacache library.
                     set_module_setting('topwebprev', $prev);
@@ -135,7 +135,7 @@ function topwebgames_dohook($hookname, $args)
         $l = get_module_pref('lastvote');
         $l = $l ?: '0000-00-00 00:00:00';
 
-        $last = strtotime($l);
+        $last = \strtotime($l);
 
         $canVote = false;
 
@@ -147,12 +147,12 @@ function topwebgames_dohook($hookname, $args)
 
         $params = [
             'textDomain' => 'module-topwebgames',
-            'rank' => $counts['rank'],
-            'votes' => $counts['votes'],
+            'rank'       => $counts['rank'],
+            'votes'      => $counts['votes'],
             'serverName' => getsetting('servername'),
-            'canVote' => $canVote,
-            'acctId' => $session['user']['acctid'],
-            'id' => $id
+            'canVote'    => $canVote,
+            'acctId'     => $session['user']['acctid'],
+            'id'         => $id,
         ];
 
         $args['paypal'] = $args['paypal'] ?? '';
@@ -171,22 +171,22 @@ function topwebgames_run()
         do_forced_nav(false, false);
     }
 
-    $id = \LotgdRequest::getPost('acctid');
+    $id          = \LotgdRequest::getPost('acctid');
     $votecounted = \LotgdRequest::getPost('votecounted');
 
-    if (! $id)
+    if ( ! $id)
     {
         $id = \LotgdRequest::getQuery('acctid');
     }
 
-    $id = max(1, $id);
+    $id = \max(1, $id);
 
     if ($votecounted)
     {
-        $dt = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' + '.get_module_setting('hours').' hours'));
+        $dt = \date('Y-m-d H:i:s', \strtotime(\date('Y-m-d H:i:s').' + '.get_module_setting('hours').' hours'));
 
         $repository = \Doctrine::getRepository('LotgdCore:Characters');
-        $entity = $repository->find($id);
+        $entity     = $repository->find($id);
 
         if ($entity)
         {
