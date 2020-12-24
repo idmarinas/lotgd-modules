@@ -2,19 +2,20 @@
 
 function funddrive_getpercent()
 {
-    $fundDrive = \LotgdCache::getItem('mod_funddrive');
+    $cache = \LotgdKernel::get('cache.app');
+    $item  = $cache->getItem('mod_funddrive');
 
     //-- Use cache to save queries
-    if (! $fundDrive || is_array($fundDrive) || empty($fundDrive))
+    if ( ! $item->isHit())
     {
         $targetmonth = get_module_setting('targetmonth', 'funddrive');
-        $targetmonth = $targetmonth ?: date('m');
+        $targetmonth = $targetmonth ?: \date('m');
 
-        $start = date('Y').'-'.$targetmonth.'-01';
-        $end = date('Y-m-d', strtotime('+1 month', strtotime($start)));
+        $start = \date('Y').'-'.$targetmonth.'-01';
+        $end   = \date('Y-m-d', \strtotime('+1 month', \strtotime($start)));
 
         $repository = \Doctrine::getRepository('LotgdCore:Paylog');
-        $query = $repository->createQueryBuilder('u');
+        $query      = $repository->createQueryBuilder('u');
 
         $row = $query->select('sum(u.amount) AS gross', 'sum(u.txfee) AS fees')
             ->where('u.processdate >= :start AND u. processdate < :end')
@@ -36,16 +37,15 @@ function funddrive_getpercent()
             $current -= $row['fees'];
         }
 
-        $pct = round(($current / $goal) * 100, 0);
+        $pct = \round(($current / $goal) * 100, 0);
 
-        $fundDrive = [
+        $item->set([
             'percent' => $pct,
-            'goal' => $goal,
-            'current' => $current
-        ];
-
-        \LotgdCache::setItem('mod_funddrive', $fundDrive);
+            'goal'    => $goal,
+            'current' => $current,
+        ]);
+        $cache->save($item);
     }
 
-    return $fundDrive;
+    return $item->get();
 }

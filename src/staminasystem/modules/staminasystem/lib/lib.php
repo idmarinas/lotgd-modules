@@ -1093,17 +1093,20 @@ function stamina_minihof($action, $userid = false)
 {
     global $session;
 
+    $cache = \LotgdKernel::get('cache.app');
+
     if (false === $userid)
     {
         $userid = $session['user']['acctid'];
     }
+
     $st = microtime(true);
     $boardfilename = \LotgdSanitize::slugify($action);
-    $boardinfo = \LotgdCache::getItem('modules/stamina/boardinfo_'.$boardfilename);
+    $item = $cache->getItem('modules/stamina/boardinfo_'.$boardfilename);
     $en = microtime(true);
     $to = $en - $st;
 
-    if (! is_array($boardinfo))
+    if (! $item->isHit())
     {
         $board = [];
         $staminasql = 'SELECT setting,value,userid FROM '.DB::prefix('module_userprefs')." WHERE modulename='staminasystem' AND setting='actions'";
@@ -1124,8 +1127,11 @@ function stamina_minihof($action, $userid = false)
 
         $boardinfo = stamina_minihof_assignranks($board);
 
-        \LotgdCache::setItem('modules/stamina/boardinfo_'.$boardfilename, $boardinfo);
+        $item->set($boardinfo);
+        $cache->save($boardinfo);
     }
+
+    $boardinfo = $item->get();
 
     //set the player's entry in the board with brand-new data
     $player_action = get_player_action($action);
@@ -1292,6 +1298,8 @@ function stamina_minihof_old($action, $userid = false)
 {
     global $session;
 
+    $cache = \LotgdKernel::get('cache.app');
+
     if (false === $userid)
     {
         $userid = $session['user']['acctid'];
@@ -1300,13 +1308,13 @@ function stamina_minihof_old($action, $userid = false)
     $st = microtime(true);
 
     $boardfilename = str_replace(' ', '', $action);
-    $boardinfo = \LotgdCache::getItem('modules/stamina/boardinfo_'.$boardfilename);
+    $item = $cache->getItem('modules/stamina/boardinfo_'.$boardfilename);
 
     $en = microtime(true);
     $to = $en - $st;
     \LotgdResponse::pageDebug('Cache: '.$to);
 
-    if (! is_array($boardinfo))
+    if (! $item->isHit())
     {
         $board = [];
         $staminasql = 'SELECT setting,value,userid FROM '.DB::prefix('module_userprefs')." WHERE modulename='staminasystem' AND setting='actions'";
@@ -1329,9 +1337,12 @@ function stamina_minihof_old($action, $userid = false)
         }
 
         $boardinfo = stamina_minihof_assignranks($board);
-        \LotgdCache::setItem('modules/stamina/boardinfo_'.$boardfilename, $boardinfo);
+
+        $item->set($boardinfo);
+        $cache->save($item);
     }
 
+    $boardinfo = $item->get();
     //set the player's entry in the board with brand-new data
     $player_action = get_player_action($action);
     $boardinfo['board'][$userid]['xp'] = $player_action['exp'];

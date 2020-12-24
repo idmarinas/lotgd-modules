@@ -242,11 +242,11 @@ switch ($op2)
             ->execute()
         ;
 
-        \LotgdCache::removeItem('item-activation-fightnav-specialties');
-        \LotgdCache::removeItem('item-activation-forest');
-        \LotgdCache::removeItem('item-activation-train');
-        \LotgdCache::removeItem('item-activation-shades');
-        \LotgdCache::removeItem('item-activation-village');
+        \LotgdKernel::get('cache.app')->delete('item-activation-fightnav-specialties');
+        \LotgdKernel::get('cache.app')->delete('item-activation-forest');
+        \LotgdKernel::get('cache.app')->delete('item-activation-train');
+        \LotgdKernel::get('cache.app')->delete('item-activation-shades');
+        \LotgdKernel::get('cache.app')->delete('item-activation-village');
 
         modulehook('inventory-delete-item', ['id' => $id]);
 

@@ -613,9 +613,10 @@ function worldmapen_loadTerrainDefs(): array
         $useStamina = true;
     }
 
-    $terrains = \LotgdCache::getItem('module-worldmapen-terrain-defs');
+    $cache = \LotgdKernel::get('cache.app');
+    $item = $cache->getItem('module-worldmapen-terrain-defs');
 
-    if ( ! \is_array($terrains) || ! $terrains)
+    if ( ! $item->isHit())
     {
         $terrains = [
             'plains' => [
@@ -670,10 +671,11 @@ function worldmapen_loadTerrainDefs(): array
                 'encounter' => get_module_setting('encounterAir'), ],
         ];
 
-        \LotgdCache::setItem('module-worldmapen-terrain-defs', $terrains);
+        $item->set($terrains);
+        $cache->save($item);
     }
 
-    return $terrains;
+    return $item->get();
 }
 
 /**
@@ -683,9 +685,10 @@ function worldmapen_loadTerrainDefs(): array
  */
 function worldmapen_loadMap(int $z = 1)
 {
-    $terrains = \LotgdCache::getItem('module-worldmapen-terrain-map');
+    $cache = \LotgdKernel::get('cache.app');
+    $item = $cache->getItem('module-worldmapen-terrain-map');
 
-    if ( ! \is_array($terrains) || ! $terrains)
+    if ( ! $item->isHit())
     {
         $map = get_module_setting('TerrainDefinition', 'worldmapen');
 
@@ -699,8 +702,11 @@ function worldmapen_loadMap(int $z = 1)
             worldmapen_saveMap($terrains);
         }
 
-        \LotgdCache::setItem('module-worldmapen-terrain-map', $terrains);
+        $item->set($terrains);
+        $cache->save($item);
     }
+
+    $terrains = $item->get();
 
     return $terrains[$z] ?? $terrains;
 }
@@ -742,8 +748,8 @@ function worldmapen_saveMap(array $map)
 
     set_module_setting('TerrainDefinition', \serialize($map), 'worldmapen');
 
-    \LotgdCache::removeItem('module-worldmapen-terrain-map');
-    \LotgdCache::removeItem('module-worldmapen-terrain-defs');
+    \LotgdKernel::get('cache.app')->delete('module-worldmapen-terrain-map');
+    \LotgdKernel::get('cache.app')->delete('module-worldmapen-terrain-defs');
 }
 
 function worldmapen_generateNewMap($defaultTerrain = 'forest')

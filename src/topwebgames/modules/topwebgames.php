@@ -59,9 +59,10 @@ function topwebgames_dohook($hookname, $args)
     {
         require_once 'lib/pullurl.php';
 
-        $counts = \LotgdCache::getItem('topwebcounts');
+        $cache = \LotgdKernel::get('cache.app');
+        $item = $cache->getItem('topwebcounts');
 
-        if (! is_array($counts) || empty($counts))
+        if (! $item->isHit())
         {
             $c = @pullurl("http://www.topwebgames.com/games/votes.js?id={$id}");
             $r = @pullurl("http://www.topwebgames.com/games/placement.js?id={$id}");
@@ -95,12 +96,13 @@ function topwebgames_dohook($hookname, $args)
                 'rank' => $rank
             ];
 
-            \LotgdCache::setItem('topwebcounts', $counts);
+            $item->set($counts);
+            $cache->save($item);
         }
+        $counts = $item->get();
+        $item = $cache->getItem('topwebprev');
 
-        $prev = \LotgdCache::getItem('topwebprev');
-
-        if (! $prev)
+        if (! $item->isHit())
         {
             $when = @pullurl('http://www.topwebgames.com/games/countdown.js');
 
@@ -124,8 +126,11 @@ function topwebgames_dohook($hookname, $args)
                 $prev = get_module_setting('topwebprev');
             }
 
-            \LotgdCache::setItem('topwebprev', $prev);
+            $item->set($prev);
+            $cache->save($item);
         }
+
+        $prev = $item->get();
 
         $l = get_module_pref('lastvote');
         $l = $l ?: '0000-00-00 00:00:00';
@@ -194,7 +199,7 @@ function topwebgames_run()
         set_module_pref('voted', 1, 'topwebgames', $id);
         set_module_pref('lastvote', $dt, 'topwebgames', $id);
         debuglog('gained 1 gem for topwebgames', 0, $id);
-        \LotgdCache::removeItem('topwebcounts', true);
+        \LotgdKernel::get('cache.app')->delete('topwebcounts', true);
 
         echo 'OK';
     }
