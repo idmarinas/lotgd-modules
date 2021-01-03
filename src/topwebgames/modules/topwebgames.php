@@ -10,7 +10,7 @@ function topwebgames_getmoduleinfo()
         'name'                => 'Top Web Games',
         'author'              => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'            => 'Administrative',
-        'version'             => '2.0.1',
+        'version'             => '2.1.0',
         'download'            => 'core_module',
         'allowanonymous'      => true,
         'override_forced_nav' => true,
@@ -25,7 +25,7 @@ function topwebgames_getmoduleinfo()
             'voted'    => 'Did user vote this week?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.10.0|Need a version equal or greater than 4.10.0 IDMarinas Edition',
         ],
     ];
 }
@@ -57,8 +57,6 @@ function topwebgames_dohook($hookname, $args)
 
     if ('everyfooter' == $hookname)
     {
-        require_once 'lib/pullurl.php';
-
         $cache = \LotgdKernel::get('cache.app');
         $item  = $cache->getItem('topwebcounts');
 

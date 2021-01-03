@@ -29,7 +29,7 @@ function stafflist_getmoduleinfo()
 {
     return [
         'name'           => 'Staff List',
-        'version'        => '2.0.0',
+        'version'        => '2.1.0',
         'author'         => '`$Red Yates`0, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'allowanonymous' => true,
         'category'       => 'Administrative',
@@ -47,7 +47,7 @@ function stafflist_getmoduleinfo()
             'desc' => 'Description to be put in the staff list|I work here?',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.10.0|Need a version equal or greater than 4.10.0 IDMarinas Edition',
         ],
     ];
 }
@@ -73,7 +73,6 @@ function stafflist_dohook($hookname, $args)
     switch ($hookname)
     {
         case 'validatesettings':
-            require_once 'lib/nltoappon.php';
             $args['blurb'] = nltoappon($args['blurb']);
         break;
         case 'village':
