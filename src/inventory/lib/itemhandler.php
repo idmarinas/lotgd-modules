@@ -358,7 +358,7 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
         \Doctrine::flush();
 
         debuglog("has gained {$qty} item (ID: {$itemid}).", false, false, 'inventory');
-        \LotgdKernel::get('cache.app')->delete("inventory/user-{$user}");
+        \LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
 
         return $qty;
     }
@@ -599,7 +599,7 @@ function uncharge_item($itemid, $user = false, $invid = false)
         debuglog("deleted {$count} items (ID: {$itemid})", $user);
     }
 
-    \LotgdKernel::get('cache.app')->delete("inventory/user-{$user}");
+    \LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
 }
 
 function recharge_item($itemid, $user = false, $invid = false)
@@ -641,7 +641,7 @@ function recharge_item($itemid, $user = false, $invid = false)
         \LotgdResponse::pageDebug('ERROR: Tried to recharge non-present item!');
     }
 
-    \LotgdKernel::get('cache.app')->delete("inventory/user-{$user}");
+    \LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
 }
 
 function check_qty_by_id($itemid, $user = 0)
@@ -738,7 +738,7 @@ function remove_item_by_id($item, $qty = 1, $user = false, $invid = false)
         debuglog("removed item {$result[0]->getItem()->getName()} from inventory, qty {$qty} and real delete {$affected}", $user);
     }
 
-    \LotgdKernel::get('cache.app')->delete("inventory/user-{$user}");
+    \LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
     \LotgdKernel::get('cache.app')->delete("inventory/item-{$item}-{$user}");
 
     return $affected;
