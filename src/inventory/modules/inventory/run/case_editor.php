@@ -1,6 +1,5 @@
 <?php
 
-require_once 'lib/listfiles.php';
 require_once 'lib/showform.php';
 
 $op2       = (string) \LotgdRequest::getQuery('op2');
