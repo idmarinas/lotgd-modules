@@ -16,7 +16,7 @@ trait Campers
             return '';
         }
 
-        $pvp   = $this->getContainer(\Lotgd\Core\Pvp\Listing::class);
+        $pvp   = $this->getService(\Lotgd\Core\Pvp\Listing::class);
         $query = $pvp->getQuery();
 
         $loc = get_module_pref('worldXYZ', 'worldmapen');

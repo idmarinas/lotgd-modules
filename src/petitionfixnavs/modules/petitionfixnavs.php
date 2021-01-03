@@ -4,12 +4,12 @@ function petitionfixnavs_getmoduleinfo()
 {
     return [
         'name'     => 'Fixnavs in petitions',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => '`2Oliver Brendel, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'download' => 'http://dragonprime.net/dls/petitionfixnavs.zip',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.10.0|Need a version equal or greater than 4.10.0 IDMarinas Edition',
         ],
     ];
 }
@@ -79,7 +79,7 @@ function petitionfixnavs_run()
             \Doctrine::persist($character);
             \Doctrine::flush();
 
-            $commentary = \LotgdLocator::get(\Lotgd\Core\Output\Commentary::class);
+            $commentary = \LotgdKernel::get(\Lotgd\Core\Output\Commentary::class);
             $commentary->saveComment([
                 'section' => "pet-{$id}",
                 'comment' => '/me '.\LotgdTranslator::t('commentary', [], $textDomain),

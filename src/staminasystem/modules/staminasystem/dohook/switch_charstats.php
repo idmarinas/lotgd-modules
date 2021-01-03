@@ -22,7 +22,7 @@ if (0 != get_module_setting('turns_emulation_base') && ! isset($badguy))
     }
 }
 
-$stats         = \LotgdLocator::get(\Lotgd\Core\Character\Stats::class);
+$stats         = \LotgdKernel::get(\Lotgd\Core\Character\Stats::class);
 $charstat_info = $stats->getStats();
 
 $actionRecentTitle = \LotgdTranslator::t('statistic.category.action.recent', [], 'app-default');
