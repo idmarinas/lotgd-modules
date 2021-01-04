@@ -50,7 +50,7 @@ function drinks_install()
     //-- Only insert/update data if alter table structure
     if (\Doctrine::createSchema(['LotgdLocal:ModuleDrinks'], true))
     {
-        $filesystem = new \Lotgd\Core\Component\Filesystem();
+        $filesystem = new \Symfony\Component\Filesystem\Filesystem();
         $files      = \array_map(
             function ($value)
             {
