@@ -80,7 +80,7 @@ class ModInventoryItem
      *
      * @ORM\Column(type="boolean", nullable=false, options={"default": "1"})
      */
-    private $droppable = true;
+    private $droppable = false;
 
     /**
      * @var int
