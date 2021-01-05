@@ -61,25 +61,8 @@ switch ($op2)
             unset($post);
         }
 
-        if ($id)
-        {
-            $item = $repository->find($id);
-
-            if ($item)
-            {
-                $item = $repository->extractEntity($item);
-
-                if ($item['buff'])
-                {
-                    $item['buff'] = $item['buff']->getId();
-                }
-            }
-
-            \LotgdNavigation::addNav('navigation.nav.item.properties', "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}");
-            module_editor_navs('prefs-items', "runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule=");
-        }
-
-        $item = \is_array($item) ? $item : [];
+        \LotgdNavigation::addNav('navigation.nav.item.properties', "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}");
+        module_editor_navs('prefs-items', "runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule=");
 
         if ('module' == $subop)
         {
@@ -130,98 +113,43 @@ switch ($op2)
         }
         else
         {
-            $result = $buffRepo->findAll();
+            $lotgdFormFactory = \LotgdLocator::get('Lotgd\Core\SymfonyForm');
+            $itemEntity = $repository->find($id) ?: new \Lotgd\Local\EntityForm\ModInventoryItemType();
+            \Doctrine::detach($itemEntity);
 
-            $buffsjoin = '0,none';
+            $form = $lotgdFormFactory->create(\Lotgd\Local\EntityForm\ModInventoryItemType::class, $itemEntity, [
+                'action' => "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}",
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
+            ]);
 
-            foreach ($result as $row)
+            $form->handleRequest();
+
+            if ($form->isSubmitted() && $form->isValid())
             {
-                $key  = \str_replace(',', ' ', $row->getKey());
-                $name = \str_replace(',', ' ', $row->getName());
+                $entity = $form->getData();
+                $method = $entity->getId() ? 'merge' : 'persist';
 
-                $buffsjoin .= ",{$row->getId()},{$name} ({$key})";
+                \Doctrine::{$method}($entity);
+                \Doctrine::flush();
+
+                $id = $entity->getId();
+
+                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.save.saved', [], $textDomain));
+
+                //-- Redo form for change $id and set new data (generated IDs)
+                $form = $lotgdFormFactory->create(\Lotgd\Local\EntityForm\ModInventoryItemType::class, $entity, [
+                    'action' => "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}",
+                    'attr' => [
+                        'autocomplete' => 'off'
+                    ]
+                ]);
             }
 
-            $enum_equip = 'none,'.\LotgdTranslator::t('equipment.none', [], $textDomain)
-                .',head,'.\LotgdTranslator::t('equipment.head', [], $textDomain)
-                .',armor,'.\LotgdTranslator::t('equipment.armor', [], $textDomain)
-                .',mainhand,'.\LotgdTranslator::t('equipment.mainhand', [], $textDomain)
-                .',belt,'.\LotgdTranslator::t('equipment.belt', [], $textDomain)
-                .',offhand,'.\LotgdTranslator::t('equipment.offhand', [], $textDomain)
-                .',righthand,'.\LotgdTranslator::t('equipment.righthand', [], $textDomain)
-                .',trausers,'.\LotgdTranslator::t('equipment.trausers', [], $textDomain)
-                .',lefthand,'.\LotgdTranslator::t('equipment.lefthand', [], $textDomain)
-                .',rightring,'.\LotgdTranslator::t('equipment.rightring', [], $textDomain)
-                .',feet,'.\LotgdTranslator::t('equipment.feet', [], $textDomain)
-                .',leftring,'.\LotgdTranslator::t('equipment.leftring', [], $textDomain)
-            ;
+            \LotgdNavigation::addNavAllow("runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}");
 
-            $sort = list_files('items', []);
-            \sort($sort);
-            $scriptenum = \implode('', $sort);
-            $scriptenum = ',,none'.$scriptenum;
-
-            $sort = list_files('items_requisites', []);
-            \sort($sort);
-            $scriptenumrequisite = \implode('', $sort);
-            $scriptenumrequisite = ',,none'.$scriptenumrequisite;
-
-            $sort = list_files('items_customvalue', []);
-            \sort($sort);
-            $scriptenumcustomvalue = \implode('', $sort);
-            $scriptenumcustomvalue = ',,none'.$scriptenumcustomvalue;
-
-            $format = [
-                'Basic information,title',
-                'id'          => 'Item id,viewhiddenonly',
-                'class'       => 'Item category, string|Loot',
-                'name'        => 'Item name, string|',
-                'image'       => 'Item image (class code for CSS image), string|',
-                'description' => 'Description, textarea,60,5|Just a normal useless item.',
-                'Values,title',
-                'gold'            => 'Gold value,int|0',
-                'gems'            => 'Gem value,int|0',
-                'weight'          => 'Weight,int|1',
-                'droppable'       => 'Is this item droppable,bool',
-                'level'           => 'Minimum level needed,range,1,15,1|1',
-                'dragonkills'     => 'Dragonkills needed,int|0',
-                'customValue'     => 'Custom detailed information (show in shop for example),textarea',
-                'execCustomValue' => 'Custom exec value for detailed information (this information need process),enumsearch'.$scriptenumcustomvalue,
-                'exectext'        => 'Text to display upon activation of the item,string,100',
-                "Use %s to insert the item's name!,note",
-                'noEffectText'   => 'Text to display if item has no effect,string,100',
-                'execValue'      => 'Exec value file,enumsearch'.$scriptenum,
-                'execrequisites' => 'Exec custom requisites,enumsearch'.$scriptenumrequisite,
-                "Please see the file 'lib/itemeffects.php' for possible values,note",
-                'hide' => 'Hide item from inventory?,bool',
-                'Buffs and activation,title',
-                'buff'           => "Activate this buff on useage,enum,{$buffsjoin}",
-                'charges'        => 'Amount of charges the item has,int|0',
-                'link'           => "Link that's called upon activation,|",
-                'activationHook' => 'Hooks which show the item,bitfield,127,'
-                    .HOOK_NEWDAY.',Newday,'
-                    .HOOK_FOREST.',Forest,'
-                    .HOOK_VILLAGE.',Village,'
-                    .HOOK_SHADES.',Shades,'
-                    .HOOK_FIGHTNAV.',Fightnav,'
-                    .HOOK_TRAIN.',Train,'
-                    .HOOK_INVENTORY.',Inventory',
-                'Chances,title',
-                'find_rarity'   => 'Rarity of object, enum,common,Common,uncommon,Uncommon,rare,Rare,legend,Legend',
-                'findChance'    => "Chance to get this item though 'get_random_item()',range,0,100,1|100",
-                'looseChance'   => 'Chance that this item gets damaged when dying in battle,range,0,100,1|100',
-                'dkLooseChance' => 'Chance to loose this item after killing the dragon,range,0,100,1|100',
-                'Shop Options,title',
-                'sellable' => 'Is this item sellable?,bool',
-                'buyable'  => 'Is this item buyable?,bool',
-                'Special Settings,title',
-                'uniqueForServer' => 'Is this item unique (server)?,bool',
-                'uniqueForPlayer' => 'Is this item unique for the player?,bool',
-                'equippable'      => 'Is this item equippable?,bool',
-                'equipWhere'      => "Where can this item be equipped?,enum,{$enum_equip}",
-            ];
-
-            $params['form']   = lotgd_showform($format, $item, true, false, false);
+            $params['form'] = $form->createView();
             $params['itemId'] = $id;
         }
     break;

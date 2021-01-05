@@ -12,7 +12,7 @@ function inventory_getmoduleinfo()
 {
     return [
         'name'     => 'Item System',
-        'version'  => '4.0.0',
+        'version'  => '4.1.0',
         'author'   => 'Christian Rutsch, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Inventory',
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1033',
@@ -31,7 +31,7 @@ function inventory_getmoduleinfo()
             'Note: Setting this to 0 will allow the user to carry a limitless weight of items, note',
         ],
         'requires' => [
-            'lotgd' => '>=4.3.0|Need a version equal or greater than 4.3.0 IDMarinas Edition',
+            'lotgd' => '>=4.5.0|Need a version equal or greater than 4.5.0 IDMarinas Edition',
         ],
     ];
 }

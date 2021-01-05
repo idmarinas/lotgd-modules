@@ -170,3 +170,64 @@ flash.message:
         buff: 'Buff saved!'
     item:
         take: 'Item no. {itemId,number} added once, you now have {count,plural, =1{1 piece} other{# pieces}}.'
+
+form:
+    item:
+        # Basic information
+        class: Item category
+        name: Item name
+        image: Item image (class code for CSS image)
+        description: Description
+        # Values
+        gold: Gold value
+        gems: Gem value
+        weight: Weight
+        droppable: Is this item droppable
+        level: Minimum level needed
+        dragonkills: Dragonkills needed
+        customValue: Custom detailed information (show in shop for example)
+        execCustomValue: Custom exec value for detailed information (this information need process)
+        exectext:
+            label: Text to display upon activation of the item
+            help: "Use %s to insert the item's name!"
+        noEffectText: Text to display if item has no effect
+        execValue: Exec value file
+        execrequisites:
+            label: Exec custom requisites
+            help: "Please see the file 'lib/itemeffects.php' for possible values"
+        hide: Hide item from inventory?
+        # Buffs and activation
+        buff: Activate this buff on useage
+        charges: Amount of charges the item has
+        link: Link that's called upon activation
+        activationHook:
+            label: Hooks which show the item
+            option:
+                newday: Newday
+                forest: Forest
+                village: Village
+                shades: Shades
+                fightnav: Fightnav
+                train: Train
+                inventory: Inventory
+        # Chances
+        find_rarity:
+            label: Rarity of object
+            option:
+                common: Common
+                uncommon: Uncommon
+                rare: Rare
+                legend: Legend
+        findChance: Chance to get this item though 'get_random_item()'
+        looseChance: Chance that this item gets damaged when dying in battle
+        dkLooseChance: Chance to loose this item after killing the dragon
+        # Shop Options
+        sellable: Is this item sellable?
+        buyable: Is this item buyable?
+        # Special Settings
+        uniqueForServer: Is this item unique (server)?
+        uniqueForPlayer: Is this item unique for the player?
+        equippable: Is this item equippable?
+        equipWhere: Where can this item be equipped?
+
+        button.save: Save item
