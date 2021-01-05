@@ -9,7 +9,7 @@ function calendar_getmoduleinfo()
     return [
         'name'     => 'Calendar',
         'author'   => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'category' => 'General',
         'download' => 'core_module',
         'settings' => [
@@ -25,7 +25,7 @@ function calendar_getmoduleinfo()
             'curYear'       => 'What is the current year?,int|',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.10.0|Need a version equal or greater than 4.10.0 IDMarinas Edition',
         ],
     ];
 }
@@ -98,9 +98,7 @@ function calendar_uninstall()
 
 function calendar_dohook($hookname, $args)
 {
-    $result     = modulehook('calendar-text-domain', ['textDomain' => 'module-calendar']);
-    $textDomain = $result['textDomain'];
-    unset($result);
+    $textDomain = 'module_calendar'
 
     switch ($hookname)
     {
@@ -153,7 +151,7 @@ function calendar_dohook($hookname, $args)
             set_module_setting('curWkdayName', calendar_weekday($wkday));
         break;
         case 'newday':
-            $args['includeTemplatesPost']['module/calendar/dohook/newday.twig'] = [
+            $args['includeTemplatesPost']['@module/calendar_newday.twig'] = [
                 'textDomain' => $textDomain,
                 'wkDayName'  => get_module_setting('curWkdayName'),
                 'day'        => get_module_setting('curDay'),
