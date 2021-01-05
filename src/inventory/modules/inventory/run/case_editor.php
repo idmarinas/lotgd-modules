@@ -37,30 +37,6 @@ switch ($op2)
 
         $subop  = (string) \LotgdRequest::getQuery('subop');
         $module = (string) \LotgdRequest::getQuery('submodule');
-
-        if (\LotgdRequest::isPost() && 'true' != $isLaminas)
-        {
-            $post = \LotgdRequest::getPostAll();
-            \reset($post);
-
-            $paramsFlashMessage = [];
-            $message            = 'flash.message.save.saved';
-
-            $post['activationHook'] = \array_sum(\array_keys($post['activationHook']));
-            $post['buff']           = $buffRepo->find($post['buff']);
-
-            $item = $repository->find($id);
-            $item = $repository->hydrateEntity($post, $item);
-
-            \Doctrine::persist($item);
-            \Doctrine::flush();
-
-            $id = $item->getId();
-
-            \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t($message, $paramsFlashMessage, $params['textDomain']));
-            unset($post);
-        }
-
         \LotgdNavigation::addNav('navigation.nav.item.properties', "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}");
         module_editor_navs('prefs-items', "runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule=");
 
@@ -114,7 +90,7 @@ switch ($op2)
         else
         {
             $lotgdFormFactory = \LotgdLocator::get('Lotgd\Core\SymfonyForm');
-            $itemEntity = $repository->find($id) ?: new \Lotgd\Local\EntityForm\ModInventoryItemType();
+            $itemEntity = $repository->find($id) ?: new \Lotgd\Local\Entity\ModInventoryItem();
             \Doctrine::detach($itemEntity);
 
             $form = $lotgdFormFactory->create(\Lotgd\Local\EntityForm\ModInventoryItemType::class, $itemEntity, [

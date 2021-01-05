@@ -199,7 +199,6 @@ form:
         # Buffs and activation
         buff: Activate this buff on useage
         charges: Amount of charges the item has
-        link: Link that's called upon activation
         activationHook:
             label: Hooks which show the item
             option:

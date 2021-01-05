@@ -9,8 +9,10 @@ use Symfony\Component\Form\Extension\Core\Type\CheckBoxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ModInventoryItemType extends AbstractType
@@ -56,22 +58,34 @@ class ModInventoryItemType extends AbstractType
                 'label' => 'form.item.dragonkills',
             ])
             ->add('customValue', TextareaType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'label' => 'form.item.customValue',
             ])
             ->add('execCustomValue', TextType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'label' => 'form.item.execCustomValue',
             ])
             ->add('exectext', TextType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'label' => 'form.item.exectext.label',
                 'help'  => 'form.item.exectext.help',
             ])
             ->add('noEffectText', TextType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'label' => 'form.item.noEffectText',
             ])
             ->add('execValue', TextType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'label' => 'form.item.execValue',
             ])
             ->add('execrequisites', TextType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'label' => 'form.item.execrequisites.label',
                 'help'  => 'form.item.execrequisites.help',
             ])
@@ -91,9 +105,6 @@ class ModInventoryItemType extends AbstractType
             ])
             ->add('charges', NumberType::class, [
                 'label' => 'form.item.charges',
-            ])
-            ->add('link', TextType::class, [
-                'label' => 'form.item.link',
             ])
             ->add('activationHook', BitFieldType::class, [
                 'label'    => 'form.item.activationHook.label',

@@ -200,14 +200,14 @@ class ModInventoryItem
      *
      * @ORM\Column(type="boolean", nullable=false, options={"default": "1"})
      */
-    private $sellable = true;
+    private $sellable = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(type="boolean", nullable=false, options={"default": "1"})
      */
-    private $buyable = true;
+    private $buyable = false;
 
     /**
      * @var bool
