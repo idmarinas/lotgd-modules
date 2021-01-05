@@ -422,7 +422,7 @@ function stamina_advance_buffs($action, $userid = false)
                 {
                     if (isset($values['roundmsg']) && $values['roundmsg'])
                     {
-                        \LotgdResponse::pageAddContent(appoencode(\sprintf('%s`n', \stripslashes($values['roundmsg'])), true));
+                        \LotgdResponse::pageAddContent(\LotgdFormat::colorize(\sprintf('%s`n', \stripslashes($values['roundmsg'])), true));
                     }
 
                     if ($values['rounds'] > 0)
@@ -435,7 +435,7 @@ function stamina_advance_buffs($action, $userid = false)
                     {
                         if ($values['wearoffmsg'])
                         {
-                            \LotgdResponse::pageAddContent(appoencode(\sprintf('%s`n', \stripslashes($values['wearoffmsg'])), true));
+                            \LotgdResponse::pageAddContent(\LotgdFormat::colorize(\sprintf('%s`n', \stripslashes($values['wearoffmsg'])), true));
                         }
                         $write = 1;
                         unset($bufflist[$buff]);

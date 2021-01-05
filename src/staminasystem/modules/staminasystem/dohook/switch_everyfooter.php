@@ -98,8 +98,8 @@ function stamina_notification($message, $title, $status = 'warning')
 
     return "<script type='text/javascript'>
 		Lotgd.notify({
-            message : '".\addslashes(appoencode($message, true))."',
-            title : '".\addslashes(appoencode($title, true))."',
+            message : '".\addslashes(\LotgdFormat::colorize($message, true))."',
+            title : '".\addslashes(\LotgdFormat::colorize($title, true))."',
 			type  : '{$status}',
 			timeOut : 40000,
 			escapeHtml : false
