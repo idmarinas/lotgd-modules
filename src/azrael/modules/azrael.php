@@ -171,11 +171,11 @@ function azrael_runevent($type)
             if ($session['user']['gold'] > 0)
             {
                 $params['canPay'] = true;
-                \LotgdNavigation::addNav('navigation.nav.treat', $from.'op=treat');
+                \LotgdNavigation::addNav('navigation.nav.treat', $from.'op=treat', ['textDomain' => $textDomain]);
             }
 
-            \LotgdNavigation::addNav('navigation.nav.trick', $from.'op=trick');
-            \LotgdNavigation::addNav('navigation.nav.ignore', $from.'op=ignore');
+            \LotgdNavigation::addNav('navigation.nav.trick', $from.'op=trick', ['textDomain' => $textDomain]);
+            \LotgdNavigation::addNav('navigation.nav.ignore', $from.'op=ignore', ['textDomain' => $textDomain]);
         break;
     }
 
