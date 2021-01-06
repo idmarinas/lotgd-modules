@@ -98,7 +98,7 @@ function calendar_uninstall()
 
 function calendar_dohook($hookname, $args)
 {
-    $textDomain = 'module_calendar'
+    $textDomain = 'module_calendar';
 
     switch ($hookname)
     {
