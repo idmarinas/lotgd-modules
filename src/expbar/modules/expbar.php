@@ -22,7 +22,7 @@ function expbar_getmoduleinfo()
 {
     return [
         'name'     => 'Experience Bar',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a> - based on idea of JT Traub (core_module)',
         'category' => 'Stat Display',
         'download' => 'https://github.com/idmarinas/lotgd-modules',
@@ -30,6 +30,9 @@ function expbar_getmoduleinfo()
             'Experience Bar,title',
             'user_showexpnumber' => 'Show current experience number,bool|0',
             'user_shownextgoal'  => 'Show the exp needed for next level (only if current exp is shown),bool|0',
+        ],
+        'requires' => [
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -56,7 +59,7 @@ function expbar_dohook($hookname, $args)
             require_once 'lib/experience.php';
 
             $params = [
-                'textDomain'        => 'module-expbar',
+                'textDomain'        => 'module_expbar',
                 'experienceRequire' => exp_for_next_level($session['user']['level'], $session['user']['dragonkills']),
                 'experienceCurrent' => $session['user']['experience'],
                 'level'             => $session['user']['level'],
@@ -68,11 +71,11 @@ function expbar_dohook($hookname, $args)
             $params['canLevelUp'] = ($params['experienceCurrent'] >= $params['experienceRequire']);
             $params['showLabel']  = ($params['showNum'] && $params['showNext']);
 
-            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('expbar/dohook/charstats/script.twig', $params));
-            $bar = \LotgdTheme::renderModuleTemplate('expbar/dohook/charstats/bar.twig', $params);
+            \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/expbar_charstats_script.twig', $params));
+            $bar = \LotgdTheme::render('@module/expbar_charstats_bar.twig', $params);
 
             setcharstat(
-                \LotgdTranslator::t('statistic.category.character.info', [], 'app-default'),
+                \LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
                 \LotgdTranslator::t('charstats.stat.experience', [], $params['textDomain']),
                 $bar
             );
