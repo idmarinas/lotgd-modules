@@ -1,10 +1,10 @@
 {% translate_default_domain 'module-newdaybar' %}
 
 <script>
+    /* global $ Lotgd */
     var realSecsToTomorrow = '{{ realSecsToTomorrow }}'
-    var secPerDay = '{{ secsPerDay }}'
 
-    var bar = setInterval(newdaybar, 1000)
+    const bar = setInterval(newdaybar, 1000)
 
     function newdaybar ()
     {

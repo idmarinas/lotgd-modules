@@ -27,7 +27,7 @@ function newdaybar_getmoduleinfo()
 {
     return [
         'name'     => 'New Day Bar',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Joshua Ecklund, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'download' => 'http://dragonprime.net/users/mProwler/newdaybar.zip',
         'category' => 'Stat Display',
@@ -37,7 +37,7 @@ function newdaybar_getmoduleinfo()
             'showbar'  => 'Show time as a bar,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.10.0|Need a version equal or greater than 4.10.0 IDMarinas Edition',
         ],
     ];
 }
@@ -95,7 +95,7 @@ function newdaybar_dohook($hookname, $args)
             $bar .= '</div>';
         }
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('newdaybar/dohook/charstats.twig', [
+        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/newdaybar_charstats.twig', [
             'realSecsToTomorrow' => $details['realsecstotomorrow'],
             'secsPerDay'         => $details['secsperday'],
             'secsToNewDay'       => $secstonewday,
@@ -103,8 +103,8 @@ function newdaybar_dohook($hookname, $args)
         ]));
 
         setcharstat(
-            \LotgdTranslator::t('statistic.category.character.extra', [], 'app-default'),
-            \LotgdTranslator::t('charstats.stat', [], 'module-newdaybar'),
+            \LotgdTranslator::t('statistic.category.character.extra', [], 'app_default'),
+            \LotgdTranslator::t('charstats.stat', [], 'module_newdaybar'),
             $bar
         );
     }
