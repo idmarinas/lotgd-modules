@@ -74,7 +74,7 @@ function healthbar_dohook($hookname, $args)
 
         $params['showLabel'] = (bool) ($params['showCurrent'] && $params['showMax']) || (bool) ($params['showCurrent']);
 
-        $bar = \LotgdTheme::renderModuleTemplate('healthbar/dohook/charstats/bar.twig', $params);
+        $bar = \LotgdTheme::render('@module/healthbar_charstats_bar.twig', $params);
 
         setcharstat(
             \LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
