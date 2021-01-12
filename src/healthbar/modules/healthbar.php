@@ -20,7 +20,7 @@ function healthbar_getmoduleinfo()
 {
     return [
         'name'     => 'Health Bar',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a> - based on idea of JT Traub (core_module)',
         'category' => 'Stat Display',
         'download' => 'https://github.com/idmarinas/lotgd-modules',
@@ -28,6 +28,9 @@ function healthbar_getmoduleinfo()
             'Health Bar,title',
             'user_showcurrent' => 'Show health level as a number,bool|0',
             'user_showmax'     => 'Show max health (only if current),bool|0',
+        ],
+        'requires' => [
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -51,7 +54,7 @@ function healthbar_dohook($hookname, $args)
     if ('charstats' == $hookname)
     {
         $params = [
-            'textDomain'    => 'module-healthbar',
+            'textDomain'    => 'module_healthbar',
             'healthCurrent' => $session['user']['hitpoints'],
             'healthRealMax' => $session['user']['maxhitpoints'],
             'showCurrent'   => get_module_pref('user_showcurrent'),
@@ -74,7 +77,7 @@ function healthbar_dohook($hookname, $args)
         $bar = \LotgdTheme::renderModuleTemplate('healthbar/dohook/charstats/bar.twig', $params);
 
         setcharstat(
-            \LotgdTranslator::t('statistic.category.character.info', [], 'app-default'),
+            \LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
             \LotgdTranslator::t('charstats.stat.'.($session['user']['alive'] ? 'live' : 'death'), [], $params['textDomain']),
             $bar
         );
