@@ -9,7 +9,7 @@ function calendar_getmoduleinfo()
     return [
         'name'     => 'Calendar',
         'author'   => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.1.0',
+        'version'  => '2.2.0',
         'category' => 'General',
         'download' => 'core_module',
         'settings' => [
@@ -25,7 +25,7 @@ function calendar_getmoduleinfo()
             'curYear'       => 'What is the current year?,int|',
         ],
         'requires' => [
-            'lotgd' => '>=4.10.0|Need a version equal or greater than 4.10.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
