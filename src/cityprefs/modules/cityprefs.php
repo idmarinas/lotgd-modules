@@ -4,7 +4,7 @@ function cityprefs_getmoduleinfo()
 {
     return [
         'name'        => 'City Preferences Addon',
-        'version'     => '3.0.0',
+        'version'     => '3.1.0',
         'author'      => 'Sixf00t4, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'    => 'General',
         'description' => 'Gives the ability to use prefs based on cities',
@@ -14,7 +14,7 @@ function cityprefs_getmoduleinfo()
             'data_imported' => 'Imported old data,viewonly',
         ],
         'requires' => [
-            'lotgd'  => '>=4.3.0|Need a version equal or greater than 4.3.0 IDMarinas Edition',
+            'lotgd'  => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
             'cities' => '>=2.0.0|Multiple Cities - Core module',
         ],
     ];
@@ -176,8 +176,8 @@ function cityprefs_dohook($hookname, $args)
         case 'superuser':
             if ($session['user']['superuser'] & SU_EDIT_USERS)
             {
-                \LotgdNavigation::addHeader('superuser.category.editors', ['textDomain' => 'navigation-app']);
-                \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=cityprefs&op=su', ['textDomain' => 'module-cityprefs']);
+                \LotgdNavigation::addHeader('superuser.category.editors', ['textDomain' => 'navigation_app']);
+                \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=cityprefs&op=su', ['textDomain' => 'module_cityprefs']);
             }
         break;
     }
@@ -189,7 +189,7 @@ function cityprefs_run()
 {
     global $session;
 
-    $textDomain = 'module-cityprefs';
+    $textDomain = 'module_cityprefs';
 
     \LotgdResponse::pageStart('title.default', [], $textDomain);
 
@@ -216,7 +216,7 @@ function cityprefs_run()
             \LotgdNavigation::addNav('navigation.nav.modsettings', "configuration.php?op=modulesettings&module={$modu}");
         }
 
-        \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
+        \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
 
         $link = 'village.php';
 
@@ -376,7 +376,7 @@ function cityprefs_run()
 
                 $params['form'] = $form;
 
-                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('cityprefs/run/module.twig', $params));
+                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/cityprefs/run/module.twig', $params));
 
                 \LotgdNavigation::addNavAllow("runmodule.php?module=cityprefs&op=editmodulesave&cityid={$cityId}&mdule={$mdule}");
             }
@@ -406,7 +406,7 @@ function cityprefs_run()
                 ], $textDomain));
             }
 
-            \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
+            \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
             \LotgdNavigation::addNav('navigation.nav.back.properties', "runmodule.php?module=cityprefs&op=editmodule&cityid={$cityId}");
 
             $params['city'] = $repository->find($cityId);
@@ -430,7 +430,7 @@ function cityprefs_run()
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('cityprefs/run.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/cityprefs/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
