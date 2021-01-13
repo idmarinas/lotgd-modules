@@ -18,12 +18,12 @@ function modloc_getmoduleinfo()
 {
     return [
         'name'     => 'Module Locations',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => '`^CortalUX`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -57,8 +57,8 @@ function modloc_dohook($hookname, $args)
             // no break
         case 'superuser':
             $nav = $nav ?? 'superuser.category.mechanics';
-            \LotgdNavigation::addHeader($nav, ['textDomain' => 'navigation-app']);
-            \LotgdNavigation::addNav('navigation.nav.locations', 'runmodule.php?module=modloc&admin=true', ['textDomain' => 'module-modloc']);
+            \LotgdNavigation::addHeader($nav, ['textDomain' => 'navigation_app']);
+            \LotgdNavigation::addNav('navigation.nav.locations', 'runmodule.php?module=modloc&admin=true', ['textDomain' => 'module_modloc']);
         break;
         default: break;
     }
@@ -70,7 +70,7 @@ function modloc_run()
 {
     global $session;
 
-    $textDomain = 'module-modloc';
+    $textDomain = 'module_modloc';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
@@ -207,7 +207,7 @@ function modloc_run()
     $params['modulesCount'] = \count($params['modules']);
     $params['locations']    = $locations;
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('modloc/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/modloc_run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
