@@ -5,7 +5,7 @@ function alignment_getmoduleinfo()
     return [
         'name'     => 'Alignment Core',
         'author'   => '`QWebPixie and Chris Vorndran`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'category' => 'Stat Display',
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=64',
         // 'vertxtloc' => 'http://dragonprime.net/users/Sichae/',
@@ -23,7 +23,7 @@ function alignment_getmoduleinfo()
             'max-num' => 'What is the maximum alignment?,int|5000',
             'min-num' => 'What is the minimum alignment?,int|-5000',
             'Other Settings,title',
-            'shead' => 'What Stat heading does this go under (Translation format: "key;textDomain" ),text|statistic.category.character.personal;app-default',
+            'shead' => 'What Stat heading does this go under (Translation format: "key;textDomain" ),text|statistic.category.character.personal;app_default',
             'pvp'   => 'Does PVP affect Alignment,bool|1',
             "Whether to remove or add is based on a comparison of the warrior's alignment.,note",
             "How much to remove or add is based from the character's level divided by two.,note",
@@ -45,7 +45,7 @@ function alignment_getmoduleinfo()
             'alignment' => 'Current alignment number,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -56,6 +56,13 @@ function alignment_install()
     module_addhook('charstats');
     module_addhook('newday');
     module_addhook('battle-victory-end');
+
+    $area = \explode(';', get_module_setting('shead', 'alignment'));
+
+    if (false !== \strpos($area[1], '-'))
+    {
+        set_module_setting('shead', \str_replace('-', '_', $area[1]), 'alignment');
+    }
 
     return true;
 }
@@ -71,10 +78,11 @@ function alignment_dohook($hookname, $args)
 
     require_once 'modules/alignment/func.php';
 
-    $title   = \LotgdTranslator::t('alignment.title', [], 'alignment-module');
-    $good    = \LotgdTranslator::t('alignment.good', [], 'alignment-module');
-    $evil    = \LotgdTranslator::t('alignment.evil', [], 'alignment-module');
-    $neutral = \LotgdTranslator::t('alignment.neutral', [], 'alignment-module');
+    $title = \LotgdTranslator::t('alignment.title', [], 'module_alignment');
+    //-- Used by ${$align}
+    $good    = \LotgdTranslator::t('alignment.good', [], 'module_alignment');
+    $evil    = \LotgdTranslator::t('alignment.evil', [], 'module_alignment');
+    $neutral = \LotgdTranslator::t('alignment.neutral', [], 'module_alignment');
 
     $evilalign = get_module_setting('evilalign', 'alignment');
     $goodalign = get_module_setting('goodalign', 'alignment');
@@ -115,12 +123,13 @@ function alignment_dohook($hookname, $args)
                     set_align($min_num);
                 }
             }
+
         break;
         case 'charstats':
             $val   = get_module_pref('alignment');
             $extra = '';
 
-            if (get_module_setting('display-num'))
+            if (get_module_setting('display-num', 'alignment'))
             {
                 $extra = "(`b{$val}´b)";
             }
@@ -139,13 +148,14 @@ function alignment_dohook($hookname, $args)
             $args['messages'][] = [
                 'alignment.biostat',
                 ['align' => ${$align}],
-                'alignment-module',
+                'module_alignment',
             ];
+
         break;
         case 'battle-victory-end':
             foreach ($args['enemies'] as $badguy)
             {
-                if ('pvp' == $options['type'] && get_module_setting('pvp'))
+                if ('pvp' == $options['type'] && get_module_setting('pvp', 'alignment'))
                 {
                     $ual = get_module_pref('alignment');
                     $al  = get_module_pref('alignment', 'alignment', $badguy['acctid']);
@@ -156,7 +166,7 @@ function alignment_dohook($hookname, $args)
                         $args['messages'][] = [
                             'battle.victory.pvp.evil',
                             [],
-                            'alignment-module',
+                            'module_alignment',
                         ];
                         align("-{$new}");
                     }
@@ -166,31 +176,33 @@ function alignment_dohook($hookname, $args)
                         $args['messages'][] = [
                             'battle.victory.pvp.good',
                             [],
-                            'alignment-module',
+                            'module_alignment',
                         ];
                         align("+{$new}");
                     }
                     else
                     {
-                        switch (e_rand(1, 2))
+                        switch (\mt_rand(1, 2))
                         {
                             case 1:
                                 $new                = \round($session['user']['level'] / 3);
                                 $args['messages'][] = [
                                     'battle.victory.pvp.rand.good',
                                     [],
-                                    'alignment-module',
+                                    'module_alignment',
                                 ];
                                 align("+{$new}");
+
                             break;
                             case 2:
                                 $new                = \round($session['user']['level'] / 3);
                                 $args['messages'][] = [
                                     'battle.victory.pvp.rand.evil',
                                     [],
-                                    'alignment-module',
+                                    'module_alignment',
                                 ];
                                 align("-{$new}");
+
                             break;
                         }
                     }
@@ -206,7 +218,7 @@ function alignment_dohook($hookname, $args)
                         $args['messages'][] = [
                             'battle.victory.pve.good',
                             ['creatureName' => $badguy['creaturename']],
-                            'alignment-module',
+                            'module_alignment',
                         ];
                     }
                     elseif ($al < 0)
@@ -216,11 +228,12 @@ function alignment_dohook($hookname, $args)
                         $args['messages'][] = [
                             'battle.victory.pve.evil',
                             ['creatureName' => $badguy['creaturename']],
-                            'alignment-module',
+                            'module_alignment',
                         ];
                     }
                 }
             }
+
         break;
     }
 
