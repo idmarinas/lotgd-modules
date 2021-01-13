@@ -5,7 +5,7 @@ function mechanicalturk_getmoduleinfo()
     return [
         'name'     => 'Mechanical Turk',
         'author'   => 'Dan Hall, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'category' => 'Administrative',
         'download' => '',
         'settings' => [
@@ -13,7 +13,7 @@ function mechanicalturk_getmoduleinfo()
             'addpoints' => "How many Donator Points will be awarded when the player's monster is accepted?,int|25",
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -46,12 +46,12 @@ function mechanicalturk_dohook($hookname, $args)
     switch ($hookname)
     {
         case 'forest':
-            \LotgdNavigation::addHeader('category.action', ['textDomain' => 'navigation-forest']);
-            \LotgdNavigation::addNav('navigation.nav.report', 'runmodule.php?module=mechanicalturk&creatureaction=report', ['textDomain' => 'module-mechanicalturk']);
+            \LotgdNavigation::addHeader('category.action', ['textDomain' => 'navigation_forest']);
+            \LotgdNavigation::addNav('navigation.nav.report', 'runmodule.php?module=mechanicalturk&creatureaction=report', ['textDomain' => 'module_mechanicalturk']);
         break;
         case 'superuser':
-            \LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation-app']);
-            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module-mechanicalturk']);
+            \LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation_app']);
+            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
         break;
         default: break;
     }
@@ -68,7 +68,7 @@ function mechanicalturk_run()
     $page = \max(1, $page);
 
     $points     = get_module_setting('addpoints');
-    $textDomain = 'module-mechanicalturk';
+    $textDomain = 'module_mechanicalturk';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
@@ -99,7 +99,7 @@ function mechanicalturk_run()
 
             \Doctrine::flush();
 
-            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module-mechanicalturk']);
+            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
         break;
         case 'accept':
             $params['tpl'] = 'accept';
@@ -144,7 +144,7 @@ function mechanicalturk_run()
                 \Doctrine::persist($entity);
             }
 
-            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module-mechanicalturk']);
+            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
 
             debuglog("Add {$points} donation points as rewards for creature submit.", false, $row['submittedbyid'], 'mechanicalturk');
 
@@ -158,7 +158,7 @@ function mechanicalturk_run()
             $params['paginator'] = $repository->getPaginator($repository->createQueryBuilder('u'), $page);
 
             \LotgdNavigation::addNav('navigation.nav.return.superuser', 'superuser.php', ['textDomain' => $textDomain]);
-            \LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module-mechanicalturk']);
+            \LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
         break;
         case 'save':
             $params['tpl'] = 'save';
@@ -235,7 +235,7 @@ function mechanicalturk_run()
         break;
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('mechanicalturk/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/mechanicalturk/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
