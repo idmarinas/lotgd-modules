@@ -11,12 +11,12 @@ function badnavedplayers_getmoduleinfo()
     return [
         'name'        => 'Badnaved Players',
         'description' => 'Will check for and list players that are stuck in badnav land.',
-        'version'     => '1.0.0',
+        'version'     => '1.1.0',
         'author'      => '`@MarcTheSlayer`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'    => 'Administrative',
         'download'    => 'http://dragonprime.net/index.php?topic=10506.0',
         'requires'    => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -50,9 +50,9 @@ function badnavedplayers_dohook($hookname, $args)
             ->getSingleScalarResult()
         ;
 
-        \LotgdNavigation::addHeader('superuser.category.actions', ['textDomain' => 'navigation-app']);
+        \LotgdNavigation::addHeader('superuser.category.actions', ['textDomain' => 'navigation_app']);
         \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=badnavedplayers', [
-            'textDomain' => 'module-badnavedplayers',
+            'textDomain' => 'module_badnavedplayers',
             'params'     => [
                 'count' => $count,
             ],
@@ -66,7 +66,7 @@ function badnavedplayers_run()
 {
     global $session;
 
-    $textDomain = 'module-badnavedplayers';
+    $textDomain = 'module_badnavedplayers';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
@@ -139,7 +139,7 @@ function badnavedplayers_run()
         'result'     => $result,
     ];
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('badnavedplayers/run/superuser.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/badnavedplayers_superuser.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
