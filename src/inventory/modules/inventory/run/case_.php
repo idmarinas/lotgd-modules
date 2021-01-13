@@ -9,7 +9,7 @@ $accountRep = \Doctrine::getRepository('LotgdCore:Accounts');
 
 \LotgdResponse::pageStart('title.inventory', ['name' => \LotgdSanitize::fullSanitize($session['user']['name'])], $textDomain);
 
-\LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
+\LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
 \LotgdNavigation::villageNav();
 \LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=inventory', ['textDomain' => $textDomain]);
 
@@ -183,6 +183,6 @@ $params = [
     'weightTotal' => get_module_setting('weight', 'inventory'),
 ];
 
-\LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/run/inventory.twig', $params));
+\LotgdResponse::pageAddContent(\LotgdTheme::render('@module/inventory/run/inventory.twig', $params));
 
 \LotgdResponse::pageEnd();

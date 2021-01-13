@@ -91,7 +91,7 @@ if ($item['item']['execvalue'] > '')
         \LotgdNavigation::addNav('navigation.nav.return.whence', $return);
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/run/activate.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/inventory/run/activate.twig', $params));
 
     \LotgdResponse::pageEnd();
 }

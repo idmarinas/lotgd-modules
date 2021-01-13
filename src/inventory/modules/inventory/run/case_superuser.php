@@ -20,7 +20,7 @@ if ('dropitem' == $op2)
     remove_item($id, 1, $acctId, $invId);
 }
 
-\LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
+\LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
 \LotgdNavigation::superuserGrottoNav();
 \LotgdNavigation::addNav('navigation.nav.return.whence', $return, ['textDomain' => $textDomain]);
 \LotgdNavigation::addNav('navigation.nav.update', "runmodule.php?module=inventory&op=superuser&acctid={$acctId}&return={$creturn}", ['textDomain' => $textDomain]);
@@ -34,6 +34,6 @@ $params = [
     'ownerId'     => $acctId,
 ];
 
-\LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/run/superuser.twig', $params));
+\LotgdResponse::pageAddContent(\LotgdTheme::render('@module/inventory/run/superuser.twig', $params));
 
 \LotgdResponse::pageEnd();

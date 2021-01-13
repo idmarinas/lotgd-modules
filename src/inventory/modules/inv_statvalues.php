@@ -8,7 +8,7 @@ function inv_statvalues_getmoduleinfo()
 {
     return [
         'name'                => 'Stat changing values for items',
-        'version'             => '1.1',
+        'version'             => '1.1.0',
         'author'              => 'Christian Rutsch, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'            => 'Inventory',
         'download'            => 'http://www.dragonprime.net/users/XChrisX/itemsystem.zip',

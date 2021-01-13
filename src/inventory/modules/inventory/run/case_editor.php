@@ -10,7 +10,7 @@ $repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
 $buffRepo   = \Doctrine::getRepository('LotgdLocal:ModInventoryBuff');
 
 $params = [
-    'textDomain' => 'module-inventory',
+    'textDomain' => 'module_inventory',
     'itemId'     => $id,
 ];
 
@@ -83,7 +83,7 @@ switch ($op2)
 
             $params['form'] = $form;
 
-            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/run/editor/module.twig', $params));
+            \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/inventory/run/editor/module.twig', $params));
 
             \LotgdNavigation::addNavAllow("runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule={$module}");
         }
@@ -268,7 +268,7 @@ switch ($op2)
 
 \LotgdNavigation::setTextDomain();
 
-\LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('inventory/editor.twig', $params));
+\LotgdResponse::pageAddContent(\LotgdTheme::render('@module/inventory/editor.twig', $params));
 
 function process_post_save_data_inventory($data, $id, $module)
 {
