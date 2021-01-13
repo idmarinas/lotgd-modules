@@ -40,7 +40,7 @@ function drinks_getmoduleinfo()
             'noslur'     => "Don't slur speach when drunk,bool|0",
         ],
         'requires' => [
-            'lotgd' => '>=4.10.0|Need a version equal or greater than 4.10.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -73,8 +73,6 @@ function drinks_install()
 
                     \Doctrine::flush();
                 }
-
-                \Doctrine::clear();
             }
             catch (\Throwable $th)
             {
@@ -128,7 +126,7 @@ function drinks_dohook($hookname, $args)
         case 'ale':
             require_once 'lib/partner.php';
 
-            $textDomain = modulehook('drinks-text', ['textDomain' => 'drinks-module']);
+            $textDomain = modulehook('drinks-text', ['textDomain' => 'drinks_module']);
             $textDomain = $textDomain['textDomain'];
 
             $hardDrink = (get_module_pref('harddrinks') >= get_module_setting('hardlimit'));
@@ -155,7 +153,7 @@ function drinks_dohook($hookname, $args)
                     // No hotkeys on drinks.  Too easy for them to interfere
                     // with and modify stock navs randomly.
                     \LotgdNavigation::addNav('navigation.nav.ale', "runmodule.php?module=drinks&act=buy&id={$row['id']}", [
-                        'textDomain' => 'drinks-module',
+                        'textDomain' => 'drinks_module',
                         'params'     => ['name' => $row['name'], 'cost' => $drinkcost],
                     ]);
                 }
@@ -165,7 +163,7 @@ function drinks_dohook($hookname, $args)
             $drunk = (int) \min(10, \round($drunk / 10 - .5, 0));
             $drunk = $drunk >= 0 ? \abs($drunk) : -1;
 
-            $args['includeTemplatesPost']['module/drinks/dohook/ale.twig'] = [
+            $args['includeTemplatesPost']['@module/drinks/dohook/ale.twig'] = [
                 'textDomain' => $textDomain,
                 'barkeep'    => getsetting('barkeep', '`tCedrik`0'),
                 'innName'    => getsetting('innname', LOCATION_INN),
@@ -197,7 +195,7 @@ function drinks_dohook($hookname, $args)
                     $session['user']['turns'] = \max(0, $session['user']['turns']);
                 }
 
-                $args['includeTemplatesPost']['module/drinks/dohook/newday.twig'] = [
+                $args['includeTemplatesPost']['@module/drinks/dohook/newday.twig'] = [
                     'colorCode'     => $ccode,
                     'spec'          => $spec,
                     'bonus'         => $bonus,
@@ -244,10 +242,10 @@ function drinks_dohook($hookname, $args)
         case 'superuser':
             if (($session['user']['superuser'] & SU_EDIT_USERS) || get_module_pref('canedit'))
             {
-                \LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation-app']);
+                \LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation_app']);
                 // Stick the admin=true on so that when we call runmodule it'll
                 // work to let us edit drinks even when the module is deactivated.
-                \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=drinks&act=editor&admin=true', ['textDomain' => 'drinks-module']);
+                \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=drinks&act=editor&admin=true', ['textDomain' => 'drinks_module']);
             }
         break;
     }//end select
@@ -257,13 +255,13 @@ function drinks_dohook($hookname, $args)
 
 function drinks_run()
 {
-    global $session, $mostrecentmodule;
+    global $session;
 
     $act = (string) \LotgdRequest::getQuery('act');
 
     if ( ! \file_exists("modules/drinks/run/{$act}.php"))
     {
-        \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.', ['file' => $act, 'module' => 'drinks'], 'drinks-module'));
+        \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.', ['file' => $act, 'module' => 'drinks'], 'drinks_module'));
 
         if ($session['user']['superuser'])
         {

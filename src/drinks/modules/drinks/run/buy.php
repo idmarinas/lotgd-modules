@@ -155,4 +155,4 @@ if ( ! $params['drunkeness'])
 
 \LotgdNavigation::villageNav();
 
-\LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('drinks/run/buy.twig', $params));
+\LotgdResponse::pageAddContent(\LotgdTheme::render('@module/drinks/run/buy.twig', $params));

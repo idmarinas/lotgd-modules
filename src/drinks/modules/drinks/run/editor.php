@@ -239,7 +239,7 @@ elseif ('edit' == $op || 'add' == $op)
 
         $params['form'] = $form;
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('drinks/run/edit/module.twig', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/drinks/run/edit/module.twig', $params));
 
         \LotgdNavigation::addNavAllow("runmodule.php?module=drinks&act=editor&op=edit&subop=module&editmodule={$module}&drinkid={$drinkid}&admin=true");
     }
@@ -253,7 +253,7 @@ elseif ('edit' == $op || 'add' == $op)
     }
 }
 
-\LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('drinks/run/superuser.twig', $params));
+\LotgdResponse::pageAddContent(\LotgdTheme::render('@module/drinks/run/superuser.twig', $params));
 
 function process_post_save_data_drinks($data, $id, $module)
 {
