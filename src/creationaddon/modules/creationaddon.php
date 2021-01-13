@@ -13,7 +13,7 @@ function creationaddon_getmoduleinfo()
 {
     return [
         'name'           => 'Creation Addon',
-        'version'        => '5.0.0',
+        'version'        => '5.1.0',
         'author'         => 'Billie Kennedy, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'       => 'Administrative',
         'download'       => '//orpgs.com/modules.php?name=Downloads&d_op=viewdownload&cid=6',
@@ -46,7 +46,7 @@ function creationaddon_getmoduleinfo()
             'year'            => 'Birth Year,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.5.0|Need a version equal or greater than 4.5.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -106,7 +106,7 @@ function creationaddon_dohook($hookname, $args)
                     if (\preg_match($pattern, $shortname))
                     {
                         $blockaccount = true;
-                        \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.filterName', [], 'module-creationaddon'));
+                        \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.filterName', [], 'module_creationaddon'));
 
                         break;
                     }
@@ -116,7 +116,7 @@ function creationaddon_dohook($hookname, $args)
             // Lets see if they meet the age requirements.
             if (get_module_setting('requireage') && ! $age)
             {
-                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.age', ['age' => (int) get_module_setting('age')], 'module-creationaddon'));
+                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.age', ['age' => (int) get_module_setting('age')], 'module_creationaddon'));
 
                 $blockaccount = true;
             }
@@ -124,7 +124,7 @@ function creationaddon_dohook($hookname, $args)
             // Did they check the box for terms?
             if (get_module_setting('requireterms') && ! $terms)
             {
-                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.terms', [], 'module-creationaddon'));
+                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.terms', [], 'module_creationaddon'));
 
                 $blockaccount = true;
             }
@@ -132,7 +132,7 @@ function creationaddon_dohook($hookname, $args)
             // Did they check the box for the Privacy Policy?
             if (get_module_setting('requireprivacy') && ! $privacy)
             {
-                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.privacy', [], 'module-creationaddon'));
+                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.privacy', [], 'module_creationaddon'));
 
                 $blockaccount = true;
             }
@@ -159,7 +159,7 @@ function creationaddon_dohook($hookname, $args)
                 // Lets compare the math in the years.
                 if (get_module_setting('requireage') && ($thisyear - $year) < (int) get_module_setting('age'))
                 {
-                    \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.chkbday', [], 'module-creationaddon'));
+                    \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.chkbday', [], 'module_creationaddon'));
 
                     $blockaccount = true;
                 }
@@ -183,7 +183,7 @@ function creationaddon_dohook($hookname, $args)
         case 'everyfooter':
             if (get_module_setting('requireprivacy') && get_module_setting('showfooter'))
             {
-                $privacy       = \LotgdTranslator::t('privacy', [], 'module-creationaddon');
+                $privacy       = \LotgdTranslator::t('privacy', [], 'module_creationaddon');
                 $privacyfooter = "<br><a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>{$privacy}</a>";
                 \LotgdNavigation::addNavAllow('runmodule.php?module=creationaddon&op=privacy');
 
@@ -195,7 +195,7 @@ function creationaddon_dohook($hookname, $args)
 
             if (get_module_setting('requireterms') && get_module_setting('showfooter'))
             {
-                $terms       = \LotgdTranslator::t('terms', [], 'module-creationaddon');
+                $terms       = \LotgdTranslator::t('terms', [], 'module_creationaddon');
                 $termsfooter = "<br><a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>{$terms}</a>";
                 \LotgdNavigation::addNavAllow('runmodule.php?module=creationaddon&op=terms');
 
@@ -242,10 +242,10 @@ function creationaddon_dohook($hookname, $args)
             // lets do something here
             if ($session['user']['superuser'] & SU_EDIT_USERS)
             {
-                \LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation-app']);
+                \LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation_app']);
                 // Stick the admin=true on so that when we call runmodule it'll
                 // work to let us edit bad names even when the module is deactivated.
-                \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=creationaddon&op=list&admin=true', ['textDomain' => 'module-creationaddon']);
+                \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=creationaddon&op=list&admin=true', ['textDomain' => 'module_creationaddon']);
             }
         break;
         default: break;
@@ -282,7 +282,7 @@ function creationaddon_list()
 {
     global $session;
 
-    \LotgdResponse::pageStart('superuser.editor', [], 'module-creationaddon');
+    \LotgdResponse::pageStart('superuser.editor', [], 'module_creationaddon');
 
     $page = (int) \LotgdRequest::getQuery('page', 1);
     \LotgdNavigation::superuserGrottoNav();
@@ -310,7 +310,7 @@ function creationaddon_delete()
 
     $bad_id = (int) \LotgdRequest::getQuery('bad_id', 0);
 
-    \LotgdResponse::pageStart('superuser.editor', [], 'module-creationaddon');
+    \LotgdResponse::pageStart('superuser.editor', [], 'module_creationaddon');
 
     \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
@@ -321,16 +321,15 @@ function creationaddon_delete()
 
     if ($badname)
     {
-        \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('superuser.delete.success', ['name' => $badname->getBadName()], 'module-creationaddon'));
+        \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('superuser.delete.success', ['name' => $badname->getBadName()], 'module_creationaddon'));
 
         \Doctrine::remove($badname);
         \Doctrine::flush();
-        \Doctrine::clear();
 
         return redirect('runmodule.php?module=creationaddon&op=list');
     }
 
-    \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('superuser.delete.fail', [], 'module-creationaddon'));
+    \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('superuser.delete.fail', [], 'module_creationaddon'));
 
     return redirect('runmodule.php?module=creationaddon&op=list');
 }
@@ -339,7 +338,7 @@ function creationaddon_add()
 {
     global $session;
 
-    \LotgdResponse::pageStart('superuser.editor', [], 'module-creationaddon');
+    \LotgdResponse::pageStart('superuser.editor', [], 'module_creationaddon');
 
     \LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
@@ -355,7 +354,7 @@ function creationaddon_add()
 
             if ($result)
             {
-                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('superuser.add.duplicate', ['name' => $banname], 'module-creationaddon'));
+                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('superuser.add.duplicate', ['name' => $banname], 'module_creationaddon'));
 
                 return redirect('runmodule.php?module=creationaddon&op=add');
             }
@@ -366,16 +365,14 @@ function creationaddon_add()
             \Doctrine::persist($default);
             \Doctrine::flush();
 
-            \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('superuser.add.success', ['name' => $banname], 'module-creationaddon'));
+            \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('superuser.add.success', ['name' => $banname], 'module_creationaddon'));
         }
         catch (\Throwable $th)
         {
             \Tracy\Debugger::log($th);
 
-            \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('superuser.add.error', ['name' => $banname], 'module-creationaddon'));
+            \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('superuser.add.error', ['name' => $banname], 'module_creationaddon'));
         }
-
-        \Doctrine::clear();
 
         return redirect('runmodule.php?module=creationaddon&op=add');
     }
