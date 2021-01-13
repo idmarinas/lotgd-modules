@@ -4,7 +4,7 @@ function racedwarf_getmoduleinfo()
 {
     return [
         'name'     => 'Race - Dwarf',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Races',
         'download' => 'core_module',
@@ -18,7 +18,7 @@ function racedwarf_getmoduleinfo()
             'servedkeg' => 'Is this drink served in the dwarven inn?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -30,27 +30,14 @@ function racedwarf_install()
     {
         $charactersRepository = \Doctrine::getRepository('LotgdCore:Characters');
 
-        //-- Name of race
+        //-- Use new text domain
         $query = $charactersRepository->getQueryBuilder();
         $query->update('LotgdCore:Characters', 'u')
             ->set('u.race', ':new')
             ->where('u.race = :old')
 
-            ->setParameter('old', 'Dwarf')
-            ->setParameter('new', 'racedwarf-module')
-
-            ->getQuery()
-            ->execute()
-        ;
-
-        //-- Section of commentary
-        $query = $charactersRepository->getQueryBuilder();
-        $query->update('LotgdCore:Commentary', 'u')
-            ->set('u.section', ':new')
-            ->where('u.section = :old')
-
-            ->setParameter('old', 'village-Dwarf')
-            ->setParameter('new', 'village-racedwarf-module')
+            ->setParameter('old', 'racedwarf-module')
+            ->setParameter('new', 'racedwarf_module')
 
             ->getQuery()
             ->execute()
@@ -152,16 +139,16 @@ function racedwarf_uninstall()
         //-- Updated race name
         $query = $charactersRepository->getQueryBuilder();
         $query->update('LotgdCore:Characters', 'u')
-            ->set('u.race', '')
+            ->set('u.race', RACE_UNKNOWN)
             ->where('u.race = :race')
 
-            ->setParameter('race', 'racetroll-module')
+            ->setParameter('race', 'racedwarf_module')
 
             ->getQuery()
             ->execute()
         ;
 
-        if ('racetroll-module' == $session['user']['race'])
+        if ('racedwarf_module' == $session['user']['race'])
         {
             $session['user']['race'] = RACE_UNKNOWN;
         }
@@ -195,7 +182,7 @@ function racedwarf_dohook($hookname, $args)
     global $session, $resline;
 
     $city = get_module_setting('villagename');
-    $race = 'racedwarf-module';
+    $race = 'racedwarf_module';
 
     \LotgdNavigation::setTextDomain($race);
 
@@ -208,8 +195,8 @@ function racedwarf_dohook($hookname, $args)
             if ($session['user']['race'] == $race)
             {
                 $args['chance']   = get_module_setting('minedeathchance');
-                $args['racesave'] = \LotgdTranslator::t('raceminedeath.save', [], 'racedwarf-module');
-                $args['schema']   = 'racedwarf-module';
+                $args['racesave'] = \LotgdTranslator::t('raceminedeath.save', [], 'racedwarf_module');
+                $args['schema']   = 'racedwarf_module';
             }
         break;
         case 'changesetting':
@@ -262,12 +249,12 @@ function racedwarf_dohook($hookname, $args)
                 'resLine' => $resline,
             ];
 
-            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racedwarf/dohook/chooserace.twig', $params));
+            \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/racedwarf/dohook/chooserace.twig', $params));
         break;
         case 'setrace':
             if ($session['user']['race'] == $race)
             {
-                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racedwarf/dohook/setrace.twig', []));
+                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/racedwarf/dohook/setrace.twig', []));
 
                 if (is_module_active('cities'))
                 {
@@ -345,8 +332,8 @@ function racedwarf_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'racedwarf-village-village';
-                $args['textDomainNavigation'] = 'racedwarf-village-navigation';
+                $args['textDomain']           = 'racedwarf_village_village';
+                $args['textDomainNavigation'] = 'racedwarf_village_navigation';
             }
         break;
         case 'page-village-tpl-params':
@@ -374,8 +361,8 @@ function racedwarf_dohook($hookname, $args)
                 }
 
                 \LotgdNavigation::unBlockLink('mercenarycamp.php');
-                \LotgdNavigation::addHeader('headers.tavern', ['textDomain' => 'racedwarf-village-navigation']);
-                \LotgdNavigation::addNav('navs.inndwarf', 'runmodule.php?module=racedwarf&op=ale', ['textDomain' => 'racedwarf-village-navigation']);
+                \LotgdNavigation::addHeader('headers.tavern', ['textDomain' => 'racedwarf_village_navigation']);
+                \LotgdNavigation::addNav('navs.inndwarf', 'runmodule.php?module=racedwarf&op=ale', ['textDomain' => 'racedwarf_village_navigation']);
             }
         break;
         case 'drinks-text':
@@ -384,7 +371,7 @@ function racedwarf_dohook($hookname, $args)
                 break;
             }
 
-            $args['textDomain'] = 'racedwarf-module';
+            $args['textDomain'] = 'racedwarf_module';
         break;
         case 'drinks-check':
             if ($session['user']['location'] == $city)
@@ -400,14 +387,14 @@ function racedwarf_dohook($hookname, $args)
             $args[$city] = [
                 'location.village.of',
                 ['name' => $city],
-                'app-default',
+                'app_default',
             ];
         break;
         case 'mercenarycamp-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'racedwarf-mercenarycamp-mercenarycamp';
-                $args['textDomainNavigation'] = 'racedwarf-mercenarycamp-navigation';
+                $args['textDomain']           = 'racedwarf_mercenarycamp_mercenarycamp';
+                $args['textDomainNavigation'] = 'racedwarf_mercenarycamp_navigation';
             }
         break;
         case 'page-mercenarycamp-tpl-params':
@@ -425,7 +412,7 @@ function racedwarf_checkcity()
 {
     global $session;
 
-    $race = 'racedwarf-module';
+    $race = 'racedwarf_module';
 
     $city = get_module_setting('villagename');
 
@@ -441,7 +428,7 @@ function racedwarf_run()
 {
     $op = \LotgdRequest::getQuery('op');
 
-    $textDomain = 'racedwarf-module';
+    $textDomain = 'racedwarf_module';
 
     if ('ale' == $op)
     {
@@ -452,7 +439,7 @@ function racedwarf_run()
         \LotgdNavigation::addHeader('navigation.category.other', ['textDomain' => $textDomain]);
         \LotgdNavigation::villageNav();
 
-        \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('racedwarf/run.twig', $params));
+        \LotgdResponse::pageAddContent(LotgdTheme::render('@module/racedwarf/run.twig', []));
 
         \LotgdResponse::pageEnd();
     }
