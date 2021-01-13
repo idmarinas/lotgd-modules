@@ -10,7 +10,7 @@ function allprefseditor_getmoduleinfo()
 {
     return [
         'name'     => 'Allprefs Editor',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'DaveS, modified by `@MarcTheSlayer`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'download' => '',
@@ -19,7 +19,7 @@ function allprefseditor_getmoduleinfo()
             'editid' => 'ID of the last person to be edited.,int|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -40,7 +40,7 @@ function allprefseditor_dohook($hookname, $args)
 {
     global $session;
 
-    $textDomain = 'module-allprefseditor';
+    $textDomain = 'module_allprefseditor';
 
     $id = \LotgdRequest::getQuery('userid');
 
@@ -54,7 +54,7 @@ function allprefseditor_dohook($hookname, $args)
         case 'superuser':
             if ($session['user']['superuser'] & SU_EDIT_USERS)
             {
-                \LotgdNavigation::addHeader('superuser.category.editors', ['textDomain' => 'navigation-app']);
+                \LotgdNavigation::addHeader('superuser.category.editors', ['textDomain' => 'navigation_app']);
                 \LotgdNavigation::addNav('navigation.nav.editors', "runmodule.php?module=allprefseditor&userid={$id}", [
                     'textDomain' => $textDomain,
                 ]);
@@ -76,7 +76,7 @@ function allprefseditor_run()
 
     set_module_setting('editid', $id, 'allprefseditor');
 
-    $textDomain = 'module-allprefseditor';
+    $textDomain = 'module_allprefseditor';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
@@ -103,7 +103,7 @@ function allprefseditor_run()
         $params['paginator'] = $repository->findLikeName($name, 100);
     }
 
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('allprefseditor/run.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/allprefseditor_run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
