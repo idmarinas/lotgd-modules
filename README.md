@@ -28,19 +28,15 @@ All this work was done without intention to offend or break the license on which
 
 > **_NOTE:_**  This modules not work in other version
 
-# Structure of modules for version 4.0.0
+# Structure of modules for version 4.5.0
 ```
 ..\src
 ├── moduleName
-│   ├── data
-│   │   ├── template
-│   │   │   └── module
-│   │   │       └── moduleName
-│   │   │           └── file.twig
-│   │   └── translation
-│   │       └── en
-│   │           └── module
-│   │               └── moduleName.yaml
+│   ├── templates_modules
+│   │   └── moduleName_templateName.html.twig
+│   ├── translations
+│   │   └── en
+│   │       └── moduleName_domain.yaml
 │   ├── modules
 │   │   └── moduleName.php
 │   └── src
@@ -52,21 +48,18 @@ All this work was done without intention to offend or break the license on which
 
 > This structure is only for this repository, when the command `gulp` is executed the structure of the modules becomes:
 ```
-data
-├── template
-│   └── module
-│       └── moduleName
-│           └── file.twig
-└── translation
-    └── en
-        └── module
-            └── moduleName.yaml
-modules
-└── moduleName.php
-src
-└── local
-    └── Entity
-        └── ModuleModuleName.php
+../
+├── templates_modules
+│   └── moduleName_templateName.html.twig
+├── translations
+│   └── en
+│       └── moduleName_domain.yaml
+├── modules
+│   └── moduleName.php
+└── src
+    └── local
+        └── Entity
+            └── ModuleModuleName.php
 ```
 
 # Obsolete modules
