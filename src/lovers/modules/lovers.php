@@ -8,7 +8,7 @@ function lovers_getmoduleinfo()
     return [
         'name'     => 'Violet and Seth Lovers',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'category' => 'Inn',
         'download' => 'core_module',
         'prefs'    => [
@@ -16,7 +16,7 @@ function lovers_getmoduleinfo()
             'seenlover' => 'Visited Lover Today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -40,7 +40,7 @@ function lovers_dohook($hookname, $args)
 
     require_once 'lib/partner.php';
 
-    $textDomain = 'module-lovers';
+    $textDomain = 'module_lovers';
 
     $partner = get_partner();
 
@@ -66,7 +66,7 @@ function lovers_dohook($hookname, $args)
                     $session['user']['charm']     = 0;
                 }
 
-                $args['includeTemplatesPost']['module/lovers/dohook/newday.twig'] = [
+                $args['includeTemplatesPost']['@module/lovers/dohook/newday.twig'] = [
                     'textDomain' => $textDomain,
                     'charmLoss'  => $charmloss,
                     'partner'    => $partner,
@@ -75,7 +75,7 @@ function lovers_dohook($hookname, $args)
             }
         break;
         case 'inn':
-            \LotgdNavigation::addHeader('category.do', ['textDomain' => 'navigation-inn']);
+            \LotgdNavigation::addHeader('category.do', ['textDomain' => 'navigation_inn']);
 
             \LotgdNavigation::addNav('navigation.nav.flirt.with', 'runmodule.php?module=lovers&op=flirt', [
                 'textDomain' => $textDomain,
@@ -111,7 +111,7 @@ function lovers_run()
 
     require_once 'lib/partner.php';
 
-    $textDomain = 'module-lovers';
+    $textDomain = 'module_lovers';
 
     $params = [
         'textDomain' => $textDomain,
@@ -166,7 +166,7 @@ function lovers_run()
 
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('lovers/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/lovers/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
@@ -185,6 +185,6 @@ function lovers_getbuff()
         'wearoff'  => \LotgdTranslator::t('buff.wearoff', ['partner' => $partner], $textDomain),
         'defmod'   => 1.2,
         'roundmsg' => \LotgdTranslator::t('buff.roundmsg', [], $textDomain),
-        'schema'   => 'module-lovers',
+        'schema'   => 'module_lovers',
     ];
 }
