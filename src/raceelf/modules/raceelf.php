@@ -36,21 +36,8 @@ function raceelf_install()
             ->set('u.race', ':new')
             ->where('u.race = :old')
 
-            ->setParameter('old', 'Elf')
-            ->setParameter('new', 'raceelf-module')
-
-            ->getQuery()
-            ->execute()
-        ;
-
-        //-- Section of commentary
-        $query = $charactersRepository->getQueryBuilder();
-        $query->update('LotgdCore:Commentary', 'u')
-            ->set('u.section', ':new')
-            ->where('u.section = :old')
-
-            ->setParameter('old', 'village-Elf')
-            ->setParameter('new', 'village-raceelf-module')
+            ->setParameter('old', 'raceelf_module')
+            ->setParameter('new', 'raceelf_module')
 
             ->getQuery()
             ->execute()
@@ -116,16 +103,16 @@ function raceelf_uninstall()
         //-- Updated race name
         $query = $charactersRepository->getQueryBuilder();
         $query->update('LotgdCore:Characters', 'u')
-            ->set('u.race', '')
+            ->set('u.race', RACE_UNKNOWN)
             ->where('u.race = :race')
 
-            ->setParameter('race', 'raceelf-module')
+            ->setParameter('race', 'raceelf_module')
 
             ->getQuery()
             ->execute()
         ;
 
-        if ('raceelf-module' == $session['user']['race'])
+        if ('raceelf_module' == $session['user']['race'])
         {
             $session['user']['race'] = RACE_UNKNOWN;
         }
@@ -148,7 +135,7 @@ function raceelf_dohook($hookname, $args)
     global $session, $resline;
 
     $city = get_module_setting('villagename');
-    $race = 'raceelf-module'; //-- Now race is a textDomain for translator
+    $race = 'raceelf_module'; //-- Now race is a textDomain for translator
 
     //-- Change text domain for navigation
     \LotgdNavigation::setTextDomain($race);
@@ -259,7 +246,7 @@ function raceelf_dohook($hookname, $args)
                     'allowinpvp'   => 1,
                     'allowintrain' => 1,
                     'rounds'       => -1,
-                    'schema'       => 'raceelf-module',
+                    'schema'       => 'raceelf_module',
                 ]);
             }
         break;
@@ -315,8 +302,8 @@ function raceelf_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'raceelf-village-village';
-                $args['textDomainNavigation'] = 'raceelf-village-navigation';
+                $args['textDomain']           = 'raceelf_village_village';
+                $args['textDomainNavigation'] = 'raceelf_village_navigation';
             }
         break;
         case 'page-village-tpl-params':
@@ -347,8 +334,8 @@ function raceelf_dohook($hookname, $args)
         case 'weapon-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'raceelf-weapon';
-                $args['textDomainNavigation'] = 'raceelf-navigation';
+                $args['textDomain']           = 'raceelf_weapon';
+                $args['textDomainNavigation'] = 'raceelf_weapon';
             }
         break;
         case 'page-weapon-tpl-params':
@@ -370,7 +357,7 @@ function raceelf_checkcity()
 {
     global $session;
 
-    $race = 'raceelf-module';
+    $race = 'raceelf_module';
     $city = get_module_setting('villagename');
 
     //if they're this race and their home city isn't right, set it up.
