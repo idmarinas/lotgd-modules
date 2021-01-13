@@ -8,7 +8,7 @@ function newbieisland_getmoduleinfo()
 {
     return [
         'name'     => 'Newbie Island',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'General',
         'download' => 'core_module',
@@ -21,7 +21,7 @@ function newbieisland_getmoduleinfo()
             'leftisland' => 'Left the newbie island,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -82,7 +82,7 @@ function newbieisland_dohook($hookname, $args)
     // Pass it as an arg?
     global $session, $resline;
 
-    $textDomain = 'newbieisland-module';
+    $textDomain = 'newbieisland_module';
     $city       = get_module_setting('villagename', 'newbieisland');
 
     newbieisland_checkcity();
@@ -201,7 +201,7 @@ function newbieisland_dohook($hookname, $args)
                 battleshowresults($lotgdBattleContent);
 
                 \LotgdNavigation::addNav('common.nav.continue', 'runmodule.php?module=newbieisland&op=resurrect', [
-                    'textDomain' => 'navigation-app',
+                    'textDomain' => 'navigation_app',
                 ]);
 
                 \LotgdResponse::pageEnd();
@@ -284,7 +284,7 @@ function newbieisland_dohook($hookname, $args)
                     'schema'           => 'newbiecoddle',
                 ]);
 
-                $args['includeTemplatesPost']['module/newbieisland/dohook/newday.twig'] = [
+                $args['includeTemplatesPost']['@module/newbieisland/dohook/newday.twig'] = [
                     'textDomain'    => $textDomain,
                     'staminaSystem' => is_module_active('staminasystem'),
                     'turns'         => $turns,
@@ -342,8 +342,8 @@ function newbieisland_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'newbieisland-village-village';
-                $args['textDomainNavigation'] = 'newbieisland-village-navigation';
+                $args['textDomain']           = 'newbieisland_village_village';
+                $args['textDomainNavigation'] = 'newbieisland_village_navigation';
 
                 \LotgdNavigation::blockHideLink('pvp.php');
                 \LotgdNavigation::blockHideLink('lodge.php');
@@ -391,7 +391,7 @@ function newbieisland_dohook($hookname, $args)
                 //-- Only can leave de island when player is level 2 or above
                 if ($session['user']['level'] > 1)
                 {
-                    \LotgdNavigation::setTextDomain('newbieisland-village-navigation');
+                    \LotgdNavigation::setTextDomain('newbieisland_village_navigation');
 
                     \LotgdNavigation::addHeader('headers.gate');
                     \LotgdNavigation::addNav('navs.leave', 'runmodule.php?module=newbieisland&op=leave', [
@@ -427,9 +427,9 @@ function newbieisland_run()
     $city = get_module_setting('villagename');
     $op   = \LotgdRequest::getQuery('op');
 
-    $textDomain = 'newbieisland-module';
+    $textDomain = 'newbieisland_module';
 
-    \LotgdNavigation::setTextDomain('newbieisland-village-navigation');
+    \LotgdNavigation::setTextDomain('newbieisland_village_navigation');
 
     switch ($op)
     {
@@ -452,7 +452,7 @@ function newbieisland_run()
                 \LotgdNavigation::addNav('navs.raft', 'runmodule.php?module=newbieisland&op=raft');
             }
 
-            \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('newbieisland/run/leave.twig', $params));
+            \LotgdResponse::pageAddContent(LotgdTheme::render('@module/newbieisland/run/leave.twig', $params));
 
             \LotgdResponse::pageEnd();
         break;
@@ -479,7 +479,7 @@ function newbieisland_run()
                 'city'       => $city,
             ];
 
-            \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('newbieisland/run/raft.twig', $params));
+            \LotgdResponse::pageAddContent(LotgdTheme::render('@module/newbieisland/run/raft.twig', $params));
 
             \LotgdResponse::pageEnd();
         break;
@@ -497,7 +497,7 @@ function newbieisland_run()
 
             \LotgdNavigation::villageNav();
 
-            \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('newbieisland/run/resurrect.twig', $params));
+            \LotgdResponse::pageAddContent(LotgdTheme::render('@module/newbieisland/run/resurrect.twig', $params));
 
             \LotgdResponse::pageEnd();
         break;
