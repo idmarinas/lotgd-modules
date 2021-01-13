@@ -8,7 +8,7 @@ function cities_getmoduleinfo()
 {
     return [
         'name'                => 'Multiple Cities',
-        'version'             => '3.0.0',
+        'version'             => '3.1.0',
         'author'              => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'            => 'Village',
         'download'            => 'core_module',
@@ -36,7 +36,7 @@ function cities_getmoduleinfo()
             'servedcapital' => 'Is this drink served in the capital?,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.6.0|Need a version equal or greater than 4.6.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -123,7 +123,7 @@ function cities_dohook($hookname, $args)
                 'link'    => [
                     'section.faq.toc.cities',
                     [],
-                    'cities-module',
+                    'cities_module',
                 ],
             ]);
         break;
@@ -208,8 +208,8 @@ function cities_dohook($hookname, $args)
             {
                 $info = modulehook('cities-usetravel',
                     [
-                        'foresttext' => \LotgdTranslator::t('section.autochallenge.forest', ['location' => $session['user']['location']], 'cities-module'),
-                        'traveltext' => \LotgdTranslator::t('section.autochallenge.travel', ['location' => $session['user']['location']], 'cities-module'),
+                        'foresttext' => \LotgdTranslator::t('section.autochallenge.forest', ['location' => $session['user']['location']], 'cities_module'),
+                        'traveltext' => \LotgdTranslator::t('section.autochallenge.travel', ['location' => $session['user']['location']], 'cities_module'),
                     ]
                     );
 
@@ -245,21 +245,21 @@ function cities_dohook($hookname, $args)
         case 'village-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'cities-village';
-                $args['textDomainNavigation'] = 'cities-navigation';
+                $args['textDomain']           = 'cities_village';
+                $args['textDomainNavigation'] = 'cities_navigation';
             }
         break;
         case 'charstats':
             if ($session['user']['alive'])
             {
-                addcharstat(\LotgdTranslator::t('statistic.category.character.personal', [], 'app-default'));
-                addcharstat(\LotgdTranslator::t('statistic.stat.home', [], 'cities-module'), get_module_pref('homecity'));
+                addcharstat(\LotgdTranslator::t('statistic.category.character.personal', [], 'app_default'));
+                addcharstat(\LotgdTranslator::t('statistic.stat.home', [], 'cities_module'), get_module_pref('homecity'));
 
                 if ( ! is_module_active('worldmapen'))
                 {
                     $args = modulehook('count-travels', ['available' => 0, 'used' => 0]);
                     $free = \max(0, $args['available'] - $args['used']);
-                    addcharstat(\LotgdTranslator::t('statistic.stat.travels', [], 'cities-module'), $free);
+                    addcharstat(\LotgdTranslator::t('statistic.stat.travels', [], 'cities_module'), $free);
                 }
             }
         break;
@@ -299,7 +299,7 @@ function cities_dohook($hookname, $args)
             if ( ! is_module_active('worldmapen'))
             {
                 \LotgdNavigation::addHeader('headers.gate');
-                \LotgdNavigation::addNav('navs.travel', 'runmodule.php?module=cities&op=travel', ['textDomain' => 'cities-navigation']);
+                \LotgdNavigation::addNav('navs.travel', 'runmodule.php?module=cities&op=travel', ['textDomain' => 'cities_navigation']);
             }
 
             if (get_module_pref('paidcost') > 0)
@@ -313,7 +313,7 @@ function cities_dohook($hookname, $args)
             $hotkey = 'C';
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('cities-navigation');
+            \LotgdNavigation::setTextDomain('cities_navigation');
 
             \LotgdNavigation::addHeader('headers.travelpoints', ['hideEmpty' => false]);
             \LotgdNavigation::addHeader('navs.travels', ['hideEmpty' => false, 'params' => ['n' => $free]]);
@@ -343,7 +343,7 @@ function cities_dohook($hookname, $args)
         break;
         case 'stablelocs':
         case 'camplocs':
-            $args[$city] = ['locs', ['village' => $city], 'cities-module'];
+            $args[$city] = ['locs', ['village' => $city], 'cities_module'];
         break;
     }
 

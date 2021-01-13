@@ -16,7 +16,7 @@ if ('faq' != $op)
 }
 
 //-- Change text domain for navigation
-\LotgdNavigation::setTextDomain('cities-navigation');
+\LotgdNavigation::setTextDomain('cities_navigation');
 
 // I really don't like this being out here, but it has to be since
 // events can define their own op=.... and we might need to handle them
@@ -30,7 +30,7 @@ if ( ! isset($session['user']['specialinc']) || '' != $session['user']['speciali
     if ($in_event)
     {
         \LotgdNavigation::addNav('common.nav.continue', "runmodule.php?module=cities&op=travel&city={$ccity}&d={$danger}&continue=1", [
-            'textDomain' => 'navigation-app',
+            'textDomain' => 'navigation_app',
         ]);
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
@@ -46,9 +46,9 @@ if ('travel' == $op)
 
     if ('' == $city)
     {
-        \LotgdResponse::pageStart('title.travel', [], 'cities-module');
+        \LotgdResponse::pageStart('title.travel', [], 'cities_module');
 
-        \LotgdNavigation::addHeader('headers.forget', ['textDomain' => 'cities-navigation']);
+        \LotgdNavigation::addHeader('headers.forget', ['textDomain' => 'cities_navigation']);
         \LotgdNavigation::villageNav();
 
         modulehook('pre-travel');
@@ -57,7 +57,7 @@ if ('travel' == $op)
 
         if ($params['canTravel'])
         {
-            \LotgdNavigation::addHeader('headers.travel', ['textDomain' => 'cities-navigation']);
+            \LotgdNavigation::addHeader('headers.travel', ['textDomain' => 'cities_navigation']);
             modulehook('travel');
             // this line rewritten so as not to clash with the hitch module.
         }
@@ -94,7 +94,7 @@ if ('travel' == $op)
             else
             {
                 \LotgdFlashMessages::addInfoMessage([
-                    'message' => \LotgdTranslator::t('flash.message.not.forest.fights', [], 'cities-module'),
+                    'message' => \LotgdTranslator::t('flash.message.not.forest.fights', [], 'cities_module'),
                     'close'   => false,
                 ]);
 
@@ -111,7 +111,7 @@ if ('travel' == $op)
 
             if (0 != module_events('travel', get_module_setting('travelspecialchance'), "runmodule.php?module=cities&city={$ccity}&d={$dangecontinue}=1&"))
             {
-                \LotgdResponse::pageStart('section.title.event', [], 'cities-module');
+                \LotgdResponse::pageStart('section.title.event', [], 'cities_module');
 
                 if (\LotgdNavigation::checkNavs())
                 {
@@ -127,7 +127,7 @@ if ('travel' == $op)
                     \LotgdRequest::setQuery('op', '');
 
                     \LotgdNavigation::addNav('navs.continue', "runmodule.php?module=cities&op=travel&city={$ccity}&d={$danger}&continue=1", [
-                        'textDomain' => 'cities-navigation',
+                        'textDomain' => 'cities_navigation',
                     ]);
 
                     module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
@@ -138,7 +138,7 @@ if ('travel' == $op)
 
             $args = [
                 'soberval' => 0.9,
-                'sobermsg' => \LotgdTranslator::t('section.travel.sobermsg', [], 'cities-module'),
+                'sobermsg' => \LotgdTranslator::t('section.travel.sobermsg', [], 'cities_module'),
                 'schema'   => 'module-cities',
             ];
             modulehook('soberup', $args);
@@ -179,7 +179,7 @@ elseif ('fight' == $op || 'run' == $op)
     if ('run' == $op && \mt_rand(1, 5) < 3)
     {
         // They managed to get away.
-        \LotgdResponse::pageStart('title.escape', [], 'cities-module');
+        \LotgdResponse::pageStart('title.escape', [], 'cities_module');
 
         $coward = get_module_setting('coward');
 
@@ -187,8 +187,8 @@ elseif ('fight' == $op || 'run' == $op)
         {
             modulehook('cities-usetravel',
                 [
-                    'foresttext' => \LotgdTranslator::t('section.escape.coward.forest', [], 'cities-module'),
-                    'traveltext' => \LotgdTranslator::t('section.escape.coward.travel', [], 'cities-module'),
+                    'foresttext' => \LotgdTranslator::t('section.escape.coward.forest', [], 'cities_module'),
+                    'traveltext' => \LotgdTranslator::t('section.escape.coward.travel', [], 'cities_module'),
                 ]
             );
         }
@@ -208,7 +208,7 @@ elseif ('fight' == $op || 'run' == $op)
 }
 elseif ('' == $op)
 {
-    \LotgdResponse::pageStart('title.travel', [], 'cities-module');
+    \LotgdResponse::pageStart('title.travel', [], 'cities_module');
 
     \LotgdFlashMessages::addInfoMessage([
         'message' => \LotgdTranslator::t('section.travel.empty', [], 'citites-module'),
@@ -224,7 +224,7 @@ elseif ('' == $op)
 
 if ($battle)
 {
-    \LotgdResponse::pageStart('title.battle', [], 'cities-module');
+    \LotgdResponse::pageStart('title.battle', [], 'cities_module');
 
     $battleDefeatWhere = false;
 
@@ -232,7 +232,7 @@ if ($battle)
 
     if ($victory)
     {
-        \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
+        \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
         \LotgdNavigation::addNav('navs.journey', "runmodule.php?module=cities&op=travel&city={$ccity}&continue=1&d={$danger}");
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
@@ -243,7 +243,7 @@ if ($battle)
             'location' => $city,
             'player'   => $session['user']['name'],
             'creature' => $badbuy['creaturename'],
-        ], 'cities-module');
+        ], 'cities_module');
     }
     else
     {
