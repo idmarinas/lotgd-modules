@@ -8,7 +8,7 @@ function racetroll_getmoduleinfo()
 {
     return [
         'name'     => 'Race - Troll',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Races',
         'download' => 'core_module',
@@ -18,7 +18,7 @@ function racetroll_getmoduleinfo()
             'minedeathchance' => 'Chance for Trolls to die in the mine,range,0,100,1|90',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -36,21 +36,8 @@ function racetroll_install()
             ->set('u.race', ':new')
             ->where('u.race = :old')
 
-            ->setParameter('old', 'Troll')
-            ->setParameter('new', 'racetroll-module')
-
-            ->getQuery()
-            ->execute()
-        ;
-
-        //-- Section of commentary
-        $query = $charactersRepository->getQueryBuilder();
-        $query->update('LotgdCore:Commentary', 'u')
-            ->set('u.section', ':new')
-            ->where('u.section = :old')
-
-            ->setParameter('old', 'village-Troll')
-            ->setParameter('new', 'village-racetroll-module')
+            ->setParameter('old', 'racetroll-module')
+            ->setParameter('new', 'racetroll_module')
 
             ->getQuery()
             ->execute()
@@ -113,16 +100,16 @@ function racetroll_uninstall()
         //-- Updated race name
         $query = $charactersRepository->getQueryBuilder();
         $query->update('LotgdCore:Characters', 'u')
-            ->set('u.race', '')
+            ->set('u.race', RACE_UNKNOWN)
             ->where('u.race = :race')
 
-            ->setParameter('race', 'racetroll-module')
+            ->setParameter('race', 'racetroll_module')
 
             ->getQuery()
             ->execute()
         ;
 
-        if ('racetroll-module' == $session['user']['race'])
+        if ('racetroll_module' == $session['user']['race'])
         {
             $session['user']['race'] = RACE_UNKNOWN;
         }
@@ -145,7 +132,7 @@ function racetroll_dohook($hookname, $args)
     global $session, $resline;
 
     $city = get_module_setting('villagename');
-    $race = 'racetroll-module';
+    $race = 'racetroll_module';
 
     \LotgdNavigation::setTextDomain($race);
 
@@ -222,12 +209,12 @@ function racetroll_dohook($hookname, $args)
                 'resLine' => $resline,
             ];
 
-            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racetroll/dohook/chooserace.twig', $params));
+            \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/racetroll/dohook/chooserace.twig', $params));
         break;
         case 'setrace':
             if ($session['user']['race'] == $race)
             {
-                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racetroll/dohook/setrace.twig', []));
+                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/racetroll/dohook/setrace.twig', []));
 
                 if (is_module_active('cities'))
                 {
@@ -311,8 +298,8 @@ function racetroll_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'racetroll-village-village';
-                $args['textDomainNavigation'] = 'racetroll-village-navigation';
+                $args['textDomain']           = 'racetroll_village_village';
+                $args['textDomainNavigation'] = 'racetroll_village_navigation';
             }
         break;
         case 'page-village-tpl-params':
@@ -351,7 +338,7 @@ function racetroll_checkcity()
 {
     global $session;
 
-    $race = 'racetroll-module';
+    $race = 'racetroll_module';
     $city = get_module_setting('villagename');
 
     if ($session['user']['race'] == $race && is_module_active('cities') && get_module_pref('homecity', 'cities') != $city)
