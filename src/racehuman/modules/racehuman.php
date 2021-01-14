@@ -8,7 +8,7 @@ function racehuman_getmoduleinfo()
 {
     return [
         'name'     => 'Race - Human',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Races',
         'download' => 'core_module',
@@ -19,7 +19,7 @@ function racehuman_getmoduleinfo()
             'bonus'           => 'How many extra forest fights for humans?,range,1,3,1|2',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -37,21 +37,8 @@ function racehuman_install()
             ->set('u.race', ':new')
             ->where('u.race = :old')
 
-            ->setParameter('old', 'Human')
-            ->setParameter('new', 'racehuman-module')
-
-            ->getQuery()
-            ->execute()
-        ;
-
-        //-- Section of commentary
-        $query = $charactersRepository->getQueryBuilder();
-        $query->update('LotgdCore:Commentary', 'u')
-            ->set('u.section', ':new')
-            ->where('u.section = :old')
-
-            ->setParameter('old', 'village-Human')
-            ->setParameter('new', 'village-racehuman-module')
+            ->setParameter('old', 'racehuman-module')
+            ->setParameter('new', 'racehuman_module')
 
             ->getQuery()
             ->execute()
@@ -114,16 +101,16 @@ function racehuman_uninstall()
         //-- Updated race name
         $query = $charactersRepository->getQueryBuilder();
         $query->update('LotgdCore:Characters', 'u')
-            ->set('u.race', '')
+            ->set('u.race', RACE_UNKNOWN)
             ->where('u.race = :race')
 
-            ->setParameter('race', 'racehuman-module')
+            ->setParameter('race', 'racehuman_module')
 
             ->getQuery()
             ->execute()
         ;
 
-        if ('racehuman-module' == $session['user']['race'])
+        if ('racehuman_module' == $session['user']['race'])
         {
             $session['user']['race'] = RACE_UNKNOWN;
         }
@@ -145,7 +132,7 @@ function racehuman_dohook($hookname, $args)
     // Pass it as an arg?
     global $session,$resline;
     $city = get_module_setting('villagename');
-    $race = 'racehuman-module'; //-- Now race is a textDomain for translator
+    $race = 'racehuman_module'; //-- Now race is a textDomain for translator
 
     \LotgdNavigation::setTextDomain($race);
 
@@ -210,12 +197,12 @@ function racehuman_dohook($hookname, $args)
                 'resLine' => $resline,
             ];
 
-            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racehuman/dohook/chooserace.twig', $params));
+            \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/racehuman/dohook/chooserace.twig', $params));
         break;
         case 'setrace':
             if ($session['user']['race'] == $race)
             {
-                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('racehuman/dohook/setrace.twig', [
+                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/racehuman/dohook/setrace.twig', [
                     'bonus' => (int) get_module_setting('bonus'),
                 ]));
 
@@ -256,7 +243,7 @@ function racehuman_dohook($hookname, $args)
                     $session['user']['turns'] += $bonus;
                 }
 
-                $args['includeTemplatesPost']['module/racehuman/dohook/newday.twig'] = [
+                $args['includeTemplatesPost']['@module/racehuman/dohook/newday.twig'] = [
                     'bonus'         => $bonus,
                     'staminaSystem' => is_module_active('staminasystem'),
                 ];
@@ -314,8 +301,8 @@ function racehuman_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'racehuman-village-village';
-                $args['textDomainNavigation'] = 'racehuman-village-navigation';
+                $args['textDomain']           = 'racehuman_village_village';
+                $args['textDomainNavigation'] = 'racehuman_village_navigation';
 
                 \LotgdNavigation::unBlockLink('stables.php');
             }
@@ -348,8 +335,8 @@ function racehuman_dohook($hookname, $args)
         case 'stables-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'racehuman-stables-stables';
-                $args['textDomainNavigation'] = 'racehuman-stables-navigation';
+                $args['textDomain']           = 'racehuman_stables_stables';
+                $args['textDomainNavigation'] = 'racehuman_stables_navigation';
 
                 \LotgdNavigation::unBlockLink('stables.php');
             }
@@ -368,7 +355,7 @@ function racehuman_checkcity()
 {
     global $session;
 
-    $race = 'racehuman-module';
+    $race = 'racehuman_module';
     $city = get_module_setting('villagename');
 
     if ($session['user']['race'] == $race && is_module_active('cities') && get_module_pref('homecity', 'cities') != $city)
