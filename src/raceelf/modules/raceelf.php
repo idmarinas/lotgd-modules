@@ -36,7 +36,7 @@ function raceelf_install()
             ->set('u.race', ':new')
             ->where('u.race = :old')
 
-            ->setParameter('old', 'raceelf_module')
+            ->setParameter('old', 'raceelf-module')
             ->setParameter('new', 'raceelf_module')
 
             ->getQuery()
