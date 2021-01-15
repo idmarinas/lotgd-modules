@@ -16,7 +16,7 @@ function sethsong_getmoduleinfo()
 {
     return [
         'name'     => "Seth the Bard's Songs",
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Eric Stevens, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Inn',
         'download' => 'core_module',
@@ -40,7 +40,7 @@ function sethsong_getmoduleinfo()
             'been' => 'How many times have they listened Seth today,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -68,14 +68,17 @@ function sethsong_dohook($hookname, $args)
 
             if ('' == $op || 'strolldown' == $op || 'fleedragon' == $op)
             {
-                \LotgdNavigation::addHeader('category.do', ['textDomain' => 'navigation-inn']);
-                \LotgdNavigation::addNav('navigation.nav.listen', 'runmodule.php?module=sethsong', ['textDomain' => 'module-sethsong',
-                    'params'                                                                                     => ['bard' => $bard],
+                \LotgdNavigation::addHeader('category.do', ['textDomain' => 'navigation_inn']);
+                \LotgdNavigation::addNav('navigation.nav.listen', 'runmodule.php?module=sethsong', [
+                    'textDomain' => 'module_sethsong',
+                    'params'     => ['bard' => $bard],
                 ]);
             }
+
         break;
         case 'newday':
             set_module_pref('been', 0);
+
         break;
         default: break;
     }
@@ -88,7 +91,7 @@ function sethsong_run()
     $visits     = get_module_setting('visits');
     $been       = get_module_pref('been');
     $iname      = getsetting('innname', LOCATION_INN);
-    $textDomain = 'module-sethsong';
+    $textDomain = 'module_sethsong';
 
     \LotgdResponse::pageStart($iname, [], $textDomain);
 
@@ -115,7 +118,7 @@ function sethsong_run()
     \LotgdNavigation::addNav('navigation.nav.return', 'inn.php', ['textDomain' => $textDomain]);
     \LotgdNavigation::villageNav();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('sethsong/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/sethsong/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
@@ -161,6 +164,7 @@ function sethsong_sing(&$params)
                 $session['user']['turns'] += 2;
                 $session['user']['turns'] = \max(0, $session['user']['turns']);
             }
+
         break;
         case 1:
             $params['case'] = 1;
@@ -187,6 +191,7 @@ function sethsong_sing(&$params)
                 ++$session['user']['turns'];
                 $session['user']['turns'] = \max(0, $session['user']['turns']);
             }
+
         break;
         case 2:
             $params['case']       = 2;
@@ -201,6 +206,7 @@ function sethsong_sing(&$params)
                 ++$session['user']['turns'];
                 $session['user']['turns'] = \max(0, $session['user']['turns']);
             }
+
         break;
         case 3:
             $params['case'] = 3;
@@ -208,11 +214,13 @@ function sethsong_sing(&$params)
             $params['goldGain'] = e_rand($leastgold, $mostgold);
             $session['user']['gold'] += $params['goldGain'];
             debuglog("found {$params['goldGain']} gold near Seth");
+
         break;
         case 4:
             $params['case'] = 4;
 
             $session['user']['hitpoints'] = \round(\max($session['user']['maxhitpoints'], $session['user']['hitpoints']) * (($lgain / 100) + 1), 0);
+
         break;
         case 5:
             $params['case'] = 5;
@@ -226,6 +234,7 @@ function sethsong_sing(&$params)
                 --$session['user']['turns'];
                 $session['user']['turns'] = \max(0, $session['user']['turns']);
             }
+
         break;
         case 6:
             $params['case'] = 6;
@@ -247,6 +256,7 @@ function sethsong_sing(&$params)
             $session['user']['hitpoints'] -= \round($session['user']['maxhitpoints'] * ($bloss / 100), 0);
 
             $session['user']['hitpoints'] = \max(1, $session['user']['hitpoints']);
+
         break;
         case 8:
             $params['case'] = 8;
@@ -260,6 +270,7 @@ function sethsong_sing(&$params)
                 $session['user']['gold'] -= $gold;
                 debuglog("lost {$gold} gold to Seth");
             }
+
         break;
         case 9:
             $params['case']     = 9;
@@ -268,11 +279,13 @@ function sethsong_sing(&$params)
             $session['user']['gems'] += $gems;
 
             debuglog("got {$params['gemsGain']} gem\\(s\\) from Seth");
+
         break;
         case 10:
             $params['case'] = 10;
 
             $session['user']['hitpoints'] = \max($session['user']['hitpoints'], $session['user']['maxhitpoints']);
+
         break;
         case 11:
             $params['case'] = 11;
@@ -286,11 +299,13 @@ function sethsong_sing(&$params)
                 --$session['uset']['turns'];
                 $session['user']['turns'] = \max(0, $session['user']['turns']);
             }
+
         break;
         case 12:
             $params['case'] = 12;
 
             $session['user']['hitpoints'] = \max($session['user']['hitpoints'], $session['user']['maxhitpoints']);
+
         break;
         case 13:
             $params['case'] = 13;
@@ -304,6 +319,7 @@ function sethsong_sing(&$params)
                 ++$session['uset']['turns'];
                 $session['user']['turns'] = \max(0, $session['user']['turns']);
             }
+
         break;
         case 14:
             $params['case'] = 14;
@@ -313,15 +329,18 @@ function sethsong_sing(&$params)
             {
                 $session['user']['hitpoints'] = 1;
             }
+
         break;
         case 15:
             $params['case']  = 15;
             $params['armor'] = $session['user']['armor'];
+
         break;
         case 16:
             $params['case'] = 16;
             --$session['user']['charm'];
             $params['ugly'] = ($session['user']['charm'] < 0);
+
         break;
     }
 }

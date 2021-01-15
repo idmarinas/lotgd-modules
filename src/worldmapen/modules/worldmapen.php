@@ -13,13 +13,13 @@ function worldmapen_getmoduleinfo()
 {
     return [
         'name'      => 'World Map',
-        'version'   => '1.1.0',
+        'version'   => '1.2.0',
         'author'    => 'Originally: AES and Kevin Hatfield, Maintained by Roland Lichti, Stamina and Mount interaction added by Caveman Joe, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'  => 'Map',
         'download'  => 'https://github.com/idmarinas/lotgd-modules',
         'vertxtloc' => 'http://www.dragonprime.net/users/klenkes/',
         'requires'  => [
-            'lotgd'  => '>=4.10.0|Need a version equal or greater than 4.10.0 IDMarinas Edition',
+            'lotgd'  => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
             'cities' => '>=2.0.0|This module requires the Multiple Cities module to be installed',
         ],
         'settings' => [
@@ -117,13 +117,12 @@ function worldmapen_install()
     module_addhook('mundanenav');
     module_addhook('superuser');
     module_addhook('pvpcount');
-    module_addhook('footer-gypsy');
     module_addhook('count-travels');
     module_addhook('changesetting');
     module_addhook('boughtmount');
     module_addhook('newday');
     module_addhook('items-returnlinks');
-    module_addhook('footer-worldmapen');
+    module_addhook('everyfooter');
 
     if (is_module_installed('staminasystem'))
     {
@@ -250,11 +249,11 @@ function worldmapen_run()
     require_once 'modules/worldmapen/lib.php';
     require_once 'modules/worldmapen/run.php';
 
-    $textDomain = 'module-worldmapen';
+    $textDomain = 'module_worldmapen';
     $op         = (string) \LotgdRequest::getQuery('op');
 
     //-- Change text domain for navigation
-    \LotgdNavigation::setTextDomain('module-worldmapen');
+    \LotgdNavigation::setTextDomain('module_worldmapen');
 
     //-- Handle the admin editor first
     if ('edit' == $op)
@@ -279,7 +278,7 @@ function worldmapen_run()
 
         \LotgdNavigation::villageNav();
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('worldmapen/run/not-installed.twig', [
+        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/worldmapen/run/not-installed.twig', [
             'textDomain' => $textDomain,
         ]));
 
@@ -313,7 +312,7 @@ function worldmapen_dohook($hookname, $args)
     }
 
     //-- Change text domain for navigation
-    \LotgdNavigation::setTextDomain('module-worldmapen');
+    \LotgdNavigation::setTextDomain('module_worldmapen');
 
     if (\file_exists("modules/worldmapen/dohook/{$hookname}.php"))
     {

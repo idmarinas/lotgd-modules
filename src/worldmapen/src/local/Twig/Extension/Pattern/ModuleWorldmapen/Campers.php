@@ -41,6 +41,6 @@ trait Campers
         $params['linkBase']  = 'runmodule.php?module=worldmapen';
         $params['linkExtra'] = '&op=combat&pvp=1';
 
-        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/campers.twig', $params);
+        return $this->getTemplate()->render('@module/worldmapen/twig/campers.twig', $params);
     }
 }

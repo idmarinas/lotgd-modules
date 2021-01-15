@@ -4,12 +4,12 @@ function staminahof_getmoduleinfo()
 {
     return [
         'name'     => 'Stamina System - HOF',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Dan Hall, aka Caveman Joe, improbableisland.com, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Stamina',
         'download' => '',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -32,8 +32,8 @@ function staminahof_dohook($hookname, $args)
 
     if ('footer-hof' == $hookname)
     {
-        \LotgdNavigation::addHeader('category.ranking', ['textDomain' => 'navigation-hof']);
-        \LotgdNavigation::addNav('navigation.nav.ranking', 'runmodule.php?module=staminahof', ['textDomain' => 'module-staminahof']);
+        \LotgdNavigation::addHeader('category.ranking', ['textDomain' => 'navigation_hof']);
+        \LotgdNavigation::addNav('navigation.nav.ranking', 'runmodule.php?module=staminahof', ['textDomain' => 'module_staminahof']);
     }
 
     return $args;
@@ -46,7 +46,7 @@ function staminahof_run()
     require_once 'modules/staminasystem/lib/lib.php';
 
     $params = [
-        'textDomain' => 'module-staminahof',
+        'textDomain' => 'module_staminahof',
     ];
 
     \LotgdResponse::pageStart('title', [], $params['textDomain']);
@@ -124,7 +124,7 @@ function staminahof_run()
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('staminahof/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/staminahof/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }

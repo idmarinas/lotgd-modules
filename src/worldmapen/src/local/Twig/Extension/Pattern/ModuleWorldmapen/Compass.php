@@ -9,8 +9,8 @@ trait Compass
      */
     public function showCompass(array $params): string
     {
-        $params['textDomain'] = 'module-worldmapen';
+        $params['textDomain'] = 'module_worldmapen';
 
-        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/compass.twig', $params);
+        return $this->getTemplate()->render('@module/worldmapen/twig/compass.twig', $params);
     }
 }

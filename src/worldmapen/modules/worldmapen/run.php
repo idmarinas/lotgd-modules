@@ -14,7 +14,7 @@ function worldmapen_run_real()
 
     require_once 'lib/events.php';
 
-    $textDomain    = 'module-worldmapen';
+    $textDomain    = 'module_worldmapen';
     $displayEvents = false;
     $op            = (string) \LotgdRequest::getQuery('op');
 
@@ -46,7 +46,7 @@ function worldmapen_run_real()
 
         if ($in_event)
         {
-            \LotgdResponse::pageStart('title.special', [], 'partial-event');
+            \LotgdResponse::pageStart('title.special', [], 'partial_event');
             \LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue', ['textDomain' => $textDomain]);
             module_display_events('travel', 'runmodule.php?module=worldmapen&op=continue');
             \LotgdResponse::pageEnd();
@@ -497,7 +497,7 @@ function worldmapen_run_real()
     $params['battle']   = $battle;
     $params['location'] = $session['user']['location'];
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('worldmapen/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/worldmapen/run.twig', $params));
 
     if ($displayEvents)
     {

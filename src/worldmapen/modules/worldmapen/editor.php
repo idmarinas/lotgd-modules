@@ -15,7 +15,7 @@ function worldmapen_editor_real()
 {
     global $session;
 
-    $textDomain = 'module-worldmapen';
+    $textDomain = 'module_worldmapen';
 
     $params = [
         'textDomain' => $textDomain,
@@ -119,7 +119,7 @@ function worldmapen_editor_real()
     \LotgdNavigation::addNav('navigation.nav.editor.manual', 'runmodule.php?module=worldmapen&op=edit&subop=manual');
     \LotgdNavigation::addNav('navigation.nav.editor.terrain', 'runmodule.php?module=worldmapen&op=edit&subop=terrain');
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('worldmapen/editor.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/worldmapen/editor.twig', $params));
 
     \LotgdResponse::pageEnd();
 }

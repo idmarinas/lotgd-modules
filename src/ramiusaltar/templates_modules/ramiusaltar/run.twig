@@ -2,4 +2,4 @@
 
 {{ 'subtitle'|t(_context)|colorize }}
 
-{{ include_module('ramiusaltar/run/' ~ tpl|default('default') ~ '.twig') }}
+{{ include('@module/ramiusaltar/run/' ~ tpl|default('default') ~ '.twig') }}

@@ -22,12 +22,12 @@ function staminacorecombat_getmoduleinfo()
 {
     return [
         'name'     => 'Stamina System - Core Combat',
-        'version'  => '2.0.0',
+        'version'  => '2.11.0',
         'author'   => 'Dan Hall, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Stamina',
         'download' => '',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -116,7 +116,7 @@ function staminacorecombat_dohook($hookname, $args)
     global $session;
     static $damagestart = 0;
 
-    $textDomain = 'module-staminacorecombat';
+    $textDomain = 'module_staminacorecombat';
 
     $stam  = \LotgdRequest::getQuery('stam');
     $op    = \LotgdRequest::getQuery('op');
@@ -135,9 +135,9 @@ function staminacorecombat_dohook($hookname, $args)
             $thrillcost = stamina_getdisplaycost('Hunting - Big Trouble');
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('module-staminacorecombat');
+            \LotgdNavigation::setTextDomain('module_staminacorecombat');
 
-            \LotgdNavigation::addHeader('category.fight', ['textDomain' => 'navigation-forest']);
+            \LotgdNavigation::addHeader('category.fight', ['textDomain' => 'navigation_forest']);
             \LotgdNavigation::addNav('navigation.nav.trouble.normal', 'forest.php?op=search&stam=search', [
                 'params' => [
                     'cost' => $normalcost,
@@ -184,12 +184,12 @@ function staminacorecombat_dohook($hookname, $args)
             \LotgdNavigation::blockHideLink($script.'op=fight&auto=ten');
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('module-staminacorecombat');
+            \LotgdNavigation::setTextDomain('module_staminacorecombat');
 
             $fight = $session['user']['alive'] ? 'navigation.nav.fight.live' : 'navigation.nav.fight.death';
             $run   = $session['user']['alive'] ? 'navigation.nav.run.live' : 'navigation.nav.run.death';
 
-            \LotgdNavigation::addHeader('category.standard', ['textDomain' => 'navigation-fightnav']);
+            \LotgdNavigation::addHeader('category.standard', ['textDomain' => 'navigation_fightnav']);
             \LotgdNavigation::addNav($fight, "{$script}op=fight&stam=fight", [
                 'params' => ['cost' => $fightcost],
             ]);
@@ -197,7 +197,7 @@ function staminacorecombat_dohook($hookname, $args)
                 'params' => ['cost' => $runcost],
             ]);
 
-            \LotgdNavigation::addHeader('category.automatic', ['textDomain' => 'navigation-fightnav']);
+            \LotgdNavigation::addHeader('category.automatic', ['textDomain' => 'navigation_fightnav']);
             \LotgdNavigation::addNav('navigation.nav.auto.05', "{$script}op=fight&auto=five&stam=fight", [
                 'params' => ['cost' => $fightcost * 5],
             ]);
@@ -325,7 +325,7 @@ function staminacorecombat_applystaminabuff()
     //increments and applies the Exhaustion Penalty
     global $session;
 
-    $textDomain = 'module-staminacorecombat';
+    $textDomain = 'module_staminacorecombat';
     $amber      = get_stamina();
 
     if ($amber < 100)
@@ -358,7 +358,7 @@ function staminacorecombat_applystaminabuff()
                 'defmod'   => $buffvalue,
                 'rounds'   => -1,
                 'roundmsg' => \LotgdTranslator::t($buffmsg, [], $textDomain),
-                'schema'   => 'module-staminacorecombat',
+                'schema'   => 'module_staminacorecombat',
             ]);
         }
     }

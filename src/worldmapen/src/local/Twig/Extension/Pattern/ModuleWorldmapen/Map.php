@@ -33,7 +33,7 @@ trait Map
         }
 
         $params = [
-            'textDomain'   => 'module-worldmapen',
+            'textDomain'   => 'module_worldmapen',
             'mapLinks'     => $params,
             'colorUserLoc' => get_module_setting('colorUserLoc', 'worldmapen'),
             'sizeX'        => get_module_setting('worldmapsizeX', 'worldmapen'),
@@ -47,6 +47,6 @@ trait Map
             'terrainColor' => worldmapen_getColorDefinitions(),
         ];
 
-        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/map.twig', $params);
+        return $this->getTemplate()->render('@module/worldmapen/twig/map.twig', $params);
     }
 }

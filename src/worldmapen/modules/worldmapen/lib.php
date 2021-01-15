@@ -87,11 +87,11 @@ function worldmapen_determinenav()
 
     if ($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO)
     {
-        \LotgdNavigation::addNav('common.superuser.superuser', 'superuser.php', ['textDomain' => 'navigation-app']);
+        \LotgdNavigation::addNav('common.superuser.superuser', 'superuser.php', ['textDomain' => 'navigation_app']);
     }
 
     $params = [
-        'textDomain'     => 'module-worldmapen',
+        'textDomain'     => 'module_worldmapen',
         'campingAllowed' => 1,
     ];
 
@@ -321,7 +321,7 @@ function worldmapen_determinenav()
     if ($session['user']['superuser'] & SU_INFINITE_DAYS)
     {
         \LotgdNavigation::addHeader('navigation.category.superuser');
-        \LotgdNavigation::addNav('common.superuser.newday', 'newday.php', ['textDomain' => 'navigation-app']);
+        \LotgdNavigation::addNav('common.superuser.newday', 'newday.php', ['textDomain' => 'navigation_app']);
     }
 
     if (get_module_pref('worldmapbuy') || ($session['user']['superuser'] & SU_EDIT_USERS))
@@ -344,7 +344,7 @@ function worldmapen_determinenav()
     ];
     $hook = modulehook('worldnav', $hook);
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('worldmapen/lib/determinenav.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/worldmapen/lib/determinenav.twig', $params));
 
     return [
         'nLink'          => $nlink,
@@ -391,7 +391,7 @@ function worldmapen_terrain_takestamina($x, $y, $z = 1)
 
             if ($plains['lvlinfo']['levelledup'])
             {
-                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.plains', ['level' => $plains['lvlinfo']['newlvl']], 'module-worldmapen'));
+                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.plains', ['level' => $plains['lvlinfo']['newlvl']], 'module_worldmapen'));
             }
         break;
         case 'river':
@@ -399,7 +399,7 @@ function worldmapen_terrain_takestamina($x, $y, $z = 1)
 
             if ($river['lvlinfo']['levelledup'])
             {
-                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.river', ['level' => $river['lvlinfo']['newlvl']], 'module-worldmapen'));
+                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.river', ['level' => $river['lvlinfo']['newlvl']], 'module_worldmapen'));
             }
         break;
         case 'ocean':
@@ -407,7 +407,7 @@ function worldmapen_terrain_takestamina($x, $y, $z = 1)
 
             if ($ocean['lvlinfo']['levelledup'])
             {
-                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.ocean', ['level' => $ocean['lvlinfo']['newlvl']], 'module-worldmapen'));
+                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.ocean', ['level' => $ocean['lvlinfo']['newlvl']], 'module_worldmapen'));
             }
         break;
         case 'earth':
@@ -415,7 +415,7 @@ function worldmapen_terrain_takestamina($x, $y, $z = 1)
 
             if ($earth['lvlinfo']['levelledup'])
             {
-                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.earth', ['level' => $earth['lvlinfo']['newlvl']], 'module-worldmapen'));
+                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.earth', ['level' => $earth['lvlinfo']['newlvl']], 'module_worldmapen'));
             }
         break;
         case 'air':
@@ -423,7 +423,7 @@ function worldmapen_terrain_takestamina($x, $y, $z = 1)
 
             if ($air['lvlinfo']['levelledup'])
             {
-                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.air', ['level' => $air['lvlinfo']['newlvl']], 'module-worldmapen'));
+                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.air', ['level' => $air['lvlinfo']['newlvl']], 'module_worldmapen'));
             }
         break;
         case 'desert':
@@ -431,7 +431,7 @@ function worldmapen_terrain_takestamina($x, $y, $z = 1)
 
             if ($desert['lvlinfo']['levelledup'])
             {
-                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.desert', ['level' => $desert['lvlinfo']['newlvl']], 'module-worldmapen'));
+                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.desert', ['level' => $desert['lvlinfo']['newlvl']], 'module_worldmapen'));
             }
             break;
         case 'swamp':
@@ -439,7 +439,7 @@ function worldmapen_terrain_takestamina($x, $y, $z = 1)
 
             if ($swamp['lvlinfo']['levelledup'])
             {
-                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.swamp', ['level' => $swamp['lvlinfo']['newlvl']], 'module-worldmapen'));
+                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.swamp', ['level' => $swamp['lvlinfo']['newlvl']], 'module_worldmapen'));
             }
             break;
         case 'mountains':
@@ -447,7 +447,7 @@ function worldmapen_terrain_takestamina($x, $y, $z = 1)
 
             if ($mount['lvlinfo']['levelledup'])
             {
-                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.mountains', ['level' => $mountains['lvlinfo']['newlvl']], 'module-worldmapen'));
+                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.mountains', ['level' => $mountains['lvlinfo']['newlvl']], 'module_worldmapen'));
             }
             break;
         case 'snow':
@@ -455,7 +455,7 @@ function worldmapen_terrain_takestamina($x, $y, $z = 1)
 
             if ($snow['lvlinfo']['levelledup'])
             {
-                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.snow', ['level' => $snow['lvlinfo']['newlvl']], 'module-worldmapen'));
+                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.snow', ['level' => $snow['lvlinfo']['newlvl']], 'module_worldmapen'));
             }
         break;
         case 'forest':
@@ -464,7 +464,7 @@ function worldmapen_terrain_takestamina($x, $y, $z = 1)
 
             if ($forest['lvlinfo']['levelledup'])
             {
-                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.forest', ['level' => $forest['lvlinfo']['newlvl']], 'module-worldmapen'));
+                \LotgdResponse::pageAddContent(\LotgdTranslator::t('action.levelled.terrain.forest', ['level' => $forest['lvlinfo']['newlvl']], 'module_worldmapen'));
             }
         break;
     }
@@ -522,7 +522,7 @@ function worldmapen_encounter($x, $y, $z = 1)
 
         if ($amber < 100)
         {
-            \LotgdFlashMessages::addWarningMessage('flash.message.encounter.tired', [], 'module-worldmapen');
+            \LotgdFlashMessages::addWarningMessage('flash.message.encounter.tired', [], 'module_worldmapen');
         }
         $add = 100 - $amber;
         $terrain['encounter'] += $add;

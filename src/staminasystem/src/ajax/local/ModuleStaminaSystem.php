@@ -10,7 +10,7 @@ require_once 'modules/staminasystem/lib/lib.php';
 
 class ModuleStaminaSystem extends AjaxAbstract
 {
-    const TEXT_DOMAIN = 'module-staminasystem';
+    const TEXT_DOMAIN = 'module_staminasystem';
 
     public function show(): Response
     {
@@ -85,7 +85,7 @@ class ModuleStaminaSystem extends AjaxAbstract
             // The dialog buttons
             $buttons = [
                 [
-                    'title' => \LotgdTranslator::t('modal.buttons.cancel', [], 'app-default'),
+                    'title' => \LotgdTranslator::t('modal.buttons.cancel', [], 'app_default'),
                     'class' => 'ui red deny button',
                 ],
             ];
@@ -105,7 +105,7 @@ class ModuleStaminaSystem extends AjaxAbstract
         {
             Debugger::log($th);
 
-            $response->dialog->error(\LotgdTranslator::t('jaxon.fail.request', [], 'app-default'));
+            $response->dialog->error(\LotgdTranslator::t('jaxon.fail.request', [], 'app_default'));
         }
 
         return $response;

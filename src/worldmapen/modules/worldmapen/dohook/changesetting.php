@@ -16,6 +16,18 @@ if ('villagename' == $args['setting'])
     set_module_setting('worldmapen'.$old.'Y', '');
     set_module_setting('worldmapen'.$old.'Z', '');
     // Handle any players who last city was the old name.
-    $sql = 'UPDATE '.DB::prefix('module_userprefs')." SET value='".\addslashes($new)."' WHERE value='".\addslashes($old)."' AND modulename='worldmapen' AND setting = 'lastCity'";
-    DB::query($sql);
+    $userPrefsRepository = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
+    $query               = $userPrefsRepository->getQueryBuilder();
+    $query->update('LotgdCore:ModuleUserprefs', 'u')
+        ->set('u.value', ':new')
+        ->where('u.modulename = :module AND settings = :setting AND u.value = :old')
+
+        ->setParameter('old', $old)
+        ->setParameter('new', $new)
+        ->setParameter('module', 'worldmapen')
+        ->setParameter('setting', 'lastCity')
+
+        ->getQuery()
+        ->execute()
+    ;
 }

@@ -20,7 +20,7 @@ trait Legend
         list($worldmapX, $worldmapY, $worldmapZ) = \explode(',', $loc);
 
         $params = [
-            'textDomain'     => 'module-worldmapen',
+            'textDomain'     => 'module_worldmapen',
             'terrain'        => worldmapen_getTerrain($worldmapX, $worldmapY, $worldmapZ),
             'showLocation'   => $showloc,
             'enableTerrains' => get_module_setting('enableTerrains', 'worldmapen'),
@@ -28,6 +28,6 @@ trait Legend
             'terrainDef'     => worldmapen_loadTerrainDefs(),
         ];
 
-        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/legend.twig', $params);
+        return $this->getTemplate()->render('@module/worldmapen/twig/legend.twig', $params);
     }
 }

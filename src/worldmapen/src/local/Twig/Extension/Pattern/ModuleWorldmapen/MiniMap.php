@@ -29,7 +29,7 @@ trait MiniMap
         }
 
         $params = [
-            'textDomain'   => 'module-worldmapen',
+            'textDomain'   => 'module_worldmapen',
             'mapLinks'     => $params,
             'colorUserLoc' => get_module_setting('colorUserLoc', 'worldmapen'),
             'sizeX'        => get_module_setting('worldmapsizeX', 'worldmapen'),
@@ -46,6 +46,6 @@ trait MiniMap
 
         $params['rowSpanY'] = $params['sizeY'] + 1;
 
-        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/mini-map.twig', $params);
+        return $this->getTemplate()->render('@module/worldmapen/twig/mini-map.twig', $params);
     }
 }

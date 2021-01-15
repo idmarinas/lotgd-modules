@@ -25,7 +25,7 @@ trait MapEditTerrain
         }
 
         $params = [
-            'textDomain'   => 'module-worldmapen',
+            'textDomain'   => 'module_worldmapen',
             'colorUserLoc' => get_module_setting('colorUserLoc', 'worldmapen'),
             'sizeX'        => get_module_setting('worldmapsizeX', 'worldmapen'),
             'sizeY'        => get_module_setting('worldmapsizeY', 'worldmapen'),
@@ -35,6 +35,6 @@ trait MapEditTerrain
             'terrainDefs'  => worldmapen_loadTerrainDefs(),
         ];
 
-        return $this->getTemplate()->renderModuleTemplate('worldmapen/twig/map-edit.twig', $params);
+        return $this->getTemplate()->render('@module/worldmapen/twig/map-edit.twig', $params);
     }
 }
