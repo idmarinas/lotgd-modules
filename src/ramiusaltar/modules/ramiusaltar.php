@@ -8,7 +8,7 @@ function ramiusaltar_getmoduleinfo()
 {
     return [
         'name'     => 'Alter to Ramius',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => '`7ma`0`&tt`0`3@`0`7matt`0`&mullen`0`3.`0`7net`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'http://www.mattmullen.net',
@@ -30,7 +30,7 @@ function ramiusaltar_getmoduleinfo()
             'totalmaxhploss'  => 'How many total max hitpoints has the user lost,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -67,7 +67,7 @@ function ramiusaltar_dohook($hookname, $args)
             if ($session['user']['location'] == get_module_setting('ramiusaltarloc'))
             {
                 \LotgdNavigation::addHeader('headers.fight');
-                \LotgdNavigation::addNav('navigation.nav.altar', 'runmodule.php?module=ramiusaltar', ['textDomain' => 'module-ramiusaltar']);
+                \LotgdNavigation::addNav('navigation.nav.altar', 'runmodule.php?module=ramiusaltar', ['textDomain' => 'module_ramiusaltar']);
             }
         break;
 
@@ -76,8 +76,8 @@ function ramiusaltar_dohook($hookname, $args)
         break;
 
         case 'footer-hof':
-            \LotgdNavigation::addHeader('category.ranking', ['textDomain' => 'navigation-hof']);
-            \LotgdNavigation::addNav('navigation.nav.rank', 'runmodule.php?module=ramiusaltar&op=HOF', ['textDomain' => 'module-ramiusaltar']);
+            \LotgdNavigation::addHeader('category.ranking', ['textDomain' => 'navigation_hof']);
+            \LotgdNavigation::addNav('navigation.nav.rank', 'runmodule.php?module=ramiusaltar&op=HOF', ['textDomain' => 'module_ramiusaltar']);
         break;
         default: break;
     }
@@ -92,7 +92,7 @@ function ramiusaltar_run()
     $op   = \LotgdRequest::getQuery('op');
     $type = \LotgdRequest::getQuery('type');
 
-    $textDomain = 'module-ramiusaltar';
+    $textDomain = 'module_ramiusaltar';
     $useStamina = is_module_active('staminasystem');
 
     \LotgdResponse::pageStart('title', [], $textDomain);
@@ -104,7 +104,7 @@ function ramiusaltar_run()
 
     \LotgdNavigation::setTextDomain($textDomain);
 
-    \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation-app']);
+    \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
 
     if ('' == $op)
     {
@@ -345,12 +345,12 @@ function ramiusaltar_run()
     $params['weapon'] = $session['user']['weapon'];
     $params['name']   = $session['user']['name'];
 
-    \LotgdNavigation::addHeader('common.category.return', ['textDomain' => 'navigation-app']);
+    \LotgdNavigation::addHeader('common.category.return', ['textDomain' => 'navigation_app']);
     \LotgdNavigation::villageNav();
 
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('ramiusaltar/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/ramiusaltar/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
