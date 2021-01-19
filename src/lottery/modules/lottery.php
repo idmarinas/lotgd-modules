@@ -8,7 +8,7 @@ function lottery_getmoduleinfo()
 {
     return [
         'name'     => "Cedrik's Lottery",
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Inn',
         'download' => 'core_module',
@@ -30,7 +30,7 @@ function lottery_getmoduleinfo()
             'roundnum' => 'Round the numbers were chosen in,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -61,7 +61,7 @@ function lottery_dohook($hookname, $args)
             $pround   = get_module_pref('roundnum');
 
             $params = [
-                'textDomain' => 'module-lottery',
+                'textDomain' => 'module_lottery',
                 'numbers'    => $numbers,
                 'n0'         => $numbers[0],
                 'n1'         => $numbers[1],
@@ -88,7 +88,7 @@ function lottery_dohook($hookname, $args)
                                 'playerName' => $session['user']['name'],
                                 'prize'      => $prize,
                             ],
-                            'module-lottery'
+                            'module_lottery'
                         );
                     }
                 }
@@ -96,7 +96,7 @@ function lottery_dohook($hookname, $args)
                 set_module_pref('pick', '');
             }
 
-            $args['includeTemplatesPost']['module/lottery/dohook/newday.twig'] = $params;
+            $args['includeTemplatesPost']['@module/lottery/dohook/newday.twig'] = $params;
         break;
         case 'newday-runonce':
             $numbers[0] = \mt_rand(0, 9);
@@ -133,7 +133,7 @@ function lottery_dohook($hookname, $args)
         case 'inn':
             \LotgdNavigation::addHeader('category.do');
             \LotgdNavigation::addNav('navigation.nav.lottery', 'runmodule.php?module=lottery&op=store', [
-                'textDomain' => 'module-lottery',
+                'textDomain' => 'module_lottery',
                 'params'     => ['barman' => getsetting('barkeep', '`tCedrik`0')],
             ]);
         break;
@@ -156,7 +156,7 @@ function lottery_run()
     $bleed    = (int) get_module_setting('percentbleed');
     $roundnum = (int) get_module_setting('roundnum');
 
-    $textDomain = 'module-lottery';
+    $textDomain = 'module_lottery';
 
     if ('buy' == $op)
     {
@@ -216,7 +216,7 @@ function lottery_run()
 
     \LotgdNavigation::villageNav();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('lottery/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/lottery/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
