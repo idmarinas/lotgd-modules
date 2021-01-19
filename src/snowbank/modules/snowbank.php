@@ -115,7 +115,7 @@ function snowbank_run()
             'textDomain' => $textDomain,
         ];
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('snowbank/run/donate', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/snowbank/run/donate.twig', $params));
     }
     elseif ('give' == $op && 1 == $giventoday)
     {
@@ -123,7 +123,7 @@ function snowbank_run()
             'textDomain' => $textDomain,
         ];
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('snowbank/run/donated', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/snowbank/run/donated.twig', $params));
     }
 
     \LotgdResponse::pageEnd();

@@ -93,7 +93,7 @@ function specialtymysticpower_dohook($hookname, $args)
                     'resLine'   => $resline,
                 ];
 
-                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('specialtymysticpower/dohook/choose-specialty.twig', $params));
+                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/specialtymysticpower/dohook/choose-specialty.twig', $params));
             }
         break;
         case 'set-specialty':
@@ -101,7 +101,7 @@ function specialtymysticpower_dohook($hookname, $args)
             {
                 \LotgdResponse::pageStart($name);
 
-                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('specialtymysticpower/dohook/set-specialty.twig', []));
+                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/specialtymysticpower/dohook/set-specialty.twig', []));
             }
         break;
         case 'specialtycolor':
@@ -125,7 +125,7 @@ function specialtymysticpower_dohook($hookname, $args)
                 $lotgdBattleContent['battleend'][] = [
                     'battle.increment.specialty.level',
                     ['color' => $c, 'name' => $name, 'level' => $new],
-                    'module-specialtydarkarts',
+                    'module_specialtymysticpower',
                 ];
                 $x = $new % 3;
 
@@ -134,7 +134,7 @@ function specialtymysticpower_dohook($hookname, $args)
                     $lotgdBattleContent['battleend'][] = [
                         'battle.increment.specialty.gain',
                         [],
-                        'module-specialtydarkarts',
+                        'module_specialtymysticpower',
                     ];
                     set_module_pref('uses', get_module_pref('uses') + 1);
                 }
@@ -143,7 +143,7 @@ function specialtymysticpower_dohook($hookname, $args)
                     $lotgdBattleContent['battleend'][] = [
                         'battle.increment.specialty.need',
                         ['level' => \floor(3 - $x)],
-                        'module-specialtydarkarts',
+                        'module_specialtymysticpower',
                     ];
                 }
             }
@@ -153,7 +153,7 @@ function specialtymysticpower_dohook($hookname, $args)
 
             if ($session['user']['specialty'] == $spec)
             {
-                $args['includeTemplatesPost']['module/specialtydarkarts/dohook/newday.twig'] = [
+                $args['includeTemplatesPost']['@module/specialtymysticpower/dohook/newday.twig'] = [
                     'colorCode' => $ccode,
                     'spec'      => $spec,
                     'bonus'     => $bonus,
