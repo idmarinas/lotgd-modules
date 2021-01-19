@@ -13,7 +13,7 @@ function weather_getmoduleinfo()
     return [
         'name'     => 'Weather',
         'author'   => '`4Talisman`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '3.0.0',
+        'version'  => '3.1.0',
         'category' => 'General',
         'download' => 'core_module',
         'settings' => [
@@ -36,7 +36,7 @@ function weather_getmoduleinfo()
             'gotfight' => 'Received extra torment today,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -77,7 +77,7 @@ function weather_dohook($hookname, $args)
 {
     global $session;
 
-    $textDomain = 'module-weather';
+    $textDomain = 'module_weather';
 
     switch ($hookname)
     {
@@ -101,7 +101,7 @@ function weather_dohook($hookname, $args)
                 ++$session['user']['gravefights'];
             }
 
-            $args['includeTemplatesPost']['module/weather/dohook/newday.twig'] = [
+            $args['includeTemplatesPost']['@module/weather/dohook/newday.twig'] = [
                 'textDomain'    => $textDomain,
                 'weatherNormal' => get_module_setting('weather'),
                 'weatherMicro'  => get_module_setting('microwx'),
@@ -127,7 +127,7 @@ function weather_dohook($hookname, $args)
                 $params['weather'] = get_module_setting('microwx');
             }
 
-            $args['includeTemplatesPost']['module/weather/weather.twig'] = $params;
+            $args['includeTemplatesPost']['@module/weather/weather.twig'] = $params;
         break;
         case 'village-desc':
             $enablemicro = get_module_setting('enablemicro', 'weather');
@@ -145,17 +145,17 @@ function weather_dohook($hookname, $args)
                 $params['weather'] = get_module_setting('microwx', 'weather');
             }
 
-            $args[] = \LotgdTheme::renderModuleTemplate('weather/weather.twig', $params);
+            $args[] = \LotgdTheme::render('@module/weather/weather.twig', $params);
         break;
         case 'page-home-tpl-params':
-            $args['includeTemplatesIndex']['module/weather/weather.twig'] = [
+            $args['includeTemplatesIndex']['@module/weather/weather.twig'] = [
                 'textDomain' => $textDomain,
                 'weather'    => get_module_setting('weather', 'weather'),
                 'type'       => 'normal',
             ];
         break;
         case 'page-shades-tpl-params':
-            $args['includeTemplatesPost']['module/weather/weather.twig'] = [
+            $args['includeTemplatesPost']['@module/weather/weather.twig'] = [
                 'textDomain' => $textDomain,
                 'weather'    => get_module_setting('shadeswx', 'weather'),
                 'type'       => 'shades',
