@@ -4,7 +4,7 @@ function alignmentbuffs_getmoduleinfo()
 {
     return [
         'name'     => 'Alignment Buffs',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'SexyCook, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'General',
         'download' => '',
@@ -42,7 +42,7 @@ function alignmentbuffs_getmoduleinfo()
         ],
         'requires' => [
             'alignment' => '>=2.0.0|Alignment Core, Chris Vorndran',
-            'lotgd'     => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd'     => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -76,7 +76,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['rounds'] = get_module_setting('buffturns1');
                 $buff['atkmod'] = get_module_setting('buffatt1');
                 $buff['defmod'] = get_module_setting('buffdef1');
-                $buff['schema'] = 'module-alignmentbuffs';
+                $buff['schema'] = 'module_alignmentbuffs';
                 apply_buff('alignment', $buff);
             }
             elseif ($alignment <= get_module_setting('activate2'))
@@ -87,7 +87,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['rounds'] = get_module_setting('buffturns2');
                 $buff['atkmod'] = get_module_setting('buffatt2');
                 $buff['defmod'] = get_module_setting('buffdef2');
-                $buff['schema'] = 'module-alignmentbuffs';
+                $buff['schema'] = 'module_alignmentbuffs';
                 apply_buff('alignment', $buff);
             }
             elseif ($alignment <= get_module_setting('activate3'))
@@ -98,7 +98,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['rounds'] = get_module_setting('buffturns3');
                 $buff['atkmod'] = get_module_setting('buffatt3');
                 $buff['defmod'] = get_module_setting('buffdef3');
-                $buff['schema'] = 'module-alignmentbuffs';
+                $buff['schema'] = 'module_alignmentbuffs';
                 apply_buff('alignment', $buff);
             }
             elseif ($alignment >= get_module_setting('activate6'))
@@ -109,7 +109,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['rounds'] = get_module_setting('buffturns6');
                 $buff['atkmod'] = get_module_setting('buffatt6');
                 $buff['defmod'] = get_module_setting('buffdef6');
-                $buff['schema'] = 'module-alignmentbuffs';
+                $buff['schema'] = 'module_alignmentbuffs';
                 apply_buff('alignment', $buff);
             }
             elseif ($alignment >= get_module_setting('activate5'))
@@ -120,7 +120,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['rounds'] = get_module_setting('buffturns5');
                 $buff['atkmod'] = get_module_setting('buffatt5');
                 $buff['defmod'] = get_module_setting('buffdef5');
-                $buff['schema'] = 'module-alignmentbuffs';
+                $buff['schema'] = 'module_alignmentbuffs';
                 apply_buff('alignment', $buff);
             }
             elseif ($alignment >= get_module_setting('activate4'))
@@ -131,14 +131,14 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['rounds'] = get_module_setting('buffturns4');
                 $buff['atkmod'] = get_module_setting('buffatt4');
                 $buff['defmod'] = get_module_setting('buffdef4');
-                $buff['schema'] = 'module-alignmentbuffs';
+                $buff['schema'] = 'module_alignmentbuffs';
                 apply_buff('alignment', $buff);
             }
 
             if ($activate ?? false)
             {
-                $args['includeTemplatesPost']['module/alignmentbuffs/dohook/newday.twig'] = [
-                    'textDomain' => 'module-alignmentbuffs',
+                $args['includeTemplatesPost']['@module/alignmentbuffs_newday.twig'] = [
+                    'textDomain' => 'module_alignmentbuffs',
                     'activate'   => $activate,
                 ];
             }
