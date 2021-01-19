@@ -9,10 +9,10 @@ function createfiltertitle_getmoduleinfo()
         'name'     => 'Title Filter at Creation',
         'category' => 'Administrative',
         'author'   => 'dying, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '1.0.0',
+        'version'  => '1.1.0',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -31,7 +31,7 @@ function createfiltertitle_uninstall()
 
 function createfiltertitle_dohook($hookname, $args)
 {
-    $textDomain = 'module-createfiltertitle';
+    $textDomain = 'module_createfiltertitle';
 
     switch ($hookname)
     {
