@@ -12,7 +12,7 @@ function ghosthut_getmoduleinfo()
 {
     return [
         'name'     => "Ghost Town Villager's Hut",
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Shannon Brown, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'core_module',
@@ -25,7 +25,7 @@ function ghosthut_getmoduleinfo()
             'eattoday' => 'How much has the user eaten today?,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -64,7 +64,7 @@ function ghosthut_dohook($hookname, $args)
             if ($session['user']['location'] == get_module_setting('ghosthutloc'))
             {
                 \LotgdNavigation::addHeader('headers.tavern');
-                \LotgdNavigation::addNav('navigation.nav.hut', 'runmodule.php?module=ghosthut', ['textDomain' => 'module-ghosthut']);
+                \LotgdNavigation::addNav('navigation.nav.hut', 'runmodule.php?module=ghosthut', ['textDomain' => 'module_ghosthut']);
             }
         break;
         default: break;
@@ -82,7 +82,7 @@ function ghosthut_run()
 
     $turn = \mt_rand(1, 8);
 
-    $textDomain = 'module-ghosthut';
+    $textDomain = 'module_ghosthut';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
@@ -168,7 +168,7 @@ function ghosthut_run()
         $session['user']['turns'] += 2;
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('ghosthut/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/ghosthut/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
