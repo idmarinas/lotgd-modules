@@ -8,7 +8,7 @@ function raceelf_getmoduleinfo()
 {
     return [
         'name'     => 'Race - Elf',
-        'version'  => '2.0.0',
+        'version'  => '2.11.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Races',
         'download' => 'core_module',
@@ -18,7 +18,7 @@ function raceelf_getmoduleinfo()
             'minedeathchance' => 'Chance for Elves to die in the mine,range,0,100,1|90',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -212,12 +212,12 @@ function raceelf_dohook($hookname, $args)
                 'resLine' => $resline,
             ];
 
-            \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('raceelf/dohook/chooserace.twig', $params));
+            \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/raceelf/dohook/chooserace.twig', $params));
         break;
         case 'setrace':
             if ($session['user']['race'] == $race)
             {
-                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('raceelf/dohook/setrace.twig', []));
+                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/raceelf/dohook/setrace.twig', []));
 
                 if (is_module_active('cities'))
                 {
