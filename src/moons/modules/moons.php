@@ -5,12 +5,26 @@ function moons_getmoduleinfo()
     return [
         'name'     => 'Moons',
         'author'   => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '3.0.0',
+        'version'  => '3.1.0',
         'category' => 'General',
         'download' => 'core_module',
-        'settings' => 'Lotgd\Local\Form\Module\MoonsSettings',
+        //-- Restore to old format
+        'settings' => [
+            'First Moon,title',
+                'moon1' => 'Is the first moon active?,bool|1',
+                'moon1cycle' => 'Days in the first moons lunar cycle,range,10,60,1|23',
+                'moon1place' => 'Place in cycle?,range,1,60,1|',
+            'Second Moon,title',
+                'moon2' => 'Is the second moon active?,bool|0',
+                'moon2cycle' => 'Days in the second moons lunar cycle,range,10,60,1|43',
+                'moon2place' => 'Place in cycle?,range,1,60,1|',
+            'Third Moon,title',
+                'moon3' => 'Is the third moon active?,bool|0',
+                'moon3cycle' => 'Days in the third moons lunar cycle,range,10,60,1|37',
+                'moon3place' => 'Place in cycle?,range,1,60,1|',
+        ],
         'requires' => [
-            'lotgd' => '>=4.3.0|Need a version equal or greater than 4.3.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -105,7 +119,7 @@ function moons_dohook($hookname, $args)
         return $args;
     }
 
-    $textDomain = 'module-moons';
+    $textDomain = 'module_moons';
 
     switch ($hookname)
     {
@@ -135,7 +149,7 @@ function moons_dohook($hookname, $args)
             $moon3Place = get_module_setting('moon3place');
             $moon3Cycle = get_module_setting('moon3cycle');
 
-            $args['includeTemplatesPost']['module/moons/dohook/newday.twig'] = [
+            $args['includeTemplatesPost']['@module/moons_newday.twig'] = [
                 'textDomain' => $textDomain,
                 'moon1'      => $moon1,
                 'moon1Place' => $moon1Place,
