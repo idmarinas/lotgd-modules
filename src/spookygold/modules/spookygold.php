@@ -23,7 +23,7 @@ function spookygold_getmoduleinfo()
 {
     return [
         'name'     => 'Spooky Gold',
-        'version'  => '1.0.0',
+        'version'  => '1.1.0',
         'author'   => 'Dan Norton, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village Specials',
         'download' => 'core_module',
@@ -40,7 +40,7 @@ function spookygold_getmoduleinfo()
             'visits' => 'How many visits to the alley has the player made today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -87,7 +87,7 @@ function spookygold_runevent($type)
 
     $op = \LotgdRequest::getQuery('op');
 
-    $textDomain = 'module-spookygold';
+    $textDomain = 'module_spookygold';
 
     $params = [
         'textDomain' => $textDomain,
@@ -207,7 +207,7 @@ function spookygold_runevent($type)
 
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('spookygold/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/spookygold/run.twig', $params));
 }
 
 function spookygold_fight()
@@ -216,14 +216,14 @@ function spookygold_fight()
 
     $op = \LotgdRequest::getQuery('op');
 
-    $textDomain = 'module-spookygold';
+    $textDomain = 'module_spookygold';
 
     if ('pickupgem' == $op)
     {
         $badguy = [
-            'creaturename'    => \LotgdTranslator::t('badguy.name', [], 'module-spookygold'),
+            'creaturename'    => \LotgdTranslator::t('badguy.name', [], 'module_spookygold'),
             'creaturelevel'   => $session['user']['level'] + 2,
-            'creatureweapon'  => \LotgdTranslator::t('badguy.weapon', [], 'module-spookygold'),
+            'creatureweapon'  => \LotgdTranslator::t('badguy.weapon', [], 'module_spookygold'),
             'creatureattack'  => $session['user']['attack'],
             'creaturedefense' => $session['user']['defense'],
             'creaturehealth'  => \round($session['user']['maxhitpoints'], 0),
@@ -238,7 +238,7 @@ function spookygold_fight()
 
     if ('run' == $op)
     {
-        \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('flash.message.battle.run', [], 'module-spookygold'));
+        \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('flash.message.battle.run', [], 'module_spookygold'));
         $op = 'fight';
         \LotgdRequest::setQuery('op', 'fight');
     }
