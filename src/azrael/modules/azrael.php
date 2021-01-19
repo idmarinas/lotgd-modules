@@ -12,7 +12,7 @@ function azrael_getmoduleinfo()
 {
     return [
         'name'     => 'Azrael the Spook',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Shannon Brown, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village Specials',
         'download' => 'core_module',
@@ -21,7 +21,7 @@ function azrael_getmoduleinfo()
             'azraelloc' => 'Where does the Azrael appear,location|'.getsetting('villagename', LOCATION_FIELDS),
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -74,7 +74,7 @@ function azrael_runevent($type)
     $city                          = get_module_setting('azraelloc');
     $op                            = \LotgdRequest::getQuery('op');
 
-    $textDomain = 'module-azrael';
+    $textDomain = 'module_azrael';
 
     $params = [
         'textDomain' => $textDomain,
@@ -179,5 +179,5 @@ function azrael_runevent($type)
         break;
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('azrael/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/azrael/runevent.twig', $params));
 }
