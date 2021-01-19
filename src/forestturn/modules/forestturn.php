@@ -7,7 +7,7 @@ function forestturn_getmoduleinfo()
 {
     return [
         'name'     => 'Forest Turn win/lose',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'JT Traub<br>based on code from 4winz, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
@@ -16,7 +16,7 @@ function forestturn_getmoduleinfo()
             'percentgain' => 'Chance to gain a turn (otherwise lose),range,0,100,1|55',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -63,7 +63,7 @@ function forestturn_runevent($type)
         }
     }
 
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('forestturn/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/forestturn_runevent.twig', $params));
 }
 
 function forestturn_run()
