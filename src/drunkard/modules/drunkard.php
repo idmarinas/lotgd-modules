@@ -8,7 +8,7 @@ function drunkard_getmoduleinfo()
 {
     return [
         'name'     => 'Drunkard',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'JT Traub<br>w/ mods suggested by Jason Still, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Inn Specials',
         'download' => 'core_module',
@@ -22,7 +22,7 @@ function drunkard_getmoduleinfo()
             'seen' => 'How many times has the drunkard been seen?,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -71,7 +71,7 @@ function drunkard_runevent($type)
     $seen   = get_module_pref('seen');
     set_module_pref('seen', $seen + 1);
 
-    $textDomain = 'module-drunkard';
+    $textDomain = 'module_drunkard';
 
     $params = [
         'textDomain' => $textDomain,
@@ -92,7 +92,7 @@ function drunkard_runevent($type)
         ++$session['user']['charm'];
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('drunkard/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/drunkard_runevent.twig', $params));
 }
 
 function drunkard_run()
