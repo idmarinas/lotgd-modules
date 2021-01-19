@@ -16,7 +16,7 @@ function gardenparty_getmoduleinfo()
         'name'     => 'Garden Party',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Gardens',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'download' => 'core_module',
         'settings' => [
             'Garden Party Settings,title',
@@ -36,7 +36,7 @@ function gardenparty_getmoduleinfo()
             'drinkstoday' => 'How many drinks have they had today in the partY?,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -82,7 +82,7 @@ function gardenparty_dohook($hookname, $args)
 {
     global $session;
 
-    $textDomain = 'module-gardenparty';
+    $textDomain = 'module_gardenparty';
 
     \LotgdNavigation::setTextDomain($textDomain);
 
@@ -104,7 +104,7 @@ function gardenparty_dohook($hookname, $args)
                 'barman'     => getsetting('barkeep', '`tCedrik`0'),
             ];
 
-            $args['includeTemplatesPost']['module/gardenparty/hook/gardens.twig'] = $params;
+            $args['includeTemplatesPost']['@module/gardenparty/hook/gardens.twig'] = $params;
 
             \LotgdNavigation::addHeader('navigation.category.party');
             $caketoday   = get_module_pref('caketoday');
@@ -147,7 +147,7 @@ function gardenparty_run()
     }
 
     $buy        = \LotgdRequest::getQuery('buy');
-    $textDomain = 'module-gardenparty';
+    $textDomain = 'module_gardenparty';
     $missed     = \LotgdTranslator::t('party.miss.item', [], $textDomain);
     $comment    = \LotgdTranslator::t('party.miss.comment', [], $textDomain);
     $cantafford = false;
@@ -170,7 +170,7 @@ function gardenparty_run()
                     'defmod'   => 1.05,
                     'roundmsg' => $msg,
                     'rounds'   => 20,
-                    'schema'   => 'module-gardenparty',
+                    'schema'   => 'module_gardenparty',
                 ];
                 apply_buff('gardenparty-cake', $buff);
                 set_module_pref('caketoday', $caketoday + 1);
@@ -198,7 +198,7 @@ function gardenparty_run()
                     'atkmod'   => 1.05,
                     'roundmsg' => $msg,
                     'rounds'   => 20,
-                    'schema'   => 'module-gardenparty',
+                    'schema'   => 'module_gardenparty',
                 ];
                 apply_buff('gardenparty-drink', $buff);
                 set_module_pref('drinkstoday', $drinkstoday + 1);
@@ -230,7 +230,7 @@ function gardenparty_run()
             'partyType'  => \LotgdTranslator::t('party.type', [], $textDomain),
         ];
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('gardenparty/run.twig', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/gardenparty/run.twig', $params));
 
         \LotgdResponse::pageEnd();
     }
@@ -244,7 +244,7 @@ function gardenparty_run()
             'minbadguydamage' => 0,
             'effectnodmgmsg'  => \LotgdTranslator::t('buff.msg.miss', [], $textDomain),
             'rounds'          => -1,
-            'schema'          => 'module-gardenparty',
+            'schema'          => 'module_gardenparty',
         ];
         apply_buff('gardenparty', $buff);
 
