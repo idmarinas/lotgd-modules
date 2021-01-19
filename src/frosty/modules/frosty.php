@@ -8,7 +8,7 @@ function frosty_getmoduleinfo()
 {
     return [
         'name'     => 'Frosty the Snowman',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Talisman, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village Specials',
         'download' => 'core_module',
@@ -22,7 +22,7 @@ function frosty_getmoduleinfo()
             'seentoday' => 'Has the player rebuilt Frosty today,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -69,7 +69,7 @@ function frosty_runevent($type)
     $session['user']['specialinc'] = 'module:frosty';
     $op                            = \LotgdRequest::getQuery('op');
 
-    $textDomain = 'module-frosty';
+    $textDomain = 'module_frosty';
 
     $params = [
         'textDomain' => $textDomain,
@@ -198,7 +198,7 @@ function frosty_runevent($type)
         break;
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('frosty/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/frosty/runevent.twig', $params));
 }
 
 function frosty_run()
