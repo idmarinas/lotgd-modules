@@ -12,7 +12,7 @@ function graveofdragons_getmoduleinfo()
 {
     return [
         'name'     => 'Grave of Dragons',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Nightwind, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Graveyard Specials',
         'download' => 'core_module',
@@ -25,7 +25,7 @@ function graveofdragons_getmoduleinfo()
             'lethality' => 'Percent of soulpoints to take when encountering the beast, range,10,100,10|50',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -55,7 +55,7 @@ function graveofdragons_runevent($type, $from)
     $op                            = \LotgdRequest::getQuery('op');
     $session['user']['specialinc'] = 'module:graveofdragons';
 
-    $textDomain = 'module-graveofdragons';
+    $textDomain = 'module_graveofdragons';
 
     $params = [
         'textDomain'    => $textDomain,
@@ -207,7 +207,7 @@ function graveofdragons_runevent($type, $from)
 
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('graveofdragons/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/graveofdragons/run.twig', $params));
 }
 
 function graveofdragons_run()
