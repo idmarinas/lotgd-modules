@@ -12,7 +12,7 @@ function snowbank_getmoduleinfo()
 {
     return [
         'name'     => 'Snow Bank',
-        'version'  => '3.0.0',
+        'version'  => '3.1.0',
         'author'   => 'E Stevens, JT Traub, S Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'core_module',
@@ -23,7 +23,7 @@ function snowbank_getmoduleinfo()
             'giventoday' => 'Has the user given a gift today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -63,14 +63,14 @@ function snowbank_dohook($hookname, $args)
             if ($session['user']['location'] == get_module_setting('bankloc'))
             {
                 \LotgdNavigation::addHeader('headers.market');
-                \LotgdNavigation::addNav('navs.bank', 'bank.php', ['remplace' => true, 'textDomain' => 'snowbank-bank-navigation']);
+                \LotgdNavigation::addNav('navs.bank', 'bank.php', ['remplace' => true, 'textDomain' => 'snowbank_bank_navigation']);
             }
         break;
         case 'bank-text-domain':
             if ($session['user']['location'] == get_module_setting('bankloc'))
             {
-                $args['textDomain']           = 'snowbank-bank-bank';
-                $args['textDomainNavigation'] = 'snowbank-bank-navigation';
+                $args['textDomain']           = 'snowbank_bank';
+                $args['textDomainNavigation'] = 'snowbank_bank_navigation';
             }
         break;
         case 'page-bank-tpl-params':
@@ -95,7 +95,7 @@ function snowbank_run()
 
     $giventoday = get_module_pref('giventoday');
 
-    $textDomain = 'snowbank-module';
+    $textDomain = 'snowbank_module';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
