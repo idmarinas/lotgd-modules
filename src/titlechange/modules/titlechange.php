@@ -8,7 +8,7 @@ function titlechange_getmoduleinfo()
     return [
         'name'     => 'Title Change',
         'author'   => 'JT Traub, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'download' => 'core_module',
         'category' => 'Lodge',
         'settings' => [
@@ -25,7 +25,7 @@ function titlechange_getmoduleinfo()
             'timespurchased' => 'How many title changes have been bought?,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -46,7 +46,7 @@ function titlechange_dohook($hookname, $args)
 {
     global $session;
 
-    $textDomain = 'module-titlechange';
+    $textDomain = 'module_titlechange';
 
     switch ($hookname)
     {
@@ -91,7 +91,7 @@ function titlechange_run()
 
     $op = \LotgdRequest::getQuery('op');
 
-    $textDomain = 'module-titlechange';
+    $textDomain = 'module_titlechange';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
@@ -180,7 +180,7 @@ function titlechange_run()
         break;
     }
 
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('titlechange/run.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/titlechange/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
