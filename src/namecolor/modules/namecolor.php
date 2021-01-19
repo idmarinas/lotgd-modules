@@ -6,7 +6,7 @@ function namecolor_getmoduleinfo()
     return [
         'name'     => 'Name Colorization',
         'author'   => 'Eric Stevens, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'download' => 'core_module',
         'category' => 'Lodge',
         'settings' => [
@@ -22,7 +22,7 @@ function namecolor_getmoduleinfo()
             'boughtbefore' => 'Has user bought a color change before?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -43,7 +43,7 @@ function namecolor_dohook($hookname, $args)
 {
     global $session;
 
-    $textDomain = 'module-namecolor';
+    $textDomain = 'module_onlinelist';
 
     switch ($hookname)
     {
@@ -84,7 +84,7 @@ function namecolor_run()
 
     $op = \LotgdRequest::getQuery('op');
 
-    $textDomain = 'module-namecolor';
+    $textDomain = 'module_onlinelist';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
@@ -186,7 +186,7 @@ function namecolor_run()
         break;
     }
 
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('namecolor/run.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/namecolor/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
