@@ -9,7 +9,7 @@ function alignmentevents_getmoduleinfo()
 {
     return [
         'name'     => 'Alignment Events',
-        'version'  => '4.0.0',
+        'version'  => '4.1.0',
         'author'   => '`@CortalUX`7, modified by DaveS and `0`b`&Se`0`)le`0`4nity`0 `&Hy`0`)pe`0`4rion`0`b, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=334',
@@ -23,7 +23,7 @@ function alignmentevents_getmoduleinfo()
         ],
         'requires' => [
             'alignment' => '>=2.0.0|Chris Vorndran, WebPixie',
-            'lotgd'     => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd'     => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -73,7 +73,7 @@ function alignmentevents_runevent($type)
     $event = (int) LotgdRequest::getQuery('op2');
 
     $params = [
-        'textDomain' => 'module-alignmentevents',
+        'textDomain' => 'module_alignmentevents',
         'playerName' => $session['user']['name'],
     ];
 
@@ -125,7 +125,7 @@ function alignmentevents_runevent($type)
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('alignmentevents/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/alignmentevents/runevent.twig', $params));
 }
 function alignmentevents_run()
 {
