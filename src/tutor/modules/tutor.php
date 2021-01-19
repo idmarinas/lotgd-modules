@@ -9,7 +9,7 @@ function tutor_getmoduleinfo()
     return [
         'name'     => 'In-game tutor',
         'author'   => 'Booger & Shannon Brown & JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'category' => 'Administrative',
         'download' => 'core_module',
         'prefs'    => [
@@ -18,7 +18,7 @@ function tutor_getmoduleinfo()
             'seenforest'  => 'Has the player seen the forest instructions,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -66,7 +66,7 @@ function tutor_dohook($hookname, $args)
             {
                 \LotgdNavigation::addHeader('headers.gate');
                 \LotgdNavigation::addNav('navigation.help', 'runmodule.php?module=tutor&op=helpfiles', [
-                    'textDomain' => 'module-tutor',
+                    'textDomain' => 'module_tutor',
                 ]);
                 \LotgdNavigation::unBlockLink('runmodule.php?module=tutor&op=helpfiles');
             }
@@ -185,14 +185,14 @@ function tutor_talk()
     $text = \array_shift($args);
 
     $params = [
-        'textDomain' => 'module-tutor',
+        'textDomain' => 'module_tutor',
         'message'    => [
             $text,
             \is_array($args) ? $args : [],
         ],
     ];
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('tutor/talk.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/tutor/talk.twig', $params));
 }
 
 function tutor_run()
@@ -206,16 +206,16 @@ function tutor_run()
 
     if ('helpfiles' == $op)
     {
-        \LotgdResponse::pageStart('run.title', [], 'module-tutor');
+        \LotgdResponse::pageStart('run.title', [], 'module_tutor');
 
         $params = [
-            'textDomain' => 'module-tutor',
+            'textDomain' => 'module_tutor',
             'city'       => $city,
             'iname'      => $iname,
             'age'        => $age,
         ];
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('tutor/run.twig', $params));
+        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/tutor/run.twig', $params));
 
         \LotgdNavigation::villageNav();
 
