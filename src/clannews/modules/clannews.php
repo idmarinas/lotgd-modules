@@ -9,14 +9,14 @@ function clannews_getmoduleinfo()
         'name'     => 'Clan News',
         'category' => 'Clan',
         'author'   => 'dying, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '1.0.0',
+        'version'  => '1.1.0',
         'download' => 'core_module',
         'settings' => [
             'Clan News Settings, title',
             'maxevents' => 'Maximum number of news events to display,range,0,25,1|5',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -55,8 +55,8 @@ function clannews_dohook($hookname, $args)
             ->setParameter('clan', $session['user']['clanid'])
         ;
 
-        $args['templates']['module/clannews/dohook/clanhall.twig'] = [
-            'textDomain' => 'module-clannews',
+        $args['templates']['@module/clannews_clanhall.twig'] = [
+            'textDomain' => 'module_clannews',
             'name'       => $claninfo['clanname'],
             'result'     => $query->getQuery()->getArrayResult(),
         ];
