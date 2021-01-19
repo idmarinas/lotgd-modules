@@ -9,7 +9,7 @@ function specialtydarkarts_getmoduleinfo()
     return [
         'name'     => 'Specialty - Dark Arts',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'download' => 'core_module',
         'category' => 'Specialties',
         'prefs'    => [
@@ -18,7 +18,7 @@ function specialtydarkarts_getmoduleinfo()
             'uses'  => 'Uses of Dark Arts allowed,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -70,7 +70,7 @@ function specialtydarkarts_dohook($hookname, $args)
     global $session, $resline;
 
     $spec  = 'DA';
-    $name  = \LotgdTranslator::t('specialty.name', [], 'module-specialtydarkarts');
+    $name  = \LotgdTranslator::t('specialty.name', [], 'module_specialtydarkarts');
     $ccode = '`$';
 
     switch ($hookname)
@@ -123,7 +123,7 @@ function specialtydarkarts_dohook($hookname, $args)
                 $lotgdBattleContent['battleend'][] = [
                     'battle.increment.specialty.level',
                     ['color' => $c, 'name' => $name, 'level' => $new],
-                    'module-specialtydarkarts',
+                    'module_specialtydarkarts',
                 ];
                 $x = $new % 3;
 
@@ -132,7 +132,7 @@ function specialtydarkarts_dohook($hookname, $args)
                     $lotgdBattleContent['battleend'][] = [
                         'battle.increment.specialty.gain',
                         [],
-                        'module-specialtydarkarts',
+                        'module_specialtydarkarts',
                     ];
                     set_module_pref('uses', get_module_pref('uses') + 1);
                 }
@@ -141,7 +141,7 @@ function specialtydarkarts_dohook($hookname, $args)
                     $lotgdBattleContent['battleend'][] = [
                         'battle.increment.specialty.need',
                         ['level' => \floor(3 - $x)],
-                        'module-specialtydarkarts',
+                        'module_specialtydarkarts',
                     ];
                 }
             }
@@ -171,7 +171,7 @@ function specialtydarkarts_dohook($hookname, $args)
             $script = $args['script'];
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('module-specialtydarkarts');
+            \LotgdNavigation::setTextDomain('module_specialtydarkarts');
 
             if ($uses > 0)
             {
@@ -225,12 +225,12 @@ function specialtydarkarts_dohook($hookname, $args)
                             if (getsetting('enablecompanions', true))
                             {
                                 apply_companion('skeleton_warrior', [
-                                    'name'         => \LotgdTranslator::t('skill.companion.name', [], 'module-specialtydarkarts'),
+                                    'name'         => \LotgdTranslator::t('skill.companion.name', [], 'module_specialtydarkarts'),
                                     'hitpoints'    => \round($session['user']['level'] * 3.33, 0) + 10,
                                     'maxhitpoints' => \round($session['user']['level'] * 3.33, 0) + 10,
                                     'attack'       => \round((($session['user']['level'] / 4) + 2)) * \round((($session['user']['level'] / 3) + 2)) + 1.5,
                                     'defense'      => \floor((($session['user']['level'] / 3) + 0)) * \ceil(($session['user']['level'] / 6) + 2) + 2.5,
-                                    'dyingtext'    => \LotgdTranslator::t('skill.companion.dyingtext', [], 'module-specialtydarkarts'),
+                                    'dyingtext'    => \LotgdTranslator::t('skill.companion.dyingtext', [], 'module_specialtydarkarts'),
                                     'abilities'    => [
                                         'fight' => true,
                                     ],
@@ -242,50 +242,50 @@ function specialtydarkarts_dohook($hookname, $args)
                             else
                             {
                                 apply_buff('da1', [
-                                    'startmsg'        => \LotgdTranslator::t('skill.da1.startmsg', [], 'module-specialtydarkarts'),
-                                    'name'            => \LotgdTranslator::t('skill.da1.name', [], 'module-specialtydarkarts'),
+                                    'startmsg'        => \LotgdTranslator::t('skill.da1.startmsg', [], 'module_specialtydarkarts'),
+                                    'name'            => \LotgdTranslator::t('skill.da1.name', [], 'module_specialtydarkarts'),
                                     'rounds'          => 5,
-                                    'wearoff'         => \LotgdTranslator::t('skill.da1.wearoff', [], 'module-specialtydarkarts'),
+                                    'wearoff'         => \LotgdTranslator::t('skill.da1.wearoff', [], 'module_specialtydarkarts'),
                                     'minioncount'     => \round($session['user']['level'] / 3) + 1,
                                     'maxbadguydamage' => \round($session['user']['level'] / 2, 0) + 1,
-                                    'effectmsg'       => \LotgdTranslator::t('skill.da1.effectmsg', [], 'module-specialtydarkarts'),
-                                    'effectnodmgmsg'  => \LotgdTranslator::t('skill.da1.effectnodmgmsg', [], 'module-specialtydarkarts'),
-                                    'schema'          => 'module-specialtydarkarts',
+                                    'effectmsg'       => \LotgdTranslator::t('skill.da1.effectmsg', [], 'module_specialtydarkarts'),
+                                    'effectnodmgmsg'  => \LotgdTranslator::t('skill.da1.effectnodmgmsg', [], 'module_specialtydarkarts'),
+                                    'schema'          => 'module_specialtydarkarts',
                                 ]);
                             }
                         break;
                         case 2:
                             apply_buff('da2', [
-                                'startmsg'        => \LotgdTranslator::t('skill.da2.startmsg', [], 'module-specialtydarkarts'),
-                                'effectmsg'       => \LotgdTranslator::t('skill.da2.effectmsg', [], 'module-specialtydarkarts'),
+                                'startmsg'        => \LotgdTranslator::t('skill.da2.startmsg', [], 'module_specialtydarkarts'),
+                                'effectmsg'       => \LotgdTranslator::t('skill.da2.effectmsg', [], 'module_specialtydarkarts'),
                                 'rounds'          => 1,
                                 'minioncount'     => 1,
                                 'maxbadguydamage' => \round($session['user']['attack'] * 3, 0),
                                 'minbadguydamage' => \round($session['user']['attack'] * 1.5, 0),
-                                'schema'          => 'module-specialtydarkarts',
+                                'schema'          => 'module_specialtydarkarts',
                             ]);
                             break;
                         case 3:
                             apply_buff('da3', [
-                                'startmsg'     => \LotgdTranslator::t('skill.da3.startmsg', [], 'module-specialtydarkarts'),
-                                'name'         => \LotgdTranslator::t('skill.da3.name', [], 'module-specialtydarkarts'),
+                                'startmsg'     => \LotgdTranslator::t('skill.da3.startmsg', [], 'module_specialtydarkarts'),
+                                'name'         => \LotgdTranslator::t('skill.da3.name', [], 'module_specialtydarkarts'),
                                 'rounds'       => 5,
-                                'wearoff'      => \LotgdTranslator::t('skill.da3.wearoff', [], 'module-specialtydarkarts'),
+                                'wearoff'      => \LotgdTranslator::t('skill.da3.wearoff', [], 'module_specialtydarkarts'),
                                 'badguydmgmod' => 0.5,
-                                'roundmsg'     => \LotgdTranslator::t('skill.da3.roundmsg', [], 'module-specialtydarkarts'),
-                                'schema'       => 'module-specialtydarkarts',
+                                'roundmsg'     => \LotgdTranslator::t('skill.da3.roundmsg', [], 'module_specialtydarkarts'),
+                                'schema'       => 'module_specialtydarkarts',
                             ]);
                             break;
                         case 5:
                             apply_buff('da5', [
-                                'startmsg'     => \LotgdTranslator::t('skill.da5.startmsg', [], 'module-specialtydarkarts'),
-                                'name'         => \LotgdTranslator::t('skill.da5.name', [], 'module-specialtydarkarts'),
+                                'startmsg'     => \LotgdTranslator::t('skill.da5.startmsg', [], 'module_specialtydarkarts'),
+                                'name'         => \LotgdTranslator::t('skill.da5.name', [], 'module_specialtydarkarts'),
                                 'rounds'       => 5,
-                                'wearoff'      => \LotgdTranslator::t('skill.da5.wearoff', [], 'module-specialtydarkarts'),
+                                'wearoff'      => \LotgdTranslator::t('skill.da5.wearoff', [], 'module_specialtydarkarts'),
                                 'badguyatkmod' => 0,
                                 'badguydefmod' => 0,
-                                'roundmsg'     => \LotgdTranslator::t('skill.da5.roundmsg', [], 'module-specialtydarkarts'),
-                                'schema'       => 'module-specialtydarkarts',
+                                'roundmsg'     => \LotgdTranslator::t('skill.da5.roundmsg', [], 'module_specialtydarkarts'),
+                                'schema'       => 'module_specialtydarkarts',
                             ]);
                             break;
                     }
@@ -295,9 +295,9 @@ function specialtydarkarts_dohook($hookname, $args)
                 else
                 {
                     apply_buff('da0', [
-                        'startmsg' => \LotgdTranslator::t('skill.da0.startmsg', [], 'module-specialtydarkarts'),
+                        'startmsg' => \LotgdTranslator::t('skill.da0.startmsg', [], 'module_specialtydarkarts'),
                         'rounds'   => 1,
-                        'schema'   => 'module-specialtydarkarts',
+                        'schema'   => 'module_specialtydarkarts',
                     ]);
                 }
             }
