@@ -4,7 +4,7 @@ function clantrees_getmoduleinfo()
 {
     return [
         'name'     => 'Clan Christmas Trees',
-        'version'  => '1.0.0',
+        'version'  => '1.1.0',
         'author'   => 'Sneakabout, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Clan',
         'download' => 'core_module',
@@ -30,7 +30,7 @@ function clantrees_getmoduleinfo()
             'gems'       => 'How many gems spent on baubles?,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -51,7 +51,7 @@ function clantrees_uninstall()
 
 function clantrees_decoratenav($havetree, $treebuy)
 {
-    \LotgdNavigation::setTextDomain('module-clantrees');
+    \LotgdNavigation::setTextDomain('module_clantrees');
 
     \LotgdNavigation::addHeader('navigation.category.christmas');
 
@@ -80,12 +80,12 @@ function clantrees_buff($turns)
     }
 
     apply_buff('besttreespirit', [
-        'name'     => \LotgdTranslator::t('buff.name', [], 'module-clantrees'),
+        'name'     => \LotgdTranslator::t('buff.name', [], 'module_clantrees'),
         'rounds'   => $turns,
-        'wearoff'  => \LotgdTranslator::t('buff.wearoff', [], 'module-clantrees'),
+        'wearoff'  => \LotgdTranslator::t('buff.wearoff', [], 'module_clantrees'),
         'defmod'   => 1.15,
-        'roundmsg' => \LotgdTranslator::t('buff.roundmsg', [], 'module-clantrees'),
-        'schema'   => 'module-clantrees',
+        'roundmsg' => \LotgdTranslator::t('buff.roundmsg', [], 'module_clantrees'),
+        'schema'   => 'module_clantrees',
     ]);
 
     set_module_pref('gotbuff', 1);
@@ -105,7 +105,7 @@ function clantrees_dohook($hookname, $args)
                     'salesman' => get_module_setting('salesman'),
                 ];
 
-                $args[] = ['section.hook.village.salesman', $params, 'module-clantrees'];
+                $args[] = ['section.hook.village.salesman', $params, 'module_clantrees'];
 
                 if ($besttree)
                 {
@@ -124,7 +124,7 @@ function clantrees_dohook($hookname, $args)
                                 ->getSingleScalarResult()
                             ;
 
-                            $args[] = ['section.hook.village.besttree', $params, 'module-clantrees'];
+                            $args[] = ['section.hook.village.besttree', $params, 'module_clantrees'];
                         }
                         catch (\Throwable $th)
                         {
@@ -135,7 +135,7 @@ function clantrees_dohook($hookname, $args)
                     }
                     else
                     {
-                        $args[] = ['section.hook.village.decoration', $params, 'module-clantrees'];
+                        $args[] = ['section.hook.village.decoration', $params, 'module_clantrees'];
                     }
                 }
             }
@@ -166,7 +166,7 @@ function clantrees_dohook($hookname, $args)
                 if ( ! $hastree && $treebuy)
                 {
                     $args['includeTemplatesPre']['module/clantrees/dohook/notree.twig'] = [
-                        'textDomain' => 'module-clantrees',
+                        'textDomain' => 'module_clantrees',
                         'leader'     => (CLAN_LEADER == $session['user']['clanrank']),
                         'salesman'   => get_module_setting('salesman'),
                     ];
@@ -187,7 +187,7 @@ function clantrees_dohook($hookname, $args)
                 }
 
                 $args['includeTemplatesPre']['module/clantrees/dohook/tree.twig'] = [
-                    'textDomain'  => 'module-clantrees',
+                    'textDomain'  => 'module_clantrees',
                     'leader'      => (CLAN_LEADER == $session['user']['clanrank']),
                     'salesman'    => get_module_setting('salesman'),
                     'isBestTree'  => ($clanid == $besttree),
@@ -219,7 +219,7 @@ function clantrees_run()
     $gold   = $session['user']['gold'];
     $clanid = $session['user']['clanid'];
 
-    $textDomain = 'module-clantrees';
+    $textDomain = 'module_clantrees';
 
     $params = [
         'textDomain' => $textDomain,
@@ -410,7 +410,7 @@ function clantrees_run()
         }
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('clantrees/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/clantrees/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
