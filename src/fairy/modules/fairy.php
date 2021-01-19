@@ -4,7 +4,7 @@ function fairy_getmoduleinfo()
 {
     return [
         'name'     => 'Forest Fairy',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
@@ -19,7 +19,7 @@ function fairy_getmoduleinfo()
             'extrahps' => 'How many extra hitpoints has the user gained?,int',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -69,7 +69,7 @@ function fairy_runevent($type)
     // We assume this event only shows up in the forest currently.
     $from                          = 'forest.php?';
     $session['user']['specialinc'] = 'module:fairy';
-    $textDomain                    = 'module-fairy';
+    $textDomain                    = 'module_fairy';
 
     $op = \LotgdRequest::getQuery('op');
 
@@ -169,7 +169,7 @@ function fairy_runevent($type)
 
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('fairy/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/fairy/runevent.twig', $params));
 }
 
 function fairy_run()
