@@ -12,7 +12,7 @@ function ghosttown_getmoduleinfo()
 {
     return [
         'name'     => 'Ghost Town',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'core_module',
@@ -27,7 +27,7 @@ function ghosttown_getmoduleinfo()
             'allow' => 'Is player allowed in?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -100,7 +100,7 @@ function ghosttown_dohook($hookname, $args)
                     'playerName'   => $session['user']['name'],
                     'creatureName' => $args['badguy']['creaturename'],
                     'location'     => $args['badguy']['location'],
-                ], 'ghosttown-module');
+                ], 'ghosttown_module');
             }
         break;
         case 'pvploss':
@@ -118,7 +118,7 @@ function ghosttown_dohook($hookname, $args)
                             'creatureName' => $args['badguy']['creaturename'],
                             'location'     => $args['badguy']['location'],
                         ],
-                        'textDomain' => 'ghosttown-module',
+                        'textDomain' => 'ghosttown_module',
                     ],
                     'taunt' => select_taunt(),
                 ], '');
@@ -202,14 +202,14 @@ function ghosttown_dohook($hookname, $args)
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args['village-ghosttown'] = \LotgdTranslator::t('moderate', ['city' => $city], 'ghosttown-module');
+                $args['village-ghosttown'] = \LotgdTranslator::t('moderate', ['city' => $city], 'ghosttown_module');
             }
         break;
         case 'village-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'ghosttown-village-village';
-                $args['textDomainNavigation'] = 'ghosttown-village-navigation';
+                $args['textDomain']           = 'ghosttown_village';
+                $args['textDomainNavigation'] = 'ghosttown_village_navigation';
 
                 \LotgdNavigation::blockHideLink('lodge.php');
                 \LotgdNavigation::blockHideLink('weapons.php');
