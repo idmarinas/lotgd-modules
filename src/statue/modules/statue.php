@@ -5,7 +5,7 @@ function statue_getmoduleinfo()
     return [
         'name'      => 'Village Statue',
         'author'    => '`%Simon Welsh`0<br>`#Based on Village Statue by Eric Stevens`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'   => '3.0.0',
+        'version'   => '3.11.0',
         'category'  => 'Village',
         'download'  => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=667',
         'vertxtloc' => 'http://simon.geek.nz/',
@@ -29,6 +29,9 @@ function statue_getmoduleinfo()
         'prefs' => [
             'Village Statue - User Prefs,title',
             'see' => 'Show Statue for user,bool|1',
+        ],
+        'requires' => [
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -131,7 +134,7 @@ function statue_dohook($hookname, $args)
 
                     $params['partner'] = get_partner();
 
-                    $args[] = ['section.village.examine.break.closer', $params, 'module-statue'];
+                    $args[] = ['section.village.examine.break.closer', $params, 'module_statue'];
 
                     $text = 'section.village.examine.break.remember';
 
@@ -146,12 +149,12 @@ function statue_dohook($hookname, $args)
                         $text = 'section.village.examine.break.capital';
                     }
 
-                    $args[] = [$text, $params, 'module-statue'];
+                    $args[] = [$text, $params, 'module_statue'];
 
                     addnews('news.broke.statue', [
                         'playerName' => $session['user']['name'],
                         'location'   => $session['user']['location'],
-                    ], 'module-statue');
+                    ], 'module_statue');
 
                     $debuglog = 'Lost ';
 
@@ -159,14 +162,14 @@ function statue_dohook($hookname, $args)
                     {
                         $debuglog .= "{$session['user']['gold']} gold, ";
                         $session['user']['gold'] = 0;
-                        $args[]                  = ['section.village.examine.break.lost.gold', $params, 'module-statue'];
+                        $args[]                  = ['section.village.examine.break.lost.gold', $params, 'module_statue'];
                     }
 
                     if (get_module_setting('gems'))
                     {
                         $debuglog .= "{$session['user']['gems']} gems, ";
                         $session['user']['gems'] = 0;
-                        $args[]                  = ['section.village.examine.break.lost.gems', $params, 'module-statue'];
+                        $args[]                  = ['section.village.examine.break.lost.gems', $params, 'module_statue'];
                     }
 
                     if (get_module_setting('charm'))
@@ -174,7 +177,7 @@ function statue_dohook($hookname, $args)
                         $charm = \min(get_module_setting('charm'), $session['user']['charm']);
                         $debuglog .= "{$charm} charm, ";
                         $session['user']['charm'] -= $charm;
-                        $args[] = ['section.village.examine.break.lost.charm', $params, 'module-statue'];
+                        $args[] = ['section.village.examine.break.lost.charm', $params, 'module_statue'];
                     }
 
                     if (get_module_setting('hitpoints'))
@@ -184,7 +187,7 @@ function statue_dohook($hookname, $args)
 
                         $debuglog .= "{$hitpoints} hitpoints, ";
                         $session['user']['hitpoints'] -= $hitpoints;
-                        $args[] = ['section.village.examine.break.lost.hitpoints', $params, 'module-statue'];
+                        $args[] = ['section.village.examine.break.lost.hitpoints', $params, 'module_statue'];
                     }
 
                     $array    = modulehook('statue-broke', ['lost' => $debuglog]);
@@ -206,7 +209,7 @@ function statue_dohook($hookname, $args)
                     return $args;
                 }
 
-                $args[] = ['section.village.examine.view', $params, 'module-statue'];
+                $args[] = ['section.village.examine.view', $params, 'module_statue'];
             }
 
             //-- Show statue
@@ -225,8 +228,8 @@ function statue_dohook($hookname, $args)
                 $text = 'section.village.hero.yes.erecting';
             }
 
-            $args[] = [$text, $params, 'module-statue'];
-            $args[] = ['section.village.hero.examine', $params, 'module-statue'];
+            $args[] = [$text, $params, 'module_statue'];
+            $args[] = ['section.village.hero.examine', $params, 'module_statue'];
             \LotgdNavigation::addNavAllow('village.php?op=astatue');
         break;
         case 'page-home-tpl-params':
@@ -235,8 +238,8 @@ function statue_dohook($hookname, $args)
                 break;
             }
 
-            $args['includeTemplatesIndex']['module/statue/dohook/home.twig'] = [
-                'textDomain' => 'module-statue',
+            $args['includeTemplatesIndex']['@module/statue_home.twig'] = [
+                'textDomain' => 'module_statue',
                 'heroName'   => $heroName,
                 'hero'       => $hero,
             ];
