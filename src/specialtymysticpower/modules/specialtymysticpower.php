@@ -9,7 +9,7 @@ function specialtymysticpower_getmoduleinfo()
     return [
         'name'     => 'Specialty - Mystical Powers',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'download' => 'core_module',
         'category' => 'Specialties',
         'prefs'    => [
@@ -18,7 +18,7 @@ function specialtymysticpower_getmoduleinfo()
             'uses'  => 'Uses of Mystical Powers allowed,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -72,7 +72,7 @@ function specialtymysticpower_dohook($hookname, $args)
     global $session,$resline;
 
     $spec  = 'MP';
-    $name  = \LotgdTranslator::t('specialty.name', [], 'module-specialtymysticpower');
+    $name  = \LotgdTranslator::t('specialty.name', [], 'module_specialtymysticpower');
     $ccode = '`%';
 
     switch ($hookname)
@@ -172,7 +172,7 @@ function specialtymysticpower_dohook($hookname, $args)
             $script = $args['script'];
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('module-specialtymysticpower');
+            \LotgdNavigation::setTextDomain('module_specialtymysticpower');
 
             if ($uses > 0)
             {
@@ -224,56 +224,56 @@ function specialtymysticpower_dohook($hookname, $args)
                     {
                         case 1:
                             apply_buff('mp1', [
-                                'startmsg'       => LotgdTranslator::t('skill.mp1.startmsg', [], 'module-specialtymysticpower'),
-                                'name'           => LotgdTranslator::t('skill.mp1.name', [], 'module-specialtymysticpower'),
+                                'startmsg'       => LotgdTranslator::t('skill.mp1.startmsg', [], 'module_specialtymysticpower'),
+                                'name'           => LotgdTranslator::t('skill.mp1.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
-                                'wearoff'        => LotgdTranslator::t('skill.mp1.wearoff', [], 'module-specialtymysticpower'),
+                                'wearoff'        => LotgdTranslator::t('skill.mp1.wearoff', [], 'module_specialtymysticpower'),
                                 'regen'          => $session['user']['level'],
-                                'effectmsg'      => LotgdTranslator::t('skill.mp1.effectmsg', [], 'module-specialtymysticpower'),
-                                'effectnodmgmsg' => LotgdTranslator::t('skill.mp1.effectnodmgmsg', [], 'module-specialtymysticpower'),
+                                'effectmsg'      => LotgdTranslator::t('skill.mp1.effectmsg', [], 'module_specialtymysticpower'),
+                                'effectnodmgmsg' => LotgdTranslator::t('skill.mp1.effectnodmgmsg', [], 'module_specialtymysticpower'),
                                 'aura'           => true,
-                                'auramsg'        => LotgdTranslator::t('skill.mp1.auramsg', [], 'module-specialtymysticpower'),
-                                'schema'         => 'module-specialtymysticpower',
+                                'auramsg'        => LotgdTranslator::t('skill.mp1.auramsg', [], 'module_specialtymysticpower'),
+                                'schema'         => 'module_specialtymysticpower',
                             ]);
                             break;
                         case 2:
                             apply_buff('mp2', [
-                                'startmsg'        => \LotgdTranslator::t('skill.mp2.startmsg', [], 'module-specialtymysticpower'),
-                                'name'            => \LotgdTranslator::t('skill.mp2.name', [], 'module-specialtymysticpower'),
+                                'startmsg'        => \LotgdTranslator::t('skill.mp2.startmsg', [], 'module_specialtymysticpower'),
+                                'name'            => \LotgdTranslator::t('skill.mp2.name', [], 'module_specialtymysticpower'),
                                 'rounds'          => 5,
-                                'wearoff'         => \LotgdTranslator::t('skill.mp2.wearoff', [], 'module-specialtymysticpower'),
+                                'wearoff'         => \LotgdTranslator::t('skill.mp2.wearoff', [], 'module_specialtymysticpower'),
                                 'minioncount'     => 1,
-                                'effectmsg'       => LotgdTranslator::t('skill.mp2.effectmsg', [], 'module-specialtymysticpower'),
+                                'effectmsg'       => LotgdTranslator::t('skill.mp2.effectmsg', [], 'module_specialtymysticpower'),
                                 'minbadguydamage' => 1,
                                 'maxbadguydamage' => $session['user']['level'] * 3,
                                 'areadamage'      => true,
-                                'schema'          => 'module-specialtymysticpower',
+                                'schema'          => 'module_specialtymysticpower',
                             ]);
                             break;
                         case 3:
                             apply_buff('mp3', [
-                                'startmsg'       => \LotgdTranslator::t('skill.mp3.startmsg', [], 'module-specialtymysticpower'),
-                                'name'           => \LotgdTranslator::t('skill.mp3.name', [], 'module-specialtymysticpower'),
+                                'startmsg'       => \LotgdTranslator::t('skill.mp3.startmsg', [], 'module_specialtymysticpower'),
+                                'name'           => \LotgdTranslator::t('skill.mp3.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
-                                'wearoff'        => \LotgdTranslator::t('skill.mp3.wearoff', [], 'module-specialtymysticpower'),
+                                'wearoff'        => \LotgdTranslator::t('skill.mp3.wearoff', [], 'module_specialtymysticpower'),
                                 'lifetap'        => 1, //ratio of damage healed to damage dealt
-                                'effectmsg'      => \LotgdTranslator::t('skill.mp3.effectmsg', [], 'module-specialtymysticpower'),
-                                'effectnodmgmsg' => \LotgdTranslator::t('skill.mp3.effectnodmgmsg', [], 'module-specialtymysticpower'),
-                                'effectfailmsg'  => \LotgdTranslator::t('skill.mp3.effectfailmsg', [], 'module-specialtymysticpower'),
-                                'schema'         => 'module-specialtymysticpower',
+                                'effectmsg'      => \LotgdTranslator::t('skill.mp3.effectmsg', [], 'module_specialtymysticpower'),
+                                'effectnodmgmsg' => \LotgdTranslator::t('skill.mp3.effectnodmgmsg', [], 'module_specialtymysticpower'),
+                                'effectfailmsg'  => \LotgdTranslator::t('skill.mp3.effectfailmsg', [], 'module_specialtymysticpower'),
+                                'schema'         => 'module_specialtymysticpower',
                             ]);
                             break;
                         case 5:
                             apply_buff('mp5', [
-                                'startmsg'       => \LotgdTranslator::t('skill.mp5.startmsg', [], 'module-specialtymysticpower'),
-                                'name'           => \LotgdTranslator::t('skill.mp5.name', [], 'module-specialtymysticpower'),
+                                'startmsg'       => \LotgdTranslator::t('skill.mp5.startmsg', [], 'module_specialtymysticpower'),
+                                'name'           => \LotgdTranslator::t('skill.mp5.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
-                                'wearoff'        => \LotgdTranslator::t('skill.mp5.wearoff', [], 'module-specialtymysticpower'),
+                                'wearoff'        => \LotgdTranslator::t('skill.mp5.wearoff', [], 'module_specialtymysticpower'),
                                 'damageshield'   => 2, // ratio of damage reflected to damage received
-                                'effectmsg'      => \LotgdTranslator::t('skill.mp5.effectmsg', [], 'module-specialtymysticpower'),
-                                'effectnodmgmsg' => \LotgdTranslator::t('skill.mp5.effectnodmgmsg', [], 'module-specialtymysticpower'),
-                                'effectfailmsg'  => \LotgdTranslator::t('skill.mp5.effectfailmsg', [], 'module-specialtymysticpower'),
-                                'schema'         => 'module-specialtymysticpower',
+                                'effectmsg'      => \LotgdTranslator::t('skill.mp5.effectmsg', [], 'module_specialtymysticpower'),
+                                'effectnodmgmsg' => \LotgdTranslator::t('skill.mp5.effectnodmgmsg', [], 'module_specialtymysticpower'),
+                                'effectfailmsg'  => \LotgdTranslator::t('skill.mp5.effectfailmsg', [], 'module_specialtymysticpower'),
+                                'schema'         => 'module_specialtymysticpower',
                             ]);
                         break;
                     }
@@ -283,9 +283,9 @@ function specialtymysticpower_dohook($hookname, $args)
                 else
                 {
                     apply_buff('mp0', [
-                        'startmsg' => \LotgdTranslator::t('skill.mp0.startmsg', [], 'module-specialtymysticpower'),
+                        'startmsg' => \LotgdTranslator::t('skill.mp0.startmsg', [], 'module_specialtymysticpower'),
                         'rounds'   => 1,
-                        'schema'   => 'module-specialtymysticpower',
+                        'schema'   => 'module_specialtymysticpower',
                     ]);
                 }
             }
