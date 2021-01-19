@@ -5,12 +5,12 @@ function onlinelist_getmoduleinfo()
     return [
         'name'           => 'Alternative Sorting',
         'author'         => 'Christian Rutsch, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'        => '2.0.1',
+        'version'        => '2.1.0',
         'category'       => 'Administrative',
         'download'       => 'http://dragonprime.net/users/XChrisX/onlinelist.zip',
         'allowanonymous' => true,
         'requires'       => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -61,10 +61,10 @@ function onlinelist_dohook($hookname, $args)
                 ->getArrayResult()
             ;
 
-            $args['list'] = \LotgdTheme::renderModuleTemplate('onlinelist/dohook/onlinecharlist.twig', [
+            $args['list'] = \LotgdTheme::render('@module/onlinelist_onlinecharlist.twig', [
                 'staff'      => $resultStaff,
                 'players'    => $resultPlayers,
-                'textDomain' => 'module-onlinelist',
+                'textDomain' => 'module_onlinelist',
             ]);
             $args['count'] = \count($resultStaff) + \count($resultPlayers);
         break;
