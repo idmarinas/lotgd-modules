@@ -152,7 +152,7 @@ function stafflist_run()
     $params['blurb']      = get_module_setting('blurb');
     $params['returnLink'] = \LotgdRequest::getServer('REQUEST_URI');
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('stafflist/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/stafflist_run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
