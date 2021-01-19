@@ -91,7 +91,7 @@ function specialtydarkarts_dohook($hookname, $args)
                     'resLine'   => $resline,
                 ];
 
-                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('specialtydarkarts/dohook/choose-specialty.twig', $params));
+                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/specialtydarkarts/dohook/choose-specialty.twig', $params));
             }
         break;
         case 'set-specialty':
@@ -99,7 +99,7 @@ function specialtydarkarts_dohook($hookname, $args)
             {
                 \LotgdResponse::pageStart($name);
 
-                \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('specialtydarkarts/dohook/set-specialty.twig', []));
+                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/specialtydarkarts/dohook/set-specialty.twig', []));
             }
         break;
         case 'specialtycolor':
@@ -151,7 +151,7 @@ function specialtydarkarts_dohook($hookname, $args)
 
             if ($session['user']['specialty'] == $spec)
             {
-                $args['includeTemplatesPost']['module/specialtydarkarts/dohook/newday.twig'] = [
+                $args['includeTemplatesPost']['@module/specialtydarkarts/dohook/newday.twig'] = [
                     'colorCode' => $ccode,
                     'spec'      => $spec,
                     'bonus'     => $bonus,
