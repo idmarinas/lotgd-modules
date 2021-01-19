@@ -165,7 +165,7 @@ function clantrees_dohook($hookname, $args)
 
                 if ( ! $hastree && $treebuy)
                 {
-                    $args['includeTemplatesPre']['module/clantrees/dohook/notree.twig'] = [
+                    $args['includeTemplatesPre']['@module/clantrees/dohook/notree.twig'] = [
                         'textDomain' => 'module_clantrees',
                         'leader'     => (CLAN_LEADER == $session['user']['clanrank']),
                         'salesman'   => get_module_setting('salesman'),
@@ -186,7 +186,7 @@ function clantrees_dohook($hookname, $args)
                     clantrees_buff($treereward * ($besttree == $clanid ? 2 : 1));
                 }
 
-                $args['includeTemplatesPre']['module/clantrees/dohook/tree.twig'] = [
+                $args['includeTemplatesPre']['@module/clantrees/dohook/tree.twig'] = [
                     'textDomain'  => 'module_clantrees',
                     'leader'      => (CLAN_LEADER == $session['user']['clanrank']),
                     'salesman'    => get_module_setting('salesman'),
