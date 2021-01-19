@@ -4,12 +4,12 @@ function grassyfield_getmoduleinfo()
 {
     return [
         'name'     => 'Grassy Field',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Sean McKillion<br>modified by Eric Stevens & JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -82,7 +82,7 @@ function grassyfield_runevent($type)
     checkday();
 
     $params = [
-        'textDomain'    => 'module-grassyfield',
+        'textDomain'    => 'module_grassyfield',
         'hasHorse'      => (bool) $session['user']['hashorse'],
         'special'       => ('Nothing to see here, move along.' != $session['user']['specialmisc']),
         'staminaSystem' => is_module_active('staminasystem'),
@@ -117,8 +117,8 @@ function grassyfield_runevent($type)
 
             $args = [
                 'soberval' => 0.8,
-                'sobermsg' => \LotgdTranslator::t('sober.msg', [], 'module-grassyfield'),
-                'schema'   => 'module-grassyfield',
+                'sobermsg' => \LotgdTranslator::t('sober.msg', [], 'module_grassyfield'),
+                'schema'   => 'module_grassyfield',
             ];
             modulehook('soberup', $args);
 
@@ -140,7 +140,7 @@ function grassyfield_runevent($type)
         $session['user']['specialmisc'] = 'Nothing to see here, move along.';
     }
 
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('grassyfield/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/grassyfield_runevent.twig', $params));
 }
 
 function grassyfield_run()
