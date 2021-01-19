@@ -6,15 +6,15 @@ function cemetery_getmoduleinfo()
         'name'     => 'Cemetery Spook Module',
         'author'   => 'JT Traub & S Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'download' => 'core_module',
         'settings' => [
             'Cemetery Settings,title',
             'cemeteryloc' => 'Where does the cemetery appear,location|'.getsetting('villagename', LOCATION_FIELDS),
         ],
         'requires' => [
-            'lotgd'  => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
-            'cities' => '1.0|Eric Stevens, part of the core distribution',
+            'lotgd'  => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'cities' => '3.1.0|Eric Stevens, part of the core distribution',
         ],
     ];
 }
@@ -51,7 +51,7 @@ function cemetery_dohook($hookname, $args)
         case 'footer-shades':
             \LotgdNavigation::addHeader('category.places');
             \LotgdNavigation::addNav('nav.haunt', 'runmodule.php?module=cemetery&op=deadspeak', [
-                'textDomain' => 'cemetery-navigation',
+                'textDomain' => 'cemetery_navigation',
                 'params'     => ['location' => $cemeteryloc],
             ]);
         break;
@@ -59,7 +59,7 @@ function cemetery_dohook($hookname, $args)
             if ($session['user']['location'] == $cemeteryloc)
             {
                 \LotgdNavigation::addHeader('headers.gate');
-                \LotgdNavigation::addNav('nav.cemetery', 'runmodule.php?module=cemetery&op=cemetery', ['textDomain' => 'cemetery-navigation']);
+                \LotgdNavigation::addNav('nav.cemetery', 'runmodule.php?module=cemetery&op=cemetery', ['textDomain' => 'cemetery_navigation']);
             }
         break;
     }
@@ -77,7 +77,7 @@ function cemetery_run()
     $params = [
         'village'    => $village,
         'tpl'        => 'cemetery',
-        'textDomain' => 'cemetery-cemetery',
+        'textDomain' => 'cemetery_module',
     ];
 
     \LotgdResponse::pageStart('title', [], $params['textDomain']);
@@ -87,12 +87,12 @@ function cemetery_run()
     if ('deadspeak' == $op)
     {
         $params['tpl']        = 'village';
-        $params['textDomain'] = 'cemetery-village';
+        $params['textDomain'] = 'cemetery_village';
 
         \LotgdResponse::pageStart('title', ['village' => $village], $params['textDomain']);
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('cemetery/commentary.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/cemetery/commentary.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
