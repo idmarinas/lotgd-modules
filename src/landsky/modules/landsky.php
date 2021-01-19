@@ -4,7 +4,7 @@ function landsky_getmoduleinfo()
 {
     return [
         'name'      => 'The Sky',
-        'version'   => '2.0.0',
+        'version'   => '2.1.0',
         'author'    => '`@CortalUX`&, with modifications by `#Lonnyl`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>`0',
         'category'  => 'General',
         'vertxtloc' => 'http://dragonprime.net/users/CortalUX/',
@@ -15,7 +15,7 @@ function landsky_getmoduleinfo()
             'showhome'  => 'Show the Sky on Home Page,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.1.0|Need a version equal or greater than 4.1.0 IDMarinas Edition',
         ],
     ];
 }
@@ -76,7 +76,7 @@ function landsky_dohook($hookname, $args)
 
     $moons  = modulehook('landsky-moons');
     $params = [
-        'textDomain'    => 'module-landsky',
+        'textDomain'    => 'module_landsky',
         'landsky_image' => landsky_image(),
         'dimensions'    => landsky_calc(),
         'landsky_c'     => landsky_c(),
@@ -94,16 +94,16 @@ function landsky_dohook($hookname, $args)
                 return $args;
             }
 
-            $args['includeTemplatesIndex']['module/landsky/sky.twig'] = $params;
+            $args['includeTemplatesIndex']['@module/landsky_sky.twig'] = $params;
         break;
         case 'page-shades-tpl-params':
-            $args['includeTemplatesPost']['module/landsky/sky.twig'] = $params;
+            $args['includeTemplatesPost']['@module/landsky_sky.twig'] = $params;
         break;
         case 'village-desc':
         case 'forest-desc':
         case 'journey-desc':
         case 'graveyard-desc':
-            $args[] = \LotgdTheme::renderModuleTemplate('landsky/sky.twig', $params);
+            $args[] = \LotgdTheme::render('@module/landsky_sky.twig', $params);
         break;
     }
 
