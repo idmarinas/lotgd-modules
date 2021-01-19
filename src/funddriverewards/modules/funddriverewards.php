@@ -4,7 +4,7 @@ function funddriverewards_getmoduleinfo()
 {
     return [
         'name'     => 'Fund Drive Rewards',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'download' => 'core_module',
@@ -22,6 +22,7 @@ function funddriverewards_getmoduleinfo()
             'maxheal'     => 'Max percent to reduce healing cost?,int|10',
         ],
         'requires' => [
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
             'funddrive' => '2.0.0|Fund Drive Indicator.',
         ],
     ];
@@ -48,7 +49,7 @@ function funddriverewards_dohook($hookname, $args)
 
     $result     = funddrive_getpercent();
     $percent    = $result['percent'];
-    $textDomain = 'module-funddriverewards';
+    $textDomain = 'module_funddriverewards';
 
     switch ($hookname)
     {
@@ -91,7 +92,7 @@ function funddriverewards_dohook($hookname, $args)
                     }
                 }
 
-                $args['includeTemplatesPost']['module/funddriverewards/dohook/newday.twig'] = $params;
+                $args['includeTemplatesPost']['@module/funddriverewards_newday.twig'] = $params;
             }
         break;
         case 'healmultiply':
