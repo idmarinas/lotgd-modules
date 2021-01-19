@@ -12,7 +12,7 @@ function gardener_getmoduleinfo()
 {
     return [
         'name'     => 'Gardener',
-        'version'  => '2.1.0',
+        'version'  => '2.2.0',
         'author'   => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Gardens',
         'download' => 'core_module',
@@ -27,7 +27,7 @@ function gardener_getmoduleinfo()
             'seentoday' => 'Has the player visited today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.10.0|Need a version equal or greater than 4.10.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -107,7 +107,7 @@ function gardener_run()
     $seentoday = get_module_pref('seentoday');
     $gardens   = get_module_setting('gardens');
 
-    $textDomain = 'module-gardener';
+    $textDomain = 'module_gardener';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
@@ -232,7 +232,7 @@ function gardener_run()
 
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('gardener/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/gardener/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
