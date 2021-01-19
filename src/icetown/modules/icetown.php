@@ -8,7 +8,7 @@ function icetown_getmoduleinfo()
 {
     return [
         'name'     => 'Ice Town',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'core_module',
@@ -22,7 +22,7 @@ function icetown_getmoduleinfo()
             'allow' => 'Is player allowed in?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -97,7 +97,7 @@ function icetown_dohook($hookname, $args)
                     'playerName'   => $session['user']['name'],
                     'creatureName' => $args['badguy']['creaturename'],
                     'location'     => $args['badguy']['location'],
-                ], 'icetown-module');
+                ], 'icetown_module');
             }
         break;
         case 'pvploss':
@@ -199,14 +199,14 @@ function icetown_dohook($hookname, $args)
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args['village-icetown'] = \LotgdTranslator::t('moderate', ['city' => $city], 'icetown-module');
+                $args['village-icetown'] = \LotgdTranslator::t('moderate', ['city' => $city], 'icetown_module');
             }
         break;
         case 'village-text-domain':
             if ($session['user']['location'] == $city)
             {
-                $args['textDomain']           = 'icetown-village-village';
-                $args['textDomainNavigation'] = 'icetown-village-navigation';
+                $args['textDomain']           = 'icetown_village';
+                $args['textDomainNavigation'] = 'icetown_village_navigation';
 
                 \LotgdNavigation::blockHideLink('lodge.php');
                 \LotgdNavigation::blockHideLink('weapons.php');
