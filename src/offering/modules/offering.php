@@ -14,7 +14,7 @@ function offering_getmoduleinfo()
 {
     return [
         'name'     => 'Offering Special',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village Specials',
         'download' => 'core_module',
@@ -23,7 +23,7 @@ function offering_getmoduleinfo()
             'seen' => 'Seen special today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -62,7 +62,7 @@ function offering_runevent($type)
     $seen = get_module_pref('seen');
     $amt  = \round(\max(1, $session['user']['dragonkills'] * 10) * $session['user']['level'] * (\max(1, 5000 - $session['user']['maxhitpoints'])) / 20000);
 
-    $textDomain = 'module-offering';
+    $textDomain = 'module_offering';
 
     $params = [
         'textDomain'    => $textDomain,
@@ -115,5 +115,5 @@ function offering_runevent($type)
 
     $params['seen'] = $seen;
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('offering/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/offering/runevent.twig', $params));
 }
