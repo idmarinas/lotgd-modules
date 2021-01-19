@@ -6,7 +6,7 @@ function klutz_getmoduleinfo()
 {
     return [
         'name'     => 'Village Klutz',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Shannon Brown, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village Specials',
         'download' => 'core_module',
@@ -15,7 +15,7 @@ function klutz_getmoduleinfo()
             'gotgem' => 'Has player received a gem today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -50,7 +50,7 @@ function klutz_runevent($type)
     global $session;
 
     $params = [
-        'textDomain' => 'module-klutz',
+        'textDomain' => 'module_klutz',
     ];
 
     if (0 == get_module_pref('gotgem') && 1 == \mt_rand(1, 4))
@@ -61,7 +61,7 @@ function klutz_runevent($type)
         set_module_pref('gotgem', 1);
     }
 
-    \LotgdResponse::pageAddContent(LotgdTheme::renderModuleTemplate('klutz/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/klutz_runevent.twig', $params));
 }
 
 function klutz_run()
