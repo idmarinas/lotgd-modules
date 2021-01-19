@@ -2,4 +2,4 @@
 
 <h3>{{ '`&%s`0'|format(subTitle|t)|colorize }}</h3>
 
-{{ include_module('drinks/run/superuser/' ~ tpl|default('default') ~ '.twig') }}
+{{ include('@module/drinks/run/superuser/' ~ tpl|default('default') ~ '.twig') }}

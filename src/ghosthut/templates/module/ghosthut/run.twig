@@ -2,7 +2,7 @@
 
 {{ 'subtitle'|t(_context)|colorize }}
 
-{{ include_module('ghosthut/run/' ~ tpl|default('default') ~ '.twig') }}
+{{ include('@module/ghosthut/run/' ~ tpl|default('default') ~ '.twig') }}
 
 {% if turn == 1 %}
     {{ 'section.turn'|t(_context)|colorize }}

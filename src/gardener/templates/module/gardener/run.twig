@@ -2,4 +2,4 @@
 
 {{ 'subtitle'|t|colorize }}
 
-{{ include_module('gardener/run/' ~ tpl|default('seen') ~ '.twig') }}
+{{ include('@module/gardener/run/' ~ tpl|default('seen') ~ '.twig') }}
