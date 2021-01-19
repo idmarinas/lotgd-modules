@@ -12,7 +12,7 @@ function goldmine_getmoduleinfo()
 {
     return [
         'name'     => 'Gold Mine',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Ville Valtokari, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
@@ -32,7 +32,7 @@ function goldmine_getmoduleinfo()
             'savemsg'    => 'Message when mount saves player|',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.1.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -59,7 +59,7 @@ function goldmine_runevent($type)
     global $session, $playermount;
 
     $params = [
-        'textDomain'    => 'module-goldmine',
+        'textDomain'    => 'module_goldmine',
         'playerMount'   => $playermount,
         'hasHorse'      => $session['user']['hashorse'],
         'horseCanEnter' => 0,
@@ -287,7 +287,7 @@ function goldmine_runevent($type)
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('goldmine/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/goldmine/run.twig', $params));
 }
 
 function goldmine_run()
