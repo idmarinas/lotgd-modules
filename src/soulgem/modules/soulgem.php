@@ -8,12 +8,12 @@ function soulgem_getmoduleinfo()
 {
     return [
         'name'     => 'Soul Gems',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Graveyard Specials',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -43,11 +43,11 @@ function soulgem_runevent($type)
     $session['user']['deathpower'] += e_rand(1, 5);
 
     $params = [
-        'textDomain'    => 'module-soulgem',
+        'textDomain'    => 'module_soulgem',
         'deathOverlord' => getsetting('deathoverlord', '`$Ramius`0'),
     ];
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('soulgem/runevent.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/soulgem_runevent.twig', $params));
 }
 
 function soulgem_run()
