@@ -12,7 +12,7 @@ function daysave_getmoduleinfo()
     return [
         'name'     => 'Game Day Accumulation',
         'author'   => 'CavemanJoe, based on daysave.php by Exxar with fixes by SexyCook, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '3.0.0',
+        'version'  => '3.1.0',
         'category' => 'General',
         'settings' => [
             'startdays'    => 'Number of game days with which to start a new player,int|2',
@@ -30,7 +30,7 @@ function daysave_getmoduleinfo()
             'initsetup'     => 'Player has been initially granted their starting settings,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -116,15 +116,15 @@ function daysave_dohook($hookname, $args)
         break;
         case 'village':
             \LotgdNavigation::addHeader('headers.fields');
-            \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=village', ['textDomain' => 'module-daysave']);
+            \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=village', ['textDomain' => 'module_daysave']);
         break;
         case 'shades':
-            \LotgdNavigation::addHeader('navigation.category.new.day', ['textDomain' => 'module-daysave']);
-            \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=shades', ['textDomain' => 'module-daysave']);
+            \LotgdNavigation::addHeader('navigation.category.new.day', ['textDomain' => 'module_daysave']);
+            \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=shades', ['textDomain' => 'module_daysave']);
         break;
         case 'worldnav':
-            \LotgdNavigation::addHeader('navigation.category.new.day', ['textDomain' => 'module-daysave']);
-            \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=worldmapen', ['textDomain' => 'module-daysave']);
+            \LotgdNavigation::addHeader('navigation.category.new.day', ['textDomain' => 'module_daysave']);
+            \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=worldmapen', ['textDomain' => 'module_daysave']);
         break;
     }
 
@@ -147,7 +147,7 @@ function daysave_run()
     }
 
     $params = [
-        'textDomain'           => 'module-daysave',
+        'textDomain'           => 'module_daysave',
         'days'                 => get_module_pref('days'),
         'slots'                => get_module_pref('slots'),
         'startDays'            => get_module_setting('startdays'),
@@ -287,7 +287,7 @@ function daysave_run()
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('daysave/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/daysave/run.twig', $params));
 
     \LotgdResponse::pageEnd();
 }
