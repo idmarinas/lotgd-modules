@@ -7,7 +7,7 @@ function findgold_getmoduleinfo()
 {
     return [
         'name'     => 'Find Gold',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
@@ -17,7 +17,7 @@ function findgold_getmoduleinfo()
             'maxgold' => 'Maximum gold to find (multiplied by level),range,20,150,1|50',
         ],
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -51,7 +51,7 @@ function findgold_runevent($type, $link)
 
     debuglog("found {$gold} gold in the dirt");
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('findgold/runevent.twig', ['textDomain' => 'module-findgold', 'gold' => $gold]));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/findgold_runevent.twig', ['textDomain' => 'module_findgold', 'gold' => $gold]));
 }
 
 function findgold_run()
