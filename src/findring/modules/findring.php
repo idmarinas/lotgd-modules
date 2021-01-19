@@ -7,12 +7,12 @@ function findring_getmoduleinfo()
 {
     return [
         'name'     => 'Find Ring',
-        'version'  => '2.0.0',
+        'version'  => '2.1.0',
         'author'   => 'Atrus, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.0.0|Need a version equal or greater than 4.0.0 IDMarinas Edition',
+            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
         ],
     ];
 }
@@ -44,7 +44,7 @@ function findring_runevent($type, $link)
     $session['user']['specialinc'] = 'module:findring';
 
     $params = [
-        'textDomain' => 'module-findring',
+        'textDomain' => 'module_findring',
     ];
 
     //-- Change text domain for navigation
@@ -94,7 +94,7 @@ function findring_runevent($type, $link)
     //-- Restore text domain for navigation
     \LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::renderModuleTemplate('findring/run.twig', $params));
+    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/findring/run.twig', $params));
 }
 
 function findring_run()

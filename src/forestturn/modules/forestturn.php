@@ -46,7 +46,7 @@ function forestturn_runevent($type)
     $roll   = \mt_rand(1, 100);
 
     $params = [
-        'textDomain' => 'module-forestturn',
+        'textDomain' => 'module_forestturn',
         'win'        => ($roll <= $chance),
     ];
 
