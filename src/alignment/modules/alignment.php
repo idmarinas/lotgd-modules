@@ -61,7 +61,8 @@ function alignment_install()
 
     if (false !== \strpos($area[1], '-'))
     {
-        set_module_setting('shead', \str_replace('-', '_', $area[1]), 'alignment');
+        $area[1] = \str_replace('-', '_', $area[1]);
+        set_module_setting('shead', implode(';', $area), 'alignment');
     }
 
     return true;
