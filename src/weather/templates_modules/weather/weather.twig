@@ -1,3 +1,3 @@
-{% translate_default_domain textDomain %}
+{% trans_default_domain textDomain %}
 
 {{ ('weather.' ~ type|default('normal') ~ '.report')|t(_context|merge({ 'weather': ('weather.' ~ type|default('normal') ~ '.0' ~ weather)|t }))|colorize }}
