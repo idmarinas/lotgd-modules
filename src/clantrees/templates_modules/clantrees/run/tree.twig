@@ -1,9 +1,9 @@
 {% trans_default_domain textDomain %}
 
 {% if 'small' == size %}
-    {{ 'section.run.tree.small'|t(_context)|colorize }}
+    {{ 'section.run.tree.small'|trans(_context)|colorize }}
 {% elseif 'normal' == size %}
-    {{ 'section.run.tree.normal'|t(_context)|colorize }}
+    {{ 'section.run.tree.normal'|trans(_context)|colorize }}
 {% elseif 'grand' == size %}
-    {{ 'section.run.tree.grand'|t(_context)|colorize }}
+    {{ 'section.run.tree.grand'|trans(_context)|colorize }}
 {% endif %}

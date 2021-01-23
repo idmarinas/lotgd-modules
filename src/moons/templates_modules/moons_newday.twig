@@ -1,11 +1,11 @@
 {% trans_default_domain textDomain %}
 
-{{ 'info'|t(_context|merge({ 'phase': moon1Phase|t(_context), 'moonName': 'moon.name.01'|t }))|colorize }}
+{{ 'info'|trans(_context|merge({ 'phase': moon1Phase|trans(_context), 'moonName': 'moon.name.01'|trans }))|colorize }}
 
 {% if moon2 %}
-    {{ 'info'|t(_context|merge({ 'phase': moon2Phase|t(_context), 'moonName': 'moon.name.02'|t }))|colorize }}
+    {{ 'info'|trans(_context|merge({ 'phase': moon2Phase|trans(_context), 'moonName': 'moon.name.02'|trans }))|colorize }}
 {% endif %}
 
 {% if moon3 %}
-    {{ 'info'|t(_context|merge({ 'phase': moon3Phase|t(_context), 'moonName': 'moon.name.03'|t }))|colorize }}
+    {{ 'info'|trans(_context|merge({ 'phase': moon3Phase|trans(_context), 'moonName': 'moon.name.03'|trans }))|colorize }}
 {% endif %}

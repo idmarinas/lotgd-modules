@@ -1,7 +1,7 @@
 {% trans_default_domain textDomain %}
 
-{{ 'paragraph'|t(_context)|colorize }}
+{{ 'paragraph'|trans(_context)|colorize }}
 
 {% if gem %}
-    {{ 'gem'|t(_context)|colorize }}
+    {{ 'gem'|trans(_context)|colorize }}
 {% endif %}

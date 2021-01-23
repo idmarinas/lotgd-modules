@@ -1,49 +1,49 @@
 {% trans_default_domain textDomain %}
 
 {% if condition %}
-    {{ 'section.lib.determinenav.tired'|t(_context)|colorize }}
+    {{ 'section.lib.determinenav.tired'|trans(_context)|colorize }}
 {% endif %}
 
 <!-- Boundaries messages -->
 <!-- North -->
 {% if nBoundary is same as(true) %}
-    {{ '`c`n`!%s`0`n´c'|format('boundary.n'|t)|colorize }}
+    {{ '`c`n`!%s`0`n´c'|format('boundary.n'|trans)|colorize }}
 {% elseif nBoundary is same as(false) %}
-    {{ 'map.move.tired.n'|t|colorize }}
+    {{ 'map.move.tired.n'|trans|colorize }}
 {% endif %}
 <!-- East -->
 {% if eBoundary is same as(true) %}
-    {{ '`c`n`!%s`0`n´c'|format('boundary.e'|t)|colorize }}
+    {{ '`c`n`!%s`0`n´c'|format('boundary.e'|trans)|colorize }}
 {% elseif eBoundary is same as(false) %}
-    {{ 'map.move.tired.e'|t|colorize }}
+    {{ 'map.move.tired.e'|trans|colorize }}
 {% endif %}
 <!-- South -->
 {% if sBoundary is same as(true) %}
-    {{ '`c`n`!%s`0`n´c'|format('boundary.s'|t)|colorize }}
+    {{ '`c`n`!%s`0`n´c'|format('boundary.s'|trans)|colorize }}
 {% elseif sBoundary is same as(false) %}
-    {{ 'map.move.tired.s'|t|colorize }}
+    {{ 'map.move.tired.s'|trans|colorize }}
 {% endif %}
 <!-- West -->
 {% if wBoundary is same as(true) %}
-    {{ '`c`n`!%s`0`n´c'|format('boundary.w'|t)|colorize }}
+    {{ '`c`n`!%s`0`n´c'|format('boundary.w'|trans)|colorize }}
 {% elseif wBoundary is same as(false) %}
-    {{ 'map.move.tired.w'|t|colorize }}
+    {{ 'map.move.tired.w'|trans|colorize }}
 {% endif %}
 <!-- Northeast -->
 {% if neBoundary is same as(false) %}
-    {{ 'map.move.tired.ne'|t|colorize }}
+    {{ 'map.move.tired.ne'|trans|colorize }}
 {% endif %}
 <!-- Northwest -->
 {% if nwBoundary is same as(false) %}
-    {{ 'map.move.tired.nw'|t|colorize }}
+    {{ 'map.move.tired.nw'|trans|colorize }}
 {% endif %}
 <!-- Southeast -->
 {% if seBoundary is same as(false) %}
-    {{ 'map.move.tired.se'|t|colorize }}
+    {{ 'map.move.tired.se'|trans|colorize }}
 {% endif %}
 <!-- Southweast -->
 {% if swBoundary is same as(false) %}
-    {{ 'map.move.tired.sw'|t|colorize }}
+    {{ 'map.move.tired.sw'|trans|colorize }}
 {% endif %}
 <br>
 <!-- List of campers -->

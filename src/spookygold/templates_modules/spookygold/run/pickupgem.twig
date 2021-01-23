@@ -1,7 +1,7 @@
 {% trans_default_domain textDomain %}
 
 {% if cache %}
-    {{ 'section.pickupgem.gold'|t(_context)|colorize }}
+    {{ 'section.pickupgem.gold'|trans(_context)|colorize }}
 {% else %}
-    {{ 'section.pickupgem.cache'|t(_context)|colorize }}
+    {{ 'section.pickupgem.cache'|trans(_context)|colorize }}
 {% endif %}

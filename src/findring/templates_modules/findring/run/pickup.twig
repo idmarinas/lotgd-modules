@@ -1,9 +1,9 @@
 {% trans_default_domain textDomain %}
 
-{{ 'section.pickup.paragraph'|t(_context)|colorize }}
+{{ 'section.pickup.paragraph'|trans(_context)|colorize }}
 
 {% if chance %}
-    {{ 'section.pickup.chance.charm'|t(_context)|colorize }}
+    {{ 'section.pickup.chance.charm'|trans(_context)|colorize }}
 {% else %}
-    {{ 'section.pickup.chance.hitpoints'|t(_context)|colorize }}
+    {{ 'section.pickup.chance.hitpoints'|trans(_context)|colorize }}
 {% endif %}

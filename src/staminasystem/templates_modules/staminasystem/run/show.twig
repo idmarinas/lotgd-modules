@@ -2,16 +2,16 @@
 
 <div class="ui lotgd small progress remove margin {{ barColor}} staminasystem staminabar" data-value={{ currentStamina }} data-total="{{ totalStamina }}">
     <div class='bar'></div>
-	<div class='label'>{{ 'section.show.bar.label'|t(_context)|colorize }}</div>
+	<div class='label'>{{ 'section.show.bar.label'|trans(_context)|colorize }}</div>
 </div>
 
-{{ 'section.show.paragraph'|t(_context)|colorize }}
+{{ 'section.show.paragraph'|trans(_context)|colorize }}
 
-{% set action = 'section.show.table.thead.action'|t %}
-{% set experience = 'section.show.table.thead.experience'|t %}
-{% set cost = 'section.show.table.thead.cost'|t %}
-{% set buff = 'section.show.table.thead.buff'|t %}
-{% set total = 'section.show.table.thead.total'|t %}
+{% set action = 'section.show.table.thead.action'|trans %}
+{% set experience = 'section.show.table.thead.experience'|trans %}
+{% set cost = 'section.show.table.thead.cost'|trans %}
+{% set buff = 'section.show.table.thead.buff'|trans %}
+{% set total = 'section.show.table.thead.total'|trans %}
 
 {% set tableHead = '<thead><tr><th scope="col">%s</th><th scope="col">%s</th><th scope="col">%s</th><th scope="col">%s</th><th scope="col">%s</th></tr></thead>'|format(action, experience, cost, buff, total) %}
 
@@ -21,7 +21,7 @@
     {% set menu = menu ~ '<a class="%s item" data-tab="%s">%s</a>'|format(
         loop.index == 1 ? 'active' : '',
         class,
-        class|t
+        class|trans
     ) %}
 
     {% set segment = segment ~ '<div class="ui bottom attached %s tab segment" data-tab="%s">'|format(
@@ -35,7 +35,7 @@
 
         {% set segment = segment ~ '<tr>' %}
         <!-- Name/Level -->
-        {% set segment = segment ~ '<td class="collapsing">%s</td>'|format('section.show.table.tbody.level'|t({'level': act.lvl, 'name': name})) %}
+        {% set segment = segment ~ '<td class="collapsing">%s</td>'|format('section.show.table.tbody.level'|trans({'level': act.lvl, 'name': name})) %}
 
         <!-- Exp progress -->
         {% if act.lvl < 100 %}
@@ -44,14 +44,14 @@
 
             {% set segment = segment ~ '<td><div class="ui lotgd tiny indicating progress" data-value="%s" data-total="%s"><div class="bar"></div><div class="label">%s / %s</div></div></td>'|format(expOfLvl, expForLvl, (act.exp ?? 0)|numeral, act.levelinfo.nextlvlexp|numeral) %}
         {% else %}
-            {% set segment = segment ~ '<td>%s</td>'|format('section.show.table.tbody.maximized'|t) %}
+            {% set segment = segment ~ '<td>%s</td>'|format('section.show.table.tbody.maximized'|trans) %}
         {% endif %}
 
         <!-- Natural cost -->
         {% set segment = segment ~ '<td>%s</td>'|format(act.naturalcost|numeral) %}
 
         <!-- Bonus -->
-        {% set bonus = 'section.show.table.tbody.none'|t %}
+        {% set bonus = 'section.show.table.tbody.none'|trans %}
         {% if modifier < 0 %}
             {% set bonus = '`@%s`0'|format(modifier|numeral) %}
         {% elseif modifier > 0 %}
@@ -72,14 +72,14 @@
 </div>
 {{ segment|colorize }}
 
-{{ 'section.show.buffs.title'|t(_context)|colorize }}
+{{ 'section.show.buffs.title'|trans(_context)|colorize }}
 
 {% for buff in buffList %}
     {% if buff.name %}
-        {{ 'section.show.buffs.item'|t({ 'name': buff.name, 'rounds': buff.rounds })|colorize }}
+        {{ 'section.show.buffs.item'|trans({ 'name': buff.name, 'rounds': buff.rounds })|colorize }}
     {% endif %}
 {% else %}
-    {{ 'section.show.buffs.none'|t(_context)|colorize }}
+    {{ 'section.show.buffs.none'|trans(_context)|colorize }}
 {% endfor %}
 
-{{ 'section.show.footer'|t(_context)|colorize }}
+{{ 'section.show.footer'|trans(_context)|colorize }}

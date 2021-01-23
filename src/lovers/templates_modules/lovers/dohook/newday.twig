@@ -1,7 +1,7 @@
 {% trans_default_domain textDomain %}
 
-{{ 'section.hook.newday.paragraph'|t(_context)|colorize }}
+{{ 'section.hook.newday.paragraph'|trans(_context)|colorize }}
 
 {% if user.charm <= 0 %}
-    {{ 'section.hook.newday.note'|t(_context)|colorize }}
+    {{ 'section.hook.newday.note'|trans(_context)|colorize }}
 {% endif %}

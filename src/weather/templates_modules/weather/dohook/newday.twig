@@ -1,7 +1,7 @@
 {% trans_default_domain textDomain %}
 
-{{ 'section.newday.weather'|t(_context|merge({ 'weather': ('weather.normal.0' ~ weatherNormal)|t}))|colorize }}
+{{ 'section.newday.weather'|trans(_context|merge({ 'weather': ('weather.normal.0' ~ weatherNormal)|trans}))|colorize }}
 
 {% if gotFight %}
-    {{ 'section.newday.got.fight'|t(_context)|colorize }}
+    {{ 'section.newday.got.fight'|trans(_context)|colorize }}
 {% endif %}

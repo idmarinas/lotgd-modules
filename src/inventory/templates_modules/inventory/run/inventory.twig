@@ -1,14 +1,14 @@
 {% trans_default_domain textDomain %}
 
 <table class="ui very compact celled striped table">
-    <caption>{{ 'section.default.carrying'|t(_context)|colorize }}</caption>
+    <caption>{{ 'section.default.carrying'|trans(_context)|colorize }}</caption>
     <thead>
         <tr>
-            <th scope="col">{{ 'section.default.table.thead.name'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.default.table.thead.gold'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.default.table.thead.gems'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.default.table.thead.quantity'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.default.table.thead.options'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.name'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.gold'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.gems'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.quantity'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.default.table.thead.options'|trans|uncolorize }}</th>
         </tr>
     </thead>
     <tbody>
@@ -26,21 +26,21 @@
                 <td>{{ slot.quantity|numeral }}</td>
                 <td class="collapsing">
                     {% if slot.equipped and slot.item.equippable %}
-                        <a href="{{ ('runmodule.php?module=inventory&op2=unequip&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.unequip'|t|colorize }}</a> |
+                        <a href="{{ ('runmodule.php?module=inventory&op2=unequip&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.unequip'|trans|colorize }}</a> |
                     {% elseif slot.item.equippable %}
-                        <a href="{{ ('runmodule.php?module=inventory&op2=equip&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.equip'|t|colorize }}</a> |
+                        <a href="{{ ('runmodule.php?module=inventory&op2=equip&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.equip'|trans|colorize }}</a> |
                     {% endif %}
 
                     {% if slot.item.activationHook b-and 64 %}
-                        <a href="{{ ('runmodule.php?module=inventory&op2=activate&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.activate'|t|colorize }}</a> |
+                        <a href="{{ ('runmodule.php?module=inventory&op2=activate&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.activate'|trans|colorize }}</a> |
                     {% endif %}
 
                     {% if slot.equipped %}
-                        {{ 'section.default.table.tbody.equipped'|t|colorize }}
+                        {{ 'section.default.table.tbody.equipped'|trans|colorize }}
                     {% elseif slot.item.droppable %}
-                        <a href="{{ ('runmodule.php?module=inventory&op2=dropitem&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.drop'|t|colorize }}</a>
+                        <a href="{{ ('runmodule.php?module=inventory&op2=dropitem&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.default.table.tbody.action.drop'|trans|colorize }}</a>
                     {% else %}
-                        {{ 'section.default.table.tbody.undrop'|t|colorize }}
+                        {{ 'section.default.table.tbody.undrop'|trans|colorize }}
                     {% endif %}
                 </td>
             </tr>
@@ -49,7 +49,7 @@
             </tr>
         {% else %}
             <tr>
-                <td class="center aligned" colspan="5">{{ 'section.default.table.tbody.empty'|t(_context)|colorize }}</td>
+                <td class="center aligned" colspan="5">{{ 'section.default.table.tbody.empty'|trans(_context)|colorize }}</td>
             </tr>
         {% endfor %}
     </tbody>
@@ -57,13 +57,13 @@
     <tfoot>
         {% if limitTotal %}
             <tr>
-                <th scope="colgroup" class="center aligned" colspan="5">{{ 'section.default.table.tbody.limit'|t(_context)|colorize }}</th>
+                <th scope="colgroup" class="center aligned" colspan="5">{{ 'section.default.table.tbody.limit'|trans(_context)|colorize }}</th>
             </tr>
         {% endif %}
 
         {% if weightTotal %}
             <tr>
-                <th scope="colgroup" class="center aligned" colspan="5">{{ 'section.default.table.tbody.weight'|t(_context)|colorize }}</th>
+                <th scope="colgroup" class="center aligned" colspan="5">{{ 'section.default.table.tbody.weight'|trans(_context)|colorize }}</th>
             </tr>
         {% endif %}
     </tfoot>

@@ -1,13 +1,13 @@
 {% trans_default_domain textDomain %}
 
 {% if correct %}
-    {{ 'section.answer.correct'|t|colorize }}
+    {{ 'section.answer.correct'|trans|colorize }}
 
     {% if reward %}
-        {{ 'section.answer.reward.gold'|t(_context)|colorize }}
+        {{ 'section.answer.reward.gold'|trans(_context)|colorize }}
     {% else %}
-        {{ 'section.answer.reward.gem'|t(_context)|colorize }}
+        {{ 'section.answer.reward.gem'|trans(_context)|colorize }}
     {% endif %}
 {% else %}
-    {{ 'section.answer.uncorrect'|t|colorize }}
+    {{ 'section.answer.uncorrect'|trans|colorize }}
 {% endif %}

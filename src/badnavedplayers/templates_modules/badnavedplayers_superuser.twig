@@ -1,15 +1,15 @@
 {% trans_default_domain textDomain %}
 
 {% if result|length %}
-    {{ 'section.superuser.paragraph'|t|colorize }}
+    {{ 'section.superuser.paragraph'|trans|colorize }}
     <br>
     <form action="{{ 'runmodule.php?module=badnaved_players&op=fix'|lotgd_url }}" method="post" class="ui form">
         <div class="ui field">
             <table class="ui very compact basic striped collapsing centered table">
                 <thead>
                     <tr>
-                        <th>{{ 'section.superuser.table.thead.name'|t|uncolorize }}</th>
-                        <th>{{ 'section.superuser.table.thead.navs'|t|uncolorize }}</th>
+                        <th>{{ 'section.superuser.table.thead.name'|trans|uncolorize }}</th>
+                        <th>{{ 'section.superuser.table.thead.navs'|trans|uncolorize }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,9 +27,9 @@
             </table>
         </div>
         <div class="ui center aligned field">
-            <button type="submit" class="ui button">{{ 'section.superuser.form.button.submit'|t|uncolorize }}</button>
+            <button type="submit" class="ui button">{{ 'section.superuser.form.button.submit'|trans|uncolorize }}</button>
         </div>
     </form>
 {% else %}
-    {{ 'section.superuser.not.found'|t|colorize }}
+    {{ 'section.superuser.not.found'|trans|colorize }}
 {% endif %}

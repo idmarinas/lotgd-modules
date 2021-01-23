@@ -11,9 +11,9 @@
                             {% set terrain = worldMap[x][y] %}
 
                             {% if not cityMap[x ~ ',' ~ y] %}
-                                <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|t }})">&nbsp;</td>
+                                <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|trans }})">&nbsp;</td>
                             {% else %}
-                                <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="{{ cityMap[x ~ ',' ~ y] }} ({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|t }})">
+                                <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="{{ cityMap[x ~ ',' ~ y] }} ({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|trans }})">
                                     <i class='home icon'></i>
                                 </td>
                             {% endif %}

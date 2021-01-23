@@ -1,16 +1,16 @@
 {% trans_default_domain textDomain %}
 
-{{ 'section.hof.subtitle'|t(_context)|colorize }}
+{{ 'section.hof.subtitle'|trans(_context)|colorize }}
 
 <table class="ui very compact striped table">
     <thead>
         <tr>
-            <th scope="col">{{ 'section.hof.table.thead.name'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.hof.table.thead.favor'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.hof.table.thead.sacrifices'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.hof.table.thead.hp'|t|uncolorize }}</th>
-            <th scope="col">{{ ('section.hof.table.thead.' ~ useStamina ? 'stamina' : 'turns')|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.hof.table.thead.maxHp'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.hof.table.thead.name'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.hof.table.thead.favor'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.hof.table.thead.sacrifices'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.hof.table.thead.hp'|trans|uncolorize }}</th>
+            <th scope="col">{{ ('section.hof.table.thead.' ~ useStamina ? 'stamina' : 'turns')|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.hof.table.thead.maxHp'|trans|uncolorize }}</th>
         </tr>
     </thead>
     <tbody>

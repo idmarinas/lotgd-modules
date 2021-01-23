@@ -2,23 +2,23 @@
 
 <form action="{{ 'runmodule.php?module=alt_char_list&op=search'|lotgd_url }}" method="post" class="center aligned">
     <div class="field">
-        <label for="char_mane">{{ 'section.search.form.char_name.label'|t|colorize }}</label>
+        <label for="char_mane">{{ 'section.search.form.char_name.label'|trans|colorize }}</label>
         <div class="ui action input">
             <input type="text" name="char_name" id="char_name">
-            <button type="submit" class="ui button">{{ 'section.search.form.button.submit'|t|uncolorize }}</button>
+            <button type="submit" class="ui button">{{ 'section.search.form.button.submit'|trans|uncolorize }}</button>
         </div>
     </div>
 </form>
 
 {% if paginator %}
     <table class="ui very compact striped table">
-        <caption>{{ 'section.search.table.caption'|t(_context)|colorize }}</caption>
+        <caption>{{ 'section.search.table.caption'|trans(_context)|colorize }}</caption>
         <thead>
             <tr>
-                <th scope="col">{{ 'section.search.table.thead.name'|t|colorize }}</th>
-                <th scope="col">{{ 'section.search.table.thead.ip'|t|colorize }}</th>
-                <th scope="col">{{ 'section.search.table.thead.id'|t|colorize }}</th>
-                <th scope="col">{{ 'section.search.table.thead.email'|t|colorize }}</th>
+                <th scope="col">{{ 'section.search.table.thead.name'|trans|colorize }}</th>
+                <th scope="col">{{ 'section.search.table.thead.ip'|trans|colorize }}</th>
+                <th scope="col">{{ 'section.search.table.thead.id'|trans|colorize }}</th>
+                <th scope="col">{{ 'section.search.table.thead.email'|trans|colorize }}</th>
             </tr>
         </thead>
         <tbody>

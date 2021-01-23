@@ -1,9 +1,9 @@
 {% trans_default_domain textDomain %}
 
-{{ ('section.defile.rand.0' ~ random(0, 2))|t(_context)|colorize }}
+{{ ('section.defile.rand.0' ~ random(0, 2))|trans(_context)|colorize }}
 
 {% if defiled %}
-    {{ 'section.defile.defiled.yes'|t(_context)|colorize }}
+    {{ 'section.defile.defiled.yes'|trans(_context)|colorize }}
 {% else %}
-    {{ 'section.defile.defiled.no'|t(_context)|colorize }}
+    {{ 'section.defile.defiled.no'|trans(_context)|colorize }}
 {% endif %}

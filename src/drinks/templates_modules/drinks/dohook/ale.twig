@@ -1,7 +1,7 @@
 {% trans_default_domain textDomain %}
 
 {% if hardkDrink %}
-    {{ 'section.ale.hard.drink'|t(_context)|colorize }}
+    {{ 'section.ale.hard.drink'|trans(_context)|colorize }}
 {% endif %}
 
-{{ 'section.ale.paragraph'|t(_context)|format(('drunk.list.0' ~ drunk)|t)|colorize }}
+{{ 'section.ale.paragraph'|trans(_context)|format(('drunk.list.0' ~ drunk)|trans)|colorize }}

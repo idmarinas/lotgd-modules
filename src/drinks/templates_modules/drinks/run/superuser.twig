@@ -1,5 +1,5 @@
 {% trans_default_domain textDomain %}
 
-<h3>{{ '`&%s`0'|format(subTitle|t)|colorize }}</h3>
+<h3>{{ '`&%s`0'|format(subTitle|trans)|colorize }}</h3>
 
 {{ include('@module/drinks/run/superuser/' ~ tpl|default('default') ~ '.twig') }}

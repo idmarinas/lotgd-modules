@@ -1,13 +1,13 @@
 {% trans_default_domain textDomain %}
 
 {% if item %}
-    {{ 'section.editor.delitem.item.yes'|t|colorize }}
+    {{ 'section.editor.delitem.item.yes'|trans|colorize }}
 {% else %}
-    {{ 'section.editor.delitem.item.no'|t|colorize }}
+    {{ 'section.editor.delitem.item.no'|trans|colorize }}
 {% endif %}
 
 {% if inventory %}
-    {{ 'section.editor.delitem.inventory.yes'|t(_context)|colorize }}
+    {{ 'section.editor.delitem.inventory.yes'|trans(_context)|colorize }}
 {% else %}
-    {{ 'section.editor.delitem.inventory.no'|t|colorize }}
+    {{ 'section.editor.delitem.inventory.no'|trans|colorize }}
 {% endif %}

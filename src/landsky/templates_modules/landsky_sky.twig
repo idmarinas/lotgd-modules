@@ -14,16 +14,16 @@
                     {{ moon[0]|tl(moon[1], moon[2])|colorize }}
                 {% endfor %}
             {% else %}
-                {{ 'bright'|t(_context) }}
+                {{ 'bright'|trans(_context) }}
             {% endif %}
         </td>
     </tr>
     <tr>
         <td colspan="2" class="center aligned">
             {% if landsky_c %}
-                {{ '`b`^%s`0´b'|format(('sky.sky.0' ~ landsky_word)|t)|colorize }}
+                {{ '`b`^%s`0´b'|format(('sky.sky.0' ~ landsky_word)|trans)|colorize }}
             {% else %}
-                {{ '`b`3%s`0´b'|format(('sky.deadsky.0' ~ landsky_word)|t)|colorize }}
+                {{ '`b`3%s`0´b'|format(('sky.deadsky.0' ~ landsky_word)|trans)|colorize }}
             {% endif %}
         </td>
     </tr>

@@ -5,7 +5,7 @@
     {% if showLabel %}
         <div class="label">
             {% if canLevelUp %}
-                {{ 'challange.master'|t(_context)|colorize }} <i class="green level up icon animated flash"></i>
+                {{ 'challange.master'|trans(_context)|colorize }} <i class="green level up icon animated flash"></i>
             {% else %}
                 {% if showNum %}
                     {{ experienceCurrent|numeral }}

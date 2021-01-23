@@ -6,7 +6,7 @@
             <div class="bar"></div>
             <div class="label">
                 {% if useText %}
-                    {{ 'section.everyfooter.indicator.text'|t|colorize }}
+                    {{ 'section.everyfooter.indicator.text'|trans|colorize }}
                     {{ '%s%%'|format(percent) }}
                     {% if showDollars %}
                         {% if simbolPosition %}
@@ -40,7 +40,7 @@
             {% endif %}
         </table>
         {% if useText %}
-            {{ 'section.everyfooter.indicator.text'|t|colorize }}
+            {{ 'section.everyfooter.indicator.text'|trans|colorize }}
             {{ percent }}%
             {% if showDollars %}
                 {% if simbolPosition %}
@@ -52,7 +52,7 @@
         {% endif %}
     {% else %}
         {% if useText %}
-            {{ 'section.everyfooter.indicator.text'|t|colorize }}
+            {{ 'section.everyfooter.indicator.text'|trans|colorize }}
             {{ percent }}%
             {% if showDollars %}
                 {% if simbolPosition %}

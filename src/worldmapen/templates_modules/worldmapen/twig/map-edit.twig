@@ -14,9 +14,9 @@
                                 name="color"
                                 value="{{ def.type }}"
                                 data-color="{{ def.color }}"
-                                data-name="{{ ('map.terrain.' ~ def.type)|t }}"
+                                data-name="{{ ('map.terrain.' ~ def.type)|trans }}"
                             >
-                            <label for="{{ def.type }}">{{ ('map.terrain.' ~ def.type)|t }}</label>
+                            <label for="{{ def.type }}">{{ ('map.terrain.' ~ def.type)|trans }}</label>
                         </div>
                     {% endfor %}
                     <br>
@@ -34,9 +34,9 @@
 
                                     <input type="hidden" id="{{ x ~ '-' ~ y ~ 'b' }}" name="{{ x ~ '.' ~ y }}" value="{{ terrain }}">
                                     {% if not cityMap[x ~ ',' ~ y] %}
-                                        <td onclick="changeColor(this.id);" id="{{ x ~ '-' ~ y }}" style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|t }})">&nbsp;</td>
+                                        <td onclick="changeColor(this.id);" id="{{ x ~ '-' ~ y }}" style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|trans }})">&nbsp;</td>
                                     {% else %}
-                                        <td onclick="changeColor(this.id);" id="{{ x ~ '-' ~ y }}" style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="{{ cityMap[x ~ ',' ~ y] }} ({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|t }})">
+                                        <td onclick="changeColor(this.id);" id="{{ x ~ '-' ~ y }}" style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="{{ cityMap[x ~ ',' ~ y] }} ({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|trans }})">
                                             <i class='home icon'></i>
                                         </td>
                                     {% endif %}
@@ -54,7 +54,7 @@
                     </table>
                 </div>
                 <div class="field">
-                    <button type="submit" class="ui button">{{ 'section.editor.form.button.submit'|t|uncolorize }}</button>
+                    <button type="submit" class="ui button">{{ 'section.editor.form.button.submit'|trans|uncolorize }}</button>
                 </div>
             </form>
         </div>

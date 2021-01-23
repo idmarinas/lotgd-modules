@@ -2,26 +2,26 @@
 
 {% if 'blood' == giveType %}
     {% if weak %}
-        {{ 'section.give.blood.no'|t(_context)|colorize }}
+        {{ 'section.give.blood.no'|trans(_context)|colorize }}
     {% else %}
-        {{ 'section.give.blood.yes'|t(_context|merge({'part': ('section.give.part.0' ~ random(0, 8))})|t))|colorize }}
+        {{ 'section.give.blood.yes'|trans(_context|merge({'part': ('section.give.part.0' ~ random(0, 8))})|trans))|colorize }}
     {% endif %}
 {% elseif 'flesh' == givetype %}
     {% if weak %}
-        {{ 'section.give.flesh.no'|t(_context)|colorize }}
+        {{ 'section.give.flesh.no'|trans(_context)|colorize }}
     {% else %}
-        {{ 'section.give.flesh.yes'|t(_context|merge({'part': ('section.give.part.0' ~ random(0, 8))})|t))|colorize }}
+        {{ 'section.give.flesh.yes'|trans(_context|merge({'part': ('section.give.part.0' ~ random(0, 8))})|trans))|colorize }}
     {% endif %}
 {% elseif 'spirit' == givetype %}
     {% if weak %}
-        {{ 'section.give.spirit.no'|t(_context)|colorize }}
+        {{ 'section.give.spirit.no'|trans(_context)|colorize }}
     {% else %}
-        {{ 'section.give.spirit.yes'|t(_context)|colorize }}
+        {{ 'section.give.spirit.yes'|trans(_context)|colorize }}
     {% endif %}
 {% endif %}
 
 {% if ramiusIsPleased and giveType %}
-    {{ 'section.give.pleased.yes'|t(_context)|colorize }}
+    {{ 'section.give.pleased.yes'|trans(_context)|colorize }}
 {% elseif giveType %}
-    {{ 'section.give.pleased.no'|t(_context)|colorize }}
+    {{ 'section.give.pleased.no'|trans(_context)|colorize }}
 {% endif %}

@@ -1,8 +1,8 @@
 {% trans_default_domain textDomain %}
 
-{{ 'section.hook.newday.numbers'|t(_context)|colorize }}
+{{ 'section.hook.newday.numbers'|trans(_context)|colorize }}
 
 {% if winner %}
-    <span class="ui big text">{{ 'section.hook.newday.win'|t(_context)|colorize }}</span>
-    {{ 'section.hook.newday.jackpot'|t(_context)|colorize }}
+    <span class="ui big text">{{ 'section.hook.newday.win'|trans(_context)|colorize }}</span>
+    {{ 'section.hook.newday.jackpot'|trans(_context)|colorize }}
 {% endif %}

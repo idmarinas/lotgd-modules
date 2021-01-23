@@ -1,7 +1,7 @@
 {% trans_default_domain textDomain %}
 
 {% if not battle %}
-    {{ 'section.fight.paragraph'|t(_context)|colorize }}
+    {{ 'section.fight.paragraph'|trans(_context)|colorize }}
 
     {% if showSmallMap %}
         {{ module_worldmapen_show_mini_map(mapLinks) }}

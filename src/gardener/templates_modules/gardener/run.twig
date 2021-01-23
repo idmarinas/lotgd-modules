@@ -1,5 +1,5 @@
 {% trans_default_domain textDomain %}
 
-{{ 'subtitle'|t|colorize }}
+{{ 'subtitle'|trans|colorize }}
 
 {{ include('@module/gardener/run/' ~ tpl|default('seen') ~ '.twig') }}

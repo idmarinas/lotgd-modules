@@ -1,7 +1,7 @@
 {% trans_default_domain textDomain %}
 
-{{ ('section.run.alter.' ~ what)|t(_context)|colorize }}
+{{ ('section.run.alter.' ~ what)|trans(_context)|colorize }}
 
 {% if contribution %}
-    {{ 'section.run.alter.contribution'|t(_context)|colorize }}
+    {{ 'section.run.alter.contribution'|trans(_context)|colorize }}
 {% endif %}

@@ -2,19 +2,19 @@
 
 <table class="ui centered collapsing striped table">
     <thead>
-        <th colspan="2">{{ 'list.table.header'|t|colorize }}</th>
+        <th colspan="2">{{ 'list.table.header'|trans|colorize }}</th>
     </thead>
     <tbody>
         {% for name in paginator %}
             <tr>
                 <td>{{ name.badName }}</td>
                 <td>
-                    <a href="{{ ('runmodule.php?module=creationaddon&op=delete&bad_id=' ~ name.id ~ '&admin=true')|lotgd_url }}">{{ 'list.table.delete'|t }}</a>
+                    <a href="{{ ('runmodule.php?module=creationaddon&op=delete&bad_id=' ~ name.id ~ '&admin=true')|lotgd_url }}">{{ 'list.table.delete'|trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="2">{{ 'list.table.notFound'|t|colorize }}</td>
+                <td colspan="2">{{ 'list.table.notFound'|trans|colorize }}</td>
             </tr>
         {% endfor %}
     </tbody>

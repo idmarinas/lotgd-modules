@@ -1,9 +1,9 @@
 {% trans_default_domain textDomain %}
 
-{{ 'subtitle'|t(_context)|colorize }}
+{{ 'subtitle'|trans(_context)|colorize }}
 
 {{ include('@module/ghosthut/run/' ~ tpl|default('default') ~ '.twig') }}
 
 {% if turn == 1 %}
-    {{ 'section.turn'|t(_context)|colorize }}
+    {{ 'section.turn'|trans(_context)|colorize }}
 {% endif %}

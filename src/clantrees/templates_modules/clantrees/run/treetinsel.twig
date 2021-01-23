@@ -1,9 +1,9 @@
 {% trans_default_domain textDomain %}
 
-{{ 'section.run.treetinsel.paragraph'|t(_context)|colorize }}
+{{ 'section.run.treetinsel.paragraph'|trans(_context)|colorize }}
 
 <form action="{{ 'runmodule.php?module=clantrees&op=alter&what=gold'|lotgd_url }}" method="post" class="ui form">
     <div class="field">
-        <button type="submit" class="ui button">{{ 'section.run.treetinsel.form.button.submit'|t|uncolorize }}</button>
+        <button type="submit" class="ui button">{{ 'section.run.treetinsel.form.button.submit'|trans|uncolorize }}</button>
     </div>
 </form>

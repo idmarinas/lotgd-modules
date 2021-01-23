@@ -1,28 +1,28 @@
 {% trans_default_domain textDomain %}
 
-{{ '`c`b%s´b´c'|format('section.ale.drink.title'|t(_context))|colorize }}
+{{ '`c`b%s´b´c'|format('section.ale.drink.title'|trans(_context))|colorize }}
 
-{{ 'section.ale.drink.demand'|t(_context)|colorize }}
+{{ 'section.ale.drink.demand'|trans(_context)|colorize }}
 {{ drunkeness ? ', ' : '. ' }}
 
 {% if drunkeness %}
-    {{ 'section.ale.drink.toodrunk'|t(_context)|colorize }}
+    {{ 'section.ale.drink.toodrunk'|trans(_context)|colorize }}
 {% else %}
     {% if buyed %}
-        {{ 'section.ale.drink.buy.buyed'|t(_context)|colorize }}
+        {{ 'section.ale.drink.buy.buyed'|trans(_context)|colorize }}
         <br><br>
         {% if vigorous %}
-            {{ 'section.ale.drink.buy.turns.vigorous'|t|colorize }}
+            {{ 'section.ale.drink.buy.turns.vigorous'|trans|colorize }}
         {% elseif lethargic %}
-            {{ 'section.ale.drink.buy.turns.lethargic'|t|colorize }}
+            {{ 'section.ale.drink.buy.turns.lethargic'|trans|colorize }}
         {% endif %}
 
         {% if healthy %}
-            {{ 'section.ale.drink.buy.hp.healthy'|t|colorize }}
+            {{ 'section.ale.drink.buy.hp.healthy'|trans|colorize }}
         {% elseif sick %}
-            {{ 'section.ale.drink.buy.hp.sick'|t|colorize }}
+            {{ 'section.ale.drink.buy.hp.sick'|trans|colorize }}
         {% endif %}
     {% else %}
-        {{ 'section.ale.drink.buy.not.money'|t(_context)|colorize }}
+        {{ 'section.ale.drink.buy.not.money'|trans(_context)|colorize }}
     {% endif %}
 {% endif %}

@@ -1,9 +1,9 @@
 {% trans_default_domain textDomain %}
 
-{{ 'section.beginjourney.paragraph'|t(_context)|colorize }}
+{{ 'section.beginjourney.paragraph'|trans(_context)|colorize }}
 
 <br>
-<div class="center aligned">{{ '`^%s`0'|format(('leave.gates.0' ~ random(1, 5))|t(_context))|colorize }}</div>
+<div class="center aligned">{{ '`^%s`0'|format(('leave.gates.0' ~ random(1, 5))|trans(_context))|colorize }}</div>
 <br>
 
 {% if showSmallMap %}

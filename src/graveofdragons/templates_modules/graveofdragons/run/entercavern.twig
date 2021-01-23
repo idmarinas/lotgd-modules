@@ -1,9 +1,9 @@
 {% trans_default_domain textDomain %}
 
-{{ 'section.entercavern.paragraph'|t(_context)|colorize }}
+{{ 'section.entercavern.paragraph'|trans(_context)|colorize }}
 
 {% if canSearch %}
-    {{ 'section.entercavern.search.yes'|t(_context)|colorize }}
+    {{ 'section.entercavern.search.yes'|trans(_context)|colorize }}
 {% else %}
-    {{ 'section.entercavern.search.no'|t(_context)|colorize }}
+    {{ 'section.entercavern.search.no'|trans(_context)|colorize }}
 {% endif %}

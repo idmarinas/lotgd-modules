@@ -4,24 +4,24 @@
     {% for row in paginator %}
         <div class="item">
             <div class="content">
-                <div class="header">{{ 'section.showsubmitted.item.header'|t(_context|merge({ 'name': row.submittedby }))|colorize }}</div>
+                <div class="header">{{ 'section.showsubmitted.item.header'|trans(_context|merge({ 'name': row.submittedby }))|colorize }}</div>
                 <div class="meta">
-                    <span>{{ 'section.showsubmitted.item.encounter'|t(_context|merge({'weapon': row.creatureweapon, 'name': row.creaturename }))|colorize }}</span>
+                    <span>{{ 'section.showsubmitted.item.encounter'|trans(_context|merge({'weapon': row.creatureweapon, 'name': row.creaturename }))|colorize }}</span>
                 </div>
                 <div class="description">
                     <p>{{ row.creaturedescription|colorize }}</p>
                 </div>
                 <div class="ui message">
-                    <div class="header">{{ 'section.showsubmitted.item.message.header'|t|colorize }}</div>
+                    <div class="header">{{ 'section.showsubmitted.item.message.header'|trans|colorize }}</div>
                     {{ row.notes|colorize }}
                 </div>
                 <div class="extra">
                     <div class="ui buttons">
                         <a href="{{ ('runmodule.php?module=mechanicalturk&creatureaction=accept&id=' ~ row.id)|lotgd_url }}" class="ui green button">
-                            {{ 'section.showsubmitted.item.button.accept'|t|uncolorize }}
+                            {{ 'section.showsubmitted.item.button.accept'|trans|uncolorize }}
                         </a>
                         <a href="{{ ('runmodule.php?module=mechanicalturk&creatureaction=reject&id=' ~ row.id)|lotgd_url }}" class="ui red button">
-                            {{ 'section.showsubmitted.item.button.reject'|t|uncolorize }}
+                            {{ 'section.showsubmitted.item.button.reject'|trans|uncolorize }}
                         </a>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
     {% else %}
         <div class="item">
             <div class="content">
-                <div class="description"><p>{{ 'section.showsubmitted.item.not.found'|t(_context)|colorize }}</p></div>
+                <div class="description"><p>{{ 'section.showsubmitted.item.not.found'|trans(_context)|colorize }}</p></div>
             </div>
         </div>
     {% endfor %}

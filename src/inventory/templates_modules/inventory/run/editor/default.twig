@@ -1,13 +1,13 @@
 {% trans_default_domain textDomain %}
 
 {% set classOld = '' %}
-{% set editButton = 'section.editor.default.button.edit'|t|uncolorize %}
-{% set deleteButton = 'section.editor.default.button.delete'|t|uncolorize %}
-{% set takeButton = 'section.editor.default.button.take'|t|uncolorize %}
-{% set delConfirm = { 'text': 'section.editor.default.del.confirm'|t|uncolorize }|json_encode %}
+{% set editButton = 'section.editor.default.button.edit'|trans|uncolorize %}
+{% set deleteButton = 'section.editor.default.button.delete'|trans|uncolorize %}
+{% set takeButton = 'section.editor.default.button.take'|trans|uncolorize %}
+{% set delConfirm = { 'text': 'section.editor.default.del.confirm'|trans|uncolorize }|json_encode %}
 
 <table class="ui very compact striped table">
-    <caption>{{ 'section.editor.default.table.caption'|t|colorize }}</caption>
+    <caption>{{ 'section.editor.default.table.caption'|trans|colorize }}</caption>
     {% for item in results %}
         {% if item.class != classOld %}
             <thead>

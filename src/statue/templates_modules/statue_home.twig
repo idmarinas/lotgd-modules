@@ -1,8 +1,8 @@
 {% trans_default_domain textDomain %}
 
 {% if hero %}
-    {{ 'section.home.hero.yes'|t(_context)|colorize }}
+    {{ 'section.home.hero.yes'|trans(_context)|colorize }}
 {% else %}
-    {{ 'section.home.hero.no'|t(_context)|colorize }}
+    {{ 'section.home.hero.no'|trans(_context)|colorize }}
 {% endif %}
 

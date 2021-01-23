@@ -19,15 +19,15 @@
 
                         {% if i == middleLoc %}
                             {% set city = cityMap[smallMapX ~ ',' ~ smallMapY] %}
-                            <td style="background: {{ colorUserLoc }};" class="ui lotgd tooltip center aligned" title="{{ 'map.current'|t|uncolorize }} {{ city }} ({{ smallMapX }}, {{ smallMapY }}) ({{ ('map.terrain.' ~ terrain)|t }})">
+                            <td style="background: {{ colorUserLoc }};" class="ui lotgd tooltip center aligned" title="{{ 'map.current'|trans|uncolorize }} {{ city }} ({{ smallMapX }}, {{ smallMapY }}) ({{ ('map.terrain.' ~ terrain)|trans }})">
                                 {% if city %} <i class='home icon'></i> {% else %} &nbsp; {% endif %}
                             </td>
                         {% elseif not terrain %}
-                            <td style="background: #111111;" class="ui lotgd tooltip center aligned" title="{{ 'map.terrain.edge'|t }}">&nbsp;</td>
+                            <td style="background: #111111;" class="ui lotgd tooltip center aligned" title="{{ 'map.terrain.edge'|trans }}">&nbsp;</td>
                         {% elseif not cityMap[smallMapX ~ ',' ~ smallMapY] %}
-                            <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="({{ smallMapX }}, {{ smallMapY }}) ({{ ('map.terrain.' ~ terrain)|t }})">&nbsp;</td>
+                            <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="({{ smallMapX }}, {{ smallMapY }}) ({{ ('map.terrain.' ~ terrain)|trans }})">&nbsp;</td>
                         {% else %}
-                            <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="{{ cityMap[smallMapX ~ ',' ~ smallMapY] }} ({{ smallMapX }}, {{ smallMapY }}) ({{ ('map.terrain.' ~ terrain)|t }})">
+                            <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="{{ cityMap[smallMapX ~ ',' ~ smallMapY] }} ({{ smallMapX }}, {{ smallMapY }}) ({{ ('map.terrain.' ~ terrain)|trans }})">
                                 <i class='home icon'></i>
                             </td>
                         {% endif %}

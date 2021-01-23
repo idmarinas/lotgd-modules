@@ -1,4 +1,4 @@
 
 {% for msg in messages %}
-    {{ msg[0]|t(msg[1], msg[2])|colorize }}
+    {{ msg[0]|trans(msg[1], msg[2])|colorize }}
 {% endfor %}

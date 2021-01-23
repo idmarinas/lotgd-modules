@@ -1,14 +1,14 @@
 {% trans_default_domain textDomain %}
 
 <table class="ui very compact celled striped table">
-    <caption>{{ 'section.superuser.carrying'|t(_context)|colorize }}</caption>
+    <caption>{{ 'section.superuser.carrying'|trans(_context)|colorize }}</caption>
     <thead>
         <tr>
-            <th scope="col">{{ 'section.superuser.table.thead.name'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.superuser.table.thead.gold'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.superuser.table.thead.gems'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.superuser.table.thead.quantity'|t|uncolorize }}</th>
-            <th scope="col">{{ 'section.superuser.table.thead.options'|t|uncolorize }}</th>
+            <th scope="col">{{ 'section.superuser.table.thead.name'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.superuser.table.thead.gold'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.superuser.table.thead.gems'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.superuser.table.thead.quantity'|trans|uncolorize }}</th>
+            <th scope="col">{{ 'section.superuser.table.thead.options'|trans|uncolorize }}</th>
         </tr>
     </thead>
     <tbody>
@@ -26,9 +26,9 @@
                 <td>{{ slot.quantity|numeral }}</td>
                 <td>
                     {% if slot.equipped %}
-                        {{ 'section.superuser.table.tbody.equipped'|t|colorize }}
+                        {{ 'section.superuser.table.tbody.equipped'|trans|colorize }}
                     {% else %}
-                        <a href="{{ ('runmodule.php?module=inventory&op=superuser&op2=dropitem&acctid=' ~ ownerId ~ '&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.superuser.table.tbody.drop'|t|colorize }}</a>
+                        <a href="{{ ('runmodule.php?module=inventory&op=superuser&op2=dropitem&acctid=' ~ ownerId ~ '&invid=' ~ slot.id ~ '&id=' ~ slot.item.id)|lotgd_url }}">{{ 'section.superuser.table.tbody.drop'|trans|colorize }}</a>
                     {% endif %}
                 </td>
             </tr>
@@ -37,19 +37,19 @@
             </tr>
         {% else %}
             <tr>
-                <td class="center aligned" colspan="5">{{ 'section.superuser.table.tbody.empty'|t(_context)|colorize }}</td>
+                <td class="center aligned" colspan="5">{{ 'section.superuser.table.tbody.empty'|trans(_context)|colorize }}</td>
             </tr>
         {% endfor %}
 
         {% if limitTotal %}
             <tr>
-                <td class="center aligned" colspan="5">{{ 'section.superuser.table.tbody.limit'|t(_context)|colorize }}</td>
+                <td class="center aligned" colspan="5">{{ 'section.superuser.table.tbody.limit'|trans(_context)|colorize }}</td>
             </tr>
         {% endif %}
 
         {% if weightTotal %}
             <tr>
-                <td class="center aligned" colspan="5">{{ 'section.superuser.table.tbody.weight'|t(_context)|colorize }}</td>
+                <td class="center aligned" colspan="5">{{ 'section.superuser.table.tbody.weight'|trans(_context)|colorize }}</td>
             </tr>
         {% endif %}
     </tbody>

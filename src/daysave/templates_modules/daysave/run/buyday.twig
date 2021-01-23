@@ -1,15 +1,15 @@
 {% trans_default_domain textDomain %}
 
-{{ 'section.buyday.paragraph'|t(_context)|colorize }}
+{{ 'section.buyday.paragraph'|trans(_context)|colorize }}
 
-{% set fullText = 'chronofiddling.sphere.full'|t(_context)|uncolorize %}
+{% set fullText = 'chronofiddling.sphere.full'|trans(_context)|uncolorize %}
 
 {% for i in 1..days %}
     <img src="images/daysphere-full.png" alt="{{ fullText }}" title="{{ fullText }}">
 {% endfor %}
 
 {% if empty %}
-    {% set emptyText = 'chronofiddling.sphere.empty'|t(_context)|uncolorize %}
+    {% set emptyText = 'chronofiddling.sphere.empty'|trans(_context)|uncolorize %}
 
     {% for i in 1..empty %}
     <img src="images/daysphere-empty.png" alt="{{ emptyText }}" title="{{ emptyText }}">

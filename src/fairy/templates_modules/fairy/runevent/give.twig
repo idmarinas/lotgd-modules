@@ -1,9 +1,9 @@
 {% trans_default_domain textDomain %}
 
-{{ 'section.give.paragraph'|t(_context)|colorize }}
+{{ 'section.give.paragraph'|trans(_context)|colorize }}
 
 {% if gived %}
-    {{ ('section.give.case.0' ~ case)|t(_context)|colorize }}
+    {{ ('section.give.case.0' ~ case)|trans(_context)|colorize }}
 {% else %}
-    {{ 'section.give.no.gems'|t(_context)|colorize }}
+    {{ 'section.give.no.gems'|trans(_context)|colorize }}
 {% endif %}

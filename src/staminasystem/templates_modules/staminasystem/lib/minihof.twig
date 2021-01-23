@@ -9,9 +9,9 @@
     </thead>
     <thead>
         <tr>
-            <th>{{ 'lib.minihof.table.thead.rank'|t|uncolorize }}</th>
-            <th>{{ 'lib.minihof.table.thead.name'|t|uncolorize }}</th>
-            <th>{{ 'lib.minihof.table.thead.exp'|t|uncolorize }}</th>
+            <th>{{ 'lib.minihof.table.thead.rank'|trans|uncolorize }}</th>
+            <th>{{ 'lib.minihof.table.thead.name'|trans|uncolorize }}</th>
+            <th>{{ 'lib.minihof.table.thead.exp'|trans|uncolorize }}</th>
         </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3" class="center aligned">{{ 'lib.minihof.table.tbody.not.found'|t|colorize }}</td>
+                <td colspan="3" class="center aligned">{{ 'lib.minihof.table.tbody.not.found'|trans|colorize }}</td>
             </tr>
         {% endfor %}
     </tbody>

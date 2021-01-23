@@ -1,7 +1,7 @@
 {% trans_default_domain textDomain %}
 
 {% if seenToday %}
-    {{ 'section.default.seen.yes'|t(_context)|colorize }}
+    {{ 'section.default.seen.yes'|trans(_context)|colorize }}
 {% else %}
-    {{ 'section.default.seen.no'|t(_context)|colorize }}
+    {{ 'section.default.seen.no'|trans(_context)|colorize }}
 {% endif %}

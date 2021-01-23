@@ -1,31 +1,31 @@
 {% trans_default_domain textDomain %}
 
 <!-- Staff list -->
-{{ 'section.onlinecharlist.title.staff'|t({ 'n': staff|length })|colorize }}
+{{ 'section.onlinecharlist.title.staff'|trans({ 'n': staff|length })|colorize }}
 
 <!-- Show 5 members of staff -->
 {% for row in staff|slice(0, 5) %}
     {{ '`5%s`0`n'|format(row.name)|colorize }}
 {% else %}
-    {{ 'section.onlinecharlist.none'|t|colorize }}
+    {{ 'section.onlinecharlist.none'|trans|colorize }}
 {% endfor %}
 
 {% if staff|length > 5 %}
-    {{'section.onlinecharlist.and.more.staff'|t({ 'n': (staff|length - 5) })|colorize }}
+    {{'section.onlinecharlist.and.more.staff'|trans({ 'n': (staff|length - 5) })|colorize }}
 {% endif %}
 
 <br>
 <br>
 <!-- Players list -->
-{{ 'section.onlinecharlist.title.players'|t({ 'n': players|length })|colorize }}
+{{ 'section.onlinecharlist.title.players'|trans({ 'n': players|length })|colorize }}
 
 <!-- Show 10 players -->
 {% for row in players|slice(0, 10) %}
     {{ '`^%s`0`n'|format(row.name)|colorize }}
 {% else %}
-    {{ 'section.onlinecharlist.none'|t|colorize }}
+    {{ 'section.onlinecharlist.none'|trans|colorize }}
 {% endfor %}
 
 {% if players|length > 10 %}
-    {{'section.onlinecharlist.and.more.players'|t({ 'n': (players|length - 10) })|colorize }}
+    {{'section.onlinecharlist.and.more.players'|trans({ 'n': (players|length - 10) })|colorize }}
 {% endif %}

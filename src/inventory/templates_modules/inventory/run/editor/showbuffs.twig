@@ -2,15 +2,15 @@
 
 
 {% set classOld = '' %}
-{% set editButton = 'section.editor.showbuffs.button.edit'|t|uncolorize %}
-{% set deleteButton = 'section.editor.showbuffs.button.delete'|t|uncolorize %}
-{% set delConfirm = { 'text': 'section.editor.showbuffs.del.confirm'|t|uncolorize }|json_encode %}
+{% set editButton = 'section.editor.showbuffs.button.edit'|trans|uncolorize %}
+{% set deleteButton = 'section.editor.showbuffs.button.delete'|trans|uncolorize %}
+{% set delConfirm = { 'text': 'section.editor.showbuffs.del.confirm'|trans|uncolorize }|json_encode %}
 
 <table class="ui very compact striped table">
-    <caption>{{ 'section.editor.showbuffs.table.caption'|t|colorize }}</caption>
+    <caption>{{ 'section.editor.showbuffs.table.caption'|trans|colorize }}</caption>
     <thead>
         <tr>
-            <th scope="col" colspan="30" class="center aligned">{{ 'section.editor.showbuffs.table.th'|t|colorize }}</th>
+            <th scope="col" colspan="30" class="center aligned">{{ 'section.editor.showbuffs.table.th'|trans|colorize }}</th>
         </tr>
     </thead>
     <tbody>

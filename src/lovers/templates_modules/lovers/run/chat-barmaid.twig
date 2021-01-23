@@ -1,9 +1,9 @@
 {% trans_default_domain textDomain %}
 
 {% if not act %}
-    {{ 'section.run.chat.barmaid.act.none'|t(_context)|colorize }}
+    {{ 'section.run.chat.barmaid.act.none'|trans(_context)|colorize }}
 {% elseif 'gossip' == act %}
-    {{ 'section.run.chat.barmaid.act.gossip'|t(_context)|colorize }}
+    {{ 'section.run.chat.barmaid.act.gossip'|trans(_context)|colorize }}
 {% elseif 'fat' == act %}
-    {{ 'section.run.chat.barmaid.act.fat.paragraph'|t(_context|merge({'msg': ('section.run.chat.barmaid.act.fat.msg.0' ~ charmMsg)|t}))|colorize }}
+    {{ 'section.run.chat.barmaid.act.fat.paragraph'|trans(_context|merge({'msg': ('section.run.chat.barmaid.act.fat.msg.0' ~ charmMsg)|trans}))|colorize }}
 {% endif %}

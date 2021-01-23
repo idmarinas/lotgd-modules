@@ -12,7 +12,7 @@
 
                             {% if y == worldMapY and x == worldMapX %}
                                 {% set city = cityMap[x ~ ',' ~ y] %}
-                                <td style="background: {{ colorUserLoc }};" class="ui lotgd tooltip center aligned" title="{{ 'map.current'|t|uncolorize }} {{ city }} ({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|t }})">
+                                <td style="background: {{ colorUserLoc }};" class="ui lotgd tooltip center aligned" title="{{ 'map.current'|trans|uncolorize }} {{ city }} ({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|trans }})">
                                     {% if city %}
                                         <i class='home icon'></i>
                                     {% else %}
@@ -20,11 +20,11 @@
                                     {% endif %}
                                 </td>
                             {% elseif not terrain %}
-                                <td style="background: #111111;" class="ui lotgd tooltip center aligned" title="{{ 'map.terrain.edge'|t }}">&nbsp;</td>
+                                <td style="background: #111111;" class="ui lotgd tooltip center aligned" title="{{ 'map.terrain.edge'|trans }}">&nbsp;</td>
                             {% elseif not cityMap[x ~ ',' ~ y] %}
-                                <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|t }})">&nbsp;</td>
+                                <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|trans }})">&nbsp;</td>
                             {% else %}
-                                <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="{{ cityMap[x ~ ',' ~ y] }} ({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|t }})">
+                                <td style="background: {{ terrainColor[terrain] }};" class="ui lotgd tooltip center aligned" title="{{ cityMap[x ~ ',' ~ y] }} ({{ x }}, {{ y }}) ({{ ('map.terrain.' ~ terrain)|trans }})">
                                     <i class='home icon'></i>
                                 </td>
                             {% endif %}
