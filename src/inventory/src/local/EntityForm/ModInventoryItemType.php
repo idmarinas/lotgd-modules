@@ -207,7 +207,7 @@ class ModInventoryItemType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class'         => ModInventoryItem::class,
-            'translation_domain' => 'module-inventory',
+            'translation_domain' => 'module_inventory',
         ]);
     }
 }

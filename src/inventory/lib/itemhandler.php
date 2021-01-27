@@ -24,7 +24,7 @@ function display_item_fightnav($args)
         return;
     }
 
-    \LotgdNavigation::addHeader('navigation.category.items', ['textDomain' => 'module-inventory']);
+    \LotgdNavigation::addHeader('navigation.category.items', ['textDomain' => 'module_inventory']);
 
     foreach ($result as $item)
     {
@@ -73,7 +73,7 @@ function display_item_nav($hookname, $return = false)
         $link = "runmodule.php?module=inventory&op=activate&id={$item['item']->getId()}&invid={$item['id']}&return={$return}&hookname={$hookname}";
 
         \LotgdNavigation::addNav('navigation.nav.item.use', $link, [
-            'textDomain' => 'module-inventory',
+            'textDomain' => 'module_inventory',
             'params'     => [
                 'name'     => $item['item']->getName(),
                 'quantity' => $item['quantity'],
@@ -128,12 +128,12 @@ function run_newday_buffs($args): array
         {
             require_once 'lib/itemeffects.php';
 
-            $message = ['item.activate', ['itemName' => $item['item']['name']], 'module-inventory'];
+            $message = ['item.activate', ['itemName' => $item['item']['name']], 'module_inventory'];
 
             if ($item['item']['execText'] > '')
             {
                 $text    = \explode('|', $item['item']['execText']);
-                $message = [$text[0], ['itemName' => $item['item']['name']], $text[1] ?? 'module-inventory'];
+                $message = [$text[0], ['itemName' => $item['item']['name']], $text[1] ?? 'module_inventory'];
             }
 
             $messages[] = $message;

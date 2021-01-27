@@ -27,21 +27,21 @@ function itemeffects_restore_turns($turns, $item)
     {
         $out[] = ['item.effect.turns.gain',
             ['turns' => $turns, 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
     }
     else
     {
         $out[] = ['item.effect.turns.lost',
             ['turns' => \abs($turns), 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
 
         if ($session['user']['turns'] <= 0)
         {
             $out[] = ['item.effect.turns.lost.all',
                 ['turns' => \abs($turns), 'itemName' => $item['name']],
-                'module-inventory',
+                'module_inventory',
             ];
             $session['user']['turns'] = 0;
         }

@@ -28,14 +28,14 @@ function itemeffects_increased_gold($gold, $item)
     {
         $out[] = ['item.effect.gold.gain',
             ['gold' => $gold, 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
     }
     else
     {
         $out[] = ['item.effect.gold.lost',
             ['gold' => \abs($gold), 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
     }
 

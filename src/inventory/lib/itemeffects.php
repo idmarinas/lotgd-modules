@@ -34,7 +34,7 @@ function get_effect($item = false, $noeffecttext = '')
 {
     global $session;
 
-    $textDomain = 'module-inventory';
+    $textDomain = 'module_inventory';
 
     $out = [];
 

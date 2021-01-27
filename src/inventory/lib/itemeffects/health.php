@@ -41,7 +41,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
 
         $out[] = ['item.effect.health.gain',
             ['points' => $hitpoints, 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
         debuglog("Restored {$hitpoints} health points using the item {$item['id']}");
     }
@@ -51,14 +51,14 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
 
         $out[] = ['item.effect.health.lost',
             ['points' => \abs($hitpoints), 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
 
         debuglog("Loss {$hitpoints} hitpoints using item {$item['id']}");
     }
     else
     {
-        $out[] = ['item.effect.health.noeffect', ['itemName' => $item['name']], 'module-inventory'];
+        $out[] = ['item.effect.health.noeffect', ['itemName' => $item['name']], 'module_inventory'];
     }
 
     //-- Other messages
@@ -66,7 +66,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
     {
         $out[] = ['item.effect.health.full',
             ['points' => \abs($hitpoints), 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
     }
     elseif ($session['user']['hitpoints'] <= 0 && ! $canDie)
@@ -75,7 +75,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
 
         $out[] = ['item.effect.health.almost',
             ['points' => \abs($hitpoints), 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
 
         debuglog("Were almost killed when using item {$item['id']}");
@@ -87,7 +87,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
 
         $out[] = ['item.effect.health.die',
             ['points' => \abs($hitpoints), 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
 
         debuglog("Died when used the item {$item['id']}");

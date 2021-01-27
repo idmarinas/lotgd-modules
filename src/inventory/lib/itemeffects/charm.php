@@ -19,7 +19,7 @@ function itemeffects_alter_charm($points, $item): array
         $out[] = [
             'item.effect.charm.gain',
             ['points' => $points, 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
     }
     else
@@ -27,7 +27,7 @@ function itemeffects_alter_charm($points, $item): array
         $out[] = [
             'item.effect.charm.lost',
             ['points' => $points, 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
     }
 }

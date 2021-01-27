@@ -29,7 +29,7 @@ function itemeffects_restore_stamina($stamina, $item)
 
         $out[] = ['item.effect.stamina.gain',
             ['points' => $stamina, 'percent' => $staminaPercent, 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
 
         debuglog("Restore {$stamina} points of Stamina by using {$item['id']}");
@@ -44,7 +44,7 @@ function itemeffects_restore_stamina($stamina, $item)
 
         $out[] = ['item.effect.stamina.lost',
             ['points' => \abs($stamina), 'percent' => $staminaPercent, 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
 
         debuglog("Lost {$stamina} points of Stamina by using {$item['id']}");

@@ -24,7 +24,7 @@ function itemeffects_increased_donation($points, $item)
         $out[] = [
             'item.effect.donation.gain',
             ['points' => $points, 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
     }
     elseif ($points < 0)
@@ -32,7 +32,7 @@ function itemeffects_increased_donation($points, $item)
         $out[] = [
             'item.effect.donation.lost',
             ['points' => \abs($points), 'itemName' => $item['name']],
-            'module-inventory',
+            'module_inventory',
         ];
     }
 
