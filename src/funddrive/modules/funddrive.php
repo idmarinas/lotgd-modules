@@ -52,7 +52,7 @@ function funddrive_dohook($hookname, $args)
         $prog = funddrive_getpercent();
 
         $params = [
-            'textDomain'     => 'module-funddrive',
+            'textDomain'     => 'module_funddrive',
             'percent'        => $prog['percent'],
             'goal'           => $prog['goal'],
             'current'        => $prog['current'],
