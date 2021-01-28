@@ -43,7 +43,7 @@ function namecolor_dohook($hookname, $args)
 {
     global $session;
 
-    $textDomain = 'module_onlinelist';
+    $textDomain = 'module_namecolor';
 
     switch ($hookname)
     {
@@ -84,7 +84,7 @@ function namecolor_run()
 
     $op = \LotgdRequest::getQuery('op');
 
-    $textDomain = 'module_onlinelist';
+    $textDomain = 'module_namecolor';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
