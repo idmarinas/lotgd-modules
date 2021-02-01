@@ -4,7 +4,7 @@ function cityprefs_getmoduleinfo()
 {
     return [
         'name'        => 'City Preferences Addon',
-        'version'     => '3.1.0',
+        'version'     => '3.1.1',
         'author'      => 'Sixf00t4, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'    => 'General',
         'description' => 'Gives the ability to use prefs based on cities',

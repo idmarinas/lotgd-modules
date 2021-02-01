@@ -13,7 +13,7 @@ function creationaddon_getmoduleinfo()
 {
     return [
         'name'           => 'Creation Addon',
-        'version'        => '5.1.0',
+        'version'        => '5.1.1',
         'author'         => 'Billie Kennedy, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'       => 'Administrative',
         'download'       => '//orpgs.com/modules.php?name=Downloads&d_op=viewdownload&cid=6',
