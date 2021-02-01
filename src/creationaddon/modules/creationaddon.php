@@ -294,7 +294,7 @@ function creationaddon_list()
 
     $paginator = $repository->getPaginator($qb, $page, 50);
 
-    \DB::pagination($paginator, 'runmodule.php?module=creationaddon&op=list');
+    \LotgdNavigation::pagination($paginator, 'runmodule.php?module=creationaddon&op=list');
 
     $params = [
         'paginator' => $paginator,
