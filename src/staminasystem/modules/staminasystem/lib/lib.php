@@ -136,12 +136,16 @@ function uninstall_action($actionname)
     unset($defaultactions[$actionname]);
     set_module_setting('actionsarray', \serialize($defaultactions), 'staminasystem');
     //Now remove the action from each user's modulepref
-    $sql     = 'SELECT acctid FROM '.DB::prefix('accounts').'';
-    $results = DB::query($sql);
+    $query   = \Doctrine::createQueryBuilder();
+    $results = $query->from('LotgdCore:Accounts', 'u')
+        ->select('u.acctid')
 
-    for ($i = 0; $i < DB::num_rows($results); ++$i)
+        ->getQuery()
+        ->getResult()
+    ;
+
+    foreach ($results as $row)
     {
-        $row           = DB::fetch_assoc($results);
         $playeractions = \unserialize(get_module_pref('actions', 'staminasystem', $row['acctid']));
         unset($playeractions[$actionname]);
         set_module_pref('actions', \serialize($playeractions), 'staminasystem', $row['acctid']);
@@ -300,12 +304,9 @@ function suspend_stamina_buff($referencename, $userid = false)
         $rtrue = true;
     }
 
-    if ($rtrue)
-    {
-        return true;
-    }
+    return (bool) ($rtrue)
 
-    return false;
+     ;
 }
 
 function restore_stamina_buff($referencename, $userid = false)
@@ -328,12 +329,9 @@ function restore_stamina_buff($referencename, $userid = false)
         }
     }
 
-    if ($rtrue)
-    {
-        return true;
-    }
+    return (bool) ($rtrue)
 
-    return false;
+     ;
 }
 
 function restore_all_stamina_buffs($userid = false)
@@ -382,12 +380,9 @@ function mass_suspend_stamina_buffs($name, $userid = false)
         set_module_pref('buffs', \serialize($bufflist), 'staminasystem', $userid);
     }
 
-    if ($rtrue)
-    {
-        return true;
-    }
+    return (bool) ($rtrue)
 
-    return false;
+     ;
 }
 
 /*
@@ -567,12 +562,9 @@ function stamina_check_can_use($action, $userid = false, $qty = 1)
 
     $stamina = (int) get_module_pref('stamina', 'staminasystem', $userid);
 
-    if ($totalcost <= $stamina)
-    {
-        return true;
-    }
+    return (bool) ($totalcost <= $stamina)
 
-    return false;
+     ;
 }
 
 /*
@@ -741,6 +733,7 @@ function get_stamina($type = 1, $realvalue = false, $userid = false)
             {
                 $returnvalue = $amberpct;
             }
+
         break;
 
         case 2:
@@ -750,6 +743,7 @@ function get_stamina($type = 1, $realvalue = false, $userid = false)
             {
                 $returnvalue = $greenpct;
             }
+
         break;
 
         case 3:
@@ -759,9 +753,11 @@ function get_stamina($type = 1, $realvalue = false, $userid = false)
             {
                 $returnvalue = $totalpct;
             }
+
         break;
         case 4:
             $returnvalue = $maxstamina;
+
         break;
 
         case 0:
@@ -772,6 +768,7 @@ function get_stamina($type = 1, $realvalue = false, $userid = false)
             {
                 $returnvalue = $redpct;
             }
+
         break;
     }
 
@@ -1102,9 +1099,22 @@ function stamina_minihof($action, $userid = false)
 
     if ( ! $item->isHit())
     {
-        $board         = [];
-        $staminasql    = 'SELECT setting,value,userid FROM '.DB::prefix('module_userprefs')." WHERE modulename='staminasystem' AND setting='actions'";
-        $staminaresult = DB::query($staminasql);
+        $board = [];
+
+        $query         = \Doctrine::createQueryBuilder();
+        $staminaresult = $query->from('LotgdCore:ModuleUserprefs', 'u')
+            ->select('u.setting', 'u.value', 'u.userid')
+
+            ->where('u.modulename = :module AND u.setting = :setting')
+
+            ->setParameters([
+                'module'   => 'staminasystem',
+                'settings' => 'actions',
+            ])
+
+            ->getQuery()
+            ->getResult()
+        ;
 
         foreach ($staminaresult as $row)
         {
@@ -1251,14 +1261,20 @@ function stamina_minihof_makesmallboard($boardinfo, $userid = false)
     //get the names of the contestants in the small board
     $sbc = \count($smallboard);
 
+    $query = \Doctrine::createQueryBuilder();
+    $query->from('LotgdCore:Characters', 'u')
+        ->select('u.name')
+
+        ->where('u.acct = :id')
+    ;
+
     for ($i = 0; $i < $sbc; ++$i)
     {
         if ( ! isset($smallboard[$i]['name']) || ! $smallboard[$i]['name'])
         {
-            $sql                    = 'SELECT name FROM '.DB::prefix('accounts')." WHERE acctid='".$smallboard[$i]['acctid']."'";
-            $result                 = DB::query($sql);
-            $row                    = DB::fetch_assoc($result);
-            $smallboard[$i]['name'] = $row['name'];
+            $sql = clone $query;
+            $sql->setParameter('id', $smallboard[$i]['acctid']);
+            $smallboard[$i]['name'] = $sql->getQuery()->getSingleScalarResult();
         }
     }
     $en = \microtime(true);
@@ -1310,15 +1326,25 @@ function stamina_minihof_old($action, $userid = false)
 
     if ( ! $item->isHit())
     {
-        $board         = [];
-        $staminasql    = 'SELECT setting,value,userid FROM '.DB::prefix('module_userprefs')." WHERE modulename='staminasystem' AND setting='actions'";
-        $staminaresult = DB::query($staminasql);
+        $board = [];
 
-        $scount = DB::num_rows($staminaresult);
+        $query         = \Doctrine::createQueryBuilder();
+        $staminaresult = $query->from('LotgdCore:ModuleUserprefs', 'u')
+            ->select('u.setting', 'u.value', 'u.userid')
 
-        for ($i = 0; $i < $scount; ++$i)
+            ->where('u.modulename = :module AND u.setting = :setting')
+
+            ->setParameters([
+                'module'   => 'staminasystem',
+                'settings' => 'actions',
+            ])
+
+            ->getQuery()
+            ->getResult()
+        ;
+
+        foreach ($staminaresult as $row)
         {
-            $row           = DB::fetch_assoc($staminaresult);
             $actions_array = @\unserialize($row['value']);
             $actiondetails = $actions_array[$action];
 

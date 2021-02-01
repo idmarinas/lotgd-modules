@@ -6,7 +6,7 @@ function staminasystem_getmoduleinfo()
 {
     return [
         'name'                => 'Expanded Stamina System - Core',
-        'version'             => '3.2.0',
+        'version'             => '3.2.1',
         'author'              => 'Dan Hall, aka Caveman Joe, improbableisland.com, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'override_forced_nav' => true,
         'category'            => 'Stamina',
