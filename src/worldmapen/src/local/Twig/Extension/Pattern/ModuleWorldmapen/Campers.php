@@ -2,12 +2,14 @@
 
 namespace Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen;
 
+use Twig\Environment;
+
 trait Campers
 {
     /**
      * World Map camping routine.
      */
-    public function showCampers(): string
+    public function showCampers(Environment $env): string
     {
         global $session;
 
@@ -41,6 +43,6 @@ trait Campers
         $params['linkBase']  = 'runmodule.php?module=worldmapen';
         $params['linkExtra'] = '&op=combat&pvp=1';
 
-        return $this->getTemplate()->render('@module/worldmapen/twig/campers.twig', $params);
+        return $env->render('@module/worldmapen/twig/campers.twig', $params);
     }
 }

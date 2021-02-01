@@ -2,12 +2,14 @@
 
 namespace Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen;
 
+use Twig\Environment;
+
 trait MiniMap
 {
     /**
      * Show small map.
      */
-    public function showMiniMap(array $params): string
+    public function showMiniMap(Environment $env, array $params): string
     {
         $vloc         = [];
         $vname        = getsetting('villagename', LOCATION_FIELDS);
@@ -46,6 +48,6 @@ trait MiniMap
 
         $params['rowSpanY'] = $params['sizeY'] + 1;
 
-        return $this->getTemplate()->render('@module/worldmapen/twig/mini-map.twig', $params);
+        return $env->render('@module/worldmapen/twig/mini-map.twig', $params);
     }
 }

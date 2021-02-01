@@ -7,7 +7,7 @@ trait Map
     /**
      * Show full map.
      */
-    public function showMap(array $params): string
+    public function showMap(Environment $env, array $params): string
     {
         if ( ! get_module_pref('worldmapbuy', 'worldmapen'))
         {
@@ -47,6 +47,6 @@ trait Map
             'terrainColor' => worldmapen_getColorDefinitions(),
         ];
 
-        return $this->getTemplate()->render('@module/worldmapen/twig/map.twig', $params);
+        return $env->render('@module/worldmapen/twig/map.twig', $params);
     }
 }

@@ -2,12 +2,14 @@
 
 namespace Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen;
 
+use Twig\Environment;
+
 trait MapEditTerrain
 {
     /**
      * Show map for edit.
      */
-    public function showMapEditTerrain(): string
+    public function showMapEditTerrain(Environment $env): string
     {
         $vloc         = [];
         $vname        = getsetting('villagename', LOCATION_FIELDS);
@@ -35,6 +37,6 @@ trait MapEditTerrain
             'terrainDefs'  => worldmapen_loadTerrainDefs(),
         ];
 
-        return $this->getTemplate()->render('@module/worldmapen/twig/map-edit.twig', $params);
+        return $env->render('@module/worldmapen/twig/map-edit.twig', $params);
     }
 }

@@ -2,8 +2,7 @@
 
 namespace Lotgd\Local\Twig\Extension;
 
-use Lotgd\Core\Pattern as PatternCore;
-use Lotgd\Core\Twig\Extension\AbstractExtension;
+use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class ModuleWorldmapen extends AbstractExtension
@@ -15,8 +14,6 @@ class ModuleWorldmapen extends AbstractExtension
     use Pattern\ModuleWorldmapen\MapEditor;
     use Pattern\ModuleWorldmapen\MapEditTerrain;
     use Pattern\ModuleWorldmapen\MiniMap;
-    use PatternCore\Template;
-    use PatternCore\Translator;
 
     /**
      * {@inheritdoc}
@@ -24,14 +21,14 @@ class ModuleWorldmapen extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('module_worldmapen_show_map', [$this, 'showMap']),
-            new TwigFunction('module_worldmapen_show_mini_map', [$this, 'showMiniMap']),
-            new TwigFunction('module_worldmapen_show_compass', [$this, 'showCompass']),
-            new TwigFunction('module_worldmapen_show_legend', [$this, 'showLegend']),
-            new TwigFunction('module_worldmapen_show_campers', [$this, 'showCampers']),
+            new TwigFunction('module_worldmapen_show_map', [$this, 'showMap'], ['needs_environment' => true]),
+            new TwigFunction('module_worldmapen_show_mini_map', [$this, 'showMiniMap'], ['needs_environment' => true]),
+            new TwigFunction('module_worldmapen_show_compass', [$this, 'showCompass'], ['needs_environment' => true]),
+            new TwigFunction('module_worldmapen_show_legend', [$this, 'showLegend'], ['needs_environment' => true]),
+            new TwigFunction('module_worldmapen_show_campers', [$this, 'showCampers'], ['needs_environment' => true]),
 
-            new TwigFunction('module_worldmapen_show_map_editor', [$this, 'showMapEditor']),
-            new TwigFunction('module_worldmapen_show_map_edit_terrain', [$this, 'showMapEditTerrain']),
+            new TwigFunction('module_worldmapen_show_map_editor', [$this, 'showMapEditor'], ['needs_environment' => true]),
+            new TwigFunction('module_worldmapen_show_map_edit_terrain', [$this, 'showMapEditTerrain'], ['needs_environment' => true]),
         ];
     }
 

@@ -2,6 +2,8 @@
 
 namespace Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen;
 
+use Twig\Environment;
+
 trait Legend
 {
     /**
@@ -9,7 +11,7 @@ trait Legend
      *
      * @param bool $showloc
      */
-    public function showLegend($showloc): string
+    public function showLegend(Environment $env, $showloc): string
     {
         $vloc         = [];
         $vname        = getsetting('villagename', LOCATION_FIELDS);
@@ -28,6 +30,6 @@ trait Legend
             'terrainDef'     => worldmapen_loadTerrainDefs(),
         ];
 
-        return $this->getTemplate()->render('@module/worldmapen/twig/legend.twig', $params);
+        return $env->render('@module/worldmapen/twig/legend.twig', $params);
     }
 }
