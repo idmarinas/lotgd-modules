@@ -44,41 +44,18 @@ switch ($op2)
         {
             $form = module_objpref_edit('items', $module, $id);
 
-            $params['isLaminas'] = $form instanceof Laminas\Form\Form;
             $params['module']    = $module;
             $params['id']        = $id;
-
-            if ($params['isLaminas'])
-            {
-                $form->setAttribute('action', "runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule={$module}&isLaminas=true");
-                $params['formTypeTab'] = $form->getOption('form_type_tab');
-            }
 
             if (\LotgdRequest::isPost())
             {
                 $post = \LotgdRequest::getPostAll();
 
-                if ($params['isLaminas'])
-                {
-                    $form->setData($post);
+                \reset($post);
 
-                    if ($form->isValid())
-                    {
-                        $data = $form->getData();
+                process_post_save_data_inventory($post, $id, $module);
 
-                        process_post_save_data_inventory($data, $id, $module);
-
-                        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
-                    }
-                }
-                else
-                {
-                    \reset($post);
-
-                    process_post_save_data_inventory($post, $id, $module);
-
-                    \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
-                }
+                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
             }
 
             $params['form'] = $form;
@@ -89,9 +66,8 @@ switch ($op2)
         }
         else
         {
-            $lotgdFormFactory = \LotgdLocator::get('Lotgd\Core\SymfonyForm');
+            $lotgdFormFactory = \LotgdKernel::get('form.factory');
             $itemEntity = $repository->find($id) ?: new \Lotgd\Local\Entity\ModInventoryItem();
-            \Doctrine::detach($itemEntity);
 
             $form = $lotgdFormFactory->create(\Lotgd\Local\EntityForm\ModInventoryItemType::class, $itemEntity, [
                 'action' => "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}",
@@ -100,14 +76,13 @@ switch ($op2)
                 ]
             ]);
 
-            $form->handleRequest();
+            $form->handleRequest(\LotgdRequest::_i());
 
             if ($form->isSubmitted() && $form->isValid())
             {
                 $entity = $form->getData();
-                $method = $entity->getId() ? 'merge' : 'persist';
 
-                \Doctrine::{$method}($entity);
+                \Doctrine::persist($entity);
                 \Doctrine::flush();
 
                 $id = $entity->getId();
@@ -122,6 +97,7 @@ switch ($op2)
                     ]
                 ]);
             }
+            \Doctrine::clear(); //-- Avoid Doctrine save a invalid Form
 
             \LotgdNavigation::addNavAllow("runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}");
 
