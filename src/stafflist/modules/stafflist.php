@@ -77,10 +77,10 @@ function stafflist_dohook($hookname, $args)
         break;
         case 'village':
             \LotgdNavigation::addHeader('headers.info');
-            \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=stafflist&from=village', ['textDomain' => 'module-stafflist']);
+            \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=stafflist&from=village', ['textDomain' => 'module_stafflist']);
         break;
         case 'about':
-            \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=stafflist&from=about', ['textDomain' => 'module-stafflist']);
+            \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=stafflist&from=about', ['textDomain' => 'module_stafflist']);
         break;
         default: break;
     }
@@ -103,7 +103,7 @@ function stafflist_run()
         \LotgdNavigation::villageNav();
     }
 
-    $textDomain = 'module-stafflist';
+    $textDomain = 'module_stafflist';
 
     \LotgdResponse::pageStart('title', [], $textDomain);
 
