@@ -93,16 +93,16 @@ map:
             sw: "Can't move Southwest`n"
 
 action.levelled.terrain:
-    plains: '`n`c`b`0You gained a level in Travel across plains! You are now level {level}! This action will cost fewer Stamina points now, so you can saunter across more fields per day.`b`c`n'
-    river: '`n`c`b`0You gained a level in Travel across rivers!  You are now level {level}!  This action will cost fewer Stamina points now, so you can wade through more rivers in a single day.`b`c`n'
-    ocean: '`n`c`b`0You gained a level in Travel across deep water!  You are now level {level}!  This action will cost fewer Stamina points now, so you can swim more in a single day.`b`c`n'
-    earth: '`n`c`b`0You gained a level in Travel across earth!  You are now level {level}!  This action will cost fewer Stamina points now, so you can saunter across more beachy terrain in a single day.`b`c`n'
-    air: '`n`c`b`0You gained a level in Travel across air!  You are now level {level}!  This action will cost fewer Stamina points now, so you can fly through for air in a single day.`b`c`n'
-    desert: '`n`c`b`0You gained a level in Travel across deserts!  You are now level {level}!  This action will cost fewer Stamina points now, so you can saunter across more beachy terrain in a single day.`b`c`n'
-    swamp: '`n`c`b`0You gained a level in Travel across swamps!  You are now level {level}!  This action will cost fewer Stamina points now, so you can wade through more swampy goo every day.`b`c`n'
-    mountains: '`n`c`b`0You gained a level in Travel across mountains!  You are now level {level}!  This action will cost fewer Stamina points now, so you can scale more mountains in a single day.`b`c`n'
-    snow: '`n`c`b`0You gained a level in Travel across snow!  You are now level {level}!  This action will cost fewer Stamina points now, so you can stomp through more snow in a single day.`b`c`n'
-    forest: '`n`c`b`0You gained a level in Travel across dense jungle!  You are now level {level}!  This action will cost fewer Stamina points now, so you can navigate more thick jungle terrain per day.`b`c`n'
+    plains: '`n`c`b`0You gained a level in Travel across plains! You are now level {level}! This action will cost fewer Stamina points now, so you can saunter across more fields per day.´b`c`n'
+    river: '`n`c`b`0You gained a level in Travel across rivers!  You are now level {level}!  This action will cost fewer Stamina points now, so you can wade through more rivers in a single day.´b`c`n'
+    ocean: '`n`c`b`0You gained a level in Travel across deep water!  You are now level {level}!  This action will cost fewer Stamina points now, so you can swim more in a single day.´b`c`n'
+    earth: '`n`c`b`0You gained a level in Travel across earth!  You are now level {level}!  This action will cost fewer Stamina points now, so you can saunter across more beachy terrain in a single day.´b`c`n'
+    air: '`n`c`b`0You gained a level in Travel across air!  You are now level {level}!  This action will cost fewer Stamina points now, so you can fly through for air in a single day.´b`c`n'
+    desert: '`n`c`b`0You gained a level in Travel across deserts!  You are now level {level}!  This action will cost fewer Stamina points now, so you can saunter across more beachy terrain in a single day.´b`c`n'
+    swamp: '`n`c`b`0You gained a level in Travel across swamps!  You are now level {level}!  This action will cost fewer Stamina points now, so you can wade through more swampy goo every day.´b`c`n'
+    mountains: '`n`c`b`0You gained a level in Travel across mountains!  You are now level {level}!  This action will cost fewer Stamina points now, so you can scale more mountains in a single day.´b`c`n'
+    snow: '`n`c`b`0You gained a level in Travel across snow!  You are now level {level}!  This action will cost fewer Stamina points now, so you can stomp through more snow in a single day.´b`c`n'
+    forest: '`n`c`b`0You gained a level in Travel across dense jungle!  You are now level {level}!  This action will cost fewer Stamina points now, so you can navigate more thick jungle terrain per day.´b`c`n'
 
 pvp.count: '`&There {count,plural, =1{is `^1`& person} other{`^#`& people}} camping in the wilderness whom you might find interesting.`0`n'
 

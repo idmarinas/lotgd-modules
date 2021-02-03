@@ -60,6 +60,6 @@ section:
             `n`nWith that, the tiny fairy winks out of existence, and you feel gravity once again begin to pull at your feet.
             As the bright light fades from around you, you find yourself standing in the village square on wobbly knees once again.`0
 
-battle.defeated: '`&`bYou have been defeated by `%{creatureName}`0!`b`0`n'
+battle.defeated: '`&`bYou have been defeated by `%{creatureName}`0!´b`0`n'
 
 buff.effectfailmsg: '`#Eibwen`0 `3flits past and heals you for {damage}.`0'

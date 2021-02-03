@@ -99,7 +99,7 @@ section:
     hinder:
         title: '`n`c`^You feel more `4`bEVIL´b`0!`0´c`n'
         event:
-            '01': '`@You `%`ihate`i`@ spiders, and squash them!`0`n'
+            '01': '`@You `%`ihate´i`@ spiders, and squash them!`0`n'
             '02': >
                 `^You find it funny, and decide to sink the boat yourself!
                 Finding a convenient rock, you lob it over the river, hitting one of the rocks beneath the boat, lowering it imperceptibly.`0
@@ -141,7 +141,7 @@ news.event:
         '04': '`^{playerName}`0 `@has helped an injured lion in the forest today! How kind!!!`0'
         '05': '`^{playerName}`0 `@has helped an endangered explorer in the forest today! How kind!!!`0'
         '06': '`^{playerName}`0 `@has helped a group of starving children in the forest today! How kind!!!`0'
-        '07': '`^{playerName}`0 `@has helped a group of `inormal`i elephants in the forest today! How kind!!!`0'
+        '07': '`^{playerName}`0 `@has helped a group of `inormal´i elephants in the forest today! How kind!!!`0'
         '08': '`^{playerName}`0 `@has helped a `4Fox `&out of a trap in the forest! How kind!!!`0'
         '09': '`^{playerName}`0 `@has helped an injured `tdeer `&in the forest! How kind!!!`0'
         '010': '`^{playerName}`0 `jhas helped a broken down wagon `jin the forest! How kind!!!`0'

@@ -10,7 +10,7 @@ function alignmentevents_getmoduleinfo()
     return [
         'name'     => 'Alignment Events',
         'version'  => '4.1.0',
-        'author'   => '`@CortalUX`7, modified by DaveS and `0`b`&Se`0`)le`0`4nity`0 `&Hy`0`)pe`0`4rion`0`b, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
+        'author'   => '`@CortalUX`7, modified by DaveS and `0`b`&Se`0`)le`0`4nity`0 `&Hy`0`)pe`0`4rion`0´b, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=334',
         'settings' => [

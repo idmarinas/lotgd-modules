@@ -7,11 +7,11 @@ alignment:
 
 battle.victory:
     pvp:
-        evil: '`n`bYou have smote a good person, and as your are evil... it makes you more evil.`b`0`n'
-        good: '`n`bYou have destroyed an evil person, and as you are good... it makes you more good.`b`0`n'
+        evil: '`n`bYou have smote a good person, and as your are evil... it makes you more evil.´b`0`n'
+        good: '`n`bYou have destroyed an evil person, and as you are good... it makes you more good.´b`0`n'
         rand:
-            good: '`n`bYou have destroyed a person... strangely, it makes you more good.`b`0`n'
-            evil: '`n`bYou have destroyed a person... strangely, it makes you more evil.`b`0`n'
+            good: '`n`bYou have destroyed a person... strangely, it makes you more good.´b`0`n'
+            evil: '`n`bYou have destroyed a person... strangely, it makes you more evil.´b`0`n'
     pve:
-        evil: '`n`bYou have smote the good creature "{creatureName}", and it makes you more evil.`b`0`n'
-        good: '`n`bYou have destroyed the evil creature "{creatureName}", and it makes you more good.`b`0`n'
+        evil: '`n`bYou have smote the good creature "{creatureName}", and it makes you more evil.´b`0`n'
+        good: '`n`bYou have destroyed the evil creature "{creatureName}", and it makes you more good.´b`0`n'

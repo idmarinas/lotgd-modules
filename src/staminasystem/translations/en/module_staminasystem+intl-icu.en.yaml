@@ -26,7 +26,7 @@ section:
         bar.label: 'Total Stamina: {currentStamina,number} / {totalStamina,number} | Amber point: {amberPoint,number} | Red point: {redPoint,number}'
         buffs:
             title: '`n`n`bAction Buffs´b:`n'
-            item: '%s {rounds,plural, =0{} =1{1 round left} other{# rounds left}}`n'
+            item: '{name} {rounds,plural, =0{} =1{1 round left} other{# rounds left}}`n'
             none: None.
         table:
             thead:
@@ -67,7 +67,7 @@ buff:
     name: '`&Exhaustion`0'
     '0.3': "`$You're getting `bdangerously exhausted!´b`0"
     '0.6': "`$You're getting `bexhausted!´b`0"
-    '0.8': "`4You're getting `ivery`i tired...`0"
+    '0.8': "`4You're getting `ivery´i tired...`0"
     '01': "You're getting tired..."
 
 notify:
