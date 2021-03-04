@@ -11,7 +11,7 @@
         <td>
             {% if showMoons %}
                 {% for moon in moons %}
-                    {{ moon[0]|tl(moon[1], moon[2])|colorize }}
+                    {{ moon[0]|trans(moon[1], moon[2])|colorize }}
                 {% endfor %}
             {% else %}
                 {{ 'bright'|trans(_context) }}
