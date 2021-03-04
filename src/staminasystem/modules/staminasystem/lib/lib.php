@@ -1093,7 +1093,7 @@ function stamina_minihof($action, $userid = false)
 
     $st            = \microtime(true);
     $boardfilename = \LotgdSanitize::slugify($action);
-    $item          = $cache->getItem('modules/stamina/boardinfo_'.$boardfilename);
+    $item          = $cache->getItem('modules_stamina_boardinfo_'.$boardfilename);
     $en            = \microtime(true);
     $to            = $en - $st;
 
@@ -1109,7 +1109,7 @@ function stamina_minihof($action, $userid = false)
 
             ->setParameters([
                 'module'   => 'staminasystem',
-                'settings' => 'actions',
+                'setting' => 'actions',
             ])
 
             ->getQuery()
@@ -1132,7 +1132,7 @@ function stamina_minihof($action, $userid = false)
         $boardinfo = stamina_minihof_assignranks($board);
 
         $item->set($boardinfo);
-        $cache->save($boardinfo);
+        $cache->save($item);
     }
 
     $boardinfo = $item->get();
