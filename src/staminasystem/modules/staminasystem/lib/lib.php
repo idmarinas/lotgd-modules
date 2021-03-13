@@ -1152,7 +1152,7 @@ function stamina_minihof($action, $userid = false)
     $params = [
         'textDomain' => 'module_staminasystem',
         'board'      => $smallboard,
-        'action'     => translate_inline($action),
+        'action'     => $action,
         'userId'     => $userid,
     ];
 
