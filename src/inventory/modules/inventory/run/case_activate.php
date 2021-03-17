@@ -47,15 +47,15 @@ if (($item['item']['buff'] ?? false) && ! empty($item['item']['buff']))
     )));
 }
 
-if ($item['item']['execvalue'] > '')
+if ($item['item']['execValue'] > '')
 {
     \LotgdResponse::pageStart($item['item']['name']);
 
     $params = [];
 
-    if ($item['item']['exectext'] > '')
+    if ($item['item']['execText'] > '')
     {
-        $text               = \explode('|', $item['item']['exectext']);
+        $text               = \explode('|', $item['item']['execText']);
         $params['activate'] = [
             $text[0],
             [
@@ -77,7 +77,7 @@ if ($item['item']['execvalue'] > '')
 
     require_once 'lib/itemeffects.php';
 
-    $params['messages'] = get_effect($item['item'], $item['item']['noeffecttext']);
+    $params['messages'] = get_effect($item['item'], $item['item']['noEffectText']);
 
     \LotgdNavigation::addHeader('navigation.category.return');
 
