@@ -4,6 +4,7 @@ namespace Lotgd\Local\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Lotgd\Core\Pvp\Listing;
 
 class ModuleWorldmapen extends AbstractExtension
 {
@@ -14,6 +15,11 @@ class ModuleWorldmapen extends AbstractExtension
     use Pattern\ModuleWorldmapen\MapEditor;
     use Pattern\ModuleWorldmapen\MapEditTerrain;
     use Pattern\ModuleWorldmapen\MiniMap;
+
+    public function __construct(Listing $pvp)
+    {
+        $this->pvp = $pvp;
+    }
 
     /**
      * {@inheritdoc}

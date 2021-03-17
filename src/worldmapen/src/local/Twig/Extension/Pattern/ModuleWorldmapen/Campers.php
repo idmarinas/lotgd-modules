@@ -18,8 +18,7 @@ trait Campers
             return '';
         }
 
-        $pvp   = $this->getService(\Lotgd\Core\Pvp\Listing::class);
-        $query = $pvp->getQuery();
+        $query = $this->pvp->getQuery();
 
         $loc = get_module_pref('worldXYZ', 'worldmapen');
 
@@ -31,12 +30,12 @@ trait Campers
             ->setParameter('maploc', $loc)
         ;
 
-        $pvp->setQuery($query);
+        $this->pvp->setQuery($query);
 
         $pvptime = getsetting('pvptimeout', 600);
 
-        $params['paginator']  = $pvp->getPvpList($session['user']['location']);
-        $params['sleepers']   = $pvp->getLocationSleepersCount($session['user']['location']);
+        $params['paginator']  = $this->pvp->getPvpList($session['user']['location']);
+        $params['sleepers']   = $this->pvp->getLocationSleepersCount($session['user']['location']);
         $params['returnLink'] = \preg_replace('/op=[a-z]*/', 'op=continue', \LotgdRequest::getServer('REQUEST_URI'));
         $params['pvpTimeOut'] = new \DateTime(\date('Y-m-d H:i:s', \strtotime("-{$pvptime} seconds")));
 
