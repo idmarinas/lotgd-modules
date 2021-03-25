@@ -96,6 +96,7 @@ function alignmentevents_runevent($type)
     elseif ('help' == $op)
     {
         $params['tpl'] = 'help';
+        $params['event'] = $event;
 
         increment_module_pref('alignment', get_module_setting('aligngood'), 'alignment');
 
@@ -106,6 +107,7 @@ function alignmentevents_runevent($type)
     elseif ('hinder' == $op)
     {
         $params['tpl'] = 'hinder';
+        $params['event'] = $event;
 
         increment_module_pref('alignment', -get_module_setting('alignbad'), 'alignment');
 
@@ -116,6 +118,7 @@ function alignmentevents_runevent($type)
     elseif ('ignore' == $op)
     {
         $params['tpl'] = 'ignore';
+        $params['event'] = $event;
 
         addnews("news.event.help.0{$event}", $params, $params['textDomain']);
 
