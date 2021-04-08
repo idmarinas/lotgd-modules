@@ -148,8 +148,8 @@ function daysave_run()
 
     $params = [
         'textDomain'           => 'module_daysave',
-        'days'                 => get_module_pref('days'),
-        'slots'                => get_module_pref('slots'),
+        'days'                 => (int) get_module_pref('days'),
+        'slots'                => (int) get_module_pref('slots'),
         'startDays'            => get_module_setting('startdays'),
         'buyDayCost'           => get_module_setting('buydaycost'),
         'buySlotCost'          => get_module_setting('buyslotcost'),

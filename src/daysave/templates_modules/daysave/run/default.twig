@@ -8,15 +8,17 @@
 
 {% set fullText = 'chronofiddling.sphere.full'|trans(_context)|uncolorize %}
 
-{% for i in 1..days %}
-    <img src="images/daysphere-full.png" alt="{{ fullText }}" title="{{ fullText }}">
-{% endfor %}
+{% if days %}
+    {% for i in 1..days %}
+        <img src="images/daysphere-full.png" alt="{{ fullText }}" title="{{ fullText }}">
+    {% endfor %}
+{% endif %}
 
 {% if empty %}
     {% set emptyText = 'chronofiddling.sphere.empty'|trans(_context)|uncolorize %}
 
     {% for i in 1..empty %}
-    <img src="images/daysphere-empty.png" alt="{{ emptyText }}" title="{{ emptyText }}">
+        <img src="images/daysphere-empty.png" alt="{{ emptyText }}" title="{{ emptyText }}">
     {% endfor %}
 {% endif %}
 
