@@ -7,14 +7,14 @@
         {% set msg = ('section.give.part.0' ~ random(0, 8))|trans %}
         {{ 'section.give.blood.yes'|trans(_context|merge({'part': msg }))|colorize }}
     {% endif %}
-{% elseif 'flesh' == givetype %}
+{% elseif 'flesh' == giveType %}
     {% if weak %}
         {{ 'section.give.flesh.no'|trans(_context)|colorize }}
     {% else %}
         {% set msg = ('section.give.part.0' ~ random(0, 8))|trans %}
         {{ 'section.give.flesh.yes'|trans(_context|merge({'part': msg }))|colorize }}
     {% endif %}
-{% elseif 'spirit' == givetype %}
+{% elseif 'spirit' == giveType %}
     {% if weak %}
         {{ 'section.give.spirit.no'|trans(_context)|colorize }}
     {% else %}
