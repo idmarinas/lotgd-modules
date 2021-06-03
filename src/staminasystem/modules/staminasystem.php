@@ -6,7 +6,7 @@ function staminasystem_getmoduleinfo()
 {
     return [
         'name'                => 'Expanded Stamina System - Core',
-        'version'             => '3.2.1',
+        'version'             => '3.3.0',
         'author'              => 'Dan Hall, aka Caveman Joe, improbableisland.com, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'override_forced_nav' => true,
         'category'            => 'Stamina',
@@ -25,7 +25,7 @@ function staminasystem_getmoduleinfo()
             'user_minihof' => 'Show me the mini-HOF for Stamina-related actions,bool|true',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.0.0|Need a version equal or greater than 5.0.0 IDMarinas Edition',
         ],
     ];
 }

@@ -13,7 +13,7 @@ function worldmapen_getmoduleinfo()
 {
     return [
         'name'      => 'World Map',
-        'version'   => '1.2.0',
+        'version'   => '1.3.0',
         'author'    => 'Originally: AES and Kevin Hatfield, Maintained by Roland Lichti, Stamina and Mount interaction added by Caveman Joe, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'  => 'Map',
         'download'  => 'https://github.com/idmarinas/lotgd-modules',
@@ -106,6 +106,9 @@ function worldmapen_getmoduleinfo()
             'encounterSnow'      => 'Encounter rate for crossing snow?,float|1',
             'encounterEarth'     => 'Encounter rate for crossing earth?,float|1',
             'encounterAir'       => 'Encounter rates for crossing air?,float|1',
+        ],
+        'requires' => [
+            'lotgd' => '>=5.0.0|Need a version equal or greater than 5.0.0 IDMarinas Edition',
         ],
     ];
 }
