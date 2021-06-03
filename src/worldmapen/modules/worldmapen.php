@@ -19,7 +19,7 @@ function worldmapen_getmoduleinfo()
         'download'  => 'https://github.com/idmarinas/lotgd-modules',
         'vertxtloc' => 'http://www.dragonprime.net/users/klenkes/',
         'requires'  => [
-            'lotgd'  => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.0.0|Need a version equal or greater than 5.0.0 IDMarinas Edition',
             'cities' => '>=2.0.0|This module requires the Multiple Cities module to be installed',
         ],
         'settings' => [
@@ -106,9 +106,6 @@ function worldmapen_getmoduleinfo()
             'encounterSnow'      => 'Encounter rate for crossing snow?,float|1',
             'encounterEarth'     => 'Encounter rate for crossing earth?,float|1',
             'encounterAir'       => 'Encounter rates for crossing air?,float|1',
-        ],
-        'requires' => [
-            'lotgd' => '>=5.0.0|Need a version equal or greater than 5.0.0 IDMarinas Edition',
         ],
     ];
 }
