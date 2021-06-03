@@ -8,7 +8,7 @@ function ramiusaltar_getmoduleinfo()
 {
     return [
         'name'     => 'Alter to Ramius',
-        'version'  => '2.1.0',
+        'version'  => '2.1.1',
         'author'   => '`7ma`0`&tt`0`3@`0`7matt`0`&mullen`0`3.`0`7net`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'http://www.mattmullen.net',
