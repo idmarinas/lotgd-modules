@@ -190,7 +190,7 @@ function ramiusaltar_run()
                     debuglog('lost `@'.$turn_loss.' turns `7 giving spirit at Altar of Ramius');
                 }
 
-                $param['turnsLost'] = $turn_loss;
+                $params['turnsLost'] = $turn_loss;
 
                 debuglog('gained `4'.$gain_favor.' favor`7 giving spirit at Altar of Ramius');
             break;
