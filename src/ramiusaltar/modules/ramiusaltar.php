@@ -114,8 +114,6 @@ function ramiusaltar_run()
         if (get_module_pref('sacrificedtoday') >= get_module_setting('sacrificesperday'))
         {
             $params['sacrificed'] = true;
-
-            \LotgdNavigation::villageNav();
         }
         else
         {
