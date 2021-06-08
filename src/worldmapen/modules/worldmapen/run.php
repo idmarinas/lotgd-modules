@@ -316,7 +316,7 @@ function worldmapen_run_real()
             modulehook('player-logout');
             saveuser();
 
-            \LotgdSession::sessionLogOut();
+            \LotgdSession::invalidate();
 
             \LotgdKernel::get('cache.app')->delete('charlisthomepage');
             \LotgdKernel::get('cache.app')->delete('list.php-warsonline');
