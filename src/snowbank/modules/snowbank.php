@@ -76,10 +76,8 @@ function snowbank_dohook($hookname, $args)
         case 'page-bank-tpl-params':
             if ($session['user']['location'] == get_module_setting('bankloc'))
             {
-                $args['sex'] = $session['user']['sex'];
-
                 \LotgdNavigation::addHeader('category.money');
-                \LotgdNavigation::addNav('nav.gift', 'runmodule.php?module=snowbank&op=give');
+                \LotgdNavigation::addNav('nav.gift', 'runmodule.php?module=snowbank&op=give', ['textDomain' => 'snowbank_bank_navigation']);
             }
         break;
     }

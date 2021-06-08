@@ -74,7 +74,7 @@ function bloodbank_dohook($hookname, $args)
                 $args['sex'] = $session['user']['sex'];
 
                 \LotgdNavigation::addHeader('category.money');
-                \LotgdNavigation::addNav('nav.blood', 'runmodule.php?module=bloodbank&op=give');
+                \LotgdNavigation::addNav('nav.blood', 'runmodule.php?module=bloodbank&op=give', ['textDomain' => 'blookbank_bank_navigation']);
             }
         break;
     }

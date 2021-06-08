@@ -8,7 +8,7 @@ subtitle: '`^`c`bThe Snow Bank´b´c'
 default:
     paragraph: >
         `7You step through the darkened doorway, to find a one of Santa's Elves standing behind a counter.`n`n
-        `7"`&Hello {sex,select, 1{Madam} other {Sir}},`7" he says with a smile.
+        `7"`&Hello {playerSex,select, 1{Madam} other {Sir}},`7" he says with a smile.
     balance:
         positive: >
             `7"`&You have {balance,number} gold invested with us at the moment.
