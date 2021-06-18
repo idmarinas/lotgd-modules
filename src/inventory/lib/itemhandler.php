@@ -739,7 +739,7 @@ function remove_item_by_id($item, $qty = 1, $user = false, $invid = false)
     }
 
     \LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
-    \LotgdKernel::get('cache.app')->delete("inventor-item-{$item}-{$user}");
+    \LotgdKernel::get('cache.app')->delete("inventory-item-{$item}-{$user}");
 
     return $affected;
 }
