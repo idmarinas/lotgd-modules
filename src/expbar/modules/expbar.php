@@ -60,7 +60,7 @@ function expbar_dohook($hookname, $args)
 
             $params = [
                 'textDomain'        => 'module_expbar',
-                'experienceRequire' => exp_for_next_level($session['user']['level'], $session['user']['dragonkills']),
+                'experienceRequire' => \LotgdLog::expForNextLevel($session['user']['level'], $session['user']['dragonkills']),
                 'experienceCurrent' => $session['user']['experience'],
                 'level'             => $session['user']['level'],
                 'dragonkills'       => $session['user']['dragonkills'],

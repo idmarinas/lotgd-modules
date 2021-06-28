@@ -436,7 +436,7 @@ function worldmapen_run_real()
                 require_once 'lib/pvpsupport.php';
                 $aliveloc = $badguy['location'];
                 pvpvictory($badguy, $aliveloc, $options);
-                addnews('news.battle.victory', [
+                \LotgdLog::addNews('news.battle.victory', [
                     'playerName'   => $session['user']['name'],
                     'creatureName' => $badguy['creaturename'],
                 ], $textDomain);
@@ -459,7 +459,7 @@ function worldmapen_run_real()
 
                 pvpdefeat($badguy, $badguy['location']);
 
-                addnews('deathmessage', [
+                \LotgdLog::addNews('deathmessage', [
                     'deathmessage' => [
                         'deathmessage' => 'news.pvp.defeated',
                         'params'       => [

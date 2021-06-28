@@ -112,7 +112,7 @@ function titlechange_run()
             $session['user']['ctitle'] = $ntitle;
             $session['user']['name']   = $newname;
 
-            addnews('news.changed', [
+            \LotgdLog::addNews('news.changed', [
                 'from' => $fromname,
                 'new'  => $session['user']['name'],
             ], $textDomain);
@@ -120,12 +120,12 @@ function titlechange_run()
             if (get_module_setting('timespurchased'))
             {
                 $cost = get_module_setting('extrapoints');
-                debuglog("bought another custom title for {$cost} points");
+                \LotgdLog::debug("bought another custom title for {$cost} points");
             }
             else
             {
                 $cost = get_module_setting('initialpoints');
-                debuglog("bought first custom title for {$cost} points");
+                \LotgdLog::debug("bought first custom title for {$cost} points");
             }
 
             $session['user']['donationspent'] += $cost;

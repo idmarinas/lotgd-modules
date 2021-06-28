@@ -99,7 +99,7 @@ function fairy_runevent($type)
             $params['gived'] = true;
 
             --$session['user']['gems'];
-            debuglog('gave 1 gem to a fairy');
+            \LotgdLog::debug('gave 1 gem to a fairy');
 
             switch (\mt_rand(1, 7))
             {
@@ -115,13 +115,13 @@ function fairy_runevent($type)
 
                         $stamina = $extra * 25000;
                         addstamina($stamina);
-                        debuglog('gained stamina for fairy in forest');
+                        \LotgdLog::debug('gained stamina for fairy in forest');
                     }
                     else
                     {
                         $params['case'] = 2;
 
-                        debuglog('gained turns for fairy in forest');
+                        \LotgdLog::debug('gained turns for fairy in forest');
                         $session['user']['turns'] += $extra;
                     }
                 break;
@@ -129,7 +129,7 @@ function fairy_runevent($type)
                 case 3:
                     $params['case'] = 3;
                     $session['user']['gems'] += 2;
-                    debuglog('found 2 gem from a fairy');
+                    \LotgdLog::debug('found 2 gem from a fairy');
                 break;
                 case 4:
                 case 5:

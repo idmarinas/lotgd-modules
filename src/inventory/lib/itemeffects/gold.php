@@ -20,7 +20,7 @@ function itemeffects_increased_gold($gold, $item)
 
     $session['user']['gold'] += $gold;
 
-    debuglog("'s gold were altered by {$gold} by item {$item['id']}.");
+    \LotgdLog::debug("'s gold were altered by {$gold} by item {$item['id']}.");
 
     $out = [];
 

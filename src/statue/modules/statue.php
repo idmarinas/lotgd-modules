@@ -151,7 +151,7 @@ function statue_dohook($hookname, $args)
 
                     $args[] = [$text, $params, 'module_statue'];
 
-                    addnews('news.broke.statue', [
+                    \LotgdLog::addNews('news.broke.statue', [
                         'playerName' => $session['user']['name'],
                         'location'   => $session['user']['location'],
                     ], 'module_statue');
@@ -193,7 +193,7 @@ function statue_dohook($hookname, $args)
                     $array    = modulehook('statue-broke', ['lost' => $debuglog]);
                     $debuglog = $array['lost'];
                     $debuglog .= "for breaking the statue in {$session['user']['location']}.";
-                    debuglog($debuglog);
+                    \LotgdLog::debug($debuglog);
 
                     if ($session['user']['location'] == $capital)
                     {

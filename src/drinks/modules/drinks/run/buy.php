@@ -45,7 +45,7 @@ if ( ! $params['drunkeness'])
 
         $session['user']['gold'] -= $drinkcost;
 
-        debuglog("spent {$drinkcost} on {$row['name']}");
+        \LotgdLog::debug("spent {$drinkcost} on {$row['name']}");
 
         if ($row['harddrink'])
         {

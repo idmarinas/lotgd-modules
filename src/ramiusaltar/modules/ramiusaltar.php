@@ -138,7 +138,7 @@ function ramiusaltar_run()
                 if ($session['user']['hitpoints'] <= $session['user']['maxhitpoints'] * 0.75)
                 {
                     $params['weak'] = true;
-                    debuglog('lost 5 favor trying to give blood with '.$session['user']['hitpoints'].' of '.$session['user']['maxhitpoints'].' maxhp left');
+                    \LotgdLog::debug('lost 5 favor trying to give blood with '.$session['user']['hitpoints'].' of '.$session['user']['maxhitpoints'].' maxhp left');
                     $ramius_is_pleased = 0;
 
                     break;
@@ -151,7 +151,7 @@ function ramiusaltar_run()
                 set_module_pref('totalhploss', get_module_pref('totalhploss') + $session['user']['hitpoints'] * 0.9);
                 $session['user']['hitpoints'] *= 0.1;
 
-                debuglog('gained `4'.$gain_favor.' favor`7 giving blood at Altar of Ramius');
+                \LotgdLog::debug('gained `4'.$gain_favor.' favor`7 giving blood at Altar of Ramius');
             break;
             case 'flesh':
                 $params['giveType'] = 'flesh';
@@ -166,7 +166,7 @@ function ramiusaltar_run()
                 if ($session['user']['turns'] <= 4 || ($useStamina && $amber < 100))
                 {
                     $params['weak'] = true;
-                    debuglog('lost 5 favor trying to give flesh with '.($useStamina ? get_stamina(3).'stamina' : $session['user']['turns'].'turns').' left');
+                    \LotgdLog::debug('lost 5 favor trying to give flesh with '.($useStamina ? get_stamina(3).'stamina' : $session['user']['turns'].'turns').' left');
                     $ramius_is_pleased = 0;
 
                     break;
@@ -181,18 +181,18 @@ function ramiusaltar_run()
                     $stamina = $turn_loss * 25000;
                     set_module_pref('totalturnloss', get_module_pref('totalturnloss') + $stamina);
                     removestamina($stamina);
-                    debuglog('lost `@'.$stamina.' stamina `7 giving spirit at Altar of Ramius');
+                    \LotgdLog::debug('lost `@'.$stamina.' stamina `7 giving spirit at Altar of Ramius');
                 }
                 else
                 {
                     $session['user']['turns'] -= $turn_loss;
                     set_module_pref('totalturnloss', get_module_pref('totalturnloss') + $turn_loss);
-                    debuglog('lost `@'.$turn_loss.' turns `7 giving spirit at Altar of Ramius');
+                    \LotgdLog::debug('lost `@'.$turn_loss.' turns `7 giving spirit at Altar of Ramius');
                 }
 
                 $params['turnsLost'] = $turn_loss;
 
-                debuglog('gained `4'.$gain_favor.' favor`7 giving spirit at Altar of Ramius');
+                \LotgdLog::debug('gained `4'.$gain_favor.' favor`7 giving spirit at Altar of Ramius');
             break;
             case 'spirit':
                 $params['giveType'] = 'spirit';
@@ -201,7 +201,7 @@ function ramiusaltar_run()
                 if ($session['user']['permahitpoints'] < 0)
                 {
                     $params['weak'] = true;
-                    debuglog('lost 5 favor trying to give spirit with '.$session['user']['maxhitpoints'].' hp at lvl '.$session['user']['level'].'.');
+                    \LotgdLog::debug('lost 5 favor trying to give spirit with '.$session['user']['maxhitpoints'].' hp at lvl '.$session['user']['level'].'.');
                     $ramius_is_pleased = 0;
 
                     break;
@@ -218,8 +218,8 @@ function ramiusaltar_run()
 
                 $params['hpLost'] = $hp_loss;
 
-                debuglog('gained `4'.$gain_favor.' favor`7 giving spirit at Altar of Ramius');
-                debuglog('lost `&'.$hp_loss.' max hp `7 giving spirit at Altar of Ramius');
+                \LotgdLog::debug('gained `4'.$gain_favor.' favor`7 giving spirit at Altar of Ramius');
+                \LotgdLog::debug('lost `&'.$hp_loss.' max hp `7 giving spirit at Altar of Ramius');
             break;
             default:
                 $params['giveType'] = '';

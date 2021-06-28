@@ -49,7 +49,7 @@ function findgold_runevent($type, $link)
 
     $session['user']['gold'] += $gold;
 
-    debuglog("found {$gold} gold in the dirt");
+    \LotgdLog::debug("found {$gold} gold in the dirt");
 
     \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/findgold_runevent.twig', ['textDomain' => 'module_findgold', 'gold' => $gold]));
 }

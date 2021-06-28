@@ -213,7 +213,7 @@ function sethsong_sing(&$params)
 
             $params['goldGain'] = e_rand($leastgold, $mostgold);
             $session['user']['gold'] += $params['goldGain'];
-            debuglog("found {$params['goldGain']} gold near Seth");
+            \LotgdLog::debug("found {$params['goldGain']} gold near Seth");
 
         break;
         case 4:
@@ -268,7 +268,7 @@ function sethsong_sing(&$params)
                 $params['goldLost'] = 0;
 
                 $session['user']['gold'] -= $gold;
-                debuglog("lost {$gold} gold to Seth");
+                \LotgdLog::debug("lost {$gold} gold to Seth");
             }
 
         break;
@@ -278,7 +278,7 @@ function sethsong_sing(&$params)
 
             $session['user']['gems'] += $gems;
 
-            debuglog("got {$params['gemsGain']} gem\\(s\\) from Seth");
+            \LotgdLog::debug("got {$params['gemsGain']} gem\\(s\\) from Seth");
 
         break;
         case 10:

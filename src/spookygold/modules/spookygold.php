@@ -123,7 +123,7 @@ function spookygold_runevent($type)
             {
                 $params['cache'] = false;
 
-                debuglog('found a gem in the spooky alley');
+                \LotgdLog::debug('found a gem in the spooky alley');
                 ++$session['user']['gems'];
                 $session['user']['specialinc'] = '';
                 set_module_pref('visits', get_module_pref('visits') + 1);
@@ -137,7 +137,7 @@ function spookygold_runevent($type)
             {
                 $params['cache'] = true;
 
-                debuglog('found a cache of 5 gems in the spooky alley');
+                \LotgdLog::debug('found a cache of 5 gems in the spooky alley');
                 $session['user']['gems'] += 5;
                 $session['user']['specialinc'] = '';
                 set_module_pref('visits', get_module_pref('visits') + 1);
@@ -152,7 +152,7 @@ function spookygold_runevent($type)
 
             if ($diceroll > $cachechance)
             {
-                debuglog('found a gold piece in the spooky alley');
+                \LotgdLog::debug('found a gold piece in the spooky alley');
                 ++$session['user']['gold'];
                 $session['user']['specialinc'] = '';
                 set_module_pref('visits', get_module_pref('visits') + 1);
@@ -163,7 +163,7 @@ function spookygold_runevent($type)
 
                 $params['gold'] = $session['user']['level'] * \mt_rand(159, 211);
 
-                debuglog("found a cache of {$params['gold']} in the spooky alley");
+                \LotgdLog::debug("found a cache of {$params['gold']} in the spooky alley");
 
                 $session['user']['gold'] += $params['gold'];
                 $session['user']['specialinc'] = '';
@@ -287,11 +287,11 @@ function spookygold_fight()
         {
             $battle = false;
 
-            addnews('news.battle.defeated', [
+            \LotgdLog::addNews('news.battle.defeated', [
                 'playerName' => $session['user']['name'],
             ], $textDomain);
 
-            debuglog('lost to Bonemarrow Beast');
+            \LotgdLog::debug('lost to Bonemarrow Beast');
 
             $session['user']['hitpoints'] = 1;
 

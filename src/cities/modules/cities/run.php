@@ -98,7 +98,7 @@ if ('travel' == $op)
                     'close'   => false,
                 ]);
 
-                debuglog("Travelled with out having any forest fights, how'd they swing that?");
+                \LotgdLog::debug("Travelled with out having any forest fights, how'd they swing that?");
             }
         }
 
@@ -239,7 +239,7 @@ if ($battle)
     }
     elseif ($defeat)
     {
-        addnews('travel.deathmessage', [
+        \LotgdLog::addNews('travel.deathmessage', [
             'location' => $city,
             'player'   => $session['user']['name'],
             'creature' => $badbuy['creaturename'],

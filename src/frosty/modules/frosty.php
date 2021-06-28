@@ -104,7 +104,7 @@ function frosty_runevent($type)
 
                     $params['gold'] = $loss;
 
-                    debuglog("lost {$loss} gold ignoring frosty");
+                    \LotgdLog::debug("lost {$loss} gold ignoring frosty");
                 break;
                 default:
                 break;
@@ -162,12 +162,12 @@ function frosty_runevent($type)
                     }
                 break;
                 case 2:
-                    debuglog('got a gem helping frosty');
+                    \LotgdLog::debug('got a gem helping frosty');
                     ++$session['user']['gems'];
                 break;
                 case 3:
                     $fgold = (20 * $session['user']['level']);
-                    debuglog("found {$fgold} gold helping frosty");
+                    \LotgdLog::debug("found {$fgold} gold helping frosty");
                     $session['user']['gold'] += $fgold;
                     $params['gold'] = $fgold;
                 break;

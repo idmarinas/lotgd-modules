@@ -146,7 +146,7 @@ function mechanicalturk_run()
 
             \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
 
-            debuglog("Add {$points} donation points as rewards for creature submit.", false, $row['submittedbyid'], 'mechanicalturk');
+            \LotgdLog::debug("Add {$points} donation points as rewards for creature submit.", false, $row['submittedbyid'], 'mechanicalturk');
 
             \Doctrine::remove($creature);
 

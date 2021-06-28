@@ -109,7 +109,7 @@ function namecolor_run()
             $newname                 = change_player_name(\rawurldecode(\LotgdRequest::getQuery('name')));
             $session['user']['name'] = $newname;
 
-            addnews('news.changed', [
+            \LotgdLog::addNews('news.changed', [
                 'from' => $fromname,
                 'new'  => $session['user']['name'],
             ], $textDomain);

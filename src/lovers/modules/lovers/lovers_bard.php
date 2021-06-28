@@ -149,7 +149,7 @@ if ( ! $params['seenLover'])
                         $session['user']['turns'] = \max(0, $session['user']['turns']);
                     }
 
-                    addnews('news.flirt.bard.inn', [
+                    \LotgdLog::addNews('news.flirt.bard.inn', [
                         'playerName' => $session['user']['name'],
                         'partner'    => $partner,
                     ], $textDomain);
@@ -174,7 +174,7 @@ if ( ! $params['seenLover'])
                 {
                     $params['flirtCase'] = 1;
 
-                    addnews('news.flirt.bard.matrimony', [
+                    \LotgdLog::addNews('news.flirt.bard.matrimony', [
                         'playerName' => $session['user']['name'],
                         'partner'    => $partner,
                     ], $textDomain);
@@ -187,12 +187,12 @@ if ( ! $params['seenLover'])
                     if ($params['staminaSystem'])
                     {
                         removestamina(500000);
-                        debuglog('lost 500000 stamina after being rejected for marriage.');
+                        \LotgdLog::debug('lost 500000 stamina after being rejected for marriage.');
                     }
                     else
                     {
                         $session['user']['turns'] = 0;
-                        debuglog('lost all turns after being rejected for marriage.');
+                        \LotgdLog::debug('lost all turns after being rejected for marriage.');
                     }
                 }
             break;

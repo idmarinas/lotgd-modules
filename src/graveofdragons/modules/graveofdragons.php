@@ -137,7 +137,7 @@ function graveofdragons_runevent($type, $from)
                 $params['rand']     = 3;
                 $params['randGold'] = e_rand(get_module_setting('mingold'), get_module_setting('maxgold'));
 
-                debuglog("gained {$params['randGold']} gold from the body of a guide in the shades");
+                \LotgdLog::debug("gained {$params['randGold']} gold from the body of a guide in the shades");
 
                 $session['user']['gold'] += $params['randGold'];
                 $session['user']['specialinc'] = '';
@@ -160,7 +160,7 @@ function graveofdragons_runevent($type, $from)
                 $session['user']['gold'] += $params['randGold'];
                 $session['user']['specialinc'] = '';
 
-                debuglog("gained {$params['randGold']} gold and {$params['randGems']} gems digging in the Dragon's Graveyard.");
+                \LotgdLog::debug("gained {$params['randGold']} gold and {$params['randGems']} gems digging in the Dragon's Graveyard.");
             break;
             case 13:
             case 14:
@@ -182,7 +182,7 @@ function graveofdragons_runevent($type, $from)
                 $session['user']['gems'] += 2;
                 $session['user']['specialinc'] = '';
 
-                debuglog('gained 2 gems from the eye sockets of a dead dragon.');
+                \LotgdLog::debug('gained 2 gems from the eye sockets of a dead dragon.');
             break;
         }
     }
@@ -200,7 +200,7 @@ function graveofdragons_runevent($type, $from)
     }
     elseif ('takegold' == $op)
     {
-        debuglog("Lost all favour from steeling from the cursed altar of {$params['deathOverlord']}.");
+        \LotgdLog::debug("Lost all favour from steeling from the cursed altar of {$params['deathOverlord']}.");
         $session['user']['deathpower'] = 0;
         $session['user']['specialinc'] = '';
     }

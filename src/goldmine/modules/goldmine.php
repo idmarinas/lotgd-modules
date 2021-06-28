@@ -161,7 +161,7 @@ function goldmine_runevent($type)
                     --$session['user']['turns'];
                 }
 
-                debuglog("found {$gold} gold in the goldmine");
+                \LotgdLog::debug("found {$gold} gold in the goldmine");
                 $session['user']['gold'] += $gold;
                 $session['user']['specialinc'] = '';
             break;
@@ -179,7 +179,7 @@ function goldmine_runevent($type)
                     --$session['user']['turns'];
                 }
 
-                debuglog("found {$gems} gems in the goldmine");
+                \LotgdLog::debug("found {$gems} gems in the goldmine");
                 $session['user']['gems'] += $gems;
                 $session['user']['specialinc'] = '';
             break;
@@ -199,7 +199,7 @@ function goldmine_runevent($type)
                     --$session['user']['turns'];
                 }
 
-                debuglog("found {$gold} gold and {$gems} gems in the goldmine");
+                \LotgdLog::debug("found {$gold} gold and {$gems} gems in the goldmine");
                 $session['user']['gems'] += $gems;
                 $session['user']['gold'] += $gold;
                 $session['user']['specialinc'] = '';
@@ -241,7 +241,7 @@ function goldmine_runevent($type)
 
                     if ($params['horseDead'])
                     {
-                        debuglog("lost their mount, a {$playermount['mountname']}, in a mine collapse.");
+                        \LotgdLog::debug("lost their mount, a {$playermount['mountname']}, in a mine collapse.");
                         $session['user']['hashorse'] = 0;
 
                         if (isset($session['bufflist']['mount']))
@@ -254,7 +254,7 @@ function goldmine_runevent($type)
                     $params['gemsLost'] = \round(get_module_setting('percentgemloss') / 100 * $session['user']['gems'], 0);
                     $params['goldLost'] = \round(get_module_setting('percentgoldloss') / 100 * $session['user']['gold'], 0);
 
-                    debuglog("lost {$params['goldLost']} gold and {$params['gemsLost']} gems by dying in the goldmine");
+                    \LotgdLog::debug("lost {$params['goldLost']} gold and {$params['gemsLost']} gems by dying in the goldmine");
 
                     $session['user']['gold'] -= $params['goldLost'];
                     $session['user']['gems'] -= $params['gemsLost'];
@@ -263,11 +263,11 @@ function goldmine_runevent($type)
                     $session['user']['hitpoints'] = 0;
 
                     \LotgdNavigation::addNav('navigation.nav.news', 'news.php');
-                    addnews('news.dead', ['playerName' => $session['user']['name']], $params['textDomain']);
+                    \LotgdLog::addNews('news.dead', ['playerName' => $session['user']['name']], $params['textDomain']);
                 }
                 else
                 {
-                    debuglog('`&has lost 700000 stamina for the day due to a close call in the mine.');
+                    \LotgdLog::debug('`&has lost 700000 stamina for the day due to a close call in the mine.');
 
                     if ($params['staminaSystem'])
                     {

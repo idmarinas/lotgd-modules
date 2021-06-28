@@ -43,7 +43,7 @@ function findgem_runevent($type, $link)
 
     \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/findgem_runevent.twig', ['textDomain' => 'module_findgem']));
 
-    debuglog('found a gem in the dirt');
+    \LotgdLog::debug('found a gem in the dirt');
 }
 
 function findgem_run()

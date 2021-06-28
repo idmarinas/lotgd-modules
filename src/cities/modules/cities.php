@@ -217,15 +217,15 @@ function cities_dohook($hookname, $args)
                 {
                     if ('travel' == $info['type'])
                     {
-                        debuglog('Lost a travel because of being truant from master.');
+                        \LotgdLog::debug('Lost a travel because of being truant from master.');
                     }
                     elseif ('forest' == $info['type'])
                     {
-                        debuglog('Lost a forest fight because of being truant from master.');
+                        \LotgdLog::debug('Lost a forest fight because of being truant from master.');
                     }
                     else
                     {
-                        debuglog('Lost something, not sure just what, because of being truant from master.');
+                        \LotgdLog::debug('Lost something, not sure just what, because of being truant from master.');
                     }
                 }
             }

@@ -81,9 +81,9 @@ function lottery_dohook($hookname, $args)
                         $params['prize']  = $prize;
 
                         $session['user']['goldinbank'] += $prize;
-                        debuglog("won {$prize} gold on lottery");
+                        \LotgdLog::debug("won {$prize} gold on lottery");
 
-                        addnews('news.winner',
+                        \LotgdLog::addNews('news.winner',
                             [
                                 'playerName' => $session['user']['name'],
                                 'prize'      => $prize,
@@ -178,7 +178,7 @@ function lottery_run()
                 set_module_pref('pick', \implode('', $lotto));
                 set_module_pref('roundnum', $roundnum);
                 $session['user']['gold'] -= $cost;
-                debuglog("spent {$cost} on a lottery ticket");
+                \LotgdLog::debug("spent {$cost} on a lottery ticket");
                 $jackpot += \round($cost * (100 - $bleed) / 100, 0);
                 set_module_setting('currentjackpot', $jackpot);
             }

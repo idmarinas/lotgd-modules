@@ -196,7 +196,7 @@ function topwebgames_run()
 
         set_module_pref('voted', 1, 'topwebgames', $id);
         set_module_pref('lastvote', $dt, 'topwebgames', $id);
-        debuglog('gained 1 gem for topwebgames', 0, $id);
+        \LotgdLog::debug('gained 1 gem for topwebgames', 0, $id);
         \LotgdKernel::get('cache.app')->delete('topwebcounts', true);
 
         echo 'OK';
