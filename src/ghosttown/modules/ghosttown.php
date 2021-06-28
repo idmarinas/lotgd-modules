@@ -120,7 +120,7 @@ function ghosttown_dohook($hookname, $args)
                         ],
                         'textDomain' => 'ghosttown_module',
                     ],
-                    'taunt' => select_taunt(),
+                    'taunt' => \LotgdTool::selectTaunt(),
                 ], '');
             }
         break;

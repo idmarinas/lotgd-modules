@@ -117,7 +117,7 @@ function icetown_dohook($hookname, $args)
                         ],
                         'textDomain' => 'ghosttown-module',
                     ],
-                    'taunt' => select_taunt(),
+                    'taunt' => \LotgdTool::selectTaunt(),
                 ], '');
             }
         break;

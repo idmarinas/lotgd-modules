@@ -314,7 +314,7 @@ function worldmapen_run_real()
             $session['user']['restorepage'] = 'runmodule.php?module=worldmapen&op=wake';
 
             modulehook('player-logout');
-            saveuser();
+            \LotgdTool::saveUser();
 
             \LotgdSession::invalidate();
 
@@ -469,7 +469,7 @@ function worldmapen_run_real()
                         ],
                         'textDomain' => $textDomain,
                     ],
-                    'taunt' => select_taunt(),
+                    'taunt' => \LotgdTool::selectTaunt(),
                 ], '');
             }
 
