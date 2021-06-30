@@ -236,7 +236,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -302,7 +302,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setRounds(int $rounds)
+    public function setRounds($rounds)
     {
         $this->rounds = $rounds;
 
@@ -468,7 +468,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setLifeTap(int $lifeTap)
+    public function setLifeTap($lifeTap)
     {
         $this->lifeTap = $lifeTap;
 
@@ -490,7 +490,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setDamageShield(int $damageShield)
+    public function setDamageShield($damageShield)
     {
         $this->damageShield = $damageShield;
 
@@ -512,7 +512,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setRegen(int $regen)
+    public function setRegen($regen)
     {
         $this->regen = $regen;
 
@@ -534,7 +534,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setMinionCount(int $minionCount)
+    public function setMinionCount($minionCount)
     {
         $this->minionCount = $minionCount;
 
@@ -556,7 +556,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setMaxBadGuyDamage(int $maxBadGuyDamage)
+    public function setMaxBadGuyDamage($maxBadGuyDamage)
     {
         $this->maxBadGuyDamage = $maxBadGuyDamage;
 
@@ -578,7 +578,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setMinBadGuyDamage(int $minBadGuyDamage)
+    public function setMinBadGuyDamage($minBadGuyDamage)
     {
         $this->minBadGuyDamage = $minBadGuyDamage;
 
@@ -600,7 +600,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setMaxGoodGuyDamage(int $maxGoodGuyDamage)
+    public function setMaxGoodGuyDamage($maxGoodGuyDamage)
     {
         $this->maxGoodGuyDamage = $maxGoodGuyDamage;
 
@@ -622,7 +622,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setMinGoodGuyDamage(int $minGoodGuyDamage)
+    public function setMinGoodGuyDamage($minGoodGuyDamage)
     {
         $this->minGoodGuyDamage = $minGoodGuyDamage;
 
@@ -644,7 +644,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setStartMsg(string $startMsg)
+    public function setStartMsg($startMsg)
     {
         $this->startMsg = $startMsg;
 
@@ -666,7 +666,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setRoundMsg(string $roundMsg)
+    public function setRoundMsg($roundMsg)
     {
         $this->roundMsg = $roundMsg;
 
@@ -688,7 +688,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setWearOff(string $wearOff)
+    public function setWearOff($wearOff)
     {
         $this->wearOff = $wearOff;
 
@@ -710,7 +710,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setEffectFailMsg(string $effectFailMsg)
+    public function setEffectFailMsg($effectFailMsg)
     {
         $this->effectFailMsg = $effectFailMsg;
 
@@ -732,7 +732,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setEffectNoDmgMsg(string $effectNoDmgMsg)
+    public function setEffectNoDmgMsg($effectNoDmgMsg)
     {
         $this->effectNoDmgMsg = $effectNoDmgMsg;
 
@@ -754,7 +754,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setEffectMsg(string $effectMsg)
+    public function setEffectMsg($effectMsg)
     {
         $this->effectMsg = $effectMsg;
 
@@ -776,7 +776,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setAllowInPvp(bool $allowInPvp)
+    public function setAllowInPvp($allowInPvp)
     {
         $this->allowInPvp = $allowInPvp;
 
@@ -798,7 +798,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setAllowInTrain(bool $allowInTrain)
+    public function setAllowInTrain($allowInTrain)
     {
         $this->allowInTrain = $allowInTrain;
 
@@ -820,7 +820,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setSurviveNewDay(bool $surviveNewDay)
+    public function setSurviveNewDay($surviveNewDay)
     {
         $this->surviveNewDay = $surviveNewDay;
 
@@ -842,7 +842,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setExpireAfterFight(bool $expireAfterFight)
+    public function setExpireAfterFight($expireAfterFight)
     {
         $this->expireAfterFight = $expireAfterFight;
 
@@ -864,7 +864,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setInvulnerable(bool $invulnerable)
+    public function setInvulnerable($invulnerable)
     {
         $this->invulnerable = $invulnerable;
 

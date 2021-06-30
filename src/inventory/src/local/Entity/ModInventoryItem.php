@@ -252,7 +252,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -298,7 +298,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
 
@@ -320,7 +320,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setImage(string $image)
+    public function setImage($image)
     {
         $this->image = $image;
 
@@ -342,7 +342,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setDescription(string $description)
+    public function setDescription($description)
     {
         $this->description = $description;
 
@@ -364,7 +364,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setGold(int $gold)
+    public function setGold($gold)
     {
         $this->gold = $gold;
 
@@ -386,7 +386,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setGems(int $gems)
+    public function setGems($gems)
     {
         $this->gems = $gems;
 
@@ -408,7 +408,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setWeight(int $weight)
+    public function setWeight($weight)
     {
         $this->weight = $weight;
 
@@ -430,7 +430,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setDroppable(bool $droppable)
+    public function setDroppable($droppable)
     {
         $this->droppable = $droppable;
 
@@ -476,7 +476,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setDragonkills(int $dragonkills)
+    public function setDragonkills($dragonkills)
     {
         $this->dragonkills = $dragonkills;
 
@@ -522,7 +522,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setCharges(int $charges)
+    public function setCharges($charges)
     {
         $this->charges = $charges;
 
@@ -544,7 +544,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setHide(bool $hide)
+    public function setHide($hide)
     {
         $this->hide = $hide;
 
@@ -566,7 +566,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setCustomValue(string $customValue)
+    public function setCustomValue($customValue)
     {
         $this->customValue = $customValue;
 
@@ -588,7 +588,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setExecValue(string $execValue)
+    public function setExecValue($execValue)
     {
         $this->execValue = $execValue;
 
@@ -610,7 +610,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setExecText(string $execText)
+    public function setExecText($execText)
     {
         $this->execText = $execText;
 
@@ -632,7 +632,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setExecRequisites(string $execRequisites)
+    public function setExecRequisites($execRequisites)
     {
         $this->execRequisites = $execRequisites;
 
@@ -654,7 +654,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setExecCustomValue(string $execCustomValue)
+    public function setExecCustomValue($execCustomValue)
     {
         $this->execCustomValue = $execCustomValue;
 
@@ -676,7 +676,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setNoEffectText(string $noEffectText)
+    public function setNoEffectText($noEffectText)
     {
         $this->noEffectText = $noEffectText;
 
@@ -698,7 +698,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setActivationHook(int $activationHook)
+    public function setActivationHook($activationHook)
     {
         $this->activationHook = $activationHook;
 
@@ -720,7 +720,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setFindChance(int $findChance)
+    public function setFindChance($findChance)
     {
         $this->findChance = $findChance;
 
@@ -742,7 +742,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setFindRarity(string $findRarity)
+    public function setFindRarity($findRarity)
     {
         $this->findRarity = $findRarity;
 
@@ -764,7 +764,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setLooseChance(int $looseChance)
+    public function setLooseChance($looseChance)
     {
         $this->looseChance = $looseChance;
 
@@ -786,7 +786,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setDkLooseChance(int $dkLooseChance)
+    public function setDkLooseChance($dkLooseChance)
     {
         $this->dkLooseChance = $dkLooseChance;
 
@@ -808,7 +808,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setSellable(bool $sellable)
+    public function setSellable($sellable)
     {
         $this->sellable = $sellable;
 
@@ -830,7 +830,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setBuyable(bool $buyable)
+    public function setBuyable($buyable)
     {
         $this->buyable = $buyable;
 
@@ -852,7 +852,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setUniqueForServer(bool $uniqueForServer)
+    public function setUniqueForServer($uniqueForServer)
     {
         $this->uniqueForServer = $uniqueForServer;
 
@@ -874,7 +874,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setUniqueForPlayer(bool $uniqueForPlayer)
+    public function setUniqueForPlayer($uniqueForPlayer)
     {
         $this->uniqueForPlayer = $uniqueForPlayer;
 
@@ -896,7 +896,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setEquippable(bool $equippable)
+    public function setEquippable($equippable)
     {
         $this->equippable = $equippable;
 
@@ -918,7 +918,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setEquipWhere(string $equipWhere)
+    public function setEquipWhere($equipWhere)
     {
         $this->equipWhere = $equipWhere;
 

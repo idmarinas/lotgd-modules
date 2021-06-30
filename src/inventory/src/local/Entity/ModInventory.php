@@ -90,7 +90,7 @@ class ModInventory
      *
      * @return self
      */
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -112,7 +112,7 @@ class ModInventory
      *
      * @return self
      */
-    public function setUserId(int $userId)
+    public function setUserId($userId)
     {
         $this->userId = $userId;
 
@@ -158,7 +158,7 @@ class ModInventory
      *
      * @return self
      */
-    public function setSellValueGold(int $sellValueGold)
+    public function setSellValueGold($sellValueGold)
     {
         $this->sellValueGold = $sellValueGold;
 
@@ -180,7 +180,7 @@ class ModInventory
      *
      * @return self
      */
-    public function setSellValueGems(int $sellValueGems)
+    public function setSellValueGems($sellValueGems)
     {
         $this->sellValueGems = $sellValueGems;
 
@@ -202,7 +202,7 @@ class ModInventory
      *
      * @return self
      */
-    public function setSpecialValue(string $specialValue)
+    public function setSpecialValue($specialValue)
     {
         $this->specialValue = $specialValue;
 
@@ -224,7 +224,7 @@ class ModInventory
      *
      * @return self
      */
-    public function setEquipped(bool $equipped)
+    public function setEquipped($equipped)
     {
         $this->equipped = $equipped;
 
@@ -246,7 +246,7 @@ class ModInventory
      *
      * @return self
      */
-    public function setCharges(int $charges)
+    public function setCharges($charges)
     {
         $this->charges = $charges;
 
