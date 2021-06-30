@@ -236,7 +236,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -302,7 +302,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setRounds(int $rounds)
+    public function setRounds($rounds)
     {
         $this->rounds = $rounds;
 
@@ -468,7 +468,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setLifeTap(int $lifeTap)
+    public function setLifeTap($lifeTap)
     {
         $this->lifeTap = $lifeTap;
 
@@ -490,7 +490,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setDamageShield(int $damageShield)
+    public function setDamageShield($damageShield)
     {
         $this->damageShield = $damageShield;
 
@@ -512,7 +512,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setRegen(int $regen)
+    public function setRegen($regen)
     {
         $this->regen = $regen;
 
@@ -534,7 +534,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setMinionCount(int $minionCount)
+    public function setMinionCount($minionCount)
     {
         $this->minionCount = $minionCount;
 
@@ -556,7 +556,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setMaxBadGuyDamage(int $maxBadGuyDamage)
+    public function setMaxBadGuyDamage($maxBadGuyDamage)
     {
         $this->maxBadGuyDamage = $maxBadGuyDamage;
 
@@ -578,7 +578,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setMinBadGuyDamage(int $minBadGuyDamage)
+    public function setMinBadGuyDamage($minBadGuyDamage)
     {
         $this->minBadGuyDamage = $minBadGuyDamage;
 
@@ -600,7 +600,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setMaxGoodGuyDamage(int $maxGoodGuyDamage)
+    public function setMaxGoodGuyDamage($maxGoodGuyDamage)
     {
         $this->maxGoodGuyDamage = $maxGoodGuyDamage;
 
@@ -622,7 +622,7 @@ class ModInventoryBuff
      *
      * @return self
      */
-    public function setMinGoodGuyDamage(int $minGoodGuyDamage)
+    public function setMinGoodGuyDamage($minGoodGuyDamage)
     {
         $this->minGoodGuyDamage = $minGoodGuyDamage;
 

@@ -252,7 +252,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -364,7 +364,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setGold(int $gold)
+    public function setGold($gold)
     {
         $this->gold = $gold;
 
@@ -386,7 +386,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setGems(int $gems)
+    public function setGems($gems)
     {
         $this->gems = $gems;
 
@@ -408,7 +408,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setWeight(int $weight)
+    public function setWeight($weight)
     {
         $this->weight = $weight;
 
@@ -476,7 +476,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setDragonkills(int $dragonkills)
+    public function setDragonkills($dragonkills)
     {
         $this->dragonkills = $dragonkills;
 
@@ -522,7 +522,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setCharges(int $charges)
+    public function setCharges($charges)
     {
         $this->charges = $charges;
 
@@ -698,7 +698,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setActivationHook(int $activationHook)
+    public function setActivationHook($activationHook)
     {
         $this->activationHook = $activationHook;
 
@@ -720,7 +720,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setFindChance(int $findChance)
+    public function setFindChance($findChance)
     {
         $this->findChance = $findChance;
 
@@ -764,7 +764,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setLooseChance(int $looseChance)
+    public function setLooseChance($looseChance)
     {
         $this->looseChance = $looseChance;
 
@@ -786,7 +786,7 @@ class ModInventoryItem
      *
      * @return self
      */
-    public function setDkLooseChance(int $dkLooseChance)
+    public function setDkLooseChance($dkLooseChance)
     {
         $this->dkLooseChance = $dkLooseChance;
 
