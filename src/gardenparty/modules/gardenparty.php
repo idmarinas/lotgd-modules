@@ -16,7 +16,7 @@ function gardenparty_getmoduleinfo()
         'name'     => 'Garden Party',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Gardens',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'download' => 'core_module',
         'settings' => [
             'Garden Party Settings,title',
@@ -36,7 +36,7 @@ function gardenparty_getmoduleinfo()
             'drinkstoday' => 'How many drinks have they had today in the partY?,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -172,7 +172,7 @@ function gardenparty_run()
                     'rounds'   => 20,
                     'schema'   => 'module_gardenparty',
                 ];
-                apply_buff('gardenparty-cake', $buff);
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('gardenparty-cake', $buff);
                 set_module_pref('caketoday', $caketoday + 1);
             }
             else
@@ -200,7 +200,7 @@ function gardenparty_run()
                     'rounds'   => 20,
                     'schema'   => 'module_gardenparty',
                 ];
-                apply_buff('gardenparty-drink', $buff);
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('gardenparty-drink', $buff);
                 set_module_pref('drinkstoday', $drinkstoday + 1);
             }
             else
@@ -216,8 +216,10 @@ function gardenparty_run()
 
     if ($cantafford)
     {
+        $settings = LotgdKernel::get('lotgd_core.settings');
+
         \LotgdResponse::pageStart('title', [
-            'barman'  => getsetting('barkeep', '`tCedrik`0'),
+            'barman'  => $settings->getSetting('barkeep', '`tCedrik`0'),
             'clothes' => \LotgdTranslator::t('section.hook.gardens.party.barman.clothes', [], $textDomain),
         ], $textDomain);
 
@@ -226,7 +228,7 @@ function gardenparty_run()
         $params = [
             'textDomain' => $textDomain,
             'missed'     => $missed,
-            'barman'     => getsetting('barkeep', '`tCedrik`0'),
+            'barman'     => $settings->getSetting('barkeep', '`tCedrik`0'),
             'partyType'  => \LotgdTranslator::t('party.type', [], $textDomain),
         ];
 
@@ -236,7 +238,10 @@ function gardenparty_run()
     }
     else
     {
-        injectcommentary('gardens', 'whispers', ': '.\addslashes($comment));
+        \LotgdKernel::get(Lotgd\Core\Output\Commentary::class)->saveComment([
+            'section' => 'gardens',
+            'comment' => ': '.$comment
+        ]);
         $buff = [
             'name'            => \LotgdTranslator::t('buff.name.miss', [], $textDomain),
             'minioncount'     => 1,
@@ -246,7 +251,7 @@ function gardenparty_run()
             'rounds'          => -1,
             'schema'          => 'module_gardenparty',
         ];
-        apply_buff('gardenparty', $buff);
+        LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('gardenparty', $buff);
 
         return redirect('gardens.php');
     }
