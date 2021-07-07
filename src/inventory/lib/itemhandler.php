@@ -110,11 +110,9 @@ function run_newday_buffs($args): array
 
         if ($item['buff'])
         {
-            require_once 'lib/buffs.php';
-
             $item['buff'] = $repository->extractEntity($item['buff']);
 
-            apply_buff($item['buff']['key'], \array_merge([], ...\array_map(
+            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff($item['buff']['key'], \array_merge([], ...\array_map(
                 function ($key, $value)
                 {
                     return [\strtolower($key) => $value];

@@ -9,7 +9,7 @@ function specialtythiefskills_getmoduleinfo()
     return [
         'name'     => 'Specialty - Thieving Skills',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'download' => 'core_module',
         'category' => 'Specialties',
         'prefs'    => [
@@ -18,7 +18,7 @@ function specialtythiefskills_getmoduleinfo()
             'uses'  => 'Uses of Thieving Skills allowed,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -149,7 +149,7 @@ function specialtythiefskills_dohook($hookname, $args)
             }
         break;
         case 'newday':
-            $bonus = getsetting('specialtybonus', 1);
+            $bonus = LotgdSetting::getSetting('specialtybonus', 1);
 
             if ($session['user']['specialty'] == $spec)
             {
@@ -223,7 +223,7 @@ function specialtythiefskills_dohook($hookname, $args)
                     switch ($l)
                     {
                         case 1:
-                            apply_buff('ts1', [
+                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('ts1', [
                                 'startmsg'     => \LotgdTranslator::t('skill.ts1.startmsg', [], 'module_specialtythiefskills'),
                                 'name'         => \LotgdTranslator::t('skill.ts1.name', [], 'module_specialtythiefskills'),
                                 'rounds'       => 5,
@@ -234,7 +234,7 @@ function specialtythiefskills_dohook($hookname, $args)
                             ]);
                             break;
                         case 2:
-                            apply_buff('ts2', [
+                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('ts2', [
                                 'startmsg' => \LotgdTranslator::t('skill.ts2.startmsg', [], 'module_specialtythiefskills'),
                                 'name'     => \LotgdTranslator::t('skill.ts2.name', [], 'module_specialtythiefskills'),
                                 'rounds'   => 5,
@@ -245,7 +245,7 @@ function specialtythiefskills_dohook($hookname, $args)
                             ]);
                             break;
                         case 3:
-                            apply_buff('ts3', [
+                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('ts3', [
                                 'startmsg'     => \LotgdTranslator::t('skill.ts3.startmsg', [], 'module_specialtythiefskills'),
                                 'name'         => \LotgdTranslator::t('skill.ts3.name', [], 'module_specialtythiefskills'),
                                 'rounds'       => 5,
@@ -256,7 +256,7 @@ function specialtythiefskills_dohook($hookname, $args)
                             ]);
                             break;
                         case 5:
-                            apply_buff('ts5', [
+                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('ts5', [
                                 'startmsg' => \LotgdTranslator::t('skill.ts5.startmsg', [], 'module_specialtythiefskills'),
                                 'name'     => \LotgdTranslator::t('skill.ts5.name', [], 'module_specialtythiefskills'),
                                 'rounds'   => 5,
@@ -273,7 +273,7 @@ function specialtythiefskills_dohook($hookname, $args)
                 }
                 else
                 {
-                    apply_buff('ts0', [
+                    LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('ts0', [
                         'startmsg' => \LotgdTranslator::t('skill.ts0.startmsg', [], 'module_specialtythiefskills'),
                         'rounds'   => 1,
                         'schema'   => 'module_specialtythiefskills',

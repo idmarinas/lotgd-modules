@@ -12,7 +12,7 @@ function gardener_getmoduleinfo()
 {
     return [
         'name'     => 'Gardener',
-        'version'  => '2.2.0',
+        'version'  => '3.0.0',
         'author'   => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Gardens',
         'download' => 'core_module',
@@ -20,14 +20,14 @@ function gardener_getmoduleinfo()
             'Gardener - Settings,title',
             'customtext'  => 'Custom message for server,textarea|',
             'gardens'     => 'Does the gazebo appear in the gardens? (setting yes nullifies city selector below),bool|0',
-            'gardenerloc' => 'In which city does the gazebo appear,location|'.getsetting('villagename', LOCATION_FIELDS),
+            'gardenerloc' => 'In which city does the gazebo appear,location|'.LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
         ],
         'prefs' => [
             'Gardener - User Preferences,title',
             'seentoday' => 'Has the player visited today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }

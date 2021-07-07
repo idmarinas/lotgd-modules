@@ -12,16 +12,16 @@ function azrael_getmoduleinfo()
 {
     return [
         'name'     => 'Azrael the Spook',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Shannon Brown, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village Specials',
         'download' => 'core_module',
         'settings' => [
             'Azrael the Spook - Settings,title',
-            'azraelloc' => 'Where does the Azrael appear,location|'.getsetting('villagename', LOCATION_FIELDS),
+            'azraelloc' => 'Where does the Azrael appear,location|'.LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -112,7 +112,7 @@ function azrael_runevent($type)
                 }
 
                 // Aww heck, let's have the buff survive new day.
-                apply_buff('azrael', [
+                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('azrael', [
                     'name'          => \LotgdTranslator::t('buff.trick.name', [], $textDomain),
                     'rounds'        => 60,
                     'wearoff'       => \LotgdTranslator::t('buff.trick.wearoff', [], $textDomain),
@@ -147,7 +147,7 @@ function azrael_runevent($type)
             $params['tpl'] = 'treat';
 
             --$session['user']['gold'];
-            apply_buff('azrael', [
+            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('azrael', [
                 'name'          => \LotgdTranslator::t('buff.treat.name', [], $textDomain),
                 'rounds'        => 60,
                 'wearoff'       => \LotgdTranslator::t('buff.treat.wearoff', [], $textDomain),

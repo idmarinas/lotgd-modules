@@ -9,7 +9,7 @@ function tutor_getmoduleinfo()
     return [
         'name'     => 'In-game tutor',
         'author'   => 'Booger & Shannon Brown & JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'category' => 'Administrative',
         'download' => 'core_module',
         'prefs'    => [
@@ -18,7 +18,7 @@ function tutor_getmoduleinfo()
             'seenforest'  => 'Has the player seen the forest instructions,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -200,8 +200,8 @@ function tutor_run()
     global $session;
 
     $op    = \LotgdRequest::getQuery('op');
-    $city  = getsetting('villagename', LOCATION_FIELDS); // name of capital city
-    $iname = getsetting('innname', LOCATION_INN); // name of capital's inn
+    $city  = LotgdSetting::getSetting('villagename', LOCATION_FIELDS); // name of capital city
+    $iname = LotgdSetting::getSetting('innname', LOCATION_INN); // name of capital's inn
     $age   = $session['user']['age'];
 
     if ('helpfiles' == $op)

@@ -8,7 +8,7 @@ function cities_getmoduleinfo()
 {
     return [
         'name'                => 'Multiple Cities',
-        'version'             => '3.1.0',
+        'version'             => '4.0.0',
         'author'              => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'            => 'Village',
         'download'            => 'core_module',
@@ -36,7 +36,7 @@ function cities_getmoduleinfo()
             'servedcapital' => 'Is this drink served in the capital?,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -67,8 +67,8 @@ function cities_uninstall()
     // load it could get the location, uninstall the cities and then
     // save their location from their session back into the database
     // I think I have a patch however :)
-    $city = getsetting('villagename', LOCATION_FIELDS);
-    $inn  = getsetting('innname', LOCATION_INN);
+    $city = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
+    $inn  = LotgdSetting::getSetting('innname', LOCATION_INN);
 
     try
     {
@@ -103,7 +103,7 @@ function cities_dohook($hookname, $args)
 {
     global $session;
 
-    $city                        = getsetting('villagename', LOCATION_FIELDS);
+    $city                        = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $ccity                       = \urlencode($city);
     $session['user']['location'] = $session['user']['location'] ?? '';
     $home                        = $session['user']['location'] == get_module_pref('homecity');

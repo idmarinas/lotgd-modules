@@ -15,7 +15,7 @@ require_once 'lib/redirect.php';
 
 $amber         = get_stamina();
 $red           = get_stamina(0);
-$deathOverlord = getsetting('deathoverlord', '`$Ramius`0');
+$deathOverlord = LotgdSetting::getSetting('deathoverlord', '`$Ramius`0');
 
 if ($amber < 100 && $red >= 100)
 {
@@ -54,7 +54,7 @@ if ($amber < 100 && $red >= 100)
 
     if ($script)
     {
-        apply_buff('stamina-corecombat-exhaustion', [
+        LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('stamina-corecombat-exhaustion', [
             'name'     => \LotgdTranslator::t('buff.name', [], 'module_staminasystem'),
             'atkmod'   => $buffvalue,
             'defmod'   => $buffvalue,
@@ -68,7 +68,7 @@ if ($amber < 100 && $red >= 100)
 }
 else
 {
-    strip_buff('stamina-corecombat-exhaustion');
+    LotgdKernel::get('lotgd_core.combat.buffs')->stripBuff('stamina-corecombat-exhaustion');
 }
 
 if ($red < 100)

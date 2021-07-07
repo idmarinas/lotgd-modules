@@ -8,7 +8,7 @@ function lovers_getmoduleinfo()
     return [
         'name'     => 'Violet and Seth Lovers',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'category' => 'Inn',
         'download' => 'core_module',
         'prefs'    => [
@@ -16,7 +16,7 @@ function lovers_getmoduleinfo()
             'seenlover' => 'Visited Lover Today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -88,14 +88,14 @@ function lovers_dohook($hookname, $args)
             {
                 \LotgdNavigation::addNav('navigation.nav.chat.bard.chat', 'runmodule.php?module=lovers&op=chat', [
                     'textDomain' => $textDomain,
-                    'params'     => ['name' => getsetting('bard', '`^Seth`0')],
+                    'params'     => ['name' => LotgdSetting::getSetting('bard', '`^Seth`0')],
                 ]);
             }
             else
             {
                 \LotgdNavigation::addNav('navigation.nav.chat.barmaid.chat', 'runmodule.php?module=lovers&op=chat', [
                     'textDomain' => $textDomain,
-                    'params'     => ['name' => getsetting('barmaid', '`%Violet`0')],
+                    'params'     => ['name' => LotgdSetting::getSetting('barmaid', '`%Violet`0')],
                 ]);
             }
         break;
@@ -116,10 +116,10 @@ function lovers_run()
     $params = [
         'textDomain' => $textDomain,
         'playerName' => $session['user']['name'],
-        'innName'    => getsetting('innname', LOCATION_INN),
-        'barkeep'    => getsetting('barkeep', '`tCedrik`0'),
-        'bard'       => getsetting('bard', '`^Seth`0'),
-        'barmaid'    => getsetting('barmaid', '`%Violet`0'),
+        'innName'    => LotgdSetting::getSetting('innname', LOCATION_INN),
+        'barkeep'    => LotgdSetting::getSetting('barkeep', '`tCedrik`0'),
+        'bard'       => LotgdSetting::getSetting('bard', '`^Seth`0'),
+        'barmaid'    => LotgdSetting::getSetting('barmaid', '`%Violet`0'),
         'partner'    => get_partner(),
     ];
 

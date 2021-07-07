@@ -12,7 +12,7 @@ function goldmine_getmoduleinfo()
 {
     return [
         'name'     => 'Gold Mine',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Ville Valtokari, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
@@ -32,7 +32,7 @@ function goldmine_getmoduleinfo()
             'savemsg'    => 'Message when mount saves player|',
         ],
         'requires' => [
-            'lotgd' => '>=4.1.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -246,7 +246,7 @@ function goldmine_runevent($type)
 
                         if (isset($session['bufflist']['mount']))
                         {
-                            strip_buff('mount');
+                            LotgdKernel::get('lotgd_core.combat.buffs')->stripBuff('mount');
                         }
                     }
 

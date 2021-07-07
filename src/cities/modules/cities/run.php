@@ -143,13 +143,13 @@ if ('travel' == $op)
             ];
             modulehook('soberup', $args);
 
-            $result = lotgd_search_creature(1, $session['user']['level'], $session['user']['level']);
+            $result = LotgdKernel::get('lotgd_core.tool.creature_functions')->lotgdSearchCreature(1, $session['user']['level'], $session['user']['level']);
 
             if ( ! \count($result))
             {
                 // There is nothing in the database to challenge you,
                 // let's give you a doppleganger.
-                $badguy = lotgd_generate_doppelganger($session['user']['level']);
+                $badguy = LotgdKernel::get('lotgd_core.tool.creature_functions')->lotgdGenerateDoppelganger($session['user']['level']);
             }
             else
             {
@@ -157,7 +157,7 @@ if ('travel' == $op)
                 $badguy = buffbadguy($badguy);
             }
 
-            calculate_buff_fields();
+            LotgdKernel::get('lotgd_core.combat.buffs')->calculateBuffFields();
             $badguy['playerstarthp']   = $session['user']['hitpoints'];
             $badguy['diddamage']       = 0;
             $badguy['type']            = 'travel';
@@ -248,7 +248,7 @@ if ($battle)
     else
     {
         require_once 'lib/fightnav.php';
-        fightnav(true, true, "runmodule.php?module=cities&city={$ccity}&d={$danger}");
+        LotgdNavigation::fightNav(true, true, "runmodule.php?module=cities&city={$ccity}&d={$danger}");
     }
 
     \LotgdResponse::pageEnd();

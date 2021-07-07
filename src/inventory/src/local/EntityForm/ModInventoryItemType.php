@@ -49,7 +49,7 @@ class ModInventoryItemType extends AbstractType
                 'label' => 'form.item.level',
                 'attr'  => [
                     'min'                   => 1,
-                    'max'                   => getsetting('maxlevel'),
+                    'max'                   => \LotgdSetting::getSetting('maxlevel'),
                     'disable_slider_labels' => false,
                     'step'                  => 1,
                 ],

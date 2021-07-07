@@ -30,7 +30,7 @@ function worldmapen_defaultcityloc()
     $citylocations     = [];
     $citylocations[][] = '';
     $vloc              = [];
-    $vname             = getsetting('villagename', LOCATION_FIELDS);
+    $vname             = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $vloc[$vname]      = 'village';
     $vloc              = modulehook('validlocation', $vloc);
 
@@ -99,7 +99,7 @@ function worldmapen_determinenav()
     $oloc            = $loc;
     list($x, $y, $z) = \explode(',', $loc);
     $vloc            = [];
-    $vname           = getsetting('villagename', LOCATION_FIELDS);
+    $vname           = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $vloc[$vname]    = 'village';
     $vloc            = modulehook('validlocation', $vloc);
 

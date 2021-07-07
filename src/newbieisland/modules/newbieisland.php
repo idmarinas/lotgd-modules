@@ -8,7 +8,7 @@ function newbieisland_getmoduleinfo()
 {
     return [
         'name'     => 'Newbie Island',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'General',
         'download' => 'core_module',
@@ -21,7 +21,7 @@ function newbieisland_getmoduleinfo()
             'leftisland' => 'Left the newbie island,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -50,7 +50,7 @@ function newbieisland_uninstall()
 {
     global $session;
 
-    $vname = getsetting('villagename', LOCATION_FIELDS);
+    $vname = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $gname = get_module_setting('villagename');
 
     $repository = \Doctrine::getRepository('LotgdCore:Characters');
@@ -198,7 +198,7 @@ function newbieisland_dohook($hookname, $args)
                     $textDomain,
                 ];
 
-                battleshowresults($lotgdBattleContent);
+                LotgdKernel::get('lotgd_core.combat.battle')->battleShowResults($lotgdBattleContent);
 
                 \LotgdNavigation::addNav('common.nav.continue', 'runmodule.php?module=newbieisland&op=resurrect', [
                     'textDomain' => 'navigation_app',
@@ -255,7 +255,7 @@ function newbieisland_dohook($hookname, $args)
 
             if ($session['user']['location'] == $city)
             {
-                $turns = getsetting('turns', 10);
+                $turns = LotgdSetting::getSetting('turns', 10);
                 $turns = \round($turns / 2);
 
                 if (is_module_active('staminasystem'))
@@ -273,7 +273,7 @@ function newbieisland_dohook($hookname, $args)
                     $session['user']['turns'] += $turns;
                 }
 
-                apply_buff('newbiecoddle', [
+                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('newbiecoddle', [
                     'name'             => '',
                     'rounds'           => -1,
                     'minioncount'      => 1,
@@ -471,7 +471,7 @@ function newbieisland_run()
             }
             else
             {
-                $session['user']['location'] = getsetting('villagename', LOCATION_FIELDS);
+                $session['user']['location'] = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
             }
 
             $params = [
@@ -489,7 +489,7 @@ function newbieisland_run()
             $params = [
                 'textDomain'    => $textDomain,
                 'city'          => $city,
-                'deathOverlord' => getsetting('deathoverlord', '`$Ramius`0'),
+                'deathOverlord' => LotgdSetting::getSetting('deathoverlord', '`$Ramius`0'),
             ];
 
             $session['user']['hitpoints'] = 1;

@@ -23,7 +23,7 @@ function spookygold_getmoduleinfo()
 {
     return [
         'name'     => 'Spooky Gold',
-        'version'  => '1.1.0',
+        'version'  => '2.0.0',
         'author'   => 'Dan Norton, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village Specials',
         'download' => 'core_module',
@@ -40,7 +40,7 @@ function spookygold_getmoduleinfo()
             'visits' => 'How many visits to the alley has the player made today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -332,7 +332,7 @@ function spookygold_fight()
         }
         else
         {
-            fightnav(true, true);
+            LotgdNavigation::fightNav(true, true);
         }
     }
 

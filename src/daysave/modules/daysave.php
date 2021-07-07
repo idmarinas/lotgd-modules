@@ -12,7 +12,7 @@ function daysave_getmoduleinfo()
     return [
         'name'     => 'Game Day Accumulation',
         'author'   => 'CavemanJoe, based on daysave.php by Exxar with fixes by SexyCook, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '3.1.0',
+        'version'  => '4.0.0',
         'category' => 'General',
         'settings' => [
             'startdays'    => 'Number of game days with which to start a new player,int|2',
@@ -30,7 +30,7 @@ function daysave_getmoduleinfo()
             'initsetup'     => 'Player has been initially granted their starting settings,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -62,7 +62,7 @@ function daysave_dohook($hookname, $args)
             $days          = get_module_pref('days');
             $slots         = get_module_pref('slots');
             $lastonnextday = get_module_pref('lastlognewday');
-            $time          = gametimedetails();
+            $time          = LotgdKernel::get("lotgd_core.tool.date_time")->gameTimeDetails();
             $timediff      = $time['gametime'] - $lastonnextday;
 
             if ($timediff > 86400)
@@ -111,7 +111,7 @@ function daysave_dohook($hookname, $args)
             ;
         break;
         case 'player-logout':
-            $details = gametimedetails();
+            $details = LotgdKernel::get("lotgd_core.tool.date_time")->gameTimeDetails();
             set_module_pref('lastlognewday', $details['tomorrow']);
         break;
         case 'village':

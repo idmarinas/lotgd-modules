@@ -13,7 +13,7 @@ trait Campers
     {
         global $session;
 
-        if ( ! getsetting('pvp', 1))
+        if ( ! $this->settings->getSetting('pvp', 1))
         {
             return '';
         }
@@ -32,7 +32,7 @@ trait Campers
 
         $this->pvp->setQuery($query);
 
-        $pvptime = getsetting('pvptimeout', 600);
+        $pvptime = $this->settings->getSetting('pvptimeout', 600);
 
         $params['paginator']  = $this->pvp->getPvpList($session['user']['location']);
         $params['sleepers']   = $this->pvp->getLocationSleepersCount($session['user']['location']);

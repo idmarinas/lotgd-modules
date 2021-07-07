@@ -4,7 +4,7 @@ function fairy_getmoduleinfo()
 {
     return [
         'name'     => 'Forest Fairy',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
@@ -19,7 +19,7 @@ function fairy_getmoduleinfo()
             'extrahps' => 'How many extra hitpoints has the user gained?,int',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -151,7 +151,7 @@ function fairy_runevent($type)
                 case 6:
                 case 7:
                     $params['case'] = 5;
-                    increment_specialty('`^');
+                    LotgdKernel::get('lotgd_core.tool.player_functions')->incrementSpecialty('`^');
                 break;
             }
         }

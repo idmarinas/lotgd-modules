@@ -4,7 +4,7 @@ function racedwarf_getmoduleinfo()
 {
     return [
         'name'     => 'Race - Dwarf',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Races',
         'download' => 'core_module',
@@ -18,7 +18,7 @@ function racedwarf_getmoduleinfo()
             'servedkeg' => 'Is this drink served in the dwarven inn?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -111,7 +111,7 @@ function racedwarf_uninstall()
 {
     global $session;
 
-    $vname = getsetting('villagename', LOCATION_FIELDS);
+    $vname = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $gname = get_module_setting('villagename');
 
     try
@@ -294,7 +294,7 @@ function racedwarf_dohook($hookname, $args)
             }
         break;
         case 'travel':
-            $capital = getsetting('villagename', LOCATION_FIELDS);
+            $capital = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
             $hotkey  = \substr($city, 0, 1);
             $ccity   = \urlencode($city);
 

@@ -9,7 +9,7 @@ function specialtymysticpower_getmoduleinfo()
     return [
         'name'     => 'Specialty - Mystical Powers',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'download' => 'core_module',
         'category' => 'Specialties',
         'prefs'    => [
@@ -18,7 +18,7 @@ function specialtymysticpower_getmoduleinfo()
             'uses'  => 'Uses of Mystical Powers allowed,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -149,7 +149,7 @@ function specialtymysticpower_dohook($hookname, $args)
             }
         break;
         case 'newday':
-            $bonus = getsetting('specialtybonus', 1);
+            $bonus = LotgdSetting::getSetting('specialtybonus', 1);
 
             if ($session['user']['specialty'] == $spec)
             {
@@ -223,7 +223,7 @@ function specialtymysticpower_dohook($hookname, $args)
                     switch ($l)
                     {
                         case 1:
-                            apply_buff('mp1', [
+                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mp1', [
                                 'startmsg'       => LotgdTranslator::t('skill.mp1.startmsg', [], 'module_specialtymysticpower'),
                                 'name'           => LotgdTranslator::t('skill.mp1.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
@@ -237,7 +237,7 @@ function specialtymysticpower_dohook($hookname, $args)
                             ]);
                             break;
                         case 2:
-                            apply_buff('mp2', [
+                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mp2', [
                                 'startmsg'        => \LotgdTranslator::t('skill.mp2.startmsg', [], 'module_specialtymysticpower'),
                                 'name'            => \LotgdTranslator::t('skill.mp2.name', [], 'module_specialtymysticpower'),
                                 'rounds'          => 5,
@@ -251,7 +251,7 @@ function specialtymysticpower_dohook($hookname, $args)
                             ]);
                             break;
                         case 3:
-                            apply_buff('mp3', [
+                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mp3', [
                                 'startmsg'       => \LotgdTranslator::t('skill.mp3.startmsg', [], 'module_specialtymysticpower'),
                                 'name'           => \LotgdTranslator::t('skill.mp3.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
@@ -264,7 +264,7 @@ function specialtymysticpower_dohook($hookname, $args)
                             ]);
                             break;
                         case 5:
-                            apply_buff('mp5', [
+                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mp5', [
                                 'startmsg'       => \LotgdTranslator::t('skill.mp5.startmsg', [], 'module_specialtymysticpower'),
                                 'name'           => \LotgdTranslator::t('skill.mp5.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
@@ -282,7 +282,7 @@ function specialtymysticpower_dohook($hookname, $args)
                 }
                 else
                 {
-                    apply_buff('mp0', [
+                    LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mp0', [
                         'startmsg' => \LotgdTranslator::t('skill.mp0.startmsg', [], 'module_specialtymysticpower'),
                         'rounds'   => 1,
                         'schema'   => 'module_specialtymysticpower',

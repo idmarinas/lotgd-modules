@@ -5,7 +5,7 @@ function statue_getmoduleinfo()
     return [
         'name'      => 'Village Statue',
         'author'    => '`%Simon Welsh`0<br>`#Based on Village Statue by Eric Stevens`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'   => '3.11.0',
+        'version'   => '4.0.0',
         'category'  => 'Village',
         'download'  => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=667',
         'vertxtloc' => 'http://simon.geek.nz/',
@@ -31,7 +31,7 @@ function statue_getmoduleinfo()
             'see' => 'Show Statue for user,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -55,7 +55,7 @@ function statue_dohook($hookname, $args)
 {
     global $session;
 
-    $capital  = getsetting('villagename', LOCATION_FIELDS);
+    $capital  = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $hero     = get_module_setting('hero');
     $heroName = get_module_setting('heroName');
     $heros    = \unserialize(get_module_setting('villagehero'));

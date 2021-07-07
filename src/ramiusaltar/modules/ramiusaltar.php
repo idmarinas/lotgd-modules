@@ -8,13 +8,13 @@ function ramiusaltar_getmoduleinfo()
 {
     return [
         'name'     => 'Alter to Ramius',
-        'version'  => '2.1.1',
+        'version'  => '3.0.0',
         'author'   => '`7ma`0`&tt`0`3@`0`7matt`0`&mullen`0`3.`0`7net`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'http://www.mattmullen.net',
         'settings' => [
             'reward = minimumguaranteedreward + random(0;maximumrandombonus),note',
-            'ramiusaltarloc'   => 'Where does the altar to Ramius appear,location|'.getsetting('villagename', LOCATION_FIELDS),
+            'ramiusaltarloc'   => 'Where does the altar to Ramius appear,location|'.LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
             'sacrificesperday' => 'How many times can the user sacrifice each day,int|1',
             'reward1'          => 'What is the minimum guaranteed favor for blood sacrafice,int|10',
             'reward2'          => 'What is the minimum guaranteed favor for flesh sacrafice,int|35',
@@ -30,7 +30,7 @@ function ramiusaltar_getmoduleinfo()
             'totalmaxhploss'  => 'How many total max hitpoints has the user lost,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }

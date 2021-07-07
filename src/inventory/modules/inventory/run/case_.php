@@ -134,7 +134,7 @@ elseif ('activate' == $op2)
 
     if (($item['item']['buff'] ?? false) && ! empty($item['item']['buff']))
     {
-        apply_buff($item['item']['buff']['key'], \array_merge([], ...\array_map(
+        LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff($item['item']['buff']['key'], \array_merge([], ...\array_map(
             function ($key, $value)
             {
                 return [\strtolower($key) => $value];

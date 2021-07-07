@@ -8,7 +8,7 @@ function lottery_getmoduleinfo()
 {
     return [
         'name'     => "Cedrik's Lottery",
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Inn',
         'download' => 'core_module',
@@ -30,7 +30,7 @@ function lottery_getmoduleinfo()
             'roundnum' => 'Round the numbers were chosen in,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -134,7 +134,7 @@ function lottery_dohook($hookname, $args)
             \LotgdNavigation::addHeader('category.do');
             \LotgdNavigation::addNav('navigation.nav.lottery', 'runmodule.php?module=lottery&op=store', [
                 'textDomain' => 'module_lottery',
-                'params'     => ['barman' => getsetting('barkeep', '`tCedrik`0')],
+                'params'     => ['barman' => LotgdSetting::getSetting('barkeep', '`tCedrik`0')],
             ]);
         break;
         default: break;
@@ -192,7 +192,7 @@ function lottery_run()
 
     $params = [
         'textDomain' => $textDomain,
-        'barman'     => getsetting('barkeep', '`tCedrik`0'),
+        'barman'     => LotgdSetting::getSetting('barkeep', '`tCedrik`0'),
         'n0'         => $numbers[0],
         'n1'         => $numbers[1],
         'n2'         => $numbers[2],

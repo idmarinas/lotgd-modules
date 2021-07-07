@@ -12,7 +12,7 @@ function itemeffects_alter_deathpower($points, $item): array
 {
     global $session;
 
-    $deathoverlord = getsetting('deathoverlord', '`$Ramius`0');
+    $deathoverlord = LotgdSetting::getSetting('deathoverlord', '`$Ramius`0');
     $session['user']['deathpower'] += $points;
 
     if ($points > 0)

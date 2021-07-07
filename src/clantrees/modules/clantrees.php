@@ -4,7 +4,7 @@ function clantrees_getmoduleinfo()
 {
     return [
         'name'     => 'Clan Christmas Trees',
-        'version'  => '1.1.0',
+        'version'  => '2.0.0',
         'author'   => 'Sneakabout, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Clan',
         'download' => 'core_module',
@@ -30,7 +30,7 @@ function clantrees_getmoduleinfo()
             'gems'       => 'How many gems spent on baubles?,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -79,7 +79,7 @@ function clantrees_buff($turns)
         return;
     }
 
-    apply_buff('besttreespirit', [
+    LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('besttreespirit', [
         'name'     => \LotgdTranslator::t('buff.name', [], 'module_clantrees'),
         'rounds'   => $turns,
         'wearoff'  => \LotgdTranslator::t('buff.wearoff', [], 'module_clantrees'),

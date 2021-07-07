@@ -17,7 +17,7 @@ class ModCities extends AjaxAbstract
 
         $params = [
             'travels'          => get_module_setting('allowance', 'cities'),
-            'capital'          => getsetting('villagename', LOCATION_FIELDS),
+            'capital'          => \LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
             'lodge'            => \file_exists('public/lodge.php'),
             'newbieIsland'     => is_module_active('newbieisland'),
             'newbieIslandName' => $newbieisland,

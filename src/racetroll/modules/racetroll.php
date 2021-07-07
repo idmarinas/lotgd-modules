@@ -8,7 +8,7 @@ function racetroll_getmoduleinfo()
 {
     return [
         'name'     => 'Race - Troll',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Races',
         'download' => 'core_module',
@@ -18,7 +18,7 @@ function racetroll_getmoduleinfo()
             'minedeathchance' => 'Chance for Trolls to die in the mine,range,0,100,1|90',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -72,7 +72,7 @@ function racetroll_uninstall()
 {
     global $session;
 
-    $vname = getsetting('villagename', LOCATION_FIELDS);
+    $vname = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $gname = get_module_setting('villagename');
 
     try
@@ -249,7 +249,7 @@ function racetroll_dohook($hookname, $args)
             if ($session['user']['race'] == $race)
             {
                 racetroll_checkcity();
-                apply_buff('racialbenefit', [
+                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('racialbenefit', [
                     'name'         => \LotgdTranslator::t('racial.buff.name', [], $race),
                     'atkmod'       => '(<attack>?(1+((1+floor(<level>/5))/<attack>)):1)',
                     'allowinpvp'   => 1,
@@ -260,7 +260,7 @@ function racetroll_dohook($hookname, $args)
             }
         break;
         case 'travel':
-            $capital = getsetting('villagename', LOCATION_FIELDS);
+            $capital = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
             $hotkey  = \substr($city, 0, 1);
             $ccity   = \urlencode($city);
 

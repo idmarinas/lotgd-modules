@@ -4,14 +4,14 @@ function cityprefs_getmoduleinfo()
 {
     return [
         'name'        => 'City Preferences Addon',
-        'version'     => '3.1.1',
+        'version'     => '4.0.0',
         'author'      => 'Sixf00t4, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'    => 'General',
         'description' => 'Gives the ability to use prefs based on cities',
         'vertxtloc'   => 'http://www.legendofsix.com/',
         'download'    => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=1155',
         'requires' => [
-            'lotgd'  => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd'  => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
             'cities' => '>=2.0.0|Multiple Cities - Core module',
         ],
     ];
@@ -39,7 +39,7 @@ function cityprefs_install()
         $capital = $repository->findOneBy(['module' => 'none']);
         $capital = $repository->hydrateEntity([
             'module'   => 'none',
-            'cityName' => getsetting('villagename', LOCATION_FIELDS),
+            'cityName' => LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
         ], $capital);
 
         \Doctrine::persist($capital);
@@ -222,7 +222,7 @@ function cityprefs_run()
             $capital = $repository->findOneBy(['module' => 'none']);
             $capital = $repository->hydrateEntity([
                 'module'   => 'none',
-                'cityName' => getsetting('villagename', LOCATION_FIELDS),
+                'cityName' => LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
             ], $capital);
 
             \Doctrine::persist($capital);

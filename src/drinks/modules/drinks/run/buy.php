@@ -14,12 +14,12 @@ $maxDrunk   = get_module_setting('maxdrunk');
 
 $params = [
     'textDomain' => $textDomain,
-    'innName'    => getsetting('innname', LOCATION_INN),
+    'innName'    => LotgdSetting::getSetting('innname', LOCATION_INN),
     'drunk'      => $drunk,
     'maxDrunk'   => $maxDrunk,
     'drunkeness' => (int) ($drunk > $maxDrunk),
     'partner'    => get_partner(),
-    'barkeep'    => getsetting('barkeep', '`tCedrik`0'),
+    'barkeep'    => LotgdSetting::getSetting('barkeep', '`tCedrik`0'),
 ];
 
 \LotgdResponse::pageStart('section.ale.drink.title', ['innName' => \LotgdSanitize::fullSanitize($params['innName'])], $textDomain);
@@ -141,7 +141,7 @@ if ( ! $params['drunkeness'])
         $buff['effectfailmsg']  = $row['buffeffectfailmsg'] ?: null;
         $buff['schema']         = 'drinks-module';
 
-        apply_buff('buzz', $buff);
+        LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('buzz', $buff);
     }
 
     $params['drink'] = $row;

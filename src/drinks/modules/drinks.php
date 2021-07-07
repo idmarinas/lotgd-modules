@@ -4,7 +4,6 @@
 // addnews ready
 // mail ready
 require_once 'lib/showform.php';
-require_once 'lib/buffs.php';
 
 /**
  * REGISTRARLO DESPUES DE ACTIVAR LA VERSIÓN 4.0.0 EN DRACONIA.
@@ -23,14 +22,14 @@ function drinks_getmoduleinfo()
 {
     return [
         'name'     => 'Exotic Drinks',
-        'version'  => '3.1.0',
+        'version'  => '5.5.0',
         'author'   => 'John J. Collins<br>Heavily modified by JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Inn',
         'download' => 'core_module',
         'settings' => [
             'Drink Module Settings,title',
             'hardlimit' => 'How many hard drinks can a user buy in a day?,int|3',
-            'maxdrunk'  => ["How drunk before %s`0 won't serve you?,range,0,100,1|66", getsetting('barkeep', '`)Cedrik')],
+            'maxdrunk'  => ["How drunk before %s`0 won't serve you?,range,0,100,1|66", LotgdSetting::getSetting('barkeep', '`)Cedrik')],
         ],
         'prefs' => [
             'Drink Module User Preferences,title',
@@ -40,7 +39,7 @@ function drinks_getmoduleinfo()
             'noslur'     => "Don't slur speach when drunk,bool|0",
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -165,8 +164,8 @@ function drinks_dohook($hookname, $args)
 
             $args['includeTemplatesPost']['@module/drinks/dohook/ale.twig'] = [
                 'textDomain' => $textDomain,
-                'barkeep'    => getsetting('barkeep', '`tCedrik`0'),
-                'innName'    => getsetting('innname', LOCATION_INN),
+                'barkeep'    => LotgdSetting::getSetting('barkeep', '`tCedrik`0'),
+                'innName'    => LotgdSetting::getSetting('innname', LOCATION_INN),
                 'userSex'    => $session['user']['sex'],
                 'drunk'      => $drunk,
                 'hardDrink'  => $hardDrink,

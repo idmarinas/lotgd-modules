@@ -13,7 +13,7 @@ function creationaddon_getmoduleinfo()
 {
     return [
         'name'           => 'Creation Addon',
-        'version'        => '5.1.1',
+        'version'        => '6.0.0',
         'author'         => 'Billie Kennedy, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'       => 'Administrative',
         'download'       => '//orpgs.com/modules.php?name=Downloads&d_op=viewdownload&cid=6',
@@ -46,7 +46,7 @@ function creationaddon_getmoduleinfo()
             'year'            => 'Birth Year,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -100,7 +100,7 @@ function creationaddon_dohook($hookname, $args)
 
                 foreach ($result as $row)
                 {
-                    $shortname = sanitize_name(getsetting('spaceinname', 0), $name);
+                    $shortname = sanitize_name(LotgdSetting::getSetting('spaceinname', 0), $name);
                     $pattern   = '/'.$row->getBadName().'/i';
 
                     if (\preg_match($pattern, $shortname))

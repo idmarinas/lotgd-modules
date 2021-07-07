@@ -8,7 +8,7 @@ function racehuman_getmoduleinfo()
 {
     return [
         'name'     => 'Race - Human',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Races',
         'download' => 'core_module',
@@ -19,7 +19,7 @@ function racehuman_getmoduleinfo()
             'bonus'           => 'How many extra forest fights for humans?,range,1,3,1|2',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -73,7 +73,7 @@ function racehuman_uninstall()
 {
     global $session;
 
-    $vname = getsetting('villagename', LOCATION_FIELDS);
+    $vname = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $gname = get_module_setting('villagename');
 
     try
@@ -263,7 +263,7 @@ function racehuman_dohook($hookname, $args)
             }
         break;
         case 'travel':
-            $capital = getsetting('villagename', LOCATION_FIELDS);
+            $capital = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
             $hotkey  = \substr($city, 0, 1);
             $ccity   = \urlencode($city);
 

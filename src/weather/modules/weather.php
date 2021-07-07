@@ -13,7 +13,7 @@ function weather_getmoduleinfo()
     return [
         'name'     => 'Weather',
         'author'   => '`4Talisman`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '3.1.0',
+        'version'  => '4.0.0',
         'category' => 'General',
         'download' => 'core_module',
         'settings' => [
@@ -22,7 +22,7 @@ function weather_getmoduleinfo()
             'weather'  => 'Current Weather,int|6',
             'Micro Climate Settings, title',
             'enablemicro'   => 'Enable Unique Climate Location,bool|0',
-            'microloc'      => 'Unique Climate Location,location|'.getsetting('villagename', LOCATION_FIELDS),
+            'microloc'      => 'Unique Climate Location,location|'.LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
             'microwxreport' => 'Unique Climate weather message|`n`&The weather elf is predicting `^%s`& today.`n',
             'microwx'       => 'Current Weather,int|1',
             'Shades Weather Settings,title',
@@ -36,7 +36,7 @@ function weather_getmoduleinfo()
             'gotfight' => 'Received extra torment today,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -108,7 +108,7 @@ function weather_dohook($hookname, $args)
                 'weatherShades' => get_module_setting('shadeswx'),
                 'gotFight'      => (5 == get_module_setting('shadeswx') && get_module_setting('counter') > get_module_pref('gotfight')),
                 'counter'       => get_module_setting('counter'),
-                'deathOverlord' => getsetting('deathoverlord', '`$Ramius`0'),
+                'deathOverlord' => LotgdSetting::getSetting('deathoverlord', '`$Ramius`0'),
             ];
         break;
         case 'page-gardens-tpl-params':

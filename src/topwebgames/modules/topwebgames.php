@@ -10,7 +10,7 @@ function topwebgames_getmoduleinfo()
         'name'                => 'Top Web Games',
         'author'              => 'JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'            => 'Administrative',
-        'version'             => '2.2.0',
+        'version'             => '3.0.0',
         'download'            => 'core_module',
         'allowanonymous'      => true,
         'override_forced_nav' => true,
@@ -25,7 +25,7 @@ function topwebgames_getmoduleinfo()
             'voted'    => 'Did user vote this week?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -147,7 +147,7 @@ function topwebgames_dohook($hookname, $args)
             'textDomain' => 'module_topwebgames',
             'rank'       => $counts['rank'],
             'votes'      => $counts['votes'],
-            'serverName' => getsetting('servername'),
+            'serverName' => LotgdSetting::getSetting('servername'),
             'canVote'    => $canVote,
             'acctId'     => $session['user']['acctid'],
             'id'         => $id,

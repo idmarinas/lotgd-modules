@@ -4,7 +4,7 @@ function landsky_getmoduleinfo()
 {
     return [
         'name'      => 'The Sky',
-        'version'   => '2.1.0',
+        'version'   => '3.0.0',
         'author'    => '`@CortalUX`&, with modifications by `#Lonnyl`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>`0',
         'category'  => 'General',
         'vertxtloc' => 'http://dragonprime.net/users/CortalUX/',
@@ -15,7 +15,7 @@ function landsky_getmoduleinfo()
             'showhome'  => 'Show the Sky on Home Page,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.1.0|Need a version equal or greater than 4.1.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -129,7 +129,7 @@ function landsky_calc()
     }
 
     $width += 50;
-    $time = gametimedetails();
+    $time = LotgdKernel::get("lotgd_core.tool.date_time")->gameTimeDetails();
     $bit  = $width / 86400;
     $pix  = $bit * $time['secssofartoday'];
     $pix  = \round($pix);
@@ -142,7 +142,7 @@ function landsky_word()
     require_once 'lib/datetime.php';
 
     $num = 0;
-    $if  = \date('G', gametime());
+    $if  = \date('G', LotgdKernel::get("lotgd_core.tool.date_time")->gameTime());
 
     if ($if < 4 || $if >= 19)
     {

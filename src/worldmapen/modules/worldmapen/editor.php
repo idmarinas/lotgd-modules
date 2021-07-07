@@ -46,7 +46,7 @@ function worldmapen_editor_real()
             \LotgdNavigation::addNav('navigation.nav.editor.return', 'runmodule.php?module=worldmapen&op=edit&admin=true');
 
             $vloc         = [];
-            $vname        = getsetting('villagename', LOCATION_FIELDS);
+            $vname        = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
             $vloc[$vname] = 'village';
             $vloc         = modulehook('validlocation', $vloc);
             \ksort($vloc);

@@ -4,8 +4,6 @@ $skill = \LotgdRequest::getQuery('skill');
 
 if ('ITEM' == $skill)
 {
-    require_once 'lib/buffs.php';
-
     $itemId = (int) \LotgdRequest::getQuery('l');
     $invId  = (int) \LotgdRequest::getQuery('invid');
 
@@ -17,7 +15,7 @@ if ('ITEM' == $skill)
     {
         $item['item']['buff'] = $repository->extractEntity($item['item']['buff']);
 
-        apply_buff($item['item']['buff']['key'], \array_merge([], ...\array_map(
+        LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff($item['item']['buff']['key'], \array_merge([], ...\array_map(
             function ($key, $value)
             {
                 return [\strtolower($key) => $value];

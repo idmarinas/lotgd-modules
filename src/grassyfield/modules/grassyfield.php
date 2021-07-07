@@ -4,12 +4,12 @@ function grassyfield_getmoduleinfo()
 {
     return [
         'name'     => 'Grassy Field',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Sean McKillion<br>modified by Eric Stevens & JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -79,7 +79,7 @@ function grassyfield_runevent($type)
         return redirect($from);
     }
 
-    checkday();
+    LotgdKernel::get('lotgd_core.tool.date_time')->checkDay();
 
     $params = [
         'textDomain'    => 'module_grassyfield',
@@ -107,7 +107,7 @@ function grassyfield_runevent($type)
             $buff['schema'] = $buff['schema'] ?? 'mounts';
             $buff['schema'] = $buff['schema'] ?: 'mounts';
 
-            apply_buff('mount', $buff);
+            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mount', $buff);
 
             if ($session['user']['hitpoints'] < $session['user']['maxhitpoints'])
             {

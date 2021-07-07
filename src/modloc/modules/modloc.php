@@ -18,12 +18,12 @@ function modloc_getmoduleinfo()
 {
     return [
         'name'     => 'Module Locations',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => '`^CortalUX`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Administrative',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -91,7 +91,7 @@ function modloc_run()
     ];
 
     $locations     = [];
-    $t             = getsetting('villagename', LOCATION_FIELDS);
+    $t             = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $locations     = modulehook('validlocation');
     $locations[$t] = 0;
 

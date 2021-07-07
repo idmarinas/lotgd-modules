@@ -27,7 +27,7 @@ function newdaybar_getmoduleinfo()
 {
     return [
         'name'     => 'New Day Bar',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Joshua Ecklund, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'download' => 'http://dragonprime.net/users/mProwler/newdaybar.zip',
         'category' => 'Stat Display',
@@ -37,7 +37,7 @@ function newdaybar_getmoduleinfo()
             'showbar'  => 'Show time as a bar,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=4.10.0|Need a version equal or greater than 4.10.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -70,8 +70,8 @@ function newdaybar_dohook($hookname, $args)
 
         require_once 'lib/datetime.php';
 
-        $details      = gametimedetails();
-        $secstonewday = secondstonextgameday($details);
+        $details      = LotgdKernel::get("lotgd_core.tool.date_time")->gameTimeDetails();
+        $secstonewday = LotgdKernel::get('lotgd_core.tool.date_time')->secondsToNextGameDay($details);
 
         $newdaypct = \round($details['realsecstotomorrow'] / $details['secsperday'] * 100, 4);
         $newdaypct = \min(100, \max(0, $newdaypct));

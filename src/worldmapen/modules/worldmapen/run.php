@@ -88,7 +88,7 @@ function worldmapen_run_real()
     }
     elseif ('continue' == $op)
     {
-        checkday();
+        LotgdKernel::get('lotgd_core.tool.date_time')->checkDay();
 
         $params['tpl']          = 'continue';
         $params['mapLinks']     = worldmapen_determinenav();
@@ -97,7 +97,7 @@ function worldmapen_run_real()
     }
     elseif ('tradeturn' == $op)
     {
-        checkday();
+        LotgdKernel::get('lotgd_core.tool.date_time')->checkDay();
         $params['tpl']         = 'tradeturn';
         $params['pointsTrade'] = get_module_setting('turntravel', 'worldmapen');
 
@@ -118,7 +118,7 @@ function worldmapen_run_real()
     }
     elseif ('move' == $op)
     {
-        checkday();
+        LotgdKernel::get('lotgd_core.tool.date_time')->checkDay();
 
         $params['tpl'] = 'move';
 
@@ -232,22 +232,22 @@ function worldmapen_run_real()
 
             require_once 'lib/forestoutcomes.php';
 
-            $result = lotgd_search_creature(1, $session['user']['level'], $session['user']['level']);
+            $result = LotgdKernel::get('lotgd_core.tool.creature_functions')->lotgdSearchCreature(1, $session['user']['level'], $session['user']['level']);
 
-            restore_buff_fields();
+            LotgdKernel::get('lotgd_core.combat.buffs')->restoreBuffFields();
 
             if (0 == \count($result))
             {
                 // There is nothing in the database to challenge you,
                 // let's give you a doppleganger.
-                $badguy = lotgd_generate_doppelganger($session['user']['level']);
+                $badguy = LotgdKernel::get('lotgd_core.tool.creature_functions')->lotgdGenerateDoppelganger($session['user']['level']);
             }
             else
             {
                 $badguy = buffbadguy($result[0]);
             }
 
-            calculate_buff_fields();
+            LotgdKernel::get('lotgd_core.combat.buffs')->calculateBuffFields();
             $badguy['playerstarthp'] = $session['user']['hitpoints'];
             $badguy['diddamage']     = 0;
             $badguy['type']          = 'world';
@@ -333,7 +333,7 @@ function worldmapen_run_real()
         // runmodule.php calls do_forced_nav,
         $session['user']['alive'] = ($session['user']['hitpoints'] > 0);
 
-        checkday();
+        LotgdKernel::get('lotgd_core.tool.date_time')->checkDay();
 
         $params['tpl']          = 'wake';
         $params['mapLoc']       = get_module_pref('worldXYZ', 'worldmapen');
@@ -488,10 +488,10 @@ function worldmapen_run_real()
                 $allow = false;
                 $extra = 'pvp=1&';
             }
-            fightnav($allow, $allow, "runmodule.php?module=worldmapen&{$extra}");
+            LotgdNavigation::fightNav($allow, $allow, "runmodule.php?module=worldmapen&{$extra}");
         }
 
-        battleshowresults($lotgdBattleContent);
+        LotgdKernel::get('lotgd_core.combat.battle')->battleShowResults($lotgdBattleContent);
     }
 
     $params['battle']   = $battle;

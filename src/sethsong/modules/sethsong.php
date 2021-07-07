@@ -16,7 +16,7 @@ function sethsong_getmoduleinfo()
 {
     return [
         'name'     => "Seth the Bard's Songs",
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Eric Stevens, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Inn',
         'download' => 'core_module',
@@ -40,7 +40,7 @@ function sethsong_getmoduleinfo()
             'been' => 'How many times have they listened Seth today,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -63,7 +63,7 @@ function sethsong_dohook($hookname, $args)
     switch ($hookname)
     {
         case 'inn':
-            $bard = getsetting('bard', '`^Seth`0');
+            $bard = LotgdSetting::getSetting('bard', '`^Seth`0');
             $op   = \LotgdRequest::getQuery('op');
 
             if ('' == $op || 'strolldown' == $op || 'fleedragon' == $op)
@@ -90,14 +90,14 @@ function sethsong_run()
 {
     $visits     = get_module_setting('visits');
     $been       = get_module_pref('been');
-    $iname      = getsetting('innname', LOCATION_INN);
+    $iname      = LotgdSetting::getSetting('innname', LOCATION_INN);
     $textDomain = 'module_sethsong';
 
     \LotgdResponse::pageStart($iname, [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
-        'bard'       => getsetting('bard', '`^Seth`0'),
+        'bard'       => LotgdSetting::getSetting('bard', '`^Seth`0'),
         'iname'      => $iname,
         'been'       => $been,
         'visits'     => $visits,
@@ -147,7 +147,7 @@ function sethsong_sing(&$params)
     }
 
     $params['staminaSystem'] = $staminaSystem;
-    $params['barman']        = getsetting('barkeep', '`tCedrik`0');
+    $params['barman']        = LotgdSetting::getSetting('barkeep', '`tCedrik`0');
 
     switch (\mt_rand(0, 16))
     {

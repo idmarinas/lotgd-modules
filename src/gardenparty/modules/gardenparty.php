@@ -3,7 +3,6 @@
 // translator ready
 // mail ready
 // addnews ready
-require_once 'lib/buffs.php';
 
 /**
  * Version History:
@@ -101,7 +100,7 @@ function gardenparty_dohook($hookname, $args)
 
             $params = [
                 'textDomain' => $textDomain,
-                'barman'     => getsetting('barkeep', '`tCedrik`0'),
+                'barman'     => LotgdSetting::getSetting('barkeep', '`tCedrik`0'),
             ];
 
             $args['includeTemplatesPost']['@module/gardenparty/hook/gardens.twig'] = $params;

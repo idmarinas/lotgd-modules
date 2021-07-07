@@ -6,14 +6,14 @@ function cemetery_getmoduleinfo()
         'name'     => 'Cemetery Spook Module',
         'author'   => 'JT Traub & S Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'download' => 'core_module',
         'settings' => [
             'Cemetery Settings,title',
-            'cemeteryloc' => 'Where does the cemetery appear,location|'.getsetting('villagename', LOCATION_FIELDS),
+            'cemeteryloc' => 'Where does the cemetery appear,location|'.LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
         ],
         'requires' => [
-            'lotgd'  => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd'  => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
             'cities' => '3.1.0|Eric Stevens, part of the core distribution',
         ],
     ];

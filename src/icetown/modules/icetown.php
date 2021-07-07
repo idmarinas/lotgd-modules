@@ -8,7 +8,7 @@ function icetown_getmoduleinfo()
 {
     return [
         'name'     => 'Ice Town',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => 'Shannon Brown, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village',
         'download' => 'core_module',
@@ -22,7 +22,7 @@ function icetown_getmoduleinfo()
             'allow' => 'Is player allowed in?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -45,7 +45,7 @@ function icetown_uninstall()
 {
     global $session;
 
-    $vname = getsetting('villagename', LOCATION_FIELDS);
+    $vname = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $gname = get_module_setting('villagename');
 
     try

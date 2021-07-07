@@ -17,7 +17,7 @@ trait Map
         }
 
         $vloc         = [];
-        $vname        = getsetting('villagename', LOCATION_FIELDS);
+        $vname        = $this->settings->getSetting('villagename', LOCATION_FIELDS);
         $vloc[$vname] = 'village';
         $vloc         = modulehook('validlocation', $vloc);
 

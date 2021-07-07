@@ -22,12 +22,12 @@ function staminacorecombat_getmoduleinfo()
 {
     return [
         'name'     => 'Stamina System - Core Combat',
-        'version'  => '2.11.0',
+        'version'  => '3.0.0',
         'author'   => 'Dan Hall, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Stamina',
         'download' => '',
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
         ],
     ];
 }
@@ -159,7 +159,7 @@ function staminacorecombat_dohook($hookname, $args)
                 ],
             ]);
 
-            if (getsetting('suicide', 0) && getsetting('suicidedk', 10) <= $session['user']['dragonkills'])
+            if (LotgdSetting::getSetting('suicide', 0) && LotgdSetting::getSetting('suicidedk', 10) <= $session['user']['dragonkills'])
             {
                 $suicidecost = stamina_getdisplaycost('Hunting - Suicidal');
                 \LotgdNavigation::addNav('navigation.nav.suicidally', 'forest.php?op=search&type=suicide&stam=suicide', [
@@ -352,7 +352,7 @@ function staminacorecombat_applystaminabuff()
 
         if (isset($buffmsg))
         {
-            apply_buff('stamina-corecombat-exhaustion', [
+            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('stamina-corecombat-exhaustion', [
                 'name'     => \LotgdTranslator::t('stamina.buff.name', [], $textDomain),
                 'atkmod'   => $buffvalue,
                 'defmod'   => $buffvalue,
@@ -364,7 +364,7 @@ function staminacorecombat_applystaminabuff()
     }
     else
     {
-        strip_buff('stamina-corecombat-exhaustion');
+        LotgdKernel::get('lotgd_core.combat.buffs')->stripBuff('stamina-corecombat-exhaustion');
     }
 
     $red = get_stamina(0);
