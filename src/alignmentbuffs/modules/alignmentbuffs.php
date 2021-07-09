@@ -77,7 +77,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['atkmod'] = get_module_setting('buffatt1');
                 $buff['defmod'] = get_module_setting('buffdef1');
                 $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('alignment', $buff);
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
             }
             elseif ($alignment <= get_module_setting('activate2'))
             {
@@ -88,7 +88,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['atkmod'] = get_module_setting('buffatt2');
                 $buff['defmod'] = get_module_setting('buffdef2');
                 $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('alignment', $buff);
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
             }
             elseif ($alignment <= get_module_setting('activate3'))
             {
@@ -99,7 +99,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['atkmod'] = get_module_setting('buffatt3');
                 $buff['defmod'] = get_module_setting('buffdef3');
                 $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('alignment', $buff);
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
             }
             elseif ($alignment >= get_module_setting('activate6'))
             {
@@ -110,7 +110,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['atkmod'] = get_module_setting('buffatt6');
                 $buff['defmod'] = get_module_setting('buffdef6');
                 $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('alignment', $buff);
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
             }
             elseif ($alignment >= get_module_setting('activate5'))
             {
@@ -121,7 +121,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['atkmod'] = get_module_setting('buffatt5');
                 $buff['defmod'] = get_module_setting('buffdef5');
                 $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('alignment', $buff);
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
             }
             elseif ($alignment >= get_module_setting('activate4'))
             {
@@ -132,7 +132,7 @@ function alignmentbuffs_dohook($hookname, $args)
                 $buff['atkmod'] = get_module_setting('buffatt4');
                 $buff['defmod'] = get_module_setting('buffdef4');
                 $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('alignment', $buff);
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
             }
 
             if ($activate ?? false)

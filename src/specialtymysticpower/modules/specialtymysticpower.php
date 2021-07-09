@@ -223,7 +223,7 @@ function specialtymysticpower_dohook($hookname, $args)
                     switch ($l)
                     {
                         case 1:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mp1', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('mp1', [
                                 'startmsg'       => LotgdTranslator::t('skill.mp1.startmsg', [], 'module_specialtymysticpower'),
                                 'name'           => LotgdTranslator::t('skill.mp1.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
@@ -237,7 +237,7 @@ function specialtymysticpower_dohook($hookname, $args)
                             ]);
                             break;
                         case 2:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mp2', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('mp2', [
                                 'startmsg'        => \LotgdTranslator::t('skill.mp2.startmsg', [], 'module_specialtymysticpower'),
                                 'name'            => \LotgdTranslator::t('skill.mp2.name', [], 'module_specialtymysticpower'),
                                 'rounds'          => 5,
@@ -251,7 +251,7 @@ function specialtymysticpower_dohook($hookname, $args)
                             ]);
                             break;
                         case 3:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mp3', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('mp3', [
                                 'startmsg'       => \LotgdTranslator::t('skill.mp3.startmsg', [], 'module_specialtymysticpower'),
                                 'name'           => \LotgdTranslator::t('skill.mp3.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
@@ -264,7 +264,7 @@ function specialtymysticpower_dohook($hookname, $args)
                             ]);
                             break;
                         case 5:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mp5', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('mp5', [
                                 'startmsg'       => \LotgdTranslator::t('skill.mp5.startmsg', [], 'module_specialtymysticpower'),
                                 'name'           => \LotgdTranslator::t('skill.mp5.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
@@ -282,7 +282,7 @@ function specialtymysticpower_dohook($hookname, $args)
                 }
                 else
                 {
-                    LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mp0', [
+                    LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('mp0', [
                         'startmsg' => \LotgdTranslator::t('skill.mp0.startmsg', [], 'module_specialtymysticpower'),
                         'rounds'   => 1,
                         'schema'   => 'module_specialtymysticpower',

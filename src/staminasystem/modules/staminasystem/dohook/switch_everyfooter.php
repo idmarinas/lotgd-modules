@@ -54,7 +54,7 @@ if ($amber < 100 && $red >= 100)
 
     if ($script)
     {
-        LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('stamina-corecombat-exhaustion', [
+        LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('stamina-corecombat-exhaustion', [
             'name'     => \LotgdTranslator::t('buff.name', [], 'module_staminasystem'),
             'atkmod'   => $buffvalue,
             'defmod'   => $buffvalue,
@@ -68,7 +68,7 @@ if ($amber < 100 && $red >= 100)
 }
 else
 {
-    LotgdKernel::get('lotgd_core.combat.buffs')->stripBuff('stamina-corecombat-exhaustion');
+    LotgdKernel::get('lotgd_core.combat.buffer')->stripBuff('stamina-corecombat-exhaustion');
 }
 
 if ($red < 100)

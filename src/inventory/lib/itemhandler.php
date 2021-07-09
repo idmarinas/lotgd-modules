@@ -112,7 +112,7 @@ function run_newday_buffs($args): array
         {
             $item['buff'] = $repository->extractEntity($item['buff']);
 
-            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff($item['buff']['key'], \array_merge([], ...\array_map(
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff($item['buff']['key'], \array_merge([], ...\array_map(
                 function ($key, $value)
                 {
                     return [\strtolower($key) => $value];

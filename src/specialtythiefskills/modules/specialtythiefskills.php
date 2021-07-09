@@ -223,7 +223,7 @@ function specialtythiefskills_dohook($hookname, $args)
                     switch ($l)
                     {
                         case 1:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('ts1', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('ts1', [
                                 'startmsg'     => \LotgdTranslator::t('skill.ts1.startmsg', [], 'module_specialtythiefskills'),
                                 'name'         => \LotgdTranslator::t('skill.ts1.name', [], 'module_specialtythiefskills'),
                                 'rounds'       => 5,
@@ -234,7 +234,7 @@ function specialtythiefskills_dohook($hookname, $args)
                             ]);
                             break;
                         case 2:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('ts2', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('ts2', [
                                 'startmsg' => \LotgdTranslator::t('skill.ts2.startmsg', [], 'module_specialtythiefskills'),
                                 'name'     => \LotgdTranslator::t('skill.ts2.name', [], 'module_specialtythiefskills'),
                                 'rounds'   => 5,
@@ -245,7 +245,7 @@ function specialtythiefskills_dohook($hookname, $args)
                             ]);
                             break;
                         case 3:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('ts3', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('ts3', [
                                 'startmsg'     => \LotgdTranslator::t('skill.ts3.startmsg', [], 'module_specialtythiefskills'),
                                 'name'         => \LotgdTranslator::t('skill.ts3.name', [], 'module_specialtythiefskills'),
                                 'rounds'       => 5,
@@ -256,7 +256,7 @@ function specialtythiefskills_dohook($hookname, $args)
                             ]);
                             break;
                         case 5:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('ts5', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('ts5', [
                                 'startmsg' => \LotgdTranslator::t('skill.ts5.startmsg', [], 'module_specialtythiefskills'),
                                 'name'     => \LotgdTranslator::t('skill.ts5.name', [], 'module_specialtythiefskills'),
                                 'rounds'   => 5,
@@ -273,7 +273,7 @@ function specialtythiefskills_dohook($hookname, $args)
                 }
                 else
                 {
-                    LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('ts0', [
+                    LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('ts0', [
                         'startmsg' => \LotgdTranslator::t('skill.ts0.startmsg', [], 'module_specialtythiefskills'),
                         'rounds'   => 1,
                         'schema'   => 'module_specialtythiefskills',

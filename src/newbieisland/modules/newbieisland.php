@@ -273,7 +273,7 @@ function newbieisland_dohook($hookname, $args)
                     $session['user']['turns'] += $turns;
                 }
 
-                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('newbiecoddle', [
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('newbiecoddle', [
                     'name'             => '',
                     'rounds'           => -1,
                     'minioncount'      => 1,

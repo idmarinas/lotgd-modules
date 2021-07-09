@@ -141,7 +141,7 @@ if ( ! $params['drunkeness'])
         $buff['effectfailmsg']  = $row['buffeffectfailmsg'] ?: null;
         $buff['schema']         = 'drinks-module';
 
-        LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('buzz', $buff);
+        LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('buzz', $buff);
     }
 
     $params['drink'] = $row;

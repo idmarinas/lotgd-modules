@@ -249,7 +249,7 @@ function racetroll_dohook($hookname, $args)
             if ($session['user']['race'] == $race)
             {
                 racetroll_checkcity();
-                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('racialbenefit', [
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('racialbenefit', [
                     'name'         => \LotgdTranslator::t('racial.buff.name', [], $race),
                     'atkmod'       => '(<attack>?(1+((1+floor(<level>/5))/<attack>)):1)',
                     'allowinpvp'   => 1,

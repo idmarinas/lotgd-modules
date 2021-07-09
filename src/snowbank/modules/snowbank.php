@@ -101,7 +101,7 @@ function snowbank_run()
 
     if ('give' == $op && 0 == $giventoday)
     {
-        LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('bank', [
+        LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('bank', [
             'name'   => 'Generosity',
             'rounds' => 20,
             'defmod' => 1.02,

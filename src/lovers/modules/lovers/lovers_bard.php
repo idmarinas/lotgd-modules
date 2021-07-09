@@ -28,7 +28,7 @@ if ( ! $params['seenLover'])
         }
         else
         {
-            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('lover', lovers_getbuff());
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('lover', lovers_getbuff());
             ++$session['user']['charm'];
         }
     }
@@ -180,7 +180,7 @@ if ( ! $params['seenLover'])
                     ], $textDomain);
                     $session['user']['marriedto'] = INT_MAX;
 
-                    LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('lover', lovers_getbuff());
+                    LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('lover', lovers_getbuff());
                 }
                 else
                 {

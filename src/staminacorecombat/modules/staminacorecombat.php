@@ -352,7 +352,7 @@ function staminacorecombat_applystaminabuff()
 
         if (isset($buffmsg))
         {
-            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('stamina-corecombat-exhaustion', [
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('stamina-corecombat-exhaustion', [
                 'name'     => \LotgdTranslator::t('stamina.buff.name', [], $textDomain),
                 'atkmod'   => $buffvalue,
                 'defmod'   => $buffvalue,
@@ -364,7 +364,7 @@ function staminacorecombat_applystaminabuff()
     }
     else
     {
-        LotgdKernel::get('lotgd_core.combat.buffs')->stripBuff('stamina-corecombat-exhaustion');
+        LotgdKernel::get('lotgd_core.combat.buffer')->stripBuff('stamina-corecombat-exhaustion');
     }
 
     $red = get_stamina(0);

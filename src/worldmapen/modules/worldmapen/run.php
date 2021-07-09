@@ -234,7 +234,7 @@ function worldmapen_run_real()
 
             $result = LotgdKernel::get('lotgd_core.tool.creature_functions')->lotgdSearchCreature(1, $session['user']['level'], $session['user']['level']);
 
-            LotgdKernel::get('lotgd_core.combat.buffs')->restoreBuffFields();
+            LotgdKernel::get('lotgd_core.combat.buffer')->restoreBuffFields();
 
             if (0 == \count($result))
             {
@@ -247,7 +247,7 @@ function worldmapen_run_real()
                 $badguy = buffbadguy($result[0]);
             }
 
-            LotgdKernel::get('lotgd_core.combat.buffs')->calculateBuffFields();
+            LotgdKernel::get('lotgd_core.combat.buffer')->calculateBuffFields();
             $badguy['playerstarthp'] = $session['user']['hitpoints'];
             $badguy['diddamage']     = 0;
             $badguy['type']          = 'world';

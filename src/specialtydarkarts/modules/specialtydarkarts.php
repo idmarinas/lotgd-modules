@@ -224,7 +224,7 @@ function specialtydarkarts_dohook($hookname, $args)
                         case 1:
                             if (LotgdSetting::getSetting('enablecompanions', true))
                             {
-                                LotgdKernel::get('lotgd_core.combat.buffs')->applyCompanion('skeleton_warrior', [
+                                LotgdKernel::get('lotgd_core.combat.buffer')->applyCompanion('skeleton_warrior', [
                                     'name'         => \LotgdTranslator::t('skill.companion.name', [], 'module_specialtydarkarts'),
                                     'hitpoints'    => \round($session['user']['level'] * 3.33, 0) + 10,
                                     'maxhitpoints' => \round($session['user']['level'] * 3.33, 0) + 10,
@@ -241,7 +241,7 @@ function specialtydarkarts_dohook($hookname, $args)
                             }
                             else
                             {
-                                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('da1', [
+                                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('da1', [
                                     'startmsg'        => \LotgdTranslator::t('skill.da1.startmsg', [], 'module_specialtydarkarts'),
                                     'name'            => \LotgdTranslator::t('skill.da1.name', [], 'module_specialtydarkarts'),
                                     'rounds'          => 5,
@@ -255,7 +255,7 @@ function specialtydarkarts_dohook($hookname, $args)
                             }
                         break;
                         case 2:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('da2', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('da2', [
                                 'startmsg'        => \LotgdTranslator::t('skill.da2.startmsg', [], 'module_specialtydarkarts'),
                                 'effectmsg'       => \LotgdTranslator::t('skill.da2.effectmsg', [], 'module_specialtydarkarts'),
                                 'rounds'          => 1,
@@ -266,7 +266,7 @@ function specialtydarkarts_dohook($hookname, $args)
                             ]);
                             break;
                         case 3:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('da3', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('da3', [
                                 'startmsg'     => \LotgdTranslator::t('skill.da3.startmsg', [], 'module_specialtydarkarts'),
                                 'name'         => \LotgdTranslator::t('skill.da3.name', [], 'module_specialtydarkarts'),
                                 'rounds'       => 5,
@@ -277,7 +277,7 @@ function specialtydarkarts_dohook($hookname, $args)
                             ]);
                             break;
                         case 5:
-                            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('da5', [
+                            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('da5', [
                                 'startmsg'     => \LotgdTranslator::t('skill.da5.startmsg', [], 'module_specialtydarkarts'),
                                 'name'         => \LotgdTranslator::t('skill.da5.name', [], 'module_specialtydarkarts'),
                                 'rounds'       => 5,
@@ -294,7 +294,7 @@ function specialtydarkarts_dohook($hookname, $args)
                 }
                 else
                 {
-                    LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('da0', [
+                    LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('da0', [
                         'startmsg' => \LotgdTranslator::t('skill.da0.startmsg', [], 'module_specialtydarkarts'),
                         'rounds'   => 1,
                         'schema'   => 'module_specialtydarkarts',

@@ -157,7 +157,7 @@ if ('travel' == $op)
                 $badguy = buffbadguy($badguy);
             }
 
-            LotgdKernel::get('lotgd_core.combat.buffs')->calculateBuffFields();
+            LotgdKernel::get('lotgd_core.combat.buffer')->calculateBuffFields();
             $badguy['playerstarthp']   = $session['user']['hitpoints'];
             $badguy['diddamage']       = 0;
             $badguy['type']            = 'travel';

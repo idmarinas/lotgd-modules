@@ -246,7 +246,7 @@ function goldmine_runevent($type)
 
                         if (isset($session['bufflist']['mount']))
                         {
-                            LotgdKernel::get('lotgd_core.combat.buffs')->stripBuff('mount');
+                            LotgdKernel::get('lotgd_core.combat.buffer')->stripBuff('mount');
                         }
                     }
 

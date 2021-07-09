@@ -240,7 +240,7 @@ function raceelf_dohook($hookname, $args)
             {
                 raceelf_checkcity();
 
-                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('racialbenefit', [
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('racialbenefit', [
                     'name'         => \LotgdTranslator::t('racial.buff.name', [], $race),
                     'defmod'       => '(<defense>?(1+((1+floor(<level>/5))/<defense>)):1)',
                     'allowinpvp'   => 1,

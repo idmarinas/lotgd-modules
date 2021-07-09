@@ -112,7 +112,7 @@ function azrael_runevent($type)
                 }
 
                 // Aww heck, let's have the buff survive new day.
-                LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('azrael', [
+                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('azrael', [
                     'name'          => \LotgdTranslator::t('buff.trick.name', [], $textDomain),
                     'rounds'        => 60,
                     'wearoff'       => \LotgdTranslator::t('buff.trick.wearoff', [], $textDomain),
@@ -147,7 +147,7 @@ function azrael_runevent($type)
             $params['tpl'] = 'treat';
 
             --$session['user']['gold'];
-            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('azrael', [
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('azrael', [
                 'name'          => \LotgdTranslator::t('buff.treat.name', [], $textDomain),
                 'rounds'        => 60,
                 'wearoff'       => \LotgdTranslator::t('buff.treat.wearoff', [], $textDomain),

@@ -35,7 +35,7 @@ else
 
 if (($item['item']['buff'] ?? false) && ! empty($item['item']['buff']))
 {
-    LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff($item['item']['buff']['key'], \array_merge([], ...\array_map(
+    LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff($item['item']['buff']['key'], \array_merge([], ...\array_map(
         function ($key, $value)
         {
             return [\strtolower($key) => $value];

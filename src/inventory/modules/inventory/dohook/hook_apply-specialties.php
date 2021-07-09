@@ -15,7 +15,7 @@ if ('ITEM' == $skill)
     {
         $item['item']['buff'] = $repository->extractEntity($item['item']['buff']);
 
-        LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff($item['item']['buff']['key'], \array_merge([], ...\array_map(
+        LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff($item['item']['buff']['key'], \array_merge([], ...\array_map(
             function ($key, $value)
             {
                 return [\strtolower($key) => $value];

@@ -107,7 +107,7 @@ function grassyfield_runevent($type)
             $buff['schema'] = $buff['schema'] ?? 'mounts';
             $buff['schema'] = $buff['schema'] ?: 'mounts';
 
-            LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('mount', $buff);
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('mount', $buff);
 
             if ($session['user']['hitpoints'] < $session['user']['maxhitpoints'])
             {

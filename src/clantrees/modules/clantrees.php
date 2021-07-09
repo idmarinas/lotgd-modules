@@ -79,7 +79,7 @@ function clantrees_buff($turns)
         return;
     }
 
-    LotgdKernel::get('lotgd_core.combat.buffs')->applyBuff('besttreespirit', [
+    LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('besttreespirit', [
         'name'     => \LotgdTranslator::t('buff.name', [], 'module_clantrees'),
         'rounds'   => $turns,
         'wearoff'  => \LotgdTranslator::t('buff.wearoff', [], 'module_clantrees'),
