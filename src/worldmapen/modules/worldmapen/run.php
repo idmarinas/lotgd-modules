@@ -417,25 +417,39 @@ function worldmapen_run_real()
     {
         $params['tpl'] = 'fight';
 
-        //-- Any data for personalize results
-        $battleShowResult = false; //-- Show result of battle. If no need any extra modification of result no need change this
+        /** @var \Lotgd\Core\Combat\Battle */
+        $serviceBattle = \LotgdKernel::get('lotgd_core.combat.battle');
+
+        //-- Battle zone.
+        $serviceBattle->initialize()
+            ->setBattleZone('wordmapzone')
+        ;
 
         if ($pvp)
         {
-            $battleProcessVictoryDefeat = false; //-- Process victory or defeat functions when the battle is over
+            $serviceBattle
+                ->setBattleZone('pvp')
+                ->disableProccessBatteResults()//-- In this case not proccess battle results if is PvP
+            ;
         }
 
-        require_once 'public/battle.php';
+        $serviceBattle
+            ->battleStart()
+            ->battleProcess()
+            ->battleEnd()
+        ;
 
-        if ($victory)
+        if ($serviceBattle->isVictory())
         {
             $battle = false;
 
             if ($pvp)
             {
-                require_once 'lib/pvpsupport.php';
+                $badguy = $session['user']['badguy']['enemies'][0];
+
                 $aliveloc = $badguy['location'];
-                pvpvictory($badguy, $aliveloc, $options);
+                \LotgdKernel::get('Lotgd\Core\Pvp\Support')->pvpVictory($badguy, $aliveloc);
+
                 \LotgdLog::addNews('news.battle.victory', [
                     'playerName'   => $session['user']['name'],
                     'creatureName' => $badguy['creaturename'],
@@ -446,7 +460,7 @@ function worldmapen_run_real()
             $params['showSmallMap'] = (bool) get_module_setting('smallmap', 'worldmapen');
             $params['mapLinks']     = worldmapen_determinenav();
         }
-        elseif ($defeat)
+        elseif ($serviceBattle->isDefeat())
         {
             $battle = false;
             // Reset the players body to the last city they were in
@@ -454,10 +468,11 @@ function worldmapen_run_real()
 
             if ($pvp)
             {
-                require_once 'lib/pvpsupport.php';
-                require_once 'lib/taunt.php';
+                $badguy = $session['user']['badguy']['enemies'][0];
 
-                pvpdefeat($badguy, $badguy['location']);
+                // This is okay because system mail which is all it's used for is
+                // not translated
+                \LotgdKernel::get('Lotgd\Core\Pvp\Support')->pvpDefeat($badguy, $killedin);
 
                 \LotgdLog::addNews('deathmessage', [
                     'deathmessage' => [
@@ -475,11 +490,9 @@ function worldmapen_run_real()
 
             \LotgdFlashMessages::addErrorMessage('flash.message.battle.defeated', ['location' => $session['user']['location']], $textDomain);
         }
-        else
+        elseif ( ! $serviceBattle->battleHasWinner())
         {
             $battle = true;
-
-            require_once 'lib/fightnav.php';
             $allow = true;
             $extra = '';
 
@@ -488,7 +501,8 @@ function worldmapen_run_real()
                 $allow = false;
                 $extra = 'pvp=1&';
             }
-            LotgdNavigation::fightNav($allow, $allow, "runmodule.php?module=worldmapen&{$extra}");
+
+            $serviceBattle->fightNav($allow, $allow, "runmodule.php?module=worldmapen&{$extra}");
         }
 
         LotgdKernel::get('lotgd_core.combat.battle')->battleShowResults($lotgdBattleContent);

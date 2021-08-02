@@ -231,7 +231,7 @@ function spookygold_fight()
             'type'            => 'bonemarrow',
         ];
 
-        $session['user']['badguy'] = $badguy;
+        $session['user']['badguy'] = ['enemies' => $badguy];
         $op                        = 'fight';
         \LotgdRequest::setQuery('op', 'fight');
     }
@@ -250,40 +250,46 @@ function spookygold_fight()
 
     if ($battle)
     {
-        $battleProcessVictoryDefeat = false;
+        /** @var \Lotgd\Core\Combat\Battle */
+        $serviceBattle = \LotgdKernel::get('lotgd_core.combat.battle');
 
-        require_once 'lib/fightnav.php';
-        require_once 'public/battle.php';
+        //-- Battle zone.
+        $serviceBattle ->initialize()
+            ->setBattleZone('bonemarrow')
+            ->battleStart()
+            ->battleProcess()
+            ->battleEnd()
+        ;
 
-        if ($victory)
+        if ($serviceBattle->isVictory())
         {
             $battle = false;
 
             if ($session['user']['hitpoints'] <= 0)
             {
-                $lotgdBattleContent['battleend'][] = [
+                $serviceBattle->addContextToBattleEnd([
                     'battle.end.victory.hitpoints',
                     [
                         'creatureName' => $badguy['creaturename'],
                     ],
                     $textDomain,
-                ];
+                ]);
 
                 $session['user']['hitpoints'] = 1;
             }
 
-            $lotgdBattleContent['battleend'][] = [
+            $serviceBattle->addContextToBattleEnd([
                 'battle.end.victory.paragraph',
                 [
                     'creatureName' => $badguy['creaturename'],
                 ],
                 $textDomain,
-            ];
+            ]);
 
             \LotgdNavigation::addNav('navigation.nav.battle.pick', 'village.php?op=pickupgem');
             \LotgdNavigation::addNav('navigation.nav.battle.run', 'village.php?op=dontpickup');
         }
-        elseif ($defeat)
+        elseif ($serviceBattle->isDefeat())
         {
             $battle = false;
 
@@ -295,13 +301,13 @@ function spookygold_fight()
 
             $session['user']['hitpoints'] = 1;
 
-            $lotgdBattleContent['battleend'][] = [
+            $serviceBattle->addContextToBattleEnd([
                 'battle.end.defeated.paragraph',
                 [
                     'creatureName' => $badguy['creaturename'],
                 ],
                 $textDomain,
-            ];
+            ]);
 
             if (is_module_active('staminasystem'))
             {
@@ -309,32 +315,34 @@ function spookygold_fight()
 
                 removestamina(5 * 25000);
 
-                $lotgdBattleContent['battleend'][] = ['battle.end.defeated.stamina', [], $textDomain];
+                $serviceBattle->addContextToBattleEnd(['battle.end.defeated.stamina', [], $textDomain]);
             }
             else
             {
                 $session['user']['turns'] -= 5;
                 $session['user']['turns']          = \max($session['user']['turns'], 0);
-                $lotgdBattleContent['battleend'][] = ['battle.end.defeated.turns', [], $textDomain];
+                $serviceBattle->addContextToBattleEnd(['battle.end.defeated.turns', [], $textDomain]);
             }
 
             if ($session['user']['charm'] > 0)
             {
                 --$session['user']['charm'];
-                $lotgdBattleContent['battleend'][] = ['battle.end.defeated.charm.lost', [], $textDomain];
+                $serviceBattle->addContextToBattleEnd(['battle.end.defeated.charm.lost', [], $textDomain]);
             }
             else
             {
-                $lotgdBattleContent['battleend'][] = ['battle.end.defeated.charm.equal', [], $textDomain];
+                $serviceBattle->addContextToBattleEnd(['battle.end.defeated.charm.equal', [], $textDomain]);
             }
             $session['user']['specialinc']  = '';
             $session['user']['specialmisc'] = '';
         }
-        else
+        elseif ( ! $serviceBattle->battleHasWinner())
         {
-            LotgdNavigation::fightNav(true, true);
+            $serviceBattle->fightNav(true, true);
         }
     }
+
+    $serviceBattle->battleResults();
 
     return $battle;
 }

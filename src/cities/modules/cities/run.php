@@ -226,18 +226,26 @@ if ($battle)
 {
     \LotgdResponse::pageStart('title.battle', [], 'cities_module');
 
-    $battleDefeatWhere = false;
+    /** @var \Lotgd\Core\Combat\Battle */
+    $serviceBattle = \LotgdKernel::get('lotgd_core.combat.battle');
 
-    require_once 'public/battle.php';
+    //-- Battle zone.
+    $serviceBattle ->initialize()
+        ->setBattleZone('city')
+        ->disableCreateNews()
+        ->battleStart()
+        ->battleProcess()
+        ->battleEnd()
+    ;
 
-    if ($victory)
+    if ($serviceBattle->isVictory())
     {
         \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
         \LotgdNavigation::addNav('navs.journey', "runmodule.php?module=cities&op=travel&city={$ccity}&continue=1&d={$danger}");
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
     }
-    elseif ($defeat)
+    elseif ($serviceBattle->isDefeat())
     {
         \LotgdLog::addNews('travel.deathmessage', [
             'location' => $city,
@@ -245,11 +253,12 @@ if ($battle)
             'creature' => $badbuy['creaturename'],
         ], 'cities_module');
     }
-    else
+    elseif ( ! $serviceBattle->battleHasWinner())
     {
-        require_once 'lib/fightnav.php';
-        LotgdNavigation::fightNav(true, true, "runmodule.php?module=cities&city={$ccity}&d={$danger}");
+        $serviceBattle->fightNav(true, true, "runmodule.php?module=cities&city={$ccity}&d={$danger}");
     }
+
+    $serviceBattle->battleResults(); //-- Show results
 
     \LotgdResponse::pageEnd();
 }
