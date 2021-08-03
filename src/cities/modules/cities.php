@@ -8,7 +8,7 @@ function cities_getmoduleinfo()
 {
     return [
         'name'                => 'Multiple Cities',
-        'version'             => '4.0.0',
+        'version'             => '5.0.0',
         'author'              => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'            => 'Village',
         'download'            => 'core_module',
@@ -36,7 +36,7 @@ function cities_getmoduleinfo()
             'servedcapital' => 'Is this drink served in the capital?,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
+            'lotgd' => '>=6.0.0|Need a version equal or greater than 6.0.0 IDMarinas Edition',
         ],
     ];
 }

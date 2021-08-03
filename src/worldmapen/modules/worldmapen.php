@@ -13,13 +13,13 @@ function worldmapen_getmoduleinfo()
 {
     return [
         'name'      => 'World Map',
-        'version'   => '2.0.0',
+        'version'   => '3.0.0',
         'author'    => 'Originally: AES and Kevin Hatfield, Maintained by Roland Lichti, Stamina and Mount interaction added by Caveman Joe, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'  => 'Map',
         'download'  => 'https://github.com/idmarinas/lotgd-modules',
         'vertxtloc' => 'http://www.dragonprime.net/users/klenkes/',
         'requires'  => [
-            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
+            'lotgd' => '>=6.0.0|Need a version equal or greater than 6.0.0 IDMarinas Edition',
             'cities' => '>=2.0.0|This module requires the Multiple Cities module to be installed',
         ],
         'settings' => [
