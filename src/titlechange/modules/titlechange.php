@@ -8,7 +8,7 @@ function titlechange_getmoduleinfo()
     return [
         'name'     => 'Title Change',
         'author'   => 'JT Traub, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'download' => 'core_module',
         'category' => 'Lodge',
         'settings' => [
@@ -25,7 +25,7 @@ function titlechange_getmoduleinfo()
             'timespurchased' => 'How many title changes have been bought?,int|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=6.0.0|Need a version equal or greater than 6.0.0 IDMarinas Edition',
         ],
     ];
 }
@@ -108,7 +108,7 @@ function titlechange_run()
 
             $ntitle                    = \rawurldecode(LotgdRequest::getQuery('newname'));
             $fromname                  = $session['user']['name'];
-            $newname                   = change_player_ctitle($ntitle);
+            $newname                   = LotgdTool::changePlayerCtitle($ntitle);
             $session['user']['ctitle'] = $ntitle;
             $session['user']['name']   = $newname;
 
@@ -158,7 +158,7 @@ function titlechange_run()
             $ntitle = \LotgdSanitize::htmlSanitize($ntitle);
             $ntitle = \preg_replace('/[`´][ncHw]/', '', $ntitle);
 
-            $params['nname']  = get_player_basename();
+            $params['nname']  = \LotgdTool::getPlayerBasename();
             $params['ntitle'] = $ntitle;
 
             \LotgdNavigation::addHeader('navigation.category.confirm', ['textDomain' => $textDomain]);
@@ -169,7 +169,7 @@ function titlechange_run()
         default:
             $params['tpl'] = 'default';
 
-            $otitle = get_player_title();
+            $otitle = \LotgdTool::getPlayerTitle();
 
             if ('`0' == $otitle)
             {

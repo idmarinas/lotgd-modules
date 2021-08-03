@@ -23,7 +23,7 @@ function spookygold_getmoduleinfo()
 {
     return [
         'name'     => 'Spooky Gold',
-        'version'  => '2.0.0',
+        'version'  => '3.0.0',
         'author'   => 'Dan Norton, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Village Specials',
         'download' => 'core_module',
@@ -40,7 +40,7 @@ function spookygold_getmoduleinfo()
             'visits' => 'How many visits to the alley has the player made today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
+            'lotgd' => '>=6.0.0|Need a version equal or greater than 6.0.0 IDMarinas Edition',
         ],
     ];
 }
@@ -91,7 +91,7 @@ function spookygold_runevent($type)
 
     $params = [
         'textDomain' => $textDomain,
-        'partner'    => get_partner(),
+        'partner'    => \LotgdTool::getPartner(),
     ];
 
     \LotgdNavigation::setTextDomain($textDomain);

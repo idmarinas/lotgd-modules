@@ -8,7 +8,7 @@ function lovers_getmoduleinfo()
     return [
         'name'     => 'Violet and Seth Lovers',
         'author'   => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '3.0.0',
+        'version'  => '4.0.0',
         'category' => 'Inn',
         'download' => 'core_module',
         'prefs'    => [
@@ -16,7 +16,7 @@ function lovers_getmoduleinfo()
             'seenlover' => 'Visited Lover Today?,bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
+            'lotgd' => '>=6.0.0|Need a version equal or greater than 6.0.0 IDMarinas Edition',
         ],
     ];
 }
@@ -42,7 +42,7 @@ function lovers_dohook($hookname, $args)
 
     $textDomain = 'module_lovers';
 
-    $partner = get_partner();
+    $partner = \LotgdTool::getPartner();
 
     switch ($hookname)
     {
@@ -120,7 +120,7 @@ function lovers_run()
         'barkeep'    => LotgdSetting::getSetting('barkeep', '`tCedrik`0'),
         'bard'       => LotgdSetting::getSetting('bard', '`^Seth`0'),
         'barmaid'    => LotgdSetting::getSetting('barmaid', '`%Violet`0'),
-        'partner'    => get_partner(),
+        'partner'    => \LotgdTool::getPartner(),
     ];
 
     \LotgdResponse::pageStart($params['innName'], [], $textDomain);
@@ -177,7 +177,7 @@ function lovers_getbuff()
 
     require_once 'lib/partner.php';
 
-    $partner = get_partner();
+    $partner = \LotgdTool::getPartner();
 
     return [
         'name'     => \LotgdTranslator::t('buff.name', [], $textDomain),

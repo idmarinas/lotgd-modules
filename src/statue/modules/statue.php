@@ -5,7 +5,7 @@ function statue_getmoduleinfo()
     return [
         'name'      => 'Village Statue',
         'author'    => '`%Simon Welsh`0<br>`#Based on Village Statue by Eric Stevens`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'   => '4.0.0',
+        'version'   => '5.0.0',
         'category'  => 'Village',
         'download'  => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=667',
         'vertxtloc' => 'http://simon.geek.nz/',
@@ -31,7 +31,7 @@ function statue_getmoduleinfo()
             'see' => 'Show Statue for user,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
+            'lotgd' => '>=6.0.0|Need a version equal or greater than 6.0.0 IDMarinas Edition',
         ],
     ];
 }
@@ -132,7 +132,7 @@ function statue_dohook($hookname, $args)
                 {
                     require_once 'lib/partner.php';
 
-                    $params['partner'] = get_partner();
+                    $params['partner'] = \LotgdTool::getPartner();
 
                     $args[] = ['section.village.examine.break.closer', $params, 'module_statue'];
 

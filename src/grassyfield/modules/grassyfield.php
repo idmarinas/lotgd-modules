@@ -4,12 +4,12 @@ function grassyfield_getmoduleinfo()
 {
     return [
         'name'     => 'Grassy Field',
-        'version'  => '3.0.0',
+        'version'  => '4.0.0',
         'author'   => 'Sean McKillion<br>modified by Eric Stevens & JT Traub, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category' => 'Forest Specials',
         'download' => 'core_module',
         'requires' => [
-            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
+            'lotgd' => '>=6.0.0|Need a version equal or greater than 6.0.0 IDMarinas Edition',
         ],
     ];
 }
@@ -94,7 +94,7 @@ function grassyfield_runevent($type)
     {
         if ($params['hasHorse'])
         {
-            $playermount = getmount($session['user']['hashorse']);
+            $playermount = \LotgdTool::getMount($session['user']['hashorse']);
 
             $params['mountName'] = $playermount['mountname'] ?? '';
             $params['mount']     = $playermount              ?? [];

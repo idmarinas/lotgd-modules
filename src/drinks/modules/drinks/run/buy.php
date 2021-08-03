@@ -18,7 +18,7 @@ $params = [
     'drunk'      => $drunk,
     'maxDrunk'   => $maxDrunk,
     'drunkeness' => (int) ($drunk > $maxDrunk),
-    'partner'    => get_partner(),
+    'partner'    => \LotgdTool::getPartner(),
     'barkeep'    => LotgdSetting::getSetting('barkeep', '`tCedrik`0'),
 ];
 
