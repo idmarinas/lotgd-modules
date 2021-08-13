@@ -45,9 +45,9 @@ function specialtymysticpower_uninstall()
     // rechoose at new day
     try
     {
-        $charactersRepository = \Doctrine::getRepository('LotgdCore:Characters');
+        $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
         $query                = $charactersRepository->getQueryBuilder();
-        $query->update('LotgdCore:Characters', 'u')
+        $query->update('LotgdCore:Avatar', 'u')
             ->set('u.specialty', '')
             ->where('u.specialty = :specialty')
 

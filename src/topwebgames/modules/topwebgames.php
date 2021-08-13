@@ -183,7 +183,7 @@ function topwebgames_run()
     {
         $dt = \date('Y-m-d H:i:s', \strtotime(\date('Y-m-d H:i:s').' + '.get_module_setting('hours').' hours'));
 
-        $repository = \Doctrine::getRepository('LotgdCore:Characters');
+        $repository = \Doctrine::getRepository('LotgdCore:Avatar');
         $entity     = $repository->find($id);
 
         if ($entity)

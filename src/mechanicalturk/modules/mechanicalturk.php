@@ -134,7 +134,7 @@ function mechanicalturk_run()
 
             systemmail($row['submittedbyid'], $subject, $body);
 
-            $accountRepo = \Doctrine::getRepository('LotgdCore:Accounts');
+            $accountRepo = \Doctrine::getRepository('LotgdCore:User');
             $entity      = $accountRepo->find($row['submittedbyid']);
 
             if ($entity)

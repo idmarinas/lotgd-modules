@@ -53,10 +53,10 @@ function newbieisland_uninstall()
     $vname = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $gname = get_module_setting('villagename');
 
-    $repository = \Doctrine::getRepository('LotgdCore:Characters');
+    $repository = \Doctrine::getRepository('LotgdCore:Avatar');
     $query      = $repository->getQueryBuilder();
 
-    $query->update('LotgdCore:Characters', 'u')
+    $query->update('LotgdCore:Avatar', 'u')
         ->set('u.location', ':new')
         ->where('u.location = :old')
 
@@ -215,10 +215,10 @@ function newbieisland_dohook($hookname, $args)
                 {
                     $session['user']['location'] = $args['new'];
                 }
-                $charactersRepository = \Doctrine::getRepository('LotgdCore:Characters');
+                $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
 
                 $query = $charactersRepository->getQueryBuilder();
-                $query->update('LotgdCore:Characters', 'u')
+                $query->update('LotgdCore:Avatar', 'u')
                     ->set('u.location', ':new')
                     ->where('u.location = :old')
 
@@ -383,7 +383,7 @@ function newbieisland_dohook($hookname, $args)
                 }
                 elseif ( ! $args['newestname'] && $args['newestplayer'])
                 {
-                    $characterRepository = \Doctrine::getRepository('LotgdCore:Characters');
+                    $characterRepository = \Doctrine::getRepository('LotgdCore:Avatar');
                     $args['newestname']  = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }

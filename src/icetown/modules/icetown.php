@@ -50,11 +50,11 @@ function icetown_uninstall()
 
     try
     {
-        $charactersRepository = \Doctrine::getRepository('LotgdCore:Characters');
+        $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
 
         //-- Updated location
         $query = $charactersRepository->getQueryBuilder();
-        $query->update('LotgdCore:Characters', 'u')
+        $query->update('LotgdCore:Avatar', 'u')
             ->set('u.location', ':new')
             ->where('u.location = :old')
 
@@ -158,10 +158,10 @@ function icetown_dohook($hookname, $args)
                     $session['user']['location'] = $args['new'];
                 }
 
-                $charactersRepository = \Doctrine::getRepository('LotgdCore:Characters');
+                $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
 
                 $query = $charactersRepository->getQueryBuilder();
-                $query->update('LotgdCore:Characters', 'u')
+                $query->update('LotgdCore:Avatar', 'u')
                     ->set('u.location', ':new')
                     ->where('u.location = :old')
 

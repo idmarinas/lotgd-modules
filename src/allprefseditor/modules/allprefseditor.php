@@ -88,7 +88,7 @@ function allprefseditor_run()
 
     modulehook('allprefs');
 
-    $repository = \Doctrine::getRepository('LotgdCore:Characters');
+    $repository = \Doctrine::getRepository('LotgdCore:Avatar');
     $params     = [
         'textDomain' => $textDomain,
         'name'       => $repository->getCharacterNameFromAcctId($id),

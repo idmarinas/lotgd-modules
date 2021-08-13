@@ -34,13 +34,13 @@ function onlinelist_dohook($hookname, $args)
         case 'onlinecharlist':
             $args['handled'] = true;
 
-            $repository = \Doctrine::getRepository('LotgdCore:Accounts');
+            $repository = \Doctrine::getRepository('LotgdCore:User');
             $query      = $repository->createQueryBuilder('u');
             $expr       = $query->expr();
 
             //-- Staff users
             $resultStaff = $query->select('c.name')
-                ->leftJoin('LotgdCore:Characters', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
+                ->leftJoin('LotgdCore:Avatar', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
                 ->where('u.locked = 0 AND u.loggedin = 1 AND u.superuser > 0')
                 ->orderBy('u.superuser', 'DESC')
                 ->addOrderBy('c.level', 'DESC')
@@ -52,7 +52,7 @@ function onlinelist_dohook($hookname, $args)
             //-- Normal users
             $query         = $repository->createQueryBuilder('u');
             $resultPlayers = $query->select('c.name')
-                ->leftJoin('LotgdCore:Characters', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
+                ->leftJoin('LotgdCore:Avatar', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
                 ->where('u.locked = 0 AND u.loggedin = 1 AND u.superuser = 0')
                 ->orderBy('u.superuser', 'DESC')
                 ->addOrderBy('c.level', 'DESC')

@@ -39,7 +39,7 @@ function badnavedplayers_dohook($hookname, $args)
 
     if ('superuser' == $hookname && ($session['user']['superuser'] & SU_FIX_BADNAVS))
     {
-        $repository = \Doctrine::getRepository('LotgdCore:Characters');
+        $repository = \Doctrine::getRepository('LotgdCore:Avatar');
         $query      = $repository->createQueryBuilder('u');
         $count      = (int) $query->select('count(u.id)')
             ->where('u.restorepage LIKE :page')
@@ -72,7 +72,7 @@ function badnavedplayers_run()
 
     $op = \LotgdRequest::getQuery('op');
 
-    $repository = \Doctrine::getRepository('LotgdCore:Characters');
+    $repository = \Doctrine::getRepository('LotgdCore:Avatar');
 
     if ('fix' == $op)
     {
@@ -81,7 +81,7 @@ function badnavedplayers_run()
         if (\is_array($playerIds) && ! empty($playerIds))
         {
             $query = $repository->getQueryBuilder();
-            $query->update('LotgdCore:Characters', 'u')
+            $query->update('LotgdCore:Avatar', 'u')
                 ->set('u.allowednavs', $query->expr()->literal(''))
                 ->set('u.restorepage', $query->expr()->literal(''))
                 ->set('u.specialinc', $query->expr()->literal(''))

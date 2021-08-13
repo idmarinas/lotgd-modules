@@ -91,12 +91,12 @@ function alt_char_list_run()
 
                 $params['search'] = $name;
 
-                $repository = \Doctrine::getRepository('LotgdCore:Accounts');
+                $repository = \Doctrine::getRepository('LotgdCore:User');
                 $query      = $repository->createQueryBuilder('u');
 
                 $query->select('u.acctid', 'u.login', 'u.lastip', 'u.uniqueid', 'u.emailaddress')
                     ->addSelect('c.name')
-                    ->leftJoin('LotgdCore:Characters', 'c', 'with', $query->expr()->eq('c.acct', 'u.acctid'))
+                    ->leftJoin('LotgdCore:Avatar', 'c', 'with', $query->expr()->eq('c.acct', 'u.acctid'))
 
                     ->where('c.name LIKE :name OR u.login LIKE :login')
 
@@ -113,12 +113,12 @@ function alt_char_list_run()
         default:
             $params['tpl'] = 'default';
 
-            $repository = \Doctrine::getRepository('LotgdCore:Accounts');
+            $repository = \Doctrine::getRepository('LotgdCore:User');
             $query      = $repository->createQueryBuilder('u');
 
             $query->select('u.acctid', 'u.login', 'u.lastip', 'u.uniqueid', 'u.emailaddress')
                 ->addSelect('c.name')
-                ->leftJoin('LotgdCore:Characters', 'c', 'with', $query->expr()->eq('c.acct', 'u.acctid'))
+                ->leftJoin('LotgdCore:Avatar', 'c', 'with', $query->expr()->eq('c.acct', 'u.acctid'))
 
                 ->orderBy('u.acctid', 'ASC')
             ;

@@ -52,7 +52,7 @@ function petitionfixnavs_run()
 
     if ($id)
     {
-        $repository = \Doctrine::getRepository('LotgdCore:Characters');
+        $repository = \Doctrine::getRepository('LotgdCore:Avatar');
         $query      = \Doctrine::createQueryBuilder();
 
         $accountId = $query->select('u.author')

@@ -5,7 +5,7 @@ $invId = (int) \LotgdRequest::getQuery('invid');
 $op2   = \LotgdRequest::getQuery('op2');
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
-$accountRep = \Doctrine::getRepository('LotgdCore:Accounts');
+$accountRep = \Doctrine::getRepository('LotgdCore:User');
 
 \LotgdResponse::pageStart('title.inventory', ['name' => \LotgdSanitize::fullSanitize($session['user']['name'])], $textDomain);
 

@@ -81,7 +81,7 @@ function staminahof_run()
         $userActionsArray = $query->select('u.setting', 'u.value', 'u.userid')
             ->addSelect('c.name')
             ->where("u.modulename = 'staminasystem' AND u.setting = 'actions'")
-            ->leftJoin('LotgdCore:Characters', 'c', 'with', $query->expr()->eq('c.acct', 'u.userid'))
+            ->leftJoin('LotgdCore:Avatar', 'c', 'with', $query->expr()->eq('c.acct', 'u.userid'))
 
             ->getQuery()
             ->getArrayResult()

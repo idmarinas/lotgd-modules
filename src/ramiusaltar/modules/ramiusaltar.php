@@ -292,12 +292,12 @@ function ramiusaltar_run()
 
         $page = (int) \LotgdRequest::getQuery('page');
 
-        $repository = \Doctrine::getRepository('LotgdCore:Accounts');
+        $repository = \Doctrine::getRepository('LotgdCore:User');
         $query      = $repository->createQueryBuilder('u');
         $expr       = $query->expr();
 
         $query->select('c.name', 'g.value AS gained', 's.value AS sacrifices', 'h.value AS hpLost', 't.value AS turns', 'm.value AS maxHpLost')
-            ->innerJoin('LotgdCore:Characters', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
+            ->innerJoin('LotgdCore:Avatar', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
 
             ->innerJoin('LotgdCore:ModuleUserprefs', 's', 'with', $expr->andX(
                 $expr->eq('s.userid', 'u.acctid'),

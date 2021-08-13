@@ -87,7 +87,7 @@ function daysave_dohook($hookname, $args)
         break;
         case 'newday-runonce':
             //reset all players' Instant Buys counter
-            $repository = \Doctrine::getRepository('LotgdCore:Accounts');
+            $repository = \Doctrine::getRepository('LotgdCore:User');
             $query      = $repository->createQueryBuilder('u');
             $result     = $query->select('u.acctid')
                 ->getQuery()

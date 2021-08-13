@@ -137,7 +137,7 @@ function uninstall_action($actionname)
     set_module_setting('actionsarray', \serialize($defaultactions), 'staminasystem');
     //Now remove the action from each user's modulepref
     $query   = \Doctrine::createQueryBuilder();
-    $results = $query->from('LotgdCore:Accounts', 'u')
+    $results = $query->from('LotgdCore:User', 'u')
         ->select('u.acctid')
 
         ->getQuery()
@@ -1262,7 +1262,7 @@ function stamina_minihof_makesmallboard($boardinfo, $userid = false)
     $sbc = \count($smallboard);
 
     $query = \Doctrine::createQueryBuilder();
-    $query->from('LotgdCore:Characters', 'u')
+    $query->from('LotgdCore:Avatar', 'u')
         ->select('u.name')
 
         ->where('u.acct = :id')

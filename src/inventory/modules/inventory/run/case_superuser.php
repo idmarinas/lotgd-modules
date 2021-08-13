@@ -6,7 +6,7 @@ $return  = (string) \LotgdRequest::getQuery('return');
 $creturn = \urlencode($return);
 
 $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
-$accountRep = \Doctrine::getRepository('LotgdCore:Accounts');
+$accountRep = \Doctrine::getRepository('LotgdCore:User');
 
 $name = $accountRep->getCharacterNameFromAcctId($acctId);
 

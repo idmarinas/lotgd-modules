@@ -66,7 +66,7 @@ function statue_dohook($hookname, $args)
 
     if ($hero && ! $heroName)
     {
-        $repository = \Doctrine::getRepository('LotgdCore:Characters');
+        $repository = \Doctrine::getRepository('LotgdCore:Avatar');
         $entity     = $repository->find($hero);
 
         if ($entity)

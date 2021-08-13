@@ -122,7 +122,7 @@ function stafflist_run()
         ->addSelect('d.value AS descr')
         ->addSelect('c.name', 'c.sex')
 
-        ->from('LotgdCore:Accounts', 'u')
+        ->from('LotgdCore:User', 'u')
 
         ->leftJoin('LotgdCore:ModuleUserprefs', 'r', 'with',
             $expr->andX(
@@ -138,7 +138,7 @@ function stafflist_run()
                 $expr->eq('d.userid', 'u.acctid')
             )
         )
-        ->leftJoin('LotgdCore:Characters', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
+        ->leftJoin('LotgdCore:Avatar', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
 
         ->where('(r.value+0) > 0')
 

@@ -29,11 +29,11 @@ function racehuman_install()
     //-- Upgrade from previous version
     try
     {
-        $charactersRepository = \Doctrine::getRepository('LotgdCore:Characters');
+        $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
 
         //-- Name of race
         $query = $charactersRepository->getQueryBuilder();
-        $query->update('LotgdCore:Characters', 'u')
+        $query->update('LotgdCore:Avatar', 'u')
             ->set('u.race', ':new')
             ->where('u.race = :old')
 
@@ -78,11 +78,11 @@ function racehuman_uninstall()
 
     try
     {
-        $charactersRepository = \Doctrine::getRepository('LotgdCore:Characters');
+        $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
 
         //-- Updated location
         $query = $charactersRepository->getQueryBuilder();
-        $query->update('LotgdCore:Characters', 'u')
+        $query->update('LotgdCore:Avatar', 'u')
             ->set('u.location', ':new')
             ->where('u.location = :old')
 
@@ -100,7 +100,7 @@ function racehuman_uninstall()
 
         //-- Updated race name
         $query = $charactersRepository->getQueryBuilder();
-        $query->update('LotgdCore:Characters', 'u')
+        $query->update('LotgdCore:Avatar', 'u')
             ->set('u.race', RACE_UNKNOWN)
             ->where('u.race = :race')
 
@@ -155,10 +155,10 @@ function racehuman_dohook($hookname, $args)
                 {
                     $session['user']['location'] = $args['new'];
                 }
-                $charactersRepository = \Doctrine::getRepository('LotgdCore:Characters');
+                $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
 
                 $query = $charactersRepository->getQueryBuilder();
-                $query->update('LotgdCore:Characters', 'u')
+                $query->update('LotgdCore:Avatar', 'u')
                     ->set('u.location', ':new')
                     ->where('u.location = :old')
 
@@ -326,7 +326,7 @@ function racehuman_dohook($hookname, $args)
                 }
                 elseif ( ! $args['newestname'] && $args['newestplayer'])
                 {
-                    $characterRepository = \Doctrine::getRepository('LotgdCore:Characters');
+                    $characterRepository = \Doctrine::getRepository('LotgdCore:Avatar');
                     $args['newestname']  = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
