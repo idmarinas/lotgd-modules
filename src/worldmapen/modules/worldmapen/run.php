@@ -344,7 +344,7 @@ function worldmapen_run_real()
     {
         // Okay, we've picked a person to fight.
         require_once 'lib/pvpsupport.php';
-        $badguy = setup_pvp_target($characterId);
+        $badguy = \LotgdKernel::get("Lotgd\Core\Pvp\Support")->setupPvpTarget($characterId);
 
         if (\is_string($badguy))
         {
