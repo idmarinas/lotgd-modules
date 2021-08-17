@@ -46,7 +46,7 @@ function clannews_dohook($hookname, $args)
 
         $query->select('u')
             ->innerJoin('LotgdCore:User', 'a', 'with', $expr->eq('a.acctid', 'u.accountId'))
-            ->innerJoin('LotgdCore:Avatar', 'c', 'with', $expr->eq('c.id', 'a.character'))
+            ->innerJoin('LotgdCore:Avatar', 'c', 'with', $expr->eq('c.id', 'a.avatar'))
             ->where('c.clanid = :clan')
             ->orderBy('u.date', 'DESC')
 
