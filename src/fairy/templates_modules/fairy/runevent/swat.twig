@@ -1,7 +1,0 @@
-{% trans_default_domain textDomain %}
-
-{% if user.gems %}
-    {{ 'section.swat.gems.yes'|trans(_context|default({}))|colorize }}
-{% else %}
-    {{ 'section.swat.gems.no'|trans(_context|default({}))|colorize }}
-{% endif %}
