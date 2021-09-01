@@ -98,3 +98,4 @@ All this work was done without intention to offend or break the license on which
 -   `clannews/` Is now a LoTGD Bundle [Clan News](https://github.com/lotgd-core/clan-news-bundle)
 -   `titlechange/` Is now a LoTGD Bundle [Lodge Title Change](https://github.com/lotgd-core/lodge-title-change-bundle)
 -   `fairy/` Is now a LoTGD Bundle [Fairy](https://github.com/lotgd-core/fairy-bundle)
+-   `findgold/` Is now a LoTGD Bundle [Find Gold](https://github.com/lotgd-core/find-gold-bundle)
