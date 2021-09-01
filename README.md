@@ -91,7 +91,7 @@ All this work was done without intention to offend or break the license on which
 -   `warnlvl.php` Warning Level and Bans
     > These function will be included in a future version of the core.
 
-# Modules that have converted into LoTGD Bundle
+# Modules that have been migrated in a LoTGD Bundle
 -   `funddrive/` Is now a LoTGD Bundle [Bundle Fund Drive](https://github.com/lotgd-core/bundle-fund-drive)
 -   `funddriverewards/` Is now a LoTGD Bundle [Bundle Fund Drive Rewards](https://github.com/lotgd-core/bundle-fund-drive-rewards)
 -   `gardenparty/` Is now a LoTGD Bundle [Bundle Garden Party](https://github.com/lotgd-core/bundle-garden-party)
