@@ -92,10 +92,11 @@ All this work was done without intention to offend or break the license on which
     > These function will be included in a future version of the core.
 
 # Modules that have been migrated in a LoTGD Bundle
--   `funddrive/` Is now a LoTGD Bundle [Bundle Fund Drive](https://github.com/lotgd-core/bundle-fund-drive)
--   `funddriverewards/` Is now a LoTGD Bundle [Bundle Fund Drive Rewards](https://github.com/lotgd-core/bundle-fund-drive-rewards)
--   `gardenparty/` Is now a LoTGD Bundle [Bundle Garden Party](https://github.com/lotgd-core/bundle-garden-party)
+-   `funddrive/` Is now a LoTGD Bundle [Fund Drive](https://github.com/lotgd-core/fund-drive-bundle)
+-   `funddriverewards/` Is now a LoTGD Bundle [Fund Drive Rewards](https://github.com/lotgd-core/fund-drive-rewards-bundle)
+-   `gardenparty/` Is now a LoTGD Bundle [Garden Party](https://github.com/lotgd-core/garden-party-bundle)
 -   `clannews/` Is now a LoTGD Bundle [Clan News](https://github.com/lotgd-core/clan-news-bundle)
 -   `titlechange/` Is now a LoTGD Bundle [Lodge Title Change](https://github.com/lotgd-core/lodge-title-change-bundle)
 -   `fairy/` Is now a LoTGD Bundle [Fairy](https://github.com/lotgd-core/fairy-bundle)
 -   `findgold/` Is now a LoTGD Bundle [Find Gold](https://github.com/lotgd-core/find-gold-bundle)
+-   `findgem/` Is now a LoTGD Bundle [Find gem](https://github.com/lotgd-core/find-gem-bundle)
