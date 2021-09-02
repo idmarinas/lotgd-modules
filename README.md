@@ -100,3 +100,4 @@ All this work was done without intention to offend or break the license on which
 -   `fairy/` Is now a LoTGD Bundle [Fairy](https://github.com/lotgd-core/fairy-bundle)
 -   `findgold/` Is now a LoTGD Bundle [Find Gold](https://github.com/lotgd-core/find-gold-bundle)
 -   `findgem/` Is now a LoTGD Bundle [Find gem](https://github.com/lotgd-core/find-gem-bundle)
+-   `offering/` Is now a LoTGD Bundle [Offering](https://github.com/lotgd-core/offering-bundle)
