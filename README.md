@@ -102,3 +102,5 @@ All this work was done without intention to offend or break the license on which
 -   `findgem/` Is now a LoTGD Bundle [Find gem](https://github.com/lotgd-core/find-gem-bundle)
 -   `soulgem/` Is now a LoTGD Bundle [Soul gem](https://github.com/lotgd-core/soul-gem-bundle)
 -   `offering/` Is now a LoTGD Bundle [Offering](https://github.com/lotgd-core/offering-bundle)
+-   `namecolor/` Is now a LoTGD Bundle [Lodge Name Color](https://github.com/lotgd-core/lodge-name-color-bundle)
+-   `findring/` Is now a LoTGD Bundle [Find Ring](https://github.com/lotgd-core/find-ring-bundle)
