@@ -104,3 +104,4 @@ All this work was done without intention to offend or break the license on which
 -   `offering/` Is now a LoTGD Bundle [Offering](https://github.com/lotgd-core/offering-bundle)
 -   `namecolor/` Is now a LoTGD Bundle [Lodge Name Color](https://github.com/lotgd-core/lodge-name-color-bundle)
 -   `findring/` Is now a LoTGD Bundle [Find Ring](https://github.com/lotgd-core/find-ring-bundle)
+-   `spookygold/` Is now a LoTGD Bundle [Spooky Gold](https://github.com/lotgd-core/spooky-gold-bundle)
