@@ -38,7 +38,7 @@ function inventory_getmoduleinfo()
 
 function inventory_install()
 {
-    \Doctrine::createSchema([
+    Doctrine::createSchema([
         'LotgdLocal:ModInventory',
         'LotgdLocal:ModInventoryItem',
         'LotgdLocal:ModInventoryBuff',
@@ -64,7 +64,7 @@ function inventory_install()
 
 function inventory_uninstall()
 {
-    \Doctrine::dropSchema([
+    Doctrine::dropSchema([
         'LotgdLocal:ModInventory',
         'LotgdLocal:ModInventoryItem',
         'LotgdLocal:ModInventoryBuff',
@@ -95,7 +95,7 @@ function inventory_run()
 
     require_once 'lib/itemhandler.php';
 
-    $op         = \LotgdRequest::getQuery('op');
+    $op         = LotgdRequest::getQuery('op');
     $textDomain = 'module_inventory';
 
     if (\file_exists("modules/inventory/run/case_{$op}.php"))

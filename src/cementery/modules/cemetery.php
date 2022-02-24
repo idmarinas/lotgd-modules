@@ -49,8 +49,8 @@ function cemetery_dohook($hookname, $args)
             }
         break;
         case 'footer-shades':
-            \LotgdNavigation::addHeader('category.places');
-            \LotgdNavigation::addNav('nav.haunt', 'runmodule.php?module=cemetery&op=deadspeak', [
+            LotgdNavigation::addHeader('category.places');
+            LotgdNavigation::addNav('nav.haunt', 'runmodule.php?module=cemetery&op=deadspeak', [
                 'textDomain' => 'cemetery_navigation',
                 'params'     => ['location' => $cemeteryloc],
             ]);
@@ -58,8 +58,8 @@ function cemetery_dohook($hookname, $args)
         case 'village':
             if ($session['user']['location'] == $cemeteryloc)
             {
-                \LotgdNavigation::addHeader('headers.gate');
-                \LotgdNavigation::addNav('nav.cemetery', 'runmodule.php?module=cemetery&op=cemetery', ['textDomain' => 'cemetery_navigation']);
+                LotgdNavigation::addHeader('headers.gate');
+                LotgdNavigation::addNav('nav.cemetery', 'runmodule.php?module=cemetery&op=cemetery', ['textDomain' => 'cemetery_navigation']);
             }
         break;
     }
@@ -72,7 +72,7 @@ function cemetery_run()
     global $session;
 
     $village = get_module_setting('cemeteryloc');
-    $op      = (string) \LotgdRequest::getQuery('op');
+    $op      = (string) LotgdRequest::getQuery('op');
 
     $params = [
         'village'    => $village,
@@ -80,19 +80,19 @@ function cemetery_run()
         'textDomain' => 'cemetery_module',
     ];
 
-    \LotgdResponse::pageStart('title', [], $params['textDomain']);
+    LotgdResponse::pageStart('title', [], $params['textDomain']);
 
-    \LotgdNavigation::villageNav();
+    LotgdNavigation::villageNav();
 
     if ('deadspeak' == $op)
     {
         $params['tpl']        = 'village';
         $params['textDomain'] = 'cemetery_village';
 
-        \LotgdResponse::pageStart('title', ['village' => $village], $params['textDomain']);
+        LotgdResponse::pageStart('title', ['village' => $village], $params['textDomain']);
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/cemetery/commentary.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/cemetery/commentary.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

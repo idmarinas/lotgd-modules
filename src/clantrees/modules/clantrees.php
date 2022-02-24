@@ -1,5 +1,6 @@
 <?php
 
+use Tracy\Debugger;
 function clantrees_getmoduleinfo()
 {
     return [
@@ -51,23 +52,23 @@ function clantrees_uninstall()
 
 function clantrees_decoratenav($havetree, $treebuy)
 {
-    \LotgdNavigation::setTextDomain('module_clantrees');
+    LotgdNavigation::setTextDomain('module_clantrees');
 
-    \LotgdNavigation::addHeader('navigation.category.christmas');
+    LotgdNavigation::addHeader('navigation.category.christmas');
 
     if ( ! $havetree && $treebuy)
     {
-        \LotgdNavigation::addNav('navigation.nav.buy.tree', 'runmodule.php?module=clantrees&op=buytree');
+        LotgdNavigation::addNav('navigation.nav.buy.tree', 'runmodule.php?module=clantrees&op=buytree');
     }
     elseif ($havetree)
     {
-        \LotgdNavigation::addNav('navigation.nav.work', 'runmodule.php?module=clantrees&op=treetime');
-        \LotgdNavigation::addNav('navigation.nav.buy.baubles', 'runmodule.php?module=clantrees&op=treebaubles');
-        \LotgdNavigation::addNav('navigation.nav.buy.tinsel', 'runmodule.php?module=clantrees&op=treetinsel');
+        LotgdNavigation::addNav('navigation.nav.work', 'runmodule.php?module=clantrees&op=treetime');
+        LotgdNavigation::addNav('navigation.nav.buy.baubles', 'runmodule.php?module=clantrees&op=treebaubles');
+        LotgdNavigation::addNav('navigation.nav.buy.tinsel', 'runmodule.php?module=clantrees&op=treetinsel');
     }
-    \LotgdNavigation::addHeader('navigation.category.clan');
+    LotgdNavigation::addHeader('navigation.category.clan');
 
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 }
 
 function clantrees_buff($turns)
@@ -80,11 +81,11 @@ function clantrees_buff($turns)
     }
 
     LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('besttreespirit', [
-        'name'     => \LotgdTranslator::t('buff.name', [], 'module_clantrees'),
+        'name'     => LotgdTranslator::t('buff.name', [], 'module_clantrees'),
         'rounds'   => $turns,
-        'wearoff'  => \LotgdTranslator::t('buff.wearoff', [], 'module_clantrees'),
+        'wearoff'  => LotgdTranslator::t('buff.wearoff', [], 'module_clantrees'),
         'defmod'   => 1.15,
-        'roundmsg' => \LotgdTranslator::t('buff.roundmsg', [], 'module_clantrees'),
+        'roundmsg' => LotgdTranslator::t('buff.roundmsg', [], 'module_clantrees'),
         'schema'   => 'module_clantrees',
     ]);
 
@@ -107,11 +108,11 @@ function clantrees_dohook($hookname, $args)
 
                 $args[] = ['section.hook.village.salesman', $params, 'module_clantrees'];
 
-                if ($besttree)
+                if ($besttree !== 0)
                 {
                     if (get_module_setting('competitive'))
                     {
-                        $repository = \Doctrine::getRepository('LotgdCore:Clans');
+                        $repository = Doctrine::getRepository('LotgdCore:Clans');
                         $query      = $repository->createQueryBuilder('u');
 
                         try
@@ -126,9 +127,9 @@ function clantrees_dohook($hookname, $args)
 
                             $args[] = ['section.hook.village.besttree', $params, 'module_clantrees'];
                         }
-                        catch (\Throwable $th)
+                        catch (Throwable $th)
                         {
-                            \Tracy\Debugger::log($th);
+                            Debugger::log($th);
 
                             set_module_setting('besttree', 0);
                         }
@@ -145,9 +146,9 @@ function clantrees_dohook($hookname, $args)
             {
                 break;
             }
-            $op     = \LotgdRequest::getQuery('op');
+            $op     = LotgdRequest::getQuery('op');
             $clanid = $session['user']['clanid'];
-            $detail = \LotgdRequest::getQuery('detail');
+            $detail = LotgdRequest::getQuery('detail');
 
             if ('' == $op && ( ! $detail || ($detail == $clanid)) && ($clanid && $session['user']['clanrank'] > CLAN_APPLICANT))
             {
@@ -213,7 +214,7 @@ function clantrees_run()
 {
     global $session;
 
-    $op = \LotgdRequest::getQuery('op');
+    $op = LotgdRequest::getQuery('op');
 
     $gems   = $session['user']['gems'];
     $gold   = $session['user']['gold'];
@@ -226,44 +227,44 @@ function clantrees_run()
         'salesman'   => get_module_setting('salesman'),
     ];
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
     if ('buytree' == $op)
     {
         $params['tpl'] = 'buytree';
 
-        \LotgdNavigation::addNav('navigation.nav.leave', 'clan.php');
+        LotgdNavigation::addNav('navigation.nav.leave', 'clan.php');
 
         if ($gold < 5000 || $gems < 5)
         {
             $params['notGold'] = true;
         }
 
-        \LotgdNavigation::addHeader('navigation.category.buy');
+        LotgdNavigation::addHeader('navigation.category.buy');
 
         if (($gold >= 5000) && ($gems >= 5))
         {
-            \LotgdNavigation::addNav('navigation.nav.buy.small', 'runmodule.php?module=clantrees&op=tree&size=small');
+            LotgdNavigation::addNav('navigation.nav.buy.small', 'runmodule.php?module=clantrees&op=tree&size=small');
         }
 
         if (($gold >= 10000) && ($gems >= 10))
         {
-            \LotgdNavigation::addNav('navigation.nav.buy.normal', 'runmodule.php?module=clantrees&op=tree&size=normal');
+            LotgdNavigation::addNav('navigation.nav.buy.normal', 'runmodule.php?module=clantrees&op=tree&size=normal');
         }
 
         if (($gold >= 25000) && ($gems >= 25))
         {
-            \LotgdNavigation::addNav('navigation.nav.buy.grand', 'runmodule.php?module=clantrees&op=tree&size=grand');
+            LotgdNavigation::addNav('navigation.nav.buy.grand', 'runmodule.php?module=clantrees&op=tree&size=grand');
         }
     }
     elseif ('tree' == $op)
     {
-        $size = \LotgdRequest::getQuery('size');
+        $size = LotgdRequest::getQuery('size');
 
         $params['tpl']  = 'tree';
         $params['size'] = $size;
 
-        \LotgdNavigation::addNav('navigation.nav.return', 'clan.php');
+        LotgdNavigation::addNav('navigation.nav.return', 'clan.php');
 
         if ('small' == $size)
         {
@@ -292,7 +293,7 @@ function clantrees_run()
         $params['tpl']           = 'treetime';
         $params['staminaSystem'] = is_module_active('staminasystem');
 
-        \LotgdNavigation::addNav('navigation.nav.return', 'clan.php');
+        LotgdNavigation::addNav('navigation.nav.return', 'clan.php');
 
         //-- Stamina system compatibility
         if ($params['staminaSystem'])
@@ -302,14 +303,14 @@ function clantrees_run()
             $stamina   = get_stamina(3, true);
             $block     = \min(\floor($stamina / 25000), 10);
             $replyinfo = [
-                'replystuff' => \LotgdTranslator::t('section.run.treetime.form.stamina', [], $textDomain).',range,0,'.$block.',1',
+                'replystuff' => LotgdTranslator::t('section.run.treetime.form.stamina', [], $textDomain).',range,0,'.$block.',1',
             ];
         }
         else
         {
             // Restrict the player only spending the turns they have!
             $replyinfo = [
-                'replystuff' => \LotgdTranslator::t('section.run.treetime.form.turn', [], $textDomain).',range,0,'.$session['user']['turns'].',1',
+                'replystuff' => LotgdTranslator::t('section.run.treetime.form.turn', [], $textDomain).',range,0,'.$session['user']['turns'].',1',
             ];
         }
 
@@ -321,10 +322,10 @@ function clantrees_run()
     {
         $params['tpl'] = 'treetinsel';
 
-        \LotgdNavigation::addNav('navigation.nav.return', 'clan.php');
+        LotgdNavigation::addNav('navigation.nav.return', 'clan.php');
 
         $replyinfo = [
-            'replystuff' => \LotgdTranslator::t('section.run.treetinsel.form.gold', [], $textDomain).',int',
+            'replystuff' => LotgdTranslator::t('section.run.treetinsel.form.gold', [], $textDomain).',int',
         ];
 
         require_once 'lib/showform.php';
@@ -335,10 +336,10 @@ function clantrees_run()
     {
         $params['tpl'] = 'treebaubles';
 
-        \LotgdNavigation::addNav('navigation.nav.return', 'clan.php');
+        LotgdNavigation::addNav('navigation.nav.return', 'clan.php');
 
         $replyinfo = [
-            'replystuff' => \LotgdTranslator::t('section.run.treebaubles.form.gems', [], $textDomain).'Gems to invest,int',
+            'replystuff' => LotgdTranslator::t('section.run.treebaubles.form.gems', [], $textDomain).'Gems to invest,int',
         ];
         require_once 'lib/showform.php';
 
@@ -349,8 +350,8 @@ function clantrees_run()
         $params['tpl']           = 'alter';
         $params['staminaSystem'] = is_module_active('staminasystem');
 
-        $what    = \LotgdRequest::getQuery('what');
-        $howmuch = \LotgdRequest::getPost('replystuff');
+        $what    = LotgdRequest::getQuery('what');
+        $howmuch = LotgdRequest::getPost('replystuff');
 
         $params['what'] = $what;
 
@@ -358,7 +359,7 @@ function clantrees_run()
         $field = $what;
         $field = ('time' == $field) ? 'turns' : $field;
 
-        \LotgdNavigation::addNav('navigation.nav.return', 'clan.php');
+        LotgdNavigation::addNav('navigation.nav.return', 'clan.php');
 
         if ($params['staminaSystem'])
         {
@@ -370,11 +371,11 @@ function clantrees_run()
 
         if (0 == $howmuch)
         {
-            \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.zero.'.$what, [], $textDomain));
+            LotgdFlashMessages::addErrorMessage(LotgdTranslator::t('flash.message.zero.'.$what, [], $textDomain));
         }
         elseif (('turns' == $field && $params['staminaSystem'] && $block < $howmuch) || $session['user'][$field] < $howmuch)
         {
-            \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.none.'.$what, [], $textDomain));
+            LotgdFlashMessages::addErrorMessage(LotgdTranslator::t('flash.message.none.'.$what, [], $textDomain));
         }
         else
         {
@@ -410,7 +411,7 @@ function clantrees_run()
         }
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/clantrees/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/clantrees/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

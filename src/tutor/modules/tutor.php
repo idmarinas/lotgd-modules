@@ -64,11 +64,11 @@ function tutor_dohook($hookname, $args)
         case 'village':
             if ($age < 11)
             {
-                \LotgdNavigation::addHeader('headers.gate');
-                \LotgdNavigation::addNav('navigation.help', 'runmodule.php?module=tutor&op=helpfiles', [
+                LotgdNavigation::addHeader('headers.gate');
+                LotgdNavigation::addNav('navigation.help', 'runmodule.php?module=tutor&op=helpfiles', [
                     'textDomain' => 'module_tutor',
                 ]);
-                \LotgdNavigation::unBlockLink('runmodule.php?module=tutor&op=helpfiles');
+                LotgdNavigation::unBlockLink('runmodule.php?module=tutor&op=helpfiles');
             }
         break;
         case 'battle':
@@ -101,14 +101,14 @@ function tutor_dohook($hookname, $args)
                         break;
                     }
 
-                    if (( ! $session['user']['race'] || RACE_UNKNOWN == $session['user']['race']) && '' == \LotgdRequest::getQuery('setrace'))
+                    if (( ! $session['user']['race'] || RACE_UNKNOWN == $session['user']['race']) && '' == LotgdRequest::getQuery('setrace'))
                     {
                         if (is_module_active('racetroll') || is_module_active('racedwarf') || is_module_active('racehuman') || is_module_active('raceelf'))
                         {
                             tutor_talk('message.newday.race');
                         }
                     }
-                    elseif ('' == $session['user']['specialty'] && ! \LotgdRequest::getQuery('setrace'))
+                    elseif ('' == $session['user']['specialty'] && ! LotgdRequest::getQuery('setrace'))
                     {
                         if (is_module_active('specialtylaser') || is_module_active('specialtytelepathy') || is_module_active('specialtytelekinesis') || is_module_active('specialtyspacialawareness'))
                         {
@@ -144,7 +144,7 @@ function tutor_dohook($hookname, $args)
                         $tutormsg = 'message.village.level';
                     }
 
-                    if ($tutormsg)
+                    if ($tutormsg !== '' && $tutormsg !== '0')
                     {
                         tutor_talk($tutormsg);
                     }
@@ -166,7 +166,7 @@ function tutor_dohook($hookname, $args)
                         set_module_pref('seenforest', 1);
                     }
 
-                    if ($tutormsg)
+                    if ($tutormsg !== '' && $tutormsg !== '0')
                     {
                         tutor_talk($tutormsg);
                     }
@@ -179,9 +179,8 @@ function tutor_dohook($hookname, $args)
     return $args;
 }
 
-function tutor_talk()
+function tutor_talk(...$args)
 {
-    $args = \func_get_args();
     $text = \array_shift($args);
 
     $params = [
@@ -192,21 +191,21 @@ function tutor_talk()
         ],
     ];
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/tutor/talk.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/tutor/talk.twig', $params));
 }
 
 function tutor_run()
 {
     global $session;
 
-    $op    = \LotgdRequest::getQuery('op');
+    $op    = LotgdRequest::getQuery('op');
     $city  = LotgdSetting::getSetting('villagename', LOCATION_FIELDS); // name of capital city
     $iname = LotgdSetting::getSetting('innname', LOCATION_INN); // name of capital's inn
     $age   = $session['user']['age'];
 
     if ('helpfiles' == $op)
     {
-        \LotgdResponse::pageStart('run.title', [], 'module_tutor');
+        LotgdResponse::pageStart('run.title', [], 'module_tutor');
 
         $params = [
             'textDomain' => 'module_tutor',
@@ -215,10 +214,10 @@ function tutor_run()
             'age'        => $age,
         ];
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/tutor/run.twig', $params));
+        LotgdResponse::pageAddContent(LotgdTheme::render('@module/tutor/run.twig', $params));
 
-        \LotgdNavigation::villageNav();
+        LotgdNavigation::villageNav();
 
-        \LotgdResponse::pageEnd();
+        LotgdResponse::pageEnd();
     }
 }

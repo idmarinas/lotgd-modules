@@ -79,11 +79,11 @@ function alignment_dohook($hookname, $args)
 
     require_once 'modules/alignment/func.php';
 
-    $title = \LotgdTranslator::t('alignment.title', [], 'module_alignment');
+    $title = LotgdTranslator::t('alignment.title', [], 'module_alignment');
     //-- Used by ${$align}
-    $good    = \LotgdTranslator::t('alignment.good', [], 'module_alignment');
-    $evil    = \LotgdTranslator::t('alignment.evil', [], 'module_alignment');
-    $neutral = \LotgdTranslator::t('alignment.neutral', [], 'module_alignment');
+    $good    = LotgdTranslator::t('alignment.good', [], 'module_alignment');
+    $evil    = LotgdTranslator::t('alignment.evil', [], 'module_alignment');
+    $neutral = LotgdTranslator::t('alignment.neutral', [], 'module_alignment');
 
     $evilalign = get_module_setting('evilalign', 'alignment');
     $goodalign = get_module_setting('goodalign', 'alignment');
@@ -140,7 +140,7 @@ function alignment_dohook($hookname, $args)
 
             $area = \explode(';', get_module_setting('shead'));
 
-            setcharstat(\LotgdTranslator::t($area[0], [], $area[1]), $title, $color);
+            setcharstat(LotgdTranslator::t($area[0], [], $area[1]), $title, $color);
 
         break;
         case 'biostat':

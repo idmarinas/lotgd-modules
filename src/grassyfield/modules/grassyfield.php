@@ -69,7 +69,7 @@ function grassyfield_runevent($type)
     $from                          = 'forest.php';
     $session['user']['specialinc'] = 'module:grassyfield';
 
-    $op = \LotgdRequest::getQuery('op');
+    $op = LotgdRequest::getQuery('op');
 
     if ('return' == $op)
     {
@@ -88,13 +88,13 @@ function grassyfield_runevent($type)
         'staminaSystem' => is_module_active('staminasystem'),
     ];
 
-    \LotgdNavigation::addNav('navigation.nav.return', "{$from}?op=return", ['textDomain' => $params['textDomain']]);
+    LotgdNavigation::addNav('navigation.nav.return', "{$from}?op=return", ['textDomain' => $params['textDomain']]);
 
     if ($params['special'])
     {
         if ($params['hasHorse'])
         {
-            $playermount = \LotgdTool::getMount($session['user']['hashorse']);
+            $playermount = LotgdTool::getMount($session['user']['hashorse']);
 
             $params['mountName'] = $playermount['mountname'] ?? '';
             $params['mount']     = $playermount              ?? [];
@@ -117,7 +117,7 @@ function grassyfield_runevent($type)
 
             $args = [
                 'soberval' => 0.8,
-                'sobermsg' => \LotgdTranslator::t('sober.msg', [], 'module_grassyfield'),
+                'sobermsg' => LotgdTranslator::t('sober.msg', [], 'module_grassyfield'),
                 'schema'   => 'module_grassyfield',
             ];
             modulehook('soberup', $args);
@@ -140,7 +140,7 @@ function grassyfield_runevent($type)
         $session['user']['specialmisc'] = 'Nothing to see here, move along.';
     }
 
-    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/grassyfield_runevent.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/grassyfield_runevent.twig', $params));
 }
 
 function grassyfield_run()

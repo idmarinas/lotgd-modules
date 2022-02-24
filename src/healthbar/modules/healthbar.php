@@ -72,13 +72,13 @@ function healthbar_dohook($hookname, $args)
         $pct                     = \round($params['healthCurrent'] / $params['healthMax'] * 100, 0);
         $params['healthPercent'] = \max($pct, 0, \min($pct, 100));
 
-        $params['showLabel'] = (bool) ($params['showCurrent'] && $params['showMax']) || (bool) ($params['showCurrent']);
+        $params['showLabel'] = $params['showCurrent'] && $params['showMax'] || (bool) ($params['showCurrent']);
 
-        $bar = \LotgdTheme::render('@module/healthbar_charstats_bar.twig', $params);
+        $bar = LotgdTheme::render('@module/healthbar_charstats_bar.twig', $params);
 
         setcharstat(
-            \LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
-            \LotgdTranslator::t('charstats.stat.'.($session['user']['alive'] ? 'live' : 'death'), [], $params['textDomain']),
+            LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
+            LotgdTranslator::t('charstats.stat.'.($session['user']['alive'] ? 'live' : 'death'), [], $params['textDomain']),
             $bar
         );
     }

@@ -1,5 +1,6 @@
 <?php
 
+use Tracy\Debugger;
 if (
     'LotgdLocal:ModInventory' == $args['entity'] //-- Hook return this format as base if you use this format
     || 'LotgdLocal_ModInventory' == $args['entity']
@@ -7,8 +8,8 @@ if (
 ) {
     try
     {
-        $repositoryItem = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
-        $repository     = \Doctrine::getRepository($args['data']['entity']);
+        $repositoryItem = Doctrine::getRepository('LotgdLocal:ModInventoryItem');
+        $repository     = Doctrine::getRepository($args['data']['entity']);
 
         foreach ($args['data']['rows'] as $row)
         {
@@ -25,15 +26,15 @@ if (
                 }
             }
 
-            \Doctrine::persist($repository->hydrateEntity($row));
+            Doctrine::persist($repository->hydrateEntity($row));
         }
 
-        \Doctrine::flush();
+        Doctrine::flush();
 
         $args['proccessed'] = true;
     }
-    catch (\Throwable $th)
+    catch (Throwable $th)
     {
-        \Tracy\Debugger::log($th);
+        Debugger::log($th);
     }
 }

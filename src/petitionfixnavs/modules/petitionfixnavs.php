@@ -1,5 +1,6 @@
 <?php
 
+use Lotgd\Core\Output\Commentary;
 function petitionfixnavs_getmoduleinfo()
 {
     return [
@@ -28,13 +29,13 @@ function petitionfixnavs_uninstall()
 
 function petitionfixnavs_dohook($hookname, $args)
 {
-    if ('footer-viewpetition' == $hookname && 'view' == \LotgdRequest::getQuery('op'))
+    if ('footer-viewpetition' == $hookname && 'view' == LotgdRequest::getQuery('op'))
     {
-        $id = \LotgdRequest::getQuery('id');
+        $id = LotgdRequest::getQuery('id');
 
-        \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
+        LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
 
-        \LotgdNavigation::addNav('navigation.nav.fix', "runmodule.php?module=petitionfixnavs&id={$id}", ['textDomain' => 'module_petitionfixnavs']);
+        LotgdNavigation::addNav('navigation.nav.fix', "runmodule.php?module=petitionfixnavs&id={$id}", ['textDomain' => 'module_petitionfixnavs']);
     }
 
     return $args;
@@ -46,14 +47,14 @@ function petitionfixnavs_run()
 
     $textDomain = 'module_petitionfixnavs';
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
-    $id = (int) \LotgdRequest::getQuery('id');
+    $id = (int) LotgdRequest::getQuery('id');
 
-    if ($id)
+    if ($id !== 0)
     {
-        $repository = \Doctrine::getRepository('LotgdCore:Avatar');
-        $query      = \Doctrine::createQueryBuilder();
+        $repository = Doctrine::getRepository('LotgdCore:Avatar');
+        $query      = Doctrine::createQueryBuilder();
 
         $accountId = $query->select('u.author')
             ->from('LotgdCore:Petitions', 'u')
@@ -76,13 +77,13 @@ function petitionfixnavs_run()
                 ->setSpecialinc('')
             ;
 
-            \Doctrine::persist($character);
-            \Doctrine::flush();
+            Doctrine::persist($character);
+            Doctrine::flush();
 
-            $commentary = \LotgdKernel::get(\Lotgd\Core\Output\Commentary::class);
+            $commentary = LotgdKernel::get(Commentary::class);
             $commentary->saveComment([
                 'section' => "pet-{$id}",
-                'comment' => '/me '.\LotgdTranslator::t('commentary', [], $textDomain),
+                'comment' => '/me '.LotgdTranslator::t('commentary', [], $textDomain),
             ]);
 
             systemmail($accountId,

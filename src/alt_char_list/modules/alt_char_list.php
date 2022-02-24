@@ -41,8 +41,8 @@ function alt_char_list_dohook($hookname, $args)
 
             if ($allowed)
             {
-                \LotgdNavigation::addHeader('superuser.category.actions', ['textDomain' => 'navigation_app']);
-                \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=alt_char_list', ['textDomain' => 'module_alt_char_list']);
+                LotgdNavigation::addHeader('superuser.category.actions', ['textDomain' => 'navigation_app']);
+                LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=alt_char_list', ['textDomain' => 'module_alt_char_list']);
             }
         break;
         case 'bioend':
@@ -50,8 +50,8 @@ function alt_char_list_dohook($hookname, $args)
 
             if ($allowed)
             {
-                \LotgdNavigation::addHeader('common.superuser.category', ['textDomain' => 'navigation_app']);
-                \LotgdNavigation::addNav('navigation.nav.view', "runmodule.php?module=alt_char_list&id={{$args['acctid']}&ret=".\urlencode($args['return_link']), ['textDomain' => 'module_alt_char_list']);
+                LotgdNavigation::addHeader('common.superuser.category', ['textDomain' => 'navigation_app']);
+                LotgdNavigation::addNav('navigation.nav.view', "runmodule.php?module=alt_char_list&id={{$args['acctid']}&ret=".\urlencode($args['return_link']), ['textDomain' => 'module_alt_char_list']);
             }
         break;
         default: break;
@@ -66,32 +66,32 @@ function alt_char_list_run()
 
     $textDomain = 'module_alt_char_list';
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
     ];
 
-    $op   = (string) \LotgdRequest::getQuery('op');
-    $id   = (int) \LotgdRequest::getQuery('id');
-    $page = (int) \LotgdRequest::getQuery('page');
+    $op   = (string) LotgdRequest::getQuery('op');
+    $id   = (int) LotgdRequest::getQuery('id');
+    $page = (int) LotgdRequest::getQuery('page');
 
     $char = $id;
 
-    \LotgdNavigation::setTextDomain($textDomain);
+    LotgdNavigation::setTextDomain($textDomain);
 
     switch ($op)
     {
         case 'search':
             $params['tpl'] = 'search';
 
-            if (\LotgdRequest::isPost())
+            if (LotgdRequest::isPost())
             {
-                $name = (string) \LotgdRequest::getPost('char_name');
+                $name = (string) LotgdRequest::getPost('char_name');
 
                 $params['search'] = $name;
 
-                $repository = \Doctrine::getRepository('LotgdCore:User');
+                $repository = Doctrine::getRepository('LotgdCore:User');
                 $query      = $repository->createQueryBuilder('u');
 
                 $query->select('u.acctid', 'u.login', 'u.lastip', 'u.uniqueid', 'u.emailaddress')
@@ -113,7 +113,7 @@ function alt_char_list_run()
         default:
             $params['tpl'] = 'default';
 
-            $repository = \Doctrine::getRepository('LotgdCore:User');
+            $repository = Doctrine::getRepository('LotgdCore:User');
             $query      = $repository->createQueryBuilder('u');
 
             $query->select('u.acctid', 'u.login', 'u.lastip', 'u.uniqueid', 'u.emailaddress')
@@ -124,7 +124,7 @@ function alt_char_list_run()
             ;
             $subquery = clone $query;
 
-            if ($id)
+            if ($id !== 0)
             {
                 $query->where('u.acctid = :id')
                     ->setParameter('id', $id)
@@ -167,22 +167,22 @@ function alt_char_list_run()
         break;
     }
 
-    \LotgdNavigation::addHeader('navigation.category.other');
-    \LotgdNavigation::addNav('navigation.nav.search', 'runmodule.php?module=alt_char_list&op=search');
-    \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=alt_char_list');
+    LotgdNavigation::addHeader('navigation.category.other');
+    LotgdNavigation::addNav('navigation.nav.search', 'runmodule.php?module=alt_char_list&op=search');
+    LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=alt_char_list');
 
-    $ret = \urlencode(\LotgdRequest::getQuery('ret'));
+    $ret = \urlencode(LotgdRequest::getQuery('ret'));
 
     if ('' != $ret)
     {
-        \LotgdNavigation::addNav('navigation.nav.return', "bio.php?char={$char}&ret={$ret}");
+        LotgdNavigation::addNav('navigation.nav.return', "bio.php?char={$char}&ret={$ret}");
     }
 
-    \LotgdNavigation::superuserGrottoNav();
+    LotgdNavigation::superuserGrottoNav();
 
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/alt_char_list/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/alt_char_list/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

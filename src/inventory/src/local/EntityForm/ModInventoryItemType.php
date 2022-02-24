@@ -2,6 +2,8 @@
 
 namespace Lotgd\Local\EntityForm;
 
+use LotgdSetting;
+use Doctrine;
 use Lotgd\Core\Form\Type\BitFieldType;
 use Lotgd\Local\Entity\ModInventoryItem;
 use Symfony\Component\Form\AbstractType;
@@ -49,7 +51,7 @@ class ModInventoryItemType extends AbstractType
                 'label' => 'form.item.level',
                 'attr'  => [
                     'min'                   => 1,
-                    'max'                   => \LotgdSetting::getSetting('maxlevel'),
+                    'max'                   => LotgdSetting::getSetting('maxlevel'),
                     'disable_slider_labels' => false,
                     'step'                  => 1,
                 ],
@@ -96,7 +98,7 @@ class ModInventoryItemType extends AbstractType
             ->add('buff', ChoiceType::class, [
                 'required'     => false,
                 'label'        => 'form.item.buff',
-                'choices'      => \Doctrine::getRepository('LotgdLocal:ModInventoryBuff')->findAll(),
+                'choices'      => Doctrine::getRepository('LotgdLocal:ModInventoryBuff')->findAll(),
                 'choice_value' => 'id',
                 'choice_label' => function ($buff)
                 {

@@ -16,7 +16,7 @@ if ('villagename' == $args['setting'])
     set_module_setting('worldmapen'.$old.'Y', '');
     set_module_setting('worldmapen'.$old.'Z', '');
     // Handle any players who last city was the old name.
-    $userPrefsRepository = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
+    $userPrefsRepository = Doctrine::getRepository('LotgdCore:ModuleUserprefs');
     $query               = $userPrefsRepository->getQueryBuilder();
     $query->update('LotgdCore:ModuleUserprefs', 'u')
         ->set('u.value', ':new')

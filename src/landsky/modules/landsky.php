@@ -103,7 +103,7 @@ function landsky_dohook($hookname, $args)
         case 'forest-desc':
         case 'journey-desc':
         case 'graveyard-desc':
-            $args[] = \LotgdTheme::render('@module/landsky_sky.twig', $params);
+            $args[] = LotgdTheme::render('@module/landsky_sky.twig', $params);
         break;
     }
 
@@ -181,11 +181,5 @@ function landsky_image()
 function landsky_c()
 {
     global $session;
-
-    if ($session['user']['alive'] || ! $session['user']['loggedin'])
-    {
-        return true;
-    }
-
-    return false;
+    return $session['user']['alive'] || ! $session['user']['loggedin'];
 }

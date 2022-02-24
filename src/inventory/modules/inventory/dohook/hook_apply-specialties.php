@@ -1,13 +1,13 @@
 <?php
 
-$skill = \LotgdRequest::getQuery('skill');
+$skill = LotgdRequest::getQuery('skill');
 
 if ('ITEM' == $skill)
 {
-    $itemId = (int) \LotgdRequest::getQuery('l');
-    $invId  = (int) \LotgdRequest::getQuery('invid');
+    $itemId = (int) LotgdRequest::getQuery('l');
+    $invId  = (int) LotgdRequest::getQuery('invid');
 
-    $repository   = \Doctrine::getRepository('LotgdLocal:ModInventory');
+    $repository   = Doctrine::getRepository('LotgdLocal:ModInventory');
     $item         = $repository->extractEntity($repository->findOneBy(['id' => $invId, 'item' => $itemId]));
     $item['item'] = $repository->extractEntity($item['item']);
 
@@ -43,7 +43,7 @@ if ('ITEM' == $skill)
 
         $result = get_effect($item['item']);
 
-        foreach ($result as $key => $message)
+        foreach ($result as $message)
         {
             $lotgdBattleContent['battlerounds'][$countround]['allied'][] = $message;
         }

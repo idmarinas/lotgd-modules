@@ -118,27 +118,27 @@ function staminacorecombat_dohook($hookname, $args)
 
     $textDomain = 'module_staminacorecombat';
 
-    $stam  = \LotgdRequest::getQuery('stam');
-    $op    = \LotgdRequest::getQuery('op');
-    $skill = \LotgdRequest::getQuery('skill');
-    $auto  = \LotgdRequest::getQuery('auto');
+    $stam  = LotgdRequest::getQuery('stam');
+    $op    = LotgdRequest::getQuery('op');
+    $skill = LotgdRequest::getQuery('skill');
+    $auto  = LotgdRequest::getQuery('auto');
 
     switch ($hookname)
     {
         case 'forest':
-            \LotgdNavigation::blockHideLink('forest.php?op=search');
-            \LotgdNavigation::blockHideLink('forest.php?op=search&type=slum');
-            \LotgdNavigation::blockHideLink('forest.php?op=search&type=thrill');
-            \LotgdNavigation::blockHideLink('forest.php?op=search&type=suicide');
+            LotgdNavigation::blockHideLink('forest.php?op=search');
+            LotgdNavigation::blockHideLink('forest.php?op=search&type=slum');
+            LotgdNavigation::blockHideLink('forest.php?op=search&type=thrill');
+            LotgdNavigation::blockHideLink('forest.php?op=search&type=suicide');
 
             $normalcost = stamina_getdisplaycost('Hunting - Normal');
             $thrillcost = stamina_getdisplaycost('Hunting - Big Trouble');
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('module_staminacorecombat');
+            LotgdNavigation::setTextDomain('module_staminacorecombat');
 
-            \LotgdNavigation::addHeader('category.fight', ['textDomain' => 'navigation_forest']);
-            \LotgdNavigation::addNav('navigation.nav.trouble.normal', 'forest.php?op=search&stam=search', [
+            LotgdNavigation::addHeader('category.fight', ['textDomain' => 'navigation_forest']);
+            LotgdNavigation::addNav('navigation.nav.trouble.normal', 'forest.php?op=search&stam=search', [
                 'params' => [
                     'cost' => $normalcost,
                 ],
@@ -147,13 +147,13 @@ function staminacorecombat_dohook($hookname, $args)
             if ($session['user']['level'] > 1)
             {
                 $slumcost = stamina_getdisplaycost('Hunting - Easy Fights');
-                \LotgdNavigation::addNav('navigation.nav.easy', 'forest.php?op=search&type=slum&stam=slum', [
+                LotgdNavigation::addNav('navigation.nav.easy', 'forest.php?op=search&type=slum&stam=slum', [
                     'params' => [
                         'cost' => $slumcost,
                     ],
                 ]);
             }
-            \LotgdNavigation::addNav('navigation.nav.trouble.big', 'forest.php?op=search&type=thrill&stam=thrill', [
+            LotgdNavigation::addNav('navigation.nav.trouble.big', 'forest.php?op=search&type=thrill&stam=thrill', [
                 'params' => [
                     'cost' => $thrillcost,
                 ],
@@ -162,7 +162,7 @@ function staminacorecombat_dohook($hookname, $args)
             if (LotgdSetting::getSetting('suicide', 0) && LotgdSetting::getSetting('suicidedk', 10) <= $session['user']['dragonkills'])
             {
                 $suicidecost = stamina_getdisplaycost('Hunting - Suicidal');
-                \LotgdNavigation::addNav('navigation.nav.suicidally', 'forest.php?op=search&type=suicide&stam=suicide', [
+                LotgdNavigation::addNav('navigation.nav.suicidally', 'forest.php?op=search&type=suicide&stam=suicide', [
                     'params' => [
                         'cost' => $suicidecost,
                     ],
@@ -170,7 +170,7 @@ function staminacorecombat_dohook($hookname, $args)
             }
 
             //-- Restore text domain for navigation
-            \LotgdNavigation::setTextDomain();
+            LotgdNavigation::setTextDomain();
         break;
         case 'fightnav-graveyard':
         case 'fightnav':
@@ -178,40 +178,40 @@ function staminacorecombat_dohook($hookname, $args)
             $fightcost = stamina_getdisplaycost('Fighting - Standard');
             $runcost   = stamina_getdisplaycost('Running Away');
 
-            \LotgdNavigation::blockHideLink($script.'op=fight');
-            \LotgdNavigation::blockHideLink($script.'op=run');
-            \LotgdNavigation::blockHideLink($script.'op=fight&auto=five');
-            \LotgdNavigation::blockHideLink($script.'op=fight&auto=ten');
+            LotgdNavigation::blockHideLink($script.'op=fight');
+            LotgdNavigation::blockHideLink($script.'op=run');
+            LotgdNavigation::blockHideLink($script.'op=fight&auto=five');
+            LotgdNavigation::blockHideLink($script.'op=fight&auto=ten');
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('module_staminacorecombat');
+            LotgdNavigation::setTextDomain('module_staminacorecombat');
 
             $fight = $session['user']['alive'] ? 'navigation.nav.fight.live' : 'navigation.nav.fight.death';
             $run   = $session['user']['alive'] ? 'navigation.nav.run.live' : 'navigation.nav.run.death';
 
-            \LotgdNavigation::addHeader('category.standard', ['textDomain' => 'navigation_fightnav']);
-            \LotgdNavigation::addNav($fight, "{$script}op=fight&stam=fight", [
+            LotgdNavigation::addHeader('category.standard', ['textDomain' => 'navigation_fightnav']);
+            LotgdNavigation::addNav($fight, "{$script}op=fight&stam=fight", [
                 'params' => ['cost' => $fightcost],
             ]);
-            \LotgdNavigation::addNav($run, "{$script}op=run&stam=run", [
+            LotgdNavigation::addNav($run, "{$script}op=run&stam=run", [
                 'params' => ['cost' => $runcost],
             ]);
 
-            \LotgdNavigation::addHeader('category.automatic', ['textDomain' => 'navigation_fightnav']);
-            \LotgdNavigation::addNav('navigation.nav.auto.05', "{$script}op=fight&auto=five&stam=fight", [
+            LotgdNavigation::addHeader('category.automatic', ['textDomain' => 'navigation_fightnav']);
+            LotgdNavigation::addNav('navigation.nav.auto.05', "{$script}op=fight&auto=five&stam=fight", [
                 'params' => ['cost' => $fightcost * 5],
             ]);
-            \LotgdNavigation::addNav('navigation.nav.auto.010', "{$script}op=fight&auto=ten&stam=fight", [
+            LotgdNavigation::addNav('navigation.nav.auto.010', "{$script}op=fight&auto=ten&stam=fight", [
                 'params' => ['cost' => $fightcost * 10],
             ]);
 
             //-- Restore text domain for navigation
-            \LotgdNavigation::setTextDomain();
+            LotgdNavigation::setTextDomain();
         break;
         case 'startofround-prebuffs':
             global $countround, $lotgdBattleContent;
 
-            $process = (string) \LotgdRequest::getQuery('stam');
+            $process = (string) LotgdRequest::getQuery('stam');
 
             switch ($process)
             {
@@ -353,11 +353,11 @@ function staminacorecombat_applystaminabuff()
         if (isset($buffmsg))
         {
             LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('stamina-corecombat-exhaustion', [
-                'name'     => \LotgdTranslator::t('stamina.buff.name', [], $textDomain),
+                'name'     => LotgdTranslator::t('stamina.buff.name', [], $textDomain),
                 'atkmod'   => $buffvalue,
                 'defmod'   => $buffvalue,
                 'rounds'   => -1,
-                'roundmsg' => \LotgdTranslator::t($buffmsg, [], $textDomain),
+                'roundmsg' => LotgdTranslator::t($buffmsg, [], $textDomain),
                 'schema'   => 'module_staminacorecombat',
             ]);
         }
@@ -375,7 +375,7 @@ function staminacorecombat_applystaminabuff()
 
         if ($death > $red)
         {
-            \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.stamina.death', [], $textDomain));
+            LotgdFlashMessages::addErrorMessage(LotgdTranslator::t('flash.message.stamina.death', [], $textDomain));
 
             $session['user']['hitpoints'] = 0;
             $session['user']['alive']     = false;

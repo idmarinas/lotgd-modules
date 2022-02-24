@@ -65,14 +65,14 @@ function gardener_dohook($hookname, $args)
         case 'gardens':
             if ($gardens)
             {
-                \LotgdNavigation::addNavNotl('Gazebo', 'runmodule.php?module=gardener');
+                LotgdNavigation::addNavNotl('Gazebo', 'runmodule.php?module=gardener');
 
                 $customtext = get_module_setting('customtext');
-                \LotgdResponse::pageAddContent(\LotgdFormat::colorize(\sprintf('`n`%%s`0', $customtext), true));
+                LotgdResponse::pageAddContent(LotgdFormat::colorize(\sprintf('`n`%%s`0', $customtext), true));
             }
         break;
         case 'footer-runmodule':
-            if ('newbieisland' != \LotgdRequest::getQuery('module'))
+            if ('newbieisland' != LotgdRequest::getQuery('module'))
             {
                 break;
             }
@@ -80,8 +80,8 @@ function gardener_dohook($hookname, $args)
         case 'village-desc':
             if ( ! $gardens && $session['user']['location'] == get_module_setting('gardenerloc'))
             {
-                \LotgdNavigation::addHeader('headers.market');
-                \LotgdNavigation::addNavNotl('Gazebo', 'runmodule.php?module=gardener');
+                LotgdNavigation::addHeader('headers.market');
+                LotgdNavigation::addNavNotl('Gazebo', 'runmodule.php?module=gardener');
 
                 $customtext = get_module_setting('customtext');
 
@@ -103,20 +103,20 @@ function gardener_run()
 {
     global $session;
 
-    $op        = \LotgdRequest::getQuery('op');
+    $op        = LotgdRequest::getQuery('op');
     $seentoday = get_module_pref('seentoday');
     $gardens   = get_module_setting('gardens');
 
     $textDomain = 'module_gardener';
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
         'gardens'    => $gardens,
     ];
 
-    \LotgdNavigation::setTextDomain($textDomain);
+    LotgdNavigation::setTextDomain($textDomain);
 
     if ($seentoday)
     {
@@ -124,26 +124,26 @@ function gardener_run()
 
         if ($gardens)
         {
-            \LotgdNavigation::addNav('navigation.nav.return.garden', 'gardens.php');
+            LotgdNavigation::addNav('navigation.nav.return.garden', 'gardens.php');
         }
         else
         {
-            \LotgdNavigation::villageNav();
+            LotgdNavigation::villageNav();
         }
     }
     elseif ('' == $op)
     {
         $params['tpl'] = 'enter';
 
-        \LotgdNavigation::addNav('navigation.nav.try', 'runmodule.php?module=gardener&op=ask');
+        LotgdNavigation::addNav('navigation.nav.try', 'runmodule.php?module=gardener&op=ask');
 
         if ($gardens)
         {
-            \LotgdNavigation::addNav('navigation.nav.return.garden', 'gardens.php');
+            LotgdNavigation::addNav('navigation.nav.return.garden', 'gardens.php');
         }
         else
         {
-            \LotgdNavigation::villageNav();
+            LotgdNavigation::villageNav();
         }
     }
     elseif ('ask' == $op)
@@ -154,26 +154,26 @@ function gardener_run()
         // now, so you can change questions at your whim as long as you
         // put the correct answers there.
         $phrases = [
-            \LotgdTranslator::t('question.00', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.01', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.02', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.03', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.04', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.05', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.06', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.07', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.08', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.09', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.010', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.011', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.012', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.013', [], $textDomain).'|0',
-            \LotgdTranslator::t('question.014', [], $textDomain).'|1',
-            \LotgdTranslator::t('question.015', [], $textDomain).'|1',
-            \LotgdTranslator::t('question.016', [], $textDomain).'|1',
-            \LotgdTranslator::t('question.017', [], $textDomain).'|1',
-            \LotgdTranslator::t('question.018', [], $textDomain).'|1',
-            \LotgdTranslator::t('question.019', [], $textDomain).'|1',
+            LotgdTranslator::t('question.00', [], $textDomain).'|0',
+            LotgdTranslator::t('question.01', [], $textDomain).'|0',
+            LotgdTranslator::t('question.02', [], $textDomain).'|0',
+            LotgdTranslator::t('question.03', [], $textDomain).'|0',
+            LotgdTranslator::t('question.04', [], $textDomain).'|0',
+            LotgdTranslator::t('question.05', [], $textDomain).'|0',
+            LotgdTranslator::t('question.06', [], $textDomain).'|0',
+            LotgdTranslator::t('question.07', [], $textDomain).'|0',
+            LotgdTranslator::t('question.08', [], $textDomain).'|0',
+            LotgdTranslator::t('question.09', [], $textDomain).'|0',
+            LotgdTranslator::t('question.010', [], $textDomain).'|0',
+            LotgdTranslator::t('question.011', [], $textDomain).'|0',
+            LotgdTranslator::t('question.012', [], $textDomain).'|0',
+            LotgdTranslator::t('question.013', [], $textDomain).'|0',
+            LotgdTranslator::t('question.014', [], $textDomain).'|1',
+            LotgdTranslator::t('question.015', [], $textDomain).'|1',
+            LotgdTranslator::t('question.016', [], $textDomain).'|1',
+            LotgdTranslator::t('question.017', [], $textDomain).'|1',
+            LotgdTranslator::t('question.018', [], $textDomain).'|1',
+            LotgdTranslator::t('question.019', [], $textDomain).'|1',
         ];
 
         $question    = \array_rand($phrases);
@@ -183,14 +183,14 @@ function gardener_run()
 
         $params['question'] = $q;
 
-        \LotgdNavigation::addNav('navigation.nav.ask.yes', 'runmodule.php?module=gardener&op=answer&val=1');
-        \LotgdNavigation::addNav('navigation.nav.ask.no', 'runmodule.php?module=gardener&op=answer&val=0');
+        LotgdNavigation::addNav('navigation.nav.ask.yes', 'runmodule.php?module=gardener&op=answer&val=1');
+        LotgdNavigation::addNav('navigation.nav.ask.no', 'runmodule.php?module=gardener&op=answer&val=0');
     }
     else
     {
         $params['tpl'] = 'answer';
 
-        $val = (int) \LotgdRequest::getQuery('val');
+        $val = (int) LotgdRequest::getQuery('val');
 
         // Did we get it wrong?
         if ($val != get_module_pref('expectanswer'))
@@ -225,14 +225,14 @@ function gardener_run()
         // And the correct return link(s)
         if ($gardens)
         {
-            \LotgdNavigation::addNav('navigation.nav.return.garden', 'gardens.php');
+            LotgdNavigation::addNav('navigation.nav.return.garden', 'gardens.php');
         }
-        \LotgdNavigation::villageNav();
+        LotgdNavigation::villageNav();
     }
 
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/gardener/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/gardener/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

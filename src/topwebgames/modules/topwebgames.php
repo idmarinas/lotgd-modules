@@ -39,7 +39,7 @@ function topwebgames_install()
 
 function topwebgames_uninstall()
 {
-    \LotgdResponse::pageDebug('Uninstalling module.');
+    LotgdResponse::pageDebug('Uninstalling module.');
 
     return true;
 }
@@ -50,14 +50,14 @@ function topwebgames_dohook($hookname, $args)
 
     $id = (int) get_module_setting('id');
 
-    if ( ! $id)
+    if (empty($id))
     {
         return $args;
     }
 
     if ('everyfooter' == $hookname)
     {
-        $cache = \LotgdKernel::get('cache.app');
+        $cache = LotgdKernel::get('cache.app');
         $item  = $cache->getItem('topwebcounts');
 
         if ( ! $item->isHit())
@@ -69,9 +69,9 @@ function topwebgames_dohook($hookname, $args)
 
             if (false !== $c)
             {
-                $c = \implode($c, '');
+                $c = \implode('', $c);
 
-                if (\preg_match("/\\.write\\('([0-9]+)'\\)/", $c, $matches))
+                if (\preg_match("/\\.write\\('(\\d+)'\\)/", $c, $matches))
                 {
                     $votes = $matches[1];
                 }
@@ -81,9 +81,9 @@ function topwebgames_dohook($hookname, $args)
 
             if (false !== $r)
             {
-                $r = \implode($r, '');
+                $r = \implode('', $r);
 
-                if (\preg_match("/\\.write\\('([0-9]+)'\\)/", $r, $matches))
+                if (\preg_match("/\\.write\\('(\\d+)'\\)/", $r, $matches))
                 {
                     $rank = $matches[1];
                 }
@@ -106,7 +106,7 @@ function topwebgames_dohook($hookname, $args)
 
             if (false !== $when)
             {
-                $when = \implode($when, '');
+                $when = \implode('', $when);
 
                 if (\preg_match('/Next reset: (.+ [AP]M)/', $when, $matches))
                 {
@@ -154,7 +154,7 @@ function topwebgames_dohook($hookname, $args)
         ];
 
         $args['paypal'] = $args['paypal'] ?? '';
-        $args['paypal'] .= \LotgdTheme::render('@module/topwebgames_everyfooter.twig', $params);
+        $args['paypal'] .= LotgdTheme::render('@module/topwebgames_everyfooter.twig', $params);
     }
 
     return $args;
@@ -162,19 +162,19 @@ function topwebgames_dohook($hookname, $args)
 
 function topwebgames_run()
 {
-    $op = \LotgdRequest::getQuery('op');
+    $op = LotgdRequest::getQuery('op');
 
     if ('twgvote' != $op)
     {
         do_forced_nav(false, false);
     }
 
-    $id          = \LotgdRequest::getPost('acctid');
-    $votecounted = \LotgdRequest::getPost('votecounted');
+    $id          = LotgdRequest::getPost('acctid');
+    $votecounted = LotgdRequest::getPost('votecounted');
 
     if ( ! $id)
     {
-        $id = \LotgdRequest::getQuery('acctid');
+        $id = LotgdRequest::getQuery('acctid');
     }
 
     $id = \max(1, $id);
@@ -183,21 +183,21 @@ function topwebgames_run()
     {
         $dt = \date('Y-m-d H:i:s', \strtotime(\date('Y-m-d H:i:s').' + '.get_module_setting('hours').' hours'));
 
-        $repository = \Doctrine::getRepository('LotgdCore:Avatar');
+        $repository = Doctrine::getRepository('LotgdCore:Avatar');
         $entity     = $repository->find($id);
 
         if ($entity)
         {
             $entity->setGems($entity->getGems() + 1);
 
-            \Doctrine::persist($entity);
-            \Doctrine::flush();
+            Doctrine::persist($entity);
+            Doctrine::flush();
         }
 
         set_module_pref('voted', 1, 'topwebgames', $id);
         set_module_pref('lastvote', $dt, 'topwebgames', $id);
-        \LotgdLog::debug('gained 1 gem for topwebgames', 0, $id);
-        \LotgdKernel::get('cache.app')->delete('topwebcounts', true);
+        LotgdLog::debug('gained 1 gem for topwebgames', 0, $id);
+        LotgdKernel::get('cache.app')->delete('topwebcounts', true);
 
         echo 'OK';
     }

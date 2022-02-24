@@ -55,7 +55,7 @@ function staminasystem_run()
 {
     global $session;
 
-    $op         = \LotgdRequest::getQuery('op');
+    $op         = LotgdRequest::getQuery('op');
     $textDomain = 'module_staminasystem';
 
     include "staminasystem/run/case_{$op}.php";

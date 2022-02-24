@@ -14,7 +14,7 @@ function itemeffects_increased_gems($gems, $item): array
 
     $session['user']['gems'] += $gems;
 
-    \LotgdLog::debug("'s gems were altered by {$gems} by item {$item['id']}.");
+    LotgdLog::debug("'s gems were altered by {$gems} by item {$item['id']}.");
 
     $out = [];
 

@@ -86,14 +86,14 @@ function newdaybar_dohook($hookname, $args)
 
         if ($showbar)
         {
-            $bar = "<div class='ui tiny indicating lotgd progress ".($newdaytxt ? '' : 'remove margin')." newdaybar' data-total='{$details['secsperday']}' data-value='{$details['realsecstotomorrow']}'><div class='bar'></div>";
+            $bar = "<div class='ui tiny indicating lotgd progress ".($newdaytxt !== '' && $newdaytxt !== '0' ? '' : 'remove margin')." newdaybar' data-total='{$details['secsperday']}' data-value='{$details['realsecstotomorrow']}'><div class='bar'></div>";
 
             $bar .= $newdaytxt ?: '';
 
             $bar .= '</div>';
         }
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/newdaybar_charstats.twig', [
+        LotgdResponse::pageAddContent(LotgdTheme::render('@module/newdaybar_charstats.twig', [
             'realSecsToTomorrow' => $details['realsecstotomorrow'],
             'secsPerDay'         => $details['secsperday'],
             'secsToNewDay'       => $secstonewday,
@@ -101,8 +101,8 @@ function newdaybar_dohook($hookname, $args)
         ]));
 
         setcharstat(
-            \LotgdTranslator::t('statistic.category.character.extra', [], 'app_default'),
-            \LotgdTranslator::t('charstats.stat', [], 'module_newdaybar'),
+            LotgdTranslator::t('statistic.category.character.extra', [], 'app_default'),
+            LotgdTranslator::t('charstats.stat', [], 'module_newdaybar'),
             $bar
         );
     }

@@ -1,5 +1,6 @@
 <?php
 
+use Tracy\Debugger;
 // translator ready
 // addnews ready
 // mail ready
@@ -72,7 +73,7 @@ function cities_uninstall()
 
     try
     {
-        $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+        $charactersRepository = Doctrine::getRepository('LotgdCore:Avatar');
 
         //-- Updated location
         $query = $charactersRepository->getQueryBuilder();
@@ -89,9 +90,9 @@ function cities_uninstall()
 
         $session['user']['location'] = $city;
     }
-    catch (\Throwable $th)
+    catch (Throwable $th)
     {
-        \Tracy\Debugger::log($th);
+        Debugger::log($th);
 
         return false;
     }
@@ -118,14 +119,14 @@ function cities_dohook($hookname, $args)
             }
         break;
         case 'faq-toc':
-            \array_push($args, [
+            $args[] = [
                 'onclick' => 'JaxonLotgd.Ajax.Local.ModCities.faq()',
                 'link'    => [
                     'section.faq.toc.cities',
                     [],
                     'cities_module',
                 ],
-            ]);
+            ];
         break;
         case 'drinks-check':
             if ($session['user']['location'] == $city)
@@ -164,7 +165,7 @@ function cities_dohook($hookname, $args)
 
                 if (isset($args['traveltext']))
                 {
-                    \LotgdFlashMessages::addErrorMessage([
+                    LotgdFlashMessages::addErrorMessage([
                         'message' => $args['traveltext'],
                         'close'   => false,
                     ]);
@@ -178,7 +179,7 @@ function cities_dohook($hookname, $args)
 
                 if (isset($args['foresttext']))
                 {
-                    \LotgdFlashMessages::addErrorMessage([
+                    LotgdFlashMessages::addErrorMessage([
                         'message' => $args['foresttext'],
                         'close'   => false,
                     ]);
@@ -190,7 +191,7 @@ function cities_dohook($hookname, $args)
             {
                 if (isset($args['nonetext']))
                 {
-                    \LotgdFlashMessages::addErrorMessage([
+                    LotgdFlashMessages::addErrorMessage([
                         'message' => $args['nonetext'],
                         'close'   => false,
                     ]);
@@ -208,8 +209,8 @@ function cities_dohook($hookname, $args)
             {
                 $info = modulehook('cities-usetravel',
                     [
-                        'foresttext' => \LotgdTranslator::t('section.autochallenge.forest', ['location' => $session['user']['location']], 'cities_module'),
-                        'traveltext' => \LotgdTranslator::t('section.autochallenge.travel', ['location' => $session['user']['location']], 'cities_module'),
+                        'foresttext' => LotgdTranslator::t('section.autochallenge.forest', ['location' => $session['user']['location']], 'cities_module'),
+                        'traveltext' => LotgdTranslator::t('section.autochallenge.travel', ['location' => $session['user']['location']], 'cities_module'),
                     ]
                     );
 
@@ -217,15 +218,15 @@ function cities_dohook($hookname, $args)
                 {
                     if ('travel' == $info['type'])
                     {
-                        \LotgdLog::debug('Lost a travel because of being truant from master.');
+                        LotgdLog::debug('Lost a travel because of being truant from master.');
                     }
                     elseif ('forest' == $info['type'])
                     {
-                        \LotgdLog::debug('Lost a forest fight because of being truant from master.');
+                        LotgdLog::debug('Lost a forest fight because of being truant from master.');
                     }
                     else
                     {
-                        \LotgdLog::debug('Lost something, not sure just what, because of being truant from master.');
+                        LotgdLog::debug('Lost something, not sure just what, because of being truant from master.');
                     }
                 }
             }
@@ -252,14 +253,14 @@ function cities_dohook($hookname, $args)
         case 'charstats':
             if ($session['user']['alive'])
             {
-                addcharstat(\LotgdTranslator::t('statistic.category.character.personal', [], 'app_default'));
-                addcharstat(\LotgdTranslator::t('statistic.stat.home', [], 'cities_module'), get_module_pref('homecity'));
+                addcharstat(LotgdTranslator::t('statistic.category.character.personal', [], 'app_default'));
+                addcharstat(LotgdTranslator::t('statistic.stat.home', [], 'cities_module'), get_module_pref('homecity'));
 
                 if ( ! is_module_active('worldmapen'))
                 {
                     $args = modulehook('count-travels', ['available' => 0, 'used' => 0]);
                     $free = \max(0, $args['available'] - $args['used']);
-                    addcharstat(\LotgdTranslator::t('statistic.stat.travels', [], 'cities_module'), $free);
+                    addcharstat(LotgdTranslator::t('statistic.stat.travels', [], 'cities_module'), $free);
                 }
             }
         break;
@@ -267,39 +268,39 @@ function cities_dohook($hookname, $args)
             if ($home)
             {
                 //-- In home city.
-                \LotgdNavigation::blockHideLink('inn.php');
-                \LotgdNavigation::blockHideLink('stables.php');
-                \LotgdNavigation::blockHideLink('rock.php');
-                \LotgdNavigation::blockHideLink('mercenarycamp.php');
+                LotgdNavigation::blockHideLink('inn.php');
+                LotgdNavigation::blockHideLink('stables.php');
+                LotgdNavigation::blockHideLink('rock.php');
+                LotgdNavigation::blockHideLink('mercenarycamp.php');
             }
             elseif ($capital)
             {
-                \LotgdNavigation::addHeader('headers.fight');
-                \LotgdNavigation::addNav('navs.healer', 'healer.php?return=village.php');
+                LotgdNavigation::addHeader('headers.fight');
+                LotgdNavigation::addNav('navs.healer', 'healer.php?return=village.php');
 
                 //-- In capital city.
-                \LotgdNavigation::blockHideLink('forest.php');
-                \LotgdNavigation::blockHideLink('train.php');
-                \LotgdNavigation::blockHideLink('weapons.php');
-                \LotgdNavigation::blockHideLink('armor.php');
+                LotgdNavigation::blockHideLink('forest.php');
+                LotgdNavigation::blockHideLink('train.php');
+                LotgdNavigation::blockHideLink('weapons.php');
+                LotgdNavigation::blockHideLink('armor.php');
             }
             else
             {
                 //-- In another city.
-                \LotgdNavigation::blockHideLink('inn.php');
-                \LotgdNavigation::blockHideLink('stables.php');
-                \LotgdNavigation::blockHideLink('rock.php');
-                \LotgdNavigation::blockHideLink('clans.php');
-                \LotgdNavigation::blockHideLink('hof.php');
-                \LotgdNavigation::blockHideLink('armor.php');
-                \LotgdNavigation::blockHideLink('weapons.php');
-                \LotgdNavigation::blockHideLink('mercenarycamp.php');
+                LotgdNavigation::blockHideLink('inn.php');
+                LotgdNavigation::blockHideLink('stables.php');
+                LotgdNavigation::blockHideLink('rock.php');
+                LotgdNavigation::blockHideLink('clans.php');
+                LotgdNavigation::blockHideLink('hof.php');
+                LotgdNavigation::blockHideLink('armor.php');
+                LotgdNavigation::blockHideLink('weapons.php');
+                LotgdNavigation::blockHideLink('mercenarycamp.php');
             }
 
             if ( ! is_module_active('worldmapen'))
             {
-                \LotgdNavigation::addHeader('headers.gate');
-                \LotgdNavigation::addNav('navs.travel', 'runmodule.php?module=cities&op=travel', ['textDomain' => 'cities_navigation']);
+                LotgdNavigation::addHeader('headers.gate');
+                LotgdNavigation::addNav('navs.travel', 'runmodule.php?module=cities&op=travel', ['textDomain' => 'cities_navigation']);
             }
 
             if (get_module_pref('paidcost') > 0)
@@ -313,33 +314,33 @@ function cities_dohook($hookname, $args)
             $hotkey = 'C';
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('cities_navigation');
+            LotgdNavigation::setTextDomain('cities_navigation');
 
-            \LotgdNavigation::addHeader('headers.travelpoints', ['hideEmpty' => false]);
-            \LotgdNavigation::addHeader('navs.travels', ['hideEmpty' => false, 'params' => ['n' => $free]]);
-            \LotgdNavigation::addHeader('navs.turns', ['hideEmpty' => false, 'params' => ['n' => $session['user']['turns']]]);
+            LotgdNavigation::addHeader('headers.travelpoints', ['hideEmpty' => false]);
+            LotgdNavigation::addHeader('navs.travels', ['hideEmpty' => false, 'params' => ['n' => $free]]);
+            LotgdNavigation::addHeader('navs.turns', ['hideEmpty' => false, 'params' => ['n' => $session['user']['turns']]]);
 
-            \LotgdNavigation::addHeader('headers.travel.safer');
+            LotgdNavigation::addHeader('headers.travel.safer');
 
             if ($session['user']['location'] != $city)
             {
-                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
+                LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
                     'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
-            \LotgdNavigation::addHeader('headers.travel.dangerous');
+            LotgdNavigation::addHeader('headers.travel.dangerous');
 
-            if ($session['user']['superuser'] & SU_EDIT_USERS)
+            if (($session['user']['superuser'] & SU_EDIT_USERS) !== 0)
             {
-                \LotgdNavigation::addHeader('headers.superuser');
-                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
+                LotgdNavigation::addHeader('headers.superuser');
+                LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
                     'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
             //-- Restore text domain for navigation
-            \LotgdNavigation::setTextDomain();
+            LotgdNavigation::setTextDomain();
         break;
         case 'stablelocs':
         case 'camplocs':

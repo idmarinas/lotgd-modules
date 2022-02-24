@@ -1,5 +1,7 @@
 <?php
 
+use Lotgd\Local\Entity\ModCreationAddon;
+use Tracy\Debugger;
 /* Name: Creation Addon                                                    */
 /* ver 4.0                                                                 */
 /* Billie Kennedy => dannic06@gmail.com                                    */
@@ -53,7 +55,7 @@ function creationaddon_getmoduleinfo()
 
 function creationaddon_install()
 {
-    \Doctrine::createSchema(['LotgdLocal:ModCreationAddon'], true);
+    Doctrine::createSchema(['LotgdLocal:ModCreationAddon'], true);
 
     module_addhook('create-form');
     module_addhook('check-create');
@@ -66,7 +68,7 @@ function creationaddon_install()
 
 function creationaddon_uninstall()
 {
-    \Doctrine::dropSchema(['LotgdLocal:ModCreationAddon']);
+    Doctrine::dropSchema(['LotgdLocal:ModCreationAddon']);
 
     return true;
 }
@@ -75,12 +77,12 @@ function creationaddon_dohook($hookname, $args)
 {
     global $session;
 
-    $age     = \LotgdRequest::getPost('age');
-    $month   = \LotgdRequest::getPost('month');
-    $day     = \LotgdRequest::getPost('day');
-    $year    = \LotgdRequest::getPost('year');
-    $terms   = \LotgdRequest::getPost('terms');
-    $privacy = \LotgdRequest::getPost('privacy');
+    $age     = LotgdRequest::getPost('age');
+    $month   = LotgdRequest::getPost('month');
+    $day     = LotgdRequest::getPost('day');
+    $year    = LotgdRequest::getPost('year');
+    $terms   = LotgdRequest::getPost('terms');
+    $privacy = LotgdRequest::getPost('privacy');
 
     switch ($hookname)
     {
@@ -94,8 +96,8 @@ function creationaddon_dohook($hookname, $args)
             // We are going to check the bad name list.
             if (get_module_setting('filter_badnames'))
             {
-                $name       = (string) \LotgdRequest::getPost('name');
-                $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModCreationAddon::class);
+                $name       = (string) LotgdRequest::getPost('name');
+                $repository = Doctrine::getRepository(ModCreationAddon::class);
                 $result     = $repository->findAll();
 
                 foreach ($result as $row)
@@ -106,7 +108,7 @@ function creationaddon_dohook($hookname, $args)
                     if (\preg_match($pattern, $shortname))
                     {
                         $blockaccount = true;
-                        \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.filterName', [], 'module_creationaddon'));
+                        LotgdFlashMessages::addWarningMessage(LotgdTranslator::t('check.filterName', [], 'module_creationaddon'));
 
                         break;
                     }
@@ -116,7 +118,7 @@ function creationaddon_dohook($hookname, $args)
             // Lets see if they meet the age requirements.
             if (get_module_setting('requireage') && ! $age)
             {
-                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.age', ['age' => (int) get_module_setting('age')], 'module_creationaddon'));
+                LotgdFlashMessages::addWarningMessage(LotgdTranslator::t('check.age', ['age' => (int) get_module_setting('age')], 'module_creationaddon'));
 
                 $blockaccount = true;
             }
@@ -124,7 +126,7 @@ function creationaddon_dohook($hookname, $args)
             // Did they check the box for terms?
             if (get_module_setting('requireterms') && ! $terms)
             {
-                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.terms', [], 'module_creationaddon'));
+                LotgdFlashMessages::addWarningMessage(LotgdTranslator::t('check.terms', [], 'module_creationaddon'));
 
                 $blockaccount = true;
             }
@@ -132,7 +134,7 @@ function creationaddon_dohook($hookname, $args)
             // Did they check the box for the Privacy Policy?
             if (get_module_setting('requireprivacy') && ! $privacy)
             {
-                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.privacy', [], 'module_creationaddon'));
+                LotgdFlashMessages::addWarningMessage(LotgdTranslator::t('check.privacy', [], 'module_creationaddon'));
 
                 $blockaccount = true;
             }
@@ -159,7 +161,7 @@ function creationaddon_dohook($hookname, $args)
                 // Lets compare the math in the years.
                 if (get_module_setting('requireage') && ($thisyear - $year) < (int) get_module_setting('age'))
                 {
-                    \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('check.chkbday', [], 'module_creationaddon'));
+                    LotgdFlashMessages::addWarningMessage(LotgdTranslator::t('check.chkbday', [], 'module_creationaddon'));
 
                     $blockaccount = true;
                 }
@@ -183,26 +185,26 @@ function creationaddon_dohook($hookname, $args)
         case 'everyfooter':
             if (get_module_setting('requireprivacy') && get_module_setting('showfooter'))
             {
-                $privacy       = \LotgdTranslator::t('privacy', [], 'module_creationaddon');
+                $privacy       = LotgdTranslator::t('privacy', [], 'module_creationaddon');
                 $privacyfooter = "<br><a href='runmodule.php?module=creationaddon&op=privacy' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>{$privacy}</a>";
-                \LotgdNavigation::addNavAllow('runmodule.php?module=creationaddon&op=privacy');
+                LotgdNavigation::addNavAllow('runmodule.php?module=creationaddon&op=privacy');
 
                 $args['source'] = $args['source'] ?? [];
                 $args['source'] = \is_array($args['source']) ? $args['source'] : [$args['source']];
 
-                \array_push($args['source'], $privacyfooter);
+                $args['source'][] = $privacyfooter;
             }
 
             if (get_module_setting('requireterms') && get_module_setting('showfooter'))
             {
-                $terms       = \LotgdTranslator::t('terms', [], 'module_creationaddon');
+                $terms       = LotgdTranslator::t('terms', [], 'module_creationaddon');
                 $termsfooter = "<br><a href='runmodule.php?module=creationaddon&op=terms' target='_blank' onClick=\"Lotgd.embed(this)\" 'class='motd'>{$terms}</a>";
-                \LotgdNavigation::addNavAllow('runmodule.php?module=creationaddon&op=terms');
+                LotgdNavigation::addNavAllow('runmodule.php?module=creationaddon&op=terms');
 
                 $args['source'] = $args['source'] ?? [];
                 $args['source'] = \is_array($args['source']) ? $args['source'] : [$args['source']];
 
-                \array_push($args['source'], $termsfooter);
+                $args['source'][] = $termsfooter;
             }
 
         break;
@@ -240,12 +242,12 @@ function creationaddon_dohook($hookname, $args)
 
         case 'superuser':
             // lets do something here
-            if ($session['user']['superuser'] & SU_EDIT_USERS)
+            if (($session['user']['superuser'] & SU_EDIT_USERS) !== 0)
             {
-                \LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation_app']);
+                LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation_app']);
                 // Stick the admin=true on so that when we call runmodule it'll
                 // work to let us edit bad names even when the module is deactivated.
-                \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=creationaddon&op=list&admin=true', ['textDomain' => 'module_creationaddon']);
+                LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=creationaddon&op=list&admin=true', ['textDomain' => 'module_creationaddon']);
             }
         break;
         default: break;
@@ -258,78 +260,75 @@ function creationaddon_run()
 {
     global $session;
 
-    $op = (string) \LotgdRequest::getQuery('op');
+    $op = (string) LotgdRequest::getQuery('op');
 
     switch ($op)
     {
         case 'list':
             return creationaddon_list();
-        break;
 
         case 'delete':
             return creationaddon_delete();
-        break;
 
         case 'add':
             return creationaddon_add();
-        break;
     }
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 function creationaddon_list()
 {
     global $session;
 
-    \LotgdResponse::pageStart('superuser.editor', [], 'module_creationaddon');
+    LotgdResponse::pageStart('superuser.editor', [], 'module_creationaddon');
 
-    $page = (int) \LotgdRequest::getQuery('page', 1);
-    \LotgdNavigation::superuserGrottoNav();
+    $page = (int) LotgdRequest::getQuery('page', 1);
+    LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
 
-    $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModCreationAddon::class);
+    $repository = Doctrine::getRepository(ModCreationAddon::class);
     $qb         = $repository->createQueryBuilder('u');
     $qb->orderBy('u.badName');
 
     $paginator = $repository->getPaginator($qb, $page, 50);
 
-    \LotgdNavigation::pagination($paginator, 'runmodule.php?module=creationaddon&op=list');
+    LotgdNavigation::pagination($paginator, 'runmodule.php?module=creationaddon&op=list');
 
     $params = [
         'paginator' => $paginator,
     ];
-    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/creationaddon/run/list.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/creationaddon/run/list.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 function creationaddon_delete()
 {
     global $session;
 
-    $bad_id = (int) \LotgdRequest::getQuery('bad_id', 0);
+    $bad_id = (int) LotgdRequest::getQuery('bad_id', 0);
 
-    \LotgdResponse::pageStart('superuser.editor', [], 'module_creationaddon');
+    LotgdResponse::pageStart('superuser.editor', [], 'module_creationaddon');
 
-    \LotgdNavigation::superuserGrottoNav();
+    LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
 
-    $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModCreationAddon::class);
+    $repository = Doctrine::getRepository(ModCreationAddon::class);
 
     $badname = $repository->findOneBy(['id' => $bad_id]);
 
     if ($badname)
     {
-        \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('superuser.delete.success', ['name' => $badname->getBadName()], 'module_creationaddon'));
+        LotgdFlashMessages::addSuccessMessage(LotgdTranslator::t('superuser.delete.success', ['name' => $badname->getBadName()], 'module_creationaddon'));
 
-        \Doctrine::remove($badname);
-        \Doctrine::flush();
+        Doctrine::remove($badname);
+        Doctrine::flush();
 
         return redirect('runmodule.php?module=creationaddon&op=list');
     }
 
-    \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('superuser.delete.fail', [], 'module_creationaddon'));
+    LotgdFlashMessages::addWarningMessage(LotgdTranslator::t('superuser.delete.fail', [], 'module_creationaddon'));
 
     return redirect('runmodule.php?module=creationaddon&op=list');
 }
@@ -338,40 +337,40 @@ function creationaddon_add()
 {
     global $session;
 
-    \LotgdResponse::pageStart('superuser.editor', [], 'module_creationaddon');
+    LotgdResponse::pageStart('superuser.editor', [], 'module_creationaddon');
 
-    \LotgdNavigation::superuserGrottoNav();
+    LotgdNavigation::superuserGrottoNav();
     creationaddon_menu();
 
-    $banname = (string) \LotgdRequest::getPost('bname', '');
+    $banname = (string) LotgdRequest::getPost('bname', '');
 
-    if ($banname)
+    if ($banname !== '' && $banname !== '0')
     {
         try
         {
-            $repository = \Doctrine::getRepository(\Lotgd\Local\Entity\ModCreationAddon::class);
+            $repository = Doctrine::getRepository(ModCreationAddon::class);
             $result     = $repository->findOneBy(['badName' => $banname]);
 
             if ($result)
             {
-                \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('superuser.add.duplicate', ['name' => $banname], 'module_creationaddon'));
+                LotgdFlashMessages::addWarningMessage(LotgdTranslator::t('superuser.add.duplicate', ['name' => $banname], 'module_creationaddon'));
 
                 return redirect('runmodule.php?module=creationaddon&op=add');
             }
 
-            $default = new \Lotgd\Local\Entity\ModCreationAddon();
+            $default = new ModCreationAddon();
             $default->setBadName($banname);
 
-            \Doctrine::persist($default);
-            \Doctrine::flush();
+            Doctrine::persist($default);
+            Doctrine::flush();
 
-            \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('superuser.add.success', ['name' => $banname], 'module_creationaddon'));
+            LotgdFlashMessages::addSuccessMessage(LotgdTranslator::t('superuser.add.success', ['name' => $banname], 'module_creationaddon'));
         }
-        catch (\Throwable $th)
+        catch (Throwable $th)
         {
-            \Tracy\Debugger::log($th);
+            Debugger::log($th);
 
-            \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('superuser.add.error', ['name' => $banname], 'module_creationaddon'));
+            LotgdFlashMessages::addErrorMessage(LotgdTranslator::t('superuser.add.error', ['name' => $banname], 'module_creationaddon'));
         }
 
         return redirect('runmodule.php?module=creationaddon&op=add');
@@ -383,9 +382,9 @@ function creationaddon_add()
     ];
     $params['form'] = lotgd_showform($badnamesarray, [], true, false, false);
 
-    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/creationaddon/run/add.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/creationaddon/run/add.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 /**
@@ -393,7 +392,7 @@ function creationaddon_add()
  */
 function creationaddon_menu()
 {
-    \LotgdNavigation::addHeader('Bad Names Editor');
-    \LotgdNavigation::addNav('List Names', 'runmodule.php?module=creationaddon&op=list&admin=true');
-    \LotgdNavigation::addNav('Add a Name', 'runmodule.php?module=creationaddon&op=add&admin=true');
+    LotgdNavigation::addHeader('Bad Names Editor');
+    LotgdNavigation::addNav('List Names', 'runmodule.php?module=creationaddon&op=list&admin=true');
+    LotgdNavigation::addNav('Add a Name', 'runmodule.php?module=creationaddon&op=add&admin=true');
 }

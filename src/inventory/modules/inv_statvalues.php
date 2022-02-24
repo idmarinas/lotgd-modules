@@ -60,8 +60,8 @@ function inv_statvalues_dohook($hookname, $args)
 
             if (0 != $attack || 0 != $defense || 0 != $maxhitpoints)
             {
-                \LotgdLog::debug("'s stats changed due to equipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
-                \LotgdResponse::pageDebug("Your stats changed due to equipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
+                LotgdLog::debug("'s stats changed due to equipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
+                LotgdResponse::pageDebug("Your stats changed due to equipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
 
                 $args['inv_statvalues_result'] = true;
             }
@@ -87,13 +87,13 @@ function inv_statvalues_dohook($hookname, $args)
                 if (0 != $attack || 0 != $defense || 0 != $maxhitpoints)
                 {
                     $args['inv_statvalues_result'][$id] = true;
-                    \LotgdLog::debug("'s stats changed due to unequipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
-                    \LotgdResponse::pageDebug("Your stats changed due to unequipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
+                    LotgdLog::debug("'s stats changed due to unequipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
+                    LotgdResponse::pageDebug("Your stats changed due to unequipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
                 }
             }
         break;
         case 'dk-preserve':
-            $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+            $repository = Doctrine::getRepository('LotgdLocal:ModInventory');
             $result     = $repository->findBy(['equipped' => 1, 'userId' => $session['user']['acctid']]);
 
             foreach ($result as $item)
@@ -112,16 +112,16 @@ function inv_statvalues_dohook($hookname, $args)
 
                 if (0 != $attack || 0 != $defense || 0 != $maxhitpoints)
                 {
-                    \LotgdLog::debug("'s stats changed due to equipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
-                    \LotgdResponse::pageDebug("Your stats changed due to unequipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
+                    LotgdLog::debug("'s stats changed due to equipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
+                    LotgdResponse::pageDebug("Your stats changed due to unequipping item {$id}: attack: {$attack}, defense: {$defense}, maxhitpoints: {$maxhitpoints}");
                 }
 
                 $item->setEquipped(false);
 
-                \Doctrine::persist($item);
+                Doctrine::persist($item);
             }
 
-            \Doctrine::flush();
+            Doctrine::flush();
         break;
         default: break;
     }

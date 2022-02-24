@@ -1,5 +1,6 @@
 <?php
 
+use Tracy\Debugger;
 // Itemhandler by Christian Rutsch (c) 2005
 
 \defined('HOOK_NEWDAY')    || \define('HOOK_NEWDAY', 1);
@@ -16,15 +17,15 @@ function display_item_fightnav($args)
 
     $script = $args['script'];
 
-    $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+    $repository = Doctrine::getRepository('LotgdLocal:ModInventory');
     $result     = $repository->getItemsForNav(HOOK_FIGHTNAV, $session['user']['acctid']);
 
-    if ( ! \count($result))
+    if ( \count($result) === 0)
     {
         return;
     }
 
-    \LotgdNavigation::addHeader('navigation.category.items', ['textDomain' => 'module_inventory']);
+    LotgdNavigation::addHeader('navigation.category.items', ['textDomain' => 'module_inventory']);
 
     foreach ($result as $item)
     {
@@ -34,7 +35,7 @@ function display_item_fightnav($args)
         }
 
         $link = "{$script}op=fight&skill=ITEM&l={$item['item']->getId()}&invid={$item['id']}";
-        \LotgdNavigation::addNavNotl(\sprintf('?%s `7(%s)`0', $item['item']->getName(), $item['quantity']), $link);
+        LotgdNavigation::addNavNotl(\sprintf('?%s `7(%s)`0', $item['item']->getName(), $item['quantity']), $link);
     }
 }
 
@@ -42,26 +43,26 @@ function display_item_nav($hookname, $return = false)
 {
     global $session;
 
-    if ($hookname_override = \LotgdRequest::getQuery('hookname'))
+    if ($hookname_override = LotgdRequest::getQuery('hookname'))
     {
         $hookname = $hookname_override;
     }
 
-    $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+    $repository = Doctrine::getRepository('LotgdLocal:ModInventory');
     $result     = $repository->getItemsForNav(\constant('HOOK_'.\strtoupper($hookname)), $session['user']['acctid']);
 
-    if ( ! \count($result))
+    if ( \count($result) === 0)
     {
         return;
     }
 
-    $returnPre = \urlencode(\LotgdRequest::getServer('REQUEST_URI'));
+    $returnPre = \urlencode(LotgdRequest::getServer('REQUEST_URI'));
 
     if ($return)
     {
         $returnPre = \urlencode($return)."&returnhandle=1&hookname={$hookname}";
     }
-    $return = \LotgdSanitize::cmdSanitize($returnPre);
+    $return = LotgdSanitize::cmdSanitize($returnPre);
 
     foreach ($result as $item)
     {
@@ -72,7 +73,7 @@ function display_item_nav($hookname, $return = false)
 
         $link = "runmodule.php?module=inventory&op=activate&id={$item['item']->getId()}&invid={$item['id']}&return={$return}&hookname={$hookname}";
 
-        \LotgdNavigation::addNav('navigation.nav.item.use', $link, [
+        LotgdNavigation::addNav('navigation.nav.item.use', $link, [
             'textDomain' => 'module_inventory',
             'params'     => [
                 'name'     => $item['item']->getName(),
@@ -86,10 +87,10 @@ function run_newday_buffs($args): array
 {
     global $session;
 
-    $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+    $repository = Doctrine::getRepository('LotgdLocal:ModInventory');
     $result     = $repository->getItemsForNav(HOOK_NEWDAY, $session['user']['acctid']);
 
-    if ( ! \count($result))
+    if ( \count($result) === 0)
     {
         return $args;
     }
@@ -161,7 +162,7 @@ function run_newday_buffs($args): array
 
 function get_item_by_name($itemname)
 {
-    $repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
+    $repository = Doctrine::getRepository('LotgdLocal:ModInventoryItem');
     $item       = $repository->findOneBy(['name' => $itemname]);
 
     if ( ! $item)
@@ -177,7 +178,7 @@ function get_item_by_name($itemname)
 
 function get_item_by_id($itemid)
 {
-    $repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
+    $repository = Doctrine::getRepository('LotgdLocal:ModInventoryItem');
     $item       = $repository->find($itemid);
 
     if ( ! $item)
@@ -210,12 +211,12 @@ function get_item($item)
  */
 function get_item_full_info(int $itemId)
 {
-    $cache = \LotgdKernel::get('cache.app');
+    $cache = LotgdKernel::get('cache.app');
     $item  = $cache->getItem("item-full-info-{$itemId}");
 
     if ( ! $item->isHit())
     {
-        $repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
+        $repository = Doctrine::getRepository('LotgdLocal:ModInventoryItem');
         $query      = $repository->createQueryBuilder('u');
         $expr       = $query->expr();
 
@@ -278,25 +279,25 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
 
     if (0 != $inventoryStat['inventoryLimitItems'] && $inventoryStat['inventoryCount'] >= $inventoryStat['inventoryLimitItems'])
     {
-        \LotgdResponse::pageDebug('Too many items, will not add this one!');
+        LotgdResponse::pageDebug('Too many items, will not add this one!');
 
         return false;
     }
     elseif ($inventoryStat['inventoryLimitWeight'] && $inventoryStat['inventoryWeight'] >= $inventoryStat['inventoryLimitWeight'])
     {
-        \LotgdResponse::pageDebug("Items are too heavy. Item hasn't been added!");
+        LotgdResponse::pageDebug("Items are too heavy. Item hasn't been added!");
 
         return false;
     }
     elseif ($qty <= 0)
     {
-        \LotgdResponse::pageDebug('Zero items added.');
+        LotgdResponse::pageDebug('Zero items added.');
 
         return false;
     }
     else
     {
-        $inventoryRepository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+        $inventoryRepository = Doctrine::getRepository('LotgdLocal:ModInventory');
 
         if (false === $sellvaluegold)
         {
@@ -319,7 +320,7 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
 
             if ($count)
             {
-                \LotgdResponse::pageDebug('UNIQUE item has not been added because already someone else owns this!');
+                LotgdResponse::pageDebug('UNIQUE item has not been added because already someone else owns this!');
 
                 return false;
             }
@@ -331,7 +332,7 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
 
             if ($count)
             {
-                \LotgdResponse::pageDebug('UNIQUEFORPLAYER item has not been added because this player already owns this item!');
+                LotgdResponse::pageDebug('UNIQUEFORPLAYER item has not been added because this player already owns this item!');
 
                 return false;
             }
@@ -350,13 +351,13 @@ function add_item_by_id($itemid, $qty = 1, $user = 0, $specialvalue = '', $sellv
                 'specialValue'  => $specialvalue,
                 'charges'       => $charges,
             ]);
-            \Doctrine::persist($entity);
+            Doctrine::persist($entity);
         }
 
-        \Doctrine::flush();
+        Doctrine::flush();
 
-        \LotgdLog::debug("has gained {$qty} item (ID: {$itemid}).", false, false, 'inventory');
-        \LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
+        LotgdLog::debug("has gained {$qty} item (ID: {$itemid}).", false, false, 'inventory');
+        LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
 
         return $qty;
     }
@@ -374,7 +375,7 @@ function inventory_get_max_add($itemid, $qty = 1, $user = 0)
     $user = $user ?: $session['user']['acctid'];
 
     $inventoryStat = inventory_get_info($user);
-    $repository    = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
+    $repository    = Doctrine::getRepository('LotgdLocal:ModInventoryItem');
 
     // We must not add more items than the player actually may carry!
     $item_raw       = $repository->find($itemid);
@@ -387,51 +388,51 @@ function inventory_get_max_add($itemid, $qty = 1, $user = 0)
         $maxitems_weight = \max(0, \floor(($inventoryStat['inventoryLimitWeight'] - $inventoryStat['inventoryWeight']) / $item_raw->getWeight()));
     }
 
-    \LotgdResponse::pageDebug("Trying to add {$qty} items. Item's weight is {$item_raw->getWeight()}");
+    LotgdResponse::pageDebug("Trying to add {$qty} items. Item's weight is {$item_raw->getWeight()}");
 
     if ($inventoryStat['inventoryLimitItems'] > 0)
     {
-        \LotgdResponse::pageDebug("In theory only {$maxitems_count} should be added (totalcount)");
+        LotgdResponse::pageDebug("In theory only {$maxitems_count} should be added (totalcount)");
     }
     else
     {
-        \LotgdResponse::pageDebug('There is no restriction on quantity active.');
+        LotgdResponse::pageDebug('There is no restriction on quantity active.');
     }
 
     if ($inventoryStat['inventoryLimitWeight'] > 0)
     {
-        \LotgdResponse::pageDebug("In theory only {$maxitems_weight} should be added (totalweight)");
+        LotgdResponse::pageDebug("In theory only {$maxitems_weight} should be added (totalweight)");
     }
     else
     {
-        \LotgdResponse::pageDebug('There is no restriction on weight active.');
+        LotgdResponse::pageDebug('There is no restriction on weight active.');
     }
 
     if ($inventoryStat['inventoryLimitItems'] > 0 && $inventoryStat['inventoryLimitWeight'] > 0 && $item_raw->getWeight())
     {
         // limitation on total qty AND weight AND item is not weightless
         $qty = \min($qty, $maxitems_count, $maxitems_weight);
-        \LotgdResponse::pageDebug("Reducing real quantity to {$qty}. (count/weight-restriction)");
+        LotgdResponse::pageDebug("Reducing real quantity to {$qty}. (count/weight-restriction)");
     }
 
     if ($inventoryStat['inventoryLimitWeight'] > 0 && 0 == $inventoryStat['inventoryLimitItems'] && $item_raw->getWeight() > 0)
     {
         // no limitation on total qty AND item is not weightless
         $qty = \min($qty, $maxitems_weight);
-        \LotgdResponse::pageDebug("Reducing real quantity to {$qty}. (weight-restriction)");
+        LotgdResponse::pageDebug("Reducing real quantity to {$qty}. (weight-restriction)");
     }
 
     if ($inventoryStat['inventoryLimitItems'] > 0 && 0 == $inventoryStat['inventoryLimitWeight'])
     {
         // no limitation on weight.
         $qty = \min($qty, $maxitems_count);
-        \LotgdResponse::pageDebug("Reducing real quantity to {$qty}. (count-restriction)");
+        LotgdResponse::pageDebug("Reducing real quantity to {$qty}. (count-restriction)");
     }
 
-    \LotgdResponse::pageDebug("Totalcount / MaxCount is: {$inventoryStat['inventoryCount']} / {$inventoryStat['inventoryLimitItems']}");
-    \LotgdResponse::pageDebug("MaxWeight is: {$inventoryStat['inventoryLimitWeight']} / {$inventoryStat['inventoryLimitWeight']}");
-    \LotgdResponse::pageDebug('Item weight: '.$item_raw->getWeight());
-    \LotgdResponse::pageDebug("Quantity to add was: {$qty}");
+    LotgdResponse::pageDebug("Totalcount / MaxCount is: {$inventoryStat['inventoryCount']} / {$inventoryStat['inventoryLimitItems']}");
+    LotgdResponse::pageDebug("MaxWeight is: {$inventoryStat['inventoryLimitWeight']} / {$inventoryStat['inventoryLimitWeight']}");
+    LotgdResponse::pageDebug('Item weight: '.$item_raw->getWeight());
+    LotgdResponse::pageDebug("Quantity to add was: {$qty}");
 
     return $qty;
 }
@@ -442,7 +443,7 @@ function inventory_get_info($user = 0): array
 
     $user = $user ?: $session['user']['acctid'];
 
-    $query = \Doctrine::createQueryBuilder();
+    $query = Doctrine::createQueryBuilder();
 
     try
     {
@@ -461,9 +462,9 @@ function inventory_get_info($user = 0): array
             ->getSingleResult()
         ;
     }
-    catch (\Throwable $th)
+    catch (Throwable $th)
     {
-        \Tracy\Debugger::log($th);
+        Debugger::log($th);
 
         $result = [
             'totalcount'  => 0,
@@ -496,15 +497,12 @@ function add_item($item, $qty = 1, $user = 0, $specialvalue = '', $sellvaluegold
 
 function get_itemids_by_class($class)
 {
-    if (\func_num_args() > 1 || \is_array($class))
+    if ((\func_num_args() > 1 || \is_array($class)) && ! \is_array($class))
     {
-        if ( ! \is_array($class))
-        {
-            $class = \func_get_args();
-        }
+        $class = \func_get_args();
     }
 
-    $query = \Doctrine::createQueryBuilder();
+    $query = Doctrine::createQueryBuilder();
     $query->select()
         ->from('LotgdLocal:ModInventoryItem', 'u')
 
@@ -542,7 +540,7 @@ function uncharge_item($itemid, $user = false, $invid = false)
 
     $user = $user ?: $session['user']['acctid'];
 
-    $query = \Doctrine::createQueryBuilder();
+    $query = Doctrine::createQueryBuilder();
     $query->where('u.item = :item AND u.userId = :user AND u.charges >= 1')
 
         ->setParameter('item', $itemid)
@@ -560,22 +558,22 @@ function uncharge_item($itemid, $user = false, $invid = false)
 
     $entity = $query->getQuery()->getResult();
 
-    if (\count($entity))
+    if (\count($entity) > 0)
     {
         $entity->setCharges($entity->getCharges() - 1);
 
-        \Doctrine::persist($entity);
+        Doctrine::persist($entity);
 
-        \Doctrine::flush();
+        Doctrine::flush();
 
-        \LotgdLog::debug('uncharged '.\count($entity)." items (ID: {$itemid})", $user);
+        LotgdLog::debug('uncharged '.\count($entity)." items (ID: {$itemid})", $user);
     }
     else
     {
-        \LotgdResponse::pageDebug('ERROR: Tried to uncharge item although no charges or no item present!');
+        LotgdResponse::pageDebug('ERROR: Tried to uncharge item although no charges or no item present!');
     }
 
-    $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+    $repository = Doctrine::getRepository('LotgdLocal:ModInventory');
     $params     = [
         'item'    => $itemid,
         'userId'  => $user,
@@ -586,18 +584,18 @@ function uncharge_item($itemid, $user = false, $invid = false)
 
     foreach ($entities as $entity)
     {
-        \Doctrine::remove($entity);
+        Doctrine::remove($entity);
     }
 
-    \Doctrine::flush();
+    Doctrine::flush();
 
-    if (\count($entities))
+    if (\count($entities) > 0)
     {
         $count = \count($entities);
-        \LotgdLog::debug("deleted {$count} items (ID: {$itemid})", $user);
+        LotgdLog::debug("deleted {$count} items (ID: {$itemid})", $user);
     }
 
-    \LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
+    LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
 }
 
 function recharge_item($itemid, $user = false, $invid = false)
@@ -612,7 +610,7 @@ function recharge_item($itemid, $user = false, $invid = false)
 
     $user = $user ?: $session['user']['acctid'];
 
-    $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+    $repository = Doctrine::getRepository('LotgdLocal:ModInventory');
     $params     = [
         'item'   => $itemid,
         'userId' => $user,
@@ -629,17 +627,17 @@ function recharge_item($itemid, $user = false, $invid = false)
     {
         $entity->setCharges($entity->getCharges() + 1);
 
-        \Doctrine::persist($entity);
+        Doctrine::persist($entity);
 
-        \Doctrine::flush();
-        \LotgdLog::debug("recharged 1 items (ID: {$itemid})", $user);
+        Doctrine::flush();
+        LotgdLog::debug("recharged 1 items (ID: {$itemid})", $user);
     }
     else
     {
-        \LotgdResponse::pageDebug('ERROR: Tried to recharge non-present item!');
+        LotgdResponse::pageDebug('ERROR: Tried to recharge non-present item!');
     }
 
-    \LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
+    LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
 }
 
 function check_qty_by_id($itemid, $user = 0)
@@ -648,14 +646,14 @@ function check_qty_by_id($itemid, $user = 0)
 
     $user = $user ?: $session['user']['acctid'];
 
-    $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+    $repository = Doctrine::getRepository('LotgdLocal:ModInventory');
 
     return $repository->count(['userId' => $user, 'item' => $itemid]);
 }
 
 function get_item_id_from_name($itemname)
 {
-    $repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
+    $repository = Doctrine::getRepository('LotgdLocal:ModInventoryItem');
 
     $query = $repository->createQueryBuilder('u');
 
@@ -671,9 +669,9 @@ function get_item_id_from_name($itemname)
             ->getSingleScalarResult()
         ;
     }
-    catch (\Throwable $th)
+    catch (Throwable $th)
     {
-        \Tracy\Debugger::log($th);
+        Debugger::log($th);
 
         return 0;
     }
@@ -702,7 +700,7 @@ function remove_item_by_id($item, $qty = 1, $user = false, $invid = false)
 
     $invid = (int) $invid;
 
-    $repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+    $repository = Doctrine::getRepository('LotgdLocal:ModInventory');
     $query      = $repository->createQueryBuilder('u');
 
     $query
@@ -714,7 +712,7 @@ function remove_item_by_id($item, $qty = 1, $user = false, $invid = false)
         ->setMaxResults($qty)
     ;
 
-    if ($invid)
+    if ($invid !== 0)
     {
         $query->orWhere('u.id = :inv')
             ->setParameter('inv', $invid)
@@ -726,18 +724,18 @@ function remove_item_by_id($item, $qty = 1, $user = false, $invid = false)
 
     for ($i = 0; $i < $affected; ++$i)
     {
-        \Doctrine::remove($result[$i]);
+        Doctrine::remove($result[$i]);
     }
 
-    \Doctrine::flush();
+    Doctrine::flush();
 
-    if ($affected)
+    if ($affected !== 0)
     {
-        \LotgdLog::debug("removed item {$result[0]->getItem()->getName()} from inventory, qty {$qty} and real delete {$affected}", $user);
+        LotgdLog::debug("removed item {$result[0]->getItem()->getName()} from inventory, qty {$qty} and real delete {$affected}", $user);
     }
 
-    \LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
-    \LotgdKernel::get('cache.app')->delete("inventory-item-{$item}-{$user}");
+    LotgdKernel::get('cache.app')->delete("inventory-user-{$user}");
+    LotgdKernel::get('cache.app')->delete("inventory-item-{$item}-{$user}");
 
     return $affected;
 }

@@ -76,7 +76,7 @@ function drunkard_runevent($type)
     $params = [
         'textDomain' => $textDomain,
         'lucky'      => false,
-        'partner'    => \LotgdTool::getPartner(),
+        'partner'    => LotgdTool::getPartner(),
     ];
 
     if ($roll < $chance)
@@ -92,7 +92,7 @@ function drunkard_runevent($type)
         ++$session['user']['charm'];
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/drunkard_runevent.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/drunkard_runevent.twig', $params));
 }
 
 function drunkard_run()

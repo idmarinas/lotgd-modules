@@ -43,7 +43,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
             ['points' => $hitpoints, 'itemName' => $item['name']],
             'module_inventory',
         ];
-        \LotgdLog::debug("Restored {$hitpoints} health points using the item {$item['id']}");
+        LotgdLog::debug("Restored {$hitpoints} health points using the item {$item['id']}");
     }
     elseif ($hitpoints < 0)
     {
@@ -54,7 +54,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
             'module_inventory',
         ];
 
-        \LotgdLog::debug("Loss {$hitpoints} hitpoints using item {$item['id']}");
+        LotgdLog::debug("Loss {$hitpoints} hitpoints using item {$item['id']}");
     }
     else
     {
@@ -78,7 +78,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
             'module_inventory',
         ];
 
-        \LotgdLog::debug("Were almost killed when using item {$item['id']}");
+        LotgdLog::debug("Were almost killed when using item {$item['id']}");
     }
     elseif ($session['user']['hitpoints'] <= 0 && $canDie)
     {
@@ -90,7 +90,7 @@ function itemeffects_restore_hitpoints($hitpoints, $item, $overrideMaxhitpoints 
             'module_inventory',
         ];
 
-        \LotgdLog::debug("Died when used the item {$item['id']}");
+        LotgdLog::debug("Died when used the item {$item['id']}");
     }
 
     return $out;

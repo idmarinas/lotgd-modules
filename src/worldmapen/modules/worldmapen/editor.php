@@ -21,21 +21,21 @@ function worldmapen_editor_real()
         'textDomain' => $textDomain,
     ];
 
-    \LotgdResponse::pageStart('title.editor', [], $params['textDomain']);
+    LotgdResponse::pageStart('title.editor', [], $params['textDomain']);
 
-    \LotgdNavigation::superuserGrottoNav();
+    LotgdNavigation::superuserGrottoNav();
 
     // initialize the internal static maps
     worldmapen_loadMap();
     worldmapen_loadTerrainDefs();
 
-    \LotgdNavigation::addHeader('navigation.category.editor');
+    LotgdNavigation::addHeader('navigation.category.editor');
 
-    $op    = \LotgdRequest::getQuery('op');
-    $act   = \LotgdRequest::getQuery('act');
-    $subop = \LotgdRequest::getQuery('subop');
+    $op    = LotgdRequest::getQuery('op');
+    $act   = LotgdRequest::getQuery('act');
+    $subop = LotgdRequest::getQuery('subop');
 
-    \LotgdResponse::pageDebug("op={$op}, act={$act}, subop={$subop}");
+    LotgdResponse::pageDebug("op={$op}, act={$act}, subop={$subop}");
 
     switch ($subop)
     {
@@ -43,7 +43,7 @@ function worldmapen_editor_real()
         case 'manual':
             $params['tpl'] = 'manual';
 
-            \LotgdNavigation::addNav('navigation.nav.editor.return', 'runmodule.php?module=worldmapen&op=edit&admin=true');
+            LotgdNavigation::addNav('navigation.nav.editor.return', 'runmodule.php?module=worldmapen&op=edit&admin=true');
 
             $vloc         = [];
             $vname        = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
@@ -51,18 +51,18 @@ function worldmapen_editor_real()
             $vloc         = modulehook('validlocation', $vloc);
             \ksort($vloc);
 
-            if (\LotgdRequest::isPost())
+            if (LotgdRequest::isPost())
             {
                 foreach ($vloc as $loc => $val)
                 {
                     $space_valx = \preg_replace('/\s/', '_', $loc.'X');
                     $space_valy = \preg_replace('/\s/', '_', $loc.'Y');
-                    set_module_setting($loc.'X', \LotgdRequest::getPost($space_valx));
-                    set_module_setting($loc.'Y', \LotgdRequest::getPost($space_valy));
+                    set_module_setting($loc.'X', LotgdRequest::getPost($space_valx));
+                    set_module_setting($loc.'Y', LotgdRequest::getPost($space_valy));
                     set_module_setting($loc.'Z', 1);
                 }
 
-                \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('flash.message.saved.settings', [], $textDomain));
+                LotgdFlashMessages::addSuccessMessage(LotgdTranslator::t('flash.message.saved.settings', [], $textDomain));
 
                 \reset($vloc);
             }
@@ -89,10 +89,10 @@ function worldmapen_editor_real()
         case 'terrain':
             $params['tpl'] = 'terrain';
 
-            if (\LotgdRequest::isPost())
+            if (LotgdRequest::isPost())
             {
                 $map  = worldmapen_loadMap(null);
-                $post = \LotgdRequest::getPostAll();
+                $post = LotgdRequest::getPostAll();
 
                 \reset($post);
 
@@ -108,18 +108,18 @@ function worldmapen_editor_real()
 
                 worldmapen_saveMap($map);
 
-                \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('flash.message.saved.map', [], $textDomain));
+                LotgdFlashMessages::addSuccessMessage(LotgdTranslator::t('flash.message.saved.map', [], $textDomain));
             }
         break;
 
         default: $params['tpl'] = 'default'; break;
     }
 
-    \LotgdNavigation::addNav('navigation.nav.editor.regen', 'runmodule.php?module=worldmapen&op=edit&subop=regen');
-    \LotgdNavigation::addNav('navigation.nav.editor.manual', 'runmodule.php?module=worldmapen&op=edit&subop=manual');
-    \LotgdNavigation::addNav('navigation.nav.editor.terrain', 'runmodule.php?module=worldmapen&op=edit&subop=terrain');
+    LotgdNavigation::addNav('navigation.nav.editor.regen', 'runmodule.php?module=worldmapen&op=edit&subop=regen');
+    LotgdNavigation::addNav('navigation.nav.editor.manual', 'runmodule.php?module=worldmapen&op=edit&subop=manual');
+    LotgdNavigation::addNav('navigation.nav.editor.terrain', 'runmodule.php?module=worldmapen&op=edit&subop=terrain');
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/worldmapen/editor.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/worldmapen/editor.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

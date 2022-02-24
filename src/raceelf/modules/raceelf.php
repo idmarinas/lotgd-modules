@@ -1,5 +1,6 @@
 <?php
 
+use Tracy\Debugger;
 // translator ready
 // addnews ready
 // mail ready
@@ -28,7 +29,7 @@ function raceelf_install()
     //-- Upgrade from previous version
     try
     {
-        $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+        $charactersRepository = Doctrine::getRepository('LotgdCore:Avatar');
 
         //-- Name of race
         $query = $charactersRepository->getQueryBuilder();
@@ -43,9 +44,9 @@ function raceelf_install()
             ->execute()
         ;
     }
-    catch (\Throwable $th)
+    catch (Throwable $th)
     {
-        \Tracy\Debugger::log($th);
+        Debugger::log($th);
 
         return false;
     }
@@ -80,7 +81,7 @@ function raceelf_uninstall()
 
     try
     {
-        $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+        $charactersRepository = Doctrine::getRepository('LotgdCore:Avatar');
 
         //-- Updated location
         $query = $charactersRepository->getQueryBuilder();
@@ -117,9 +118,9 @@ function raceelf_uninstall()
             $session['user']['race'] = RACE_UNKNOWN;
         }
     }
-    catch (\Throwable $th)
+    catch (Throwable $th)
     {
-        \Tracy\Debugger::log($th);
+        Debugger::log($th);
 
         return false;
     }
@@ -138,12 +139,12 @@ function raceelf_dohook($hookname, $args)
     $race = 'raceelf_module'; //-- Now race is a textDomain for translator
 
     //-- Change text domain for navigation
-    \LotgdNavigation::setTextDomain($race);
+    LotgdNavigation::setTextDomain($race);
 
     switch ($hookname)
     {
         case 'racenames':
-            $args[$race] = \LotgdTranslator::t('character.racename', [], $race);
+            $args[$race] = LotgdTranslator::t('character.racename', [], $race);
         break;
         case 'pvpadjust':
             if ($args['race'] == $race)
@@ -171,7 +172,7 @@ function raceelf_dohook($hookname, $args)
                 {
                     $session['user']['location'] = $args['new'];
                 }
-                $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+                $charactersRepository = Doctrine::getRepository('LotgdCore:Avatar');
 
                 $query = $charactersRepository->getQueryBuilder();
                 $query->update('LotgdCore:Avatar', 'u')
@@ -187,7 +188,7 @@ function raceelf_dohook($hookname, $args)
 
                 if (is_module_active('cities'))
                 {
-                    $moduleUserPrefsRepository = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
+                    $moduleUserPrefsRepository = Doctrine::getRepository('LotgdCore:ModuleUserprefs');
                     $query                     = $moduleUserPrefsRepository->getQueryBuilder();
                     $query->update('LotgdCore:ModuleUserprefs', 'u')
                         ->set('u.value', ':new')
@@ -205,19 +206,19 @@ function raceelf_dohook($hookname, $args)
             }
         break;
         case 'chooserace':
-            \LotgdNavigation::addNav('character.racename', "newday.php?setrace={$race}{$resline}");
+            LotgdNavigation::addNav('character.racename', "newday.php?setrace={$race}{$resline}");
 
             $params = [
                 'city'    => $city,
                 'resLine' => $resline,
             ];
 
-            \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/raceelf/dohook/chooserace.twig', $params));
+            LotgdResponse::pageAddContent(LotgdTheme::render('@module/raceelf/dohook/chooserace.twig', $params));
         break;
         case 'setrace':
             if ($session['user']['race'] == $race)
             {
-                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/raceelf/dohook/setrace.twig', []));
+                LotgdResponse::pageAddContent(LotgdTheme::render('@module/raceelf/dohook/setrace.twig', []));
 
                 if (is_module_active('cities'))
                 {
@@ -241,7 +242,7 @@ function raceelf_dohook($hookname, $args)
                 raceelf_checkcity();
 
                 LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('racialbenefit', [
-                    'name'         => \LotgdTranslator::t('racial.buff.name', [], $race),
+                    'name'         => LotgdTranslator::t('racial.buff.name', [], $race),
                     'defmod'       => '(<defense>?(1+((1+floor(<level>/5))/<defense>)):1)',
                     'allowinpvp'   => 1,
                     'allowintrain' => 1,
@@ -260,7 +261,7 @@ function raceelf_dohook($hookname, $args)
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args["village-{$race}"] = \LotgdTranslator::t('moderate', ['city' => $city], $race);
+                $args["village-{$race}"] = LotgdTranslator::t('moderate', ['city' => $city], $race);
             }
         break;
         case 'travel':
@@ -269,33 +270,33 @@ function raceelf_dohook($hookname, $args)
             $ccity   = \urlencode($city);
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('cities-navigation');
+            LotgdNavigation::setTextDomain('cities-navigation');
 
             if ($session['user']['location'] == $capital)
             {
-                \LotgdNavigation::addHeader('headers.travel.safer');
-                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
+                LotgdNavigation::addHeader('headers.travel.safer');
+                LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}", [
                     'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
             elseif ($session['user']['location'] != $city)
             {
-                \LotgdNavigation::addHeader('headers.travel.dangerous');
-                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
+                LotgdNavigation::addHeader('headers.travel.dangerous');
+                LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
                     'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
-            if ($session['user']['superuser'] & SU_EDIT_USERS)
+            if (($session['user']['superuser'] & SU_EDIT_USERS) !== 0)
             {
-                \LotgdNavigation::addHeader('headers.superuser');
-                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
+                LotgdNavigation::addHeader('headers.superuser');
+                LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
                     'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
             //-- Restore text domain for navigation
-            \LotgdNavigation::setTextDomain();
+            LotgdNavigation::setTextDomain();
         break;
         case 'village-text-domain':
             raceelf_checkcity();
@@ -325,7 +326,7 @@ function raceelf_dohook($hookname, $args)
                 }
                 elseif ( ! $args['newestname'] && $args['newestplayer'])
                 {
-                    $characterRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+                    $characterRepository = Doctrine::getRepository('LotgdCore:Avatar');
                     $args['newestname']  = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
@@ -348,7 +349,7 @@ function raceelf_dohook($hookname, $args)
     }
 
     //-- Restore text domain for navigation
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
     return $args;
 }

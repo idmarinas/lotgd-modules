@@ -76,11 +76,11 @@ function stafflist_dohook($hookname, $args)
             $args['blurb'] = nltoappon($args['blurb']);
         break;
         case 'village':
-            \LotgdNavigation::addHeader('headers.info');
-            \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=stafflist&from=village', ['textDomain' => 'module_stafflist']);
+            LotgdNavigation::addHeader('headers.info');
+            LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=stafflist&from=village', ['textDomain' => 'module_stafflist']);
         break;
         case 'about':
-            \LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=stafflist&from=about', ['textDomain' => 'module_stafflist']);
+            LotgdNavigation::addNav('navigation.nav.list', 'runmodule.php?module=stafflist&from=about', ['textDomain' => 'module_stafflist']);
         break;
         default: break;
     }
@@ -92,20 +92,20 @@ function stafflist_run()
 {
     global $session;
 
-    $from = \LotgdRequest::getQuery('from');
+    $from = LotgdRequest::getQuery('from');
 
     if ('about' == $from)
     {
-        \LotgdNavigation::addNav('Return whence you came', 'about.php');
+        LotgdNavigation::addNav('Return whence you came', 'about.php');
     }
     elseif ('village' == $from)
     {
-        \LotgdNavigation::villageNav();
+        LotgdNavigation::villageNav();
     }
 
     $textDomain = 'module_stafflist';
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain'  => $textDomain,
@@ -114,7 +114,7 @@ function stafflist_run()
         'showBioLink' => get_module_setting('biolink'),
     ];
 
-    $query = \Doctrine::createQueryBuilder();
+    $query = Doctrine::createQueryBuilder();
     $expr  = $query->expr();
 
     $params['result'] = $query->select('u.login', 'u.laston', 'u.loggedin')
@@ -150,9 +150,9 @@ function stafflist_run()
     ;
 
     $params['blurb']      = get_module_setting('blurb');
-    $params['returnLink'] = \LotgdRequest::getServer('REQUEST_URI');
+    $params['returnLink'] = LotgdRequest::getServer('REQUEST_URI');
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/stafflist_run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/stafflist_run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

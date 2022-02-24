@@ -15,18 +15,18 @@ use Doctrine\ORM\Mapping as ORM;
 class ModCreationAddon
 {
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=50, nullable=false)
+     * @ORM\Column(type="string", length=50)
      */
     private $badName;
 

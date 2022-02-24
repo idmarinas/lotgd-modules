@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\Finder\Finder;
+use Tracy\Debugger;
 // translator ready
 // addnews ready
 // mail ready
@@ -47,35 +49,35 @@ function drinks_getmoduleinfo()
 function drinks_install()
 {
     //-- Only insert/update data if alter table structure
-    if (\Doctrine::createSchema(['LotgdLocal:ModuleDrinks'], true))
+    if (Doctrine::createSchema(['LotgdLocal:ModuleDrinks'], true))
     {
-        $finder = new \Symfony\Component\Finder\Finder();
+        $finder = new Finder();
         $files = $files = $finder->files()->in('modules/drinks/data');
 
-        if (\count($files))
+        if (\count($files) > 0)
         {
             try
             {
-                $repository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
+                $repository = Doctrine::getRepository('LotgdLocal:ModuleDrinks');
 
                 foreach ($files as $file)
                 {
-                    $data = \json_decode(\file_get_contents($file), true);
+                    $data = \json_decode(\file_get_contents($file), true, 512, JSON_THROW_ON_ERROR);
 
                     foreach ($data['rows'] as $row)
                     {
                         $entity = $repository->find($row['id']);
                         $entity = $repository->hydrateEntity($row, $entity);
 
-                        \Doctrine::persist($entity);
+                        Doctrine::persist($entity);
                     }
 
-                    \Doctrine::flush();
+                    Doctrine::flush();
                 }
             }
-            catch (\Throwable $th)
+            catch (Throwable $th)
             {
-                \Tracy\Debugger::log($th);
+                Debugger::log($th);
             }
         }
     }
@@ -94,11 +96,11 @@ function drinks_install()
 
 function drinks_uninstall()
 {
-    \LotgdResponse::pageDebug('Dropping table drinks');
-    \Doctrine::dropSchema(['LotgdLocal:ModuleDrinks']);
+    LotgdResponse::pageDebug('Dropping table drinks');
+    Doctrine::dropSchema(['LotgdLocal:ModuleDrinks']);
 
-    \LotgdResponse::pageDebug('Dropping objprefs related to drinks');
-    $objRepository = \Doctrine::getRepository('LotgdCore:ModuleObjprefs');
+    LotgdResponse::pageDebug('Dropping objprefs related to drinks');
+    $objRepository = Doctrine::getRepository('LotgdCore:ModuleObjprefs');
     //-- Updated location
     $query = $objRepository->getQueryBuilder();
     $query->delete('LotgdCore:ModuleObjprefs', 'u')
@@ -137,7 +139,7 @@ function drinks_dohook($hookname, $args)
                 $where['harddrink'] = 0;
             }
 
-            $drinksRepository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
+            $drinksRepository = Doctrine::getRepository('LotgdLocal:ModuleDrinks');
             $result           = $drinksRepository->findBy($where, ['costperlevel' => 'ASC']);
             $result           = $drinksRepository->extractEntity($result);
 
@@ -151,7 +153,7 @@ function drinks_dohook($hookname, $args)
                     $drinkcost = $row['costperlevel'] * $session['user']['level'];
                     // No hotkeys on drinks.  Too easy for them to interfere
                     // with and modify stock navs randomly.
-                    \LotgdNavigation::addNav('navigation.nav.ale', "runmodule.php?module=drinks&act=buy&id={$row['id']}", [
+                    LotgdNavigation::addNav('navigation.nav.ale', "runmodule.php?module=drinks&act=buy&id={$row['id']}", [
                         'textDomain' => 'drinks_module',
                         'params'     => ['name' => $row['name'], 'cost' => $drinkcost],
                     ]);
@@ -169,7 +171,7 @@ function drinks_dohook($hookname, $args)
                 'userSex'    => $session['user']['sex'],
                 'drunk'      => $drunk,
                 'hardDrink'  => $hardDrink,
-                'partner'    => \LotgdTool::getPartner(),
+                'partner'    => LotgdTool::getPartner(),
             ];
         break;
         case 'newday':
@@ -219,12 +221,12 @@ function drinks_dohook($hookname, $args)
 
                 if ($sobermsg)
                 {
-                    \LotgdFlashMessages::addInfoMessage($sobermsg);
+                    LotgdFlashMessages::addInfoMessage($sobermsg);
                 }
             }
         break;
         case 'postcomment':
-            if ($session['user']['superuser'] & SU_IS_GAMEMASTER)
+            if (($session['user']['superuser'] & SU_IS_GAMEMASTER) !== 0)
             {
                 break;
             }
@@ -241,10 +243,10 @@ function drinks_dohook($hookname, $args)
         case 'superuser':
             if (($session['user']['superuser'] & SU_EDIT_USERS) || get_module_pref('canedit'))
             {
-                \LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation_app']);
+                LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation_app']);
                 // Stick the admin=true on so that when we call runmodule it'll
                 // work to let us edit drinks even when the module is deactivated.
-                \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=drinks&act=editor&admin=true', ['textDomain' => 'drinks_module']);
+                LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=drinks&act=editor&admin=true', ['textDomain' => 'drinks_module']);
             }
         break;
     }//end select
@@ -256,11 +258,11 @@ function drinks_run()
 {
     global $session;
 
-    $act = (string) \LotgdRequest::getQuery('act');
+    $act = (string) LotgdRequest::getQuery('act');
 
     if ( ! \file_exists("modules/drinks/run/{$act}.php"))
     {
-        \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.', ['file' => $act, 'module' => 'drinks'], 'drinks_module'));
+        LotgdFlashMessages::addErrorMessage(LotgdTranslator::t('flash.message.', ['file' => $act, 'module' => 'drinks'], 'drinks_module'));
 
         if ($session['user']['superuser'])
         {
@@ -273,7 +275,7 @@ function drinks_run()
     require_once "modules/drinks/run/{$act}.php";
 
     //-- Restore text domain for navigation
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

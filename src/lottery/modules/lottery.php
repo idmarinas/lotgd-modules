@@ -81,9 +81,9 @@ function lottery_dohook($hookname, $args)
                         $params['prize']  = $prize;
 
                         $session['user']['goldinbank'] += $prize;
-                        \LotgdLog::debug("won {$prize} gold on lottery");
+                        LotgdLog::debug("won {$prize} gold on lottery");
 
-                        \LotgdLog::addNews('news.winner',
+                        LotgdLog::addNews('news.winner',
                             [
                                 'playerName' => $session['user']['name'],
                                 'prize'      => $prize,
@@ -110,7 +110,7 @@ function lottery_dohook($hookname, $args)
 
             set_module_setting('todaysnumbers', $numbers);
 
-            $repository = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
+            $repository = Doctrine::getRepository('LotgdCore:ModuleUserprefs');
             $winners    = $repository->count(['modulename' => 'lottery', 'setting' => 'pick', 'value' => $numbers]);
 
             if ($winners)
@@ -131,8 +131,8 @@ function lottery_dohook($hookname, $args)
             set_module_setting('roundnum', get_module_setting('roundnum') + 1);
         break;
         case 'inn':
-            \LotgdNavigation::addHeader('category.do');
-            \LotgdNavigation::addNav('navigation.nav.lottery', 'runmodule.php?module=lottery&op=store', [
+            LotgdNavigation::addHeader('category.do');
+            LotgdNavigation::addNav('navigation.nav.lottery', 'runmodule.php?module=lottery&op=store', [
                 'textDomain' => 'module_lottery',
                 'params'     => ['barman' => LotgdSetting::getSetting('barkeep', '`tCedrik`0')],
             ]);
@@ -147,7 +147,7 @@ function lottery_run()
 {
     global $session;
 
-    $op       = (string) \LotgdRequest::getQuery('op');
+    $op       = (string) LotgdRequest::getQuery('op');
     $cost     = get_module_setting('ticketcost');
     $numbers  = get_module_setting('todaysnumbers');
     $prize    = get_module_setting('prize');
@@ -161,13 +161,13 @@ function lottery_run()
     if ('buy' == $op)
     {
         $op = 'store';
-        \LotgdRequest::setQuery('op', $op);
+        LotgdRequest::setQuery('op', $op);
 
         $message = 'flash.message.error.gold';
 
         if ($session['user']['gold'] >= $cost)
         {
-            $lotto = \LotgdRequest::getPost('lotto');
+            $lotto = LotgdRequest::getPost('lotto');
 
             $message = 'flash.message.error.lotto';
 
@@ -178,7 +178,7 @@ function lottery_run()
                 set_module_pref('pick', \implode('', $lotto));
                 set_module_pref('roundnum', $roundnum);
                 $session['user']['gold'] -= $cost;
-                \LotgdLog::debug("spent {$cost} on a lottery ticket");
+                LotgdLog::debug("spent {$cost} on a lottery ticket");
                 $jackpot += \round($cost * (100 - $bleed) / 100, 0);
                 set_module_setting('currentjackpot', $jackpot);
             }
@@ -186,7 +186,7 @@ function lottery_run()
 
         if ($message)
         {
-            \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t($message, [], $textDomain));
+            LotgdFlashMessages::addErrorMessage(LotgdTranslator::t($message, [], $textDomain));
         }
     }
 
@@ -201,7 +201,7 @@ function lottery_run()
         'cost'       => $cost,
     ];
 
-    \LotgdResponse::pageStart('title', ['barman' => $params['barman']], $textDomain);
+    LotgdResponse::pageStart('title', ['barman' => $params['barman']], $textDomain);
 
     $params['jackpot'] = $jackpot;
     $params['winners'] = $winners;
@@ -211,12 +211,12 @@ function lottery_run()
     $params['pn2']     = $params['pick'][2];
     $params['pn3']     = $params['pick'][3];
 
-    \LotgdNavigation::addHeader('navigation.category.return', ['textDomain' => $textDomain]);
-    \LotgdNavigation::addNav('navigation.nav.inn', 'inn.php', ['textDomain' => $textDomain]);
+    LotgdNavigation::addHeader('navigation.category.return', ['textDomain' => $textDomain]);
+    LotgdNavigation::addNav('navigation.nav.inn', 'inn.php', ['textDomain' => $textDomain]);
 
-    \LotgdNavigation::villageNav();
+    LotgdNavigation::villageNav();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/lottery/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/lottery/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

@@ -32,8 +32,8 @@ function staminahof_dohook($hookname, $args)
 
     if ('footer-hof' == $hookname)
     {
-        \LotgdNavigation::addHeader('category.ranking', ['textDomain' => 'navigation_hof']);
-        \LotgdNavigation::addNav('navigation.nav.ranking', 'runmodule.php?module=staminahof', ['textDomain' => 'module_staminahof']);
+        LotgdNavigation::addHeader('category.ranking', ['textDomain' => 'navigation_hof']);
+        LotgdNavigation::addNav('navigation.nav.ranking', 'runmodule.php?module=staminahof', ['textDomain' => 'module_staminahof']);
     }
 
     return $args;
@@ -49,25 +49,25 @@ function staminahof_run()
         'textDomain' => 'module_staminahof',
     ];
 
-    \LotgdResponse::pageStart('title', [], $params['textDomain']);
+    LotgdResponse::pageStart('title', [], $params['textDomain']);
 
     //-- Change text domain for navigation
-    \LotgdNavigation::setTextDomain($params['textDomain']);
+    LotgdNavigation::setTextDomain($params['textDomain']);
 
-    \LotgdNavigation::addHeader('navigation.category.exit');
-    \LotgdNavigation::addNav('navigation.nav.return', 'hof.php');
+    LotgdNavigation::addHeader('navigation.category.exit');
+    LotgdNavigation::addNav('navigation.nav.return', 'hof.php');
 
     $actions = get_default_action_list();
 
-    \LotgdNavigation::addHeader('navigation.category.actions');
+    LotgdNavigation::addHeader('navigation.category.actions');
     // Output navs to each action
     foreach ($actions as $action => $vals)
     {
-        \LotgdNavigation::addNav($action, 'runmodule.php?module=staminahof&action='.\urlencode($action).'&skip=0');
+        LotgdNavigation::addNav($action, 'runmodule.php?module=staminahof&action='.\urlencode($action).'&skip=0');
     }
 
     // Now show the HOF
-    $hof  = \LotgdRequest::getQuery('action');
+    $hof  = LotgdRequest::getQuery('action');
     $chof = \urlencode($hof);
 
     $params['tpl'] = 'default';
@@ -76,7 +76,7 @@ function staminahof_run()
     {
         $params['tpl'] = 'hof';
 
-        $repository       = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
+        $repository       = Doctrine::getRepository('LotgdCore:ModuleUserprefs');
         $query            = $repository->createQueryBuilder('u');
         $userActionsArray = $query->select('u.setting', 'u.value', 'u.userid')
             ->addSelect('c.name')
@@ -103,12 +103,12 @@ function staminahof_run()
         $actionsPerPage = 20;
         $pages          = \ceil(\count($userActionsArray) / $actionsPerPage);
 
-        \LotgdNavigation::addHeader('navigation.category.pages');
+        LotgdNavigation::addHeader('navigation.category.pages');
 
         for ($i = 0; $i < $pages; ++$i)
         {
             $page = $i * $actionsPerPage;
-            \LotgdNavigation::addNav('navigation.nav.page', "runmodule.php?module=staminahof&action={$chof}&skip={$page}", [
+            LotgdNavigation::addNav('navigation.nav.page', "runmodule.php?module=staminahof&action={$chof}&skip={$page}", [
                 'params' => ['page' => $i + 1],
             ]);
         }
@@ -116,17 +116,17 @@ function staminahof_run()
         \usort($hofPages, 'staminahof_sort');
 
         $params['paginator']      = $hofPages;
-        $params['skip']           = (int) \LotgdRequest::getQuery('skip');
+        $params['skip']           = (int) LotgdRequest::getQuery('skip');
         $params['actionHof']      = $hof;
         $params['actionsPerPage'] = $actionsPerPage;
     }
 
     //-- Restore text domain for navigation
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/staminahof/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/staminahof/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 function staminahof_sort($x, $y)

@@ -2,6 +2,7 @@
 
 namespace Lotgd\Local\EntityRepository\ModInventory;
 
+use Throwable;
 use Tracy\Debugger;
 
 /**
@@ -45,7 +46,7 @@ trait Navs
 
             return $inventory;
         }
-        catch (\Throwable $th)
+        catch (Throwable $th)
         {
             Debugger::log($th);
 

@@ -1,14 +1,14 @@
 <?php
 
-if ($session['user']['superuser'] & SU_EDIT_USERS)
+if (($session['user']['superuser'] & SU_EDIT_USERS) !== 0)
 {
     //-- Change text domain
-    \LotgdNavigation::setTextDomain($textDomain);
-    \LotgdNavigation::addHeader('navigation.category.inventory');
+    LotgdNavigation::setTextDomain($textDomain);
+    LotgdNavigation::addHeader('navigation.category.inventory');
 
-    $return = \urlencode(\LotgdSanitize::cmdSanitize(\LotgdRequest::getServer('REQUEST_URI')));
-    \LotgdNavigation::addNav('navigation.nav.inventory', "runmodule.php?module=inventory&op=superuser&acctid={$args['acctid']}&return={$return}");
+    $return = \urlencode(LotgdSanitize::cmdSanitize(LotgdRequest::getServer('REQUEST_URI')));
+    LotgdNavigation::addNav('navigation.nav.inventory', "runmodule.php?module=inventory&op=superuser&acctid={$args['acctid']}&return={$return}");
 
     //-- Restore text domain
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 }

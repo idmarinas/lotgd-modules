@@ -87,7 +87,7 @@ function daysave_dohook($hookname, $args)
         break;
         case 'newday-runonce':
             //reset all players' Instant Buys counter
-            $repository = \Doctrine::getRepository('LotgdCore:User');
+            $repository = Doctrine::getRepository('LotgdCore:User');
             $query      = $repository->createQueryBuilder('u');
             $result     = $query->select('u.acctid')
                 ->getQuery()
@@ -115,16 +115,16 @@ function daysave_dohook($hookname, $args)
             set_module_pref('lastlognewday', $details['tomorrow']);
         break;
         case 'village':
-            \LotgdNavigation::addHeader('headers.fields');
-            \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=village', ['textDomain' => 'module_daysave']);
+            LotgdNavigation::addHeader('headers.fields');
+            LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=village', ['textDomain' => 'module_daysave']);
         break;
         case 'shades':
-            \LotgdNavigation::addHeader('navigation.category.new.day', ['textDomain' => 'module_daysave']);
-            \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=shades', ['textDomain' => 'module_daysave']);
+            LotgdNavigation::addHeader('navigation.category.new.day', ['textDomain' => 'module_daysave']);
+            LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=shades', ['textDomain' => 'module_daysave']);
         break;
         case 'worldnav':
-            \LotgdNavigation::addHeader('navigation.category.new.day', ['textDomain' => 'module_daysave']);
-            \LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=worldmapen', ['textDomain' => 'module_daysave']);
+            LotgdNavigation::addHeader('navigation.category.new.day', ['textDomain' => 'module_daysave']);
+            LotgdNavigation::addNav('navigation.nav.day.saved', 'runmodule.php?module=daysave&op=start&return=worldmapen', ['textDomain' => 'module_daysave']);
         break;
     }
 
@@ -135,8 +135,8 @@ function daysave_run()
 {
     global $session;
 
-    $op     = (string) \LotgdRequest::getQuery('op');
-    $return = (string) \LotgdRequest::getQuery('return');
+    $op     = (string) LotgdRequest::getQuery('op');
+    $return = (string) LotgdRequest::getQuery('return');
 
     //handle new players
     if ( ! get_module_pref('initsetup'))
@@ -159,12 +159,12 @@ function daysave_run()
         'donationPointsUnused' => $session['user']['donation'] - $session['user']['donationspent'],
     ];
 
-    \LotgdResponse::pageStart('title', [], $params['textDomain']);
+    LotgdResponse::pageStart('title', [], $params['textDomain']);
 
     //-- Change text domain for navigation
-    \LotgdNavigation::setTextDomain($params['textDomain']);
+    LotgdNavigation::setTextDomain($params['textDomain']);
 
-    \LotgdNavigation::addHeader('navigation.category.chronofiddling');
+    LotgdNavigation::addHeader('navigation.category.chronofiddling');
 
     switch ($op)
     {
@@ -176,7 +176,7 @@ function daysave_run()
 
             set_module_pref('days', $params['days']);
 
-            \LotgdNavigation::addNav('navigation.nav.newday', 'newday.php');
+            LotgdNavigation::addNav('navigation.nav.newday', 'newday.php');
         break;
         case 'buyday':
             $params['tpl'] = 'buyday';
@@ -185,7 +185,7 @@ function daysave_run()
 
             increment_module_pref('instantbuys');
 
-            \LotgdNavigation::addNav('navigation.nav.newday', 'newday.php');
+            LotgdNavigation::addNav('navigation.nav.newday', 'newday.php');
         break;
         case 'buyslot':
             $params['tpl'] = 'buyslot';
@@ -204,7 +204,7 @@ function daysave_run()
             if ($empty && $params['donationPointsUnused'] >= $params['fillSlotCost'])
             {
                 $params['canFillSpheres'] = true;
-                \LotgdNavigation::addHeader('navigation.category.fill');
+                LotgdNavigation::addHeader('navigation.category.fill');
 
                 for ($i = 1; $i <= $empty; ++$i)
                 {
@@ -212,18 +212,18 @@ function daysave_run()
 
                     if ($params['donationPointsUnused'] >= $cost)
                     {
-                        \LotgdNavigation::addNav('navigation.nav.fill', "runmodule.php?module=daysave&op=fillup&fill={$i}&return={$return}", [
+                        LotgdNavigation::addNav('navigation.nav.fill', "runmodule.php?module=daysave&op=fillup&fill={$i}&return={$return}", [
                             'params' => ['n' => $i, 'cost' => $cost],
                         ]);
                     }
                 }
             }
-            \LotgdNavigation::addHeader('navigation.category.return');
-            \LotgdNavigation::addNav('navigation.nav.return.menu', "runmodule.php?module=daysave&op=start&return={$return}");
+            LotgdNavigation::addHeader('navigation.category.return');
+            LotgdNavigation::addNav('navigation.nav.return.menu', "runmodule.php?module=daysave&op=start&return={$return}");
         break;
         case 'fillup':
             $params['tpl'] = 'fillup';
-            $fill          = (int) \LotgdRequest::getQuery('fill');
+            $fill          = (int) LotgdRequest::getQuery('fill');
 
             increment_module_pref('days', $fill);
 
@@ -233,18 +233,18 @@ function daysave_run()
             $params['donationPointsUnused'] -= $params['fillTotalCost'];
             $session['user']['donationspent'] += $params['fillTotalCost'];
 
-            \LotgdNavigation::addHeader('navigation.category.return');
-            \LotgdNavigation::addNav('navigation.nav.return.menu', "runmodule.php?module=daysave&op=start&return={$return}");
+            LotgdNavigation::addHeader('navigation.category.return');
+            LotgdNavigation::addNav('navigation.nav.return.menu', "runmodule.php?module=daysave&op=start&return={$return}");
         break;
         case 'start':
         default:
             $params['tpl'] = 'default';
 
-            $nav  = $params['days'] ? 'navigation.nav.day.use' : 'navigation.nav.day.not.have';
-            $link = $params['days'] ? 'runmodule.php?module=daysave&op=useday' : '';
-            \LotgdNavigation::addNav($nav, $link);
+            $nav  = $params['days'] !== 0 ? 'navigation.nav.day.use' : 'navigation.nav.day.not.have';
+            $link = $params['days'] !== 0 ? 'runmodule.php?module=daysave&op=useday' : '';
+            LotgdNavigation::addNav($nav, $link);
 
-            \LotgdNavigation::addHeader('navigation.category.donator');
+            LotgdNavigation::addHeader('navigation.category.donator');
 
             //-- Buy Day
             $nav = 'navigation.nav.donator.day.limit';
@@ -262,22 +262,22 @@ function daysave_run()
                 ? 'runmodule.php?module=daysave&op=buyday'
                 : ''
             ;
-            \LotgdNavigation::addNav($nav, $link, ['params' => ['buyDayCost' => $params['buyDayCost']]]);
+            LotgdNavigation::addNav($nav, $link, ['params' => ['buyDayCost' => $params['buyDayCost']]]);
 
             //-- Buy slot
             $nav  = ($params['donationPointsUnused'] >= $params['buySlotCost']) ? 'navigation.nav.donator.slot.buy' : 'navigation.nav.donator.slot.not.have';
             $link = ($params['donationPointsUnused'] >= $params['buySlotCost']) ? "runmodule.php?module=daysave&op=buyslot&return={$return}" : '';
-            \LotgdNavigation::addNav($nav, $link, ['params' => ['buySlotCost' => $params['buySlotCost']]]);
+            LotgdNavigation::addNav($nav, $link, ['params' => ['buySlotCost' => $params['buySlotCost']]]);
 
-            \LotgdNavigation::addHeader('navigation.category.exit');
+            LotgdNavigation::addHeader('navigation.category.exit');
 
             if ('worldmapen' == $return)
             {
-                \LotgdNavigation::addNav('navigation.nav.return.worldmapen', 'runmodule.php?module=worldmapen&op=continue');
+                LotgdNavigation::addNav('navigation.nav.return.worldmapen', 'runmodule.php?module=worldmapen&op=continue');
             }
             else
             {
-                \LotgdNavigation::villageNav();
+                LotgdNavigation::villageNav();
             }
         break;
     }
@@ -285,9 +285,9 @@ function daysave_run()
     $params['empty'] = $params['slots'] - $params['days'];
 
     //-- Restore text domain for navigation
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/daysave/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/daysave/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

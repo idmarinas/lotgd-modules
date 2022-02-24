@@ -33,37 +33,35 @@ function createfiltertitle_dohook($hookname, $args)
 {
     $textDomain = 'module_createfiltertitle';
 
-    switch ($hookname)
+    if ($hookname === 'check-create')
     {
-        case 'check-create':
-            if ( ! isset($args['name']))
+        if ( ! isset($args['name']))
+        {
+            return $args;
+        }
+        //-- If not defined not check nothing
+        $repository = Doctrine::getRepository('LotgdCore:Titles');
+        $result     = $repository->findAll();
+        $titles     = $repository->extractEntity($result);
+
+        $name = \str_replace(' ', '', $args['name']);
+
+        foreach ($titles as $title)
+        {
+            if (hasCoreTitle($name, $title['female']))
             {
-                return $args;
-            } //-- If not defined not check nothing
+                $args['blockaccount'] = 1;
 
-            $repository = \Doctrine::getRepository('LotgdCore:Titles');
-            $result     = $repository->findAll();
-            $titles     = $repository->extractEntity($result);
-
-            $name = \str_replace(' ', '', $args['name']);
-
-            foreach ($titles as $title)
-            {
-                if (hasCoreTitle($name, $title['female']))
-                {
-                    $args['blockaccount'] = 1;
-
-                    \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.error', ['title' => $title['female']], $textDomain));
-                }
-
-                if (hasCoreTitle($name, $title['male']))
-                {
-                    $args['blockaccount'] = 1;
-
-                    \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.error', ['title' => $title['male']], $textDomain));
-                }
+                LotgdFlashMessages::addErrorMessage(LotgdTranslator::t('flash.message.error', ['title' => $title['female']], $textDomain));
             }
-        break;
+
+            if (hasCoreTitle($name, $title['male']))
+            {
+                $args['blockaccount'] = 1;
+
+                LotgdFlashMessages::addErrorMessage(LotgdTranslator::t('flash.message.error', ['title' => $title['male']], $textDomain));
+            }
+        }
     }
 
     return $args;
@@ -81,10 +79,5 @@ function hasCoreTitle($name, $title): bool
     $f1 = '/^'.$tf.'/i';
     $f2 = '/'.$tf.'$/i';
 
-    if ((\preg_match($f1, $name) > 0) || (\preg_match($f2, $name) > 0))
-    {
-        return true;
-    }
-
-    return false;
+    return (\preg_match($f1, $name) > 0) || (\preg_match($f2, $name) > 0);
 }

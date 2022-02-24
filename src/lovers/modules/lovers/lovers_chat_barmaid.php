@@ -1,12 +1,12 @@
 <?php
 
-$act           = (string) \LotgdRequest::getQuery('act');
+$act           = (string) LotgdRequest::getQuery('act');
 $params['act'] = $act;
 
 if ( ! $act)
 {
-    \LotgdNavigation::addNav('navigation.nav.chat.barmaid.gossip', 'runmodule.php?module=lovers&op=chat&act=gossip');
-    \LotgdNavigation::addNav('navigation.nav.chat.barmaid.fat', 'runmodule.php?module=lovers&op=chat&act=fat', [
+    LotgdNavigation::addNav('navigation.nav.chat.barmaid.gossip', 'runmodule.php?module=lovers&op=chat&act=gossip');
+    LotgdNavigation::addNav('navigation.nav.chat.barmaid.fat', 'runmodule.php?module=lovers&op=chat&act=fat', [
         'params' => ['armor' => $session['user']['armor']],
     ]);
 }

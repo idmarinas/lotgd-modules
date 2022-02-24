@@ -17,23 +17,23 @@ use Doctrine\ORM\Mapping as ORM;
 class ModInventory
 {
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      */
     private $userId = 0;
 
     /**
-     * @var int
+     * @var \Lotgd\Local\Entity\ModInventoryItem|null
      *
      * @ORM\ManyToOne(targetEntity="ModInventoryItem")
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
@@ -41,37 +41,37 @@ class ModInventory
     private $item;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      */
     private $sellValueGold = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      */
     private $sellValueGems = 0;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="text", length=65535, nullable=false)
+     * @ORM\Column(type="text", length=65535)
      */
     private $specialValue = '';
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $equipped = false;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     private $charges = 0;
 

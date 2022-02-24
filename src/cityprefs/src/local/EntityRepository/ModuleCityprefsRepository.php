@@ -2,6 +2,7 @@
 
 namespace Lotgd\Local\EntityRepository;
 
+use Throwable;
 use Lotgd\Core\Doctrine\ORM\EntityRepository as DoctrineRepository;
 use Tracy\Debugger;
 
@@ -25,7 +26,7 @@ class ModuleCityprefsRepository extends DoctrineRepository
                 ->getSingleScalarResult()
             ;
         }
-        catch (\Throwable $th)
+        catch (Throwable $th)
         {
             Debugger::log($th);
 
@@ -51,7 +52,7 @@ class ModuleCityprefsRepository extends DoctrineRepository
                 ->getSingleScalarResult()
             ;
         }
-        catch (\Throwable $th)
+        catch (Throwable $th)
         {
             Debugger::log($th);
 

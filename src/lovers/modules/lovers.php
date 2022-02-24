@@ -42,7 +42,7 @@ function lovers_dohook($hookname, $args)
 
     $textDomain = 'module_lovers';
 
-    $partner = \LotgdTool::getPartner();
+    $partner = LotgdTool::getPartner();
 
     switch ($hookname)
     {
@@ -61,7 +61,7 @@ function lovers_dohook($hookname, $args)
 
                 if ($session['user']['charm'] <= 0)
                 {
-                    \LotgdLog::addNews('news.note', ['partner' => $partner, 'playerName' => $session['user']['name']], $textDomain);
+                    LotgdLog::addNews('news.note', ['partner' => $partner, 'playerName' => $session['user']['name']], $textDomain);
                     $session['user']['marriedto'] = 0;
                     $session['user']['charm']     = 0;
                 }
@@ -75,9 +75,9 @@ function lovers_dohook($hookname, $args)
             }
         break;
         case 'inn':
-            \LotgdNavigation::addHeader('category.do', ['textDomain' => 'navigation_inn']);
+            LotgdNavigation::addHeader('category.do', ['textDomain' => 'navigation_inn']);
 
-            \LotgdNavigation::addNav('navigation.nav.flirt.with', 'runmodule.php?module=lovers&op=flirt', [
+            LotgdNavigation::addNav('navigation.nav.flirt.with', 'runmodule.php?module=lovers&op=flirt', [
                 'textDomain' => $textDomain,
                 'params'     => ['partner' => $partner],
             ]);
@@ -86,14 +86,14 @@ function lovers_dohook($hookname, $args)
 
             if (SEX_MALE != $session['user']['prefs']['sexuality'])
             {
-                \LotgdNavigation::addNav('navigation.nav.chat.bard.chat', 'runmodule.php?module=lovers&op=chat', [
+                LotgdNavigation::addNav('navigation.nav.chat.bard.chat', 'runmodule.php?module=lovers&op=chat', [
                     'textDomain' => $textDomain,
                     'params'     => ['name' => LotgdSetting::getSetting('bard', '`^Seth`0')],
                 ]);
             }
             else
             {
-                \LotgdNavigation::addNav('navigation.nav.chat.barmaid.chat', 'runmodule.php?module=lovers&op=chat', [
+                LotgdNavigation::addNav('navigation.nav.chat.barmaid.chat', 'runmodule.php?module=lovers&op=chat', [
                     'textDomain' => $textDomain,
                     'params'     => ['name' => LotgdSetting::getSetting('barmaid', '`%Violet`0')],
                 ]);
@@ -120,14 +120,14 @@ function lovers_run()
         'barkeep'    => LotgdSetting::getSetting('barkeep', '`tCedrik`0'),
         'bard'       => LotgdSetting::getSetting('bard', '`^Seth`0'),
         'barmaid'    => LotgdSetting::getSetting('barmaid', '`%Violet`0'),
-        'partner'    => \LotgdTool::getPartner(),
+        'partner'    => LotgdTool::getPartner(),
     ];
 
-    \LotgdResponse::pageStart($params['innName'], [], $textDomain);
+    LotgdResponse::pageStart($params['innName'], [], $textDomain);
 
-    \LotgdNavigation::setTextDomain($textDomain);
+    LotgdNavigation::setTextDomain($textDomain);
 
-    switch (\LotgdRequest::getQuery('op'))
+    switch (LotgdRequest::getQuery('op'))
     {
         case 'flirt':
             if (SEX_MALE != $session['user']['prefs']['sexuality'])
@@ -160,15 +160,15 @@ function lovers_run()
         default: break;
     }
 
-    \LotgdNavigation::addHeader('navigation.category.return');
-    \LotgdNavigation::addNav('navigation.nav.inn', 'inn.php');
-    \LotgdNavigation::villageNav();
+    LotgdNavigation::addHeader('navigation.category.return');
+    LotgdNavigation::addNav('navigation.nav.inn', 'inn.php');
+    LotgdNavigation::villageNav();
 
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/lovers/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/lovers/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 function lovers_getbuff()
@@ -177,14 +177,14 @@ function lovers_getbuff()
 
     require_once 'lib/partner.php';
 
-    $partner = \LotgdTool::getPartner();
+    $partner = LotgdTool::getPartner();
 
     return [
-        'name'     => \LotgdTranslator::t('buff.name', [], $textDomain),
+        'name'     => LotgdTranslator::t('buff.name', [], $textDomain),
         'rounds'   => 60,
-        'wearoff'  => \LotgdTranslator::t('buff.wearoff', ['partner' => $partner], $textDomain),
+        'wearoff'  => LotgdTranslator::t('buff.wearoff', ['partner' => $partner], $textDomain),
         'defmod'   => 1.2,
-        'roundmsg' => \LotgdTranslator::t('buff.roundmsg', [], $textDomain),
+        'roundmsg' => LotgdTranslator::t('buff.roundmsg', [], $textDomain),
         'schema'   => 'module_lovers',
     ];
 }

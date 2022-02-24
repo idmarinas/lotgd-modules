@@ -1,6 +1,6 @@
 <?php
 
-$flirt = (int) \LotgdRequest::getQuery('flirt');
+$flirt = (int) LotgdRequest::getQuery('flirt');
 
 $params['flirt']         = $flirt;
 $params['seenLover']     = get_module_pref('seenlover');
@@ -28,16 +28,16 @@ if ( ! $params['seenLover'])
 
         $params['seenLover'] = 1;
     }
-    elseif ( ! $flirt)
+    elseif ( $flirt === 0)
     {
-        \LotgdNavigation::addHeader('navigation.nav.flirt');
-        \LotgdNavigation::addNav('navigation.nav.flirt.barmaid.wink', 'runmodule.php?module=lovers&op=flirt&flirt=1');
-        \LotgdNavigation::addNav('navigation.nav.flirt.barmaid.kiss', 'runmodule.php?module=lovers&op=flirt&flirt=2');
-        \LotgdNavigation::addNav('navigation.nav.flirt.barmaid.pack', 'runmodule.php?module=lovers&op=flirt&flirt=3');
-        \LotgdNavigation::addNav('navigation.nav.flirt.barmaid.sit', 'runmodule.php?module=lovers&op=flirt&flirt=4');
-        \LotgdNavigation::addNav('navigation.nav.flirt.barmaid.grab', 'runmodule.php?module=lovers&op=flirt&flirt=5');
-        \LotgdNavigation::addNav('navigation.nav.flirt.barmaid.carry', 'runmodule.php?module=lovers&op=flirt&flirt=6');
-        \LotgdNavigation::addNav('navigation.nav.flirt.barmaid.marry', 'runmodule.php?module=lovers&op=flirt&flirt=7');
+        LotgdNavigation::addHeader('navigation.nav.flirt');
+        LotgdNavigation::addNav('navigation.nav.flirt.barmaid.wink', 'runmodule.php?module=lovers&op=flirt&flirt=1');
+        LotgdNavigation::addNav('navigation.nav.flirt.barmaid.kiss', 'runmodule.php?module=lovers&op=flirt&flirt=2');
+        LotgdNavigation::addNav('navigation.nav.flirt.barmaid.pack', 'runmodule.php?module=lovers&op=flirt&flirt=3');
+        LotgdNavigation::addNav('navigation.nav.flirt.barmaid.sit', 'runmodule.php?module=lovers&op=flirt&flirt=4');
+        LotgdNavigation::addNav('navigation.nav.flirt.barmaid.grab', 'runmodule.php?module=lovers&op=flirt&flirt=5');
+        LotgdNavigation::addNav('navigation.nav.flirt.barmaid.carry', 'runmodule.php?module=lovers&op=flirt&flirt=6');
+        LotgdNavigation::addNav('navigation.nav.flirt.barmaid.marry', 'runmodule.php?module=lovers&op=flirt&flirt=7');
     }
     else
     {
@@ -143,7 +143,7 @@ if ( ! $params['seenLover'])
                             $session['user']['turns'] = \max(0, $session['user']['turns']);
                         }
 
-                        \LotgdLog::addNews('news.flirt.barmaid.inn', [
+                        LotgdLog::addNews('news.flirt.barmaid.inn', [
                             'playerName' => $session['user']['name'],
                             'partner'    => $partner,
                         ], $textDomain);
@@ -168,7 +168,7 @@ if ( ! $params['seenLover'])
                 {
                     $params['flirtCase'] = 1;
 
-                    \LotgdLog::addNews('news.flirt.barmaid.matrimony', [
+                    LotgdLog::addNews('news.flirt.barmaid.matrimony', [
                         'playerName' => $session['user']['name'],
                         'partner'    => $partner,
                     ], $textDomain);
@@ -187,7 +187,7 @@ if ( ! $params['seenLover'])
                         $session['user']['turns'] = 0;
                     }
 
-                    \LotgdLog::debug('lost all turns after being rejected for marriage.');
+                    LotgdLog::debug('lost all turns after being rejected for marriage.');
                 }
             break;
         }

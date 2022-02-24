@@ -63,86 +63,82 @@ function alignmentbuffs_dohook($hookname, $args)
 {
     global $session;
 
-    switch ($hookname)
+    if ($hookname === 'newday')
     {
-        case 'newday':
-            $alignment = get_module_pref('alignment', 'alignment');
-
-            if ($alignment <= get_module_setting('activate1'))
-            {
-                $activate       = 1;
-                $buff           = [];
-                $buff['name']   = 'buff.name1';
-                $buff['rounds'] = get_module_setting('buffturns1');
-                $buff['atkmod'] = get_module_setting('buffatt1');
-                $buff['defmod'] = get_module_setting('buffdef1');
-                $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
-            }
-            elseif ($alignment <= get_module_setting('activate2'))
-            {
-                $activate       = 2;
-                $buff           = [];
-                $buff['name']   = 'buff.name2';
-                $buff['rounds'] = get_module_setting('buffturns2');
-                $buff['atkmod'] = get_module_setting('buffatt2');
-                $buff['defmod'] = get_module_setting('buffdef2');
-                $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
-            }
-            elseif ($alignment <= get_module_setting('activate3'))
-            {
-                $activate       = 3;
-                $buff           = [];
-                $buff['name']   = 'buff.name3';
-                $buff['rounds'] = get_module_setting('buffturns3');
-                $buff['atkmod'] = get_module_setting('buffatt3');
-                $buff['defmod'] = get_module_setting('buffdef3');
-                $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
-            }
-            elseif ($alignment >= get_module_setting('activate6'))
-            {
-                $activate       = 6;
-                $buff           = [];
-                $buff['name']   = 'buff.name6';
-                $buff['rounds'] = get_module_setting('buffturns6');
-                $buff['atkmod'] = get_module_setting('buffatt6');
-                $buff['defmod'] = get_module_setting('buffdef6');
-                $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
-            }
-            elseif ($alignment >= get_module_setting('activate5'))
-            {
-                $activate       = 5;
-                $buff           = [];
-                $buff['name']   = 'buff.name5';
-                $buff['rounds'] = get_module_setting('buffturns5');
-                $buff['atkmod'] = get_module_setting('buffatt5');
-                $buff['defmod'] = get_module_setting('buffdef5');
-                $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
-            }
-            elseif ($alignment >= get_module_setting('activate4'))
-            {
-                $activate       = 4;
-                $buff           = [];
-                $buff['name']   = 'buff.name4';
-                $buff['rounds'] = get_module_setting('buffturns4');
-                $buff['atkmod'] = get_module_setting('buffatt4');
-                $buff['defmod'] = get_module_setting('buffdef4');
-                $buff['schema'] = 'module_alignmentbuffs';
-                LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
-            }
-
-            if ($activate ?? false)
-            {
-                $args['includeTemplatesPost']['@module/alignmentbuffs_newday.twig'] = [
-                    'textDomain' => 'module_alignmentbuffs',
-                    'activate'   => $activate,
-                ];
-            }
-        break;
+        $alignment = get_module_pref('alignment', 'alignment');
+        if ($alignment <= get_module_setting('activate1'))
+        {
+            $activate       = 1;
+            $buff           = [];
+            $buff['name']   = 'buff.name1';
+            $buff['rounds'] = get_module_setting('buffturns1');
+            $buff['atkmod'] = get_module_setting('buffatt1');
+            $buff['defmod'] = get_module_setting('buffdef1');
+            $buff['schema'] = 'module_alignmentbuffs';
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
+        }
+        elseif ($alignment <= get_module_setting('activate2'))
+        {
+            $activate       = 2;
+            $buff           = [];
+            $buff['name']   = 'buff.name2';
+            $buff['rounds'] = get_module_setting('buffturns2');
+            $buff['atkmod'] = get_module_setting('buffatt2');
+            $buff['defmod'] = get_module_setting('buffdef2');
+            $buff['schema'] = 'module_alignmentbuffs';
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
+        }
+        elseif ($alignment <= get_module_setting('activate3'))
+        {
+            $activate       = 3;
+            $buff           = [];
+            $buff['name']   = 'buff.name3';
+            $buff['rounds'] = get_module_setting('buffturns3');
+            $buff['atkmod'] = get_module_setting('buffatt3');
+            $buff['defmod'] = get_module_setting('buffdef3');
+            $buff['schema'] = 'module_alignmentbuffs';
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
+        }
+        elseif ($alignment >= get_module_setting('activate6'))
+        {
+            $activate       = 6;
+            $buff           = [];
+            $buff['name']   = 'buff.name6';
+            $buff['rounds'] = get_module_setting('buffturns6');
+            $buff['atkmod'] = get_module_setting('buffatt6');
+            $buff['defmod'] = get_module_setting('buffdef6');
+            $buff['schema'] = 'module_alignmentbuffs';
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
+        }
+        elseif ($alignment >= get_module_setting('activate5'))
+        {
+            $activate       = 5;
+            $buff           = [];
+            $buff['name']   = 'buff.name5';
+            $buff['rounds'] = get_module_setting('buffturns5');
+            $buff['atkmod'] = get_module_setting('buffatt5');
+            $buff['defmod'] = get_module_setting('buffdef5');
+            $buff['schema'] = 'module_alignmentbuffs';
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
+        }
+        elseif ($alignment >= get_module_setting('activate4'))
+        {
+            $activate       = 4;
+            $buff           = [];
+            $buff['name']   = 'buff.name4';
+            $buff['rounds'] = get_module_setting('buffturns4');
+            $buff['atkmod'] = get_module_setting('buffatt4');
+            $buff['defmod'] = get_module_setting('buffdef4');
+            $buff['schema'] = 'module_alignmentbuffs';
+            LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('alignment', $buff);
+        }
+        if ($activate ?? false)
+        {
+            $args['includeTemplatesPost']['@module/alignmentbuffs_newday.twig'] = [
+                'textDomain' => 'module_alignmentbuffs',
+                'activate'   => $activate,
+            ];
+        }
     }
 
     return $args;

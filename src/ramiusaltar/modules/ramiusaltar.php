@@ -66,8 +66,8 @@ function ramiusaltar_dohook($hookname, $args)
         case 'village':
             if ($session['user']['location'] == get_module_setting('ramiusaltarloc'))
             {
-                \LotgdNavigation::addHeader('headers.fight');
-                \LotgdNavigation::addNav('navigation.nav.altar', 'runmodule.php?module=ramiusaltar', ['textDomain' => 'module_ramiusaltar']);
+                LotgdNavigation::addHeader('headers.fight');
+                LotgdNavigation::addNav('navigation.nav.altar', 'runmodule.php?module=ramiusaltar', ['textDomain' => 'module_ramiusaltar']);
             }
         break;
 
@@ -76,8 +76,8 @@ function ramiusaltar_dohook($hookname, $args)
         break;
 
         case 'footer-hof':
-            \LotgdNavigation::addHeader('category.ranking', ['textDomain' => 'navigation_hof']);
-            \LotgdNavigation::addNav('navigation.nav.rank', 'runmodule.php?module=ramiusaltar&op=HOF', ['textDomain' => 'module_ramiusaltar']);
+            LotgdNavigation::addHeader('category.ranking', ['textDomain' => 'navigation_hof']);
+            LotgdNavigation::addNav('navigation.nav.rank', 'runmodule.php?module=ramiusaltar&op=HOF', ['textDomain' => 'module_ramiusaltar']);
         break;
         default: break;
     }
@@ -89,22 +89,22 @@ function ramiusaltar_run()
 {
     global $session;
 
-    $op   = \LotgdRequest::getQuery('op');
-    $type = \LotgdRequest::getQuery('type');
+    $op   = LotgdRequest::getQuery('op');
+    $type = LotgdRequest::getQuery('type');
 
     $textDomain = 'module_ramiusaltar';
     $useStamina = is_module_active('staminasystem');
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
         'useStamina' => $useStamina,
     ];
 
-    \LotgdNavigation::setTextDomain($textDomain);
+    LotgdNavigation::setTextDomain($textDomain);
 
-    \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
+    LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
 
     if ('' == $op)
     {
@@ -117,10 +117,10 @@ function ramiusaltar_run()
         }
         else
         {
-            \LotgdNavigation::addNav('navigation.nav.default.blood', 'runmodule.php?module=ramiusaltar&op=give&type=blood');
-            \LotgdNavigation::addNav('navigation.nav.default.flesh', 'runmodule.php?module=ramiusaltar&op=give&type=flesh');
-            \LotgdNavigation::addNav('navigation.nav.default.spirit', 'runmodule.php?module=ramiusaltar&op=give&type=spirit');
-            \LotgdNavigation::addNav('navigation.nav.default.defile', 'runmodule.php?module=ramiusaltar&op=defile');
+            LotgdNavigation::addNav('navigation.nav.default.blood', 'runmodule.php?module=ramiusaltar&op=give&type=blood');
+            LotgdNavigation::addNav('navigation.nav.default.flesh', 'runmodule.php?module=ramiusaltar&op=give&type=flesh');
+            LotgdNavigation::addNav('navigation.nav.default.spirit', 'runmodule.php?module=ramiusaltar&op=give&type=spirit');
+            LotgdNavigation::addNav('navigation.nav.default.defile', 'runmodule.php?module=ramiusaltar&op=defile');
         }
     }
     elseif ('give' == $op)
@@ -138,7 +138,7 @@ function ramiusaltar_run()
                 if ($session['user']['hitpoints'] <= $session['user']['maxhitpoints'] * 0.75)
                 {
                     $params['weak'] = true;
-                    \LotgdLog::debug('lost 5 favor trying to give blood with '.$session['user']['hitpoints'].' of '.$session['user']['maxhitpoints'].' maxhp left');
+                    LotgdLog::debug('lost 5 favor trying to give blood with '.$session['user']['hitpoints'].' of '.$session['user']['maxhitpoints'].' maxhp left');
                     $ramius_is_pleased = 0;
 
                     break;
@@ -151,7 +151,7 @@ function ramiusaltar_run()
                 set_module_pref('totalhploss', get_module_pref('totalhploss') + $session['user']['hitpoints'] * 0.9);
                 $session['user']['hitpoints'] *= 0.1;
 
-                \LotgdLog::debug('gained `4'.$gain_favor.' favor`7 giving blood at Altar of Ramius');
+                LotgdLog::debug('gained `4'.$gain_favor.' favor`7 giving blood at Altar of Ramius');
             break;
             case 'flesh':
                 $params['giveType'] = 'flesh';
@@ -166,7 +166,7 @@ function ramiusaltar_run()
                 if ($session['user']['turns'] <= 4 || ($useStamina && $amber < 100))
                 {
                     $params['weak'] = true;
-                    \LotgdLog::debug('lost 5 favor trying to give flesh with '.($useStamina ? get_stamina(3).'stamina' : $session['user']['turns'].'turns').' left');
+                    LotgdLog::debug('lost 5 favor trying to give flesh with '.($useStamina ? get_stamina(3).'stamina' : $session['user']['turns'].'turns').' left');
                     $ramius_is_pleased = 0;
 
                     break;
@@ -181,18 +181,18 @@ function ramiusaltar_run()
                     $stamina = $turn_loss * 25000;
                     set_module_pref('totalturnloss', get_module_pref('totalturnloss') + $stamina);
                     removestamina($stamina);
-                    \LotgdLog::debug('lost `@'.$stamina.' stamina `7 giving spirit at Altar of Ramius');
+                    LotgdLog::debug('lost `@'.$stamina.' stamina `7 giving spirit at Altar of Ramius');
                 }
                 else
                 {
                     $session['user']['turns'] -= $turn_loss;
                     set_module_pref('totalturnloss', get_module_pref('totalturnloss') + $turn_loss);
-                    \LotgdLog::debug('lost `@'.$turn_loss.' turns `7 giving spirit at Altar of Ramius');
+                    LotgdLog::debug('lost `@'.$turn_loss.' turns `7 giving spirit at Altar of Ramius');
                 }
 
                 $params['turnsLost'] = $turn_loss;
 
-                \LotgdLog::debug('gained `4'.$gain_favor.' favor`7 giving spirit at Altar of Ramius');
+                LotgdLog::debug('gained `4'.$gain_favor.' favor`7 giving spirit at Altar of Ramius');
             break;
             case 'spirit':
                 $params['giveType'] = 'spirit';
@@ -201,7 +201,7 @@ function ramiusaltar_run()
                 if ($session['user']['permahitpoints'] < 0)
                 {
                     $params['weak'] = true;
-                    \LotgdLog::debug('lost 5 favor trying to give spirit with '.$session['user']['maxhitpoints'].' hp at lvl '.$session['user']['level'].'.');
+                    LotgdLog::debug('lost 5 favor trying to give spirit with '.$session['user']['maxhitpoints'].' hp at lvl '.$session['user']['level'].'.');
                     $ramius_is_pleased = 0;
 
                     break;
@@ -218,13 +218,13 @@ function ramiusaltar_run()
 
                 $params['hpLost'] = $hp_loss;
 
-                \LotgdLog::debug('gained `4'.$gain_favor.' favor`7 giving spirit at Altar of Ramius');
-                \LotgdLog::debug('lost `&'.$hp_loss.' max hp `7 giving spirit at Altar of Ramius');
+                LotgdLog::debug('gained `4'.$gain_favor.' favor`7 giving spirit at Altar of Ramius');
+                LotgdLog::debug('lost `&'.$hp_loss.' max hp `7 giving spirit at Altar of Ramius');
             break;
             default:
                 $params['giveType'] = '';
 
-                \LotgdNavigation::villageNav();
+                LotgdNavigation::villageNav();
             break;
         } // end switch ($type)
 
@@ -245,9 +245,9 @@ function ramiusaltar_run()
             set_module_pref('totalsacrifices', get_module_pref('totalsacrifices') + 1);
             set_module_pref('sacrificedtoday', get_module_pref('sacrificedtoday') + 1);
         }
-        elseif ($params['giveType'])
+        elseif ($params['giveType'] !== '' && $params['giveType'] !== '0')
         {
-            \LotgdNavigation::addNav('navigation.nav.give.return', 'runmodule.php?module=ramiusaltar');
+            LotgdNavigation::addNav('navigation.nav.give.return', 'runmodule.php?module=ramiusaltar');
 
             $session['user']['deathpower'] -= 5;
 
@@ -288,11 +288,11 @@ function ramiusaltar_run()
     {
         $params['tpl'] = 'hof';
 
-        \LotgdNavigation::addNav('navigation.nav.hof.back', 'hof.php');
+        LotgdNavigation::addNav('navigation.nav.hof.back', 'hof.php');
 
-        $page = (int) \LotgdRequest::getQuery('page');
+        $page = (int) LotgdRequest::getQuery('page');
 
-        $repository = \Doctrine::getRepository('LotgdCore:User');
+        $repository = Doctrine::getRepository('LotgdCore:User');
         $query      = $repository->createQueryBuilder('u');
         $expr       = $query->expr();
 
@@ -343,12 +343,12 @@ function ramiusaltar_run()
     $params['weapon'] = $session['user']['weapon'];
     $params['name']   = $session['user']['name'];
 
-    \LotgdNavigation::addHeader('common.category.return', ['textDomain' => 'navigation_app']);
-    \LotgdNavigation::villageNav();
+    LotgdNavigation::addHeader('common.category.return', ['textDomain' => 'navigation_app']);
+    LotgdNavigation::villageNav();
 
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/ramiusaltar/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/ramiusaltar/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

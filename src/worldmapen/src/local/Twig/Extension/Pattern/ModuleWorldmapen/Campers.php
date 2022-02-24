@@ -2,6 +2,8 @@
 
 namespace Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen;
 
+use LotgdRequest;
+use DateTime;
 use Twig\Environment;
 
 trait Campers
@@ -36,8 +38,8 @@ trait Campers
 
         $params['paginator']  = $this->pvp->getPvpList($session['user']['location']);
         $params['sleepers']   = $this->pvp->getLocationSleepersCount($session['user']['location']);
-        $params['returnLink'] = \preg_replace('/op=[a-z]*/', 'op=continue', \LotgdRequest::getServer('REQUEST_URI'));
-        $params['pvpTimeOut'] = new \DateTime(\date('Y-m-d H:i:s', \strtotime("-{$pvptime} seconds")));
+        $params['returnLink'] = \preg_replace('/op=[a-z]*/', 'op=continue', LotgdRequest::getServer('REQUEST_URI'));
+        $params['pvpTimeOut'] = new DateTime(\date('Y-m-d H:i:s', \strtotime("-{$pvptime} seconds")));
 
         $params['linkBase']  = 'runmodule.php?module=worldmapen';
         $params['linkExtra'] = '&op=combat&pvp=1';

@@ -2,6 +2,9 @@
 
 namespace Lotgd\Ajax\Local;
 
+use LotgdSetting;
+use LotgdTranslator;
+use LotgdTheme;
 use Jaxon\Response\Response;
 use Lotgd\Core\AjaxAbstract;
 
@@ -17,16 +20,16 @@ class ModCities extends AjaxAbstract
 
         $params = [
             'travels'          => get_module_setting('allowance', 'cities'),
-            'capital'          => \LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
+            'capital'          => LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
             'lodge'            => \file_exists('public/lodge.php'),
             'newbieIsland'     => is_module_active('newbieisland'),
             'newbieIslandName' => $newbieisland,
             'location'         => (isset($session['user']['location']) && $session['user']['location'] == $newbieisland),
         ];
 
-        $title = \LotgdTranslator::t('section.faq.title', [], 'cities-module');
+        $title = LotgdTranslator::t('section.faq.title', [], 'cities-module');
 
-        $content = \LotgdTheme::render('@module/cities/run/faq.twig', $params);
+        $content = LotgdTheme::render('@module/cities/run/faq.twig', $params);
 
         // Show the dialog
         $response->dialog->show($title, ['content' => $content], []);

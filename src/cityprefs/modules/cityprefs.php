@@ -21,14 +21,14 @@ function cityprefs_install()
 {
     global $session;
 
-    if (\Doctrine::createSchema(['LotgdLocal:ModuleCityprefs'], true))
+    if (Doctrine::createSchema(['LotgdLocal:ModuleCityprefs'], true))
     {
-        if ($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO)
+        if (($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO) !== 0)
         {
-            \LotgdResponse::pageDebug('Installing cityprefs Module.');
+            LotgdResponse::pageDebug('Installing cityprefs Module.');
         }
 
-        $repository = \Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
+        $repository = Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
 
         $vloc = [];
         $vloc = modulehook('validlocation', $vloc);
@@ -42,7 +42,7 @@ function cityprefs_install()
             'cityName' => LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
         ], $capital);
 
-        \Doctrine::persist($capital);
+        Doctrine::persist($capital);
 
         //-- Install/Update cities
         $query  = $repository->getQueryBuilder();
@@ -65,16 +65,16 @@ function cityprefs_install()
                 'cityName' => $value->getValue(),
             ], $entity);
 
-            \Doctrine::persist($entity);
+            Doctrine::persist($entity);
         }
 
-        \Doctrine::flush();
+        Doctrine::flush();
     }
     else
     {
-        if ($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO)
+        if (($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO) !== 0)
         {
-            \LotgdResponse::pageDebug('Updating cityprefs Module.');
+            LotgdResponse::pageDebug('Updating cityprefs Module.');
         }
     }
 
@@ -86,11 +86,11 @@ function cityprefs_install()
 
 function cityprefs_uninstall()
 {
-    \LotgdResponse::pageDebug('Un-Installing cityprefs Module.');
-    \Doctrine::dropSchema(['LotgdLocal:ModuleCityprefs']);
+    LotgdResponse::pageDebug('Un-Installing cityprefs Module.');
+    Doctrine::dropSchema(['LotgdLocal:ModuleCityprefs']);
 
-    \LotgdResponse::pageDebug('Dropping objprefs related to cities');
-    $objRepository = \Doctrine::getRepository('LotgdCore:ModuleObjprefs');
+    LotgdResponse::pageDebug('Dropping objprefs related to cities');
+    $objRepository = Doctrine::getRepository('LotgdCore:ModuleObjprefs');
     //-- Updated location
     $query = $objRepository->getQueryBuilder();
     $query->delete('LotgdCore:ModuleObjprefs', 'u')
@@ -114,7 +114,7 @@ function cityprefs_dohook($hookname, $args)
         case 'changesetting':
             if ('villagename' == $args['setting'])
             {
-                $repository = \Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
+                $repository = Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
                 $entity     = $repository->findOneBy(['cityName' => $args['old']]);
 
                 if ($entity)
@@ -123,16 +123,16 @@ function cityprefs_dohook($hookname, $args)
                         'cityName' => $args['new'],
                     ], $entity);
 
-                    \Doctrine::persist($entity);
-                    \Doctrine::flush();
+                    Doctrine::persist($entity);
+                    Doctrine::flush();
                 }
             }
         break;
         case 'superuser':
-            if ($session['user']['superuser'] & SU_EDIT_USERS)
+            if (($session['user']['superuser'] & SU_EDIT_USERS) !== 0)
             {
-                \LotgdNavigation::addHeader('superuser.category.editors', ['textDomain' => 'navigation_app']);
-                \LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=cityprefs&op=su', ['textDomain' => 'module_cityprefs']);
+                LotgdNavigation::addHeader('superuser.category.editors', ['textDomain' => 'navigation_app']);
+                LotgdNavigation::addNav('navigation.nav.editor', 'runmodule.php?module=cityprefs&op=su', ['textDomain' => 'module_cityprefs']);
             }
         break;
     }
@@ -146,32 +146,32 @@ function cityprefs_run()
 
     $textDomain = 'module_cityprefs';
 
-    \LotgdResponse::pageStart('title.default', [], $textDomain);
+    LotgdResponse::pageStart('title.default', [], $textDomain);
 
-    $repository = \Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
+    $repository = Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
 
-    $op     = (string) \LotgdRequest::getQuery('op');
-    $cityId = (int) \LotgdRequest::getQuery('cityid');
-    $mdule  = (string) \LotgdRequest::getQuery('mdule');
+    $op     = (string) LotgdRequest::getQuery('op');
+    $cityId = (int) LotgdRequest::getQuery('cityid');
+    $mdule  = (string) LotgdRequest::getQuery('mdule');
 
     //-- Change text domain for navigation
-    \LotgdNavigation::setTextDomain($textDomain);
+    LotgdNavigation::setTextDomain($textDomain);
 
-    if ($cityId)
+    if ($cityId !== 0)
     {
         $cityName = $repository->getCityNameById($cityId);
 
-        \LotgdResponse::pageStart('title.properties', ['city' => $cityName], $textDomain);
+        LotgdResponse::pageStart('title.properties', ['city' => $cityName], $textDomain);
 
         $modu = $repository->getModuleNameByCityId($cityId);
 
         if ('none' != $modu)
         {
-            \LotgdNavigation::addHeader('navigation.category.operations');
-            \LotgdNavigation::addNav('navigation.nav.modsettings', "configuration.php?op=modulesettings&module={$modu}");
+            LotgdNavigation::addHeader('navigation.category.operations');
+            LotgdNavigation::addNav('navigation.nav.modsettings', "configuration.php?op=modulesettings&module={$modu}");
         }
 
-        \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
+        LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
 
         $link = 'village.php';
 
@@ -180,21 +180,21 @@ function cityprefs_run()
             $link = 'runmodule.php?module=cities&op=travel&city='.\urlencode($cityName).'&su=1';
         }
 
-        \LotgdNavigation::addNav('navigation.nav.journey', $link, [
+        LotgdNavigation::addNav('navigation.nav.journey', $link, [
             'params' => ['city' => $cityName],
         ]);
     }
 
-    \LotgdNavigation::superuserGrottoNav();
+    LotgdNavigation::superuserGrottoNav();
 
     if (is_module_active('modloc'))
     {
-        \LotgdNavigation::addNav('navigation.nav.modloc', 'runmodule.php?module=modloc');
+        LotgdNavigation::addNav('navigation.nav.modloc', 'runmodule.php?module=modloc');
     }
 
     if ('su' != $op)
     {
-        \LotgdNavigation::addNav('navigation.nav.back.list', 'runmodule.php?module=cityprefs&op=su');
+        LotgdNavigation::addNav('navigation.nav.back.list', 'runmodule.php?module=cityprefs&op=su');
     }
 
     $params = [
@@ -205,14 +205,14 @@ function cityprefs_run()
     {
         case 'su':
             $params['tpl'] = 'default';
-            \LotgdNavigation::addHeader('navigation.category.operations');
-            \LotgdNavigation::addNav('navigation.nav.autoadd', 'runmodule.php?module=cityprefs&op=update');
+            LotgdNavigation::addHeader('navigation.category.operations');
+            LotgdNavigation::addNav('navigation.nav.autoadd', 'runmodule.php?module=cityprefs&op=update');
 
             $params['paginator'] = $repository->findAll();
         break;
 
         case 'update':
-            $repository = \Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
+            $repository = Doctrine::getRepository('LotgdLocal:ModuleCityprefs');
 
             $vloc = [];
             $vloc = modulehook('validlocation', $vloc);
@@ -225,7 +225,7 @@ function cityprefs_run()
                 'cityName' => LotgdSetting::getSetting('villagename', LOCATION_FIELDS),
             ], $capital);
 
-            \Doctrine::persist($capital);
+            Doctrine::persist($capital);
 
             //-- Install/Update cities
             $query  = $repository->getQueryBuilder();
@@ -260,7 +260,7 @@ function cityprefs_run()
                     'cityname' => $value->getValue(),
                 ], $entity);
 
-                \Doctrine::persist($entity);
+                Doctrine::persist($entity);
             }
 
             if (\is_array($messageParams['location'] ?? false))
@@ -269,77 +269,76 @@ function cityprefs_run()
                 $messageParams['location'] = \implode(', ', $messageParams['location']);
             }
 
-            \LotgdFlashMessages::{$messageType}(\LotgdTranslator::t($message, $messageParams, $textDomain));
+            LotgdFlashMessages::{$messageType}(LotgdTranslator::t($message, $messageParams, $textDomain));
 
-            \Doctrine::flush();
+            Doctrine::flush();
 
             return redirect('runmodule.php?module=cityprefs&op=su');
-        break;
         case 'editmodule':
         case 'editmodulesave':
-            \LotgdNavigation::addHeader('navigation.category.operations');
-            \LotgdNavigation::addNav('navigation.nav.city.edit', "runmodule.php?module=cityprefs&op=editcity&cityid={$cityId}");
-            \LotgdNavigation::addNav('navigation.nav.city.delete', "runmodule.php?module=cityprefs&op=delcity&cityid={$cityId}", [
+            LotgdNavigation::addHeader('navigation.category.operations');
+            LotgdNavigation::addNav('navigation.nav.city.edit', "runmodule.php?module=cityprefs&op=editcity&cityid={$cityId}");
+            LotgdNavigation::addNav('navigation.nav.city.delete', "runmodule.php?module=cityprefs&op=delcity&cityid={$cityId}", [
                 'attributes' => [
                     'onclick'      => 'Lotgd.confirm(this, event)',
                     'data-options' => \json_encode([
-                        'text' => \LotgdTranslator::t('section.delete.confirm', [], $textDomain),
-                    ]),
+                        'text' => LotgdTranslator::t('section.delete.confirm', [], $textDomain),
+                    ], JSON_THROW_ON_ERROR),
                 ],
             ]);
 
-            if ($mdule)
+            if ($mdule !== '' && $mdule !== '0')
             {
                 $form = module_objpref_edit('city', $mdule, $cityId);
 
                 $params['module']    = $mdule;
                 $params['cityId']    = $cityId;
 
-                if (\LotgdRequest::isPost())
+                if (LotgdRequest::isPost())
                 {
-                    $post = \LotgdRequest::getPostAll();
+                    $post = LotgdRequest::getPostAll();
 
                     \reset($post);
 
                     process_post_save_data_cityprefs($post, $cityId, $mdule);
 
-                    \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.module.saved', [], $textDomain));
+                    LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('flash.message.module.saved', [], $textDomain));
                 }
 
                 $params['form'] = $form;
 
-                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/cityprefs/run/module.twig', $params));
+                LotgdResponse::pageAddContent(LotgdTheme::render('@module/cityprefs/run/module.twig', $params));
 
-                \LotgdNavigation::addNavAllow("runmodule.php?module=cityprefs&op=editmodulesave&cityid={$cityId}&mdule={$mdule}");
+                LotgdNavigation::addNavAllow("runmodule.php?module=cityprefs&op=editmodulesave&cityid={$cityId}&mdule={$mdule}");
             }
 
-            \LotgdNavigation::addHeader('navigation.category.prefs');
+            LotgdNavigation::addHeader('navigation.category.prefs');
             module_editor_navs('prefs-city', "runmodule.php?module=cityprefs&op=editmodule&cityid={$cityId}&mdule=");
 
-            \LotgdResponse::pageEnd();
+            LotgdResponse::pageEnd();
         break;
 
         case 'editcity':
             $params['tpl'] = 'edit';
 
-            if (\LotgdRequest::isPost())
+            if (LotgdRequest::isPost())
             {
-                $post = \LotgdRequest::getPostAll();
+                $post = LotgdRequest::getPostAll();
 
                 $entity = $repository->find($cityId);
                 $entity = $repository->hydrateEntity($post, $entity);
 
-                \Doctrine::persist($entity);
-                \Doctrine::flush();
+                Doctrine::persist($entity);
+                Doctrine::flush();
 
-                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.edit.updated', [
+                LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('flash.message.edit.updated', [
                     'city'   => $entity->getCityName(),
                     'module' => $entity->getModule(),
                 ], $textDomain));
             }
 
-            \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
-            \LotgdNavigation::addNav('navigation.nav.back.properties', "runmodule.php?module=cityprefs&op=editmodule&cityid={$cityId}");
+            LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
+            LotgdNavigation::addNav('navigation.nav.back.properties', "runmodule.php?module=cityprefs&op=editmodule&cityid={$cityId}");
 
             $params['city'] = $repository->find($cityId);
         break;
@@ -349,22 +348,21 @@ function cityprefs_run()
 
             if ($entity)
             {
-                \Doctrine::remove($entity);
-                \Doctrine::flush();
+                Doctrine::remove($entity);
+                Doctrine::flush();
 
-                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.delete.success', ['name' => $entity->getCityName()], $textDomain));
+                LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('flash.message.delete.success', ['name' => $entity->getCityName()], $textDomain));
             }
 
             return redirect('runmodule.php?module=cityprefs&op=su');
-        break;
     }
 
     //-- Restore text domain for navigation
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/cityprefs/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/cityprefs/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 function process_post_save_data_cityprefs($data, $id, $module)

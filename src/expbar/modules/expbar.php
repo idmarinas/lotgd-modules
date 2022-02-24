@@ -53,33 +53,27 @@ function expbar_dohook($hookname, $args)
 {
     global $session;
 
-    switch ($hookname)
+    if ($hookname === 'charstats')
     {
-        case 'charstats':
-            require_once 'lib/experience.php';
-
-            $params = [
-                'textDomain'        => 'module_expbar',
-                'experienceRequire' => \LotgdLog::expForNextLevel($session['user']['level'], $session['user']['dragonkills']),
-                'experienceCurrent' => $session['user']['experience'],
-                'level'             => $session['user']['level'],
-                'dragonkills'       => $session['user']['dragonkills'],
-                'showNum'           => get_module_pref('user_showexpnumber'),
-                'showNext'          => get_module_pref('user_shownextgoal'),
-            ];
-
-            $params['canLevelUp'] = ($params['experienceCurrent'] >= $params['experienceRequire']);
-            $params['showLabel']  = ($params['showNum'] && $params['showNext']);
-
-            \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/expbar_charstats_script.twig', $params));
-            $bar = \LotgdTheme::render('@module/expbar_charstats_bar.twig', $params);
-
-            setcharstat(
-                \LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
-                \LotgdTranslator::t('charstats.stat.experience', [], $params['textDomain']),
-                $bar
-            );
-        break;
+        require_once 'lib/experience.php';
+        $params = [
+            'textDomain'        => 'module_expbar',
+            'experienceRequire' => LotgdLog::expForNextLevel($session['user']['level'], $session['user']['dragonkills']),
+            'experienceCurrent' => $session['user']['experience'],
+            'level'             => $session['user']['level'],
+            'dragonkills'       => $session['user']['dragonkills'],
+            'showNum'           => get_module_pref('user_showexpnumber'),
+            'showNext'          => get_module_pref('user_shownextgoal'),
+        ];
+        $params['canLevelUp'] = ($params['experienceCurrent'] >= $params['experienceRequire']);
+        $params['showLabel']  = ($params['showNum'] && $params['showNext']);
+        LotgdResponse::pageAddContent(LotgdTheme::render('@module/expbar_charstats_script.twig', $params));
+        $bar = LotgdTheme::render('@module/expbar_charstats_bar.twig', $params);
+        setcharstat(
+            LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
+            LotgdTranslator::t('charstats.stat.experience', [], $params['textDomain']),
+            $bar
+        );
     }
 
     return $args;

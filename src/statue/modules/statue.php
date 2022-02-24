@@ -47,7 +47,7 @@ function statue_install()
 }
 function statue_uninstall()
 {
-    \LotgdResponse::pageDebug('Uninstalling module.');
+    LotgdResponse::pageDebug('Uninstalling module.');
 
     return true;
 }
@@ -66,7 +66,7 @@ function statue_dohook($hookname, $args)
 
     if ($hero && ! $heroName)
     {
-        $repository = \Doctrine::getRepository('LotgdCore:Avatar');
+        $repository = Doctrine::getRepository('LotgdCore:Avatar');
         $entity     = $repository->find($hero);
 
         if ($entity)
@@ -84,15 +84,15 @@ function statue_dohook($hookname, $args)
     switch ($hookname)
     {
         case 'newday-runonce':
-            \LotgdResponse::pageDebug('Adding time to main');
+            LotgdResponse::pageDebug('Adding time to main');
             increment_module_setting('time');
-            \LotgdResponse::pageDebug("\$time = {$time}");
+            LotgdResponse::pageDebug("\$time = {$time}");
 
             foreach ($heros as $what => $city)
             {
-                \LotgdResponse::pageDebug("Adding time to {$what}");
+                LotgdResponse::pageDebug("Adding time to {$what}");
                 ++$heros[$what]['time'];
-                \LotgdResponse::pageDebug("\$city['time'] = {$city['time']}");
+                LotgdResponse::pageDebug("\$city['time'] = {$city['time']}");
             }
         break;
         case 'village-desc':
@@ -123,7 +123,7 @@ function statue_dohook($hookname, $args)
                 }
             }
 
-            $op = (string) \LotgdRequest::getQuery('op');
+            $op = (string) LotgdRequest::getQuery('op');
 
             //-- Process examine statue
             if ('astatue' == $op)
@@ -132,7 +132,7 @@ function statue_dohook($hookname, $args)
                 {
                     require_once 'lib/partner.php';
 
-                    $params['partner'] = \LotgdTool::getPartner();
+                    $params['partner'] = LotgdTool::getPartner();
 
                     $args[] = ['section.village.examine.break.closer', $params, 'module_statue'];
 
@@ -151,7 +151,7 @@ function statue_dohook($hookname, $args)
 
                     $args[] = [$text, $params, 'module_statue'];
 
-                    \LotgdLog::addNews('news.broke.statue', [
+                    LotgdLog::addNews('news.broke.statue', [
                         'playerName' => $session['user']['name'],
                         'location'   => $session['user']['location'],
                     ], 'module_statue');
@@ -193,7 +193,7 @@ function statue_dohook($hookname, $args)
                     $array    = modulehook('statue-broke', ['lost' => $debuglog]);
                     $debuglog = $array['lost'];
                     $debuglog .= "for breaking the statue in {$session['user']['location']}.";
-                    \LotgdLog::debug($debuglog);
+                    LotgdLog::debug($debuglog);
 
                     if ($session['user']['location'] == $capital)
                     {
@@ -230,7 +230,7 @@ function statue_dohook($hookname, $args)
 
             $args[] = [$text, $params, 'module_statue'];
             $args[] = ['section.village.hero.examine', $params, 'module_statue'];
-            \LotgdNavigation::addNavAllow('village.php?op=astatue');
+            LotgdNavigation::addNavAllow('village.php?op=astatue');
         break;
         case 'page-home-tpl-params':
             if ( ! get_module_setting('showonindex'))

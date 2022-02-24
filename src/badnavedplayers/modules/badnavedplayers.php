@@ -39,7 +39,7 @@ function badnavedplayers_dohook($hookname, $args)
 
     if ('superuser' == $hookname && ($session['user']['superuser'] & SU_FIX_BADNAVS))
     {
-        $repository = \Doctrine::getRepository('LotgdCore:Avatar');
+        $repository = Doctrine::getRepository('LotgdCore:Avatar');
         $query      = $repository->createQueryBuilder('u');
         $count      = (int) $query->select('count(u.id)')
             ->where('u.restorepage LIKE :page')
@@ -50,8 +50,8 @@ function badnavedplayers_dohook($hookname, $args)
             ->getSingleScalarResult()
         ;
 
-        \LotgdNavigation::addHeader('superuser.category.actions', ['textDomain' => 'navigation_app']);
-        \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=badnavedplayers', [
+        LotgdNavigation::addHeader('superuser.category.actions', ['textDomain' => 'navigation_app']);
+        LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=badnavedplayers', [
             'textDomain' => 'module_badnavedplayers',
             'params'     => [
                 'count' => $count,
@@ -68,15 +68,15 @@ function badnavedplayers_run()
 
     $textDomain = 'module_badnavedplayers';
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
-    $op = \LotgdRequest::getQuery('op');
+    $op = LotgdRequest::getQuery('op');
 
-    $repository = \Doctrine::getRepository('LotgdCore:Avatar');
+    $repository = Doctrine::getRepository('LotgdCore:Avatar');
 
     if ('fix' == $op)
     {
-        $playerIds = \LotgdRequest::getPost('fixnav');
+        $playerIds = LotgdRequest::getPost('fixnav');
 
         if (\is_array($playerIds) && ! empty($playerIds))
         {
@@ -118,7 +118,7 @@ function badnavedplayers_run()
                 ->getQuery()
                 ->execute()
             ;
-            \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('flash.message.fixed', ['n' => \count($playerIds)], $textDomain));
+            LotgdFlashMessages::addSuccessMessage(LotgdTranslator::t('flash.message.fixed', ['n' => \count($playerIds)], $textDomain));
         }
     }
 
@@ -132,14 +132,14 @@ function badnavedplayers_run()
         ->getArrayResult()
     ;
 
-    \LotgdNavigation::superuserGrottoNav();
+    LotgdNavigation::superuserGrottoNav();
 
     $params = [
         'textDomain' => $textDomain,
         'result'     => $result,
     ];
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/badnavedplayers_superuser.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/badnavedplayers_superuser.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

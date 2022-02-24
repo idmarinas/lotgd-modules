@@ -1,6 +1,6 @@
 <?php
 
-$repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+$repository = Doctrine::getRepository('LotgdLocal:ModInventory');
 $inventory  = $repository->getInventoryOfCharacter($session['user']['acctid']);
 
 $ids   = [];
@@ -18,7 +18,7 @@ foreach ($inventory as $item)
         }
     }
 
-    if ($destroyed)
+    if ($destroyed !== 0)
     {
         //-- Un-equip if are equipped
         if ($item['equipped'])
@@ -32,12 +32,12 @@ foreach ($inventory as $item)
     $count += $destroyed;
 }
 
-if (\count($ids))
+if ( ! empty($ids))
 {
     modulehook('unequip-item', ['ids' => $ids]);
 }
 
-if ($count)
+if ($count !== 0)
 {
-    \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.dragonkill', ['n' => $count], $textDomain));
+    LotgdFlashMessages::addErrorMessage(LotgdTranslator::t('flash.message.dragonkill', ['n' => $count], $textDomain));
 }

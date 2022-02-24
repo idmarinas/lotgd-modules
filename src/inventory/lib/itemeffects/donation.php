@@ -15,7 +15,7 @@ function itemeffects_increased_donation($points, $item)
 
     $session['user']['donation'] += $points;
 
-    \LotgdLog::debug("'s donation points were altered by {$points} by item {$item['id']}.");
+    LotgdLog::debug("'s donation points were altered by {$points} by item {$item['id']}.");
 
     $out = [];
 

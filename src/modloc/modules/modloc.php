@@ -45,7 +45,7 @@ function modloc_dohook($hookname, $args)
 {
     global $session;
 
-    if ( ! ($session['user']['superuser'] & SU_MANAGE_MODULES))
+    if ( ($session['user']['superuser'] & SU_MANAGE_MODULES) === 0)
     {
         return $args;
     }
@@ -57,8 +57,8 @@ function modloc_dohook($hookname, $args)
             // no break
         case 'superuser':
             $nav = $nav ?? 'superuser.category.mechanics';
-            \LotgdNavigation::addHeader($nav, ['textDomain' => 'navigation_app']);
-            \LotgdNavigation::addNav('navigation.nav.locations', 'runmodule.php?module=modloc&admin=true', ['textDomain' => 'module_modloc']);
+            LotgdNavigation::addHeader($nav, ['textDomain' => 'navigation_app']);
+            LotgdNavigation::addNav('navigation.nav.locations', 'runmodule.php?module=modloc&admin=true', ['textDomain' => 'module_modloc']);
         break;
         default: break;
     }
@@ -72,18 +72,18 @@ function modloc_run()
 
     $textDomain = 'module_modloc';
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
-    $op  = \LotgdRequest::getQuery('op');
-    $loc = \LotgdRequest::getQuery('loc');
+    $op  = LotgdRequest::getQuery('op');
+    $loc = LotgdRequest::getQuery('loc');
 
-    \LotgdNavigation::superuserGrottoNav();
+    LotgdNavigation::superuserGrottoNav();
 
-    \LotgdNavigation::addHeader('navigation.category.locations', ['textDomain' => $textDomain]);
-    \LotgdNavigation::addNav('navigation.nav.all', 'runmodule.php?module=modloc&admin=true', ['textDomain' => $textDomain]);
-    \LotgdNavigation::addNav('navigation.nav.error', 'runmodule.php?module=modloc&op=error&admin=true', ['textDomain' => $textDomain]);
+    LotgdNavigation::addHeader('navigation.category.locations', ['textDomain' => $textDomain]);
+    LotgdNavigation::addNav('navigation.nav.all', 'runmodule.php?module=modloc&admin=true', ['textDomain' => $textDomain]);
+    LotgdNavigation::addNav('navigation.nav.error', 'runmodule.php?module=modloc&op=error&admin=true', ['textDomain' => $textDomain]);
 
-    \LotgdNavigation::addHeader('navigation.category.filter', ['textDomain' => $textDomain]);
+    LotgdNavigation::addHeader('navigation.category.filter', ['textDomain' => $textDomain]);
 
     $params = [
         'textDomain' => $textDomain,
@@ -95,13 +95,13 @@ function modloc_run()
     $locations     = modulehook('validlocation');
     $locations[$t] = 0;
 
-    foreach ($locations as $name => $sname)
+    foreach (array_keys($locations) as $name)
     {
-        \LotgdNavigation::addNavNotl($name, 'runmodule.php?module=modloc&admin=true&loc='.\urlencode($name));
+        LotgdNavigation::addNavNotl($name, 'runmodule.php?module=modloc&admin=true&loc='.\urlencode($name));
         $locations[$name] = 0;
     }
 
-    $query  = \Doctrine::createQueryBuilder();
+    $query  = Doctrine::createQueryBuilder();
     $result = $query->select('u.modulename')
         ->from('LotgdCore:Modules', 'u')
 
@@ -130,74 +130,64 @@ function modloc_run()
     {
         $info = get_module_info($module['modulename']);
 
-        if (\count($info['settings']))
+        foreach ($info['settings'] as $key => $val)
         {
-            foreach ($info['settings'] as $key => $val)
+            if (isset($val) && ! empty($val) && isset($key) && ! empty($key))
             {
-                if (isset($val) && ! empty($val) && isset($key) && ! empty($key))
+                if (\is_array($val))
                 {
-                    if (\is_array($val))
-                    {
-                        $v      = $val[0];
-                        $x      = \explode('|', $v);
-                        $val[0] = $x[0];
-                        $x[0]   = $val;
-                    }
-                    else
-                    {
-                        $x = \explode('|', $val);
-                    }
+                    $v      = $val[0];
+                    $x      = \explode('|', $v);
+                    $val[0] = $x[0];
+                    $x[0]   = $val;
+                }
+                else
+                {
+                    $x = \explode('|', $val);
+                }
 
-                    if ( ! \is_array($x[0]))
+                if ( ! \is_array($x[0]))
+                {
+                    $type = \explode(',', $x[0]);
+                }
+
+                $type = isset($type[1]) ? \trim($type[1]) : 'string';
+
+                if ('location' != $type)
+                {
+                    continue;
+                }
+
+                $l = get_module_setting($key, $module['modulename']);
+
+                if (isset($locations[$l]))
+                {
+                    $locations[$l] = ((int) ($locations[$l] ?? 0)) + 1;
+
+                    if ($loc == $l && '' != $loc || '' == $loc && 'error' != $op)
                     {
-                        $type = \explode(',', $x[0]);
+                        $params['modules'][] = [
+                            'error'      => false,
+                            'location'   => $l,
+                            'module'     => $info['name'],
+                            'modulename' => $module['modulename'],
+                            'question'   => \preg_replace('/,location/', '', $x[0]),
+                        ];
                     }
+                }
+                else
+                {
+                    ++$params['errors'];
 
-                    if (isset($type[1]))
+                    if ('' == $loc || 'error' == $op)
                     {
-                        $type = \trim($type[1]);
-                    }
-                    else
-                    {
-                        $type = 'string';
-                    }
-
-                    if ('location' != $type)
-                    {
-                        continue;
-                    }
-
-                    $l = get_module_setting($key, $module['modulename']);
-
-                    if (isset($locations[$l]))
-                    {
-                        $locations[$l] = ((int) ($locations[$l] ?? 0)) + 1;
-
-                        if ($loc == $l && '' != $loc || '' == $loc && 'error' != $op)
-                        {
-                            $params['modules'][] = [
-                                'error'      => false,
-                                'location'   => $l,
-                                'module'     => $info['name'],
-                                'modulename' => $module['modulename'],
-                                'question'   => \preg_replace('/,location/', '', $x[0]),
-                            ];
-                        }
-                    }
-                    else
-                    {
-                        ++$params['errors'];
-
-                        if ('' == $loc || 'error' == $op)
-                        {
-                            $params['modules'][] = [
-                                'error'      => false,
-                                'location'   => $l,
-                                'module'     => $info['name'],
-                                'modulename' => $module['modulename'],
-                                'question'   => \preg_replace('/,location/', '', $x[0]),
-                            ];
-                        }
+                        $params['modules'][] = [
+                            'error'      => false,
+                            'location'   => $l,
+                            'module'     => $info['name'],
+                            'modulename' => $module['modulename'],
+                            'question'   => \preg_replace('/,location/', '', $x[0]),
+                        ];
                     }
                 }
             }
@@ -207,7 +197,7 @@ function modloc_run()
     $params['modulesCount'] = \count($params['modules']);
     $params['locations']    = $locations;
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/modloc_run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/modloc_run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

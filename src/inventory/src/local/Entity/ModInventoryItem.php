@@ -18,222 +18,222 @@ use Doctrine\ORM\Mapping as ORM;
 class ModInventoryItem
 {
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=100, nullable=false)
+     * @ORM\Column(type="string", length=100)
      */
     private $class = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=150, nullable=false)
+     * @ORM\Column(type="string", length=150)
      */
     private $name = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=150, nullable=false)
+     * @ORM\Column(type="string", length=150)
      */
     private $image = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="text", length=65535, nullable=false)
+     * @ORM\Column(type="text", length=65535)
      */
     private $description = '';
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      */
     private $gold = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      */
     private $gems = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      */
     private $weight = 0;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false, options={"default": "1"})
+     * @ORM\Column(type="boolean", options={"default"="1"})
      */
     private $droppable = false;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false, options={"default": "1"})
+     * @ORM\Column(type="smallint", options={"default"="1"})
      */
     private $level = 1;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      */
     private $dragonkills = 0;
 
     /**
-     * @var int
+     * @var \Lotgd\Local\Entity\ModInventoryBuff|null
      *
      * @ORM\ManyToOne(targetEntity="ModInventoryBuff")
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $buff;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false)
+     * @ORM\Column(type="smallint")
      */
     private $charges = 0;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $hide = false;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="text", length=65535, nullable=false)
+     * @ORM\Column(type="text", length=65535)
      */
     private $customValue = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="text", length=65535, nullable=false)
+     * @ORM\Column(type="text", length=65535)
      */
     private $execValue = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=70, nullable=false)
+     * @ORM\Column(type="string", length=70)
      */
     private $execText = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="text", length=65535, nullable=false)
+     * @ORM\Column(type="text", length=65535)
      */
     private $execRequisites = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="text", length=65535, nullable=false)
+     * @ORM\Column(type="text", length=65535)
      */
     private $execCustomValue = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=70, nullable=false)
+     * @ORM\Column(type="string", length=70)
      */
     private $noEffectText = '';
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
     private $activationHook = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false)
+     * @ORM\Column(type="smallint")
      */
     private $findChance = 0;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=50, nullable=false, options={"default": "common"})
+     * @ORM\Column(type="string", length=50, options={"default"="common"})
      */
     private $findRarity = 'common';
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false)
+     * @ORM\Column(type="smallint")
      */
     private $looseChance = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false)
+     * @ORM\Column(type="smallint")
      */
     private $dkLooseChance = 0;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false, options={"default": "1"})
+     * @ORM\Column(type="boolean", options={"default"="1"})
      */
     private $sellable = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false, options={"default": "1"})
+     * @ORM\Column(type="boolean", options={"default"="1"})
      */
     private $buyable = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $uniqueForServer = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $uniqueForPlayer = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $equippable = false;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=20, nullable=false, options={"default": "none"})
+     * @ORM\Column(type="string", length=20, options={"default"="none"})
      */
     private $equipWhere = 'none';
 

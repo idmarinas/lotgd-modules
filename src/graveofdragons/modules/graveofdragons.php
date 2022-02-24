@@ -52,7 +52,7 @@ function graveofdragons_runevent($type, $from)
     global $session;
 
     $from                          = 'graveyard.php?';
-    $op                            = \LotgdRequest::getQuery('op');
+    $op                            = LotgdRequest::getQuery('op');
     $session['user']['specialinc'] = 'module:graveofdragons';
 
     $textDomain = 'module_graveofdragons';
@@ -62,7 +62,7 @@ function graveofdragons_runevent($type, $from)
         'deathOverlord' => LotgdSetting::getSetting('deathoverlord', '`$Ramius`0'),
     ];
 
-    \LotgdNavigation::setTextDomain($textDomain);
+    LotgdNavigation::setTextDomain($textDomain);
 
     if ('' == $op)
     {
@@ -71,10 +71,10 @@ function graveofdragons_runevent($type, $from)
 
         if ($params['canEnter'])
         {
-            \LotgdNavigation::addNav('navigation.nav.default.descend', $from.'op=entercavern');
+            LotgdNavigation::addNav('navigation.nav.default.descend', $from.'op=entercavern');
         }
 
-        \LotgdNavigation::addNav('navigation.nav.default.return', $from.'op=depart');
+        LotgdNavigation::addNav('navigation.nav.default.return', $from.'op=depart');
     }
     elseif ('depart' == $op)
     {
@@ -94,10 +94,10 @@ function graveofdragons_runevent($type, $from)
 
         if ($params['canSearch'])
         {
-            \LotgdNavigation::addNav('navigation.nav.entercavern.search', $from.'op=searchcavern');
+            LotgdNavigation::addNav('navigation.nav.entercavern.search', $from.'op=searchcavern');
         }
 
-        \LotgdNavigation::addNav('navigation.nav.entercavern.return', $from.'op=surface');
+        LotgdNavigation::addNav('navigation.nav.entercavern.return', $from.'op=surface');
     }
     elseif ('searchcavern' == $op)
     {
@@ -127,9 +127,9 @@ function graveofdragons_runevent($type, $from)
             case 3:
                 $params['rand'] = 2;
 
-                \LotgdNavigation::addNav('navigation.nav.searchcavern.take', $from.'op=takegold');
-                \LotgdNavigation::addNav('navigation.nav.searchcavern.pray', $from.'op=darkaltar');
-                \LotgdNavigation::addNav('navigation.nav.searchcavern.return', $from.'op=turn');
+                LotgdNavigation::addNav('navigation.nav.searchcavern.take', $from.'op=takegold');
+                LotgdNavigation::addNav('navigation.nav.searchcavern.pray', $from.'op=darkaltar');
+                LotgdNavigation::addNav('navigation.nav.searchcavern.return', $from.'op=turn');
             break;
             case 4:
             case 5:
@@ -137,7 +137,7 @@ function graveofdragons_runevent($type, $from)
                 $params['rand']     = 3;
                 $params['randGold'] = e_rand(get_module_setting('mingold'), get_module_setting('maxgold'));
 
-                \LotgdLog::debug("gained {$params['randGold']} gold from the body of a guide in the shades");
+                LotgdLog::debug("gained {$params['randGold']} gold from the body of a guide in the shades");
 
                 $session['user']['gold'] += $params['randGold'];
                 $session['user']['specialinc'] = '';
@@ -160,7 +160,7 @@ function graveofdragons_runevent($type, $from)
                 $session['user']['gold'] += $params['randGold'];
                 $session['user']['specialinc'] = '';
 
-                \LotgdLog::debug("gained {$params['randGold']} gold and {$params['randGems']} gems digging in the Dragon's Graveyard.");
+                LotgdLog::debug("gained {$params['randGold']} gold and {$params['randGems']} gems digging in the Dragon's Graveyard.");
             break;
             case 13:
             case 14:
@@ -182,7 +182,7 @@ function graveofdragons_runevent($type, $from)
                 $session['user']['gems'] += 2;
                 $session['user']['specialinc'] = '';
 
-                \LotgdLog::debug('gained 2 gems from the eye sockets of a dead dragon.');
+                LotgdLog::debug('gained 2 gems from the eye sockets of a dead dragon.');
             break;
         }
     }
@@ -200,14 +200,14 @@ function graveofdragons_runevent($type, $from)
     }
     elseif ('takegold' == $op)
     {
-        \LotgdLog::debug("Lost all favour from steeling from the cursed altar of {$params['deathOverlord']}.");
+        LotgdLog::debug("Lost all favour from steeling from the cursed altar of {$params['deathOverlord']}.");
         $session['user']['deathpower'] = 0;
         $session['user']['specialinc'] = '';
     }
 
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/graveofdragons/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/graveofdragons/run.twig', $params));
 }
 
 function graveofdragons_run()

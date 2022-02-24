@@ -17,207 +17,207 @@ use Doctrine\ORM\Mapping as ORM;
 class ModInventoryBuff
 {
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=255, nullable=false, options={"collation": "utf8_general_ci"})
+     * @ORM\Column(type="string", length=255, options={"collation"="utf8_general_ci"})
      */
     private $key;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $name = '';
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false, options={"default": "1"})
+     * @ORM\Column(type="smallint", options={"default"="1"})
      */
     private $rounds = 1;
 
     /**
      * @var float|null
      *
-     * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(type="float", precision=10, nullable=true)
      */
     private $dmgMod;
 
     /**
      * @var float|null
      *
-     * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(type="float", precision=10, nullable=true)
      */
     private $atkMod;
 
     /**
      * @var float|null
      *
-     * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(type="float", precision=10, nullable=true)
      */
     private $defMod;
 
     /**
      * @var float|null
      *
-     * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(type="float", precision=10, nullable=true)
      */
     private $badGuyDmgMod;
 
     /**
      * @var float|null
      *
-     * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(type="float", precision=10, nullable=true)
      */
     private $badGuyAtkMod;
 
     /**
      * @var float|null
      *
-     * @ORM\Column(type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(type="float", precision=10, nullable=true)
      */
     private $badGuyDefMod;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     private $lifeTap = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     private $damageShield = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     private $regen = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false, options={"unsigned": true})
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     private $minionCount = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false)
+     * @ORM\Column(type="smallint")
      */
     private $maxBadGuyDamage = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false)
+     * @ORM\Column(type="smallint")
      */
     private $minBadGuyDamage = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false)
+     * @ORM\Column(type="smallint")
      */
     private $maxGoodGuyDamage = 0;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="smallint", nullable=false)
+     * @ORM\Column(type="smallint")
      */
     private $minGoodGuyDamage = 0;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=350, nullable=false)
+     * @ORM\Column(type="string", length=350)
      */
     private $startMsg = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=350, nullable=false)
+     * @ORM\Column(type="string", length=350)
      */
     private $roundMsg = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=350, nullable=false)
+     * @ORM\Column(type="string", length=350)
      */
     private $wearOff = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=350, nullable=false)
+     * @ORM\Column(type="string", length=350)
      */
     private $effectFailMsg = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=350, nullable=false)
+     * @ORM\Column(type="string", length=350)
      */
     private $effectNoDmgMsg = '';
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=350, nullable=false)
+     * @ORM\Column(type="string", length=350)
      */
     private $effectMsg = '';
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $allowInPvp = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $allowInTrain = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $surviveNewDay = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $expireAfterFight = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $invulnerable = false;
 

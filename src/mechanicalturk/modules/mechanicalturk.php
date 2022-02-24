@@ -1,5 +1,6 @@
 <?php
 
+use Tracy\Debugger;
 function mechanicalturk_getmoduleinfo()
 {
     return [
@@ -20,7 +21,7 @@ function mechanicalturk_getmoduleinfo()
 
 function mechanicalturk_install()
 {
-    \Doctrine::createSchema([
+    Doctrine::createSchema([
         'LotgdLocal:ModMechanicalTurk',
     ], true);
 
@@ -32,7 +33,7 @@ function mechanicalturk_install()
 
 function mechanicalturk_uninstall()
 {
-    \Doctrine::dropSchema([
+    Doctrine::dropSchema([
         'LotgdLocal:ModMechanicalTurk',
     ]);
 
@@ -46,12 +47,12 @@ function mechanicalturk_dohook($hookname, $args)
     switch ($hookname)
     {
         case 'forest':
-            \LotgdNavigation::addHeader('category.action', ['textDomain' => 'navigation_forest']);
-            \LotgdNavigation::addNav('navigation.nav.report', 'runmodule.php?module=mechanicalturk&creatureaction=report', ['textDomain' => 'module_mechanicalturk']);
+            LotgdNavigation::addHeader('category.action', ['textDomain' => 'navigation_forest']);
+            LotgdNavigation::addNav('navigation.nav.report', 'runmodule.php?module=mechanicalturk&creatureaction=report', ['textDomain' => 'module_mechanicalturk']);
         break;
         case 'superuser':
-            \LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation_app']);
-            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
+            LotgdNavigation::addHeader('superuser.category.module', ['textDomain' => 'navigation_app']);
+            LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
         break;
         default: break;
     }
@@ -63,28 +64,28 @@ function mechanicalturk_run()
 {
     global $session;
 
-    $op   = \LotgdRequest::getQuery('creatureaction');
-    $page = (int) \LotgdRequest::getQuery('page');
+    $op   = LotgdRequest::getQuery('creatureaction');
+    $page = (int) LotgdRequest::getQuery('page');
     $page = \max(1, $page);
 
     $points     = get_module_setting('addpoints');
     $textDomain = 'module_mechanicalturk';
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
         'points'     => $points,
     ];
 
-    $repository = \Doctrine::getRepository('LotgdLocal:ModMechanicalTurk');
+    $repository = Doctrine::getRepository('LotgdLocal:ModMechanicalTurk');
 
     switch ($op)
     {
         case 'reject':
             $params['tpl'] = 'reject';
 
-            $id = \LotgdRequest::getQuery('id');
+            $id = LotgdRequest::getQuery('id');
 
             $creature = $repository->find($id);
 
@@ -95,18 +96,18 @@ function mechanicalturk_run()
 
             systemmail($creature->getSubmittedbyid(), $subject, $body);
 
-            \Doctrine::remove($creature);
+            Doctrine::remove($creature);
 
-            \Doctrine::flush();
+            Doctrine::flush();
 
-            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
+            LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
         break;
         case 'accept':
             $params['tpl'] = 'accept';
 
             require_once 'lib/showform.php';
 
-            $id = \LotgdRequest::getQuery('id');
+            $id = LotgdRequest::getQuery('id');
 
             $creature = $repository->find($id);
             $row      = $repository->extractEntity($creature);
@@ -134,36 +135,36 @@ function mechanicalturk_run()
 
             systemmail($row['submittedbyid'], $subject, $body);
 
-            $accountRepo = \Doctrine::getRepository('LotgdCore:User');
+            $accountRepo = Doctrine::getRepository('LotgdCore:User');
             $entity      = $accountRepo->find($row['submittedbyid']);
 
             if ($entity)
             {
                 $entity->setDonation($entity->getDonation() + $points);
 
-                \Doctrine::persist($entity);
+                Doctrine::persist($entity);
             }
 
-            \LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
+            LotgdNavigation::addNav('navigation.nav.superuser', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
 
-            \LotgdLog::debug("Add {$points} donation points as rewards for creature submit.", false, $row['submittedbyid'], 'mechanicalturk');
+            LotgdLog::debug("Add {$points} donation points as rewards for creature submit.", false, $row['submittedbyid'], 'mechanicalturk');
 
-            \Doctrine::remove($creature);
+            Doctrine::remove($creature);
 
-            \Doctrine::flush();
+            Doctrine::flush();
         break;
         case 'showsubmitted':
             $params['tpl'] = 'showsubmitted';
 
             $params['paginator'] = $repository->getPaginator($repository->createQueryBuilder('u'), $page);
 
-            \LotgdNavigation::addNav('navigation.nav.return.superuser', 'superuser.php', ['textDomain' => $textDomain]);
-            \LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
+            LotgdNavigation::addNav('navigation.nav.return.superuser', 'superuser.php', ['textDomain' => $textDomain]);
+            LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=mechanicalturk&creatureaction=showsubmitted', ['textDomain' => 'module_mechanicalturk']);
         break;
         case 'save':
             $params['tpl'] = 'save';
 
-            $post = \LotgdRequest::getPostAll();
+            $post = LotgdRequest::getPostAll();
 
             $entity = $repository->hydrateEntity($post);
 
@@ -174,26 +175,26 @@ function mechanicalturk_run()
 
             try
             {
-                \Doctrine::persist($entity);
-                \Doctrine::flush();
+                Doctrine::persist($entity);
+                Doctrine::flush();
 
-                \LotgdFlashMessages::addSuccessMessage(\LotgdTranslator::t('flash.message.save.success', [], $textDomain));
+                LotgdFlashMessages::addSuccessMessage(LotgdTranslator::t('flash.message.save.success', [], $textDomain));
             }
-            catch (\Throwable $th)
+            catch (Throwable $th)
             {
-                \Tracy\Debugger::log($th);
+                Debugger::log($th);
 
-                \LotgdFlashMessages::addErrorMessage(\LotgdTranslator::t('flash.message.save.error', [], $textDomain));
+                LotgdFlashMessages::addErrorMessage(LotgdTranslator::t('flash.message.save.error', [], $textDomain));
             }
 
-            \LotgdNavigation::addNav('navigation.nav.back', 'forest.php', ['textDomain' => $textDomain]);
+            LotgdNavigation::addNav('navigation.nav.back', 'forest.php', ['textDomain' => $textDomain]);
         break;
         case 'report':
         default:
             $params['tpl'] = 'default';
             require_once 'lib/showform.php';
 
-            $query  = \Doctrine::createQueryBuilder();
+            $query  = Doctrine::createQueryBuilder();
             $result = $query->select('u.creaturecategory')
                 ->from('LotgdCore:Creatures', 'u')
 
@@ -228,14 +229,14 @@ function mechanicalturk_run()
                 'notes'               => 'Notes on creature analysis,textarea',
             ];
 
-            \LotgdNavigation::addHeader('navigation.category.return', ['textDomain' => $textDomain]);
-            \LotgdNavigation::addNav('navigation.nav.back', 'forest.php', ['textDomain' => $textDomain]);
+            LotgdNavigation::addHeader('navigation.category.return', ['textDomain' => $textDomain]);
+            LotgdNavigation::addNav('navigation.nav.back', 'forest.php', ['textDomain' => $textDomain]);
 
             $params['form'] = lotgd_showform($form, $row, false, false, false);
         break;
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/mechanicalturk/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/mechanicalturk/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

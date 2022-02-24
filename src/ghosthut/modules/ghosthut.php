@@ -63,8 +63,8 @@ function ghosthut_dohook($hookname, $args)
         case 'village':
             if ($session['user']['location'] == get_module_setting('ghosthutloc'))
             {
-                \LotgdNavigation::addHeader('headers.tavern');
-                \LotgdNavigation::addNav('navigation.nav.hut', 'runmodule.php?module=ghosthut', ['textDomain' => 'module_ghosthut']);
+                LotgdNavigation::addHeader('headers.tavern');
+                LotgdNavigation::addNav('navigation.nav.hut', 'runmodule.php?module=ghosthut', ['textDomain' => 'module_ghosthut']);
             }
         break;
         default: break;
@@ -77,20 +77,20 @@ function ghosthut_run()
 {
     global $session;
 
-    $op       = \LotgdRequest::getQuery('op');
+    $op       = LotgdRequest::getQuery('op');
     $eattoday = get_module_pref('eattoday');
 
     $turn = \mt_rand(1, 8);
 
     $textDomain = 'module_ghosthut';
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
     ];
 
-    \LotgdNavigation::villageNav();
+    LotgdNavigation::villageNav();
 
     if ($eattoday >= 3)
     {
@@ -103,17 +103,17 @@ function ghosthut_run()
         $params['tpl'] = 'default';
         $turn          = 2;
 
-        \LotgdNavigation::addHeader('navigation.category.eat', ['textDomain' => $textDomain]);
-        \LotgdNavigation::addNav('navigation.nav.eat1', 'runmodule.php?module=ghosthut&op=1', ['textDomain' => $textDomain]);
-        \LotgdNavigation::addNav('navigation.nav.eat2', 'runmodule.php?module=ghosthut&op=2', ['textDomain' => $textDomain]);
-        \LotgdNavigation::addNav('navigation.nav.eat3', 'runmodule.php?module=ghosthut&op=3', ['textDomain' => $textDomain]);
-        \LotgdNavigation::addNav('navigation.nav.eat4', 'runmodule.php?module=ghosthut&op=4', ['textDomain' => $textDomain]);
+        LotgdNavigation::addHeader('navigation.category.eat', ['textDomain' => $textDomain]);
+        LotgdNavigation::addNav('navigation.nav.eat1', 'runmodule.php?module=ghosthut&op=1', ['textDomain' => $textDomain]);
+        LotgdNavigation::addNav('navigation.nav.eat2', 'runmodule.php?module=ghosthut&op=2', ['textDomain' => $textDomain]);
+        LotgdNavigation::addNav('navigation.nav.eat3', 'runmodule.php?module=ghosthut&op=3', ['textDomain' => $textDomain]);
+        LotgdNavigation::addNav('navigation.nav.eat4', 'runmodule.php?module=ghosthut&op=4', ['textDomain' => $textDomain]);
     }
     elseif ('3' == $op)
     {
         $params['tpl'] = 'eat3';
 
-        $session['user']['hitpoints'] = ($session['user']['hitpoints'] * 0.85);
+        $session['user']['hitpoints'] *= 0.85;
         $session['user']['hitpoints'] = \max(1, $session['user']['hitpoints']);
 
         $eattoday += 3;
@@ -124,7 +124,7 @@ function ghosthut_run()
     {
         $params['tpl'] = 'eat4';
 
-        $session['user']['hitpoints'] = ($session['user']['hitpoints'] * 0.65);
+        $session['user']['hitpoints'] *= 0.65;
         $session['user']['hitpoints'] = \max(1, $session['user']['hitpoints']);
 
         if ($session['user']['charm'] > 0)
@@ -145,7 +145,7 @@ function ghosthut_run()
 
         if ($eattoday > 0 && $eattoday < 3)
         {
-            \LotgdNavigation::addNav('navigation.nav.return', 'runmodule.php?module=ghosthut', ['textDomain' => $textDomain]);
+            LotgdNavigation::addNav('navigation.nav.return', 'runmodule.php?module=ghosthut', ['textDomain' => $textDomain]);
         }
     }
     elseif ('2' == $op)
@@ -157,7 +157,7 @@ function ghosthut_run()
 
         if ($eattoday > 0 && $eattoday < 3)
         {
-            \LotgdNavigation::addNav('navigation.nav.return', 'runmodule.php?module=ghosthut', ['textDomain' => $textDomain]);
+            LotgdNavigation::addNav('navigation.nav.return', 'runmodule.php?module=ghosthut', ['textDomain' => $textDomain]);
         }
     }
 
@@ -168,7 +168,7 @@ function ghosthut_run()
         $session['user']['turns'] += 2;
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/ghosthut/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/ghosthut/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Tracy\Debugger;
 //addnews ready
 // mail ready
 // translator ready
@@ -45,7 +46,7 @@ function specialtythiefskills_uninstall()
     // rechoose at new day
     try
     {
-        $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+        $charactersRepository = Doctrine::getRepository('LotgdCore:Avatar');
         $query                = $charactersRepository->getQueryBuilder();
         $query->update('LotgdCore:Avatar', 'u')
             ->set('u.specialty', '')
@@ -57,9 +58,9 @@ function specialtythiefskills_uninstall()
             ->execute()
         ;
     }
-    catch (\Throwable $th)
+    catch (Throwable $th)
     {
-        \Tracy\Debugger::log($th);
+        Debugger::log($th);
 
         return false;
     }
@@ -72,7 +73,7 @@ function specialtythiefskills_dohook($hookname, $args)
     global $session,$resline;
 
     $spec  = 'TS';
-    $name  = \LotgdTranslator::t('specialty.name', [], 'module_specialtythiefskills');
+    $name  = LotgdTranslator::t('specialty.name', [], 'module_specialtythiefskills');
     $ccode = '`^';
 
     switch ($hookname)
@@ -84,8 +85,8 @@ function specialtythiefskills_dohook($hookname, $args)
         case 'choose-specialty':
             if ('' == $session['user']['specialty'] || '0' == $session['user']['specialty'])
             {
-                \LotgdNavigation::addHeader('category.basic');
-                \LotgdNavigation::addNavNotl("{$ccode}{$name}`0", "newday.php?setspecialty={$spec}{$resline}");
+                LotgdNavigation::addHeader('category.basic');
+                LotgdNavigation::addNavNotl("{$ccode}{$name}`0", "newday.php?setspecialty={$spec}{$resline}");
 
                 $params = [
                     'colorCode' => $ccode,
@@ -93,15 +94,15 @@ function specialtythiefskills_dohook($hookname, $args)
                     'resLine'   => $resline,
                 ];
 
-                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/specialtythiefskills/dohook/choose-specialty.twig', $params));
+                LotgdResponse::pageAddContent(LotgdTheme::render('@module/specialtythiefskills/dohook/choose-specialty.twig', $params));
             }
         break;
         case 'set-specialty':
             if ($session['user']['specialty'] == $spec)
             {
-                \LotgdResponse::pageStart($name);
+                LotgdResponse::pageStart($name);
 
-                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/specialtythiefskills/dohook/set-specialty.twig', []));
+                LotgdResponse::pageAddContent(LotgdTheme::render('@module/specialtythiefskills/dohook/set-specialty.twig', []));
             }
         break;
         case 'specialtycolor':
@@ -163,7 +164,7 @@ function specialtythiefskills_dohook($hookname, $args)
 
             if ($session['user']['specialty'] == $spec)
             {
-                $amt = $amt + $bonus;
+                $amt += $bonus;
             }
             set_module_pref('uses', $amt);
             break;
@@ -172,49 +173,49 @@ function specialtythiefskills_dohook($hookname, $args)
             $script = $args['script'];
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('module_specialtythiefskills');
+            LotgdNavigation::setTextDomain('module_specialtythiefskills');
 
             if ($uses > 0)
             {
-                \LotgdNavigation::addHeader('navigation.category.uses', [
+                LotgdNavigation::addHeader('navigation.category.uses', [
                     'params' => [
                         'color' => $ccode,
                         'name'  => $name,
                         'uses'  => $uses,
                     ],
                 ]);
-                \LotgdNavigation::addNav('navigation.nav.skill1', "{$script}op=fight&skill={$spec}&l=1", [
+                LotgdNavigation::addNav('navigation.nav.skill1', "{$script}op=fight&skill={$spec}&l=1", [
                     'params' => ['color' => $ccode, 'use' => 1],
                 ]);
             }
 
             if ($uses > 1)
             {
-                \LotgdNavigation::addNav('navigation.nav.skill2', "{$script}op=fight&skill={$spec}&l=1", [
+                LotgdNavigation::addNav('navigation.nav.skill2', "{$script}op=fight&skill={$spec}&l=1", [
                     'params' => ['color' => $ccode, 'use' => 2],
                 ]);
             }
 
             if ($uses > 2)
             {
-                \LotgdNavigation::addNav('navigation.nav.skill3', "{$script}op=fight&skill={$spec}&l=1", [
+                LotgdNavigation::addNav('navigation.nav.skill3', "{$script}op=fight&skill={$spec}&l=1", [
                     'params' => ['color' => $ccode, 'use' => 3],
                 ]);
             }
 
             if ($uses > 4)
             {
-                \LotgdNavigation::addNav('navigation.nav.skill4', "{$script}op=fight&skill={$spec}&l=1", [
+                LotgdNavigation::addNav('navigation.nav.skill4', "{$script}op=fight&skill={$spec}&l=1", [
                     'params' => ['color' => $ccode, 'use' => 5],
                 ]);
             }
 
             //-- Restore text domain for navigation
-            \LotgdNavigation::setTextDomain();
+            LotgdNavigation::setTextDomain();
         break;
         case 'apply-specialties':
-            $skill = \LotgdRequest::getQuery('skill');
-            $l     = \LotgdRequest::getQuery('l');
+            $skill = LotgdRequest::getQuery('skill');
+            $l     = LotgdRequest::getQuery('l');
 
             if ($skill == $spec)
             {
@@ -224,46 +225,46 @@ function specialtythiefskills_dohook($hookname, $args)
                     {
                         case 1:
                             LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('ts1', [
-                                'startmsg'     => \LotgdTranslator::t('skill.ts1.startmsg', [], 'module_specialtythiefskills'),
-                                'name'         => \LotgdTranslator::t('skill.ts1.name', [], 'module_specialtythiefskills'),
+                                'startmsg'     => LotgdTranslator::t('skill.ts1.startmsg', [], 'module_specialtythiefskills'),
+                                'name'         => LotgdTranslator::t('skill.ts1.name', [], 'module_specialtythiefskills'),
                                 'rounds'       => 5,
-                                'wearoff'      => \LotgdTranslator::t('skill.ts1.wearoff', [], 'module_specialtythiefskills'),
-                                'roundmsg'     => \LotgdTranslator::t('skill.ts1.roundmsg', [], 'module_specialtythiefskills'),
+                                'wearoff'      => LotgdTranslator::t('skill.ts1.wearoff', [], 'module_specialtythiefskills'),
+                                'roundmsg'     => LotgdTranslator::t('skill.ts1.roundmsg', [], 'module_specialtythiefskills'),
                                 'badguyatkmod' => 0.5,
                                 'schema'       => 'module_specialtythiefskills',
                             ]);
                             break;
                         case 2:
                             LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('ts2', [
-                                'startmsg' => \LotgdTranslator::t('skill.ts2.startmsg', [], 'module_specialtythiefskills'),
-                                'name'     => \LotgdTranslator::t('skill.ts2.name', [], 'module_specialtythiefskills'),
+                                'startmsg' => LotgdTranslator::t('skill.ts2.startmsg', [], 'module_specialtythiefskills'),
+                                'name'     => LotgdTranslator::t('skill.ts2.name', [], 'module_specialtythiefskills'),
                                 'rounds'   => 5,
-                                'wearoff'  => \LotgdTranslator::t('skill.ts2.waroff', [], 'module_specialtythiefskills'),
+                                'wearoff'  => LotgdTranslator::t('skill.ts2.waroff', [], 'module_specialtythiefskills'),
                                 'atkmod'   => 2,
-                                'roundmsg' => \LotgdTranslator::t('skill.ts2.roundmsg', [], 'module_specialtythiefskills'),
+                                'roundmsg' => LotgdTranslator::t('skill.ts2.roundmsg', [], 'module_specialtythiefskills'),
                                 'schema'   => 'module_specialtythiefskills',
                             ]);
                             break;
                         case 3:
                             LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('ts3', [
-                                'startmsg'     => \LotgdTranslator::t('skill.ts3.startmsg', [], 'module_specialtythiefskills'),
-                                'name'         => \LotgdTranslator::t('skill.ts3.name', [], 'module_specialtythiefskills'),
+                                'startmsg'     => LotgdTranslator::t('skill.ts3.startmsg', [], 'module_specialtythiefskills'),
+                                'name'         => LotgdTranslator::t('skill.ts3.name', [], 'module_specialtythiefskills'),
                                 'rounds'       => 5,
-                                'wearoff'      => \LotgdTranslator::t('skill.ts3.wearoff', [], 'module_specialtythiefskills'),
-                                'roundmsg'     => \LotgdTranslator::t('skill.ts3.roundmsg', [], 'module_specialtythiefskills'),
+                                'wearoff'      => LotgdTranslator::t('skill.ts3.wearoff', [], 'module_specialtythiefskills'),
+                                'roundmsg'     => LotgdTranslator::t('skill.ts3.roundmsg', [], 'module_specialtythiefskills'),
                                 'badguyatkmod' => 0,
                                 'schema'       => 'module_specialtythiefskills',
                             ]);
                             break;
                         case 5:
                             LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('ts5', [
-                                'startmsg' => \LotgdTranslator::t('skill.ts5.startmsg', [], 'module_specialtythiefskills'),
-                                'name'     => \LotgdTranslator::t('skill.ts5.name', [], 'module_specialtythiefskills'),
+                                'startmsg' => LotgdTranslator::t('skill.ts5.startmsg', [], 'module_specialtythiefskills'),
+                                'name'     => LotgdTranslator::t('skill.ts5.name', [], 'module_specialtythiefskills'),
                                 'rounds'   => 5,
-                                'wearoff'  => \LotgdTranslator::t('skill.ts5.wearoff', [], 'module_specialtythiefskills'),
+                                'wearoff'  => LotgdTranslator::t('skill.ts5.wearoff', [], 'module_specialtythiefskills'),
                                 'atkmod'   => 3,
                                 'defmod'   => 3,
-                                'roundmsg' => \LotgdTranslator::t('skill.ts5.roundmsg', [], 'module_specialtythiefskills'),
+                                'roundmsg' => LotgdTranslator::t('skill.ts5.roundmsg', [], 'module_specialtythiefskills'),
                                 'schema'   => 'module_specialtythiefskills',
                             ]);
                         break;
@@ -274,7 +275,7 @@ function specialtythiefskills_dohook($hookname, $args)
                 else
                 {
                     LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('ts0', [
-                        'startmsg' => \LotgdTranslator::t('skill.ts0.startmsg', [], 'module_specialtythiefskills'),
+                        'startmsg' => LotgdTranslator::t('skill.ts0.startmsg', [], 'module_specialtythiefskills'),
                         'rounds'   => 1,
                         'schema'   => 'module_specialtythiefskills',
                     ]);

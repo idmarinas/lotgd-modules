@@ -29,45 +29,41 @@ function onlinelist_uninstall()
 
 function onlinelist_dohook($hookname, $args)
 {
-    switch ($hookname)
+    if ($hookname === 'onlinecharlist')
     {
-        case 'onlinecharlist':
-            $args['handled'] = true;
+        $args['handled'] = true;
+        $repository = Doctrine::getRepository('LotgdCore:User');
+        $query      = $repository->createQueryBuilder('u');
+        $expr       = $query->expr();
 
-            $repository = \Doctrine::getRepository('LotgdCore:User');
-            $query      = $repository->createQueryBuilder('u');
-            $expr       = $query->expr();
+        //-- Staff users
+        $resultStaff = $query->select('c.name')
+            ->leftJoin('LotgdCore:Avatar', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
+            ->where('u.locked = 0 AND u.loggedin = 1 AND u.superuser > 0')
+            ->orderBy('u.superuser', 'DESC')
+            ->addOrderBy('c.level', 'DESC')
 
-            //-- Staff users
-            $resultStaff = $query->select('c.name')
-                ->leftJoin('LotgdCore:Avatar', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
-                ->where('u.locked = 0 AND u.loggedin = 1 AND u.superuser > 0')
-                ->orderBy('u.superuser', 'DESC')
-                ->addOrderBy('c.level', 'DESC')
+            ->getQuery()
+            ->getArrayResult()
+        ;
 
-                ->getQuery()
-                ->getArrayResult()
-            ;
+        //-- Normal users
+        $query         = $repository->createQueryBuilder('u');
+        $resultPlayers = $query->select('c.name')
+            ->leftJoin('LotgdCore:Avatar', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
+            ->where('u.locked = 0 AND u.loggedin = 1 AND u.superuser = 0')
+            ->orderBy('u.superuser', 'DESC')
+            ->addOrderBy('c.level', 'DESC')
 
-            //-- Normal users
-            $query         = $repository->createQueryBuilder('u');
-            $resultPlayers = $query->select('c.name')
-                ->leftJoin('LotgdCore:Avatar', 'c', 'with', $expr->eq('c.acct', 'u.acctid'))
-                ->where('u.locked = 0 AND u.loggedin = 1 AND u.superuser = 0')
-                ->orderBy('u.superuser', 'DESC')
-                ->addOrderBy('c.level', 'DESC')
-
-                ->getQuery()
-                ->getArrayResult()
-            ;
-
-            $args['list'] = \LotgdTheme::render('@module/onlinelist_onlinecharlist.twig', [
-                'staff'      => $resultStaff,
-                'players'    => $resultPlayers,
-                'textDomain' => 'module_onlinelist',
-            ]);
-            $args['count'] = \count($resultStaff) + \count($resultPlayers);
-        break;
+            ->getQuery()
+            ->getArrayResult()
+        ;
+        $args['list'] = LotgdTheme::render('@module/onlinelist_onlinecharlist.twig', [
+            'staff'      => $resultStaff,
+            'players'    => $resultPlayers,
+            'textDomain' => 'module_onlinelist',
+        ]);
+        $args['count'] = \count($resultStaff) + \count($resultPlayers);
     }
 
     return $args;

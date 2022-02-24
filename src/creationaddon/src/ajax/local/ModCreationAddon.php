@@ -2,6 +2,7 @@
 
 namespace Lotgd\Ajax\Local;
 
+use LotgdTheme;
 use Jaxon\Response\Response;
 use Lotgd\Core\AjaxAbstract;
 
@@ -14,7 +15,7 @@ class ModCreationAddon extends AjaxAbstract
         $params = [
             'privacy' => get_module_setting('privacy', 'creationaddon'),
         ];
-        $content = \LotgdTheme::render('@module/creationaddon/run/privacy.twig', $params);
+        $content = LotgdTheme::render('@module/creationaddon/run/privacy.twig', $params);
 
         // Show the dialog
         $response->dialog->show('', ['content' => $content ?: '---'], []);
@@ -30,7 +31,7 @@ class ModCreationAddon extends AjaxAbstract
             'terms' => get_module_setting('terms', 'creationaddon'),
         ];
 
-        $content = \LotgdTheme::render('@module/creationaddon/run/terms.twig', $params);
+        $content = LotgdTheme::render('@module/creationaddon/run/terms.twig', $params);
 
         // Show the dialog
         $response->dialog->show('', ['content' => $content ?: '---'], []);

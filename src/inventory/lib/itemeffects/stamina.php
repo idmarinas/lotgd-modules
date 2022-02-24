@@ -32,7 +32,7 @@ function itemeffects_restore_stamina($stamina, $item)
             'module_inventory',
         ];
 
-        \LotgdLog::debug("Restore {$stamina} points of Stamina by using {$item['id']}");
+        LotgdLog::debug("Restore {$stamina} points of Stamina by using {$item['id']}");
     }
     else
     {
@@ -47,7 +47,7 @@ function itemeffects_restore_stamina($stamina, $item)
             'module_inventory',
         ];
 
-        \LotgdLog::debug("Lost {$stamina} points of Stamina by using {$item['id']}");
+        LotgdLog::debug("Lost {$stamina} points of Stamina by using {$item['id']}");
     }
 
     return $out;

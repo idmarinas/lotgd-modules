@@ -53,7 +53,7 @@ function newbieisland_uninstall()
     $vname = LotgdSetting::getSetting('villagename', LOCATION_FIELDS);
     $gname = get_module_setting('villagename');
 
-    $repository = \Doctrine::getRepository('LotgdCore:Avatar');
+    $repository = Doctrine::getRepository('LotgdCore:Avatar');
     $query      = $repository->getQueryBuilder();
 
     $query->update('LotgdCore:Avatar', 'u')
@@ -200,11 +200,11 @@ function newbieisland_dohook($hookname, $args)
 
                 LotgdKernel::get('lotgd_core.combat.battle')->battleShowResults($lotgdBattleContent);
 
-                \LotgdNavigation::addNav('common.nav.continue', 'runmodule.php?module=newbieisland&op=resurrect', [
+                LotgdNavigation::addNav('common.nav.continue', 'runmodule.php?module=newbieisland&op=resurrect', [
                     'textDomain' => 'navigation_app',
                 ]);
 
-                \LotgdResponse::pageEnd();
+                LotgdResponse::pageEnd();
             }
         break;
         case 'changesetting':
@@ -215,7 +215,7 @@ function newbieisland_dohook($hookname, $args)
                 {
                     $session['user']['location'] = $args['new'];
                 }
-                $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+                $charactersRepository = Doctrine::getRepository('LotgdCore:Avatar');
 
                 $query = $charactersRepository->getQueryBuilder();
                 $query->update('LotgdCore:Avatar', 'u')
@@ -231,7 +231,7 @@ function newbieisland_dohook($hookname, $args)
 
                 if (is_module_active('cities'))
                 {
-                    $moduleUserPrefsRepository = \Doctrine::getRepository('LotgdCore:ModuleUserprefs');
+                    $moduleUserPrefsRepository = Doctrine::getRepository('LotgdCore:ModuleUserprefs');
                     $query                     = $moduleUserPrefsRepository->getQueryBuilder();
                     $query->update('LotgdCore:ModuleUserprefs', 'u')
                         ->set('u.value', ':new')
@@ -305,25 +305,25 @@ function newbieisland_dohook($hookname, $args)
             $ccity  = \urlencode($city);
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('cities-navigation');
+            LotgdNavigation::setTextDomain('cities-navigation');
 
-            if ($session['user']['superuser'] & SU_EDIT_USERS)
+            if (($session['user']['superuser'] & SU_EDIT_USERS) !== 0)
             {
-                \LotgdNavigation::addHeader('headers.superuser');
-                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
+                LotgdNavigation::addHeader('headers.superuser');
+                LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
                     'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
             //-- Restore text domain for navigation
-            \LotgdNavigation::setTextDomain();
+            LotgdNavigation::setTextDomain();
         break;
         case 'forest-desc':
             if ($session['user']['location'] == $city)
             {
-                \LotgdNavigation::blockHideLink('forest.php?op=search&type=suicide');
-                \LotgdNavigation::blockHideLink('forest.php?op=search&type=thrill');
-                \LotgdNavigation::blockHideLink('runmodule.php?module=outhouse');
+                LotgdNavigation::blockHideLink('forest.php?op=search&type=suicide');
+                LotgdNavigation::blockHideLink('forest.php?op=search&type=thrill');
+                LotgdNavigation::blockHideLink('runmodule.php?module=outhouse');
 
                 if ($session['user']['level'] >= 5)
                 {
@@ -333,7 +333,7 @@ function newbieisland_dohook($hookname, $args)
                         $textDomain,
                     ];
 
-                    \LotgdNavigation::blockHideLink('forest.php?op=search', true);
+                    LotgdNavigation::blockHideLink('forest.php?op=search', true);
                 }
             }
         break;
@@ -345,19 +345,19 @@ function newbieisland_dohook($hookname, $args)
                 $args['textDomain']           = 'newbieisland_village_village';
                 $args['textDomainNavigation'] = 'newbieisland_village_navigation';
 
-                \LotgdNavigation::blockHideLink('pvp.php');
-                \LotgdNavigation::blockHideLink('lodge.php');
-                \LotgdNavigation::blockHideLink('gypsy.php');
-                \LotgdNavigation::blockHideLink('pavilion.php');
-                \LotgdNavigation::blockHideLink('inn.php');
-                \LotgdNavigation::blockHideLink('stables.php');
-                \LotgdNavigation::blockHideLink('gardens.php');
-                \LotgdNavigation::blockHideLink('rock.php');
-                \LotgdNavigation::blockHideLink('clan.php');
-                \LotgdNavigation::blockHideLink('mercenarycamp.php');
-                \LotgdNavigation::blockHideLink('hof.php');
+                LotgdNavigation::blockHideLink('pvp.php');
+                LotgdNavigation::blockHideLink('lodge.php');
+                LotgdNavigation::blockHideLink('gypsy.php');
+                LotgdNavigation::blockHideLink('pavilion.php');
+                LotgdNavigation::blockHideLink('inn.php');
+                LotgdNavigation::blockHideLink('stables.php');
+                LotgdNavigation::blockHideLink('gardens.php');
+                LotgdNavigation::blockHideLink('rock.php');
+                LotgdNavigation::blockHideLink('clan.php');
+                LotgdNavigation::blockHideLink('mercenarycamp.php');
+                LotgdNavigation::blockHideLink('hof.php');
                 // Make sure that Blusprings can show up on newbie island.
-                \LotgdNavigation::unBlockLink('train.php');
+                LotgdNavigation::unBlockLink('train.php');
                 //if you want your module to appear in the newbie village, you'll have to hook on village
                 //and unblocknav() it.  I warn you, very very few modules will ever be allowed in the newbie
                 //village and get support for appearing in the core distribution; one of the major reasons
@@ -383,7 +383,7 @@ function newbieisland_dohook($hookname, $args)
                 }
                 elseif ( ! $args['newestname'] && $args['newestplayer'])
                 {
-                    $characterRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+                    $characterRepository = Doctrine::getRepository('LotgdCore:Avatar');
                     $args['newestname']  = $characterRepository->getCharacterNameFromAcctId($args['newestplayer']) ?: 'Unknown';
                     set_module_setting("newest-{$city}-name", $args['newestname'], 'cities');
                 }
@@ -391,15 +391,15 @@ function newbieisland_dohook($hookname, $args)
                 //-- Only can leave de island when player is level 2 or above
                 if ($session['user']['level'] > 1)
                 {
-                    \LotgdNavigation::setTextDomain('newbieisland_village_navigation');
+                    LotgdNavigation::setTextDomain('newbieisland_village_navigation');
 
-                    \LotgdNavigation::addHeader('headers.gate');
-                    \LotgdNavigation::addNav('navs.leave', 'runmodule.php?module=newbieisland&op=leave', [
+                    LotgdNavigation::addHeader('headers.gate');
+                    LotgdNavigation::addNav('navs.leave', 'runmodule.php?module=newbieisland&op=leave', [
                         'params' => ['city' => $city],
                     ]);
 
-                    \LotgdNavigation::setTextDomain();
-                    \LotgdNavigation::unBlockLink('runmodule.php?module=newbieisland&op=leave');
+                    LotgdNavigation::setTextDomain();
+                    LotgdNavigation::unBlockLink('runmodule.php?module=newbieisland&op=leave');
                 }
             }
         break;
@@ -425,19 +425,19 @@ function newbieisland_run()
     global $session;
 
     $city = get_module_setting('villagename');
-    $op   = \LotgdRequest::getQuery('op');
+    $op   = LotgdRequest::getQuery('op');
 
     $textDomain = 'newbieisland_module';
 
-    \LotgdNavigation::setTextDomain('newbieisland_village_navigation');
+    LotgdNavigation::setTextDomain('newbieisland_village_navigation');
 
     switch ($op)
     {
         case 'leave':
-            \LotgdNavigation::addHeader('headers.stay');
-            \LotgdNavigation::villageNav();
+            LotgdNavigation::addHeader('headers.stay');
+            LotgdNavigation::villageNav();
 
-            \LotgdResponse::pageStart('section.leave.title', [], $textDomain);
+            LotgdResponse::pageStart('section.leave.title', [], $textDomain);
 
             $params = [
                 'textDomain' => $textDomain,
@@ -448,20 +448,20 @@ function newbieisland_run()
             if ($session['user']['dragonkills'] >= 0 || $session['user']['level'] > 4)
             {
                 $params['canLeave'] = true;
-                \LotgdNavigation::addHeader('headers.leave');
-                \LotgdNavigation::addNav('navs.raft', 'runmodule.php?module=newbieisland&op=raft');
+                LotgdNavigation::addHeader('headers.leave');
+                LotgdNavigation::addNav('navs.raft', 'runmodule.php?module=newbieisland&op=raft');
             }
 
-            \LotgdResponse::pageAddContent(LotgdTheme::render('@module/newbieisland/run/leave.twig', $params));
+            LotgdResponse::pageAddContent(LotgdTheme::render('@module/newbieisland/run/leave.twig', $params));
 
-            \LotgdResponse::pageEnd();
+            LotgdResponse::pageEnd();
         break;
         case 'raft':
-            \LotgdResponse::pageStart('section.raft.title', [], $textDomain);
+            LotgdResponse::pageStart('section.raft.title', [], $textDomain);
 
             set_module_pref('leftisland', true);
 
-            \LotgdNavigation::addNav('navs.village', 'village.php');
+            LotgdNavigation::addNav('navs.village', 'village.php');
 
             if (is_module_active('cities'))
             {
@@ -479,12 +479,12 @@ function newbieisland_run()
                 'city'       => $city,
             ];
 
-            \LotgdResponse::pageAddContent(LotgdTheme::render('@module/newbieisland/run/raft.twig', $params));
+            LotgdResponse::pageAddContent(LotgdTheme::render('@module/newbieisland/run/raft.twig', $params));
 
-            \LotgdResponse::pageEnd();
+            LotgdResponse::pageEnd();
         break;
         case 'resurrect':
-            \LotgdResponse::pageStart('section.resurrect.title', [], $textDomain);
+            LotgdResponse::pageStart('section.resurrect.title', [], $textDomain);
 
             $params = [
                 'textDomain'    => $textDomain,
@@ -495,13 +495,13 @@ function newbieisland_run()
             $session['user']['hitpoints'] = 1;
             $session['user']['alive']     = true;
 
-            \LotgdNavigation::villageNav();
+            LotgdNavigation::villageNav();
 
-            \LotgdResponse::pageAddContent(LotgdTheme::render('@module/newbieisland/run/resurrect.twig', $params));
+            LotgdResponse::pageAddContent(LotgdTheme::render('@module/newbieisland/run/resurrect.twig', $params));
 
-            \LotgdResponse::pageEnd();
+            LotgdResponse::pageEnd();
         break;
     }
 
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 }

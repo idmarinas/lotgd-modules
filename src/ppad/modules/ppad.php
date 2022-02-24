@@ -41,7 +41,7 @@ function ppad_dohook($hookname, $args)
         ];
 
         $args['paypal'] = $args['paypal'] ?? '';
-        $args['paypal'] .= \LotgdTheme::render('@module/ppad_everyfooter.twig', $params);
+        $args['paypal'] .= LotgdTheme::render('@module/ppad_everyfooter.twig', $params);
     }
 
     return $args;

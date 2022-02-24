@@ -64,12 +64,12 @@ function sethsong_dohook($hookname, $args)
     {
         case 'inn':
             $bard = LotgdSetting::getSetting('bard', '`^Seth`0');
-            $op   = \LotgdRequest::getQuery('op');
+            $op   = LotgdRequest::getQuery('op');
 
             if ('' == $op || 'strolldown' == $op || 'fleedragon' == $op)
             {
-                \LotgdNavigation::addHeader('category.do', ['textDomain' => 'navigation_inn']);
-                \LotgdNavigation::addNav('navigation.nav.listen', 'runmodule.php?module=sethsong', [
+                LotgdNavigation::addHeader('category.do', ['textDomain' => 'navigation_inn']);
+                LotgdNavigation::addNav('navigation.nav.listen', 'runmodule.php?module=sethsong', [
                     'textDomain' => 'module_sethsong',
                     'params'     => ['bard' => $bard],
                 ]);
@@ -93,7 +93,7 @@ function sethsong_run()
     $iname      = LotgdSetting::getSetting('innname', LOCATION_INN);
     $textDomain = 'module_sethsong';
 
-    \LotgdResponse::pageStart($iname, [], $textDomain);
+    LotgdResponse::pageStart($iname, [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
@@ -114,13 +114,13 @@ function sethsong_run()
         sethsong_sing($params);
     }
 
-    \LotgdNavigation::addHeader('navigation.category.to', ['textDomain' => $textDomain]);
-    \LotgdNavigation::addNav('navigation.nav.return', 'inn.php', ['textDomain' => $textDomain]);
-    \LotgdNavigation::villageNav();
+    LotgdNavigation::addHeader('navigation.category.to', ['textDomain' => $textDomain]);
+    LotgdNavigation::addNav('navigation.nav.return', 'inn.php', ['textDomain' => $textDomain]);
+    LotgdNavigation::villageNav();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/sethsong/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/sethsong/run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 function sethsong_sing(&$params)
@@ -169,7 +169,7 @@ function sethsong_sing(&$params)
         case 1:
             $params['case'] = 1;
             // Since masters are now editable, pick a random one.
-            $query = \Doctrine::createQueryBuilder();
+            $query = Doctrine::createQueryBuilder();
             $name  = $query->select('u.creaturename')
                 ->from('LotgdCore:Masters', 'u')
                 ->orderBy('RAND()')
@@ -213,7 +213,7 @@ function sethsong_sing(&$params)
 
             $params['goldGain'] = e_rand($leastgold, $mostgold);
             $session['user']['gold'] += $params['goldGain'];
-            \LotgdLog::debug("found {$params['goldGain']} gold near Seth");
+            LotgdLog::debug("found {$params['goldGain']} gold near Seth");
 
         break;
         case 4:
@@ -268,7 +268,7 @@ function sethsong_sing(&$params)
                 $params['goldLost'] = 0;
 
                 $session['user']['gold'] -= $gold;
-                \LotgdLog::debug("lost {$gold} gold to Seth");
+                LotgdLog::debug("lost {$gold} gold to Seth");
             }
 
         break;
@@ -278,7 +278,7 @@ function sethsong_sing(&$params)
 
             $session['user']['gems'] += $gems;
 
-            \LotgdLog::debug("got {$params['gemsGain']} gem\\(s\\) from Seth");
+            LotgdLog::debug("got {$params['gemsGain']} gem\\(s\\) from Seth");
 
         break;
         case 10:

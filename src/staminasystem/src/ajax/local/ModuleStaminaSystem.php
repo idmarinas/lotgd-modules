@@ -2,6 +2,9 @@
 
 namespace Lotgd\Ajax\Local;
 
+use LotgdTranslator;
+use LotgdTheme;
+use Throwable;
 use Jaxon\Response\Response;
 use Lotgd\Core\AjaxAbstract;
 use Tracy\Debugger;
@@ -59,8 +62,8 @@ class ModuleStaminaSystem extends AjaxAbstract
 
             foreach ($act as $key => $value)
             {
-                $keyT                               = \LotgdTranslator::t($key, [], $this->getTextDomain());
-                $class                              = \LotgdTranslator::t('' != $value['class'] ? $value['class'] : 'Other', [], $this->getTextDomain());
+                $keyT                               = LotgdTranslator::t($key, [], $this->getTextDomain());
+                $class                              = LotgdTranslator::t('' != $value['class'] ? $value['class'] : 'Other', [], $this->getTextDomain());
                 $row[$class][$keyT]                 = $value;
                 $row[$class][$keyT]['levelinfo']    = stamina_level_up($key);
                 $row[$class][$keyT]['costwithbuff'] = stamina_calculate_buffed_cost($key);
@@ -77,15 +80,15 @@ class ModuleStaminaSystem extends AjaxAbstract
             $params['buffList'] = \unserialize(get_module_pref('buffs', 'staminasystem'));
 
             // Dialog content
-            $content = \LotgdTheme::render('@module/staminasystem/run/show.twig', $params);
+            $content = LotgdTheme::render('@module/staminasystem/run/show.twig', $params);
 
             // Dialog title
-            $title = \LotgdTranslator::t('title.show', [], $this->getTextDomain());
+            $title = LotgdTranslator::t('title.show', [], $this->getTextDomain());
 
             // The dialog buttons
             $buttons = [
                 [
-                    'title' => \LotgdTranslator::t('modal.buttons.cancel', [], 'app_default'),
+                    'title' => LotgdTranslator::t('modal.buttons.cancel', [], 'app_default'),
                     'class' => 'ui red deny button',
                 ],
             ];
@@ -101,11 +104,11 @@ class ModuleStaminaSystem extends AjaxAbstract
             $response->jQuery('.ui.lotgd.tabular.menu .item')->tab();
             $response->jQuery('.ui.lotgd.progress')->progress(['precision' => 10]);
         }
-        catch (\Throwable $th)
+        catch (Throwable $th)
         {
             Debugger::log($th);
 
-            $response->dialog->error(\LotgdTranslator::t('jaxon.fail.request', [], 'app_default'));
+            $response->dialog->error(LotgdTranslator::t('jaxon.fail.request', [], 'app_default'));
         }
 
         return $response;

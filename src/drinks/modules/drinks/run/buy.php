@@ -5,12 +5,12 @@ require_once 'lib/partner.php';
 $textDomain = modulehook('drinks-text', ['textDomain' => 'drinks-module']);
 $textDomain = $textDomain['textDomain'];
 
-$repository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
+$repository = Doctrine::getRepository('LotgdLocal:ModuleDrinks');
 $drunk      = get_module_pref('drunkeness');
 $maxDrunk   = get_module_setting('maxdrunk');
 
 //-- Change text domain for navigation
-\LotgdNavigation::setTextDomain($textDomain);
+LotgdNavigation::setTextDomain($textDomain);
 
 $params = [
     'textDomain' => $textDomain,
@@ -18,15 +18,15 @@ $params = [
     'drunk'      => $drunk,
     'maxDrunk'   => $maxDrunk,
     'drunkeness' => (int) ($drunk > $maxDrunk),
-    'partner'    => \LotgdTool::getPartner(),
+    'partner'    => LotgdTool::getPartner(),
     'barkeep'    => LotgdSetting::getSetting('barkeep', '`tCedrik`0'),
 ];
 
-\LotgdResponse::pageStart('section.ale.drink.title', ['innName' => \LotgdSanitize::fullSanitize($params['innName'])], $textDomain);
+LotgdResponse::pageStart('section.ale.drink.title', ['innName' => LotgdSanitize::fullSanitize($params['innName'])], $textDomain);
 
 if ( ! $params['drunkeness'])
 {
-    $drinkId   = (int) \LotgdRequest::getQuery('id');
+    $drinkId   = (int) LotgdRequest::getQuery('id');
     $entity    = $repository->find($drinkId);
     $row       = $repository->extractEntity($entity);
     $drinkCost = $session['user']['level'] * $row['costperlevel'];
@@ -45,7 +45,7 @@ if ( ! $params['drunkeness'])
 
         $session['user']['gold'] -= $drinkcost;
 
-        \LotgdLog::debug("spent {$drinkcost} on {$row['name']}");
+        LotgdLog::debug("spent {$drinkcost} on {$row['name']}");
 
         if ($row['harddrink'])
         {
@@ -147,12 +147,12 @@ if ( ! $params['drunkeness'])
     $params['drink'] = $row;
 }
 
-\LotgdNavigation::addNav('navigation.nav.return.inn', 'inn.php', ['textDomain' => $textDomain]);
-\LotgdNavigation::addNav('navigation.nav.return.talk', 'inn.php?op=bartender', [
+LotgdNavigation::addNav('navigation.nav.return.inn', 'inn.php', ['textDomain' => $textDomain]);
+LotgdNavigation::addNav('navigation.nav.return.talk', 'inn.php?op=bartender', [
     'textDomain' => $textDomain,
     'params'     => ['barkeep' => $params['barkeep']],
 ]);
 
-\LotgdNavigation::villageNav();
+LotgdNavigation::villageNav();
 
-\LotgdResponse::pageAddContent(\LotgdTheme::render('@module/drinks/run/buy.twig', $params));
+LotgdResponse::pageAddContent(LotgdTheme::render('@module/drinks/run/buy.twig', $params));

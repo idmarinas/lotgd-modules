@@ -62,8 +62,8 @@ function snowbank_dohook($hookname, $args)
         case 'village':
             if ($session['user']['location'] == get_module_setting('bankloc'))
             {
-                \LotgdNavigation::addHeader('headers.market');
-                \LotgdNavigation::addNav('navs.bank', 'bank.php', ['remplace' => true, 'textDomain' => 'snowbank_bank_navigation']);
+                LotgdNavigation::addHeader('headers.market');
+                LotgdNavigation::addNav('navs.bank', 'bank.php', ['remplace' => true, 'textDomain' => 'snowbank_bank_navigation']);
             }
         break;
         case 'bank-text-domain':
@@ -76,8 +76,8 @@ function snowbank_dohook($hookname, $args)
         case 'page-bank-tpl-params':
             if ($session['user']['location'] == get_module_setting('bankloc'))
             {
-                \LotgdNavigation::addHeader('category.money');
-                \LotgdNavigation::addNav('nav.gift', 'runmodule.php?module=snowbank&op=give', ['textDomain' => 'snowbank_bank_navigation']);
+                LotgdNavigation::addHeader('category.money');
+                LotgdNavigation::addNav('nav.gift', 'runmodule.php?module=snowbank&op=give', ['textDomain' => 'snowbank_bank_navigation']);
             }
         break;
     }
@@ -89,15 +89,15 @@ function snowbank_run()
 {
     global $session;
 
-    $op = \LotgdRequest::getQuery('op');
+    $op = LotgdRequest::getQuery('op');
 
     $giventoday = get_module_pref('giventoday');
 
     $textDomain = 'snowbank_module';
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
-    \LotgdNavigation::addNav('nav.return.bank', 'bank.php');
+    LotgdNavigation::addNav('nav.return.bank', 'bank.php');
 
     if ('give' == $op && 0 == $giventoday)
     {
@@ -113,7 +113,7 @@ function snowbank_run()
             'textDomain' => $textDomain,
         ];
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/snowbank/run/donate.twig', $params));
+        LotgdResponse::pageAddContent(LotgdTheme::render('@module/snowbank/run/donate.twig', $params));
     }
     elseif ('give' == $op && 1 == $giventoday)
     {
@@ -121,8 +121,8 @@ function snowbank_run()
             'textDomain' => $textDomain,
         ];
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/snowbank/run/donated.twig', $params));
+        LotgdResponse::pageAddContent(LotgdTheme::render('@module/snowbank/run/donated.twig', $params));
     }
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }

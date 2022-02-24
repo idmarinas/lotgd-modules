@@ -2,13 +2,16 @@
 
 namespace Lotgd\Local\EntityRepository;
 
+use Lotgd\Local\EntityRepository\ModInventory\Backup;
+use Lotgd\Local\EntityRepository\ModInventory\Navs;
+use Throwable;
 use Lotgd\Core\Doctrine\ORM\EntityRepository as DoctrineRepository;
 use Tracy\Debugger;
 
 class ModInventoryRepository extends DoctrineRepository
 {
-    use ModInventory\Backup;
-    use ModInventory\Navs;
+    use Backup;
+    use Navs;
 
     /**
      * Get item list of inventory for character.
@@ -65,7 +68,7 @@ class ModInventoryRepository extends DoctrineRepository
 
             return $inventory;
         }
-        catch (\Throwable $th)
+        catch (Throwable $th)
         {
             Debugger::log($th);
 
@@ -79,7 +82,7 @@ class ModInventoryRepository extends DoctrineRepository
     public function getItemOfInventoryOfCharacter(int $itemId, int $acctId, int $invid = 0): array
     {
         $query = $this->createQueryBuilder('u');
-        $expr  = $query->expr();
+        $query->expr();
 
         try
         {
@@ -93,7 +96,7 @@ class ModInventoryRepository extends DoctrineRepository
                 ->setMaxResults(1)
             ;
 
-            if ($invid)
+            if ($invid !== 0)
             {
                 $query->andWhere('u.id = :inv')
                     ->setParameter('inv', $invid)
@@ -114,7 +117,7 @@ class ModInventoryRepository extends DoctrineRepository
 
             return $data;
         }
-        catch (\Throwable $th)
+        catch (Throwable $th)
         {
             Debugger::log($th);
 

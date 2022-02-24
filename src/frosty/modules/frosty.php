@@ -67,7 +67,7 @@ function frosty_runevent($type)
     global $session;
 
     $session['user']['specialinc'] = 'module:frosty';
-    $op                            = \LotgdRequest::getQuery('op');
+    $op                            = LotgdRequest::getQuery('op');
 
     $textDomain = 'module_frosty';
 
@@ -104,7 +104,7 @@ function frosty_runevent($type)
 
                     $params['gold'] = $loss;
 
-                    \LotgdLog::debug("lost {$loss} gold ignoring frosty");
+                    LotgdLog::debug("lost {$loss} gold ignoring frosty");
                 break;
                 default:
                 break;
@@ -162,12 +162,12 @@ function frosty_runevent($type)
                     }
                 break;
                 case 2:
-                    \LotgdLog::debug('got a gem helping frosty');
+                    LotgdLog::debug('got a gem helping frosty');
                     ++$session['user']['gems'];
                 break;
                 case 3:
                     $fgold = (20 * $session['user']['level']);
-                    \LotgdLog::debug("found {$fgold} gold helping frosty");
+                    LotgdLog::debug("found {$fgold} gold helping frosty");
                     $session['user']['gold'] += $fgold;
                     $params['gold'] = $fgold;
                 break;
@@ -177,8 +177,8 @@ function frosty_runevent($type)
         case 'talk':
             $params['tpl'] = 'talk';
 
-            \LotgdNavigation::addNav('navigation.nav.help', 'village.php?op=help', ['textDomain' => $textDomain]);
-            \LotgdNavigation::addNav('navigation.nav.leave', 'village.php?op=leave', ['textDomain' => $textDomain]);
+            LotgdNavigation::addNav('navigation.nav.help', 'village.php?op=help', ['textDomain' => $textDomain]);
+            LotgdNavigation::addNav('navigation.nav.leave', 'village.php?op=leave', ['textDomain' => $textDomain]);
         break;
 
         default:
@@ -191,14 +191,14 @@ function frosty_runevent($type)
             }
             else
             {
-                \LotgdNavigation::addHeader('navigation.category.do', ['textDomain' => $textDomain]);
-                \LotgdNavigation::addNav('navigation.nav.talk', 'village.php?op=talk', ['textDomain' => $textDomain]);
-                \LotgdNavigation::addNav('navigation.nav.ignore', 'village.php?op=ignore', ['textDomain' => $textDomain]);
+                LotgdNavigation::addHeader('navigation.category.do', ['textDomain' => $textDomain]);
+                LotgdNavigation::addNav('navigation.nav.talk', 'village.php?op=talk', ['textDomain' => $textDomain]);
+                LotgdNavigation::addNav('navigation.nav.ignore', 'village.php?op=ignore', ['textDomain' => $textDomain]);
             }
         break;
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/frosty/runevent.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/frosty/runevent.twig', $params));
 }
 
 function frosty_run()

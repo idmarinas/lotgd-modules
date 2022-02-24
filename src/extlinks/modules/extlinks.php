@@ -190,13 +190,13 @@ function extlinks_dohook($hookname, $args)
             continue;
         }
         $head = get_module_setting($pref.'heading');
-        \LotgdNavigation::addHeader($head);
+        LotgdNavigation::addHeader($head);
         $title = get_module_setting($pref.'title');
         $link  = get_module_setting($pref.'link');
 
         if ($title && $link)
         {
-            \LotgdNavigation::addNavExternal($title, $link);
+            LotgdNavigation::addNavExternal($title, $link);
         }
     }
 

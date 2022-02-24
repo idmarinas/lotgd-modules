@@ -250,10 +250,10 @@ function worldmapen_run()
     require_once 'modules/worldmapen/run.php';
 
     $textDomain = 'module_worldmapen';
-    $op         = (string) \LotgdRequest::getQuery('op');
+    $op         = (string) LotgdRequest::getQuery('op');
 
     //-- Change text domain for navigation
-    \LotgdNavigation::setTextDomain('module_worldmapen');
+    LotgdNavigation::setTextDomain('module_worldmapen');
 
     //-- Handle the admin editor first
     if ('edit' == $op)
@@ -274,21 +274,21 @@ function worldmapen_run()
 
     if ( ! get_module_setting('worldmapenInstalled'))
     {
-        \LotgdResponse::pageStart('title.not.installed', [], $textDomain);
+        LotgdResponse::pageStart('title.not.installed', [], $textDomain);
 
-        \LotgdNavigation::villageNav();
+        LotgdNavigation::villageNav();
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/worldmapen/run/not-installed.twig', [
+        LotgdResponse::pageAddContent(LotgdTheme::render('@module/worldmapen/run/not-installed.twig', [
             'textDomain' => $textDomain,
         ]));
 
-        \LotgdResponse::pageEnd();
+        LotgdResponse::pageEnd();
     }
 
     worldmapen_run_real();
 
     //-- Restore text domain for navigation
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 }
 
 function worldmapen_editor()
@@ -312,7 +312,7 @@ function worldmapen_dohook($hookname, $args)
     }
 
     //-- Change text domain for navigation
-    \LotgdNavigation::setTextDomain('module_worldmapen');
+    LotgdNavigation::setTextDomain('module_worldmapen');
 
     if (\file_exists("modules/worldmapen/dohook/{$hookname}.php"))
     {
@@ -320,11 +320,11 @@ function worldmapen_dohook($hookname, $args)
     }
     else
     {
-        \LotgdResponse::pageDebug("Sorry, I don't have the hook '{$hookname}' programmed.");
+        LotgdResponse::pageDebug("Sorry, I don't have the hook '{$hookname}' programmed.");
     }
 
     //-- Restore text domain for navigation
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
     return $args;
 }

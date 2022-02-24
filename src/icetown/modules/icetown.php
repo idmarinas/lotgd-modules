@@ -1,5 +1,6 @@
 <?php
 
+use Tracy\Debugger;
 /* Ice Town for Dec/Jan */
 /* ver 1.0 9th Nov 2004 */
 /* Shannon Brown => SaucyWench -at- gmail -dot- com */
@@ -50,7 +51,7 @@ function icetown_uninstall()
 
     try
     {
-        $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+        $charactersRepository = Doctrine::getRepository('LotgdCore:Avatar');
 
         //-- Updated location
         $query = $charactersRepository->getQueryBuilder();
@@ -70,9 +71,9 @@ function icetown_uninstall()
             $session['user']['location'] = $vname;
         }
     }
-    catch (\Throwable $th)
+    catch (Throwable $th)
     {
-        \Tracy\Debugger::log($th);
+        Debugger::log($th);
 
         return false;
     }
@@ -93,7 +94,7 @@ function icetown_dohook($hookname, $args)
             {
                 $args['handled'] = true;
 
-                \LotgdLog::addNews('news.pvp.win', [
+                LotgdLog::addNews('news.pvp.win', [
                     'playerName'   => $session['user']['name'],
                     'creatureName' => $args['badguy']['creaturename'],
                     'location'     => $args['badguy']['location'],
@@ -107,7 +108,7 @@ function icetown_dohook($hookname, $args)
 
                 $args['handled'] = true;
 
-                \LotgdLog::addNews('deathmessage', [
+                LotgdLog::addNews('deathmessage', [
                     'deathmessage' => [
                         'deathmessage' => 'news.pvp.defeated',
                         'params'       => [
@@ -117,7 +118,7 @@ function icetown_dohook($hookname, $args)
                         ],
                         'textDomain' => 'ghosttown-module',
                     ],
-                    'taunt' => \LotgdTool::selectTaunt(),
+                    'taunt' => LotgdTool::selectTaunt(),
                 ], '');
             }
         break;
@@ -127,27 +128,27 @@ function icetown_dohook($hookname, $args)
             $ccity  = \urlencode($city);
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('cities-navigation');
+            LotgdNavigation::setTextDomain('cities-navigation');
 
             // Esoterra is always dangerous travel.
             if ($session['user']['location'] != $city && $allow)
             {
-                \LotgdNavigation::addHeader('headers.travel.dangerous');
-                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
+                LotgdNavigation::addHeader('headers.travel.dangerous');
+                LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&d=1", [
                     'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
             if ($session['user']['superuser'] & SU_EDIT_USERS && $allow)
             {
-                \LotgdNavigation::addHeader('headers.superuser');
-                \LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
+                LotgdNavigation::addHeader('headers.superuser');
+                LotgdNavigation::addNav('navs.go', "runmodule.php?module=cities&op=travel&city={$ccity}&su=1", [
                     'params' => ['key' => $hotkey, 'city' => $city],
                 ]);
             }
 
             //-- Restore text domain for navigation
-            \LotgdNavigation::setTextDomain();
+            LotgdNavigation::setTextDomain();
         break;
         case 'changesetting':
             // Ignore anything other than villagename setting changes
@@ -158,7 +159,7 @@ function icetown_dohook($hookname, $args)
                     $session['user']['location'] = $args['new'];
                 }
 
-                $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+                $charactersRepository = Doctrine::getRepository('LotgdCore:Avatar');
 
                 $query = $charactersRepository->getQueryBuilder();
                 $query->update('LotgdCore:Avatar', 'u')
@@ -199,7 +200,7 @@ function icetown_dohook($hookname, $args)
         case 'moderate-comment-sections':
             if (is_module_active('cities'))
             {
-                $args['village-icetown'] = \LotgdTranslator::t('moderate', ['city' => $city], 'icetown_module');
+                $args['village-icetown'] = LotgdTranslator::t('moderate', ['city' => $city], 'icetown_module');
             }
         break;
         case 'village-text-domain':
@@ -208,15 +209,15 @@ function icetown_dohook($hookname, $args)
                 $args['textDomain']           = 'icetown_village';
                 $args['textDomainNavigation'] = 'icetown_village_navigation';
 
-                \LotgdNavigation::blockHideLink('lodge.php');
-                \LotgdNavigation::blockHideLink('weapons.php');
-                \LotgdNavigation::blockHideLink('armor.php');
-                \LotgdNavigation::blockHideLink('clan.php');
-                \LotgdNavigation::blockHideLink('pvp.php');
-                \LotgdNavigation::blockHideLink('forest.php');
-                \LotgdNavigation::blockHideLink('gardens.php');
-                \LotgdNavigation::blockHideLink('gypsy.php');
-                \LotgdNavigation::blockHideLink('bank.php');
+                LotgdNavigation::blockHideLink('lodge.php');
+                LotgdNavigation::blockHideLink('weapons.php');
+                LotgdNavigation::blockHideLink('armor.php');
+                LotgdNavigation::blockHideLink('clan.php');
+                LotgdNavigation::blockHideLink('pvp.php');
+                LotgdNavigation::blockHideLink('forest.php');
+                LotgdNavigation::blockHideLink('gardens.php');
+                LotgdNavigation::blockHideLink('gypsy.php');
+                LotgdNavigation::blockHideLink('bank.php');
 
                 $allow = get_module_pref('allow') || get_module_setting('allowtravel');
 
@@ -245,8 +246,8 @@ function icetown_dohook($hookname, $args)
                 $args['newestplayer'] = 0;
                 $args['newestname']   = '';
 
-                \LotgdNavigation::addHeader('headers.gate');
-                \LotgdNavigation::addNav('navs.pvp', 'pvp.php?campsite=1');
+                LotgdNavigation::addHeader('headers.gate');
+                LotgdNavigation::addNav('navs.pvp', 'pvp.php?campsite=1');
             }
         break;
     }

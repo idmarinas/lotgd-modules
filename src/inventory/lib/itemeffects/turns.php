@@ -19,7 +19,7 @@ function itemeffects_restore_turns($turns, $item)
 
     $session['user']['turns'] += $turns;
 
-    \LotgdLog::debug("'s turns were altered by {$turns} by item {$item['id']}.");
+    LotgdLog::debug("'s turns were altered by {$turns} by item {$item['id']}.");
 
     $out = [];
 

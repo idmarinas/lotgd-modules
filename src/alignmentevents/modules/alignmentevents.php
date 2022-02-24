@@ -78,7 +78,7 @@ function alignmentevents_runevent($type)
     ];
 
     //-- Change text domain for navigation
-    \LotgdNavigation::setTextDomain($params['textDomain']);
+    LotgdNavigation::setTextDomain($params['textDomain']);
 
     if ('' == $op)
     {
@@ -88,10 +88,10 @@ function alignmentevents_runevent($type)
         $session['user']['specialinc'] = 'module:alignmentevents';
         set_module_pref('aligntried', 1);
 
-        \LotgdNavigation::addHeader('navigation.category.actions');
-        \LotgdNavigation::addNav('navigation.nav.help', "forest.php?op=help&op2={$params['event']}");
-        \LotgdNavigation::addNav('navigation.nav.hinder', "forest.php?op=hinder&op2={$params['event']}");
-        \LotgdNavigation::addNav('navigation.nav.ignore', "forest.php?op=ignore&op2={$params['event']}");
+        LotgdNavigation::addHeader('navigation.category.actions');
+        LotgdNavigation::addNav('navigation.nav.help', "forest.php?op=help&op2={$params['event']}");
+        LotgdNavigation::addNav('navigation.nav.hinder', "forest.php?op=hinder&op2={$params['event']}");
+        LotgdNavigation::addNav('navigation.nav.ignore', "forest.php?op=ignore&op2={$params['event']}");
     }
     elseif ('help' == $op)
     {
@@ -100,7 +100,7 @@ function alignmentevents_runevent($type)
 
         increment_module_pref('alignment', get_module_setting('aligngood'), 'alignment');
 
-        \LotgdLog::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
+        LotgdLog::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
 
         $session['user']['specialinc'] = '';
     }
@@ -111,7 +111,7 @@ function alignmentevents_runevent($type)
 
         increment_module_pref('alignment', -get_module_setting('alignbad'), 'alignment');
 
-        \LotgdLog::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
+        LotgdLog::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
 
         $session['user']['specialinc'] = '';
     }
@@ -120,15 +120,15 @@ function alignmentevents_runevent($type)
         $params['tpl'] = 'ignore';
         $params['event'] = $event;
 
-        \LotgdLog::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
+        LotgdLog::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
 
         $session['user']['specialinc'] = '';
     }
 
     //-- Restore text domain for navigation
-    \LotgdNavigation::setTextDomain();
+    LotgdNavigation::setTextDomain();
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/alignmentevents/runevent.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/alignmentevents/runevent.twig', $params));
 }
 function alignmentevents_run()
 {

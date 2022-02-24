@@ -20,8 +20,9 @@ use Doctrine\ORM\Mapping as ORM;
 class ModuleCityprefs
 {
     /**
-     * @var int
+     * @var int|null
      *
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      * @ORM\Column(type="smallint", nullable=false, options={"unsigned": true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -29,16 +30,16 @@ class ModuleCityprefs
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $module;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $cityName;
 

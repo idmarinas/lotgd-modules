@@ -2,12 +2,12 @@
 
 require_once 'lib/forestoutcomes.php';
 
-$op       = \LotgdRequest::getQuery('op');
-$city     = (string) \urldecode(\LotgdRequest::getQuery('city'));
+$op       = LotgdRequest::getQuery('op');
+$city     = \urldecode(LotgdRequest::getQuery('city'));
 $ccity    = \urlencode($city);
-$continue = \LotgdRequest::getQuery('continue');
-$danger   = \LotgdRequest::getQuery('d');
-$su       = \LotgdRequest::getQuery('su');
+$continue = LotgdRequest::getQuery('continue');
+$danger   = LotgdRequest::getQuery('d');
+$su       = LotgdRequest::getQuery('su');
 
 if ('faq' != $op)
 {
@@ -16,26 +16,26 @@ if ('faq' != $op)
 }
 
 //-- Change text domain for navigation
-\LotgdNavigation::setTextDomain('cities_navigation');
+LotgdNavigation::setTextDomain('cities_navigation');
 
 // I really don't like this being out here, but it has to be since
 // events can define their own op=.... and we might need to handle them
 // otherwise things break.
 require_once 'lib/events.php';
 
-if ( ! isset($session['user']['specialinc']) || '' != $session['user']['specialinc'] || \LotgdRequest::getQuery('eventhandler'))
+if ( ! isset($session['user']['specialinc']) || '' != $session['user']['specialinc'] || LotgdRequest::getQuery('eventhandler'))
 {
     $in_event = handle_event('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1&", 'Travel');
 
     if ($in_event)
     {
-        \LotgdNavigation::addNav('common.nav.continue', "runmodule.php?module=cities&op=travel&city={$ccity}&d={$danger}&continue=1", [
+        LotgdNavigation::addNav('common.nav.continue', "runmodule.php?module=cities&op=travel&city={$ccity}&d={$danger}&continue=1", [
             'textDomain' => 'navigation_app',
         ]);
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
 
-        \LotgdResponse::pageEnd();
+        LotgdResponse::pageEnd();
     }
 }
 
@@ -46,10 +46,10 @@ if ('travel' == $op)
 
     if ('' == $city)
     {
-        \LotgdResponse::pageStart('title.travel', [], 'cities_module');
+        LotgdResponse::pageStart('title.travel', [], 'cities_module');
 
-        \LotgdNavigation::addHeader('headers.forget', ['textDomain' => 'cities_navigation']);
-        \LotgdNavigation::villageNav();
+        LotgdNavigation::addHeader('headers.forget', ['textDomain' => 'cities_navigation']);
+        LotgdNavigation::villageNav();
 
         modulehook('pre-travel');
 
@@ -57,23 +57,23 @@ if ('travel' == $op)
 
         if ($params['canTravel'])
         {
-            \LotgdNavigation::addHeader('headers.travel', ['textDomain' => 'cities_navigation']);
+            LotgdNavigation::addHeader('headers.travel', ['textDomain' => 'cities_navigation']);
             modulehook('travel');
             // this line rewritten so as not to clash with the hitch module.
         }
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/cities/run/travel.twig', $params));
+        LotgdResponse::pageAddContent(LotgdTheme::render('@module/cities/run/travel.twig', $params));
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
 
-        \LotgdResponse::pageEnd();
+        LotgdResponse::pageEnd();
     }
     else
     {
         if ('1' != $continue && '1' != $su && ! get_module_pref('paidcost'))
         {
             set_module_pref('paidcost', 1);
-            $httpcost   = \LotgdRequest::getQuery('cost');
+            $httpcost   = LotgdRequest::getQuery('cost');
             $cost       = modulehook('travel-cost', ['from' => $session['user']['location'], 'to' => $city, 'cost' => 0]);
             $cost       = \max(1, $cost['cost'], $httpcost);
             $reallyfree = $free - $cost;
@@ -93,12 +93,12 @@ if ('travel' == $op)
             }
             else
             {
-                \LotgdFlashMessages::addInfoMessage([
-                    'message' => \LotgdTranslator::t('flash.message.not.forest.fights', [], 'cities_module'),
+                LotgdFlashMessages::addInfoMessage([
+                    'message' => LotgdTranslator::t('flash.message.not.forest.fights', [], 'cities_module'),
                     'close'   => false,
                 ]);
 
-                \LotgdLog::debug("Travelled with out having any forest fights, how'd they swing that?");
+                LotgdLog::debug("Travelled with out having any forest fights, how'd they swing that?");
             }
         }
 
@@ -111,11 +111,11 @@ if ('travel' == $op)
 
             if (0 != module_events('travel', get_module_setting('travelspecialchance'), "runmodule.php?module=cities&city={$ccity}&d={$dangecontinue}=1&"))
             {
-                \LotgdResponse::pageStart('section.title.event', [], 'cities_module');
+                LotgdResponse::pageStart('section.title.event', [], 'cities_module');
 
-                if (\LotgdNavigation::checkNavs())
+                if (LotgdNavigation::checkNavs())
                 {
-                    \LotgdResponse::pageEnd();
+                    LotgdResponse::pageEnd();
                 }
                 else
                 {
@@ -124,28 +124,28 @@ if ('travel' == $op)
                     $session['user']['specialmisc'] = '';
                     $skipvillagedesc                = true;
                     $op                             = '';
-                    \LotgdRequest::setQuery('op', '');
+                    LotgdRequest::setQuery('op', '');
 
-                    \LotgdNavigation::addNav('navs.continue', "runmodule.php?module=cities&op=travel&city={$ccity}&d={$danger}&continue=1", [
+                    LotgdNavigation::addNav('navs.continue', "runmodule.php?module=cities&op=travel&city={$ccity}&d={$danger}&continue=1", [
                         'textDomain' => 'cities_navigation',
                     ]);
 
                     module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
 
-                    \LotgdResponse::pageEnd();
+                    LotgdResponse::pageEnd();
                 }
             }
 
             $args = [
                 'soberval' => 0.9,
-                'sobermsg' => \LotgdTranslator::t('section.travel.sobermsg', [], 'cities_module'),
+                'sobermsg' => LotgdTranslator::t('section.travel.sobermsg', [], 'cities_module'),
                 'schema'   => 'module-cities',
             ];
             modulehook('soberup', $args);
 
             $result = LotgdKernel::get('lotgd_core.tool.creature_functions')->lotgdSearchCreature(1, $session['user']['level'], $session['user']['level']);
 
-            if ( ! \count($result))
+            if ( \count($result) === 0)
             {
                 // There is nothing in the database to challenge you,
                 // let's give you a doppleganger.
@@ -179,7 +179,7 @@ elseif ('fight' == $op || 'run' == $op)
     if ('run' == $op && \mt_rand(1, 5) < 3)
     {
         // They managed to get away.
-        \LotgdResponse::pageStart('title.escape', [], 'cities_module');
+        LotgdResponse::pageStart('title.escape', [], 'cities_module');
 
         $coward = get_module_setting('coward');
 
@@ -187,8 +187,8 @@ elseif ('fight' == $op || 'run' == $op)
         {
             modulehook('cities-usetravel',
                 [
-                    'foresttext' => \LotgdTranslator::t('section.escape.coward.forest', [], 'cities_module'),
-                    'traveltext' => \LotgdTranslator::t('section.escape.coward.travel', [], 'cities_module'),
+                    'foresttext' => LotgdTranslator::t('section.escape.coward.forest', [], 'cities_module'),
+                    'traveltext' => LotgdTranslator::t('section.escape.coward.travel', [], 'cities_module'),
                 ]
             );
         }
@@ -197,37 +197,36 @@ elseif ('fight' == $op || 'run' == $op)
             'location' => $session['user']['location'],
         ];
 
-        \LotgdNavigation::addNav('navs.enter', ['location' => $session['user']['location']], 'village.php');
+        LotgdNavigation::addNav('navs.enter', ['location' => $session['user']['location']], 'village.php');
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/cities/run/escape.twig', $params));
+        LotgdResponse::pageAddContent(LotgdTheme::render('@module/cities/run/escape.twig', $params));
 
-        \LotgdResponse::pageEnd();
+        LotgdResponse::pageEnd();
     }
 
     $battle = true;
 }
 elseif ('' == $op)
 {
-    \LotgdResponse::pageStart('title.travel', [], 'cities_module');
+    LotgdResponse::pageStart('title.travel', [], 'cities_module');
 
-    \LotgdFlashMessages::addInfoMessage([
-        'message' => \LotgdTranslator::t('section.travel.empty', [], 'citites-module'),
+    LotgdFlashMessages::addInfoMessage([
+        'message' => LotgdTranslator::t('section.travel.empty', [], 'citites-module'),
         'close'   => false,
     ]);
 
-    \LotgdNavigation::addNav('navs.journey', "runmodule.php?module=cities&op=travel&city={$ccity}&continue=1&d={$danger}");
+    LotgdNavigation::addNav('navs.journey', "runmodule.php?module=cities&op=travel&city={$ccity}&continue=1&d={$danger}");
 
     module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 if ($battle)
 {
-    \LotgdResponse::pageStart('title.battle', [], 'cities_module');
+    LotgdResponse::pageStart('title.battle', [], 'cities_module');
 
-    /** @var \Lotgd\Core\Combat\Battle */
-    $serviceBattle = \LotgdKernel::get('lotgd_core.combat.battle');
+    $serviceBattle = LotgdKernel::get('lotgd_core.combat.battle');
 
     //-- Battle zone.
     $serviceBattle ->initialize()
@@ -240,14 +239,14 @@ if ($battle)
 
     if ($serviceBattle->isVictory())
     {
-        \LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
-        \LotgdNavigation::addNav('navs.journey', "runmodule.php?module=cities&op=travel&city={$ccity}&continue=1&d={$danger}");
+        LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
+        LotgdNavigation::addNav('navs.journey', "runmodule.php?module=cities&op=travel&city={$ccity}&continue=1&d={$danger}");
 
         module_display_events('travel', "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1");
     }
     elseif ($serviceBattle->isDefeat())
     {
-        \LotgdLog::addNews('travel.deathmessage', [
+        LotgdLog::addNews('travel.deathmessage', [
             'location' => $city,
             'player'   => $session['user']['name'],
             'creature' => $badbuy['creaturename'],
@@ -260,8 +259,8 @@ if ($battle)
 
     $serviceBattle->battleResults(); //-- Show results
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 //-- Restore text domain for navigation
-\LotgdNavigation::setTextDomain();
+LotgdNavigation::setTextDomain();

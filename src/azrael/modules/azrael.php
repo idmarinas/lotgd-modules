@@ -72,7 +72,7 @@ function azrael_runevent($type)
     $session['user']['specialinc'] = '';
     $from                          = 'village.php?';
     $city                          = get_module_setting('azraelloc');
-    $op                            = \LotgdRequest::getQuery('op');
+    $op                            = LotgdRequest::getQuery('op');
 
     $textDomain = 'module_azrael';
 
@@ -113,12 +113,12 @@ function azrael_runevent($type)
 
                 // Aww heck, let's have the buff survive new day.
                 LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('azrael', [
-                    'name'          => \LotgdTranslator::t('buff.trick.name', [], $textDomain),
+                    'name'          => LotgdTranslator::t('buff.trick.name', [], $textDomain),
                     'rounds'        => 60,
-                    'wearoff'       => \LotgdTranslator::t('buff.trick.wearoff', [], $textDomain),
+                    'wearoff'       => LotgdTranslator::t('buff.trick.wearoff', [], $textDomain),
                     'defmod'        => 1.03,
                     'survivenewday' => 1,
-                    'roundmsg'      => \LotgdTranslator::t('buff.trick.roundmsg', [], $textDomain),
+                    'roundmsg'      => LotgdTranslator::t('buff.trick.roundmsg', [], $textDomain),
                 ]);
             }
             elseif (2 == $params['bad'])
@@ -132,7 +132,7 @@ function azrael_runevent($type)
                 $session['user']['gems'] -= $takegems;
                 $session['user']['gold'] -= $takegold;
 
-                \LotgdResponse::pageDebug("Lost {$takegold} gold and {$takegems} gems to the trick or treat kid.");
+                LotgdResponse::pageDebug("Lost {$takegold} gold and {$takegems} gems to the trick or treat kid.");
             }
             else
             {
@@ -148,12 +148,12 @@ function azrael_runevent($type)
 
             --$session['user']['gold'];
             LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('azrael', [
-                'name'          => \LotgdTranslator::t('buff.treat.name', [], $textDomain),
+                'name'          => LotgdTranslator::t('buff.treat.name', [], $textDomain),
                 'rounds'        => 60,
-                'wearoff'       => \LotgdTranslator::t('buff.treat.wearoff', [], $textDomain),
+                'wearoff'       => LotgdTranslator::t('buff.treat.wearoff', [], $textDomain),
                 'atkmod'        => 1.03,
                 'survivenewday' => 1,
-                'roundmsg'      => \LotgdTranslator::t('buff.treat.roundmsg', [], $textDomain),
+                'roundmsg'      => LotgdTranslator::t('buff.treat.roundmsg', [], $textDomain),
             ]);
         break;
 
@@ -166,18 +166,18 @@ function azrael_runevent($type)
             {
                 $params['ghosttown'] = true;
             }
-            \LotgdNavigation::addHeader('navigation.category.action', ['textDomain' => $textDomain]);
+            LotgdNavigation::addHeader('navigation.category.action', ['textDomain' => $textDomain]);
 
             if ($session['user']['gold'] > 0)
             {
                 $params['canPay'] = true;
-                \LotgdNavigation::addNav('navigation.nav.treat', $from.'op=treat', ['textDomain' => $textDomain]);
+                LotgdNavigation::addNav('navigation.nav.treat', $from.'op=treat', ['textDomain' => $textDomain]);
             }
 
-            \LotgdNavigation::addNav('navigation.nav.trick', $from.'op=trick', ['textDomain' => $textDomain]);
-            \LotgdNavigation::addNav('navigation.nav.ignore', $from.'op=ignore', ['textDomain' => $textDomain]);
+            LotgdNavigation::addNav('navigation.nav.trick', $from.'op=trick', ['textDomain' => $textDomain]);
+            LotgdNavigation::addNav('navigation.nav.ignore', $from.'op=ignore', ['textDomain' => $textDomain]);
         break;
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/azrael/runevent.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/azrael/runevent.twig', $params));
 }

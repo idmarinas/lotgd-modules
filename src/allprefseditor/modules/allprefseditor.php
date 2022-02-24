@@ -42,24 +42,19 @@ function allprefseditor_dohook($hookname, $args)
 
     $textDomain = 'module_allprefseditor';
 
-    $id = \LotgdRequest::getQuery('userid');
+    $id = LotgdRequest::getQuery('userid');
 
     if ( ! $id)
     {
         $id = get_module_setting('editid', 'allprefseditor');
     }
 
-    switch ($hookname)
+    if ($hookname === 'superuser' && ($session['user']['superuser'] & SU_EDIT_USERS) !== 0)
     {
-        case 'superuser':
-            if ($session['user']['superuser'] & SU_EDIT_USERS)
-            {
-                \LotgdNavigation::addHeader('superuser.category.editors', ['textDomain' => 'navigation_app']);
-                \LotgdNavigation::addNav('navigation.nav.editors', "runmodule.php?module=allprefseditor&userid={$id}", [
-                    'textDomain' => $textDomain,
-                ]);
-            }
-        break;
+        LotgdNavigation::addHeader('superuser.category.editors', ['textDomain' => 'navigation_app']);
+        LotgdNavigation::addNav('navigation.nav.editors', "runmodule.php?module=allprefseditor&userid={$id}", [
+            'textDomain' => $textDomain,
+        ]);
     }
 
     return $args;
@@ -67,7 +62,7 @@ function allprefseditor_dohook($hookname, $args)
 
 function allprefseditor_run()
 {
-    $id = \LotgdRequest::getQuery('userid');
+    $id = LotgdRequest::getQuery('userid');
 
     if ( ! $id)
     {
@@ -78,34 +73,34 @@ function allprefseditor_run()
 
     $textDomain = 'module_allprefseditor';
 
-    \LotgdResponse::pageStart('title', [], $textDomain);
+    LotgdResponse::pageStart('title', [], $textDomain);
 
-    \LotgdNavigation::superuserGrottoNav();
+    LotgdNavigation::superuserGrottoNav();
 
-    \LotgdNavigation::addNav('navigation.nav.edit', "user.php?op=edit&userid={$id}", [
+    LotgdNavigation::addNav('navigation.nav.edit', "user.php?op=edit&userid={$id}", [
         'textDomain' => $textDomain,
     ]);
 
     modulehook('allprefs');
 
-    $repository = \Doctrine::getRepository('LotgdCore:Avatar');
+    $repository = Doctrine::getRepository('LotgdCore:Avatar');
     $params     = [
         'textDomain' => $textDomain,
         'name'       => $repository->getCharacterNameFromAcctId($id),
         'formSearch' => "runmodule.php?module=allprefseditor&subop1=search&userid={$id}",
-        'isSearch'   => ('search' == \LotgdRequest::getQuery('subop1')),
+        'isSearch'   => ('search' == LotgdRequest::getQuery('subop1')),
     ];
 
     if ($params['isSearch'])
     {
-        $name = \LotgdRequest::getPost('name');
+        $name = LotgdRequest::getPost('name');
 
         $params['paginator'] = $repository->findLikeName($name, 100);
     }
 
-    \LotgdResponse::pageAddContent(LotgdTheme::render('@module/allprefseditor_run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/allprefseditor_run.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 function allprefseditor_search()

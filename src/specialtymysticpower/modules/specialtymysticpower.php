@@ -1,5 +1,6 @@
 <?php
 
+use Tracy\Debugger;
 //addnews ready
 // mail ready
 // translator ready
@@ -45,7 +46,7 @@ function specialtymysticpower_uninstall()
     // rechoose at new day
     try
     {
-        $charactersRepository = \Doctrine::getRepository('LotgdCore:Avatar');
+        $charactersRepository = Doctrine::getRepository('LotgdCore:Avatar');
         $query                = $charactersRepository->getQueryBuilder();
         $query->update('LotgdCore:Avatar', 'u')
             ->set('u.specialty', '')
@@ -57,9 +58,9 @@ function specialtymysticpower_uninstall()
             ->execute()
         ;
     }
-    catch (\Throwable $th)
+    catch (Throwable $th)
     {
-        \Tracy\Debugger::log($th);
+        Debugger::log($th);
 
         return false;
     }
@@ -72,7 +73,7 @@ function specialtymysticpower_dohook($hookname, $args)
     global $session,$resline;
 
     $spec  = 'MP';
-    $name  = \LotgdTranslator::t('specialty.name', [], 'module_specialtymysticpower');
+    $name  = LotgdTranslator::t('specialty.name', [], 'module_specialtymysticpower');
     $ccode = '`%';
 
     switch ($hookname)
@@ -84,8 +85,8 @@ function specialtymysticpower_dohook($hookname, $args)
         case 'choose-specialty':
             if ('' == $session['user']['specialty'] || '0' == $session['user']['specialty'])
             {
-                \LotgdNavigation::addHeader('category.basic');
-                \LotgdNavigation::addNavNotl("{$ccode}{$name}`0", "newday.php?setspecialty={$spec}{$resline}");
+                LotgdNavigation::addHeader('category.basic');
+                LotgdNavigation::addNavNotl("{$ccode}{$name}`0", "newday.php?setspecialty={$spec}{$resline}");
 
                 $params = [
                     'colorCode' => $ccode,
@@ -93,15 +94,15 @@ function specialtymysticpower_dohook($hookname, $args)
                     'resLine'   => $resline,
                 ];
 
-                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/specialtymysticpower/dohook/choose-specialty.twig', $params));
+                LotgdResponse::pageAddContent(LotgdTheme::render('@module/specialtymysticpower/dohook/choose-specialty.twig', $params));
             }
         break;
         case 'set-specialty':
             if ($session['user']['specialty'] == $spec)
             {
-                \LotgdResponse::pageStart($name);
+                LotgdResponse::pageStart($name);
 
-                \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/specialtymysticpower/dohook/set-specialty.twig', []));
+                LotgdResponse::pageAddContent(LotgdTheme::render('@module/specialtymysticpower/dohook/set-specialty.twig', []));
             }
         break;
         case 'specialtycolor':
@@ -163,7 +164,7 @@ function specialtymysticpower_dohook($hookname, $args)
 
             if ($session['user']['specialty'] == $spec)
             {
-                $amt = $amt + $bonus;
+                $amt += $bonus;
             }
             set_module_pref('uses', $amt);
         break;
@@ -172,49 +173,49 @@ function specialtymysticpower_dohook($hookname, $args)
             $script = $args['script'];
 
             //-- Change text domain for navigation
-            \LotgdNavigation::setTextDomain('module_specialtymysticpower');
+            LotgdNavigation::setTextDomain('module_specialtymysticpower');
 
             if ($uses > 0)
             {
-                \LotgdNavigation::addHeader('navigation.category.uses', [
+                LotgdNavigation::addHeader('navigation.category.uses', [
                     'params' => [
                         'color' => $ccode,
                         'name'  => $name,
                         'uses'  => $uses,
                     ],
                 ]);
-                \LotgdNavigation::addNav('navigation.nav.skill1', "{$script}op=fight&skill={$spec}&l=1", [
+                LotgdNavigation::addNav('navigation.nav.skill1', "{$script}op=fight&skill={$spec}&l=1", [
                     'params' => ['color' => $ccode, 'use' => 1],
                 ]);
             }
 
             if ($uses > 1)
             {
-                \LotgdNavigation::addNav('navigation.nav.skill2', "{$script}op=fight&skill={$spec}&l=1", [
+                LotgdNavigation::addNav('navigation.nav.skill2', "{$script}op=fight&skill={$spec}&l=1", [
                     'params' => ['color' => $ccode, 'use' => 2],
                 ]);
             }
 
             if ($uses > 2)
             {
-                \LotgdNavigation::addNav('navigation.nav.skill3', "{$script}op=fight&skill={$spec}&l=1", [
+                LotgdNavigation::addNav('navigation.nav.skill3', "{$script}op=fight&skill={$spec}&l=1", [
                     'params' => ['color' => $ccode, 'use' => 3],
                 ]);
             }
 
             if ($uses > 4)
             {
-                \LotgdNavigation::addNav('navigation.nav.skill4', "{$script}op=fight&skill={$spec}&l=1", [
+                LotgdNavigation::addNav('navigation.nav.skill4', "{$script}op=fight&skill={$spec}&l=1", [
                     'params' => ['color' => $ccode, 'use' => 5],
                 ]);
             }
 
             //-- Restore text domain for navigation
-            \LotgdNavigation::setTextDomain();
+            LotgdNavigation::setTextDomain();
         break;
         case 'apply-specialties':
-            $skill = \LotgdRequest::getQuery('skill');
-            $l     = \LotgdRequest::getQuery('l');
+            $skill = LotgdRequest::getQuery('skill');
+            $l     = LotgdRequest::getQuery('l');
 
             if ($skill == $spec)
             {
@@ -238,10 +239,10 @@ function specialtymysticpower_dohook($hookname, $args)
                             break;
                         case 2:
                             LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('mp2', [
-                                'startmsg'        => \LotgdTranslator::t('skill.mp2.startmsg', [], 'module_specialtymysticpower'),
-                                'name'            => \LotgdTranslator::t('skill.mp2.name', [], 'module_specialtymysticpower'),
+                                'startmsg'        => LotgdTranslator::t('skill.mp2.startmsg', [], 'module_specialtymysticpower'),
+                                'name'            => LotgdTranslator::t('skill.mp2.name', [], 'module_specialtymysticpower'),
                                 'rounds'          => 5,
-                                'wearoff'         => \LotgdTranslator::t('skill.mp2.wearoff', [], 'module_specialtymysticpower'),
+                                'wearoff'         => LotgdTranslator::t('skill.mp2.wearoff', [], 'module_specialtymysticpower'),
                                 'minioncount'     => 1,
                                 'effectmsg'       => LotgdTranslator::t('skill.mp2.effectmsg', [], 'module_specialtymysticpower'),
                                 'minbadguydamage' => 1,
@@ -252,27 +253,27 @@ function specialtymysticpower_dohook($hookname, $args)
                             break;
                         case 3:
                             LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('mp3', [
-                                'startmsg'       => \LotgdTranslator::t('skill.mp3.startmsg', [], 'module_specialtymysticpower'),
-                                'name'           => \LotgdTranslator::t('skill.mp3.name', [], 'module_specialtymysticpower'),
+                                'startmsg'       => LotgdTranslator::t('skill.mp3.startmsg', [], 'module_specialtymysticpower'),
+                                'name'           => LotgdTranslator::t('skill.mp3.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
-                                'wearoff'        => \LotgdTranslator::t('skill.mp3.wearoff', [], 'module_specialtymysticpower'),
+                                'wearoff'        => LotgdTranslator::t('skill.mp3.wearoff', [], 'module_specialtymysticpower'),
                                 'lifetap'        => 1, //ratio of damage healed to damage dealt
-                                'effectmsg'      => \LotgdTranslator::t('skill.mp3.effectmsg', [], 'module_specialtymysticpower'),
-                                'effectnodmgmsg' => \LotgdTranslator::t('skill.mp3.effectnodmgmsg', [], 'module_specialtymysticpower'),
-                                'effectfailmsg'  => \LotgdTranslator::t('skill.mp3.effectfailmsg', [], 'module_specialtymysticpower'),
+                                'effectmsg'      => LotgdTranslator::t('skill.mp3.effectmsg', [], 'module_specialtymysticpower'),
+                                'effectnodmgmsg' => LotgdTranslator::t('skill.mp3.effectnodmgmsg', [], 'module_specialtymysticpower'),
+                                'effectfailmsg'  => LotgdTranslator::t('skill.mp3.effectfailmsg', [], 'module_specialtymysticpower'),
                                 'schema'         => 'module_specialtymysticpower',
                             ]);
                             break;
                         case 5:
                             LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('mp5', [
-                                'startmsg'       => \LotgdTranslator::t('skill.mp5.startmsg', [], 'module_specialtymysticpower'),
-                                'name'           => \LotgdTranslator::t('skill.mp5.name', [], 'module_specialtymysticpower'),
+                                'startmsg'       => LotgdTranslator::t('skill.mp5.startmsg', [], 'module_specialtymysticpower'),
+                                'name'           => LotgdTranslator::t('skill.mp5.name', [], 'module_specialtymysticpower'),
                                 'rounds'         => 5,
-                                'wearoff'        => \LotgdTranslator::t('skill.mp5.wearoff', [], 'module_specialtymysticpower'),
+                                'wearoff'        => LotgdTranslator::t('skill.mp5.wearoff', [], 'module_specialtymysticpower'),
                                 'damageshield'   => 2, // ratio of damage reflected to damage received
-                                'effectmsg'      => \LotgdTranslator::t('skill.mp5.effectmsg', [], 'module_specialtymysticpower'),
-                                'effectnodmgmsg' => \LotgdTranslator::t('skill.mp5.effectnodmgmsg', [], 'module_specialtymysticpower'),
-                                'effectfailmsg'  => \LotgdTranslator::t('skill.mp5.effectfailmsg', [], 'module_specialtymysticpower'),
+                                'effectmsg'      => LotgdTranslator::t('skill.mp5.effectmsg', [], 'module_specialtymysticpower'),
+                                'effectnodmgmsg' => LotgdTranslator::t('skill.mp5.effectnodmgmsg', [], 'module_specialtymysticpower'),
+                                'effectfailmsg'  => LotgdTranslator::t('skill.mp5.effectfailmsg', [], 'module_specialtymysticpower'),
                                 'schema'         => 'module_specialtymysticpower',
                             ]);
                         break;
@@ -283,7 +284,7 @@ function specialtymysticpower_dohook($hookname, $args)
                 else
                 {
                     LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('mp0', [
-                        'startmsg' => \LotgdTranslator::t('skill.mp0.startmsg', [], 'module_specialtymysticpower'),
+                        'startmsg' => LotgdTranslator::t('skill.mp0.startmsg', [], 'module_specialtymysticpower'),
                         'rounds'   => 1,
                         'schema'   => 'module_specialtymysticpower',
                     ]);

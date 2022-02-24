@@ -145,7 +145,7 @@ function weather_dohook($hookname, $args)
                 $params['weather'] = get_module_setting('microwx', 'weather');
             }
 
-            $args[] = \LotgdTheme::render('@module/weather/weather.twig', $params);
+            $args[] = LotgdTheme::render('@module/weather/weather.twig', $params);
         break;
         case 'page-home-tpl-params':
             $args['includeTemplatesIndex']['@module/weather/weather.twig'] = [

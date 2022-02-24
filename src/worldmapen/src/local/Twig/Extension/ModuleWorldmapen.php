@@ -2,6 +2,13 @@
 
 namespace Lotgd\Local\Twig\Extension;
 
+use Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen\Campers;
+use Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen\Compass;
+use Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen\Legend;
+use Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen\Map;
+use Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen\MapEditor;
+use Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen\MapEditTerrain;
+use Lotgd\Local\Twig\Extension\Pattern\ModuleWorldmapen\MiniMap;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Lotgd\Core\Pvp\Listing;
@@ -9,13 +16,13 @@ use Lotgd\Core\Lib\Settings;
 
 class ModuleWorldmapen extends AbstractExtension
 {
-    use Pattern\ModuleWorldmapen\Campers;
-    use Pattern\ModuleWorldmapen\Compass;
-    use Pattern\ModuleWorldmapen\Legend;
-    use Pattern\ModuleWorldmapen\Map;
-    use Pattern\ModuleWorldmapen\MapEditor;
-    use Pattern\ModuleWorldmapen\MapEditTerrain;
-    use Pattern\ModuleWorldmapen\MiniMap;
+    use Campers;
+    use Compass;
+    use Legend;
+    use Map;
+    use MapEditor;
+    use MapEditTerrain;
+    use MiniMap;
 
     private $pvp;
     private $settings;

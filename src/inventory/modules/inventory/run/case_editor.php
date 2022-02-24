@@ -1,43 +1,45 @@
 <?php
 
+use Lotgd\Local\Entity\ModInventoryItem;
+use Lotgd\Local\EntityForm\ModInventoryItemType;
 require_once 'lib/showform.php';
 
-$op2       = (string) \LotgdRequest::getQuery('op2');
-$id        = (int) \LotgdRequest::getQuery('id');
-$isLaminas = (string) \LotgdRequest::getQuery('isLaminas');
+$op2       = (string) LotgdRequest::getQuery('op2');
+$id        = (int) LotgdRequest::getQuery('id');
+$isLaminas = (string) LotgdRequest::getQuery('isLaminas');
 
-$repository = \Doctrine::getRepository('LotgdLocal:ModInventoryItem');
-$buffRepo   = \Doctrine::getRepository('LotgdLocal:ModInventoryBuff');
+$repository = Doctrine::getRepository('LotgdLocal:ModInventoryItem');
+$buffRepo   = Doctrine::getRepository('LotgdLocal:ModInventoryBuff');
 
 $params = [
     'textDomain' => 'module_inventory',
     'itemId'     => $id,
 ];
 
-\LotgdResponse::pageStart('title.editor', [], $params['textDomain']);
+LotgdResponse::pageStart('title.editor', [], $params['textDomain']);
 
-\LotgdNavigation::superuserGrottoNav();
+LotgdNavigation::superuserGrottoNav();
 
-\LotgdNavigation::setTextDomain($params['textDomain']);
+LotgdNavigation::setTextDomain($params['textDomain']);
 
-\LotgdNavigation::addHeader('navigation.category.options.items');
-\LotgdNavigation::addNav('navigation.nav.item.new', 'runmodule.php?module=inventory&op=editor&op2=newitem');
-\LotgdNavigation::addNav('navigation.nav.item.show', 'runmodule.php?module=inventory&op=editor&op2=showitems');
+LotgdNavigation::addHeader('navigation.category.options.items');
+LotgdNavigation::addNav('navigation.nav.item.new', 'runmodule.php?module=inventory&op=editor&op2=newitem');
+LotgdNavigation::addNav('navigation.nav.item.show', 'runmodule.php?module=inventory&op=editor&op2=showitems');
 
-\LotgdNavigation::addHeader('navigation.category.options.buffs');
-\LotgdNavigation::addNav('New Buff', 'runmodule.php?module=inventory&op=editor&op2=newbuff');
-\LotgdNavigation::addNav('Show all buffs', 'runmodule.php?module=inventory&op=editor&op2=showbuffs');
+LotgdNavigation::addHeader('navigation.category.options.buffs');
+LotgdNavigation::addNav('New Buff', 'runmodule.php?module=inventory&op=editor&op2=newbuff');
+LotgdNavigation::addNav('Show all buffs', 'runmodule.php?module=inventory&op=editor&op2=showbuffs');
 
-\LotgdNavigation::addHeader('navigation.category.options.other');
+LotgdNavigation::addHeader('navigation.category.options.other');
 
 switch ($op2)
 {
     case 'newitem':
         $params['tpl'] = 'edititem';
 
-        $subop  = (string) \LotgdRequest::getQuery('subop');
-        $module = (string) \LotgdRequest::getQuery('submodule');
-        \LotgdNavigation::addNav('navigation.nav.item.properties', "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}");
+        $subop  = (string) LotgdRequest::getQuery('subop');
+        $module = (string) LotgdRequest::getQuery('submodule');
+        LotgdNavigation::addNav('navigation.nav.item.properties', "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}");
         module_editor_navs('prefs-items', "runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule=");
 
         if ('module' == $subop)
@@ -47,59 +49,59 @@ switch ($op2)
             $params['module']    = $module;
             $params['id']        = $id;
 
-            if (\LotgdRequest::isPost())
+            if (LotgdRequest::isPost())
             {
-                $post = \LotgdRequest::getPostAll();
+                $post = LotgdRequest::getPostAll();
 
                 \reset($post);
 
                 process_post_save_data_inventory($post, $id, $module);
 
-                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
+                LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
             }
 
             $params['form'] = $form;
 
-            \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/inventory/run/editor/module.twig', $params));
+            LotgdResponse::pageAddContent(LotgdTheme::render('@module/inventory/run/editor/module.twig', $params));
 
-            \LotgdNavigation::addNavAllow("runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule={$module}");
+            LotgdNavigation::addNavAllow("runmodule.php?module=inventory&op=editor&op2=newitem&subop=module&id={$id}&submodule={$module}");
         }
         else
         {
-            $lotgdFormFactory = \LotgdKernel::get('form.factory');
-            $itemEntity = $repository->find($id) ?: new \Lotgd\Local\Entity\ModInventoryItem();
+            $lotgdFormFactory = LotgdKernel::get('form.factory');
+            $itemEntity = $repository->find($id) ?: new ModInventoryItem();
 
-            $form = $lotgdFormFactory->create(\Lotgd\Local\EntityForm\ModInventoryItemType::class, $itemEntity, [
+            $form = $lotgdFormFactory->create(ModInventoryItemType::class, $itemEntity, [
                 'action' => "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}",
                 'attr' => [
                     'autocomplete' => 'off'
                 ]
             ]);
 
-            $form->handleRequest(\LotgdRequest::_i());
+            $form->handleRequest(LotgdRequest::_i());
 
             if ($form->isSubmitted() && $form->isValid())
             {
                 $entity = $form->getData();
 
-                \Doctrine::persist($entity);
-                \Doctrine::flush();
+                Doctrine::persist($entity);
+                Doctrine::flush();
 
                 $id = $entity->getId();
 
-                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.save.saved', [], $textDomain));
+                LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('flash.message.save.saved', [], $textDomain));
 
                 //-- Redo form for change $id and set new data (generated IDs)
-                $form = $lotgdFormFactory->create(\Lotgd\Local\EntityForm\ModInventoryItemType::class, $entity, [
+                $form = $lotgdFormFactory->create(ModInventoryItemType::class, $entity, [
                     'action' => "runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}",
                     'attr' => [
                         'autocomplete' => 'off'
                     ]
                 ]);
             }
-            \Doctrine::clear(); //-- Avoid Doctrine save a invalid Form
+            Doctrine::clear(); //-- Avoid Doctrine save a invalid Form
 
-            \LotgdNavigation::addNavAllow("runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}");
+            LotgdNavigation::addNavAllow("runmodule.php?module=inventory&op=editor&op2=newitem&id={$id}");
 
             $params['form'] = $form->createView();
             $params['itemId'] = $id;
@@ -121,23 +123,23 @@ switch ($op2)
             ->execute()
         ;
 
-        \LotgdKernel::get('cache.app')->delete('item-activation-fightnav-specialties');
-        \LotgdKernel::get('cache.app')->delete('item-activation-forest');
-        \LotgdKernel::get('cache.app')->delete('item-activation-train');
-        \LotgdKernel::get('cache.app')->delete('item-activation-shades');
-        \LotgdKernel::get('cache.app')->delete('item-activation-village');
+        LotgdKernel::get('cache.app')->delete('item-activation-fightnav-specialties');
+        LotgdKernel::get('cache.app')->delete('item-activation-forest');
+        LotgdKernel::get('cache.app')->delete('item-activation-train');
+        LotgdKernel::get('cache.app')->delete('item-activation-shades');
+        LotgdKernel::get('cache.app')->delete('item-activation-village');
 
         modulehook('inventory-delete-item', ['id' => $id]);
 
-        \Doctrine::remove($item);
-        \Doctrine::flush();
+        Doctrine::remove($item);
+        Doctrine::flush();
     break;
     case 'newbuff':
         $params['tpl'] = 'editbuff';
 
-        if (\LotgdRequest::isPost())
+        if (LotgdRequest::isPost())
         {
-            $post = \LotgdRequest::getPostAll();
+            $post = LotgdRequest::getPostAll();
             \reset($post);
 
             $message = 'flash.message.save.saved';
@@ -145,14 +147,14 @@ switch ($op2)
             $buff = $buffRepo->find($id);
             $buff = $buffRepo->hydrateEntity($post, $buff);
 
-            \Doctrine::persist($buff);
-            \Doctrine::flush();
+            Doctrine::persist($buff);
+            Doctrine::flush();
 
             $id = $buff->getId();
 
-            if ($message)
+            if ($message !== '')
             {
-                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.save.buff', [], $params['textDomain']));
+                LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('flash.message.save.buff', [], $params['textDomain']));
             }
 
             unset($post);
@@ -219,8 +221,8 @@ switch ($op2)
         $buff           = $buffRepo->find($id);
         $params['buff'] = clone $buff;
 
-        \Doctrine::remove($buff);
-        \Doctrine::flush();
+        Doctrine::remove($buff);
+        Doctrine::flush();
     break;
     case 'showbuffs':
         $params['tpl'] = 'showbuffs';
@@ -228,11 +230,11 @@ switch ($op2)
         $params['results'] = $buffRepo->findAll();
     break;
     case 'takeitem':
-        $id = (int) \LotgdRequest::getQuery('id');
+        $id = (int) LotgdRequest::getQuery('id');
 
         add_item($id);
 
-        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.item.take', ['itemId' => $id, 'count' => check_qty($id)], $params['textDomain']));
+        LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('flash.message.item.take', ['itemId' => $id, 'count' => check_qty($id)], $params['textDomain']));
         // no break
     case 'showitems':
     default:
@@ -242,9 +244,9 @@ switch ($op2)
     break;
 }
 
-\LotgdNavigation::setTextDomain();
+LotgdNavigation::setTextDomain();
 
-\LotgdResponse::pageAddContent(\LotgdTheme::render('@module/inventory/editor.twig', $params));
+LotgdResponse::pageAddContent(LotgdTheme::render('@module/inventory/editor.twig', $params));
 
 function process_post_save_data_inventory($data, $id, $module)
 {
@@ -261,4 +263,4 @@ function process_post_save_data_inventory($data, $id, $module)
     }
 }
 
-\LotgdResponse::pageEnd();
+LotgdResponse::pageEnd();

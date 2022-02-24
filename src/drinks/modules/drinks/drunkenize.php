@@ -14,14 +14,14 @@ function drinks_drunkenize($commentary, $level)
     {
         $slurs = ['a' => 'aa', 'e' => 'ee', 'f' => 'ff', 'h' => 'hh', 'i' => 'iy', 'l' => 'll', 'm' => 'mm', 'n' => 'nn', 'o' => 'oo', 'r' => 'rr', 's' => 'sss', 'u' => 'oo', 'v' => 'vv', 'w' => 'ww', 'y' => 'yy', 'z' => 'zz'];
 
-        if (\mt_rand(0, 9))
+        if (\mt_rand(0, 9) !== 0)
         {
             $letter = \array_rand($slurs);
-            $x      = \strpos(\strtolower($commentary), $letter);
+            $x      = stripos($commentary, $letter);
 
             if (false !== $x && '*hic*' != \substr($commentary, $x, 5) && '*hic*' != \substr($commentary, \max($x - 1, 0), 5) && '*hic*' != \substr($commentary, \max($x - 2, 0), 5) && '*hic*' != \substr($commentary, \max($x - 3, 0), 5) && '*hic*' != \substr($commentary, \max($x - 4, 0), 5))
             {
-                if (\substr($commentary, $x, 1) != \strtolower($letter))
+                if (\substr($commentary, $x, 1) !== \strtolower($letter))
                 {
                     $slurs[$letter] = \strtoupper($slurs[$letter]);
                 }

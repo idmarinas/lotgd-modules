@@ -1,17 +1,17 @@
 <?php
 
-$id    = (int) \LotgdRequest::getQuery('id');
-$invId = (int) \LotgdRequest::getQuery('invid');
-$op2   = \LotgdRequest::getQuery('op2');
+$id    = (int) LotgdRequest::getQuery('id');
+$invId = (int) LotgdRequest::getQuery('invid');
+$op2   = LotgdRequest::getQuery('op2');
 
-$repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
-$accountRep = \Doctrine::getRepository('LotgdCore:User');
+$repository = Doctrine::getRepository('LotgdLocal:ModInventory');
+$accountRep = Doctrine::getRepository('LotgdCore:User');
 
-\LotgdResponse::pageStart('title.inventory', ['name' => \LotgdSanitize::fullSanitize($session['user']['name'])], $textDomain);
+LotgdResponse::pageStart('title.inventory', ['name' => LotgdSanitize::fullSanitize($session['user']['name'])], $textDomain);
 
-\LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
-\LotgdNavigation::villageNav();
-\LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=inventory', ['textDomain' => $textDomain]);
+LotgdNavigation::addHeader('common.category.navigation', ['textDomain' => 'navigation_app']);
+LotgdNavigation::villageNav();
+LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=inventory', ['textDomain' => $textDomain]);
 
 if ('dropitem' == $op2)
 {
@@ -19,7 +19,7 @@ if ('dropitem' == $op2)
 }
 elseif ('equip' == $op2 && ($session['user']['weaponvalue'] || $session['user']['armorvalue']))
 {
-    \LotgdFlashMessages::addWarningMessage(\LotgdTranslator::t('item.equip.old', [], $textDomain));
+    LotgdFlashMessages::addWarningMessage(LotgdTranslator::t('item.equip.old', [], $textDomain));
 }
 elseif ('equip' == $op2)
 {
@@ -56,7 +56,7 @@ elseif ('equip' == $op2)
                 ->getResult()
             ;
 
-            foreach ($result as $key => $value)
+            foreach ($result as $value)
             {
                 $unequip = modulehook('unequip-item', ['ids' => [$value->getItem()->getId()]]);
 
@@ -64,7 +64,7 @@ elseif ('equip' == $op2)
                 {
                     $value->setEquipped(false);
 
-                    \Doctrine::persist($value);
+                    Doctrine::persist($value);
                 }
             }
 
@@ -77,14 +77,14 @@ elseif ('equip' == $op2)
 
                 $entity->setEquipped(true);
 
-                \Doctrine::persist($entity);
+                Doctrine::persist($entity);
             }
 
-            \Doctrine::flush();
+            Doctrine::flush();
         }
     }
 
-    \LotgdFlashMessages::{$flashType}(\LotgdTranslator::t($flashMessage, $flashParams, $textDomain));
+    LotgdFlashMessages::{$flashType}(LotgdTranslator::t($flashMessage, $flashParams, $textDomain));
 }
 elseif ('unequip' == $op2)
 {
@@ -104,8 +104,8 @@ elseif ('unequip' == $op2)
         {
             $entity->setEquipped(false);
 
-            \Doctrine::persist($entity);
-            \Doctrine::flush();
+            Doctrine::persist($entity);
+            Doctrine::flush();
 
             $flashType    = 'addSuccessMessage';
             $flashMessage = 'item.unequip.success';
@@ -113,7 +113,7 @@ elseif ('unequip' == $op2)
         }
     }
 
-    \LotgdFlashMessages::{$flashType}(\LotgdTranslator::t($flashMessage, $flashParams, $textDomain));
+    LotgdFlashMessages::{$flashType}(LotgdTranslator::t($flashMessage, $flashParams, $textDomain));
 }
 elseif ('activate' == $op2)
 {
@@ -156,7 +156,7 @@ elseif ('activate' == $op2)
             $messageTextDomain = $text[1] ?? $textDomain;
         }
 
-        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t($messageText, ['itemName' => $item['item']['name']], $messageTextDomain));
+        LotgdFlashMessages::addInfoMessage(LotgdTranslator::t($messageText, ['itemName' => $item['item']['name']], $messageTextDomain));
 
         require_once 'lib/itemeffects.php';
 
@@ -166,12 +166,12 @@ elseif ('activate' == $op2)
 
         foreach ($result as $message)
         {
-            $messages .= \LotgdTranslator::t($message[0], $message[1], $message[2]);
+            $messages .= LotgdTranslator::t($message[0], $message[1], $message[2]);
         }
 
-        if ($messages)
+        if ($messages !== '' && $messages !== '0')
         {
-            \LotgdFlashMessages::addInfoMessage($messages);
+            LotgdFlashMessages::addInfoMessage($messages);
         }
     }
 }
@@ -183,6 +183,6 @@ $params = [
     'weightTotal' => get_module_setting('weight', 'inventory'),
 ];
 
-\LotgdResponse::pageAddContent(\LotgdTheme::render('@module/inventory/run/inventory.twig', $params));
+LotgdResponse::pageAddContent(LotgdTheme::render('@module/inventory/run/inventory.twig', $params));
 
-\LotgdResponse::pageEnd();
+LotgdResponse::pageEnd();

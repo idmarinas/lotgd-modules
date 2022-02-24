@@ -209,8 +209,8 @@ function moons_dohook($hookname, $args)
             $args[] = [
                 'info',
                 [
-                    'phase'    => \LotgdTranslator::t(moons_phase($moon1Place, $moon1Cycle), [], $textDomain),
-                    'moonName' => \LotgdTranslator::t('moon.name.01', [], $textDomain),
+                    'phase'    => LotgdTranslator::t(moons_phase($moon1Place, $moon1Cycle), [], $textDomain),
+                    'moonName' => LotgdTranslator::t('moon.name.01', [], $textDomain),
                 ],
                 $textDomain,
             ];
@@ -220,8 +220,8 @@ function moons_dohook($hookname, $args)
                 $args[] = [
                     'info',
                     [
-                        'phase'    => \LotgdTranslator::t(moons_phase($moon2Place, $moon2Cycle), [], $textDomain),
-                        'moonName' => \LotgdTranslator::t('moon.name.02', [], $textDomain),
+                        'phase'    => LotgdTranslator::t(moons_phase($moon2Place, $moon2Cycle), [], $textDomain),
+                        'moonName' => LotgdTranslator::t('moon.name.02', [], $textDomain),
                     ],
                     $textDomain,
                 ];
@@ -232,8 +232,8 @@ function moons_dohook($hookname, $args)
                 $args[] = [
                     'info',
                     [
-                        'phase'    => \LotgdTranslator::t(moons_phase($moon3Place, $moon3Cycle), [], $textDomain),
-                        'moonName' => \LotgdTranslator::t('moon.name.03', [], $textDomain),
+                        'phase'    => LotgdTranslator::t(moons_phase($moon3Place, $moon3Cycle), [], $textDomain),
+                        'moonName' => LotgdTranslator::t('moon.name.03', [], $textDomain),
                     ],
                     $textDomain,
                 ];
@@ -252,8 +252,8 @@ function moons_dohook($hookname, $args)
             $args[] = [
                 'info',
                 [
-                    'phase'    => \LotgdTranslator::t(moons_phase($moon1Place, $moon1Cycle), [], $textDomain),
-                    'moonName' => \LotgdTranslator::t('moon.name.01', [], $textDomain),
+                    'phase'    => LotgdTranslator::t(moons_phase($moon1Place, $moon1Cycle), [], $textDomain),
+                    'moonName' => LotgdTranslator::t('moon.name.01', [], $textDomain),
                 ],
                 $textDomain,
             ];
@@ -263,8 +263,8 @@ function moons_dohook($hookname, $args)
                 $args[] = [
                     'info',
                     [
-                        'phase'    => \LotgdTranslator::t(moons_phase($moon2Place, $moon2Cycle), [], $textDomain),
-                        'moonName' => \LotgdTranslator::t('moon.name.02', [], $textDomain),
+                        'phase'    => LotgdTranslator::t(moons_phase($moon2Place, $moon2Cycle), [], $textDomain),
+                        'moonName' => LotgdTranslator::t('moon.name.02', [], $textDomain),
                     ],
                     $textDomain,
                 ];
@@ -275,8 +275,8 @@ function moons_dohook($hookname, $args)
                 $args[] = [
                     'info',
                     [
-                        'phase'    => \LotgdTranslator::t(moons_phase($moon3Place, $moon3Cycle), [], $textDomain),
-                        'moonName' => \LotgdTranslator::t('moon.name.03', [], $textDomain),
+                        'phase'    => LotgdTranslator::t(moons_phase($moon3Place, $moon3Cycle), [], $textDomain),
+                        'moonName' => LotgdTranslator::t('moon.name.03', [], $textDomain),
                     ],
                     $textDomain,
                 ];

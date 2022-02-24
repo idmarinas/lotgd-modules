@@ -1,5 +1,6 @@
 <?php
 
+use Laminas\Form\Form;
 if ( ! get_module_pref('canedit'))
 {
     check_su_access(SU_EDIT_USERS);
@@ -7,28 +8,28 @@ if ( ! get_module_pref('canedit'))
 
 $textDomain = 'drinks-module';
 
-\LotgdResponse::pageStart('editor.title', [], $textDomain);
+LotgdResponse::pageStart('editor.title', [], $textDomain);
 
-\LotgdNavigation::superuserGrottoNav();
+LotgdNavigation::superuserGrottoNav();
 
 //-- Change text domain for navigation
-\LotgdNavigation::setTextDomain('drinks-module');
+LotgdNavigation::setTextDomain('drinks-module');
 
-\LotgdNavigation::addHeader('navigation.category.editor');
-\LotgdNavigation::addNav('navigation.nav.add', 'runmodule.php?module=drinks&act=editor&op=add&admin=true');
+LotgdNavigation::addHeader('navigation.category.editor');
+LotgdNavigation::addNav('navigation.nav.add', 'runmodule.php?module=drinks&act=editor&op=add&admin=true');
 
-$op      = (string) \LotgdRequest::getQuery('op');
-$drinkid = (int) \LotgdRequest::getQuery('drinkid');
-$subop   = (string) \LotgdRequest::getQuery('subop');
-$page    = (int) \LotgdRequest::getQuery('page');
+$op      = (string) LotgdRequest::getQuery('op');
+$drinkid = (int) LotgdRequest::getQuery('drinkid');
+$subop   = (string) LotgdRequest::getQuery('subop');
+$page    = (int) LotgdRequest::getQuery('page');
 
-$repository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
+$repository = Doctrine::getRepository('LotgdLocal:ModuleDrinks');
 
 $header = 'editor.subtitle.current';
 
 if ('' != $op)
 {
-    \LotgdNavigation::addNav('navigation.nav.main', 'runmodule.php?module=drinks&act=editor&admin=true');
+    LotgdNavigation::addNav('navigation.nav.main', 'runmodule.php?module=drinks&act=editor&admin=true');
 
     if ('add' == $op)
     {
@@ -76,9 +77,9 @@ $drinksForm = [
 ];
 
 //-- Change text domain for navigation
-\LotgdNavigation::setTextDomain('drinks-module');
+LotgdNavigation::setTextDomain('drinks-module');
 
-\LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=drinks&act=editor');
+LotgdNavigation::addNav('navigation.nav.update', 'runmodule.php?module=drinks&act=editor');
 
 if ('del' == $op)
 {
@@ -89,28 +90,28 @@ if ('del' == $op)
     if ($entity)
     {
         $message = 'flash.message.editor.remove.success';
-        \Doctrine::remove($entity);
-        \Doctrine::flush();
+        Doctrine::remove($entity);
+        Doctrine::flush();
     }
 
-    \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t($message, [], $textDomain));
+    LotgdFlashMessages::addInfoMessage(LotgdTranslator::t($message, [], $textDomain));
 
     module_delete_objprefs('drinks', $drinkid);
 
     $op = '';
-    \LotgdRequest::setQuery('op', '');
+    LotgdRequest::setQuery('op', '');
 }
 elseif ('save' == $op)
 {
-    $subop = \LotgdRequest::getQuery('subop');
-    $post  = \LotgdRequest::getPostAll();
+    $subop = LotgdRequest::getQuery('subop');
+    $post  = LotgdRequest::getPostAll();
 
     $message            = '';
     $paramsFlashMessage = [];
 
     if ('module' == $subop)
     {
-        $module = \LotgdRequest::getQuery('editmodule');
+        $module = LotgdRequest::getQuery('editmodule');
 
         $message            = 'flash.message.editor.save.module';
         $paramsFlashMessage = ['name' => $module];
@@ -129,19 +130,19 @@ elseif ('save' == $op)
         $drinkEntity = $repository->find($drinkid);
         $drinkEntity = $repository->hydrateEntity($post, $drinkEntity);
 
-        \Doctrine::persist($drinkEntity);
-        \Doctrine::flush();
+        Doctrine::persist($drinkEntity);
+        Doctrine::flush();
 
         $drinkid = $drinkEntity->getId();
     }
 
-    if ($message)
+    if ($message !== '' && $message !== '0')
     {
-        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t($message, $paramsFlashMessage, $textDomain));
+        LotgdFlashMessages::addInfoMessage(LotgdTranslator::t($message, $paramsFlashMessage, $textDomain));
     }
 
     $op = 'edit';
-    \LotgdRequest::setQuery('op', $op);
+    LotgdRequest::setQuery('op', $op);
     unset($message, $drinkEntity, $post);
 }
 elseif ('activate' == $op)
@@ -152,12 +153,12 @@ elseif ('activate' == $op)
     {
         $drinkEntity->setActive(true);
 
-        \Doctrine::persist($drinkEntity);
-        \Doctrine::flush();
+        Doctrine::persist($drinkEntity);
+        Doctrine::flush();
     }
 
     $op = '';
-    \LotgdRequest::setQuery('op', '');
+    LotgdRequest::setQuery('op', '');
 }
 elseif ('deactivate' == $op)
 {
@@ -167,19 +168,19 @@ elseif ('deactivate' == $op)
     {
         $drinkEntity->setActive(false);
 
-        \Doctrine::persist($drinkEntity);
-        \Doctrine::flush();
+        Doctrine::persist($drinkEntity);
+        Doctrine::flush();
     }
 
     $op = '';
-    \LotgdRequest::setQuery('op', '');
+    LotgdRequest::setQuery('op', '');
 }
 
 if ('' == $op)
 {
     $params['tpl'] = 'default';
 
-    $drinksRepository = \Doctrine::getRepository('LotgdLocal:ModuleDrinks');
+    $drinksRepository = Doctrine::getRepository('LotgdLocal:ModuleDrinks');
 
     $query = $drinksRepository->createQueryBuilder('u');
     $query->orderBy('u.id', 'ASC');
@@ -190,17 +191,17 @@ elseif ('edit' == $op || 'add' == $op)
 {
     $params['tpl'] = 'edit';
 
-    \LotgdNavigation::addNav('navigation.nav.properties', "runmodule.php?module=drinks&act=editor&op=edit&drinkid={$drinkid}&admin=true");
+    LotgdNavigation::addNav('navigation.nav.properties', "runmodule.php?module=drinks&act=editor&op=edit&drinkid={$drinkid}&admin=true");
 
     module_editor_navs('prefs-drinks', "runmodule.php?module=drinks&act=editor&drinkid={$drinkid}&op=edit&subop=module&editmodule=");
 
     if ('module' == $subop)
     {
-        $module = \LotgdRequest::getQuery('editmodule');
+        $module = LotgdRequest::getQuery('editmodule');
 
         $form = module_objpref_edit('drinks', $module, $drinkid);
 
-        $params['isLaminas'] = $form instanceof Laminas\Form\Form;
+        $params['isLaminas'] = $form instanceof Form;
         $params['module']    = $module;
         $params['drinkid']   = $drinkid;
 
@@ -210,9 +211,9 @@ elseif ('edit' == $op || 'add' == $op)
             $params['formTypeTab'] = $form->getOption('form_type_tab');
         }
 
-        if (\LotgdRequest::isPost())
+        if (LotgdRequest::isPost())
         {
-            $post = \LotgdRequest::getPostAll();
+            $post = LotgdRequest::getPostAll();
 
             if ($params['isLaminas'])
             {
@@ -224,7 +225,7 @@ elseif ('edit' == $op || 'add' == $op)
 
                     process_post_save_data_drinks($data, $drinkid, $module);
 
-                    \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
+                    LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
                 }
             }
             else
@@ -233,15 +234,15 @@ elseif ('edit' == $op || 'add' == $op)
 
                 process_post_save_data_drinks($post, $drinkid, $module);
 
-                \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
+                LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('flash.message.actions.save.success', [], $textDomain));
             }
         }
 
         $params['form'] = $form;
 
-        \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/drinks/run/edit/module.twig', $params));
+        LotgdResponse::pageAddContent(LotgdTheme::render('@module/drinks/run/edit/module.twig', $params));
 
-        \LotgdNavigation::addNavAllow("runmodule.php?module=drinks&act=editor&op=edit&subop=module&editmodule={$module}&drinkid={$drinkid}&admin=true");
+        LotgdNavigation::addNavAllow("runmodule.php?module=drinks&act=editor&op=edit&subop=module&editmodule={$module}&drinkid={$drinkid}&admin=true");
     }
     elseif ('' == $subop)
     {
@@ -253,7 +254,7 @@ elseif ('edit' == $op || 'add' == $op)
     }
 }
 
-\LotgdResponse::pageAddContent(\LotgdTheme::render('@module/drinks/run/superuser.twig', $params));
+LotgdResponse::pageAddContent(LotgdTheme::render('@module/drinks/run/superuser.twig', $params));
 
 function process_post_save_data_drinks($data, $id, $module)
 {

@@ -2,12 +2,12 @@
 
 global $session;
 
-$id     = (int) \LotgdRequest::getQuery('id');
-$invId  = (int) \LotgdRequest::getQuery('invid');
-$return = (string) \LotgdRequest::getQuery('return');
-$return = \LotgdSanitize::cmdSanitize($return);
+$id     = (int) LotgdRequest::getQuery('id');
+$invId  = (int) LotgdRequest::getQuery('invid');
+$return = (string) LotgdRequest::getQuery('return');
+$return = LotgdSanitize::cmdSanitize($return);
 
-$repository = \Doctrine::getRepository('LotgdLocal:ModInventory');
+$repository = Doctrine::getRepository('LotgdLocal:ModInventory');
 $item       = $repository->getItemOfInventoryOfCharacter($id, $session['user']['acctid']);
 
 if (false !== \strpos($return, 'forest.php'))
@@ -47,7 +47,7 @@ if (($item['item']['buff'] ?? false) && ! empty($item['item']['buff']))
 
 if ($item['item']['execValue'] > '')
 {
-    \LotgdResponse::pageStart($item['item']['name']);
+    LotgdResponse::pageStart($item['item']['name']);
 
     $params = [];
 
@@ -77,21 +77,21 @@ if ($item['item']['execValue'] > '')
 
     $params['messages'] = get_effect($item['item'], $item['item']['noEffectText']);
 
-    \LotgdNavigation::addHeader('navigation.category.return');
+    LotgdNavigation::addHeader('navigation.category.return');
 
     if ($session['user']['hitpoints'] <= 0 || ! $session['user']['alive'])
     {
-        \LotgdNavigation::addNav('navigation.nav.news', 'news.php');
+        LotgdNavigation::addNav('navigation.nav.news', 'news.php');
     }
     else
     {
         display_item_nav(LotgdRequest::getQuery('hookname'), $return);
-        \LotgdNavigation::addNav('navigation.nav.return.whence', $return);
+        LotgdNavigation::addNav('navigation.nav.return.whence', $return);
     }
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/inventory/run/activate.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/inventory/run/activate.twig', $params));
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
 
 return redirect($return);

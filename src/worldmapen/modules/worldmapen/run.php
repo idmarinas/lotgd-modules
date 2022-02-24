@@ -16,55 +16,55 @@ function worldmapen_run_real()
 
     $textDomain    = 'module_worldmapen';
     $displayEvents = false;
-    $op            = (string) \LotgdRequest::getQuery('op');
+    $op            = (string) LotgdRequest::getQuery('op');
 
     $battle = false;
 
-    if ('move' == $op && \rawurldecode(\LotgdRequest::getQuery('oloc')) != get_module_pref('worldXYZ'))
+    if ('move' == $op && \rawurldecode(LotgdRequest::getQuery('oloc')) != get_module_pref('worldXYZ'))
     {
-        \LotgdResponse::pageDebug(get_module_pref('worldXYZ'));
+        LotgdResponse::pageDebug(get_module_pref('worldXYZ'));
         $op = 'continue';
-        \LotgdRequest::setQuery('op', $op);
+        LotgdRequest::setQuery('op', $op);
     }
 
     if ('destination' == $op)
     {
-        $cname                       = (string) \LotgdRequest::getQuery('cname');
+        $cname                       = (string) LotgdRequest::getQuery('cname');
         $session['user']['location'] = $cname;
 
-        \LotgdNavigation::addNav('navigation.nav.enter', 'village.php', [
+        LotgdNavigation::addNav('navigation.nav.enter', 'village.php', [
             'textDomain' => $textDomain,
             'params'     => ['name' => $cname],
         ]);
 
-        \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('flash.message.destination', ['name' => $cname], $textDomain));
+        LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('flash.message.destination', ['name' => $cname], $textDomain));
     }
 
-    if ('' != $session['user']['specialinc'] || \LotgdRequest::getQuery('eventhandler'))
+    if ('' != $session['user']['specialinc'] || LotgdRequest::getQuery('eventhandler'))
     {
         $in_event = handle_event('travel', 'runmodule.php?module=worldmapen&op=continue&', 'Travel');
 
         if ($in_event)
         {
-            \LotgdResponse::pageStart('title.special', [], 'partial_event');
-            \LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue', ['textDomain' => $textDomain]);
+            LotgdResponse::pageStart('title.special', [], 'partial_event');
+            LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue', ['textDomain' => $textDomain]);
             module_display_events('travel', 'runmodule.php?module=worldmapen&op=continue');
-            \LotgdResponse::pageEnd();
+            LotgdResponse::pageEnd();
         }
     }
 
-    $op               = (string) \LotgdRequest::getQuery('op');
-    $subop            = \LotgdRequest::getQuery('subop');
-    $act              = \LotgdRequest::getQuery('act');
-    $type             = \LotgdRequest::getQuery('type');
-    $characterId      = \LotgdRequest::getQuery('character_id');
-    $direction        = \LotgdRequest::getQuery('dir');
-    $su               = \LotgdRequest::getQuery('su');
-    $buymap           = \LotgdRequest::getQuery('buymap');
+    $op               = (string) LotgdRequest::getQuery('op');
+    $subop            = LotgdRequest::getQuery('subop');
+    $act              = LotgdRequest::getQuery('act');
+    $type             = LotgdRequest::getQuery('type');
+    $characterId      = LotgdRequest::getQuery('character_id');
+    $direction        = LotgdRequest::getQuery('dir');
+    $su               = LotgdRequest::getQuery('su');
+    $buymap           = LotgdRequest::getQuery('buymap');
     $worldmapCostGold = get_module_setting('worldmapCostGold', 'worldmapen');
-    $pvp              = \LotgdRequest::getQuery('pvp');
+    $pvp              = LotgdRequest::getQuery('pvp');
 
-    \LotgdResponse::pageStart('title.journey', [], $textDomain);
+    LotgdResponse::pageStart('title.journey', [], $textDomain);
 
     $params = [
         'textDomain' => $textDomain,
@@ -101,9 +101,9 @@ function worldmapen_run_real()
         $params['tpl']         = 'tradeturn';
         $params['pointsTrade'] = get_module_setting('turntravel', 'worldmapen');
 
-        \LotgdNavigation::addHeader('navigation.category.trade');
-        \LotgdNavigation::addNav('navigation.nav.trade.yes', 'runmodule.php?module=worldmapen&op=tradeturnconfirm');
-        \LotgdNavigation::addNav('navigation.nav.trade.no', 'runmodule.php?module=worldmapen&op=continue');
+        LotgdNavigation::addHeader('navigation.category.trade');
+        LotgdNavigation::addNav('navigation.nav.trade.yes', 'runmodule.php?module=worldmapen&op=tradeturnconfirm');
+        LotgdNavigation::addNav('navigation.nav.trade.no', 'runmodule.php?module=worldmapen&op=continue');
     }
     elseif ('tradeturnconfirm' == $op)
     {
@@ -111,7 +111,7 @@ function worldmapen_run_real()
         $params['pointsTrade'] = get_module_setting('turntravel', 'worldmapen');
         --$session['user']['turns'];
 
-        \LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue');
+        LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue');
 
         $ttoday = get_module_pref('traveltoday', 'cities', 'worldmapen');
         set_module_pref('traveltoday', $ttoday - $pointstrade, 'cities', 'worldmapen');
@@ -188,7 +188,7 @@ function worldmapen_run_real()
         $xyz = $x.','.$y.','.$z;
         set_module_pref('worldXYZ', $xyz, 'worldmapen');
 
-        \LotgdResponse::pageDebug("Encounter: {$encounterbase} * {$encounterchance} / 100 = {$encounter}");
+        LotgdResponse::pageDebug("Encounter: {$encounterbase} * {$encounterchance} / 100 = {$encounter}");
 
         //Extra Gubbins pertaining to trading Turns for Travel, added by Caveman Joe
         $useturns       = get_module_setting('useturns');
@@ -206,9 +206,9 @@ function worldmapen_run_real()
             // They've hit a monster!
             if (0 != module_events('travel', get_module_setting('wmspecialchance'), 'runmodule.php?module=worldmapen&op=continue&'))
             {
-                if (\LotgdNavigation::checkNavs())
+                if (LotgdNavigation::checkNavs())
                 {
-                    \LotgdResponse::pageEnd();
+                    LotgdResponse::pageEnd();
                 }
 
                 // Reset the special for good.
@@ -216,12 +216,12 @@ function worldmapen_run_real()
                 $session['user']['specialmisc'] = '';
 
                 $op = '';
-                \LotgdRequest::setQuery('op', '');
-                \LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue');
+                LotgdRequest::setQuery('op', '');
+                LotgdNavigation::addNav('navigation.nav.continue', 'runmodule.php?module=worldmapen&op=continue');
 
                 module_display_events('travel', 'runmodule.php?module=worldmapen&op=continue');
 
-                \LotgdResponse::pageEnd();
+                LotgdResponse::pageEnd();
             }
 
             //-- Check if we're removing a turn when the player encounters a monster, and if so, do it
@@ -277,10 +277,10 @@ function worldmapen_run_real()
 
         if ('' == $buymap)
         {
-            \LotgdNavigation::addNav('navigation.nav.gypsy.buy', 'runmodule.php?module=worldmapen&op=gypsy&buymap=yes', [
+            LotgdNavigation::addNav('navigation.nav.gypsy.buy', 'runmodule.php?module=worldmapen&op=gypsy&buymap=yes', [
                 'params' => ['cost' => $worldmapCostGold],
             ]);
-            \LotgdNavigation::addNav('navigation.nav.gypsy.forget', 'village.php');
+            LotgdNavigation::addNav('navigation.nav.gypsy.forget', 'village.php');
         }
         elseif ('yes' == $buymap)
         {
@@ -288,7 +288,7 @@ function worldmapen_run_real()
             {
                 $params['buyed'] = false;
 
-                \LotgdNavigation::addNav('navigation.nav.gypsy.leave', 'village.php');
+                LotgdNavigation::addNav('navigation.nav.gypsy.leave', 'village.php');
             }
             else
             {
@@ -297,7 +297,7 @@ function worldmapen_run_real()
 
                 set_module_pref('worldmapbuy', 1);
 
-                \LotgdNavigation::villageNav();
+                LotgdNavigation::villageNav();
             }
         }
     }
@@ -314,14 +314,14 @@ function worldmapen_run_real()
             $session['user']['restorepage'] = 'runmodule.php?module=worldmapen&op=wake';
 
             modulehook('player-logout');
-            \LotgdTool::saveUser();
+            LotgdTool::saveUser();
 
-            \LotgdSession::invalidate();
+            LotgdSession::invalidate();
 
-            \LotgdKernel::get('cache.app')->delete('charlisthomepage');
-            \LotgdKernel::get('cache.app')->delete('list.php-warsonline');
+            LotgdKernel::get('cache.app')->delete('charlisthomepage');
+            LotgdKernel::get('cache.app')->delete('list.php-warsonline');
 
-            \LotgdFlashMessages::addInfoMessage(\LotgdTranslator::t('logout.success', [], 'page-login'));
+            LotgdFlashMessages::addInfoMessage(LotgdTranslator::t('logout.success', [], 'page-login'));
         }
 
         $session = [];
@@ -344,12 +344,12 @@ function worldmapen_run_real()
     {
         // Okay, we've picked a person to fight.
         require_once 'lib/pvpsupport.php';
-        $badguy = \LotgdKernel::get("Lotgd\Core\Pvp\Support")->setupPvpTarget($characterId);
+        $badguy = LotgdKernel::get("Lotgd\Core\Pvp\Support")->setupPvpTarget($characterId);
 
         if (\is_string($badguy))
         {
             $battle = false;
-            \LotgdFlashMessages::addErrorMessage(\LotgdTranslate::t($badguy, [], 'page-pvp'));
+            LotgdFlashMessages::addErrorMessage(LotgdTranslate::t($badguy, [], 'page-pvp'));
 
             $params['mapLoc']       = get_module_pref('worldXYZ', 'worldmapen');
             $params['showSmallMap'] = (bool) get_module_setting('smallmap', 'worldmapen');
@@ -370,7 +370,7 @@ function worldmapen_run_real()
     {
         $params['tpl'] = 'fight';
 
-        if ( ! \LotgdRequest::getQuery('frombio'))
+        if ( ! LotgdRequest::getQuery('frombio'))
         {
             $battle = true;
         }
@@ -398,18 +398,18 @@ function worldmapen_run_real()
             else
             {
                 $battle = true;
-                \LotgdFlashMessages::addErrorMessage('flash.message.figth.run.pve', [], $textDomain);
+                LotgdFlashMessages::addErrorMessage('flash.message.figth.run.pve', [], $textDomain);
 
                 $op = 'fight';
-                \LotgdRequest::setQuery('op', $op);
+                LotgdRequest::setQuery('op', $op);
             }
         }
         elseif ('run' == $op && $pvp)
         {
             $battle = true;
-            \LotgdFlashMessages::addErrorMessage('flash.message.figth.run.pvp', [], $textDomain);
+            LotgdFlashMessages::addErrorMessage('flash.message.figth.run.pvp', [], $textDomain);
             $op = 'fight';
-            \LotgdRequest::setQuery('op', $op);
+            LotgdRequest::setQuery('op', $op);
         }
     }
 
@@ -417,8 +417,7 @@ function worldmapen_run_real()
     {
         $params['tpl'] = 'fight';
 
-        /** @var \Lotgd\Core\Combat\Battle */
-        $serviceBattle = \LotgdKernel::get('lotgd_core.combat.battle');
+        $serviceBattle = LotgdKernel::get('lotgd_core.combat.battle');
 
         //-- Battle zone.
         $serviceBattle->initialize()
@@ -448,9 +447,9 @@ function worldmapen_run_real()
                 $badguy = $session['user']['badguy']['enemies'][0];
 
                 $aliveloc = $badguy['location'];
-                \LotgdKernel::get('Lotgd\Core\Pvp\Support')->pvpVictory($badguy, $aliveloc);
+                LotgdKernel::get('Lotgd\Core\Pvp\Support')->pvpVictory($badguy, $aliveloc);
 
-                \LotgdLog::addNews('news.battle.victory', [
+                LotgdLog::addNews('news.battle.victory', [
                     'playerName'   => $session['user']['name'],
                     'creatureName' => $badguy['creaturename'],
                 ], $textDomain);
@@ -472,9 +471,9 @@ function worldmapen_run_real()
 
                 // This is okay because system mail which is all it's used for is
                 // not translated
-                \LotgdKernel::get('Lotgd\Core\Pvp\Support')->pvpDefeat($badguy, $killedin);
+                LotgdKernel::get('Lotgd\Core\Pvp\Support')->pvpDefeat($badguy, $killedin);
 
-                \LotgdLog::addNews('deathmessage', [
+                LotgdLog::addNews('deathmessage', [
                     'deathmessage' => [
                         'deathmessage' => 'news.pvp.defeated',
                         'params'       => [
@@ -484,11 +483,11 @@ function worldmapen_run_real()
                         ],
                         'textDomain' => $textDomain,
                     ],
-                    'taunt' => \LotgdTool::selectTaunt(),
+                    'taunt' => LotgdTool::selectTaunt(),
                 ], '');
             }
 
-            \LotgdFlashMessages::addErrorMessage('flash.message.battle.defeated', ['location' => $session['user']['location']], $textDomain);
+            LotgdFlashMessages::addErrorMessage('flash.message.battle.defeated', ['location' => $session['user']['location']], $textDomain);
         }
         elseif ( ! $serviceBattle->battleHasWinner())
         {
@@ -511,12 +510,12 @@ function worldmapen_run_real()
     $params['battle']   = $battle;
     $params['location'] = $session['user']['location'];
 
-    \LotgdResponse::pageAddContent(\LotgdTheme::render('@module/worldmapen/run.twig', $params));
+    LotgdResponse::pageAddContent(LotgdTheme::render('@module/worldmapen/run.twig', $params));
 
     if ($displayEvents)
     {
         module_display_events('travel', 'runmodule.php?module=worldmapen&op=continue');
     }
 
-    \LotgdResponse::pageEnd();
+    LotgdResponse::pageEnd();
 }
