@@ -1,0 +1,35 @@
+{
+    "name": "idmarinas/lotgd-modules",
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "process-timeout": 5000,
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Idmar\\Modules\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "IDMarinas",
+            "email": "35842929+idmarinas@users.noreply.github.com"
+        }
+    ],
+    "require-dev": {
+        "rector/rector": "^0.12.16"
+    },
+    "funding": [
+        {
+            "type": "paypal",
+            "url": "https://www.paypal.me/idmarinas"
+        }
+    ]
+}
