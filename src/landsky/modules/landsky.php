@@ -116,8 +116,6 @@ function landsky_run()
 
 function landsky_calc()
 {
-    require_once 'lib/datetime.php';
-
     $width  = 800;
     $height = 50;
 
@@ -139,8 +137,6 @@ function landsky_calc()
 
 function landsky_word()
 {
-    require_once 'lib/datetime.php';
-
     $num = 0;
     $if  = \date('G', LotgdKernel::get("lotgd_core.tool.date_time")->gameTime());
 

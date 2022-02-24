@@ -68,8 +68,6 @@ function newdaybar_dohook($hookname, $args)
             return $args;
         }
 
-        require_once 'lib/datetime.php';
-
         $details      = LotgdKernel::get("lotgd_core.tool.date_time")->gameTimeDetails();
         $secstonewday = LotgdKernel::get('lotgd_core.tool.date_time')->secondsToNextGameDay($details);
 
