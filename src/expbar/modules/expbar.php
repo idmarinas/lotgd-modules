@@ -55,7 +55,6 @@ function expbar_dohook($hookname, $args)
 
     if ($hookname === 'charstats')
     {
-        require_once 'lib/experience.php';
         $params = [
             'textDomain'        => 'module_expbar',
             'experienceRequire' => LotgdLog::expForNextLevel($session['user']['level'], $session['user']['dragonkills']),
