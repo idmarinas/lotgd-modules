@@ -12,7 +12,6 @@ History Log:
     o Update for php >= 5.6
     o Various updates, fixes and optimizations
 */
-require_once 'lib/debuglog.php';
 
 function modloc_getmoduleinfo()
 {
