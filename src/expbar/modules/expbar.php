@@ -69,7 +69,7 @@ function expbar_dohook($hookname, $args)
         $params['showLabel']  = ($params['showNum'] && $params['showNext']);
         LotgdResponse::pageAddContent(LotgdTheme::render('@module/expbar_charstats_script.twig', $params));
         $bar = LotgdTheme::render('@module/expbar_charstats_bar.twig', $params);
-        setcharstat(
+        LotgdKernel::get("Lotgd\Core\Character\Stats")->setcharstat(
             LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
             LotgdTranslator::t('charstats.stat.experience', [], $params['textDomain']),
             $bar

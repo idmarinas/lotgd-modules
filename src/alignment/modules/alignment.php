@@ -140,7 +140,7 @@ function alignment_dohook($hookname, $args)
 
             $area = \explode(';', get_module_setting('shead'));
 
-            setcharstat(LotgdTranslator::t($area[0], [], $area[1]), $title, $color);
+            LotgdKernel::get("Lotgd\Core\Character\Stats")->setcharstat(LotgdTranslator::t($area[0], [], $area[1]), $title, $color);
 
         break;
         case 'biostat':

@@ -76,7 +76,7 @@ function healthbar_dohook($hookname, $args)
 
         $bar = LotgdTheme::render('@module/healthbar_charstats_bar.twig', $params);
 
-        setcharstat(
+        LotgdKernel::get("Lotgd\Core\Character\Stats")->setcharstat(
             LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
             LotgdTranslator::t('charstats.stat.'.($session['user']['alive'] ? 'live' : 'death'), [], $params['textDomain']),
             $bar

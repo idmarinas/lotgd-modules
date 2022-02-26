@@ -100,7 +100,7 @@ function newdaybar_dohook($hookname, $args)
             'showTime'           => $showtime,
         ]));
 
-        setcharstat(
+        LotgdKernel::get("Lotgd\Core\Character\Stats")->setcharstat(
             LotgdTranslator::t('statistic.category.character.extra', [], 'app_default'),
             LotgdTranslator::t('charstats.stat', [], 'module_newdaybar'),
             $bar

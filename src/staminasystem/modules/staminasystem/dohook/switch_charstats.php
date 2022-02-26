@@ -61,7 +61,7 @@ if (isset($actions_used))
                 'module_staminasystem'
             ).'</div>
 		</div>';
-        setcharstat($actionRecentTitle, $action, $disp);
+        LotgdKernel::get("Lotgd\Core\Character\Stats")->setcharstat($actionRecentTitle, $action, $disp);
 
         if (get_module_pref('user_minihof'))
         {
@@ -113,7 +113,7 @@ if ( ! $session['user']['dragonkills'] && $session['user']['age'] <= 1 && $green
 
 $new = "<a id='module-staminasystem-show' href='' onclick=\"JaxonLotgd.Ajax.Local.ModuleStaminaSystem.show(this); $(this).addClass('loading disabled'); return false;\"><div data-content='{$pctoftotal}% {$alert}' class='ui lotgd tooltip tiny progress remove margin {$color} staminasystem staminabar' data-value='{$stamina}' data-total='{$daystamina}'><div class='bar'></div></div></a>";
 
-setcharstat(
+LotgdKernel::get("Lotgd\Core\Character\Stats")->setcharstat(
     LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
     LotgdTranslator::t('charstats.stat', [], 'module_staminasystem'),
     $new
