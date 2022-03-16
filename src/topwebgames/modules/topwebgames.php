@@ -62,31 +62,23 @@ function topwebgames_dohook($hookname, $args)
 
         if ( ! $item->isHit())
         {
-            $c = @pullurl("http://www.topwebgames.com/games/votes.js?id={$id}");
-            $r = @pullurl("http://www.topwebgames.com/games/placement.js?id={$id}");
+            /** @var \Symfony\Component\HttpClient\Response\CurlResponse $c */
+            // $c = LotgdKernel::get("lotgd_http_client")->request('GET', "http://www.topwebgames.com/games/votes.js?id={$id}");
+            /** @var \Symfony\Component\HttpClient\Response\CurlResponse $r */
+            $r = LotgdKernel::get("lotgd_http_client")->request('GET', "http://www.topwebgames.com/games/placement.js?id={$id}");
 
-            $votes = 'error';
+            $votes = '??';
 
-            if (false !== $c)
+            // if (\preg_match("/\\.write\\('(\\d+)'\\)/", $c->getContent(), $matches))
+            // {
+            //     $votes = $matches[1];
+            // }
+
+            $rank = '??';
+
+            if (\preg_match("/\\.write\\('(\\d+)'\\)/", $r->getContent(), $matches))
             {
-                $c = \implode('', $c);
-
-                if (\preg_match("/\\.write\\('(\\d+)'\\)/", $c, $matches))
-                {
-                    $votes = $matches[1];
-                }
-            }
-
-            $rank = 'error';
-
-            if (false !== $r)
-            {
-                $r = \implode('', $r);
-
-                if (\preg_match("/\\.write\\('(\\d+)'\\)/", $r, $matches))
-                {
-                    $rank = $matches[1];
-                }
+                $rank = $matches[1];
             }
 
             $counts = [
@@ -102,19 +94,15 @@ function topwebgames_dohook($hookname, $args)
 
         if ( ! $item->isHit())
         {
-            $when = @pullurl('http://www.topwebgames.com/games/countdown.js');
+            /** @var \Symfony\Component\HttpClient\Response\CurlResponse $when */
+            $when = LotgdKernel::get("lotgd_http_client")->request('GET', 'http://www.topwebgames.com/games/countdown.js');
 
-            if (false !== $when)
+            if (\preg_match('/Next reset: (.+ [AP]M)/', $when->getContent(), $matches))
             {
-                $when = \implode('', $when);
-
-                if (\preg_match('/Next reset: (.+ [AP]M)/', $when, $matches))
-                {
-                    $prev = \strtotime($matches[1].' -7 days');
-                    //in case the web call fails this time around, we'll still cache the old value for 10 minutes.
-                    //So we need to track what the old value was independant of the datacache library.
-                    set_module_setting('topwebprev', $prev);
-                }
+                $prev = \strtotime($matches[1].' -7 days');
+                //in case the web call fails this time around, we'll still cache the old value for 10 minutes.
+                //So we need to track what the old value was independant of the datacache library.
+                set_module_setting('topwebprev', $prev);
             }
 
             if (false === $prev)
