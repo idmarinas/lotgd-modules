@@ -1,8 +1,8 @@
 {% trans_default_domain 'module_newdaybar' %}
 
 <script>
-    /* global $ Lotgd */
     var realSecsToTomorrow = '{{ realSecsToTomorrow }}'
+    var secsPerDay = '{{ secsPerDay }}'
 
     const bar = setInterval(newdaybar, 1000)
 
@@ -12,16 +12,17 @@
         {
             realSecsToTomorrow--
 
-            $('.lotgd.progress.newdaybar').progress('set progress', realSecsToTomorrow)
+            let percent = ( realSecsToTomorrow / secsPerDay ) * 100
+            percent = Math.max(0, Math.min(100, percent))
 
-            $('.newdaybar.timer.label').children('span').text(Lotgd.duration(realSecsToTomorrow))
+            document.getElementById('module-newdaybar-progress').style.width = `${percent}%`
+            document.getElementById('module-newdaybar-timer').innerText = Lotgd.duration(realSecsToTomorrow)
         }
-
         else
         {
             clearInterval(bar)
 
-            $('.newdaybar.timer.label').html('<i class=\"sun icon\"></i> {{ "charstats.newday"|trans|uncolorize }}')
+            document.getElementById('module-newdaybar-timer').innerHTML = '<i class=\"fa fa-sun\"></i> {{ "charstats.newday"|trans|uncolorize }}'
         }
     }
 </script>

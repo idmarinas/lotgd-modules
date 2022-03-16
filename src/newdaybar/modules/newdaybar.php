@@ -27,7 +27,7 @@ function newdaybar_getmoduleinfo()
 {
     return [
         'name'     => 'New Day Bar',
-        'version'  => '3.0.0',
+        'version'  => '4.0.0',
         'author'   => 'Joshua Ecklund, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'download' => 'http://dragonprime.net/users/mProwler/newdaybar.zip',
         'category' => 'Stat Display',
@@ -37,7 +37,7 @@ function newdaybar_getmoduleinfo()
             'showbar'  => 'Show time as a bar,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=5.5.0|Need a version equal or greater than 5.5.0 IDMarinas Edition',
+            'lotgd' => '>=7.0.0|Need a version equal or greater than 7.0.0 IDMarinas Edition',
         ],
     ];
 }
@@ -75,7 +75,7 @@ function newdaybar_dohook($hookname, $args)
         $newdaypct = \min(100, \max(0, $newdaypct));
 
         $newdaytxt = \date('G:i:s', $secstonewday);
-        $newdaytxt = '<div class="newdaybar timer label">`@'.$newdaytxt.'`0</div>';
+        $newdaytxt = '<div id="module-newdaybar-timer" class="absolute h-5 w-full text-center text-lotgd-green-300">'.$newdaytxt.'</div>';
 
         if ( ! $showtime)
         {
@@ -86,7 +86,9 @@ function newdaybar_dohook($hookname, $args)
 
         if ($showbar)
         {
-            $bar = "<div class='ui tiny indicating lotgd progress ".($newdaytxt !== '' && $newdaytxt !== '0' ? '' : 'remove margin')." newdaybar' data-total='{$details['secsperday']}' data-value='{$details['realsecstotomorrow']}'><div class='bar'></div>";
+            $bar = "<div class='h-5 w-full bg-gray-500 relative rounded overflow-hidden'>
+                <div id='module-newdaybar-progress' class='absolute h-5 bg-green-600'>
+            </div>";
 
             $bar .= $newdaytxt ?: '';
 
