@@ -1,15 +1,20 @@
 {% trans_default_domain textDomain %}
 
-{% if 60 < healthPercent %}
+{% set styleWidth = 'style="width:' ~ healthPercent ~ '%;"' %}
+{% set color = 'bg-green-600' %}
+
+{% if healthPercent < 60 %}
     {% set barIcon = '<i class="orange heart icon animated pulse"></i>' %}
-{% elseif 25 < healthPercent %}
+    {% set color = 'bg-orange-600' %}
+{% elseif healthPercent < 25 %}
     {% set baricon = '<i class="red heartbeat icon animated flash infinite"></i>' %}
+    {% set color = 'bg-red-600' %}
 {% endif %}
 
-<div class="ui tiny indicating lotgd progress healthbar {{ showLabel ? '' : 'remove margin' }}" data-value="{{ healthCurrent }}" data-total="{{ healthMax }}">
-    <div class="bar"></div>
+<div class="h-5 w-full bg-gray-500 relative rounded overflow-hidden">
+    <div id="bundle-fund-drive-progress" class="absolute h-5 {{ color }}" {{ styleWidth }}></div>
     {% if showLabel %}
-        <div class="label">
+        <div id="bundle-fund-drive-timer" class="absolute h-5 w-full text-center text-yellow-100 whitespace-nowrap text-sm">
             {% if showCurrent %}
                 {{ '`&%s`0'|format(healthCurrent|numeral)|colorize }}
             {% endif %}

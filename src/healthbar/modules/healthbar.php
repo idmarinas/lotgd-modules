@@ -15,12 +15,13 @@
  * - 1.1.1: La animación sólo se aplica al icono.
  * - 1.2.0: Adaptación a la versión 2.0.0 del núcleo
  * - 2.0.0: Public released and refactoring for 4.0.0 of Core game
+ * - 3.0.0: Update for 7.0.0 Core game
  */
 function healthbar_getmoduleinfo()
 {
     return [
         'name'     => 'Health Bar',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a> - based on idea of JT Traub (core_module)',
         'category' => 'Stat Display',
         'download' => 'https://github.com/idmarinas/lotgd-modules',
@@ -30,7 +31,7 @@ function healthbar_getmoduleinfo()
             'user_showmax'     => 'Show max health (only if current),bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=7.0.0|Need a version equal or greater than 7.0.0 IDMarinas Edition',
         ],
     ];
 }
