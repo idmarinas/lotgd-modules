@@ -87,7 +87,7 @@ function newdaybar_dohook($hookname, $args)
         if ($showbar)
         {
             $bar = "<div class='h-5 w-full bg-gray-500 relative rounded overflow-hidden'>
-                <div id='module-newdaybar-progress' class='absolute h-5 bg-green-600'>
+                <div id='module-newdaybar-progress' class='absolute h-5 bg-green-600'></div>
             </div>";
 
             $bar .= $newdaytxt ?: '';
