@@ -1,25 +1,20 @@
 {% trans_default_domain textDomain %}
 
-<div class="center aligned">
-    <div class="ui small icon header">
-        <img class="icon" style="width: 88px; height: auto;" border="0" src="images/topwebgames-88x31.gif" alt="{{ 'image.alt'|trans(_context)|uncolorize }}">
-        <div class="content">
-            <p>Top Web Games</p>
+<div class="border-b border-lotgd-500 p-2 mb-2 text-center">
+    <img class="w-auto m-auto" src="images/topwebgames-88x31.gif" alt="{{ 'image.alt'|trans(_context)|uncolorize }}">
+    <p>Top Web Games</p>
 
-            <div class="sub header">
-                {% if canVote %}
-                    <a href="{{ 'http://www.topwebgames.com/in.asp?id=' ~ id ~ '&acctid=' ~ acctId ~ '&alwaysreward=1' }}" target="_blank" rel="noopener noreferrer">
-                        {{ 'twg.vote'|trans(_context)|colorize }}
-                    </a>
-                {% else %}
-                    {{ 'twg.voted'|trans(_context)|colorize }}
-                {% endif %}
-
-                <br><br>
-
-                {{ 'votes'|trans(_context)|colorize }}
-                {{ 'rank'|trans(_context)|colorize }}
-            </div>
+    <div class="p-2 header">
+        <div class="mb-2">
+            {% if canVote %}
+                <a href="{{ 'http://www.topwebgames.com/in.asp?id=' ~ id ~ '&acctid=' ~ acctId ~ '&alwaysreward=1' }}" target="_blank" rel="noopener noreferrer">
+                    {{ 'twg.vote'|trans(_context)|colorize }}
+                </a>
+            {% else %}
+                {{ 'twg.voted'|trans(_context)|colorize }}
+            {% endif %}
         </div>
+        {{ 'votes'|trans(_context)|colorize }}
+        {{ 'rank'|trans(_context)|colorize }}
     </div>
 </div>
