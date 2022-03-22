@@ -21,7 +21,7 @@
         "gulp-revert-path": "^2.0.0",
         "lodash.merge": "^4.6.2",
         "merge-stream": "^2.0.0",
-        "minimist": "^1.2.5",
+        "minimist": "^1.2.6",
         "require-dir": "^1.2.0",
         "vinyl-paths": "^3.0.1"
     },
