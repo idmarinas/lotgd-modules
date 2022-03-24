@@ -17,6 +17,7 @@
  * - 1.2.1: Se corrige error con el valor máximo para calcular el porcentaje
  * - 1.2.2: Se permite al usuario seleccionar si se muestra o no la experiencia necesaria y la actual
  * - 2.0.0: Public released and refactoring for 4.0.0 of Core game
+ * - 3.0.0: Refactoring for 7.0.0 of Core game
  */
 function expbar_getmoduleinfo()
 {
@@ -32,7 +33,7 @@ function expbar_getmoduleinfo()
             'user_shownextgoal'  => 'Show the exp needed for next level (only if current exp is shown),bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=5.3.0|Need a version equal or greater than 5.3.0 IDMarinas Edition',
+            'lotgd' => '>=7.0.0|Need a version equal or greater than 7.0.0 IDMarinas Edition',
         ],
     ];
 }
@@ -56,22 +57,25 @@ function expbar_dohook($hookname, $args)
     if ($hookname === 'charstats')
     {
         $params = [
-            'textDomain'        => 'module_expbar',
-            'experienceRequire' => LotgdTool::expForNextLevel($session['user']['level'], $session['user']['dragonkills']),
-            'experienceCurrent' => $session['user']['experience'],
+            'text_domain'        => 'module_expbar',
+            'experience_require' => LotgdTool::expForNextLevel($session['user']['level'], $session['user']['dragonkills']),
+            'experience_current' => $session['user']['experience'],
             'level'             => $session['user']['level'],
             'dragonkills'       => $session['user']['dragonkills'],
-            'showNum'           => get_module_pref('user_showexpnumber'),
-            'showNext'          => get_module_pref('user_shownextgoal'),
+            'show_num'           => get_module_pref('user_showexpnumber'),
+            'show_next'          => get_module_pref('user_shownextgoal'),
         ];
-        $params['canLevelUp'] = ($params['experienceCurrent'] >= $params['experienceRequire']);
-        $params['showLabel']  = ($params['showNum'] && $params['showNext']);
-        LotgdResponse::pageAddContent(LotgdTheme::render('@module/expbar_charstats_script.twig', $params));
-        $bar = LotgdTheme::render('@module/expbar_charstats_bar.twig', $params);
+
+        $pct = \round($params['experience_current'] / $params['experience_require'] * 100, 0);
+
+        $params['can_level_up'] = ($params['experience_current'] >= $params['experience_require']);
+        $params['show_label']  = ($params['show_num'] && $params['show_next']);
+        $params['exp_percent'] = \max($pct, 0, \min($pct, 100));
+
         LotgdKernel::get("Lotgd\Core\Character\Stats")->setcharstat(
             LotgdTranslator::t('statistic.category.character.info', [], 'app_default'),
             LotgdTranslator::t('charstats.stat.experience', [], $params['textDomain']),
-            $bar
+            LotgdTheme::render('@module/expbar_charstats_bar.twig', $params)
         );
     }
 
