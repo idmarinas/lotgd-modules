@@ -22,7 +22,7 @@ function expbar_getmoduleinfo()
 {
     return [
         'name'     => 'Experience Bar',
-        'version'  => '2.1.0',
+        'version'  => '3.0.0',
         'author'   => '`%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a> - based on idea of JT Traub (core_module)',
         'category' => 'Stat Display',
         'download' => 'https://github.com/idmarinas/lotgd-modules',
@@ -32,7 +32,7 @@ function expbar_getmoduleinfo()
             'user_shownextgoal'  => 'Show the exp needed for next level (only if current exp is shown),bool|0',
         ],
         'requires' => [
-            'lotgd' => '>=4.11.0|Need a version equal or greater than 4.11.0 IDMarinas Edition',
+            'lotgd' => '>=5.3.0|Need a version equal or greater than 5.3.0 IDMarinas Edition',
         ],
     ];
 }
@@ -57,7 +57,7 @@ function expbar_dohook($hookname, $args)
     {
         $params = [
             'textDomain'        => 'module_expbar',
-            'experienceRequire' => LotgdLog::expForNextLevel($session['user']['level'], $session['user']['dragonkills']),
+            'experienceRequire' => LotgdTool::expForNextLevel($session['user']['level'], $session['user']['dragonkills']),
             'experienceCurrent' => $session['user']['experience'],
             'level'             => $session['user']['level'],
             'dragonkills'       => $session['user']['dragonkills'],
