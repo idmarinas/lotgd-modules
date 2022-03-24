@@ -12,9 +12,9 @@
 {% endif %}
 
 <div class="h-5 w-full bg-gray-500 relative rounded overflow-hidden">
-    <div id="bundle-fund-drive-progress" class="absolute h-5 {{ color }}" {{ styleWidth }}></div>
+    <div id="module-healthbar-progress" class="absolute h-5 {{ color }}" {{ styleWidth }}></div>
     {% if showLabel %}
-        <div id="bundle-fund-drive-timer" class="absolute h-5 w-full text-center text-yellow-100 whitespace-nowrap text-sm">
+        <div id="module-healthbar-timer" class="absolute h-5 w-full text-center text-yellow-100 whitespace-nowrap text-sm">
             {% if showCurrent %}
                 {{ '`&%s`0'|format(healthCurrent|numeral)|colorize }}
             {% endif %}
