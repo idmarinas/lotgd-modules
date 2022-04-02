@@ -11,8 +11,8 @@
     {% if requireage %}
         <div class="field">
             <div class="ui checkbox field">
-                <input type="checkbox" name="age">
-                <label>{{ 'input.label.age'|trans({'age': age})|colorize }}</label>
+                <input id="age" type="checkbox" name="age">
+                <label for="age">{{ 'input.label.age'|trans({'age': age})|colorize }}</label>
             </div>
         </div>
     {% endif %}
@@ -20,9 +20,9 @@
     {% if requireterms %}
         <div class="field">
             <div class="ui checkbox field">
-                <input type="checkbox" name="terms">
-                {% set terms = '<a href="" target="_blank" onClick="JaxonLotgd.Ajax.Local.ModCreationAddon.terms(); return false;">' ~ 'terms'|trans|uncolorize ~ '</a>' %}
-                <label>{{ 'input.label.terms'|trans({'terms': terms})|colorize }}</label>
+                <input id="terms" type="checkbox" name="terms">
+                {% set terms = _self.modal('terms'|trans|uncolorize, stimulus_url('Lotgd\\Local\\Controller\\CreationAddOnController', 'terms')) %}
+                <label for="terms">{{ 'input.label.terms'|trans({'terms': ''})|colorize }} {{ terms|raw }}</label>
             </div>
         </div>
     {% endif %}
@@ -30,9 +30,9 @@
     {% if requireprivacy %}
         <div class="field">
             <div class="ui checkbox field">
-                <input type="checkbox" name="privacy">
-                {% set privacy = '<a href="" target="_blank" onclick="JaxonLotgd.Ajax.Local.ModCreationAddon.privacy(); return false;">' ~ 'privacy'|trans|uncolorize ~ '</a>' %}
-                <label>{{ 'input.label.privacy'|trans({'privacy': privacy})|colorize }}</label>
+                <input id="privacy" type="checkbox" name="privacy">
+                {% set privacy = _self.modal('privacy'|trans|uncolorize, stimulus_url('Lotgd\\Local\\Controller\\CreationAddOnController', 'privacy')) %}
+                <label for="privacy">{{ 'input.label.privacy'|trans({'privacy': ''})|colorize }} {{ privacy|raw }}</label>
             </div>
         </div>
     {% endif %}
@@ -64,3 +64,29 @@
         </div>
     {% endif %}
 </div>
+
+{% macro modal(name, url) %}
+    <span
+        data-controller="remote-modal"
+        data-remote-modal-allow-background-close="true"
+        data-remote-modal-url-value="{{ url }}"
+        data-remote-modal-reload-data-value="true"
+    >
+
+        <a
+            {# type="button" #}
+            {# class="relative w-auto py-1 ml-2" #}
+            href=""
+            data-remote-modal-target="activator"
+            data-action="click->remote-modal#open"
+        >
+            {{ name }}
+        </a>
+
+        <div
+            data-remote-modal-target="container"
+            data-action="click->remote-modal#closeBackground keyup@window->remote-modal#closeWithKeyboard"
+            class="transition duration-500 ease-in-out fixed inset-0 overflow-y-auto flex items-center justify-center whitespace-normal hidden"
+        ></div>
+</span>
+{% endmacro %}
