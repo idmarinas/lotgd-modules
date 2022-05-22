@@ -9,7 +9,7 @@ function cities_getmoduleinfo()
 {
     return [
         'name'                => 'Multiple Cities',
-        'version'             => '5.0.0',
+        'version'             => '6.0.0',
         'author'              => 'Eric Stevens, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'category'            => 'Village',
         'download'            => 'core_module',
@@ -37,7 +37,7 @@ function cities_getmoduleinfo()
             'servedcapital' => 'Is this drink served in the capital?,bool|1',
         ],
         'requires' => [
-            'lotgd' => '>=6.0.0|Need a version equal or greater than 6.0.0 IDMarinas Edition',
+            'lotgd' => '>=7.1.0|Need a version equal or greater than 7.1.0 IDMarinas Edition',
         ],
     ];
 }
@@ -120,7 +120,10 @@ function cities_dohook($hookname, $args)
         break;
         case 'faq-toc':
             $args[] = [
-                'onclick' => 'JaxonLotgd.Ajax.Local.ModCities.faq()',
+                'attr' => [
+                    'data-action' => 'click->petition#loadFaq',
+                    'data-petitition-url-param' => 'stimulus.php?method=faq&controller='.urlencode(\Lotgd\Local\Controller\CitiesController::class)
+                ],
                 'link'    => [
                     'section.faq.toc.cities',
                     [],
@@ -362,7 +365,7 @@ function cities_dangerscale($danger)
     }
     elseif ($session['user']['dragonkills'] <= 30)
     {
-        $scalef = 50                                                     / 29;
+        $scalef = 50 / 29;
         $scale  = (($session['user']['dragonkills'] - 1) * $scalef + 50) / 100;
         $dlevel = \round($scale * $dlevel, 0);
     } // otherwise, dlevel is unscaled.

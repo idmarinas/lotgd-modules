@@ -1,26 +1,37 @@
-{% trans_default_domain 'cities_module' %}
+{% trans_default_domain translation_domain %}
 
-<a href="#" onclick="JaxonLotgd.Ajax.Core.Petition.faq()">{{ 'section.return.content'|trans|colorize }}</a>
-<hr>
-{{ 'section.faq.paragraph'|trans|colorize }}
+<div class="max-h-screen w-full max-w-6xl relative">
+    <div class="m-1 bg-lotgd-900 rounded shadow text-left">
+        <div class="p-8">
+            <h2 class="text-xl mb-4 pb-1 font-bold border-b border-lotgd-500">
+                {{ 'section.faq.title'|trans }}
+            </h2>
 
-{{ 'section.faq.content.one'|trans(_context)|colorize }}
+            <div class="mb-4">
+                <a href="#" onclick="JaxonLotgd.Ajax.Core.Petition.faq()">{{ 'section.return.content'|trans|colorize }}</a>
+                <hr>
+                {{ 'section.faq.paragraph'|trans|colorize }}
 
-{{ 'section.faq.content.two'|trans(_context)|colorize }}
+                {{ 'section.faq.content.one'|trans(_context)|colorize }}
 
-{{ 'section.faq.content.three'|trans(_context)|colorize }}
+                {{ 'section.faq.content.two'|trans(_context)|colorize }}
 
-{{ 'section.faq.content.four'|trans(_context)|colorize }}
+                {{ 'section.faq.content.three'|trans(_context)|colorize }}
 
-{{ 'section.faq.content.five'|trans(_context)|colorize }}
+                {{ 'section.faq.content.four'|trans(_context)|colorize }}
 
-{{ 'section.faq.content.six'|trans(_context)|colorize }}
+                {{ 'section.faq.content.five'|trans(_context)|colorize }}
 
-{% if newbieIsland and location %}
-    {{ 'section.faq.content.seven'|trans(_context)|colorize }}
-{% endif %}
+                {{ 'section.faq.content.six'|trans(_context)|colorize }}
 
-<br>
-<hr>
-<a href="#" onclick="JaxonLotgd.Ajax.Core.Petition.faq()">{{ 'section.return.content'|trans|colorize }}</a>
+                {% if newbieIsland and location %}
+                    {{ 'section.faq.content.seven'|trans(_context)|colorize }}
+                {% endif %}
 
+                <br>
+                <hr>
+                <a href="#" onclick="JaxonLotgd.Ajax.Core.Petition.faq()">{{ 'section.return.content'|trans|colorize }}</a>
+            </div>
+        </div>
+    </div>
+</div>
