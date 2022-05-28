@@ -5,7 +5,7 @@ function alignment_getmoduleinfo()
     return [
         'name'     => 'Alignment Core',
         'author'   => '`QWebPixie and Chris Vorndran`0, refactoring by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
-        'version'  => '2.1.0',
+        'version'  => '2.1.1',
         'category' => 'Stat Display',
         'download' => 'http://dragonprime.net/index.php?module=Downloads;sa=dlview;id=64',
         // 'vertxtloc' => 'http://dragonprime.net/users/Sichae/',
@@ -156,7 +156,7 @@ function alignment_dohook($hookname, $args)
         case 'battle-victory-end':
             foreach ($args['enemies'] as $badguy)
             {
-                if ('pvp' == $options['type'] && get_module_setting('pvp', 'alignment'))
+                if ('pvp' == $args['options']['type'] && get_module_setting('pvp', 'alignment'))
                 {
                     $ual = get_module_pref('alignment');
                     $al  = get_module_pref('alignment', 'alignment', $badguy['acctid']);
@@ -208,7 +208,7 @@ function alignment_dohook($hookname, $args)
                         }
                     }
                 }
-                elseif ('forest' == $options['type'] || 'travel' == $options['type'])
+                elseif ('forest' == $args['options']['type'] || 'travel' == $args['options']['type'])
                 {
                     $al = (int) get_module_objpref('creatures', $badguy['creatureid'], 'al');
 
