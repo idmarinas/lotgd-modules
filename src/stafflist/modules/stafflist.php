@@ -29,7 +29,7 @@ function stafflist_getmoduleinfo()
 {
     return [
         'name'           => 'Staff List',
-        'version'        => '2.2.0',
+        'version'        => '2.3.0',
         'author'         => '`$Red Yates`0, remodelling/enhancing by `%IDMarinas`0, <a href="//draconia.infommo.es">draconia.infommo.es</a>',
         'allowanonymous' => true,
         'category'       => 'Administrative',
@@ -68,12 +68,10 @@ function stafflist_uninstall()
 
 function stafflist_dohook($hookname, $args)
 {
-    global $session;
-
     switch ($hookname)
     {
         case 'validatesettings':
-            $args['blurb'] = nltoappon($args['blurb']);
+            $args['blurb'] = str_replace(["\r\n", "\r"], "`n", $args['blurb']);
         break;
         case 'village':
             LotgdNavigation::addHeader('headers.info');
