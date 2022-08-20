@@ -151,7 +151,7 @@ function statue_dohook($hookname, $args)
 
                     $args[] = [$text, $params, 'module_statue'];
 
-                    LotgdLog::addNews('news.broke.statue', [
+                    LotgdTool::addNews('news.broke.statue', [
                         'playerName' => $session['user']['name'],
                         'location'   => $session['user']['location'],
                     ], 'module_statue');
