@@ -256,14 +256,15 @@ function cities_dohook($hookname, $args)
         case 'charstats':
             if ($session['user']['alive'])
             {
-                addcharstat(LotgdTranslator::t('statistic.category.character.personal', [], 'app_default'));
-                addcharstat(LotgdTranslator::t('statistic.stat.home', [], 'cities_module'), get_module_pref('homecity'));
+                $stats = LotgdKernel::get("Lotgd\Core\Character\Stats");
+                $stats->addcharstat(LotgdTranslator::t('statistic.category.character.personal', [], 'app_default'));
+                $stats->addcharstat(LotgdTranslator::t('statistic.stat.home', [], 'cities_module'), get_module_pref('homecity'));
 
                 if ( ! is_module_active('worldmapen'))
                 {
                     $args = modulehook('count-travels', ['available' => 0, 'used' => 0]);
                     $free = \max(0, $args['available'] - $args['used']);
-                    addcharstat(LotgdTranslator::t('statistic.stat.travels', [], 'cities_module'), $free);
+                    $stats->addcharstat(LotgdTranslator::t('statistic.stat.travels', [], 'cities_module'), $free);
                 }
             }
         break;

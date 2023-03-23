@@ -270,7 +270,7 @@ function raceelf_dohook($hookname, $args)
             $ccity   = \urlencode($city);
 
             //-- Change text domain for navigation
-            LotgdNavigation::setTextDomain('cities-navigation');
+            LotgdNavigation::setTextDomain('cities_navigation');
 
             if ($session['user']['location'] == $capital)
             {

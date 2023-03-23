@@ -1,7 +1,5 @@
 <?php
 
-require_once 'lib/forestoutcomes.php';
-
 $op       = LotgdRequest::getQuery('op');
 $city     = \urldecode(LotgdRequest::getQuery('city'));
 $ccity    = \urlencode($city);
@@ -154,7 +152,7 @@ if ('travel' == $op)
             else
             {
                 $badguy = $result[0];
-                $badguy = buffbadguy($badguy);
+                $badguy = LotgdKernel::get('lotgd_core.tool.creature_functions')->buffBadguy($badguy);
             }
 
             LotgdKernel::get('lotgd_core.combat.buffer')->calculateBuffFields();

@@ -131,7 +131,7 @@ function ghosttown_dohook($hookname, $args)
             $ccity  = \urlencode($city);
 
             //-- Change text domain for navigation
-            LotgdNavigation::setTextDomain('cities-navigation');
+            LotgdNavigation::setTextDomain('cities_navigation');
 
             // Esoterra is always dangerous travel.
             if ($session['user']['location'] != $city && $allow)
