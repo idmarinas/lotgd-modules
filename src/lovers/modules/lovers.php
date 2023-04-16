@@ -61,7 +61,7 @@ function lovers_dohook($hookname, $args)
 
                 if ($session['user']['charm'] <= 0)
                 {
-                    LotgdLog::addNews('news.note', ['partner' => $partner, 'playerName' => $session['user']['name']], $textDomain);
+                    LotgdTool::addNews('news.note', ['partner' => $partner, 'playerName' => $session['user']['name']], $textDomain);
                     $session['user']['marriedto'] = 0;
                     $session['user']['charm']     = 0;
                 }

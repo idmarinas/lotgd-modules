@@ -244,7 +244,7 @@ if ($battle)
     }
     elseif ($serviceBattle->isDefeat())
     {
-        LotgdLog::addNews('travel.deathmessage', [
+        LotgdTool::addNews('travel.deathmessage', [
             'location' => $city,
             'player'   => $session['user']['name'],
             'creature' => $badbuy['creaturename'],

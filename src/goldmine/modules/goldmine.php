@@ -263,7 +263,7 @@ function goldmine_runevent($type)
                     $session['user']['hitpoints'] = 0;
 
                     LotgdNavigation::addNav('navigation.nav.news', 'news.php');
-                    LotgdLog::addNews('news.dead', ['playerName' => $session['user']['name']], $params['textDomain']);
+                    LotgdTool::addNews('news.dead', ['playerName' => $session['user']['name']], $params['textDomain']);
                 }
                 else
                 {

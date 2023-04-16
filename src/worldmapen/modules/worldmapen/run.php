@@ -449,7 +449,7 @@ function worldmapen_run_real()
                 $aliveloc = $badguy['location'];
                 LotgdKernel::get('Lotgd\Core\Pvp\Support')->pvpVictory($badguy, $aliveloc);
 
-                LotgdLog::addNews('news.battle.victory', [
+                LotgdTool::addNews('news.battle.victory', [
                     'playerName'   => $session['user']['name'],
                     'creatureName' => $badguy['creaturename'],
                 ], $textDomain);
@@ -473,7 +473,7 @@ function worldmapen_run_real()
                 // not translated
                 LotgdKernel::get('Lotgd\Core\Pvp\Support')->pvpDefeat($badguy, $killedin);
 
-                LotgdLog::addNews('deathmessage', [
+                LotgdTool::addNews('deathmessage', [
                     'deathmessage' => [
                         'deathmessage' => 'news.pvp.defeated',
                         'params'       => [

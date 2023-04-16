@@ -149,7 +149,7 @@ if ( ! $params['seenLover'])
                         $session['user']['turns'] = \max(0, $session['user']['turns']);
                     }
 
-                    LotgdLog::addNews('news.flirt.bard.inn', [
+                    LotgdTool::addNews('news.flirt.bard.inn', [
                         'playerName' => $session['user']['name'],
                         'partner'    => $partner,
                     ], $textDomain);
@@ -174,7 +174,7 @@ if ( ! $params['seenLover'])
                 {
                     $params['flirtCase'] = 1;
 
-                    LotgdLog::addNews('news.flirt.bard.matrimony', [
+                    LotgdTool::addNews('news.flirt.bard.matrimony', [
                         'playerName' => $session['user']['name'],
                         'partner'    => $partner,
                     ], $textDomain);

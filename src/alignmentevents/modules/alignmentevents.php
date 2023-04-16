@@ -100,7 +100,7 @@ function alignmentevents_runevent($type)
 
         increment_module_pref('alignment', get_module_setting('aligngood'), 'alignment');
 
-        LotgdLog::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
+        LotgdTool::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
 
         $session['user']['specialinc'] = '';
     }
@@ -111,7 +111,7 @@ function alignmentevents_runevent($type)
 
         increment_module_pref('alignment', -get_module_setting('alignbad'), 'alignment');
 
-        LotgdLog::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
+        LotgdTool::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
 
         $session['user']['specialinc'] = '';
     }
@@ -120,7 +120,7 @@ function alignmentevents_runevent($type)
         $params['tpl'] = 'ignore';
         $params['event'] = $event;
 
-        LotgdLog::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
+        LotgdTool::addNews("news.event.help.0{$event}", $params, $params['textDomain']);
 
         $session['user']['specialinc'] = '';
     }

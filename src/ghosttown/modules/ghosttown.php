@@ -97,7 +97,7 @@ function ghosttown_dohook($hookname, $args)
             {
                 $args['handled'] = true;
 
-                LotgdLog::addNews('news.pvp.win', [
+                LotgdTool::addNews('news.pvp.win', [
                     'playerName'   => $session['user']['name'],
                     'creatureName' => $args['badguy']['creaturename'],
                     'location'     => $args['badguy']['location'],
@@ -111,7 +111,7 @@ function ghosttown_dohook($hookname, $args)
 
                 $args['handled'] = true;
 
-                LotgdLog::addNews('deathmessage', [
+                LotgdTool::addNews('deathmessage', [
                     'deathmessage' => [
                         'deathmessage' => 'news.pvp.defeated',
                         'params'       => [

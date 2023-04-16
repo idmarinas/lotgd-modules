@@ -83,7 +83,7 @@ function lottery_dohook($hookname, $args)
                         $session['user']['goldinbank'] += $prize;
                         LotgdLog::debug("won {$prize} gold on lottery");
 
-                        LotgdLog::addNews('news.winner',
+                        LotgdTool::addNews('news.winner',
                             [
                                 'playerName' => $session['user']['name'],
                                 'prize'      => $prize,
