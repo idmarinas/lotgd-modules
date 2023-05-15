@@ -107,7 +107,7 @@ if ('travel' == $op)
         {
             //they've been waylaid.
 
-            if (0 != module_events('travel', get_module_setting('travelspecialchance'), "runmodule.php?module=cities&city={$ccity}&d={$dangecontinue}=1&"))
+            if (0 != module_events('travel', get_module_setting('travelspecialchance'), "runmodule.php?module=cities&city={$ccity}&d={$danger}&continue=1&"))
             {
                 LotgdResponse::pageStart('section.title.event', [], 'cities_module');
 
@@ -159,7 +159,12 @@ if ('travel' == $op)
             $badguy['playerstarthp']   = $session['user']['hitpoints'];
             $badguy['diddamage']       = 0;
             $badguy['type']            = 'travel';
-            $session['user']['badguy'] = $badguy;
+            $session['user']['badguy'] = [
+                'enemies' => [$badguy],
+                'options' => [
+                    'type' => 'travel'
+                ]
+            ];
             $battle                    = true;
         }
         else
@@ -195,7 +200,9 @@ elseif ('fight' == $op || 'run' == $op)
             'location' => $session['user']['location'],
         ];
 
-        LotgdNavigation::addNav('navs.enter', ['location' => $session['user']['location']], 'village.php');
+        LotgdNavigation::addNav('navs.enter', 'village.php', [
+            'params' => ['location' => $session['user']['location']]
+        ]);
 
         LotgdResponse::pageAddContent(LotgdTheme::render('@module/cities/run/escape.twig', $params));
 
