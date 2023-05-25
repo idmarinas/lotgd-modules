@@ -3,10 +3,10 @@ section.onlinecharlist:
     title:
         staff: >
             `bOnline Staff`n
-            ({n,plural, =1{1 Staff member} other{# Staff members}}):´b
+            ({n,plural, =1{1 Staff member} other{# Staff members}}):´b`n`
         players: >
             `bCharacters Online`n
-            ({n,plural, =1{1 Player} other{# Players}}):´b
+            ({n,plural, =1{1 Player} other{# Players}}):´b`n`
     none: '`iNone´i'
     and.more:
         players: >
