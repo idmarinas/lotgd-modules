@@ -251,6 +251,8 @@ if ($battle)
     }
     elseif ($serviceBattle->isDefeat())
     {
+        $badguy = $session['user']['badguy']['enemies'][0];
+
         LotgdTool::addNews('travel.deathmessage', [
             'location' => $city,
             'player'   => $session['user']['name'],
