@@ -98,7 +98,7 @@ function bloodbank_run()
     if ('give' == $op && 0 == $giventoday)
     {
         LotgdKernel::get('lotgd_core.combat.buffer')->applyBuff('bloodbank', [
-            'name'   => LotgdTranslation::t('donation.buff.name', [], $textDomain),
+            'name'   => LotgdTranslator::t('donation.buff.name', [], $textDomain),
             'rounds' => 20,
             'defmod' => 1.02,
         ]);
