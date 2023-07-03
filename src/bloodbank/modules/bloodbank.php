@@ -93,7 +93,7 @@ function bloodbank_run()
 
     LotgdResponse::pageStart('title', [], $textDomain);
 
-    LotgdNavigation::addNav('nav.return.bank', 'bank.php');
+    LotgdNavigation::addNav('nav.return.bank', 'bank.php', ['textDomain' => 'blookbank_bank_navigation']);
 
     if ('give' == $op && 0 == $giventoday)
     {

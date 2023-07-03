@@ -2,7 +2,7 @@
 title: "Vladimir's Blood Bank"
 
 # Subtitle for page
-subtitle: '`^`c`bThe Blood Bank´b`c'
+subtitle: '`^`c`bThe Blood Bank´b´c`0'
 
 # Enter in bank (default option)
 default:
@@ -11,10 +11,10 @@ default:
         "`&Greetings, {sex,select, 1{Madam} other{Sir}},`0" Vladimir says with a bloody smile.`0
     balance:
         positive: >
-            `7"`&You have {balance,number} gold invested with us at present.`0
+            `7"`&You have {balance,number} gold invested with us at present.
             How may I assist you today?`0"`0
         negative: >
-            `7"`&You have a `4debt`0 of `^{balance,number} gold`0 to us at present.`0
+            `7"`&You have a `4debt`0 of `^{balance,number} gold`0 to us at present.
             How may I assist you today?`0"`0
 
 # Tranfer money (Step 1)
