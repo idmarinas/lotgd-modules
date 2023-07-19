@@ -25,7 +25,7 @@ commentary:
         online: 'Online'
 
 # Clock of the village
-clock: '`n`7The great sundial at the heart of the city reads `&{clock}`0.`7`n'
+clock: '`n`7The great sundial at the heart of the city reads `&{clock}`0.`0`n'
 
 # Text for new player
 newestOther: '`n`7Wandering the village, jaw agape, is `&{name}`0.`0'
