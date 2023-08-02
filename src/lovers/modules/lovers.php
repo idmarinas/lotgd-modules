@@ -38,8 +38,6 @@ function lovers_dohook($hookname, $args)
 {
     global $session;
 
-    require_once 'lib/partner.php';
-
     $textDomain = 'module_lovers';
 
     $partner = LotgdTool::getPartner();
@@ -108,8 +106,6 @@ function lovers_dohook($hookname, $args)
 function lovers_run()
 {
     global $session;
-
-    require_once 'lib/partner.php';
 
     $textDomain = 'module_lovers';
 
