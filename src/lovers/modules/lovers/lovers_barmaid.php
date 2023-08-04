@@ -33,7 +33,7 @@ if ( ! $params['seenLover'])
         LotgdNavigation::addHeader('navigation.nav.flirt');
         LotgdNavigation::addNav('navigation.nav.flirt.barmaid.wink', 'runmodule.php?module=lovers&op=flirt&flirt=1');
         LotgdNavigation::addNav('navigation.nav.flirt.barmaid.kiss', 'runmodule.php?module=lovers&op=flirt&flirt=2');
-        LotgdNavigation::addNav('navigation.nav.flirt.barmaid.pack', 'runmodule.php?module=lovers&op=flirt&flirt=3');
+        LotgdNavigation::addNav('navigation.nav.flirt.barmaid.peck', 'runmodule.php?module=lovers&op=flirt&flirt=3');
         LotgdNavigation::addNav('navigation.nav.flirt.barmaid.sit', 'runmodule.php?module=lovers&op=flirt&flirt=4');
         LotgdNavigation::addNav('navigation.nav.flirt.barmaid.grab', 'runmodule.php?module=lovers&op=flirt&flirt=5');
         LotgdNavigation::addNav('navigation.nav.flirt.barmaid.carry', 'runmodule.php?module=lovers&op=flirt&flirt=6');
