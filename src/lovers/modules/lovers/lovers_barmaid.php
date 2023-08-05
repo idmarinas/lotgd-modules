@@ -30,7 +30,7 @@ if ( ! $params['seenLover'])
     }
     elseif ( $flirt === 0)
     {
-        LotgdNavigation::addHeader('navigation.nav.flirt');
+        LotgdNavigation::addHeader('navigation.category.flirt');
         LotgdNavigation::addNav('navigation.nav.flirt.barmaid.wink', 'runmodule.php?module=lovers&op=flirt&flirt=1');
         LotgdNavigation::addNav('navigation.nav.flirt.barmaid.kiss', 'runmodule.php?module=lovers&op=flirt&flirt=2');
         LotgdNavigation::addNav('navigation.nav.flirt.barmaid.peck', 'runmodule.php?module=lovers&op=flirt&flirt=3');
