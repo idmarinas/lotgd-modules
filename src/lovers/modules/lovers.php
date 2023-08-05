@@ -176,11 +176,11 @@ function lovers_getbuff()
     $partner = LotgdTool::getPartner();
 
     return [
-        'name'     => LotgdTranslator::t('buff.name', [], $textDomain),
+        'name'     => LotgdTranslator::t('buff.name', [], 'module_lovers'),
         'rounds'   => 60,
-        'wearoff'  => LotgdTranslator::t('buff.wearoff', ['partner' => $partner], $textDomain),
+        'wearoff'  => LotgdTranslator::t('buff.wearoff', ['partner' => $partner], 'module_lovers'),
         'defmod'   => 1.2,
-        'roundmsg' => LotgdTranslator::t('buff.roundmsg', [], $textDomain),
+        'roundmsg' => LotgdTranslator::t('buff.roundmsg', [], 'module_lovers'),
         'schema'   => 'module_lovers',
     ];
 }
