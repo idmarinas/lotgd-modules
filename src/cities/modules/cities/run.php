@@ -256,7 +256,7 @@ if ($battle)
         LotgdTool::addNews('travel.deathmessage', [
             'location' => $city,
             'player'   => $session['user']['name'],
-            'creature' => $badbuy['creaturename'],
+            'creature' => $badguy['creaturename'],
         ], 'cities_module');
     }
     elseif ( ! $serviceBattle->battleHasWinner())
