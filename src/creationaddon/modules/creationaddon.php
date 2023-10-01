@@ -102,7 +102,7 @@ function creationaddon_dohook($hookname, $args)
 
                 foreach ($result as $row)
                 {
-                    $shortname = sanitize_name(LotgdSetting::getSetting('spaceinname', 0), $name);
+                    $shortname = LotgdSanitize::nameSanitize(LotgdSetting::getSetting('spaceinname', 0), $name);
                     $pattern   = '/'.$row->getBadName().'/i';
 
                     if (\preg_match($pattern, $shortname))
