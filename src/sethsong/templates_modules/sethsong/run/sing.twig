@@ -2,4 +2,6 @@
 
 {{ 'section.sing.paragraph'|trans(_context)|colorize }}
 
-{{ ('section.sing.case.0' ~ case)|trans(_context)|colorize }}
+{% set caso = case %}
+
+{{ ('section.sing.case.0' ~ caso)|trans(_context)|colorize }}
